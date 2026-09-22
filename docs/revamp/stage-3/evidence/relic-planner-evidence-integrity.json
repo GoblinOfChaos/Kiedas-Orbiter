@@ -1,0 +1,82 @@
+{
+  "status": "failures_preserved",
+  "approved_app_source_corrections_after_initial_implementation": [
+    "Preview container breakpoint 620px to 600px",
+    "Preview panel height clamp adjusted to fit the 900x500 acceptance viewport"
+  ],
+  "test_tooling_corrections_required_no_app_source_change": 8,
+  "records": [
+    {
+      "name": "fixture_import_path",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-fixture-fix-relic-planner-component-build.log",
+      "bytes": 1981,
+      "sha256": "daa0fa94f74118224579bd0c1e5ee5f953aff3819f9b373796ece7848d5511ee",
+      "note": "fixture-only source import path failed before browser execution"
+    },
+    {
+      "name": "sandbox_host_bus",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-sandbox-retry-relic-planner-component-container.json",
+      "bytes": 568,
+      "sha256": "0b318670b7f7407e884a00141db5a1f7fc77f88cb380b1d8edb16d3e03285d6b",
+      "note": "sandbox blocked host Podman access; approved bounded-container retry used"
+    },
+    {
+      "name": "fixture_assertions",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-fixture-assertion-fix-relic-planner-component.json",
+      "bytes": 20583,
+      "sha256": "300626ee3d44707f8f3ee89e40b288ee11a26d2cbcb0a01b5b3bb501a77a3338",
+      "note": "fixture-only assertion expectations corrected"
+    },
+    {
+      "name": "native_cargo_mount",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-cargo-path-fix-relic-planner-native-build-container.json",
+      "bytes": 716877,
+      "sha256": "dad39c9cc0f6cefede385c583985640a799c5c72af536def38c8befd2c84c9e0",
+      "note": "first native runner omitted the read-only Rust toolchain mount"
+    },
+    {
+      "name": "narrow_geometry_before_approved_css",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-css-correction-relic-planner-deb-packaged-smoke.json",
+      "bytes": 54597,
+      "sha256": "f6c7e13cda8f8bc1a607bee5161a8ca02e7b8c6d03fbaf9c19c7f1006d2f1bd5",
+      "note": "58 of 60 packaged checks; two narrow geometry checks motivated the approved CSS correction"
+    },
+    {
+      "name": "native_catalog_absent",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-native-data-injection-relic-planner-deb-packaged-smoke.json",
+      "bytes": 54594,
+      "sha256": "d09650e5fec92fe7526bde31cc2a201d421d3c9489f4717feb466573ff0bd11f",
+      "note": "clean package profile had no catalog rows for representative selection"
+    },
+    {
+      "name": "provider_injection_order",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-navigation-order-fix-relic-planner-deb-packaged-smoke.json",
+      "bytes": 51876,
+      "sha256": "b0b816264b3de408e56666188a6ef40e93dec278bf8683279eb271088eb6bcb3",
+      "note": "fixture state was injected before navigation and destabilized the prior route"
+    },
+    {
+      "name": "provider_relic_shape",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-provider-shape-fix-relic-planner-deb-packaged-smoke.json",
+      "bytes": 51866,
+      "sha256": "d1fbf1e38d9de0725a08fdd69e610e3f7cc8511b7031c28f6f256c939a1a8861",
+      "note": "array-shaped synthetic relic table conflicted with an existing object-table consumer"
+    },
+    {
+      "name": "picker_selected_forma",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-picker-selector-fix-relic-planner-deb-packaged-smoke.json",
+      "bytes": 54892,
+      "sha256": "8bce623c1d1d0ca483cca1deb0910925e7973a66fd3a22e0f4881d62840ca6ba",
+      "note": "59 of 60; selector chose the intentionally unmatched automatic Forma row"
+    }
+  ],
+  "final_component": {
+    "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relic-planner-component.json",
+    "sha256": "aa0c9a432cdffe0ccbc10c370599960daeaae378fa9e862663dcb619bddd50eb",
+    "checks": "62/62"
+  },
+  "final_packages": {
+    "debian": "60/60",
+    "appimage": "60/60"
+  }
+}

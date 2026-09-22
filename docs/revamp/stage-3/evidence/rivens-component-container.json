@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-rivens/component.py"
+  ],
+  "container_name": "stage3f-component-fixed-addae06ff7",
+  "cpus": 4,
+  "duration_seconds": 44.049,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-test",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/rivens-component-container.log",
+  "memory": "4g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-09-06T18:13:52.876216+00:00",
+  "status": "PASS_PLAN_ONLY",
+  "checks": {
+    "accepted_stage3g_patch_frozen_exactly": true,
+    "relic_planner_source_matches_register": true,
+    "relic_parser_matches_register": true,
+    "cargo_lock_matches_register": true,
+    "relic_planner_source_unmodified_for_stage3h": true,
+    "preview_relic_planner_layout_absent": true,
+    "stage3i_market_source_unmodified": true,
+    "preview_market_layout_absent": true,
+    "original_tracked_baseline_unchanged": true
+  },
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "hashes": {
+    "accepted_stage3g_cumulative_patch": "acd34333e50711d2c79b902480f5296501fda1464dd0904abe731e40e3cb75c5",
+    "frozen_relic_planner_source": "d9640721b7b89829615a3ce5aabf6dd7799c16d672e7e9b83a24966c6290a7ce",
+    "frozen_source_register": "7683667d2c489906a0eeb1ff174de4fdc28be9359995bc66e710d847be45bae0",
+    "implementation_plan": "75ea9024a03ffb645dfe1430cb703155c8f5d210ce36a57b1148a5b7d133f1f3",
+    "preservation_checklist": "d9822e6052ab803e9a6c8a9ffbba7e9a225317850aceef7aaad7c07004c68714",
+    "navigation_fact": "78006626b30b3daf2eada78b00b38be92369bfbf6cd0ad62a7802ca2ae70b53f"
+  },
+  "snapshot_correction": {
+    "reason": "A newly generated whole-checkout Git diff is not the accepted chained Stage 3G cumulative artifact.",
+    "differing_generated_diff_preserved": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/before/before-snapshot-correction-full-git-diff.patch",
+    "canonical_snapshot": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/before/cumulative-implementation.patch"
+  },
+  "app_source_changed_for_stage3h": false,
+  "build_started_for_stage3h": false,
+  "gate": "Stage 3H plan prepared; app-source approval required"
+}

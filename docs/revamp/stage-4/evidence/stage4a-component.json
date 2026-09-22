@@ -1,0 +1,578 @@
+{
+  "tier": "styled browser component fixture with module-boundary import mock",
+  "fixture_source": "synthetic-ui-only",
+  "checks": [
+    {
+      "name": "expanded-navigation-has-20-unique-routes",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "inventory",
+        "mastery",
+        "mods",
+        "cosmetics",
+        "collectibles",
+        "foundry",
+        "relics",
+        "relic-planner",
+        "prime-resurgence",
+        "market",
+        "rivens",
+        "history",
+        "adversaries",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "expanded-navigation-activates-each-route-once",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "inventory",
+        "mastery",
+        "mods",
+        "cosmetics",
+        "collectibles",
+        "foundry",
+        "relics",
+        "relic-planner",
+        "prime-resurgence",
+        "market",
+        "rivens",
+        "history",
+        "adversaries",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "six-navigation-groups",
+      "pass": true
+    },
+    {
+      "name": "three-summary-panels",
+      "pass": true
+    },
+    {
+      "name": "zero-tracked-targets",
+      "pass": true
+    },
+    {
+      "name": "two-ready-recipes-from-three-records",
+      "pass": true
+    },
+    {
+      "name": "two-session-activities",
+      "pass": true
+    },
+    {
+      "name": "all-19-dashboard-cards-render-once",
+      "pass": true,
+      "detail": {
+        "arb": 1,
+        "circuit": 1,
+        "hunt": 1,
+        "nightwave": 1,
+        "alerts": 1,
+        "inf": 1,
+        "event": 1,
+        "baro": 1,
+        "deal": 1,
+        "arch": 1,
+        "inv": 1,
+        "1999": 1,
+        "sales": 1,
+        "desc": 1,
+        "news": 1,
+        "timers": 1,
+        "fiss": 1,
+        "bounty": 1,
+        "sortie": 1
+      }
+    },
+    {
+      "name": "promoted-cards-render-once",
+      "pass": true,
+      "detail": {
+        "arb": 1,
+        "circuit": 1,
+        "hunt": 1,
+        "nightwave": 1,
+        "alerts": 1,
+        "inf": 1,
+        "event": 1,
+        "baro": 1,
+        "deal": 1,
+        "arch": 1,
+        "inv": 1,
+        "1999": 1,
+        "sales": 1,
+        "desc": 1,
+        "news": 1,
+        "timers": 1,
+        "fiss": 1,
+        "bounty": 1,
+        "sortie": 1
+      }
+    },
+    {
+      "name": "target-action-only-reports-unavailable",
+      "pass": true
+    },
+    {
+      "name": "inventory-unavailable-distinct",
+      "pass": true
+    },
+    {
+      "name": "foundry-count-preserves-all-ready-recipes",
+      "pass": true
+    },
+    {
+      "name": "foundry-strip-truncates-to-two",
+      "pass": true
+    },
+    {
+      "name": "hidden-promoted-cards-do-not-reappear",
+      "pass": true
+    },
+    {
+      "name": "all-hidden-state-keeps-customization",
+      "pass": true
+    },
+    {
+      "name": "route-search-finds-verified-labels",
+      "pass": true
+    },
+    {
+      "name": "route-search-keyboard-navigation",
+      "pass": true
+    },
+    {
+      "name": "route-search-no-result-is-explicit",
+      "pass": true
+    },
+    {
+      "name": "profile-import-remains-reachable",
+      "pass": true
+    },
+    {
+      "name": "header-menu-closes-with-escape",
+      "pass": true
+    },
+    {
+      "name": "all-14-themes-map-semantic-tokens",
+      "pass": true,
+      "detail": [
+        {
+          "accent": "#5590ab",
+          "theme": "vitruvian",
+          "width": 1200,
+          "canvas": "#04060b",
+          "surface": "#0c101a",
+          "pass": true
+        },
+        {
+          "accent": "#c09e62",
+          "theme": "baruuk",
+          "width": 1200,
+          "canvas": "#1d1b18",
+          "surface": "#2b2822",
+          "pass": true
+        },
+        {
+          "accent": "#ff85e0",
+          "theme": "conquera",
+          "width": 1200,
+          "canvas": "#1a0822",
+          "surface": "#421954",
+          "pass": true
+        },
+        {
+          "accent": "#29b6f6",
+          "theme": "corpus",
+          "width": 1200,
+          "canvas": "#020e1a",
+          "surface": "#0e2e52",
+          "pass": true
+        },
+        {
+          "accent": "#a066ff",
+          "theme": "darklotus",
+          "width": 1200,
+          "canvas": "#13032d",
+          "surface": "#2d0e58",
+          "pass": true
+        },
+        {
+          "accent": "#b99354",
+          "theme": "deadlock",
+          "width": 1200,
+          "canvas": "#060a13",
+          "surface": "#162138",
+          "pass": true
+        },
+        {
+          "accent": "#ffffff",
+          "theme": "equinox",
+          "width": 1200,
+          "canvas": "#06070a",
+          "surface": "#1e2129",
+          "pass": true
+        },
+        {
+          "accent": "#37d7ff",
+          "theme": "fortuna",
+          "width": 1200,
+          "canvas": "#0c021a",
+          "surface": "#240a3f",
+          "pass": true
+        },
+        {
+          "accent": "#e1ad3a",
+          "theme": "grineer",
+          "width": 1200,
+          "canvas": "#0a0b04",
+          "surface": "#262612",
+          "pass": true
+        },
+        {
+          "accent": "#78a9a9",
+          "theme": "legacy",
+          "width": 1200,
+          "canvas": "#0d1a1d",
+          "surface": "#1a3034",
+          "pass": true
+        },
+        {
+          "accent": "#e53232",
+          "theme": "lunar",
+          "width": 1200,
+          "canvas": "#110202",
+          "surface": "#360a0a",
+          "pass": true
+        },
+        {
+          "accent": "#4ade80",
+          "theme": "pom2",
+          "width": 1200,
+          "canvas": "#020b08",
+          "surface": "#0e2e21",
+          "pass": true
+        },
+        {
+          "accent": "#ff0000",
+          "theme": "stalker",
+          "width": 1200,
+          "canvas": "#0a0000",
+          "surface": "#280000",
+          "pass": true
+        },
+        {
+          "accent": "#f26d1d",
+          "theme": "harrier",
+          "width": 1200,
+          "canvas": "#0a111a",
+          "surface": "#18283a",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "geometry-1440x900",
+      "pass": true,
+      "detail": {
+        "size": [
+          1440,
+          900
+        ],
+        "expanded": "flex",
+        "rail": "none",
+        "headerHeight": 70,
+        "bodyHorizontal": false,
+        "routeHorizontal": false,
+        "shell": [
+          0,
+          0,
+          1440,
+          900
+        ],
+        "routeOverflowY": "auto",
+        "routeScrollable": true,
+        "pass": true
+      }
+    },
+    {
+      "name": "geometry-1200x800",
+      "pass": true,
+      "detail": {
+        "size": [
+          1200,
+          800
+        ],
+        "expanded": "flex",
+        "rail": "none",
+        "headerHeight": 70,
+        "bodyHorizontal": false,
+        "routeHorizontal": false,
+        "shell": [
+          0,
+          0,
+          1200,
+          800
+        ],
+        "routeOverflowY": "auto",
+        "routeScrollable": true,
+        "pass": true
+      }
+    },
+    {
+      "name": "geometry-1024x640",
+      "pass": true,
+      "detail": {
+        "size": [
+          1024,
+          640
+        ],
+        "expanded": "none",
+        "rail": "flex",
+        "headerHeight": 60,
+        "bodyHorizontal": false,
+        "routeHorizontal": false,
+        "shell": [
+          0,
+          0,
+          1024,
+          640
+        ],
+        "routeOverflowY": "auto",
+        "routeScrollable": true,
+        "pass": true
+      }
+    },
+    {
+      "name": "geometry-900x500",
+      "pass": true,
+      "detail": {
+        "size": [
+          900,
+          500
+        ],
+        "expanded": "none",
+        "rail": "flex",
+        "headerHeight": 60,
+        "bodyHorizontal": false,
+        "routeHorizontal": false,
+        "shell": [
+          0,
+          0,
+          900,
+          500
+        ],
+        "routeOverflowY": "auto",
+        "routeScrollable": true,
+        "pass": true
+      }
+    },
+    {
+      "name": "compact-drawer-has-20-unique-routes",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "inventory",
+        "mastery",
+        "mods",
+        "cosmetics",
+        "collectibles",
+        "foundry",
+        "relics",
+        "relic-planner",
+        "prime-resurgence",
+        "market",
+        "rivens",
+        "history",
+        "adversaries",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "drawer-opens-focus-inside",
+      "pass": true
+    },
+    {
+      "name": "drawer-closes-with-escape",
+      "pass": true
+    },
+    {
+      "name": "drawer-restores-opener-focus",
+      "pass": true
+    },
+    {
+      "name": "compact-controls-have-visible-focusable-area",
+      "pass": true,
+      "detail": [
+        {
+          "name": "Menu",
+          "height": 42,
+          "width": 42
+        },
+        {
+          "name": "Dashboard",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Inventory",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Mastery",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Mods",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Cosmetics, Decorations, Emotes",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Collectibles",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Foundry",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Relics",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Relic Planner",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Prime Resurgence",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Market",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Rivens",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "History",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Adversaries",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Maps",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Wiki",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Notes",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Checklist",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Settings",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "About",
+          "height": 42,
+          "width": 44
+        },
+        {
+          "name": "Search screens\u2026",
+          "height": 36,
+          "width": 340
+        },
+        {
+          "name": "More actions",
+          "height": 36,
+          "width": 36
+        },
+        {
+          "name": "Add a farming target",
+          "height": 38,
+          "width": 178
+        },
+        {
+          "name": "View history",
+          "height": 38,
+          "width": 117.796875
+        },
+        {
+          "name": "View all live activities",
+          "height": 38,
+          "width": 792
+        },
+        {
+          "name": "View in Foundry",
+          "height": 38,
+          "width": 143.3125
+        },
+        {
+          "name": "View in Foundry",
+          "height": 38,
+          "width": 143.3125
+        }
+      ]
+    },
+    {
+      "name": "no-component-runtime-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 31,
+  "total": 31,
+  "failures": []
+}

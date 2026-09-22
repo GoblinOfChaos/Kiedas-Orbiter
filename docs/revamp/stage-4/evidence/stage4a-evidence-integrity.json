@@ -1,0 +1,316 @@
+{
+  "generated_at": "2026-09-07T01:49:09.885852+00:00",
+  "self_excluded": true,
+  "files": [
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-accessibility.json",
+      "bytes": 2533,
+      "sha256": "b9a2396eda5ad9f1c6725f020c35e0b78dae4ad26b8415da277f570616550bdb"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-build.log",
+      "bytes": 971,
+      "sha256": "de1148046c54e5325a3248bc2b324f189ed4d8772f5e8b2395fff97db6d5a5c5"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-container.json",
+      "bytes": 576,
+      "sha256": "80e24c2339e507b668683695dd04dc0fee96b6c3aa79bea7aaab32dcf45a99da"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-container.log",
+      "bytes": 192,
+      "sha256": "58f8ee979a25a25c77ca38bd50c852e2e6aabcebc0086f3274cb0244ef933044"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-dbus.log",
+      "bytes": 67,
+      "sha256": "8e8d1eb1a5ae73504ae9d8d9ef890f1f0449dde15fde86c5701e965fec7e0d64"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-http.log",
+      "bytes": 829,
+      "sha256": "66532d3c66201fdcd2ce978f5fd14835a8705348bd0799a5dc086d5aa3fef009"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-webdriver.log",
+      "bytes": 206,
+      "sha256": "81b82f3a3f5acdadf483350c26faed9f1afbeecdf9edc5ece4fffec94409f7de"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary-xvfb.log",
+      "bytes": 1174,
+      "sha256": "f172a1b0f5cf2a0d462c51dfc335af1a1dfc8e873cb66f61d018c8b1b35fe416"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-app-boundary.json",
+      "bytes": 18344,
+      "sha256": "a8242ca145ded7ead1f230361fde171ca6002af7d4dcad46a93a8d584b2882d6"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-appimage-packaged-dbus.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-appimage-packaged-smoke.json",
+      "bytes": 102459,
+      "sha256": "00280259142378654afa14863e8fd34acdc94a4b1a5d8ad5765cb19ab46c7504"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-appimage-packaged-webdriver.log",
+      "bytes": 3708,
+      "sha256": "9b5647c19fe379e3125be5d7b6d80efeab88825f505ce949cc2fa5520fe51a87"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-appimage-packaged-xvfb.log",
+      "bytes": 1174,
+      "sha256": "f172a1b0f5cf2a0d462c51dfc335af1a1dfc8e873cb66f61d018c8b1b35fe416"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-appimage-smoke-container.json",
+      "bytes": 576,
+      "sha256": "d3c188d9d56d6d383c6513998c9a0ad5c9be896f117a8b1c79743676c1661449"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-appimage-smoke-container.log",
+      "bytes": 102655,
+      "sha256": "2a0e07d55e24b6116d8bf762ab29a778cd76922355633bd13866419aa6062349"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-baseline-check.json",
+      "bytes": 187,
+      "sha256": "79a263c19670c9df7e1f181c5ffc9e830c09dbf203d8d28489a1aca6e20c31fb"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-build.log",
+      "bytes": 558,
+      "sha256": "08f94c128bbe65ef37231d5c26b9f0a2c6ed7f746611eb5d255428f8a388464c"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-container.json",
+      "bytes": 567,
+      "sha256": "9812b880ddc7df2bc8ddc7529565c060f85291ddb7f2a16fc5afc757fe2c296f"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-container.log",
+      "bytes": 238,
+      "sha256": "e7dc074f040a7535288d1908817af7c87221d878f5e424f4eac9cdcc2a961592"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-dbus.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-http.log",
+      "bytes": 370,
+      "sha256": "277e91d5a42ec88ab2fb90b5a2a81a257079db7c2a8c3e9b915fb1c32e8cb0fb"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-webdriver.log",
+      "bytes": 206,
+      "sha256": "f75a60ce2e6cb520a5569512bb398c9ffea72b623354a709402535e121dcf3a9"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component-xvfb.log",
+      "bytes": 1174,
+      "sha256": "f172a1b0f5cf2a0d462c51dfc335af1a1dfc8e873cb66f61d018c8b1b35fe416"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-component.json",
+      "bytes": 11948,
+      "sha256": "bb1ad9fe217cdd86d4daf40b48c832419b3f545d3c848d5004820985226fa8c7"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-dashboard-compact.png",
+      "bytes": 49037,
+      "sha256": "bf8ef845d9b017a90f7181a7a4994ee9051321b44fbe3a307b36bb5ee55fe3d8"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-dashboard-desktop.png",
+      "bytes": 122986,
+      "sha256": "1709881da190a810f2ba4e6f1601e68035b8664483f401be4852017d702ecc9a"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-equipped-install.log",
+      "bytes": 354,
+      "sha256": "2739a3a82dec05acb2bacfd158dd4327a490957356ffec45f1a9a0dc9ac35cd5"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-equipped-remove.log",
+      "bytes": 173,
+      "sha256": "bae4ac969b80c92acbc6f8d3dbbcc4c28b126a409b199256cdf17a488c43e466"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-packaged-dbus.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-packaged-smoke.json",
+      "bytes": 102515,
+      "sha256": "49181d7afd784a3dee23043ff17fd58fca13a28f01a9fe837a0ffdc3125c2e4c"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-packaged-webdriver.log",
+      "bytes": 3652,
+      "sha256": "34a1ef4f3d451785baa5a61c55f6b5804e8151911a7aa9b27ed75615e04b721a"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-packaged-xvfb.log",
+      "bytes": 1174,
+      "sha256": "f172a1b0f5cf2a0d462c51dfc335af1a1dfc8e873cb66f61d018c8b1b35fe416"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-smoke-container.json",
+      "bytes": 561,
+      "sha256": "a0c644df3a79e33f795b4e5102b4d19bc2c3ea26b00bd9e9971377065b7fb241"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-deb-smoke-container.log",
+      "bytes": 102701,
+      "sha256": "cacf067613b111cd59865c0db1c35261f10dd6d2b16b4bf8a5f874f22b4c762e"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-frontend-preview.log",
+      "bytes": 19354,
+      "sha256": "48b78cae282499197ff547ccc6c398c822e0c9c4dc8914c75d3b9d2895e2f83f"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-frontend-stable.log",
+      "bytes": 25731,
+      "sha256": "6c936710ed6f7520708e8b6363ea050e81e31bdfe32b72f018d7e33aab155a12"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-lockfile-restoration.json",
+      "bytes": 723,
+      "sha256": "0a363e872f9b5805721a59af06e0c4beff81a9971142b165da72e292c27d84ca"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-native-build-container.json",
+      "bytes": 718,
+      "sha256": "5b3c1e5c846369d4f3f34fcf746c853517a2d36f9429d37c16f4c72ec665940d"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-native-build-container.log",
+      "bytes": 192,
+      "sha256": "c8878be706c7f1fe08ac8e86e2798a435b32d15063465ac6de9cc56b8b6f5f93"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-native-build-inner.log",
+      "bytes": 485,
+      "sha256": "51e0ed55a0d46b107d5d1f919782d0d0f7bae40f53ca9a964efc53d6fa9245d3"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-native-bundle-container.json",
+      "bytes": 726,
+      "sha256": "3075fc7b06028c05f4e8d48dcb096347a32b1115506d9ffa5d9b004648881db7"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-native-bundle-container.log",
+      "bytes": 194,
+      "sha256": "6f38f75dbc990ab00e76dbdfa7b5457eb66fb03a597e71b27aeb8130a8d74455"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-native-bundle-inner.log",
+      "bytes": 401556,
+      "sha256": "e48749ac46d9fc70f79337c70d44d351ddf27cf7b661ebc7224161b5cdd20b61"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-patch-integrity.json",
+      "bytes": 4613,
+      "sha256": "0b21f59f5be78e6dedf725f1dc20f6196eb3ccd2fddef3e00654eb73ed2c6cae"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-postflight.json",
+      "bytes": 3122,
+      "sha256": "c7086a3d855358e4df4cb32b10c433968776ec18b9eb397545ad31f96e3fd773"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-preflight.json",
+      "bytes": 1125,
+      "sha256": "ca1f67c7254af63784275d9023c5798faa759f6b9d3a4b15f7c2b9e664c2b937"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-release-artifacts.json",
+      "bytes": 1308,
+      "sha256": "fa5c0275511a2cfa5872facfa65a9496a02dcc2a0afccfbd83cd67ec548c3e37"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-source-facts.json",
+      "bytes": 10927,
+      "sha256": "5fa5b6b7c174eeb2ea2b7e898f8505dde1592091f4a313defefdfa42a0d44c51"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-component-build.log",
+      "bytes": 561,
+      "sha256": "a44c62daf41ac414b0de01053b248b7d7daac3466b817e13ca3066b33934d147"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-container.json",
+      "bytes": 557,
+      "sha256": "08dc91ba5881d93ca3dc005fadf7de57a17257780ebd183dd6af8f4119c69d87"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-container.log",
+      "bytes": 232,
+      "sha256": "471c03a740e2d9fed7b25a47c3cef0737ac05a2649e20d515fe291a89a41a391"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-dbus.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-http.log",
+      "bytes": 370,
+      "sha256": "49ef9420b37b1edad3220202adc853d0a000fdc0568645de7de79bcbf9d14875"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-markup.json",
+      "bytes": 16277,
+      "sha256": "f9580e85136bd4d69094ba6ae65ca5908acbe1409a8a8d8d7679e282f012f846"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-webdriver.log",
+      "bytes": 206,
+      "sha256": "95c445fb94ac3b13eb5713c77090eb11dbe70c96c9451876bf103f6aa1863203"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-stable-xvfb.log",
+      "bytes": 2348,
+      "sha256": "b987a262609a3720f450ab6815ed90b2069dd47b7b012959ca19c325aebf5d55"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-theme-matrix.json",
+      "bytes": 2304,
+      "sha256": "a37ec3f3e0b8277b93583e88335e6f60e0e46f7b05ddd1519e852c93f4ee558e"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-validation-summary.json",
+      "bytes": 1469,
+      "sha256": "ea033bdd489296b614fff489ae753dc3c0beaedfec2c9d4dc98a23e007ea6ad5"
+    },
+    {
+      "path": "docs/revamp/stage-4/evidence/stage4a-visual-landmarks.json",
+      "bytes": 1479,
+      "sha256": "5e5702139cfa8acb256bb59dc97306b324512ee9ad7065c818f223830ac9746c"
+    },
+    {
+      "path": "docs/revamp/stage-4/STAGE-4A-IMPLEMENTATION-REPORT.md",
+      "bytes": 6080,
+      "sha256": "6d76be9d5a6c4b714547bd8af1d544387ed6bfddee0c1f0f36021279c80bbf05"
+    },
+    {
+      "path": "docs/revamp/stage-4/stage4a-implementation.patch",
+      "bytes": 83365,
+      "sha256": "d4236719bf7b12944bb68e6bc5ff1156029d010e520471d20057bb80e2b9c692"
+    },
+    {
+      "path": "docs/revamp/stage-4/stage4a-cumulative-implementation.patch",
+      "bytes": 3989682,
+      "sha256": "f711dd2d565458a3423ebd38dc4c1cde7cc186396023b91247234322af7a9498"
+    }
+  ]
+}

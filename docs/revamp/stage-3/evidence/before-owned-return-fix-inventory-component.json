@@ -1,0 +1,1115 @@
+{
+  "tier": "component browser with module mocks",
+  "fixture": "synthetic display data; no live game or market claims",
+  "checks": [
+    {
+      "name": "stable-populated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "1200-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "1200-15-tabs-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframes",
+        "Weapons",
+        "Companions",
+        "Companion Weapons",
+        "Archweapons",
+        "Vehicles",
+        "Amps",
+        "Arcanes",
+        "Peely Pix",
+        "Consumables",
+        "Landing Craft",
+        "Resources",
+        "Prime Sets",
+        "Ayatan"
+      ]
+    },
+    {
+      "name": "1200-root-horizontal-bounds",
+      "pass": true
+    },
+    {
+      "name": "1200-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 1200,
+        "scroll": 1200
+      }
+    },
+    {
+      "name": "1200-categories-scroll-contained",
+      "pass": true,
+      "detail": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 910,
+        "scroll": 1579,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "1200-toolbar-columns",
+      "pass": true,
+      "detail": {
+        "columns": "450px 450px",
+        "client": 912,
+        "scroll": 912
+      }
+    },
+    {
+      "name": "1200-account-resources-visible",
+      "pass": true,
+      "detail": "Credits123456Platinum321Endo6543Forma5Standard2Aura1Stance1Umbra1Reactors4Catalysts5"
+    },
+    {
+      "name": "1200-tab-All",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Warframes",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Weapons",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Companions",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Companion Weapons",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Archweapons",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Amps",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Arcanes",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Peely Pix",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Consumables",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Landing Craft",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Resources",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Prime Sets",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Ayatan",
+      "pass": true
+    },
+    {
+      "name": "1200-no-reachable-sell",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-absent-no-0p",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-absent-no-sell",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-positive-42p",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-loading-visible",
+      "pass": true
+    },
+    {
+      "name": "900-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "900-15-tabs-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframes",
+        "Weapons",
+        "Companions",
+        "Companion Weapons",
+        "Archweapons",
+        "Vehicles",
+        "Amps",
+        "Arcanes",
+        "Peely Pix",
+        "Consumables",
+        "Landing Craft",
+        "Resources",
+        "Prime Sets",
+        "Ayatan"
+      ]
+    },
+    {
+      "name": "900-root-horizontal-bounds",
+      "pass": true
+    },
+    {
+      "name": "900-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 900,
+        "scroll": 900
+      }
+    },
+    {
+      "name": "900-categories-scroll-contained",
+      "pass": true,
+      "detail": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 610,
+        "scroll": 1579,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "900-toolbar-columns",
+      "pass": true,
+      "detail": {
+        "columns": "612px",
+        "client": 612,
+        "scroll": 612
+      }
+    },
+    {
+      "name": "900-account-resources-visible",
+      "pass": true,
+      "detail": "Credits123456Platinum321Endo6543Forma5Standard2Aura1Stance1Umbra1Reactors4Catalysts5"
+    },
+    {
+      "name": "900-tab-All",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Warframes",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Weapons",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Companions",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Companion Weapons",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Archweapons",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Amps",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Arcanes",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Peely Pix",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Consumables",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Landing Craft",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Resources",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Prime Sets",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Ayatan",
+      "pass": true
+    },
+    {
+      "name": "900-no-reachable-sell",
+      "pass": true
+    },
+    {
+      "name": "900-prime-absent-no-0p",
+      "pass": true
+    },
+    {
+      "name": "900-prime-absent-no-sell",
+      "pass": true
+    },
+    {
+      "name": "900-prime-positive-42p",
+      "pass": true
+    },
+    {
+      "name": "900-prime-loading-visible",
+      "pass": true
+    },
+    {
+      "name": "search-all-words",
+      "pass": true,
+      "detail": [
+        "Synthetic Resource 01"
+      ]
+    },
+    {
+      "name": "owned-filter-click",
+      "pass": true
+    },
+    {
+      "name": "owned-filter-active",
+      "pass": true
+    },
+    {
+      "name": "prime-filter-yes",
+      "pass": true
+    },
+    {
+      "name": "prime-filter-no",
+      "pass": true
+    },
+    {
+      "name": "binary-primary-filter",
+      "pass": true
+    },
+    {
+      "name": "sort-direction-toggle",
+      "pass": true
+    },
+    {
+      "name": "category-reset-owned",
+      "pass": true
+    },
+    {
+      "name": "category-reset-name-sort",
+      "pass": true
+    },
+    {
+      "name": "matrix-All-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered"
+      ]
+    },
+    {
+      "name": "matrix-All-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-All-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-All-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-All-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-All-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Warframes-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered",
+        "subsumed",
+        "prime"
+      ]
+    },
+    {
+      "name": "matrix-Warframes-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Warframes-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Warframes-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Warframes-filter-subsumed-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Warframes-filter-prime-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Warframes-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Warframes-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered",
+        "prime",
+        "primary",
+        "secondary",
+        "melee",
+        "incarnon"
+      ]
+    },
+    {
+      "name": "matrix-Weapons-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Weapons-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Weapons-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-filter-prime-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-filter-primary-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-filter-secondary-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-filter-melee-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-filter-incarnon-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Weapons-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Companions-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered"
+      ]
+    },
+    {
+      "name": "matrix-Companions-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Companions-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Companions-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Companions-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Companions-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Companion Weapons-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered"
+      ]
+    },
+    {
+      "name": "matrix-Companion Weapons-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Companion Weapons-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Companion Weapons-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Companion Weapons-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Companion Weapons-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Archweapons-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered"
+      ]
+    },
+    {
+      "name": "matrix-Archweapons-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Archweapons-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Archweapons-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Archweapons-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Archweapons-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Vehicles-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered",
+        "archwing",
+        "kdrive",
+        "necramech"
+      ]
+    },
+    {
+      "name": "matrix-Vehicles-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Vehicles-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Vehicles-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Vehicles-filter-archwing-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Vehicles-filter-kdrive-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Vehicles-filter-necramech-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Vehicles-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Vehicles-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Amps-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered"
+      ]
+    },
+    {
+      "name": "matrix-Amps-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "XP"
+      ]
+    },
+    {
+      "name": "matrix-Amps-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Amps-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Amps-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Amps-sort-XP-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Arcanes-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "matrix-Arcanes-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Count",
+        "Rank"
+      ]
+    },
+    {
+      "name": "matrix-Arcanes-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Arcanes-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Arcanes-sort-Count-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Arcanes-sort-Rank-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Peely Pix-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "matrix-Peely Pix-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Count"
+      ]
+    },
+    {
+      "name": "matrix-Peely Pix-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Peely Pix-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Peely Pix-sort-Count-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Consumables-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "matrix-Consumables-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Count"
+      ]
+    },
+    {
+      "name": "matrix-Consumables-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Consumables-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Consumables-sort-Count-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Landing Craft-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "matrix-Landing Craft-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name"
+      ]
+    },
+    {
+      "name": "matrix-Landing Craft-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Landing Craft-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Resources-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "matrix-Resources-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Count"
+      ]
+    },
+    {
+      "name": "matrix-Resources-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Resources-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Resources-sort-Count-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Prime Sets-filter-controls",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned",
+        "mastered",
+        "vaulted"
+      ]
+    },
+    {
+      "name": "matrix-Prime Sets-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Completion",
+        "Value"
+      ]
+    },
+    {
+      "name": "matrix-Prime Sets-filter-owned-states",
+      "pass": false,
+      "detail": {
+        "yes": true,
+        "yes_active": null,
+        "no": true,
+        "no_active": null,
+        "reset": true,
+        "all_active": null
+      }
+    },
+    {
+      "name": "matrix-Prime Sets-filter-mastered-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Prime Sets-filter-vaulted-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Prime Sets-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Prime Sets-sort-Completion-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Prime Sets-sort-Value-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Ayatan-filter-controls",
+      "pass": true,
+      "detail": [
+        "socketed"
+      ]
+    },
+    {
+      "name": "matrix-Ayatan-sort-controls",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Count"
+      ]
+    },
+    {
+      "name": "matrix-Ayatan-filter-socketed-states",
+      "pass": true
+    },
+    {
+      "name": "matrix-Ayatan-sort-Name-directions",
+      "pass": true
+    },
+    {
+      "name": "matrix-Ayatan-sort-Count-directions",
+      "pass": true
+    },
+    {
+      "name": "pagination-initial-48",
+      "pass": true,
+      "detail": 48
+    },
+    {
+      "name": "pagination-auto-60",
+      "pass": true,
+      "detail": 60
+    },
+    {
+      "name": "pagination-manual-load",
+      "pass": true,
+      "detail": 60
+    },
+    {
+      "name": "acquisition-drawer-open",
+      "pass": true
+    },
+    {
+      "name": "acquisition-drawer-close",
+      "pass": true
+    },
+    {
+      "name": "no-fixture-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "stats": {
+        "client": 912,
+        "scroll": 912
+      },
+      "toolbar": {
+        "columns": "450px 450px",
+        "client": 912,
+        "scroll": 912
+      },
+      "categories": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 910,
+        "scroll": 1579,
+        "overflow": "auto"
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "viewport": [
+        1200,
+        800
+      ],
+      "root": {
+        "left": 252,
+        "width": 912,
+        "right": 1164
+      }
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "stats": {
+        "client": 612,
+        "scroll": 612
+      },
+      "toolbar": {
+        "columns": "612px",
+        "client": 612,
+        "scroll": 612
+      },
+      "categories": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 610,
+        "scroll": 1579,
+        "overflow": "auto"
+      },
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "viewport": [
+        900,
+        500
+      ],
+      "root": {
+        "left": 252,
+        "width": 612,
+        "right": 864
+      }
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "mode": "populated",
+      "equal": true,
+      "before_length": 96210,
+      "after_length": 96210
+    },
+    {
+      "mode": "loading",
+      "equal": true,
+      "before_length": 9560,
+      "after_length": 9560
+    },
+    {
+      "mode": "empty",
+      "equal": true,
+      "before_length": 9884,
+      "after_length": 9884
+    }
+  ]
+}

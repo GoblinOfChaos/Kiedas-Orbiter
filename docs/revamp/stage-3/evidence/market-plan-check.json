@@ -1,0 +1,17 @@
+{
+  "status": "pass_plan_only",
+  "higher_risk_flag_present": true,
+  "explicit_approval_gate_present": true,
+  "market_source_unchanged_from_frozen_copy": true,
+  "preview_market_layout_absent": true,
+  "accepted_stage3h_patch_frozen": true,
+  "navigation_label_source_verified": true,
+  "mutation_guards_source_verified": true,
+  "get_my_market_orders_classified_read_only_and_unguarded": true,
+  "planned_files": [
+    "src/screens/Market.jsx",
+    "src/components/PreviewMarketLayout.jsx"
+  ],
+  "stage3i_app_source_started": false,
+  "stage3j_app_source_started": false
+}

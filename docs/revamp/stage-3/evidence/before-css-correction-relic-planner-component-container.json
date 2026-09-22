@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/component.py"
+  ],
+  "container_name": "stage3h-component-final-bd9720010b",
+  "cpus": 4,
+  "duration_seconds": 21.252,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-test",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relic-planner-component-container.log",
+  "memory": "4g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

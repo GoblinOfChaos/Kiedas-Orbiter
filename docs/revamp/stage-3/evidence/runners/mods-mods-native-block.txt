@@ -1,0 +1,47 @@
+
+ click('Mods')
+ results['mods_checks']=[]
+ synthetic_mods={'mods_catalog':[
+  {'unique_name':'/Synthetic/Warframe','name':'Synthetic Warframe Mod','description':'Synthetic','category':'Warframe','owned':True,'quantity':1,'rank':5,'max_rank':5,'rarity':'rare','modFrame':'Normal Rare','baseDrain':4},
+  {'unique_name':'/Synthetic/Primary','name':'Synthetic Primary Mod','description':'Synthetic','category':'Primary','owned':True,'quantity':2,'rank':2,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Secondary','name':'Synthetic Secondary Mod','description':'Synthetic','category':'Secondary','owned':False,'quantity':1,'rank':0,'max_rank':5,'rarity':'uncommon','modFrame':'Normal Uncommon','baseDrain':4},
+  {'unique_name':'/Synthetic/Melee','name':'Synthetic Melee Mod','description':'Synthetic','category':'Melee','owned':True,'quantity':1,'rank':3,'max_rank':5,'rarity':'legendary','modFrame':'Normal Legendary','baseDrain':4},
+  {'unique_name':'/Synthetic/Sentinels','name':'Synthetic Sentinel Mod','description':'Synthetic','category':'Sentinels','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Robotic','name':'Synthetic Robotic Mod','description':'Synthetic','category':'Robotic','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Beasts','name':'Synthetic Beast Mod','description':'Synthetic','category':'Beasts','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Stance','name':'Synthetic Stance Mod','description':'Synthetic','category':'Stance','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Aura','name':'Synthetic Aura Mod','description':'Synthetic','category':'Aura','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Railjack','name':'Synthetic Railjack Mod','description':'Synthetic','category':'Railjack','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Archgun','name':'Synthetic Archgun Mod','description':'Synthetic','category':'Archgun','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Archmelee','name':'Synthetic Archmelee Mod','description':'Synthetic','category':'Archmelee','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Parazon','name':'Synthetic Parazon Mod','description':'Synthetic','category':'Parazon','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Augment','name':'Synthetic Augment Mod','description':'Synthetic','category':'Augment','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Antique','name':'Synthetic Antique Mod','description':'Synthetic','category':'Antique','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4},
+  {'unique_name':'/Synthetic/Tome','name':'Synthetic Tome Exilus','description':'Synthetic','category':'Tome','isExilus':True,'owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Tome','baseDrain':4},
+  {'unique_name':'/Synthetic/Vehicles','name':'Synthetic Vehicle Mod','description':'Synthetic','category':'Vehicles','owned':True,'quantity':1,'rank':1,'max_rank':5,'rarity':'common','modFrame':'Normal Common','baseDrain':4}
+ ]}
+ mods_injection=js(inject_script,[synthetic_mods])
+ results['mods_state_injection']={'tier':'synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock','result':mods_injection}
+ assert mods_injection.get('ok'),'MonitoringContext Mods test-state injection unavailable: '+str(mods_injection)
+ time.sleep(.6)
+ expected_mod_categories=['All','Warframe','Primary','Secondary','Melee','Sentinels','Robotic','Beasts','Stance','Aura','Exilus','Railjack','Archgun','Archmelee','Parazon','Augment','Antique','Tome','Vehicles']
+ def press_mod_key(value):
+  api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'mods-keyboard','actions':[{'type':'keyDown','value':value},{'type':'keyUp','value':value}]}]})
+  time.sleep(.15)
+  try:api('DELETE',prefix+'/actions')
+  except Exception:pass
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.3)
+  state=js("""const root=document.querySelector('[data-preview-mods-layout]');if(!root)return {present:false};const toolbar=root.querySelector('[data-preview-mods-toolbar]'),cats=root.querySelector('[data-preview-mods-categories]'),cards=[...root.querySelectorAll('[data-preview-mod-card]')],rr=root.getBoundingClientRect();return {present:true,categories:[...cats.querySelectorAll('button')].map(e=>e.textContent.trim()),body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},root:{left:rr.left,right:rr.right},toolbarColumns:getComputedStyle(toolbar).gridTemplateColumns.split(' ').length,categoriesState:{client:cats.clientWidth,scroll:cats.scrollWidth,overflow:getComputedStyle(cats).overflowX,wrap:getComputedStyle(cats).flexWrap},cardCount:cards.length,cardWidths:cards.slice(0,3).map(e=>e.getBoundingClientRect().width),firstRole:cards[0]?.getAttribute('role'),firstTabIndex:cards[0]?.tabIndex,noZeroPrice:!root.innerText.includes('0p'),noSell:![...root.querySelectorAll('button')].some(e=>/sell/i.test(e.textContent))};""")
+  layout_pass=state.get('present') and state.get('categories')==expected_mod_categories and state['body']['scroll']<=state['body']['client']+1 and state['root']['left']>=0 and state['root']['right']<=width+1 and state['toolbarColumns']==(2 if width==1200 else 1) and state['categoriesState']['scroll']>state['categoriesState']['client'] and state['categoriesState']['overflow']=='auto' and state['categoriesState']['wrap']=='nowrap' and state['cardCount']==17 and all(abs(value-200)<1 for value in state['cardWidths']) and state['firstRole']=='button' and state['firstTabIndex']==0
+  results['mods_checks'].append({'size':[width,height],'kind':'layout-and-categories','state':state,'pass':layout_pass})
+  first_focus=js("const e=document.querySelector('[data-preview-mod-card]');e.focus();return document.activeElement===e")
+  press_mod_key('\ue007')
+  enter_open=js("return !!document.querySelector('.fixed.bottom-0')")
+  js("document.querySelector('.fixed.bottom-0 button')?.click()");time.sleep(.1)
+  last_focus=js("const a=document.querySelectorAll('[data-preview-mod-card]'),e=a[a.length-1];e.focus();return document.activeElement===e")
+  press_mod_key(' ')
+  space_open=js("return !!document.querySelector('.fixed.bottom-0')")
+  js("document.querySelector('.fixed.bottom-0 button')?.click()");time.sleep(.1)
+  results['mods_checks'].append({'size':[width,height],'kind':'keyboard-drawer','enter':enter_open,'space':space_open,'pass':first_focus and enter_open and last_focus and space_open})
+ results['mods_checks'].append({'kind':'price-and-market-surface','pass':state['noZeroPrice'] and state['noSell'],'no_zero_price':state['noZeroPrice'],'no_sell':state['noSell']})

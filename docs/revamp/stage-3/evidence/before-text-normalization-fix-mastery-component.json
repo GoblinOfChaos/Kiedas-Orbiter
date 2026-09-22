@@ -1,0 +1,1314 @@
+{
+  "tier": "styled component browser with module mocks",
+  "fixture": "synthetic display data; no live game or mastery-formula claims",
+  "checks": [
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-inventory-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-mr0-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-mr15-progress-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-mr30-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-legendary-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-rank-ready-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-pointer-modal-exact-markup",
+      "pass": true,
+      "detail": {
+        "before_length": 18675,
+        "after_length": 18675
+      }
+    },
+    {
+      "name": "1200-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "1200-24-row-order",
+      "pass": true,
+      "detail": [
+        "Warframe",
+        "Primary",
+        "Secondary",
+        "Melee",
+        "Kitgun",
+        "Zaw",
+        "Amp",
+        "Sentinel",
+        "Sentinel Weapon",
+        "MOA",
+        "Hound",
+        "Robotics",
+        "Companions",
+        "Archwing",
+        "Archgun",
+        "Archmelee",
+        "Necramech",
+        "K-Drive",
+        "Plexus",
+        "Vehicles",
+        "Railjack Intrinsic",
+        "Drifter Intrinsic",
+        "Starchart",
+        "The Steel Path"
+      ]
+    },
+    {
+      "name": "1200-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "rank": {
+          "left": 277,
+          "width": 862,
+          "right": 1139
+        },
+        "secondaryColumns": 2,
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "viewport": [
+          1200,
+          800
+        ],
+        "layout": {
+          "left": 252,
+          "width": 912,
+          "right": 1164
+        },
+        "itemColumns": 4
+      }
+    },
+    {
+      "name": "1200-rank-in-bounds",
+      "pass": true,
+      "detail": {
+        "rank": {
+          "left": 277,
+          "width": 862,
+          "right": 1139
+        },
+        "secondaryColumns": 2,
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "viewport": [
+          1200,
+          800
+        ],
+        "layout": {
+          "left": 252,
+          "width": 912,
+          "right": 1164
+        },
+        "itemColumns": 4
+      }
+    },
+    {
+      "name": "1200-item-grid-columns",
+      "pass": true,
+      "detail": 4
+    },
+    {
+      "name": "1200-secondary-columns",
+      "pass": true,
+      "detail": 2
+    },
+    {
+      "name": "1200-pointer-Warframe",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Warframe",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Warframe",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Primary",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Primary",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Primary",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Secondary",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Secondary",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Secondary",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Melee",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Melee",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Melee",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Zaw",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Zaw",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Zaw",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Amp",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Amp",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Amp",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Sentinel Weapon",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Sentinel Weapon",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Sentinel Weapon",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-MOA",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-MOA",
+      "pass": true
+    },
+    {
+      "name": "1200-space-MOA",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Hound",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Hound",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Hound",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Robotics",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Robotics",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Robotics",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Companions",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Companions",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Companions",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Archwing",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Archwing",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Archwing",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Archgun",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Archgun",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Archgun",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Necramech",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Necramech",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Necramech",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-K-Drive",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-K-Drive",
+      "pass": true
+    },
+    {
+      "name": "1200-space-K-Drive",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Plexus",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Plexus",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Plexus",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Railjack Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Railjack Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Railjack Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Drifter Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Drifter Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Drifter Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-Starchart",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-Starchart",
+      "pass": true
+    },
+    {
+      "name": "1200-space-Starchart",
+      "pass": true
+    },
+    {
+      "name": "1200-pointer-The Steel Path",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-The Steel Path",
+      "pass": true
+    },
+    {
+      "name": "1200-space-The Steel Path",
+      "pass": true
+    },
+    {
+      "name": "1200-ready-body-no-overflow",
+      "pass": true,
+      "detail": {
+        "art": {
+          "left": 751.109375,
+          "bottom": 559,
+          "right": 1139,
+          "top": 109
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "panel": {
+          "height": 465,
+          "left": 277,
+          "right": 1139
+        },
+        "content": {
+          "left": 277,
+          "bottom": 574,
+          "right": 751.109375,
+          "top": 109
+        },
+        "text": "\nCURRENT RANK: 15\nREADY\n\nNEXT:MR16\nMASTERY RANK UP AVAILABLE\nAdvance to Eagle\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+        "artSrc": "fixture:///fixture/ui/teshin.png"
+      }
+    },
+    {
+      "name": "1200-ready-text-art-no-overlap",
+      "pass": true,
+      "detail": {
+        "content": {
+          "left": 277,
+          "bottom": 574,
+          "right": 751.109375,
+          "top": 109
+        },
+        "art": {
+          "left": 751.109375,
+          "bottom": 559,
+          "right": 1139,
+          "top": 109
+        }
+      }
+    },
+    {
+      "name": "1200-ready-content-and-art",
+      "pass": true,
+      "detail": {
+        "art": {
+          "left": 751.109375,
+          "bottom": 559,
+          "right": 1139,
+          "top": 109
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "panel": {
+          "height": 465,
+          "left": 277,
+          "right": 1139
+        },
+        "content": {
+          "left": 277,
+          "bottom": 574,
+          "right": 751.109375,
+          "top": 109
+        },
+        "text": "\nCURRENT RANK: 15\nREADY\n\nNEXT:MR16\nMASTERY RANK UP AVAILABLE\nAdvance to Eagle\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+        "artSrc": "fixture:///fixture/ui/teshin.png"
+      }
+    },
+    {
+      "name": "900-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "900-24-row-order",
+      "pass": true,
+      "detail": [
+        "Warframe",
+        "Primary",
+        "Secondary",
+        "Melee",
+        "Kitgun",
+        "Zaw",
+        "Amp",
+        "Sentinel",
+        "Sentinel Weapon",
+        "MOA",
+        "Hound",
+        "Robotics",
+        "Companions",
+        "Archwing",
+        "Archgun",
+        "Archmelee",
+        "Necramech",
+        "K-Drive",
+        "Plexus",
+        "Vehicles",
+        "Railjack Intrinsic",
+        "Drifter Intrinsic",
+        "Starchart",
+        "The Steel Path"
+      ]
+    },
+    {
+      "name": "900-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "rank": {
+          "left": 277,
+          "width": 562,
+          "right": 839
+        },
+        "secondaryColumns": 1,
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "viewport": [
+          900,
+          500
+        ],
+        "layout": {
+          "left": 252,
+          "width": 612,
+          "right": 864
+        },
+        "itemColumns": 3
+      }
+    },
+    {
+      "name": "900-rank-in-bounds",
+      "pass": true,
+      "detail": {
+        "rank": {
+          "left": 277,
+          "width": 562,
+          "right": 839
+        },
+        "secondaryColumns": 1,
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "viewport": [
+          900,
+          500
+        ],
+        "layout": {
+          "left": 252,
+          "width": 612,
+          "right": 864
+        },
+        "itemColumns": 3
+      }
+    },
+    {
+      "name": "900-item-grid-columns",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "name": "900-secondary-columns",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "900-pointer-Warframe",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Warframe",
+      "pass": true
+    },
+    {
+      "name": "900-space-Warframe",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Primary",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Primary",
+      "pass": true
+    },
+    {
+      "name": "900-space-Primary",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Secondary",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Secondary",
+      "pass": true
+    },
+    {
+      "name": "900-space-Secondary",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Melee",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Melee",
+      "pass": true
+    },
+    {
+      "name": "900-space-Melee",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "900-space-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Zaw",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Zaw",
+      "pass": true
+    },
+    {
+      "name": "900-space-Zaw",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Amp",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Amp",
+      "pass": true
+    },
+    {
+      "name": "900-space-Amp",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "900-space-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Sentinel Weapon",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Sentinel Weapon",
+      "pass": true
+    },
+    {
+      "name": "900-space-Sentinel Weapon",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-MOA",
+      "pass": true
+    },
+    {
+      "name": "900-enter-MOA",
+      "pass": true
+    },
+    {
+      "name": "900-space-MOA",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Hound",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Hound",
+      "pass": true
+    },
+    {
+      "name": "900-space-Hound",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Robotics",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Robotics",
+      "pass": true
+    },
+    {
+      "name": "900-space-Robotics",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Companions",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Companions",
+      "pass": true
+    },
+    {
+      "name": "900-space-Companions",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Archwing",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Archwing",
+      "pass": true
+    },
+    {
+      "name": "900-space-Archwing",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Archgun",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Archgun",
+      "pass": true
+    },
+    {
+      "name": "900-space-Archgun",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "900-space-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Necramech",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Necramech",
+      "pass": true
+    },
+    {
+      "name": "900-space-Necramech",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-K-Drive",
+      "pass": true
+    },
+    {
+      "name": "900-enter-K-Drive",
+      "pass": true
+    },
+    {
+      "name": "900-space-K-Drive",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Plexus",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Plexus",
+      "pass": true
+    },
+    {
+      "name": "900-space-Plexus",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "900-space-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Railjack Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Railjack Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "900-space-Railjack Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Drifter Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Drifter Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "900-space-Drifter Intrinsic",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-Starchart",
+      "pass": true
+    },
+    {
+      "name": "900-enter-Starchart",
+      "pass": true
+    },
+    {
+      "name": "900-space-Starchart",
+      "pass": true
+    },
+    {
+      "name": "900-pointer-The Steel Path",
+      "pass": true
+    },
+    {
+      "name": "900-enter-The Steel Path",
+      "pass": true
+    },
+    {
+      "name": "900-space-The Steel Path",
+      "pass": true
+    },
+    {
+      "name": "900-ready-body-no-overflow",
+      "pass": true,
+      "detail": {
+        "art": {
+          "left": 277,
+          "bottom": 706,
+          "right": 839,
+          "top": 498
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "panel": {
+          "height": 597,
+          "left": 277,
+          "right": 839
+        },
+        "content": {
+          "left": 277,
+          "bottom": 498,
+          "right": 839,
+          "top": 109
+        },
+        "text": "\nCURRENT RANK: 15\nREADY\n\nNEXT:MR16\nMASTERY RANK UP AVAILABLE\nAdvance to Eagle\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+        "artSrc": "fixture:///fixture/ui/teshin.png"
+      }
+    },
+    {
+      "name": "900-ready-text-art-no-overlap",
+      "pass": true,
+      "detail": {
+        "content": {
+          "left": 277,
+          "bottom": 498,
+          "right": 839,
+          "top": 109
+        },
+        "art": {
+          "left": 277,
+          "bottom": 706,
+          "right": 839,
+          "top": 498
+        }
+      }
+    },
+    {
+      "name": "900-ready-content-and-art",
+      "pass": true,
+      "detail": {
+        "art": {
+          "left": 277,
+          "bottom": 706,
+          "right": 839,
+          "top": 498
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "panel": {
+          "height": 597,
+          "left": 277,
+          "right": 839
+        },
+        "content": {
+          "left": 277,
+          "bottom": 498,
+          "right": 839,
+          "top": 109
+        },
+        "text": "\nCURRENT RANK: 15\nREADY\n\nNEXT:MR16\nMASTERY RANK UP AVAILABLE\nAdvance to Eagle\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+        "artSrc": "fixture:///fixture/ui/teshin.png"
+      }
+    },
+    {
+      "name": "rank-state-mr0",
+      "pass": true,
+      "detail": "MASTERY\n\nCURRENT RANK\nMastery Rank 0\nUnranked\nNEXT RANK\nMR1\nINITIATE\n\n58500 MASTERY | 0LEFT\n0.0%\n0\n2500\nITEM COMPLETION\nWARFRAME\n1/2\n(4200MP)\nPRIMARY\n0/1\n(1200MP)\nSECONDARY\n0/2\n(2400MP)\nMELEE\n0/2\n(2400MP)\nKITGUN\n0/1\n(1200MP)\nZAW\n0/1\n(1200MP)\nAMP\n0/1\n(1200MP)\nSENTINEL\n0/1\n(1200MP)\nSENTINEL WEAPON\n0/1\n(1200MP)\nMOA\n0/1\n(1200MP)\nHOUND\n0/1\n(1200MP)\nROBOTICS\n0/4\n(4800MP)\nCOMPANIONS\n0/1\n(1200MP)\nARCHWING\n0/1\n(1200MP)\nARCHGUN\n0/1\n(3000MP)\nARCHMELEE\n0/1\n(3000MP)\nNECRAMECH\n0/1\n(1200MP)\nK-DRIVE\n0/1\n(1200MP)\nPLEXUS\n0/1\n(1200MP)\nVEHICLES\n0/4\n(4800MP)\nINTRINSIC COMPLETION\nRAILJACK INTRINSIC\n12/50\n(18000MP)\nDRIFTER INTRINSIC\n6/40\n(9000MP)\nSTARCHART COMPLETION\nSTARCHART\n2/3\n(2200MP)\nTHE STEEL PATH\n1/3\n(1100MP)"
+    },
+    {
+      "name": "rank-state-mr15",
+      "pass": true,
+      "detail": "MASTERY\n\nCURRENT RANK\nMastery Rank 15\nHunter\nNEXT RANK\nMR16\nEAGLE\n\n58500 MASTERY | 77500LEFT\n42.5%\n562500\n640000\nITEM COMPLETION\nWARFRAME\n1/2\n(4200MP)\nPRIMARY\n0/1\n(1200MP)\nSECONDARY\n0/2\n(2400MP)\nMELEE\n0/2\n(2400MP)\nKITGUN\n0/1\n(1200MP)\nZAW\n0/1\n(1200MP)\nAMP\n0/1\n(1200MP)\nSENTINEL\n0/1\n(1200MP)\nSENTINEL WEAPON\n0/1\n(1200MP)\nMOA\n0/1\n(1200MP)\nHOUND\n0/1\n(1200MP)\nROBOTICS\n0/4\n(4800MP)\nCOMPANIONS\n0/1\n(1200MP)\nARCHWING\n0/1\n(1200MP)\nARCHGUN\n0/1\n(3000MP)\nARCHMELEE\n0/1\n(3000MP)\nNECRAMECH\n0/1\n(1200MP)\nK-DRIVE\n0/1\n(1200MP)\nPLEXUS\n0/1\n(1200MP)\nVEHICLES\n0/4\n(4800MP)\nINTRINSIC COMPLETION\nRAILJACK INTRINSIC\n12/50\n(18000MP)\nDRIFTER INTRINSIC\n6/40\n(9000MP)\nSTARCHART COMPLETION\nSTARCHART\n2/3\n(2200MP)\nTHE STEEL PATH\n1/3\n(1100MP)"
+    },
+    {
+      "name": "rank-state-mr30",
+      "pass": true,
+      "detail": "MASTERY\n\nCURRENT RANK\nMastery Rank 30\nTrue Master\nNEXT RANK\nLR1\nLEGENDARY 1\n\n58500 MASTERY | 147500LEFT\n55.0%\n2250000\n2397500\nITEM COMPLETION\nWARFRAME\n1/2\n(4200MP)\nPRIMARY\n0/1\n(1200MP)\nSECONDARY\n0/2\n(2400MP)\nMELEE\n0/2\n(2400MP)\nKITGUN\n0/1\n(1200MP)\nZAW\n0/1\n(1200MP)\nAMP\n0/1\n(1200MP)\nSENTINEL\n0/1\n(1200MP)\nSENTINEL WEAPON\n0/1\n(1200MP)\nMOA\n0/1\n(1200MP)\nHOUND\n0/1\n(1200MP)\nROBOTICS\n0/4\n(4800MP)\nCOMPANIONS\n0/1\n(1200MP)\nARCHWING\n0/1\n(1200MP)\nARCHGUN\n0/1\n(3000MP)\nARCHMELEE\n0/1\n(3000MP)\nNECRAMECH\n0/1\n(1200MP)\nK-DRIVE\n0/1\n(1200MP)\nPLEXUS\n0/1\n(1200MP)\nVEHICLES\n0/4\n(4800MP)\nINTRINSIC COMPLETION\nRAILJACK INTRINSIC\n12/50\n(18000MP)\nDRIFTER INTRINSIC\n6/40\n(9000MP)\nSTARCHART COMPLETION\nSTARCHART\n2/3\n(2200MP)\nTHE STEEL PATH\n1/3\n(1100MP)"
+    },
+    {
+      "name": "rank-state-lr1",
+      "pass": true,
+      "detail": "MASTERY\n\nCURRENT RANK\nLegendary Rank 1\nLegendary 1\nNEXT RANK\nLR2\nLEGENDARY 2\n\n58500 MASTERY | 147500LEFT\n65.0%\n2397500\n2545000\nITEM COMPLETION\nWARFRAME\n1/2\n(4200MP)\nPRIMARY\n0/1\n(1200MP)\nSECONDARY\n0/2\n(2400MP)\nMELEE\n0/2\n(2400MP)\nKITGUN\n0/1\n(1200MP)\nZAW\n0/1\n(1200MP)\nAMP\n0/1\n(1200MP)\nSENTINEL\n0/1\n(1200MP)\nSENTINEL WEAPON\n0/1\n(1200MP)\nMOA\n0/1\n(1200MP)\nHOUND\n0/1\n(1200MP)\nROBOTICS\n0/4\n(4800MP)\nCOMPANIONS\n0/1\n(1200MP)\nARCHWING\n0/1\n(1200MP)\nARCHGUN\n0/1\n(3000MP)\nARCHMELEE\n0/1\n(3000MP)\nNECRAMECH\n0/1\n(1200MP)\nK-DRIVE\n0/1\n(1200MP)\nPLEXUS\n0/1\n(1200MP)\nVEHICLES\n0/4\n(4800MP)\nINTRINSIC COMPLETION\nRAILJACK INTRINSIC\n12/50\n(18000MP)\nDRIFTER INTRINSIC\n6/40\n(9000MP)\nSTARCHART COMPLETION\nSTARCHART\n2/3\n(2200MP)\nTHE STEEL PATH\n1/3\n(1100MP)"
+    },
+    {
+      "name": "progress-fields",
+      "pass": false,
+      "detail": "MASTERY\n\nCURRENT RANK\nMastery Rank 15\nHunter\nNEXT RANK\nMR16\nEAGLE\n\n58500 MASTERY | 77500LEFT\n42.5%\n562500\n640000\nITEM COMPLETION\nWARFRAME\n1/2\n(4200MP)\nPRIMARY\n0/1\n(1200MP)\nSECONDARY\n0/2\n(2400MP)\nMELEE\n0/2\n(2400MP)\nKITGUN\n0/1\n(1200MP)\nZAW\n0/1\n(1200MP)\nAMP\n0/1\n(1200MP)\nSENTINEL\n0/1\n(1200MP)\nSENTINEL WEAPON\n0/1\n(1200MP)\nMOA\n0/1\n(1200MP)\nHOUND\n0/1\n(1200MP)\nROBOTICS\n0/4\n(4800MP)\nCOMPANIONS\n0/1\n(1200MP)\nARCHWING\n0/1\n(1200MP)\nARCHGUN\n0/1\n(3000MP)\nARCHMELEE\n0/1\n(3000MP)\nNECRAMECH\n0/1\n(1200MP)\nK-DRIVE\n0/1\n(1200MP)\nPLEXUS\n0/1\n(1200MP)\nVEHICLES\n0/4\n(4800MP)\nINTRINSIC COMPLETION\nRAILJACK INTRINSIC\n12/50\n(18000MP)\nDRIFTER INTRINSIC\n6/40\n(9000MP)\nSTARCHART COMPLETION\nSTARCHART\n2/3\n(2200MP)\nTHE STEEL PATH\n1/3\n(1100MP)"
+    },
+    {
+      "name": "item-detail-order",
+      "pass": true,
+      "detail": "WarframeDetails\n1 / 2completed\n\nIncomplete Item\nRank12\n1200 MP\nCompleted Item\nRank30\n3000 MP"
+    },
+    {
+      "name": "item-detail-rank-mp",
+      "pass": false,
+      "detail": "WarframeDetails\n1 / 2completed\n\nIncomplete Item\nRank12\n1200 MP\nCompleted Item\nRank30\n3000 MP"
+    },
+    {
+      "name": "dialog-semantics",
+      "pass": true
+    },
+    {
+      "name": "close-button-dismissal",
+      "pass": true
+    },
+    {
+      "name": "backdrop-dismissal",
+      "pass": true
+    },
+    {
+      "name": "intrinsic-detail",
+      "pass": true,
+      "detail": "Railjack IntrinsicDetails\n12 / 50completed\n\nRailjack Gunnery\nRank5\n7500 MP\nRailjack Tactical\nRank7\n10500 MP"
+    },
+    {
+      "name": "origin-starchart-detail",
+      "pass": false,
+      "detail": "StarchartDetails\n2 / 3completed\nHIDE NON-MASTERY\n\nEARTH (1/2)\nAlpha\n+100MP\nBeta Junction\nJUNCTION\n+200MP\nMARS (1/1)\nGamma\nNON-MASTERY"
+    },
+    {
+      "name": "hide-non-mastery-filter",
+      "pass": true,
+      "detail": "StarchartDetails\n2 / 3completed\nHIDE NON-MASTERY\n\nEARTH (1/2)\nAlpha\n+100MP\nBeta Junction\nJUNCTION\n+200MP"
+    },
+    {
+      "name": "steel-path-detail-and-filter-persistence",
+      "pass": true,
+      "detail": "The Steel PathDetails\n1 / 3completed\nHIDE NON-MASTERY\n\nEARTH (0/2)\nAlpha\n+100MP\nBeta Junction\nJUNCTION\n+200MP"
+    },
+    {
+      "name": "empty-item-detail",
+      "pass": true
+    },
+    {
+      "name": "empty-starchart-detail",
+      "pass": true
+    },
+    {
+      "name": "1200-german-24-rows",
+      "pass": true,
+      "detail": [
+        "Warframe",
+        "Prim\u00e4r",
+        "Sekund\u00e4r",
+        "Nahkampf",
+        "Kitgun",
+        "Zaw",
+        "Amp",
+        "Sentinel",
+        "Sentinel-Waffe",
+        "MOA",
+        "Hund",
+        "Robotik",
+        "Begleiter",
+        "Archwing",
+        "Archgun",
+        "Archmelee",
+        "Necramech",
+        "K-Drive",
+        "Plexus",
+        "Fahrzeuge",
+        "Railjack-Intrinsic",
+        "Drifter-Intrinsic",
+        "Starchart",
+        "Der Stahlpfad"
+      ]
+    },
+    {
+      "name": "1200-german-body-no-overflow",
+      "pass": true
+    },
+    {
+      "name": "1200-german-modal-bounds",
+      "pass": true,
+      "detail": {
+        "left": 264,
+        "viewport": [
+          1200,
+          800
+        ],
+        "right": 936,
+        "top": 212.5,
+        "heading": "StarchartDetails",
+        "bottom": 587.5
+      }
+    },
+    {
+      "name": "900-german-24-rows",
+      "pass": true,
+      "detail": [
+        "Warframe",
+        "Prim\u00e4r",
+        "Sekund\u00e4r",
+        "Nahkampf",
+        "Kitgun",
+        "Zaw",
+        "Amp",
+        "Sentinel",
+        "Sentinel-Waffe",
+        "MOA",
+        "Hund",
+        "Robotik",
+        "Begleiter",
+        "Archwing",
+        "Archgun",
+        "Archmelee",
+        "Necramech",
+        "K-Drive",
+        "Plexus",
+        "Fahrzeuge",
+        "Railjack-Intrinsic",
+        "Drifter-Intrinsic",
+        "Starchart",
+        "Der Stahlpfad"
+      ]
+    },
+    {
+      "name": "900-german-body-no-overflow",
+      "pass": true
+    },
+    {
+      "name": "900-german-modal-bounds",
+      "pass": true,
+      "detail": {
+        "left": 114,
+        "viewport": [
+          900,
+          500
+        ],
+        "right": 786,
+        "top": 70.5,
+        "heading": "StarchartDetails",
+        "bottom": 429.5
+      }
+    },
+    {
+      "name": "asset-commands",
+      "pass": true,
+      "detail": [
+        {
+          "args": null,
+          "command": "get_mastery_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_ui_path"
+        }
+      ]
+    },
+    {
+      "name": "no-fixture-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "geometry": [
+    {
+      "state": "progress",
+      "size": [
+        1200,
+        800
+      ],
+      "rank": {
+        "left": 277,
+        "width": 862,
+        "right": 1139
+      },
+      "secondaryColumns": 2,
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "viewport": [
+        1200,
+        800
+      ],
+      "layout": {
+        "left": 252,
+        "width": 912,
+        "right": 1164
+      },
+      "itemColumns": 4
+    },
+    {
+      "state": "ready",
+      "size": [
+        1200,
+        800
+      ],
+      "art": {
+        "left": 751.109375,
+        "bottom": 559,
+        "right": 1139,
+        "top": 109
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "panel": {
+        "height": 465,
+        "left": 277,
+        "right": 1139
+      },
+      "content": {
+        "left": 277,
+        "bottom": 574,
+        "right": 751.109375,
+        "top": 109
+      },
+      "text": "\nCURRENT RANK: 15\nREADY\n\nNEXT:MR16\nMASTERY RANK UP AVAILABLE\nAdvance to Eagle\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+      "artSrc": "fixture:///fixture/ui/teshin.png"
+    },
+    {
+      "state": "progress",
+      "size": [
+        900,
+        500
+      ],
+      "rank": {
+        "left": 277,
+        "width": 562,
+        "right": 839
+      },
+      "secondaryColumns": 1,
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "viewport": [
+        900,
+        500
+      ],
+      "layout": {
+        "left": 252,
+        "width": 612,
+        "right": 864
+      },
+      "itemColumns": 3
+    },
+    {
+      "state": "ready",
+      "size": [
+        900,
+        500
+      ],
+      "art": {
+        "left": 277,
+        "bottom": 706,
+        "right": 839,
+        "top": 498
+      },
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "panel": {
+        "height": 597,
+        "left": 277,
+        "right": 839
+      },
+      "content": {
+        "left": 277,
+        "bottom": 498,
+        "right": 839,
+        "top": 109
+      },
+      "text": "\nCURRENT RANK: 15\nREADY\n\nNEXT:MR16\nMASTERY RANK UP AVAILABLE\nAdvance to Eagle\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+      "artSrc": "fixture:///fixture/ui/teshin.png"
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 1184,
+      "after_length": 1184
+    },
+    {
+      "state": "no-inventory",
+      "equal": true,
+      "before_length": 1508,
+      "after_length": 1508
+    },
+    {
+      "state": "mr0",
+      "equal": true,
+      "before_length": 16285,
+      "after_length": 16285
+    },
+    {
+      "state": "mr15-progress",
+      "equal": true,
+      "before_length": 16300,
+      "after_length": 16300
+    },
+    {
+      "state": "mr30",
+      "equal": true,
+      "before_length": 16303,
+      "after_length": 16303
+    },
+    {
+      "state": "legendary",
+      "equal": true,
+      "before_length": 16293,
+      "after_length": 16293
+    },
+    {
+      "state": "rank-ready",
+      "equal": true,
+      "before_length": 15186,
+      "after_length": 15186
+    }
+  ]
+}

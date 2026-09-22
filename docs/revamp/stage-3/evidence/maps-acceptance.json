@@ -1,0 +1,36 @@
+{
+  "accepted_on": "2026-09-06",
+  "recorded_at": "2026-09-06T21:34:41.853471+00:00",
+  "stage": "Stage 3K Maps",
+  "status": "accepted_linux",
+  "basis": "User explicitly accepted after independently verifying that the main.rs diff contains exactly the two approved corrections.",
+  "screen_redesign_scope": "complete",
+  "future_screen_gate": "No further screen work is authorized unless a concrete native defect is found in a retained screen and the user separately approves the app-source change.",
+  "frozen_records": {
+    "docs/revamp/stage-3/maps-source-register.json": "e9c2a3fbdcc61cb96dd15cdf77dde08764de9d6dbaec9b822550c2db18cb339f",
+    "docs/revamp/stage-3/maps-implementation.json": "2af13519fb357c948cbf50d52af41c9456bb9e39ab5e6231f3dd2bdfb29d56f8",
+    "docs/revamp/stage-3/maps-implementation.patch": "9c987c776f9388c7a63d17e92c36c83f2b331f5aff29759f0a4b8e4b9ca4c259",
+    "docs/revamp/stage-3/cumulative-implementation.patch": "daa070f8b321c5f59c04f88a63952588fbe5d72c2917b223ce55f51682e08b0b",
+    "docs/revamp/stage-3/evidence/maps-postflight.json": "dc45f933d384e4e45de0a1a1cb15aa4da84f8f7e557745df5f76c6a53833bc33",
+    "docs/revamp/stage-3/evidence/maps-validation-summary.json": "bf2cb00efc5169d9a8df3776acfef9687194057c22b02ab309be74222393961a",
+    "docs/revamp/stage-3/evidence/maps-evidence-integrity.json": "e61f13a46d1072363d73d4cf0015fe384af1fd34a79fb586f80300c6e0071ed6",
+    "docs/revamp/stage-3/evidence/maps-rust-reliability.json": "f5456b5e3cebddd912a423fb547075247ea69aa838025d462557dd2a00ca5743"
+  },
+  "validation": {
+    "component": "18/18",
+    "stable_markup_matrix": "16/16",
+    "stable_interaction_parity": "16/16",
+    "rust_reliability": "7/7",
+    "debian": "96/96",
+    "appimage": "96/96",
+    "tracked_baseline": "850/850",
+    "cargo_lock_unchanged": true
+  },
+  "carried_items": {
+    "custom_marker_runtime_import": "BLOCKED \u2014 ground-truth inventory contains no customMarkers",
+    "windows_runtime": "OPEN / BLOCKED",
+    "macos_runtime": "OPEN / UNAVAILABLE",
+    "published_version_upgrade": "PENDING",
+    "exhaustive_runtime_tracing": "PENDING"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "captured_on": "2026-09-06",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "accepted_linux",
+  "accepted_on": "2026-09-06",
+  "accepted_stage3e_cumulative_patch_sha256": "aaaaa8bac2d19ae8cb61ebc576c87744caced8595e95483cabc71fd61602f431",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "sources": {
+    "src/screens/Rivens.jsx": {
+      "sha256": "03e9a3d05f99c2a04373430dcf1be2a330f928e8bf47c64e553b673e14a6af4c",
+      "lines": 331
+    },
+    "src/components/RivenCard.jsx": {
+      "sha256": "ced02bf19c7c6316f94ec12208b96d44676e115ac5d75f768774fba718983198",
+      "lines": 256,
+      "planned_change": false
+    },
+    "src/components/RivenGradeDrawer.jsx": {
+      "sha256": "d62bf025f99b21b022ae3975b9000b3fd875557cf6ee21c31252750af9817715",
+      "lines": 69,
+      "planned_change": false
+    }
+  },
+  "navigation_fact": {
+    "path": "docs/revamp/stage-3/evidence/rivens-nav-source-fact.json",
+    "value": "Rivens",
+    "derived_from_current_source": true
+  },
+  "type_filters": [
+    "all",
+    "rifle",
+    "pistol",
+    "melee",
+    "shotgun",
+    "sniper",
+    "kitgun",
+    "zaw",
+    "archgun"
+  ],
+  "state_filters": [
+    "all",
+    "unveiled",
+    "challenge",
+    "veiled"
+  ],
+  "sorts": [
+    "name",
+    "plat",
+    "grade"
+  ],
+  "grade_order": [
+    "S",
+    "A",
+    "B",
+    "C",
+    "D",
+    "F"
+  ],
+  "commands": [
+    "get_icons_path",
+    "get_mod_frames_path",
+    "estimate_riven_full_batch"
+  ],
+  "pricing": {
+    "priceable_states": [
+      "unveiled"
+    ],
+    "missing_sort_sentinel": -1,
+    "retry_delay_ms": 3000,
+    "maximum_all_null_retries": 3,
+    "missing_estimate_renders_price": false,
+    "market_mutation_callers": 0,
+    "sell_controls": 0
+  },
+  "render_states": [
+    "inventory_loading",
+    "no_inventory",
+    "frames_loading",
+    "no_match",
+    "populated"
+  ],
+  "planned_app_files": [
+    "src/screens/Rivens.jsx",
+    "src/components/PreviewRivensLayout.jsx"
+  ],
+  "source_boundaries": {
+    "inventory_or_identity_change": false,
+    "filter_search_sort_change": false,
+    "pricing_or_retry_change": false,
+    "grading_change": false,
+    "card_or_drawer_change": false,
+    "translation_change": false,
+    "shared_ui_or_global_css_change": false,
+    "backend_change": false,
+    "dependency_or_lockfile_change": false,
+    "market_change": false
+  },
+  "stage3f_app_source_started": true,
+  "stage3g_app_source_started": false,
+  "after_sources": {
+    "src/screens/Rivens.jsx": {
+      "sha256": "3e78cd09f1d73cea7d54a8bf047c6eabcf5cf644a1bf0d763c1f1bb3b5244dc7"
+    },
+    "src/components/PreviewRivensLayout.jsx": {
+      "sha256": "49428c41caf076e243340979dad42bd59b863c5c7a2db4e1224c19af7a944c44"
+    }
+  },
+  "validation": {
+    "component_checks": "65/65",
+    "stable_exact_markup_comparisons": "7/7",
+    "debian_native_checks": "50/50",
+    "appimage_native_checks": "50/50",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true,
+    "stage3f_started": true,
+    "stage3g_started": false
+  }
+}

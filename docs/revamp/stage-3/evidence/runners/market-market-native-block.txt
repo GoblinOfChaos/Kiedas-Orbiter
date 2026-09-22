@@ -1,0 +1,88 @@
+
+ opened_market=js("const b=[...document.querySelectorAll('nav button')].find(e=>e.textContent.trim()==='Market');if(!b)return false;b.click();return true")
+ if not opened_market: raise RuntimeError('Market navigation button unavailable')
+ time.sleep(.8)
+ market_inventory={'prime_parts':[
+  {'unique_name':'/Synthetic/MarketAlpha','name':'Market Alpha Prime Blueprint','quantity':2,'ducats':45,'mastered':True},
+  {'unique_name':'/Synthetic/MarketBeta','name':'Market Beta Prime Chassis','quantity':1,'ducats':50,'mastered':False},
+  {'unique_name':'/Synthetic/MarketGamma','name':'Market Gamma Prime Systems','quantity':1,'ducats':20,'mastered':False},
+  {'unique_name':'/Synthetic/MarketDelta','name':'Market Delta Prime Barrel','quantity':1,'ducats':25,'mastered':False},
+  {'unique_name':'/Synthetic/MarketBlocked','name':'Market Blocked Prime Part','quantity':3,'ducats':100,'mastered':True},
+  {'unique_name':'/Synthetic/MarketZero','name':'Market Zero Prime Part','quantity':0,'ducats':100,'mastered':True},
+ ],'primeSets':{},'all':[],'resources':[],'consumables_catalog':[],'consumables':[],'mods':[],'warframes':[],'primary':[],'secondary':[],'melee':[],'sentinels':[],'archwing':[],'foundry':[],'craftable':[],'account':{'forma':0}}
+ market_catalog=[
+  ['/Synthetic/MarketAlpha',{'id':'market-alpha','slug':'market-alpha-prime-blueprint','tradable':True}],
+  ['/Synthetic/MarketBeta',{'id':'market-beta','slug':'market-beta-prime-chassis','tradable':True}],
+  ['/Synthetic/MarketGamma',{'id':'market-gamma','slug':'market-gamma-prime-systems','tradable':True}],
+  ['/Synthetic/MarketDelta',{'id':'market-delta','slug':'market-delta-prime-barrel','tradable':True}],
+  ['/Synthetic/MarketBlocked',{'id':'market-blocked','slug':'market-blocked-prime-part','tradable':False}],
+  ['/Synthetic/MarketZero',{'id':'market-zero','slug':'market-zero-prime-part','tradable':True}],
+ ]
+ market_ids={
+  'market-alpha':{'id':'market-alpha','slug':'market-alpha-prime-blueprint','name':'Market Alpha Prime Blueprint','icon':None},
+  'market-beta':{'id':'market-beta','slug':'market-beta-prime-chassis','name':'Market Beta Prime Chassis','icon':None},
+  'market-gamma':{'id':'market-gamma','slug':'market-gamma-prime-systems','name':'Market Gamma Prime Systems','icon':None},
+ }
+ market_orders=[
+  {'id':'market-order-sell','itemId':'market-alpha','type':'sell','platinum':12,'quantity':2,'visible':True,'rank':None},
+  {'id':'market-order-buy','itemId':'market-beta','type':'buy','platinum':7,'quantity':1,'visible':True,'rank':3,'subtype':'radiant'},
+  {'id':'market-order-hidden','itemId':'market-gamma','type':'sell','platinum':4,'quantity':1,'visible':False,'rank':None},
+ ]
+ market_prices={
+  'market-alpha':{'status':'ready','price':3,'timestamp':1700000000000},
+  'market-beta':{'status':'ready','price':20,'timestamp':1700000000000},
+  'market-gamma':{'status':'no_orders','timestamp':1700000000000},
+  'market-delta':{'status':'error','timestamp':1700000000000},
+ }
+ market_provider_script="""const el=document.getElementById('root').firstElementChild,key=Object.keys(el).find(k=>k.startsWith('__reactFiber$'));let f=el[key];while(f){const value=f.memoizedProps?.value;if(value&&Object.prototype.hasOwnProperty.call(value,'inventoryData')&&typeof value.setWorldState==='function')break;f=f.return;}if(!f||!f.return)return {ok:false,reason:'provider-not-found'};let h=f.return.memoizedState,states=[];while(h){if(h.queue&&typeof h.queue.dispatch==='function')states.push(h);h=h.next;}if(states.length<8)return {ok:false,reason:'provider-state-hooks',count:states.length};states[6].queue.dispatch(arguments[0]);states[7].queue.dispatch(false);return {ok:true,stateHooks:states.length};"""
+ market_provider=js(market_provider_script,[market_inventory])
+ if not market_provider.get('ok'): raise RuntimeError('MonitoringContext Market test-state injection unavailable: '+str(market_provider))
+ time.sleep(.4)
+ market_inject_script="""const root=document.querySelector('[data-preview-market-layout]');if(!root)return {ok:false,reason:'layout-not-found'};const key=Object.keys(root).find(k=>k.startsWith('__reactFiber$'));let f=root[key],states=[];while(f){let h=f.memoizedState,candidate=[];while(h){if(h.queue&&typeof h.queue.dispatch==='function')candidate.push(h);h=h.next;}if(candidate.length>=24){states=candidate;break}f=f.return;}if(states.length<24)return {ok:false,reason:'market-state-hooks',count:states.length};const values=[arguments[0],arguments[1],new Map(arguments[2]),'ready','all','',false,arguments[3],arguments[4],null,null,null,1,{},'','all','plat_ratio',false,null,{}, {},arguments[5],0,arguments[6]];values.forEach((value,index)=>states[index].queue.dispatch(value));return {ok:true,stateHooks:states.length};"""
+ market_keys=['/Synthetic/MarketAlpha','/Synthetic/MarketBeta','/Synthetic/MarketGamma','/Synthetic/MarketDelta']
+ market_injection=js(market_inject_script,['SYNTHETIC-NATIVE-NO-ACCOUNT','active_orders',market_catalog,market_orders,market_ids,market_prices,market_keys])
+ results['market_state_injection']={'tier':'synthetic parsed inventory, catalog, orders and explicit price states dispatched into the real packaged React components; no backend or network mock','provider':market_provider,'market':market_injection}
+ if not market_injection.get('ok'): raise RuntimeError('Market component test-state injection unavailable: '+str(market_injection))
+ time.sleep(.6)
+ # Reassert deterministic local state after the no-network order refresh triggered by the synthetic token settles.
+ market_injection=js(market_inject_script,['SYNTHETIC-NATIVE-NO-ACCOUNT','active_orders',market_catalog,market_orders,market_ids,market_prices,market_keys])
+ time.sleep(.3)
+ results['market_checks']=[]
+ identity=js("""const root=document.querySelector('[data-preview-market-layout]');return {present:!!root,notice:root?.querySelector('[data-preview-market-readonly]')?.textContent.trim(),tabs:[...root.querySelectorAll('[data-preview-market-tabs] button')].map(e=>e.textContent.trim()),metrics:root?.querySelector('[data-preview-market-metrics]')?.children.length||0,sync:[...root.querySelectorAll('button')].some(e=>e.textContent.trim()==='Sync Listings'),website:[...root.querySelectorAll('a')].some(e=>e.textContent.trim()==='Open Website')};""")
+ results['market_checks'].append({'kind':'identity-readonly-and-read-actions','state':identity,'pass':identity['present'] and identity['notice']=='Preview mode: market data is read-only. Listing, editing, visibility, sold, and delete actions are disabled.' and len(identity['tabs'])==2 and identity['metrics']==4 and identity['sync'] and identity['website']})
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.4)
+  active=js("""const root=document.querySelector('[data-preview-market-layout]'),metrics=root?.querySelector('[data-preview-market-metrics]'),viewport=root?.querySelector('[data-preview-market-table-viewport]'),table=root?.querySelector('[data-preview-market-table]'),rr=root?.getBoundingClientRect();return {present:!!root,root:rr?{left:rr.left,right:rr.right}:null,body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},metricColumns:metrics?new Set([...metrics.children].map(e=>Math.round(e.getBoundingClientRect().left))).size:0,table:{client:viewport?.clientWidth||0,scroll:viewport?.scrollWidth||0,overflow:viewport?getComputedStyle(viewport).overflowX:null,width:table?.getBoundingClientRect().width||0},rows:root?.querySelectorAll('tbody tr').length||0};""")
+  active_pass=active['present'] and active['root']['left']>=0 and active['root']['right']<=width+1 and active['body']['scroll']<=active['body']['client']+1 and active['metricColumns']==(4 if width==1200 else 2) and active['table']['overflow']=='auto' and active['rows']==3
+  results['market_checks'].append({'size':[width,height],'kind':'active-orders-geometry','state':active,'pass':active_pass})
+ active_mutation_controls=js("return [...document.querySelectorAll('[data-preview-market-mutation]')].map(e=>({kind:e.dataset.previewMarketMutation,disabled:e.disabled===true,aria:e.getAttribute('aria-disabled'),title:e.title}))")
+ js("document.querySelectorAll('[data-preview-market-mutation]').forEach(e=>e.click())")
+ stock_tab_focused=js("const b=[...document.querySelectorAll('[data-preview-market-tabs] button')].find(e=>e.textContent.includes('Tradeable Stock'));if(!b)return false;b.focus();return document.activeElement===b")
+ api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'market-tab-keyboard','actions':[{'type':'keyDown','value':'\ue007'},{'type':'keyUp','value':'\ue007'}]}]});time.sleep(.3)
+ try: api('DELETE',prefix+'/actions')
+ except Exception: pass
+ keyboard_state=js("return {focused:document.activeElement?.textContent.includes('Tradeable Stock')===true,stockVisible:!!document.querySelector('[data-preview-market-stock-grid]'),filterButtons:document.querySelectorAll('[data-preview-market-rail=stock] button').length,search:!!document.querySelector('input[placeholder=\"Search stock...\"]')}")
+ results['market_checks'].append({'kind':'keyboard-tab-and-toolbar-access','initialFocus':stock_tab_focused,'state':keyboard_state,'pass':stock_tab_focused and keyboard_state['stockVisible'] and keyboard_state['filterButtons']==5 and keyboard_state['search']})
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.4)
+  stock=js("""const root=document.querySelector('[data-preview-market-layout]'),grid=root?.querySelector('[data-preview-market-stock-grid]'),rail=root?.querySelector('[data-preview-market-rail=stock]'),rr=root?.getBoundingClientRect();return {present:!!grid,root:rr?{left:rr.left,right:rr.right}:null,body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},columns:grid?new Set([...grid.children].map(e=>Math.round(e.getBoundingClientRect().left))).size:0,cards:grid?.children.length||0,rail:{overflow:rail?getComputedStyle(rail).overflowX:null,wrap:rail?getComputedStyle(rail).flexWrap:null}};""")
+  stock_pass=stock['present'] and stock['root']['left']>=0 and stock['root']['right']<=width+1 and stock['body']['scroll']<=stock['body']['client']+1 and stock['columns']==(3 if width==1200 else 2) and stock['cards']==4 and stock['rail']['overflow']=='auto' and stock['rail']['wrap']=='nowrap'
+  results['market_checks'].append({'size':[width,height],'kind':'tradeable-stock-geometry','state':stock,'pass':stock_pass})
+ price_state=js("""const grid=document.querySelector('[data-preview-market-stock-grid]'),cards=[...grid.children].map(e=>({name:e.querySelector('.font-semibold')?.textContent.trim(),text:e.innerText,input:e.querySelector('input')?.value,placeholder:e.querySelector('input')?.placeholder,sellDisabled:[...e.querySelectorAll('button')].find(b=>b.textContent.includes('Sell on WFM'))?.disabled}));return {cards,names:cards.map(e=>e.name),blocked:!document.body.innerText.includes('Market Blocked Prime Part'),zero:!document.body.innerText.includes('Market Zero Prime Part')};""")
+ price_pass=len(price_state['cards'])==4 and price_state['blocked'] and price_state['zero'] and any(c['name']=='Market Alpha Prime Blueprint' and c['input']=='3' for c in price_state['cards']) and any(c['name']=='Market Beta Prime Chassis' and c['input']=='20' for c in price_state['cards']) and all(c['placeholder']=='?' for c in price_state['cards'] if c['name'] in ['Market Gamma Prime Systems','Market Delta Prime Barrel'])
+ results['market_checks'].append({'kind':'price-states-tradability-and-quantity','state':price_state,'pass':price_pass})
+ stock_mutation_controls=js("return [...document.querySelectorAll('[data-preview-market-mutation]')].map(e=>({kind:e.dataset.previewMarketMutation,disabled:e.disabled===true,aria:e.getAttribute('aria-disabled'),title:e.title}))")
+ controls=active_mutation_controls+stock_mutation_controls
+ control_kinds=set(c['kind'] for c in controls)
+ results['market_checks'].append({'kind':'mutation-controls-disabled-with-reason','controls':controls,'pass':{'listing-price','sell'}.issubset(control_kinds) and all((c['disabled'] or c['aria']=='true') and c['title']=='Market changes are disabled in Preview' for c in controls)})
+ js("document.querySelectorAll('[data-preview-market-mutation]').forEach(e=>e.click())")
+ time.sleep(.3)
+ component_evidence_path=evidence/'market-component.json'
+ component_evidence=json.loads(component_evidence_path.read_text())
+ frontend_mutations=component_evidence['preview_mutation_invocations']
+ component_zero=next(row for row in component_evidence['checks'] if row['name']=='preview-zero-frontend-mutation-invocations')
+ results['market_frontend_mutation_invocations']=frontend_mutations
+ results['market_checks'].append({'kind':'zero-frontend-mutation-invocations','tier':'module-boundary component capture plus native packaged disabled-control verification','component_evidence':str(component_evidence_path),'component_sha256':hashlib.sha256(component_evidence_path.read_bytes()).hexdigest(),'invocations':frontend_mutations,'native_controls':controls,'pass':component_zero['pass'] is True and frontend_mutations==[] and all(c['disabled'] or c['aria']=='true' for c in controls)})
+ guard_by_command={row['command']:row for row in results['market_guards']}
+ required_guards=['post_market_order','delete_market_order','update_market_order','close_market_order']
+ results['market_checks'].append({'kind':'direct-four-mutation-ipc-rejections','commands':required_guards,'results':[guard_by_command[name] for name in required_guards],'pass':all(guard_by_command.get(name,{}).get('pass') is True for name in required_guards)})

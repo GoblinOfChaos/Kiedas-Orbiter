@@ -1,0 +1,1993 @@
+{
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankThree",
+    "wikiName": "2-For-1 Sigil",
+    "description": "A sigil representing prestige gained with The Hex.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Hex (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ProjectSinisterSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ProjectSinisterSigil",
+    "wikiName": "Acolyte Sigil",
+    "description": "Never forget those who would defile the Tenno ways.",
+    "candidateAcquisitionText": "}}\n\nThe Acolyte Sigil was available during Operation: Shadow Debt. It was awarded for collecting at least 4 Cloaking Data.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilAladV": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilAladV",
+    "wikiName": "Alad V Sigil",
+    "description": "A sigil depicting Alad V.",
+    "candidateAcquisitionText": "| image = AladV_sigil.png\n| link = Alad V\n| name = Alad V Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilAmbulas": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilAmbulas",
+    "wikiName": "Ambulas Reborn Sigil",
+    "description": "A sigil commemorating the fight against the Ambulas incursion.",
+    "candidateAcquisitionText": "}}\n\nThe Ambulas Reborn Sigil was available during Operation: Ambulas Reborn. It could be purchased for 75 Animo Beacons.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilAmbulas": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilAmbulas",
+    "wikiName": "Ambulas Sigil",
+    "description": "A sigil depicting the Ambulas.",
+    "candidateAcquisitionText": "| image = Ambulas_sigil.png\n| link = Ambulas\n| name = Ambulas Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NightwaveCalibanDeluxeSigil",
+    "wikiName": "Ascrien Sigil",
+    "description": "Peer deep into this entrancing sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Ascrien Sigil awarded from reaching Nightwave: Nora's Mix: Time Tempests Rank 12\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba",
+    "wikiName": "Aspirant Sigil",
+    "description": "Show your dedication to the truth of Aspirant Zorba with this sigil.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilShadowgrapher",
+    "wikiName": "Atramentum Sigil",
+    "description": "Keep the memory of the Shadowgrapher and Operation: Atramentum close with this sigil.",
+    "candidateAcquisitionText": "}}\n\nThese Atramentum Sigils were available for purchase during Operation: Atramentum for 40 Nightmare Tatters each.\n{{SigilBox\n| image = AtramentumSigil(SxWhite).png",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LoginSigilB": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LoginSigilB",
+    "wikiName": "Awakened Luna Sigil",
+    "description": "Wake to a new light.",
+    "candidateAcquisitionText": "}}\n\nThe Awakened Luna Sigil will become available every 100 days, beginning at day 50, until chosen as the Milestone reward.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Daily Tribute Milestone Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BansheeDeluxeSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BansheeDeluxeSigil",
+    "wikiName": "Banshee Soprana Sigil",
+    "description": "Wear Banshee Soprana's sigil with pride.",
+    "candidateAcquisitionText": "}}\n\nThe Banshee Soprana Sigil is available as part of the Banshee Soprana Collection for 250.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilJadeShadows": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilJadeShadows",
+    "wikiName": "Belly of the Beast Sigil",
+    "description": "A sigil for the Tenno who played their part in Operation: Belly of the Beast.",
+    "candidateAcquisitionText": "}}\n\nThe Belly of the Beast Sigil was available for purchase during Operation: Belly of the Beast for 15 Volatile Motes.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil",
+    "wikiName": "Big Bytes Pizza Sigil",
+    "description": "Give your fellow Tenno a case of the munchies with Slice-Z from Big Bytes Pizza.",
+    "candidateAcquisitionText": "}}\n\nThe Big Bytes Pizza Sigil awarded from reaching Nightwave: Nora's Mix Volume 8 Rank 2\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree",
+    "wikiName": "Bird 3 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil",
+    "wikiName": "Blade and Gun Sigil",
+    "description": "Awarded to dedicated members within the Warframe community.",
+    "candidateAcquisitionText": "| mode = stack\n| image = BladeAndGunSigil(SxWhite).png\n| name = Blade and Gun Sigil\n| description = Awarded to dedicated members within the Warframe community.\n}}",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Community Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BloodiedSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BloodiedSigil",
+    "wikiName": "Bloodshed Sigil",
+    "description": "With this sigil, damage will leave you blood-soaked, while in Captura your Warframe stands wreathed in the gore of its enemies. Honor the Maiden of Death by donning her traditional garb.",
+    "candidateAcquisitionText": "}}\n\nThe Bloodshed Sigil is obtained as a rare drop from Profit-Taker Orb or from the market in the Garuda Collection for 565 or the Fortuna Grand Bundle for 960. As you take damage to your health the sigil will become more visible.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilNewLokaG": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilNewLokaG",
+    "wikiName": "Bloom Sigil",
+    "description": "A sigil representing prestige gained with New Loka.",
+    "candidateAcquisitionText": "}}\n\nThe Prisma Lotus Bloom Sigil can be acquired for 60,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#New Loka (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Switch2Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Switch2Sigil",
+    "wikiName": "Broadsword Past/Future Sigil",
+    "description": "Display the faces of leadership with this sigil.",
+    "candidateAcquisitionText": "- Fixed Clan Sigils overriding Drifter hair color. \n- Fixed Sigils equipped on the Drifter not appearing in Duviri. \n- Fixed the Broadsword Past/Future Sigil missing capitalization on “Future”. \n\n41.0.3",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#New Loka (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/OrbSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/OrbSigil",
+    "wikiName": "Buried Debts Sigil",
+    "description": "For those who have performed great works, safeguarding Fortuna against the ravages of Exploiter and her thermia fractures.",
+    "candidateAcquisitionText": "}}\n\nThe Buried Debts Sigil was originally released during Operation: Buried Debts, and is now available from the periodically recurring Thermia Fractures event. It is awarded for reaching 75 total fractures sealed.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XboneJadeTwoSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XboneJadeTwoSigil",
+    "wikiName": "Capala Jade Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#XBox One Bundle Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankOne",
+    "wikiName": "Cavia Assistant Sigil",
+    "description": "A sigil representing prestige gained with the Cavia.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cavia (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankThree",
+    "wikiName": "Cavia Colleague Sigil",
+    "description": "A sigil representing prestige gained with the Cavia.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cavia (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankFive",
+    "wikiName": "Cavia Illuminate Sigil",
+    "description": "A sigil representing prestige gained with the Cavia.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cavia (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankTwo",
+    "wikiName": "Cavia Researcher Sigil",
+    "description": "A sigil representing prestige gained with the Cavia.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cavia (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/CaviaRankFour",
+    "wikiName": "Cavia Scholar Sigil",
+    "description": "A sigil representing prestige gained with the Cavia.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cavia (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CollectorSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/CollectorSigil",
+    "wikiName": "Cephalon Simaris Sigil",
+    "description": "Sigil depicting the Sanctuary Warden, Cephalon Simaris.",
+    "candidateAcquisitionText": "| mode = stack\n| image = CephalonSimarisSigil.png\n| name = Cephalon Simaris Sigil\n| description = Sigil depicting the Sanctuary Warden, Cephalon Simaris.\n}}",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cephalon Simaris Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilScarletSpear": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilScarletSpear",
+    "wikiName": "Condrix Sigil",
+    "description": "A sigil depicting a Sentient Condrix.",
+    "candidateAcquisitionText": "}}\n\nThe Condrix Sigil can be acquired for 45,000 and 45.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/InfLichConvertedSigil",
+    "wikiName": "Converted Coda Sigil",
+    "description": "The show must go on. This sigil marks the conversion of a hostile Technocyte Coda into a Techrot friend.",
+    "candidateAcquisitionText": "}}\n\nThe Converted Coda Sigil is awarded to players the first time they convert their Technocyte Coda. The Vanquished Coda Sigil is awarded to players the first time they vanquish one.\n{{SigilBox\n| image = ConvertedCodaSigil.png",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil",
+    "wikiName": "Cycle Five Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Anniversary Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil",
+    "wikiName": "Cycle Four Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Anniversary Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4OneYearSigil",
+    "wikiName": "Cycle One Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Anniversary Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4ThreeYearSigil",
+    "wikiName": "Cycle Three Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Anniversary Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil",
+    "wikiName": "Cycle Two Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Anniversary Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrimeAccessSigilSaryn": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrimeAccessSigilSaryn",
+    "wikiName": "Cycuta Prime Sigil",
+    "description": "This ancient glyph was the focus of an ancient Tenno meditation ritual.",
+    "candidateAcquisitionText": "}}\n\nThe Cycuta Prime Sigil was originally part of Saryn Prime Access, available from purchasing the Miasma or Accessories pack. It can be purchased from Prime Resurgence when Saryn Prime is in rotation for 1 Regal Aya.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Prime Access Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilDisciple",
+    "wikiName": "Disciple Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Founder Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DogDaysSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DogDaysSigil",
+    "wikiName": "Dog Days Sigil",
+    "description": "Beat the heat with this unique Sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Dog Days Sigil is available for purchase from Nakak for 175 Nakak Pearl during the Dog Days Tactical Alert.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Tactical Alert Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/1999DrippySigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/1999DrippySigil",
+    "wikiName": "Drippy Sigil",
+    "description": "Party like it's 1999 with this Drippy Sigil!",
+    "candidateAcquisitionText": "}}\n\nThe Drippy Sigil can be acquired for 45,000 and 50.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilEightClaw": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilEightClaw",
+    "wikiName": "Eight Claw Sigil",
+    "description": "Commemorate the fight against Neci Rusalka for the throne of Duviri during Operation: Eight Claw with this sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Eight Claw Sigil was available for purchase during Operation: Eight Claw for 25 Dominus Aureus. It was subsequently made available during Operation: Atramentum for 15 Nightmare Tatters.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HeirloomEmberSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomEmberSigil",
+    "wikiName": "Ember Heirloom Sigil",
+    "description": "A sigil that celebrates Ember's legacy.",
+    "candidateAcquisitionText": "}}\n\nThe Ember Heirloom Sigil is available in the Market for 25 or as part of the Ember Heirloom Singe Collection for 400.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NoraSeasonTwoSigil",
+    "wikiName": "Emissary Sigil",
+    "description": "Display the mark of Arlo's devoted with this Sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Emissary Sigil was awarded from reaching Nightwave: Series 2 — The Emissary Rank 2\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ArchwingSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ArchwingSigil",
+    "wikiName": "Empyrean Sigil",
+    "description": "The same sigil that was proudly worn by Old War Railjack crews.",
+    "candidateAcquisitionText": "}}\n\nThe Empyrean Sigil was available from December 12th, 2019 to August 25th, 2020 from the Empyrean Supporter Pack.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Platinum Pack Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankTwo",
+    "wikiName": "Entrati Acquaintance Sigil",
+    "description": "A sigil representing prestige gained with the Entrati.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Entrati (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankThree",
+    "wikiName": "Entrati Associate Sigil",
+    "description": "A sigil representing prestige gained with the Entrati.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Entrati (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankFive",
+    "wikiName": "Entrati Family Sigil",
+    "description": "A sigil representing prestige gained with the Entrati.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Entrati (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankFour",
+    "wikiName": "Entrati Friend Sigil",
+    "description": "A sigil representing prestige gained with the Entrati.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Entrati (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/EntratiRankOne",
+    "wikiName": "Entrati Stranger Sigil",
+    "description": "A sigil representing prestige gained with the Entrati.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Entrati (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EvilBaroNecraloidSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EvilBaroNecraloidSigil",
+    "wikiName": "Eskhatos Necraloid Sigil",
+    "description": "A sigil bearing a twisted yet familiar visage.",
+    "candidateAcquisitionText": "}}\n\nThe Eskhatos Necraloid Sigil can be acquired for 61,000 and 34.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LoginSigilC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LoginSigilC",
+    "wikiName": "Eternal Stasis Sigil",
+    "description": "Commemorates the beginning of the long-sleep.",
+    "candidateAcquisitionText": "}}\n\nThe Eternal Stasis Sigil will become available every 100 days, beginning at day 50, until chosen as the Milestone reward.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Daily Tribute Milestone Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilFalseProfit": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilFalseProfit",
+    "wikiName": "False Profit Sigil",
+    "description": "This sigil commemorates the Tenno victory over the machinations of Nef Anyo.",
+    "candidateAcquisitionText": "These Sigils could only be obtained by participating in their associated Event.\n\nThe False Profit Sigil was available during Operation: False Profit. It was awarded for achieving a score of 100 points or more during the event.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HolidaySigilSnowflake": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HolidaySigilSnowflake",
+    "wikiName": "Festive Sigil",
+    "description": "A sigil containing a festive design.",
+    "candidateAcquisitionText": "}}\n\nThe Festive Sigil is a limited-edition Sigil that was available from the Winter Bundle during December 2014, 2015, 2016, and 2017.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci",
+    "wikiName": "Fibonacci Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankTwo",
+    "wikiName": "Fresh Slice Sigil",
+    "description": "A sigil representing prestige gained with The Hex.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Hex (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilTeralystBig": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilTeralystBig",
+    "wikiName": "Gantulyst Sigil",
+    "description": "An imprint of a fallen Gantulyst.",
+    "candidateAcquisitionText": "| image = GantulystSigil.png\n| link = Eidolon Gantulyst\n| name = Gantulyst Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BaroKavatSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BaroKavatSigil",
+    "wikiName": "Glaring Sigil",
+    "description": "A sigil representing your Kavat allegiance.",
+    "candidateAcquisitionText": "}}\n\nThe Glaring Sigil can be acquired for 45,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/GlassmakerSigil",
+    "wikiName": "Glassmaker Sigil",
+    "description": "A sigil commemorating your grim descent into the madness of the Glassmaker.",
+    "candidateAcquisitionText": "}}\n\nThe Glassmaker Sigil was awarded from reaching Nightwave: Series 3 — Glassmaker Rank 2\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilGrandMaster",
+    "wikiName": "Grand Master Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Founder Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DeathMarkSigilGrustrag": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DeathMarkSigilGrustrag",
+    "wikiName": "Grustrag Sigil",
+    "description": "A sigil depicting the emblem of the Grustrag Three.",
+    "candidateAcquisitionText": "| image = TheGrustragThreeSigil.png\n| link = The Grustrag Three\n| name = Grustrag Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LotusGuideSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LotusGuideSigil",
+    "wikiName": "Guide of the Lotus",
+    "description": "Awarded to Tenno who assist the Lotus by helping other Tenno.",
+    "candidateAcquisitionText": "| mode = stack\n| image = LotusGuideBadge.png\n| name = Guide of the Lotus\n| description = Awarded to Tenno who assist the Lotus by helping other Tenno.\n}}",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Other Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HemocyteSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HemocyteSigil",
+    "wikiName": "Hemocyte Sigil",
+    "description": null,
+    "candidateAcquisitionText": "}}\n\nThe Hemocyte Sigil was made available for purchase during the recurring Operation: Plague Star event in 2025.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankFive",
+    "wikiName": "Holdfasts Angel Sigil",
+    "description": "A sigil representing prestige gained with the Holdfasts.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Holdfasts (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankOne",
+    "wikiName": "Holdfasts Fallen Sigil",
+    "description": "A sigil representing prestige gained with the Holdfasts.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Holdfasts (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankThree",
+    "wikiName": "Holdfasts Guardian Sigil",
+    "description": "A sigil representing prestige gained with the Holdfasts.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Holdfasts (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankFour",
+    "wikiName": "Holdfasts Seraph Sigil",
+    "description": "A sigil representing prestige gained with the Holdfasts.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Holdfasts (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HoldfastsRankTwo",
+    "wikiName": "Holdfasts Watcher Sigil",
+    "description": "A sigil representing prestige gained with the Holdfasts.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Holdfasts (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilAmalgam",
+    "wikiName": "Hostile Mergers Sigil",
+    "description": "This sigil commemorates the Tenno victory over the machinations of Alad V and his Amalgam Project.",
+    "candidateAcquisitionText": "}}\n\nThe Hostile Mergers Sigil was awarded for completing the second mission of Operation: Hostile Mergers.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankFour",
+    "wikiName": "Hot & Fresh Sigil",
+    "description": "A sigil representing prestige gained with The Hex.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Hex (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilHunter",
+    "wikiName": "Hunter Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Founder Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilTeralystRain": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilTeralystRain",
+    "wikiName": "Hydrolyst Sigil",
+    "description": "An imprint of a fallen Hydrolyst.",
+    "candidateAcquisitionText": "| image = HydrolystSigil.png\n| link = Eidolon Hydrolyst\n| name = Hydrolyst Sigil\n}}",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilHyenaPack": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilHyenaPack",
+    "wikiName": "Hyena Sigil",
+    "description": "A sigil depicting the Hyena Pack.",
+    "candidateAcquisitionText": "| image = HyenaPack_sigil.png\n| link = Hyena Pack\n| name = Hyena Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LoginSigilA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LoginSigilA",
+    "wikiName": "Imminent Eclipse Sigil",
+    "description": "Captures the moment when the darkness overcomes the light.",
+    "candidateAcquisitionText": "The following sigils are exclusive to the Daily Tribute system.\n\nThe Imminent Eclipse Sigil will become available every 100 days, beginning at day 50, until chosen as the Milestone reward.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Daily Tribute Milestone Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilJackal": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilJackal",
+    "wikiName": "Jackal Sigil",
+    "description": "A sigil depicting the Jackal.",
+    "candidateAcquisitionText": "| image = JackalSigil.png\n| link = Jackal\n| name = Jackal Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilKelaDeThaym": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilKelaDeThaym",
+    "wikiName": "Kela De Thaym Sigil",
+    "description": "A sigil depicting Kela De Thaym.",
+    "candidateAcquisitionText": "| image = KelaDeThaym_sigil.png\n| link = Kela De Thaym\n| name = Kela De Thaym Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/GaussDeluxeIISigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/GaussDeluxeIISigil",
+    "wikiName": "Kickback Sigil",
+    "description": "High speed movement can leave its mark. Gauss Moto's signature sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Kickback Sigil is available in the Market for 25, as part of the Gauss Moto Collection for 390, or as part of the Eat & Run Collection for 855.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Deluxe Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil",
+    "wikiName": "Kumuda Sigil",
+    "description": "Pay respect to The Lotus with this elegant sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Kumuda Sigil was available from June 25th, 2019 to August 25th, 2020 from a previous Starter Pack.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Platinum Pack Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SigilTankAncient": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SigilTankAncient",
+    "wikiName": "Leaping Thrasher Sigil",
+    "description": "A sigil depicting a Leaping Thrasher.",
+    "candidateAcquisitionText": "}}\n\nThe Leaping Thrasher Sigil is a rare drop from the Leaping Thrasher enemy. Originally only found during the Emissary Derelict missions during Nightwave Season 2, Leaping Thrashers can now be found in the Derelict Emissary Assassinate mission. Leaping Thrashers can also spawn during Shrine Defense missions.\n{{SigilBox\n| image = LeapingThrasherSigil.png",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilLechKril": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilLechKril",
+    "wikiName": "Lech Kril Sigil",
+    "description": "A sigil depicting Lieutenant Lech Kril.",
+    "candidateAcquisitionText": "| image = LechKril_sigil.png\n| link = Lech Kril\n| name = Lech Kril Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankOne",
+    "wikiName": "Leftovers Sigil",
+    "description": "A sigil representing prestige gained with The Hex.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Hex (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilLephantis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilLephantis",
+    "wikiName": "Lephantis Sigil",
+    "description": "A sigil depicting the Lephantis.",
+    "candidateAcquisitionText": "| image = Lephantis_sigil.png\n| link = Lephantis\n| name = Lephantis Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LoginSigilF": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LoginSigilF",
+    "wikiName": "Lotus Deliverance Sigil",
+    "description": "Remembers the one who awakens.",
+    "candidateAcquisitionText": "}}\n\nThe Lotus Deliverance Sigil will become available every 100 days, beginning at day 250, until chosen as the Milestone reward.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Daily Tribute Milestone Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearOxSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearOxSigil",
+    "wikiName": "Lunar Renewal Ox Sigil",
+    "description": "Celebrate the new lunar year with the power of the noble ox.",
+    "candidateAcquisitionText": "}}\n\nThe Lunar Renewal Ox Sigil can be acquired for 45,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearTigerSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearTigerSigil",
+    "wikiName": "Lunar Renewal Prowl Sigil",
+    "description": "Face the coming year with the boldness of the legendary tiger.",
+    "candidateAcquisitionText": "===Lunar Renewal Sigils===\nThe Lunar Renewal Prowl Sigil was available as part of the Lunar Renewal Celebration Pack for 105 or Luminous Lunar Renewal Collection for 275 from February 15th, 2022 to March 7th, 2022. It is available for 40 during the Lunar New Year.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearRabbitSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearRabbitSigil",
+    "wikiName": "Lunar Renewal Swift Sigil",
+    "description": "Celebrate Lunar Renewal with the kind heart of the gentle rabbit.",
+    "candidateAcquisitionText": "}}\n\nThe Lunar Renewal Swift Sigil is available from the market during the Lunar New Year for 40 or as part of the Garnet Renewal Bundle for 265.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearFreeTigerSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WeGameNewYearFreeTigerSigil",
+    "wikiName": "Lunar Renewal Tiger Sigil",
+    "description": "Celebrate the Lunar Renewal with the bravery of the legendary tiger.",
+    "candidateAcquisitionText": "}}\n\nThe Lunar Renewal Tiger Sigil can be acquired for 45,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilLynx": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilLynx",
+    "wikiName": "Lynx Sigil",
+    "description": "A sigil depicting the Lynx.",
+    "candidateAcquisitionText": "| image = Lynx_sigil.png\n| link = Lynx\n| name = Lynx Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FounderSigilMaster",
+    "wikiName": "Master Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Founder Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/MasteryStoneSigil",
+    "wikiName": "Mastery Sigil",
+    "description": "This sigil represents the pinnacle of mastery within the Tenno.",
+    "candidateAcquisitionText": "The Mastery Sigil dynamically changes design based on the player's Mastery Rank. It was originally distributed to players who logged in from November 14, 2014 to November 26, 2014, but has since been made available from the Market for 1 in 17.2.5.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HeirloomMesaSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomMesaSigil",
+    "wikiName": "Mesa Heirloom Sigil",
+    "description": "Mesa Heirloom's sigil warns outlaws their time has come.",
+    "candidateAcquisitionText": "}}\n\nThe Mesa Heirloom Sigil is available in the Market for 25 or as part of the Mesa Heirloom Collection for 400.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil",
+    "wikiName": "Nava Sigil",
+    "description": "Pay respect to The Lotus with this elegant sigil.",
+    "candidateAcquisitionText": "The Nava Sigil was available from a previous iteration of WARFRAME's [https://www.warframe.com/starterpack Starter Pack], which was discontinued on June 25th, 2019.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Platinum Pack Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/NecraloidRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/NecraloidRankOne",
+    "wikiName": "Necraloid Agnesis Sigil",
+    "description": "A sigil representing prestige gained with the Necraloid.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Necraloid (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/NecraloidRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/NecraloidRankTwo",
+    "wikiName": "Necraloid Modus Sigil",
+    "description": "A sigil representing prestige gained with the Necraloid.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Necraloid (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/NecraloidRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/NecraloidRankThree",
+    "wikiName": "Necraloid Odima Sigil",
+    "description": "A sigil representing prestige gained with the Necraloid.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Necraloid (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil",
+    "wikiName": "Nightwave Sigil",
+    "description": "For the Sleepless, the Dreamers.",
+    "candidateAcquisitionText": "}}\n\nThe Nightwave Sigil was awarded from reaching Nightwave: Intermission III Rank 8\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4CrowSigil",
+    "wikiName": "Obsidian Corvus Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Bundle Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ObsidianIndraSigil",
+    "wikiName": "Obsidian Indra Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Bundle Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4RenownXSigil",
+    "wikiName": "Obsidian Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#PS4 Bundle Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/KuvaLichSigil",
+    "wikiName": "Old Blood Sigil",
+    "description": "The sigil of one who has bested an inhuman adversary born of the Old Blood: a Kuva Lich.",
+    "candidateAcquisitionText": "===Adversary Sigils===\nThe Old Blood Sigil is awarded to players the first time they convert their Kuva Lich.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilCephalonSudaK": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilCephalonSudaK",
+    "wikiName": "Oracle Sigil",
+    "description": "A sigil representing prestige gained with Cephalon Suda.",
+    "candidateAcquisitionText": "rift.png|Rift Sigil on Ember Prime\nTenno_Live_2015_Sigil2.png|Tenno Live 2015 Sigil\n2015-03-15_00034.jpg|Oracle Sigil on Valkyr\n2015-03-31_00002.jpg|Phorid Sigil\nab1a0ea1e457fba461ed7cd6b7fea676.jpg|Jackal sigil on Valkyr",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Cephalon Suda (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DuvDragonSigil",
+    "wikiName": "Orowyrm's Rage Sigil",
+    "description": "A sigil reminiscent of the elemental Orowyrm.",
+    "candidateAcquisitionText": "}}\n\nThe Orowyrm's Rage Sigil awarded from reaching Nightwave: Nora's Mix Volume 4 Rank 2\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankFive",
+    "wikiName": "Ostron Kin Sigil",
+    "description": "A sigil representing prestige gained with the Ostron.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ostron (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankOne",
+    "wikiName": "Ostron Offworlder Sigil",
+    "description": "A sigil representing prestige gained with the Ostron.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ostron (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankFour",
+    "wikiName": "Ostron Surah Sigil",
+    "description": "A sigil representing prestige gained with the Ostron.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ostron (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankThree",
+    "wikiName": "Ostron Trusted Sigil",
+    "description": "A sigil representing prestige gained with the Ostron.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ostron (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/OstronRankTwo",
+    "wikiName": "Ostron Visitor Sigil",
+    "description": "A sigil representing prestige gained with the Ostron.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ostron (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BaroKubrowSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BaroKubrowSigil",
+    "wikiName": "Pack Leader Sigil",
+    "description": "A sigil representing your Kubrow allegiance.",
+    "candidateAcquisitionText": "}}\n\nThe Pack Leader Sigil can be acquired for 45,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasicAdd": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasicAdd",
+    "wikiName": "Phased Clan Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilPhorid": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilPhorid",
+    "wikiName": "Phorid Sigil",
+    "description": "A sigil depicting the Phorid.",
+    "candidateAcquisitionText": "| image = PhoridSigil(SxWhite).png\n| link = Phorid\n| name = Phorid Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/HexRankFive",
+    "wikiName": "Pizza Party Sigil",
+    "description": "A sigil representing prestige gained with The Hex.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Hex (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrismaLotusVinesSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrismaLotusVinesSigil",
+    "wikiName": "Prisma Lotus Bloom Sigil",
+    "description": "From Baro Ki'Teer comes this arboreal reimagining of the Lotus' signature symbol.",
+    "candidateAcquisitionText": "}}\n\nThe Prisma Lotus Bloom Sigil can be acquired for 60,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrismaLotusFlamesSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrismaLotusFlamesSigil",
+    "wikiName": "Prisma Lotus Flame Sigil",
+    "description": "From Baro Ki'Teer comes this fiery reimagining of the Lotus' signature symbol.",
+    "candidateAcquisitionText": "}}\n\nThe Prisma Lotus Flame Sigil can be acquired for 60,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrismaLotusSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrismaLotusSigil",
+    "wikiName": "Prisma Lotus Sigil",
+    "description": "From Baro Ki'Teer comes this stylish reimagining of the Lotus' signature symbol.",
+    "candidateAcquisitionText": "}}\n\nThe Prisma Lotus Sigil can be acquired for 45,000 and 55.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrimeTraderSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrimeTraderSigil",
+    "wikiName": "Prisma Sigil",
+    "description": "This exclusive sigil features Prisma color gradients for maximum customization.",
+    "candidateAcquisitionText": "These Sigils can be purchased from Baro Ki'Teer when he visits a Relay. As with his other wares, it will take several visits before a particular Sigil reappears in his stock.\n\nThe Prisma Sigil can be acquired for 50,000 and 50.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ThraxSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ThraxSigil",
+    "wikiName": "Prisma Thrax Sigil",
+    "description": "From Baro Ki'Teer comes this stylish reimagining of the legendary king, Dominus Thrax.",
+    "candidateAcquisitionText": "}}\n\nThe Prisma Thrax Sigil can be acquired for 55,000 and 50.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Baro Ki'Teer Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TwitchProminenceSigil",
+    "wikiName": "Prominence Sigil",
+    "description": "A sigil depicting bold geometric patterns.",
+    "candidateAcquisitionText": "The Prominence Sigil was obtainable by purchasing the Prominence Bundle II from the Twitch Game Store. This bundle was discontinued on November 27th, 2018. It was later made available from Varzia for 5 Aya.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Twitch Game Store and Twitch Prime Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ConclaveTacAlertSigilA",
+    "wikiName": "Quick Steel Sigil",
+    "description": "A symbol of pride for those that braved blade and star in The Conclave.",
+    "candidateAcquisitionText": "}}\n\nThe Quick Steel Sigil was a reward from the first phase of the Quick Steel Conclave alert in February 2017.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankThree",
+    "wikiName": "Quills Adherent Sigil",
+    "description": "A sigil representing prestige gained with the Quills.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Quills (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankFive",
+    "wikiName": "Quills Architect Sigil",
+    "description": "A sigil representing prestige gained with the Quills.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Quills (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankFour",
+    "wikiName": "Quills Instrument Sigil",
+    "description": "A sigil representing prestige gained with the Quills.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Quills (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankOne",
+    "wikiName": "Quills Mote Sigil",
+    "description": "A sigil representing prestige gained with the Quills.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Quills (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/QuillsRankTwo",
+    "wikiName": "Quills Observer Sigil",
+    "description": "A sigil representing prestige gained with the Quills.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#The Quills (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilRaptor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilRaptor",
+    "wikiName": "Raptor Sigil",
+    "description": "A sigil depicting the Raptor.",
+    "candidateAcquisitionText": "| image = Raptor_sigil.png\n| link = Raptors\n| name = Raptor Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/KelaEventSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/KelaEventSigil",
+    "wikiName": "Rathuum Sigil",
+    "description": "A sigil commemorating the liberation of defectors from the Grineer.",
+    "candidateAcquisitionText": "}}\n\nThe Rathuum Sigil was available during Operation: Rathuum. It was awarded for collecting at least 10 Judgment Points.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CosmosSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/CosmosSigil",
+    "wikiName": "Raya Orbitus Sigil",
+    "description": "Display the elegant lines of the cosmos with this Raya series sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Raya Orbitus Sigil awarded from reaching Nightwave: Nora's Mix Volume 9 Rank 2\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HeirloomRhinoSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomRhinoSigil",
+    "wikiName": "Rhino Heirloom Sigil",
+    "description": "A sigil that celebrates Rhino's legacy.",
+    "candidateAcquisitionText": "}}\n\nThe Rhino Heirloom Sigil is available in the Market for 25 or as part of the Rhino Heirloom Iron Collection for 400.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/RhinoDeluxeSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/RhinoDeluxeSigil",
+    "wikiName": "Rhino Palatine Sigil",
+    "description": "Pay homage to warriors of a more chivalrous time with this sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Rhino Palatine Sigil was available from a Gift from the Lotus Alert that ran from May 8 to May 15, 2019, and now can be purchased from Baro Ki'Teer for 55,000 and 45.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrimeAccessSigilLimbo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrimeAccessSigilLimbo",
+    "wikiName": "Rift Walker Prime Sigil",
+    "description": "The signature sigil of Limbo Prime.",
+    "candidateAcquisitionText": "}}\n\nThe Rift Walker Prime Sigil was originally part of Limbo Prime Access, available from purchasing the Cataclysm or Accessories pack. It can be purchased from Prime Resurgence when Limbo Prime is in rotation for 1 Regal Aya.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Prime Access Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/GaussDeluxeIIDamageSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/GaussDeluxeIIDamageSigil",
+    "wikiName": "Road Rash Sigil",
+    "description": "This sigil won't just buff out.",
+    "candidateAcquisitionText": "}}\n\nThe Road Rash Sigil is available in the Market for 25 or as part of the Eat & Run Collection for 855.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Deluxe Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilSargusRuk": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilSargusRuk",
+    "wikiName": "Sargas Ruk Sigil",
+    "description": "A sigil depicting General Sargas Ruk.",
+    "candidateAcquisitionText": "| image = SargusRuk_sigil.png\n| link = Sargas Ruk\n| name = Sargas Ruk Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WolfSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WolfSigil",
+    "wikiName": "Saturn Six Sigil",
+    "description": "The mark of an outlaw, once locked away six leagues deep in the gas.",
+    "candidateAcquisitionText": "These Sigils were available as rank up rewards in their respective seasons of Nightwave and may appear in the Nightwave Cred Offering.\n\nThe Saturn Six Sigil was awarded from reaching Nightwave: Series 1 — The Wolf of Saturn Six Rank 1\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/ScarSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ScarSigil",
+    "wikiName": "Scar Sigil",
+    "description": "A memento for those who have awoken from the Second Dream.",
+    "candidateAcquisitionText": "}}\n\nThe Scar Sigil is a reward for completing The Second Dream quest.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/CorpusLichSigil",
+    "wikiName": "Sisterhood Sigil",
+    "description": "A mark of respect for the Sisters of Parvos.",
+    "candidateAcquisitionText": "}}\n\nThe Sisterhood Sigil is awarded to players the first time they convert their Sister of Parvos.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LoginSigilD": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LoginSigilD",
+    "wikiName": "Solar Flare Sigil",
+    "description": "Represents an incredible and untamed power.",
+    "candidateAcquisitionText": "}}\n\nThe Solar Flare Sigil will become available every 100 days, beginning at day 150, until chosen as the Milestone reward.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Daily Tribute Milestone Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankFour",
+    "wikiName": "Solaris United Cove Sigil",
+    "description": "A sigil representing prestige gained with the Solaris United.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Solaris United (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankThree",
+    "wikiName": "Solaris United Doer Sigil",
+    "description": "A sigil representing prestige gained with the Solaris United.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Solaris United (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankFive",
+    "wikiName": "Solaris United Old Mate Sigil",
+    "description": "A sigil representing prestige gained with the Solaris United.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Solaris United (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankOne",
+    "wikiName": "Solaris United Outworlder Sigil",
+    "description": "A sigil representing prestige gained with the Solaris United.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Solaris United (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/SolarisRankTwo",
+    "wikiName": "Solaris United Rapscallion Sigil",
+    "description": "A sigil representing prestige gained with the Solaris United.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Solaris United (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DeathMarkSigilStalker": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DeathMarkSigilStalker",
+    "wikiName": "Stalker Sigil",
+    "description": "A sigil depicting the emblem of the Stalker.",
+    "candidateAcquisitionText": "| image = StalkerSigil.png\n| link = Stalker\n| name = Stalker Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/NWStalkerSigil",
+    "wikiName": "Stalker Smoke Screen Sigil",
+    "description": "Who do you hunt, Shadow?.",
+    "candidateAcquisitionText": "}}\n\nThe Stalker Smoke Screen Sigil awarded from reaching Nightwave: Nora's Mix Volume 7 Rank 2\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Nightwave Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TwitchPrimeSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TwitchPrimeSigil",
+    "wikiName": "Static Reactor Prime Sigil",
+    "description": "Paired with this sigil, a Warframe will flicker and flash like a thunderhead.",
+    "candidateAcquisitionText": "}}\n\nThe Static Reactor Prime Sigil was available as Twitch Prime loot from Feb 18th – Apr 7th, 2020. It was later made available from Varzia for 1 Regal Aya.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Twitch Game Store and Twitch Prime Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaTagfer",
+    "wikiName": "Tagfer Sigil",
+    "description": null,
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WikiaSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WikiaSigil",
+    "wikiName": "Tenno Chronicler Sigil",
+    "description": "A special sigil worn only by a select few Tenno.",
+    "candidateAcquisitionText": "The Tenno Chronicler Sigil is awarded to Administrators and Moderators of Warframe Wikis.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Other Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil",
+    "wikiName": "Tenno Live Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoLivePromoSigil",
+    "wikiName": "Tenno Luminary Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TranslatorSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TranslatorSigil",
+    "wikiName": "Tenno Translator Sigil",
+    "description": "An exclusive Sigil worn only by Tenno Translators.",
+    "candidateAcquisitionText": "}}\n\nThe Tenno Translator Sigil was awarded to players who contributed with the translations of the game.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Other Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil",
+    "wikiName": "TennoCon 2016 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil",
+    "wikiName": "TennoCon 2017 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil",
+    "wikiName": "TennoCon 2018 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil",
+    "wikiName": "TennoCon 2019 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil",
+    "wikiName": "TennoCon 2020 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2021Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2021Sigil",
+    "wikiName": "TennoCon 2021 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2022Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2022Sigil",
+    "wikiName": "TennoCon 2022 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2023Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2023Sigil",
+    "wikiName": "TennoCon 2023 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2024Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2024Sigil",
+    "wikiName": "TennoCon 2024 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2025Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2025Sigil",
+    "wikiName": "TennoCon 2025 Sigil",
+    "description": null,
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil",
+    "wikiName": "TennoCon 2026 Sigil",
+    "description": "Bestowed upon those who joined together in celebration at TennoCon 2026.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil",
+    "wikiName": "TennoGen Sigil",
+    "description": null,
+    "candidateAcquisitionText": "}}\n\nThe TennoGen Sigil is awarded to players who have had a TennoGen skin implemented in the game.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Other Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoVIP2025Sigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2025Sigil",
+    "wikiName": "TennoVIP 2025 Sigil",
+    "description": "A sigil for VIP Tenno.",
+    "candidateAcquisitionText": "{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Live Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TeralystSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TeralystSigil",
+    "wikiName": "Teralyst Sigil",
+    "description": "A sigil depicting a Sentient Teralyst.",
+    "candidateAcquisitionText": "| image = TeralystSigil.png\n| link = Eidolon Teralyst\n| name = Teralyst Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilPerrinSequenceH": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SyndicateSigilPerrinSequenceH",
+    "wikiName": "Tessellations Sigil",
+    "description": "A sigil representing prestige gained with the Perrin Sequence.",
+    "candidateAcquisitionText": "32.2.10\n- Fixed the Perrin Sequence “Tessellations Sigil” being misspelled.\n\n32.2.9",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Perrin Sequence (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/EventSigilIndex": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EventSigilIndex",
+    "wikiName": "The Index Sigil",
+    "description": "A memento of The Index.",
+    "candidateAcquisitionText": "}}\n\nThe Index Sigil was available during The Index Preview. It was awarded for achieving a score of 100 or more in a High Risk match.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/SigilVideoContest",
+    "wikiName": "Trailer Entrant Sigil",
+    "description": "Participatory prize for the Tenno's Greatest Trailer contest.",
+    "candidateAcquisitionText": "}}\n\nThe Trailer Entrant Sigil was awarded to all valid entrants of the [https://www.warframe.com/news/the-tenno-s-greatest-trailer-contest Tenno's Greatest Trailer Contest].\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Community Event Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilTylRegor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilTylRegor",
+    "wikiName": "Tyl Regor Sigil",
+    "description": "A sigil depicting Tyl Regor.",
+    "candidateAcquisitionText": "| image = TylRegor_sigil.png\n| link = Tyl Regor\n| name = Tyl Regor Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HeirloomValkyrSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomValkyrSigil",
+    "wikiName": "Valkyr Heirloom Sigil",
+    "description": "A sigil that celebrates Valkyr's legacy.",
+    "candidateAcquisitionText": "}}\n\nThe Valkyr Heirloom Sigil is available in the Market for 25 or as part of the Valkyr Heirloom Collection for 400.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/InfLichVanquishedSigil",
+    "wikiName": "Vanquished Coda Sigil",
+    "description": "The show’s over. This sigil marks the end of a Technocyte Coda’s career of music and mayhem.",
+    "candidateAcquisitionText": "}}\n\nThe Converted Coda Sigil is awarded to players the first time they convert their Technocyte Coda. The Vanquished Coda Sigil is awarded to players the first time they vanquish one.\n{{SigilBox\n| image = ConvertedCodaSigil.png",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LavosDeluxeSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LavosDeluxeSigil",
+    "wikiName": "Vaporis Sigil",
+    "description": "The touch of alchemy leaves its mark, permeating the entire body. Lavos Khymia’s signature sigil.",
+    "candidateAcquisitionText": "These sigils, rather than being a single emblem on the chest or back, are full-body effects similar to the Bloodshed Sigil.\n\nThe Vaporis Sigil is available in the Market for 25 or as part of the Lavos Khymia Collection for 425.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Deluxe Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/HeirloomVaubanSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomVaubanSigil",
+    "wikiName": "Vauban Heirloom Sigil",
+    "description": "A sigil that celebrates Vauban's legacy.",
+    "candidateAcquisitionText": "}}\n\nThe Vauban Heirloom Sigil is available in the Market for 25 or as part of the Vauban Heirloom Collection for 400.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilVayHek": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilVayHek",
+    "wikiName": "Vay Hek Sigil",
+    "description": "A sigil depicting Councilor Vay Hek.",
+    "candidateAcquisitionText": "| image = VeyHek_sigil.png\n| link = Vay Hek\n| name = Vay Hek Sigil\n}}\n{{SigilBox",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PrimeAccessSigilFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PrimeAccessSigilFive",
+    "wikiName": "Velorum Prime Sigil",
+    "description": "Champions of the Orokin were allowed to wear this Sigil as proof of their loyalty.",
+    "candidateAcquisitionText": "==Prime Access Sigils==\nThe Velorum Prime Sigil was originally part of Nova Prime Access, available from purchasing the Molecular or Accessories pack. It can be purchased from Prime Resurgence when Nova Prime is in rotation for 1 Regal Aya.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Prime Access Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankOne",
+    "wikiName": "Ventkids Glinty Sigil",
+    "description": "A sigil representing prestige gained with the Ventkids.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ventkids (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankFive",
+    "wikiName": "Ventkids Logical Sigil",
+    "description": "A sigil representing prestige gained with the Ventkids.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ventkids (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankFour",
+    "wikiName": "Ventkids Primo Sigil",
+    "description": "A sigil representing prestige gained with the Ventkids.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ventkids (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankThree",
+    "wikiName": "Ventkids Proper Felon Sigil",
+    "description": "A sigil representing prestige gained with the Ventkids.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ventkids (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VentkidsRankTwo",
+    "wikiName": "Ventkids Whozit Sigil",
+    "description": "A sigil representing prestige gained with the Ventkids.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Ventkids (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/LoginSigilE": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/LoginSigilE",
+    "wikiName": "Void Gate Sigil",
+    "description": "Recalls the place that lies between two realities.",
+    "candidateAcquisitionText": "}}\n\nThe Void Gate Sigil will become available every 100 days, beginning at day 150, until chosen as the Milestone reward.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Daily Tribute Milestone Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/BossSigilCaptainVor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/BossSigilCaptainVor",
+    "wikiName": "Vor Sigil",
+    "description": "A sigil depicting Captain Vor.",
+    "candidateAcquisitionText": "| image = CaptainVor_sigil.png\n| link = Captain Vor\n| name = Vor Sigil\n}}",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankTwo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankTwo",
+    "wikiName": "Vox Solaris Agent Sigil",
+    "description": "A sigil representing prestige gained with the Vox Solaris.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Vox Solaris (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankThree": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankThree",
+    "wikiName": "Vox Solaris Hand Sigil",
+    "description": "A sigil representing prestige gained with the Vox Solaris.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Vox Solaris (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankFour": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankFour",
+    "wikiName": "Vox Solaris Instrument Sigil",
+    "description": "A sigil representing prestige gained with the Vox Solaris.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Vox Solaris (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankOne": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankOne",
+    "wikiName": "Vox Solaris Operative Sigil",
+    "description": "A sigil representing prestige gained with the Vox Solaris.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Vox Solaris (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankFive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Syndicate/VoxRankFive",
+    "wikiName": "Vox Solaris Shadow Sigil",
+    "description": "A sigil representing prestige gained with the Vox Solaris.",
+    "candidateAcquisitionText": "",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Vox Solaris (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/WukongDeluxeBSigil": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/WukongDeluxeBSigil",
+    "wikiName": "Wukong Qitian Sigil",
+    "description": "Show due respect for Wukong Qitian’s power and cunning with this sigil.",
+    "candidateAcquisitionText": "}}\n\nThe Wukong Qitian Sigil is available in the Market for 15 or as part of the Wukong Qitian Collection for 295.\n{{SigilBox\n| mode = stack",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Purchasable Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sigils/DeathMarkSigilZanuka": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DeathMarkSigilZanuka",
+    "wikiName": "Zanuka Sigil",
+    "description": "A sigil depicting the emblem of the Zanuka Hunter.",
+    "candidateAcquisitionText": "| image = HarvesterSigil.png\n| link = Zanuka Hunter\n| name = Zanuka Sigil\n}}",
+    "sourceRefs": [
+      "matched via exact Name match against DE ExportCustoms",
+      "article page: Sigils#Enemy Drop Sigils (name match confirmed, but surrounding context NOT independently verified as describing this specific item)"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

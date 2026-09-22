@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-06T00:45:16.487692+00:00",
+  "stage3a_cumulative_patch_sha256": "69b4660c7e8a02daeea37c9df0905fca9cd4f65538870df4866b67a228e39e87",
+  "inventory_incremental_patch_sha256": "6792e841553bf0247479580d7d8d047b43c3851035a632254c79659b3c5d60a2",
+  "cumulative_patch_sha256": "d087fe375e2366dfb05e0984d8d1717ccddfab35fdc1a0c63cac0158b3d2062a",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "timestamp": "2026-09-06T00:45:16.487692+00:00",
+    "before_sha256": "694967729a5e7edb74e2c8b331ea5618d889a3a1dd9b264864ced144bc398d4b",
+    "after_sha256": "867553ce86dcef88d3d105e31351a277bf782e5187c59d26d67a1de167fd8880",
+    "preview_layout_sha256": "7824d1c744ccbded5b539db0cb19f34d84d97672a523f777ca8c7d8beedcf9d9",
+    "stable_source_restores_exactly_after_removing_approved_preview_boundary": true,
+    "unchanged_inventory_business_logic": true,
+    "approved_changed_regions": [
+      "two Preview imports",
+      "header slot memoization",
+      "IS_PREVIEW PageLayout composition"
+    ],
+    "dormant_sale_callers": 2,
+    "reachable_sale_callers": 0
+  },
+  "artifact_count": 4,
+  "component_checks": 177,
+  "packaged_checks_per_artifact": 30,
+  "gate": "Stage 3B accepted by user on 2026-09-05; no Stage 3C app source started"
+}

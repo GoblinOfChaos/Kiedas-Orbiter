@@ -1,0 +1,168 @@
+--- a/src/screens/Mods.jsx
++++ b/src/screens/Mods.jsx
+@@ -9,6 +9,8 @@
+ import { loadAcquisitionData } from '../lib/acquisitionData';
+ import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+ import { MOD_WIKI_TAGS } from '../lib/modWikiTags';
++import { IS_PREVIEW } from '../lib/buildProfile';
++import PreviewModsLayout from '../components/PreviewModsLayout';
+ 
+ const CARD_WIDTH = 200;
+ const COL_GAP = 50;
+@@ -162,15 +164,15 @@
+   };
+ 
+   const renderHeaderPanel = () =>
+-  <div className="flex flex-col gap-4">
+-      <div className="flex items-center gap-3 flex-wrap">
+-        <div className="relative flex-1 min-w-[200px] group">
++  <div className="flex flex-col gap-4" data-preview-mods-header={IS_PREVIEW ? '' : undefined}>
++      <div className="flex items-center gap-3 flex-wrap" data-preview-mods-toolbar={IS_PREVIEW ? '' : undefined}>
++        <div className="relative flex-1 min-w-[200px] group" data-preview-mods-search={IS_PREVIEW ? '' : undefined}>
+           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
+           <Input placeholder={t('mods.search_placeholder')} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-12 bg-black/20 border-white/5 h-[42px]" />
+         </div>
+ 
+         {/* Sort Controls */}
+-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
++        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-mods-sort={IS_PREVIEW ? '' : undefined}>
+           <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
+           <div className="flex gap-1">
+             {SORT_OPTIONS.map((c) => {
+@@ -190,7 +192,7 @@
+         </div>
+ 
+         {/* Filters (Max Rank + Hide Conclave) */}
+-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
++        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-mods-filters={IS_PREVIEW ? '' : undefined}>
+           <Filter size={14} className="text-kronos-dim mx-1" />
+           <div className="flex gap-1">
+             {[
+@@ -221,8 +223,8 @@
+         </div>
+       </div>
+ 
+-      <div className="flex items-center gap-3">
+-        <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5">
++      <div className="flex items-center gap-3" data-preview-mods-categories-row={IS_PREVIEW ? '' : undefined}>
++        <div className="flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5" data-preview-mods-categories={IS_PREVIEW ? '' : undefined}>
+           {CATEGORIES.map(({ label, icon, category }) => {
+           const iconUrl = iconsPath ?
+           convertFileSrc(`${iconsPath}/Categories/${icon}.png`) :
+@@ -248,6 +250,7 @@
+ 
+   return (
+     <>
++    <PreviewModsLayout enabled={IS_PREVIEW}>
+     <PageLayout
+       titleKey="screen.mods"
+       subtitle={`${filtered.length} total · ${uniqueMods} unique · ${dupCount} duplicate`}
+@@ -317,6 +320,7 @@
+         }
+           <div
+           className="grid pb-4"
++          data-preview-mods-grid={IS_PREVIEW ? '' : undefined}
+           style={{
+             gridTemplateColumns: `repeat(auto-fill, ${CARD_WIDTH}px)`,
+             gap: `${COL_GAP}px`,
+@@ -328,7 +332,17 @@
+             key={`${mod.unique_name}_${mod.rank}_${i}`}
+             className={`relative cursor-pointer ${mod.owned ? '' : 'grayscale opacity-60'}`}
+             style={{ contentVisibility: 'auto', containIntrinsicSize: `${CARD_WIDTH}px 409px` }}
+-            onClick={() => toggle(mod.unique_name)}>
++            onClick={() => toggle(mod.unique_name)}
++            onKeyDown={IS_PREVIEW ? (event) => {
++              if (event.key === 'Enter' || event.key === ' ') {
++                event.preventDefault();
++                toggle(mod.unique_name);
++              }
++            } : undefined}
++            role={IS_PREVIEW ? 'button' : undefined}
++            tabIndex={IS_PREVIEW ? 0 : undefined}
++            aria-label={IS_PREVIEW ? mod.name : undefined}
++            data-preview-mod-card={IS_PREVIEW ? '' : undefined}>
+             <ModCard
+               mod={mod}
+               framesPath={framesPath}
+@@ -351,6 +365,7 @@
+         </>
+       }
+     </PageLayout>
++    </PreviewModsLayout>
+     {openItem && <AcquisitionDrawer item={openItem} onClose={close} />}
+     </>);
+ 
+--- /dev/null
++++ b/src/components/PreviewModsLayout.jsx
+@@ -0,0 +1,71 @@
++export default function PreviewModsLayout({ enabled, children }) {
++  if (!enabled) return children;
++
++  return (
++    <section
++      data-preview-mods-layout
++      aria-label="Mods collection"
++      className="preview-mods-layout min-w-0"
++      style={{ containerType: 'inline-size', containerName: 'preview-mods' }}
++    >
++      <style>{`
++        .preview-mods-layout,
++        [data-preview-mods-header],
++        [data-preview-mods-toolbar],
++        [data-preview-mods-categories-row],
++        [data-preview-mods-grid] {
++          min-width: 0;
++        }
++        [data-preview-mods-toolbar] {
++          display: grid;
++          grid-template-columns: minmax(0, 1fr);
++          align-items: stretch;
++          gap: .75rem;
++        }
++        [data-preview-mods-toolbar] > div {
++          min-width: 0;
++          width: 100%;
++        }
++        [data-preview-mods-sort],
++        [data-preview-mods-filters] {
++          height: auto;
++          min-height: 42px;
++          overflow-x: auto;
++          scrollbar-width: thin;
++        }
++        [data-preview-mods-sort] > div,
++        [data-preview-mods-filters] > div {
++          width: max-content;
++          min-width: 100%;
++        }
++        [data-preview-mods-categories-row] {
++          width: 100%;
++        }
++        [data-preview-mods-categories] {
++          width: 100%;
++          min-width: 0;
++          flex-wrap: nowrap;
++          overflow-x: auto;
++          scrollbar-width: thin;
++        }
++        [data-preview-mods-categories] > button {
++          flex-shrink: 0;
++        }
++        [data-preview-mod-card]:focus-visible {
++          outline: 2px solid rgb(var(--kronos-accent-rgb));
++          outline-offset: 3px;
++          border-radius: .75rem;
++        }
++        @container preview-mods (min-width: 760px) {
++          [data-preview-mods-toolbar] {
++            grid-template-columns: repeat(2, minmax(0, 1fr));
++          }
++          [data-preview-mods-search] {
++            grid-column: 1 / -1;
++          }
++        }
++      `}</style>
++      {children}
++    </section>
++  );
++}

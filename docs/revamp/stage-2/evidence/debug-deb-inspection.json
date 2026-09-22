@@ -1,0 +1,26 @@
+{
+  "package": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src-tauri/target/debug/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+  "sha256": "bf31be59ebd3cf3a9c5be35a4d8c5258a229e0e9b51e5cbd6ed235c40a0f9be4",
+  "size_bytes": 137898220,
+  "control": {
+    "control": "Package: kieda-s-orbiter-preview\nVersion: 1.3.3\nArchitecture: amd64\nInstalled-Size: 307173\nMaintainer: Jacob Edwards, glowseeker (original Cephalon Kronos)\nPriority: optional\nDepends: libwebkit2gtk-4.1-0, libjavascriptcoregtk-4.1-0, libavif16, libsharpyuv0, libwebkit2gtk-4.1-0, libgtk-3-0\nDescription: A cross-platform desktop companion for Warframe, forked from Cephalon Kronos\n (none)\n"
+  },
+  "file_count": 552,
+  "desktop_entries": {
+    "usr/share/applications/Kieda's Orbiter Preview.desktop": "[Desktop Entry]\nCategories=Utility;\nComment=A cross-platform desktop companion for Warframe, forked from Cephalon Kronos\nExec=kiedas-orbiter-preview\nStartupWMClass=kiedas-orbiter-preview\nIcon=kiedas-orbiter-preview\nName=Kieda's Orbiter Preview\nTerminal=false\nType=Application\n"
+  },
+  "executables": [
+    "usr/bin/kiedas-orbiter-preview",
+    "usr/lib/Kieda's Orbiter Preview/data/bin/Warframe-Exporter-CLI"
+  ],
+  "resource_sample": [
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/ExportAvionics_fixed.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/ExportUpgrades_fixed.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/acquisition_overrides.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/all-recipe-components.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/browse-wf-glyphs.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/card-overlay-map.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/collectible-locations.json",
+    "usr/lib/Kieda's Orbiter Preview/data/assets/data/cosmetic-catalog-additions.json"
+  ]
+}

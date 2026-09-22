@@ -1,0 +1,414 @@
+{
+  "tier": "styled component browser with module-boundary network/context/Tauri mocks",
+  "fixture": "synthetic WFM catalog, orders, explicit price states and parsed inventory; no real token, account, network or mutation",
+  "checks": [
+    {
+      "name": "stable-no-token-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-order-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-orders-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-sell-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-buy-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-hidden-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-order-search-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-edit-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-order-error-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-catalog-error-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-stock-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-stock-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-stock-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-sort-menu-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "stable-delete-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "orderId": "order-sell-visible"
+            },
+            "command": "delete_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "orderId": "order-sell-visible"
+            },
+            "command": "delete_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-sold-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": 1,
+              "orderId": "order-sell-visible"
+            },
+            "command": "close_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": 1,
+              "orderId": "order-sell-visible"
+            },
+            "command": "close_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-visibility-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "visible": false,
+              "platinum": null,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "visible": false,
+              "platinum": null,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-save-price-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "visible": null,
+              "platinum": 17,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "visible": null,
+              "platinum": 17,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ]
+      }
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "no-token",
+      "equal": true,
+      "before_length": 10054,
+      "after_length": 10054
+    },
+    {
+      "state": "order-loading",
+      "equal": true,
+      "before_length": 9196,
+      "after_length": 9196
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 9153,
+      "after_length": 9153
+    },
+    {
+      "state": "populated-orders",
+      "equal": true,
+      "before_length": 17144,
+      "after_length": 17144
+    },
+    {
+      "state": "sell-filter",
+      "equal": true,
+      "before_length": 14524,
+      "after_length": 14524
+    },
+    {
+      "state": "buy-filter",
+      "equal": true,
+      "before_length": 11530,
+      "after_length": 11530
+    },
+    {
+      "state": "hidden-filter",
+      "equal": true,
+      "before_length": 11797,
+      "after_length": 11797
+    },
+    {
+      "state": "order-search",
+      "equal": true,
+      "before_length": 11525,
+      "after_length": 11525
+    },
+    {
+      "state": "price-edit",
+      "equal": true,
+      "before_length": 17469,
+      "after_length": 17469
+    },
+    {
+      "state": "order-error",
+      "equal": true,
+      "before_length": 9692,
+      "after_length": 9692
+    },
+    {
+      "state": "catalog-error",
+      "equal": true,
+      "before_length": 17144,
+      "after_length": 17144
+    },
+    {
+      "state": "empty-stock",
+      "equal": true,
+      "before_length": 11744,
+      "after_length": 11744
+    },
+    {
+      "state": "populated-stock",
+      "equal": true,
+      "before_length": 26902,
+      "after_length": 26902
+    },
+    {
+      "state": "stock-filter",
+      "equal": true,
+      "before_length": 13728,
+      "after_length": 13728
+    },
+    {
+      "state": "sort-menu",
+      "equal": true,
+      "before_length": 28601,
+      "after_length": 28601
+    }
+  ],
+  "stable_mutation_parity": [
+    {
+      "interaction": "delete",
+      "before": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "orderId": "order-sell-visible"
+          },
+          "command": "delete_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "orderId": "order-sell-visible"
+          },
+          "command": "delete_market_order"
+        }
+      ],
+      "expected": {
+        "command": "delete_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible"
+        }
+      },
+      "pass": true
+    },
+    {
+      "interaction": "sold",
+      "before": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": 1,
+            "orderId": "order-sell-visible"
+          },
+          "command": "close_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": 1,
+            "orderId": "order-sell-visible"
+          },
+          "command": "close_market_order"
+        }
+      ],
+      "expected": {
+        "command": "close_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible",
+          "quantity": 1
+        }
+      },
+      "pass": true
+    },
+    {
+      "interaction": "visibility",
+      "before": [
+        {
+          "args": {
+            "visible": false,
+            "platinum": null,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "visible": false,
+            "platinum": null,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "expected": {
+        "command": "update_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible",
+          "platinum": null,
+          "quantity": null,
+          "visible": false
+        }
+      },
+      "pass": true
+    },
+    {
+      "interaction": "save-price",
+      "before": [
+        {
+          "args": {
+            "visible": null,
+            "platinum": 17,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "visible": null,
+            "platinum": 17,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "expected": {
+        "command": "update_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible",
+          "platinum": 17,
+          "quantity": null,
+          "visible": null
+        }
+      },
+      "pass": true
+    }
+  ],
+  "preview_mutation_invocations": [],
+  "geometry": [],
+  "error": "expected 6 rendered stock cards, found 0"
+}

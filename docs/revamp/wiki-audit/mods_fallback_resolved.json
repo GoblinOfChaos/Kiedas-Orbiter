@@ -1,0 +1,1412 @@
+{
+  "/Lotus/Upgrades/Mods/Melee/Expert/WeaponHeavyAttackEfficiencySPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Melee/Expert/WeaponHeavyAttackEfficiencySPMod",
+    "wikiName": "Galvanized Reflex",
+    "description": "+50% Heavy Attack Efficiency\r\nOn Melee Kill:\r\n+20 Initial Combo for 20s. Stacks up to 4x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Reflex"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/ArmoredInfestedCatbrowRespawn": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/ArmoredInfestedCatbrowRespawn",
+    "wikiName": "Panzer Devolution",
+    "description": "Devolves into its larval form when downed and attacks enemies with quills, dealing 60 <DT_VIRAL_COLOR>Viral Damage each. Regains true form after 30s.",
+    "acquisition": "Panzer Devolution is automatically acquired upon obtaining a Panzer Vulpaphyla.",
+    "sourceRefs": [
+      "article page: Panzer Devolution"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorBuffSporesPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorBuffSporesPrecept",
+    "wikiName": "Anabolic Pollination",
+    "description": "Release a cloud of spores that persists for 10s increasing <DT_POISON_COLOR>Toxin Damage by +100% for 15s.",
+    "acquisition": "Anabolic Pollination is automatically acquired upon obtaining a Pharaoh Predasite.",
+    "sourceRefs": [
+      "article page: Anabolic Pollination"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetEvasionPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetEvasionPrecept",
+    "wikiName": "Evasive Denial",
+    "description": "Teleports a safe distance away and engages a displacement field gaining 75% chance to dodge enemy fire for 8s.",
+    "acquisition": "Evasive Denial is automatically acquired upon obtaining a Hound built with the Zubb Bracket.",
+    "sourceRefs": [
+      "article page: Evasive Denial"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveBasmuAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveBasmuAugmentMod",
+    "wikiName": "Dreadful Killshot",
+    "description": "Increased Damage and Status Chance by +20% for every 75 Warframe Health. Capped at 360%",
+    "acquisition": "- Dreadful Killshot was originally obtained by reaching Rank 10 with Nightwave during Nora's Mix: Dreams of the Dead.",
+    "sourceRefs": [
+      "article page: Dreadful Killshot"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Polearms/Naginata/ShrineMaidenNaginataAugment": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Polearms/Naginata/ShrineMaidenNaginataAugment",
+    "wikiName": "Amanata Pressure",
+    "description": "When Combo Multiplier reaches 8x, Heavy attacks apply a random Status Effect to enemies hit.\r\n+330% Melee Damage",
+    "acquisition": "- Amanata Pressure can be obtained by purchasing it from Koumei's Shrine on Cetus, Earth for 150 Fate Pearl. The mod will only appear in the shop if the player has access to The Steel Path.",
+    "sourceRefs": [
+      "article page: Amanata Pressure"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/Expert/AvatarKnockdownResistanceModExpert": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/Expert/AvatarKnockdownResistanceModExpert",
+    "wikiName": "Primed Sure Footed",
+    "description": "+100% Chance to Resist Knockdown",
+    "acquisition": "- This mod is exclusive to the Daily Tribute system. It will become available at day 400, 600 and 900, until chosen as the Milestone reward, among Primed Vigor, Primed Shred, and Primed Fury.\n- This mod first became available on May 20, 2018 UTC.",
+    "sourceRefs": [
+      "article page: Primed Sure Footed"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/DualSource/Pistol/MultishotDodgeMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/DualSource/Pistol/MultishotDodgeMod",
+    "wikiName": "Amalgam Barrel Diffusion",
+    "description": "+110% Multishot\r\n+60% Dodge Speed",
+    "acquisition": "- This mod can be acquired by accumulating at least 50 points during the recurring Thermia Fractures event.",
+    "sourceRefs": [
+      "article page: Amalgam Barrel Diffusion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/SobekNightwaveMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/SobekNightwaveMod",
+    "wikiName": "Clip Delegation",
+    "description": "On Reload: Next Magazine has Status Chance and Multishot increased by 15% per shot landed with current Magazine. Max 15 stacks.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Clip Delegation was originally acquired by reaching Rank 15 in Nightwave during Nora's Mix Volume 6.\n- Beginning with Nightwave Nora’s Mix: Dreams of the Dead, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Clip Delegation"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/HealthPickupGivesArmourMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/HealthPickupGivesArmourMod",
+    "wikiName": "Health Conversion",
+    "description": "Health Orbs grant 450 Armor, stacking up to 3x. Taking damage will consume a stack after 3s.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 100,000.",
+    "sourceRefs": [
+      "article page: Health Conversion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetClonePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetClonePrecept",
+    "wikiName": "Diversified Denial",
+    "description": "Fabricate 3 Specters that fight for 30s. Each deals 85% of the Hound's damage and cannot use Abilities.",
+    "acquisition": "Diversified Denial is automatically acquired upon obtaining a Hound built with the Urga Bracket.",
+    "sourceRefs": [
+      "article page: Diversified Denial"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModEndurance": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModEndurance",
+    "wikiName": "Endurance Drift",
+    "description": "+10% Energy Max\r\n+12% Parkour Velocity",
+    "acquisition": "- Endurance Drift is rewarded upon completing the Endurance Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+    "sourceRefs": [
+      "article page: Endurance Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/WeaponStatusChanceSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/WeaponStatusChanceSPMod",
+    "wikiName": "Galvanized Shot",
+    "description": "+80% Status Chance\r\nOn Kill:\r\n+40% Direct Damage per Status Type affecting the target for 14s. Stacks up to 3x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Shot"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/DualStat/PrimedShredMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/DualStat/PrimedShredMod",
+    "wikiName": "Primed Shred",
+    "description": "+55% Fire Rate (x2 for Bows)\r\n+2.2 Punch Through",
+    "acquisition": "- This mod is exclusive to the Daily Tribute system. It will become available at day 200, 400, 600 and 900, until chosen as the Milestone reward, among Primed Vigor, Primed Fury, and (day 400+) Primed Sure Footed.\n- This mod first became available on July 24, 2017 UTC.\n- As with other Daily Tribute rewards, it can not be traded.",
+    "sourceRefs": [
+      "article page: Primed Shred"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedCatbrowGoreTossPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedCatbrowGoreTossPrecept",
+    "wikiName": "Crescent Charge",
+    "description": "Charges an enemy within 25m dealing <DT_PUNCTURE_COLOR>Puncture Damage and lifting them. While lifted, enemy is flung at nearby foes dealing an additional 20% of the thrown enemy's health and adding 5 <DT_PUNCTURE_COLOR>Puncture Status to enemies within 5m.",
+    "acquisition": "Crescent Charge is automatically acquired upon obtaining a Crescent Vulpaphyla.",
+    "sourceRefs": [
+      "article page: Crescent Charge"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/HeadShot": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/HeadShot",
+    "wikiName": "Calculated Shot",
+    "description": "Sentinel charges a powerful shot and fires at the first enemy within 70m.",
+    "acquisition": "Calculated Shot is automatically acquired upon obtaining Diriga.",
+    "sourceRefs": [
+      "article page: Calculated Shot"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Melee/Event/Nightwave/NightwaveStalkerScytheAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Melee/Event/Nightwave/NightwaveStalkerScytheAugmentMod",
+    "wikiName": "Burning Hate",
+    "description": "When Hate damages enemies inflicted with <DT_FIRE_COLOR>Heat Status, they become vulnerable to 120% more Status Damage.",
+    "acquisition": "Burning Hate could be obtained by reaching Rank 15 with Nightwave during Nora's Mix Volume 7.",
+    "sourceRefs": [
+      "article page: Burning Hate"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/MeleeTrees/BerserkerMeleeTree": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/MeleeTrees/BerserkerMeleeTree",
+    "wikiName": "Hysteria",
+    "description": "Stance: Valkyr is imbued with energy and becomes a ball of vicious rage, capable of unleashing a torrent of deadly claw attacks on unsuspecting foes.",
+    "acquisition": "- Hysteria is a unique stance which can only be temporarily obtained through the use of Valkyr's Hysteria. There are no other possible methods to obtain this stance.",
+    "sourceRefs": [
+      "article page: Hysteria (Stance)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitParasitePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitParasitePrecept",
+    "wikiName": "Endoparasitic Vector",
+    "description": "Transmit an endoparasite to an enemy within 30m. Tentacles spawn from it, clinging to enemies within 10m slowing them as they move further from the parasite, and dealing 20 <DT_VIRAL_COLOR>Viral Damage/sec over 5s.",
+    "acquisition": "Endoparasitic Vector is automatically acquired upon obtaining a Pharaoh Predasite.",
+    "sourceRefs": [
+      "article page: Endoparasitic Vector"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/WeaponResistSelfDamageMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/WeaponResistSelfDamageMod",
+    "wikiName": "Cautious Shot",
+    "description": "+100% chance to reduce the Stagger effect from self-imposed Radial Attacks",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Cautious Shot"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/RespawnSelf": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/RespawnSelf",
+    "wikiName": "Reawaken",
+    "description": "Energy Orbs reduce Sentinel Recovery timer by 6s. Djinn recovers with 300 Overshields per Energy Orb collected. Djinn's max Overshields increase by 900.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Reawaken"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveGorgonAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveGorgonAugmentMod",
+    "wikiName": "Metamorphic Magazine",
+    "description": "+90% Magazine Capacity\r\n+90% Ammo Maximum\r\nInflicting 20 cumulative attacks on an enemy will petrify them for 5s.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Metamorphic Magazine was originally acquired by reaching Rank 23 in Nightwave during Nora's Mix Volume 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 8, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Metamorphic Magazine"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnAssaultRifleArbitrationMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnAssaultRifleArbitrationMod",
+    "wikiName": "Wild Frenzy",
+    "description": "Secondary Fire will shoot with +400% Fire Rate until the magazine is empty. Killing 2 or more enemies will refund 100% of the ammo.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Wild Frenzy was originally acquired by reaching Rank 14 in Nightwave during Series 1: The Wolf of Saturn Six or reaching Rank 20 during Intermission II.\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Wild Frenzy"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetTeslaShotPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetTeslaShotPrecept",
+    "wikiName": "Synergized Prospectus",
+    "description": "Fires a spark that seeks out the nearest enemy in 30m, dealing 300 <DT_ELECTRICITY_COLOR>Electricity Damage in a 10m radius. The spark ricochets up to 7x, seeking out the nearest enemy in 30m.",
+    "acquisition": "Synergized Prospectus is automatically acquired upon obtaining a Hound built with the Hinta Stabilizer.",
+    "sourceRefs": [
+      "article page: Synergized Prospectus"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Aura/PlayerEnergyHealthRegenAuraMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Aura/PlayerEnergyHealthRegenAuraMod",
+    "wikiName": "Dreamer's Bond",
+    "description": "Squad receives +0.3 Energy Regen/s and +1.5 Health Regen/s",
+    "acquisition": "- Awarded from completing the Earth to Venus Junction.\n- Players who have already completed the Junction prior to 35.1 will receive the mod in their inbox messages.\n- Available for 20 creds from the Nightwave Cred Offerings store.",
+    "sourceRefs": [
+      "article page: Dreamer's Bond"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/RepairShip": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/RepairShip",
+    "wikiName": "Auto Omni",
+    "description": "Nautilus has 100% chance to repair nearby Railjack hull damages and extinguishes fires on Railjack. Cooldown: 20s.",
+    "acquisition": "Auto Omni is automatically acquired upon obtaining Nautilus or Nautilus Prime.",
+    "sourceRefs": [
+      "article page: Auto Omni"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaTractorBeamPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaTractorBeamPrecept",
+    "wikiName": "Tractor Beam",
+    "description": "+100% Aim Glide Duration\r\n-50% Gravity",
+    "acquisition": "Tractor Beam is automatically acquired upon obtaining a MOA built with the Oloro Model.",
+    "sourceRefs": [
+      "article page: Tractor Beam"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/EmpoweredHeavyMelee/CursedSyndicateEmpoweredHeavyMeleeMod": {
+    "uniqueName": "/Lotus/Upgrades/EmpoweredHeavyMelee/CursedSyndicateEmpoweredHeavyMeleeMod",
+    "wikiName": "Truth's Flame",
+    "description": "Enables Tennokai.\r\nTennokai kills grant an additional 4s Tennokai opportunity and increase Tennokai damage by 120%.\r\n\r\nCURSE: Suffer 100 <DT_FIRE_COLOR>Heat Damage/s for 6s.\r\n+1 'Truth'",
+    "acquisition": "Purchased from Aspirant Zorba at any relay for 360 Atramentum.",
+    "sourceRefs": [
+      "article page: Truth's Flame"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedCatbrowEvasionBuffPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedCatbrowEvasionBuffPrecept",
+    "wikiName": "Survival Instinct",
+    "description": "On Bullet Jump:\r\nEnemies lose sight of you for 1.5s. 5s cooldown.",
+    "acquisition": "Survival Instinct is automatically acquired upon obtaining a Sly Vulpaphyla and undergoing revivification.",
+    "sourceRefs": [
+      "article page: Survival Instinct"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Shotgun/WeaponRecoilReductionMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Shotgun/WeaponRecoilReductionMod",
+    "wikiName": "Counterbalance",
+    "description": "-60% Weapon Recoil",
+    "acquisition": "- Can be purchased from Teshin's Steel Path Honors for 35 Steel Essence.",
+    "sourceRefs": [
+      "article page: Counterbalance"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/MeleeTrees/ReaperMeleeTree": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/MeleeTrees/ReaperMeleeTree",
+    "wikiName": "Ravenous Wraith",
+    "description": "Stance: When the Death Well fills, Sevagoth's Shadow form is ready to be released. Tear the enemy asunder with a collection of melee-focused abilties.",
+    "acquisition": "- Ravenous Wraith is a unique stance that can only be temporarily obtained through the use of Sevagoth's Exalted Shadow. There are no other possible methods to obtain this stance.",
+    "sourceRefs": [
+      "article page: Ravenous Wraith"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetAntiMeleePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetAntiMeleePrecept",
+    "wikiName": "Equilibrium Audit",
+    "description": "Unleashes a series of shockwaves that knockdown enemies within 15m and deal 300 damage.",
+    "acquisition": "Equilibrium Audit is automatically acquired upon obtaining a Hound built with the Hec Model.",
+    "sourceRefs": [
+      "article page: Equilibrium Audit"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/VulpineInfestedCatbrowRespawn": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/VulpineInfestedCatbrowRespawn",
+    "wikiName": "Sly Devolution",
+    "description": "Devolves into its larval form when downed and regains its true form after 30s. Your kills reduce enemy accuracy against Warframes by 20% for 8s.",
+    "acquisition": "Sly Devolution is automatically acquired upon obtaining a Sly Vulpaphyla.",
+    "sourceRefs": [
+      "article page: Sly Devolution"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/HornedInfestedCatbrowRespawn": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/HornedInfestedCatbrowRespawn",
+    "wikiName": "Crescent Devolution",
+    "description": "Devolves into its larval form when downed and charges at enemies, dealing 100 <DT_PUNCTURE_COLOR>Puncture Damage. Regains true form after 30s.",
+    "acquisition": "Crescent Devolution is automatically acquired upon obtaining a Crescent Vulpaphyla.",
+    "sourceRefs": [
+      "article page: Crescent Devolution"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveHemaAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveHemaAugmentMod",
+    "wikiName": "Necrophagic Vigor",
+    "description": "Reloading drains up to half your Health based on ammo created, increasing Critical Chance and Critical Damage by +20% for every 20 Health drained. Capped at 360%.",
+    "acquisition": "- Necrophagic Vigor was originally obtained by reaching Rank 25 with Nightwave during Nora's Mix: Dreams of the Dead.",
+    "sourceRefs": [
+      "article page: Necrophagic Vigor"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveEmbolistAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveEmbolistAugmentMod",
+    "wikiName": "Vile Discharge",
+    "description": "Damage is accumulated up to 30,000. Use Alt-fire to launch an explosive vile sac dealing and resetting the accumulated damage.",
+    "acquisition": "- Vile Discharge was originally acquired by reaching Rank 23 with Nightwave during Nora's Mix Volume 2.\n- Beginning with Amir's Shockwave, it was added to Nightwave Cred Offerings for 20.\n\n- Could be purchased from Daughter during the October 2024 Nights of Naberus event for 50 Mother Token.",
+    "sourceRefs": [
+      "article page: Vile Discharge"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/GatherEnemies": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/GatherEnemies",
+    "wikiName": "Cordon",
+    "description": "Nautilus forces enemies within 30m of the target into clusters for easier targeting. Cooldown: 15s.",
+    "acquisition": "Cordon is automatically acquired upon obtaining Nautilus or Nautilus Prime.",
+    "sourceRefs": [
+      "article page: Cordon"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/ShootPickUpRifleMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/ShootPickUpRifleMod",
+    "wikiName": "Mending Shot",
+    "description": "Shoot Health Orbs to obtain them with +110% extra effect.",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 30 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Mending Shot"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/ChargerChargePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/ChargerChargePrecept",
+    "wikiName": "Trample",
+    "description": "The Helminth Charger rushes an enemy, dealing 160 Damage to all in its path. It gains +10% Melee Damage, Max Health and Armor for every enemy hit for 5s.",
+    "acquisition": "Trample is automatically acquired upon obtaining a Helminth Charger.",
+    "sourceRefs": [
+      "article page: Trample"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaChargePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaChargePrecept",
+    "wikiName": "Blast Shield",
+    "description": "Overshields increased by +3000. Leap at an enemy within 10m dealing 30 <DT_IMPACT_COLOR>Impact Damage and knocking down other enemies within 5m and resets Overshields.",
+    "acquisition": "Blast Shield is automatically acquired upon obtaining a MOA built with the Nychus Model.",
+    "sourceRefs": [
+      "article page: Blast Shield"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/ShieldVampire": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/ShieldVampire",
+    "wikiName": "Molecular Conversion",
+    "description": "Blast enemies within 10m, converting 200 Damage into Shields for the Warframe.",
+    "acquisition": "Molecular Conversion is automatically acquired upon obtaining Taxon.",
+    "sourceRefs": [
+      "article page: Molecular Conversion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorHealingSporesPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorHealingSporesPrecept",
+    "wikiName": "Iatric Mycelium",
+    "description": "Release a trail of spores every 8s that heal the companion and its allies for 300 health over 5s.",
+    "acquisition": "Iatric Mycelium is automatically acquired upon obtaining a Vizier Predasite.",
+    "sourceRefs": [
+      "article page: Iatric Mycelium"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Melee/Expert/WeaponCritChanceSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Melee/Expert/WeaponCritChanceSPMod",
+    "wikiName": "Galvanized Steel",
+    "description": "+110% Critical Chance (x2 for Heavy Attacks)\r\nOn Melee Kill:\r\n+30% Critical Damage for 20s. Stacks up to 4x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Steel"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveOcucorAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveOcucorAugmentMod",
+    "wikiName": "Sentient Surge",
+    "description": "Each target eliminated refills 20% of Ocucor's magazine. Status Chance and Critical Chance are increased by 60% for each Tendril active.",
+    "acquisition": "- Sentient Surge can be obtained by reaching Rank 9 with Nightwave during Nora's Mix Volume 4.\n- Can be purchased from Daughter during the October 2025 Nights of Naberus event for 50 Mother Token.\n- Can be purchased from the standard rotation of Nightwave Cred Offerings for 20 Nightwave Creds.",
+    "sourceRefs": [
+      "article page: Sentient Surge"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetPhotonStrikePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetPhotonStrikePrecept",
+    "wikiName": "Aerial Prospectus",
+    "description": "Launches a beacon at an enemy within 27m that calls down an Orbital Strike dealing 1200 <DT_EXPLOSION_COLOR>Blast Damage in a 7m radius.",
+    "acquisition": "Aerial Prospectus is automatically acquired upon obtaining a Hound built with the Wanz Stabilizer.",
+    "sourceRefs": [
+      "article page: Aerial Prospectus"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/MeleeTrees/DualKatanaCmbOneMeleeTree": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/MeleeTrees/DualKatanaCmbOneMeleeTree",
+    "wikiName": "Mountain's Edge",
+    "description": "Sharp movements with wide reach.",
+    "acquisition": "- This mod is awarded upon completing The Duviri Paradox quest.",
+    "sourceRefs": [
+      "article page: Mountain's Edge"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/TaserStun": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/TaserStun",
+    "wikiName": "Electro Pulse",
+    "description": "Every 5s, Sentinel will continually zap an enemy within 15m, trapping them in a stunned state.",
+    "acquisition": "Electro Pulse is automatically acquired upon obtaining Diriga.",
+    "sourceRefs": [
+      "article page: Electro Pulse"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/GhostAugmentCard": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/GhostAugmentCard",
+    "wikiName": "Ambush",
+    "description": "When Ghost invisibility is broken, Shade's owner is granted +240% Weapon Damage for 3s.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Ambush"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/WeaknessScanPrecept": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/WeaknessScanPrecept",
+    "wikiName": "Detect Vulnerability",
+    "description": "Upon completing research on an enemy, subsequent scans will reveal their weak points.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Detect Vulnerability"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnSniperRifleArbitrationMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnSniperRifleArbitrationMod",
+    "wikiName": "Meticulous Aim",
+    "description": "+105% Headshot Damage\r\n-45% Bodyshot Damage",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Meticulous Aim was originally acquired by reaching Rank 23 in Nightwave during Series 2: The Emissary, and again by reaching Rank 14 during Intermission III.\n- Beginning with Nightwave: Amir's Shockwave, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Meticulous Aim"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/AvatarSpawnEnergyMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/AvatarSpawnEnergyMod",
+    "wikiName": "Preparation",
+    "description": "+100% Maximum Energy is filled on Spawn",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 30 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Preparation"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetStealEximusPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetStealEximusPrecept",
+    "wikiName": "Null Audit",
+    "description": "The Hound utilizes the same Aura and Abilities as an Eximus enemy for 60s, while stripping its Overguard by 50%.",
+    "acquisition": "Null Audit is automatically acquired upon obtaining a Hound built with the Bhaira Model.",
+    "sourceRefs": [
+      "article page: Null Audit"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/WeaponStatusChanceSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/WeaponStatusChanceSPMod",
+    "wikiName": "Galvanized Aptitude",
+    "description": "+80% Status Chance\r\nOn Kill:\r\n+40% Direct Damage per Status Type affecting the target for 20s. Stacks up to 2x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Aptitude"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaTetherVaccumMinePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaTetherVaccumMinePrecept",
+    "wikiName": "Whiplash Mine",
+    "description": "Deploys a tether mine snaring all enemies in a 20m. After 3s, all enemies still in range get pulled to the mine.",
+    "acquisition": "Whiplash Mine is automatically acquired upon obtaining a MOA built with the Para Model.",
+    "sourceRefs": [
+      "article page: Whiplash Mine"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveSporothrixAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveSporothrixAugmentMod",
+    "wikiName": "Volatile Variant",
+    "description": "Shots have +3 Punch Through and barbs explode instantly. Barbs that strike enemies directly have +4m radius and +50% Status Chance.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Volatile Variant was originally acquired by reaching Rank 25 in Nightwave during Nora's Mix Volume 5.\n- Beginning with Nightwave Nora’s Mix: Vol. 9, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Volatile Variant"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedKavatViralQuillsPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedKavatViralQuillsPrecept",
+    "wikiName": "Viral Quills",
+    "description": "Launches 6 quills at enemies within 20m, each dealing 60 <DT_VIRAL_COLOR>Viral Damage with 40% Status Chance. If the target is affected by a Viral Status, a Spore is added. 4s cooldown.",
+    "acquisition": "Viral Quills is automatically acquired upon obtaining a Panzer Vulpaphyla.",
+    "sourceRefs": [
+      "article page: Viral Quills"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/AvatarHolsterDamageMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/AvatarHolsterDamageMod",
+    "wikiName": "Vigorous Swap",
+    "description": "On Equip:\r\n+165% Damage for 3s",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Vigorous Swap"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Aura/PlayerSniperDamageAuraMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Aura/PlayerSniperDamageAuraMod",
+    "wikiName": "Dead Eye",
+    "description": "Squad receives +52.5% Sniper Rifle Damage",
+    "acquisition": "- Available for 20 creds from the Nightwave Cred Offerings store.",
+    "sourceRefs": [
+      "article page: Dead Eye"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveCatabolystAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveCatabolystAugmentMod",
+    "wikiName": "Critical Mutation",
+    "description": "Each kill increases Critical Chance and Critical Damage by 30% up to 300%. Reduce by 30% when fewer than 3 enemies are struck by the grenade explosion.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Critical Mutation was originally acquired by reaching Rank 13 in Nightwave during Nora's Mix Volume 5.\n- Beginning with Nightwave Nora’s Mix: Vol. 9, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Critical Mutation"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Shotgun/WeaponProjectileSpeedSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Shotgun/WeaponProjectileSpeedSPMod",
+    "wikiName": "Galvanized Acceleration",
+    "description": "+30% Projectile Speed and +30% Beam Range\r\nOn Kill:\r\n+30% Projectile Speed and +30% Beam Range for 10s. Stacks up to 2x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Acceleration"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveBattacorAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveBattacorAugmentMod",
+    "wikiName": "Sentient Barrage",
+    "description": "Discharge from Alt-Fire now has infinite Body Punch Through but no longer explodes on contact. Each enemy hit will refill one charge, and reaching a full charge will increase the Critical Chance and Critical Damage of the next discharge by 300%.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Sentient Barrage was originally acquired by reaching Rank 23 in Nightwave during Nora's Mix Volume 4.\n- Beginning with Nightwave Nora’s Mix: Vol. 8, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Sentient Barrage"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/Expert/VigorModExpert": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/Expert/VigorModExpert",
+    "wikiName": "Primed Vigor",
+    "description": "+75% Shield Capacity\r\n+75% Health",
+    "acquisition": "- This mod is exclusive to the Daily Tribute system. It will become available at day 200, 400, 600 and 900, until chosen as the Milestone reward, among Primed Fury, Primed Shred, and (day 400+) Primed Sure Footed.\n- This mod first became available on January 5, 2017 UTC.",
+    "sourceRefs": [
+      "article page: Primed Vigor"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveVeloxAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveVeloxAugmentMod",
+    "wikiName": "Velox Conclusion",
+    "description": "On hit, gain +0.6% Ability Strength up to 60% maximum. Consumed on your next Ability cast.",
+    "acquisition": "Velox Conclusion was originally obtained by reaching Rank 25 with Nightwave during Nora's Mix: Time Tempests.",
+    "sourceRefs": [
+      "article page: Velox Conclusion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Bows/Event/Nightwave/NightwaveStalkerBowAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Bows/Event/Nightwave/NightwaveStalkerBowAugmentMod",
+    "wikiName": "Unseen Dread",
+    "description": "Become invisible for 5 seconds when you strike 3 or more enemies with a single projectile. Deal 175% more Critical Damage with Dread while invisible.",
+    "acquisition": "Unseen Dread could be obtained by reaching Rank 25 with Nightwave during Nora's Mix Volume 7.",
+    "sourceRefs": [
+      "article page: Unseen Dread"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/InfCrpShockSwarmRifleArbitrationMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/InfCrpShockSwarmRifleArbitrationMod",
+    "wikiName": "Bursting Mass",
+    "description": "The infested mass accumulates 200% of the damage that goes through it and deals it in 15m radius when it expires. Secondary fire will manually detonate an existing mass.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Bursting mass was originally acquired by reaching Rank 18 in Nightwave during Series 1: The Wolf of Saturn Six or reaching Rank 20 during Intermission III.\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Bursting Mass"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetMegaLaserPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetMegaLaserPrecept",
+    "wikiName": "Focused Prospectus",
+    "description": "Fires a beam of energy that deals 900 <DT_FIRE_COLOR>Heat Damage over 4.5s.",
+    "acquisition": "Focused Prospectus is automatically acquired upon obtaining a Hound built with the Frak Stabilizer.",
+    "sourceRefs": [
+      "article page: Focused Prospectus"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun",
+    "wikiName": "Resilient Focus",
+    "description": "+20% Damage Resistance on Stun",
+    "acquisition": "- For a short time after 10.6 [https://forums.warframe.com/index.php?/topic/126550-psa-unintended-modaura-inclusion/ this mod could have been acquired] via Transmutation. This was due to a bug where all mods, including unreleased ones such as this one, became obtainable through transmutation. This has since been fixed, but players who obtained the mod this way were allowed to keep them. There is currently no way to obtain this mod.",
+    "sourceRefs": [
+      "article page: Resilient Focus"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CatbrowPetPrecepts/CatbrowTransfusionPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CatbrowPetPrecepts/CatbrowTransfusionPrecept",
+    "wikiName": "Transfusion",
+    "description": "When its Master is bleeding out, the Vasca Kavat sacrifices 20% of its Health to raise them.",
+    "acquisition": "Transfusion is automatically acquired upon obtaining a Vasca Kavat.",
+    "sourceRefs": [
+      "article page: Transfusion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModPower": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModPower",
+    "wikiName": "Power Drift",
+    "description": "+15% Ability Strength\r\n+30% Chance to Resist Knockdown",
+    "acquisition": "- Power Drift is rewarded upon completing the Power Test in the Orokin Moon.",
+    "sourceRefs": [
+      "article page: Power Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/DualSource/Melee/CritDamageChargeSpeedMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/DualSource/Melee/CritDamageChargeSpeedMod",
+    "wikiName": "Amalgam Organ Shatter",
+    "description": "+85% Critical Damage\r\n+60% Heavy Attack Wind Up Speed",
+    "acquisition": "- This mod can be acquired by accumulating at least 50 points during the recurring Thermia Fractures event.",
+    "sourceRefs": [
+      "article page: Amalgam Organ Shatter"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/ThrowGlaivePrecept": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/ThrowGlaivePrecept",
+    "wikiName": "Targeting Receptor",
+    "description": "Causes the Helios Sentinel to attack targets within 10m with 3 glaives.",
+    "acquisition": "Targeting Receptor is automatically acquired upon obtaining Helios or Helios Prime.",
+    "sourceRefs": [
+      "article page: Targeting Receptor"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/MeleeTrees/PacifistMeleeTree": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/MeleeTrees/PacifistMeleeTree",
+    "wikiName": "Serene Storm",
+    "description": "Stance: With his Restraint eroded, Baruuk commands the Desert Wind to deliver powerful radial strikes with his fists and feet. Each moment commanding the storm restores his Restraint.",
+    "acquisition": "- Serene Storm is a unique stance that can only be temporarily obtained through the use of Baruuk's Serene Storm. There are no other possible methods to obtain this stance.",
+    "sourceRefs": [
+      "article page: Serene Storm (Stance)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowDisarmPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowDisarmPrecept",
+    "wikiName": "Neutralize",
+    "description": "The kubrow roars, causing enemies within 10m to stumble and drop their weapons.",
+    "acquisition": "Neutralize is automatically acquired upon obtaining a Chesa Kubrow.",
+    "sourceRefs": [
+      "article page: Neutralize (Mod)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/MagnusNightwaveMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/MagnusNightwaveMod",
+    "wikiName": "Deadly Maneuvers",
+    "description": "On Dodge, gain 400% Headshot Critical Chance for your next 2 shots.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Deadly Maneuvers was originally acquired by reaching Rank 7 in Nightwave during Series 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 6, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Deadly Maneuvers"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/DualSource/Shotgun/ShotgunMedicMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/DualSource/Shotgun/ShotgunMedicMod",
+    "wikiName": "Amalgam Shotgun Barrage",
+    "description": "+85% Fire Rate\r\n+45% Revive Speed",
+    "acquisition": "- This mod can be acquired by accumulating at least 25 points during the recurring Thermia Fractures event.",
+    "sourceRefs": [
+      "article page: Amalgam Shotgun Barrage"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/DualSource/Rifle/SerratedRushMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/DualSource/Rifle/SerratedRushMod",
+    "wikiName": "Amalgam Serration",
+    "description": "+155% Damage\r\n+25% Sprint Speed",
+    "acquisition": "- This mod can be acquired by accumulating at least 25 points during the recurring Thermia Fractures event.",
+    "sourceRefs": [
+      "article page: Amalgam Serration"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModStealth": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModStealth",
+    "wikiName": "Stealth Drift",
+    "description": "+18m Enemy Radar\r\n+12% Aim Glide/Wall Latch Duration",
+    "acquisition": "- Stealth Drift is rewarded upon completing the Stealth Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+    "sourceRefs": [
+      "article page: Stealth Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaStasisFieldPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaStasisFieldPrecept",
+    "wikiName": "Stasis Field",
+    "description": "Creates a stasis field for 30s. While inside the field, all enemy projectiles move 90% slower and deal 60% less Damage.",
+    "acquisition": "Stasis Field is automatically acquired upon obtaining a MOA built with the Lambeo Model.",
+    "sourceRefs": [
+      "article page: Stasis Field"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/LongGuns/Gunbrella/ShrineMaidenGunbrellaAugment": {
+    "uniqueName": "/Lotus/Weapons/Tenno/LongGuns/Gunbrella/ShrineMaidenGunbrellaAugment",
+    "wikiName": "Higasa Serration",
+    "description": "Alternate Fire applies a random Status Effect to enemies hit.\r\n+450% Damage",
+    "acquisition": "Higasa Serration can be purchased from Koumei's Shrine on Cetus, Earth for 150 Fate Pearl. The mod will only appear in the shop if the player has access to The Steel Path.",
+    "sourceRefs": [
+      "article page: Higasa Serration"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveAkjagaraAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveAkjagaraAugmentMod",
+    "wikiName": "Range Advantage",
+    "description": "+300% damage if no enemies are within 10m.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Range Advantage was originally acquired by reaching Rank 20 in Nightwave during Nora's Mix Volume 1.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Range Advantage"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModSpeed": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModSpeed",
+    "wikiName": "Speed Drift",
+    "description": "+12% Sprint Speed\r\n+15% Casting Speed",
+    "acquisition": "- Speed Drift is rewarded upon completing the Speed Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+    "sourceRefs": [
+      "article page: Speed Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModAgility": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModAgility",
+    "wikiName": "Agility Drift",
+    "description": "Reduced damage by 12% while airborne\r\n-6% Enemy Accuracy when targeting Warframe",
+    "acquisition": "- Agility Drift is rewarded upon completing the Agility Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+    "sourceRefs": [
+      "article page: Agility Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/NightwaveCephPrimaryAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/NightwaveCephPrimaryAugmentMod",
+    "wikiName": "Spontaneous Singularity",
+    "description": "Orbs that strike targets will explode immediately with 90% Bonus Damage and a 18% chance of Singularity that pulls in more targets. Orbs do not bounce or combine. ",
+    "acquisition": "Spontaneous Singularity can be obtained by reaching Rank 25 with Nightwave during Nora's Mix Volume 9.",
+    "sourceRefs": [
+      "article page: Spontaneous Singularity"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pirate/LiquifyAugmentCard": {
+    "uniqueName": "/Lotus/Powersuits/Pirate/LiquifyAugmentCard",
+    "wikiName": "Curative Undertow",
+    "description": "Undertow Augment: Allies can stand in the pool to regain 30% Health every 1.5s. Hydroid will restore 10% Health.",
+    "acquisition": "- This mod can be acquired by attaining the rank of Genius under Cephalon Suda, or the rank of Flawless under New Loka, and spending 25,000 to purchase.",
+    "sourceRefs": [
+      "article page: Curative Undertow"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/EnergyPickupGivesStrengthMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/EnergyPickupGivesStrengthMod",
+    "wikiName": "Energy Conversion",
+    "description": "Energy Orbs grant 50% more Ability Strength to your next cast.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 100,000.",
+    "sourceRefs": [
+      "article page: Energy Conversion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Aura/EnemyShieldReductionAuraMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Aura/EnemyShieldReductionAuraMod",
+    "wikiName": "Shield Disruption",
+    "description": "Enemies lose -18% Shield Capacity",
+    "acquisition": "- Available for 20 creds from the Nightwave Cred Offerings store.",
+    "sourceRefs": [
+      "article page: Shield Disruption"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/NightwaveTnJetTurbinePistolAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/NightwaveTnJetTurbinePistolAugmentMod",
+    "wikiName": "Pain Points",
+    "description": "On Weak Point hits with Primary Fire:\r\n+60% Weak Point Damage for 5s. Stacks up to 10x.",
+    "acquisition": "- Pain Points can be obtained by reaching Rank 13 with Nightwave during Nora's Mix Volume 9.",
+    "sourceRefs": [
+      "article page: Pain Points"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/Event/ShootPickUpPistolMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/Event/ShootPickUpPistolMod",
+    "wikiName": "Energizing Shot",
+    "description": "Shoot Energy Orbs to obtain them with +110% extra effect.",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 30 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Energizing Shot"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaHackerPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaHackerPrecept",
+    "wikiName": "Security Override",
+    "description": "Auto-hacks consoles over 2s. 30% chance to mind control basic robotic enemies and turrets in 30m for 14s after Hacking.",
+    "acquisition": "Security Override is automatically acquired upon obtaining a MOA built with the Oloro Model.",
+    "sourceRefs": [
+      "article page: Security Override"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/LocateCreatures": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/LocateCreatures",
+    "wikiName": "Scan Aquatic Lifeforms",
+    "description": "Reveals hotspots within 100m and applies Luminous Dye to fish within 40m.",
+    "acquisition": "Scan Aquatic Lifeforms is automatically acquired upon obtaining Oxylus.",
+    "sourceRefs": [
+      "article page: Scan Aquatic Lifeforms"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod",
+    "wikiName": "Prototype Shock Coils",
+    "description": "Adds +90% <DT_ELECTRICITY_COLOR>Electric damage, and shots have a 20% base chance to apply extra Electric status independent of modded damage types.",
+    "acquisition": "- Prototype Shock Coils can be obtained by reaching Rank 10 with Nightwave during Amir's Shockwave.",
+    "sourceRefs": [
+      "article page: Prototype Shock Coils"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Warframe/AvatarInvulnOnRollMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/AvatarInvulnOnRollMod",
+    "wikiName": "Rolling Guard",
+    "description": "On Dodge:\r\nBecome invulnerable for 3s and remove all Status Effects. 7s cooldown.",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Rolling Guard"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveLasGooAKAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveLasGooAKAugmentMod",
+    "wikiName": "Overpressured Rounds",
+    "description": "Rifle kills add 120% Falloff Distance and decrease Spread for next attack with Buckshot. Buckshot kills restore 50% of the current Magazine.",
+    "acquisition": "- Overpressured Rounds can be obtained by reaching Rank 25 with Nightwave during Amir's Shockwave.",
+    "sourceRefs": [
+      "article page: Overpressured Rounds"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowLootPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowLootPrecept",
+    "wikiName": "Retrieve",
+    "description": "Kubrow has 45% chance to scavenge additional loot from a fallen enemy or containers within 30m, every 10s.",
+    "acquisition": "Retrieve is automatically acquired upon obtaining a Chesa Kubrow.",
+    "sourceRefs": [
+      "article page: Retrieve"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnHarpoonGunArbitrationMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnHarpoonGunArbitrationMod",
+    "wikiName": "Exposing Harpoon",
+    "description": "Pulling an enemy will give +300% Critical Chance for 15s.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Exposing Harpoon was originally acquired by reaching Rank 20 in Nightwave during Series 2: The Emissary or Rank 20 during Nora's Choice.\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Exposing Harpoon"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetDisarmPulsePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetDisarmPulsePrecept",
+    "wikiName": "Repo Audit",
+    "description": "Emits a magnetic pulse that disarms enemies within 30m.",
+    "acquisition": "Repo Audit is automatically acquired upon obtaining a Hound built with the Dorma Model.",
+    "sourceRefs": [
+      "article page: Repo Audit"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/LocateResources": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/LocateResources",
+    "wikiName": "Scan Matter",
+    "description": "Reveals resource containers and mineral deposits within 60m. Automatically breaks containers and collects resources every 3s.",
+    "acquisition": "Scan Matter is automatically acquired upon obtaining Oxylus.",
+    "sourceRefs": [
+      "article page: Scan Matter"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/NightwaveLasSilencedPistolAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/NightwaveLasSilencedPistolAugmentMod",
+    "wikiName": "Leaded Gas",
+    "description": "On Weak Point Hit:\r\n+300% <DT_GAS_COLOR>Gas Damage and Status Chance for 6s",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Leaded Gas was originally acquired by reaching Rank 13 with Nightwave during Nora's Mix Volume 8.\n- Beginning with Amir's Shockwave, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Leaded Gas"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/ArcTrap": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/ArcTrap",
+    "wikiName": "Arc Coil",
+    "description": "Sentinel will zap up to 7 enemies within 10m, dealing 100 <DT_ELECTRICITY_COLOR>Electricity Damage with a 10% Status Chance.",
+    "acquisition": "Arc Coil is automatically acquired upon obtaining Diriga.",
+    "sourceRefs": [
+      "article page: Arc Coil"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/EnergyOnHeadshotRifle": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/EnergyOnHeadshotRifle",
+    "wikiName": "Sharpshooter",
+    "description": "On Headshot Kill:\r\n+15 Energy",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Sharpshooter"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Melee/Expert/WeaponFireRateModExpert": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Melee/Expert/WeaponFireRateModExpert",
+    "wikiName": "Primed Fury",
+    "description": "+55% Attack Speed",
+    "acquisition": "- This mod is exclusive to the Daily Tribute system. It will become available at day 200, 400, 600 and 900, until chosen as the Milestone reward, among Primed Vigor, Primed Shred, and (day 400+) Primed Sure Footed.\n- As of , this mod cannot be traded between players, primarily to prevent farming Daily Tribute-rewarded mods by creating multiple accounts.\n- Cannot be equipped with Berserker Fury.",
+    "sourceRefs": [
+      "article page: Primed Fury"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Sentinel/Moa/MoaMeleeMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Sentinel/Moa/MoaMeleeMod",
+    "wikiName": "Hard Engage",
+    "description": "Engages enemies within 10m with melee attacks, dealing 90 <DT_IMPACT_COLOR>Impact Damage. Melee attacks are enhanced by Mods equipped in the Moa's weapon.",
+    "acquisition": "Hard Engage is automatically acquired upon obtaining a MOA built with the Nychus Model.",
+    "sourceRefs": [
+      "article page: Hard Engage"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Melee/Event/Nightwave/NightwaveVenatoAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Melee/Event/Nightwave/NightwaveVenatoAugmentMod",
+    "wikiName": "Sentient Incision",
+    "description": "+120% additional damage matching the target's weakness. Does not combine with other damage types.",
+    "acquisition": "Sentient Incision was originally obtained by reaching Rank 10 with Nightwave during Nora's Mix: Time Tempests.",
+    "sourceRefs": [
+      "article page: Sentient Incision"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitAcidPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorSpitAcidPrecept",
+    "wikiName": "Acidic Spittle",
+    "description": "Every 5s spit acidic tar at an enemy within 30m, blinding them for 12s and dealing 120 <DT_CORROSIVE_COLOR>Corrosive Damage.",
+    "acquisition": "Acidic Spittle is automatically acquired upon obtaining a Vizier Predasite.",
+    "sourceRefs": [
+      "article page: Acidic Spittle"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnGrenadeLauncherArbitrationMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/GrnGrenadeLauncherArbitrationMod",
+    "wikiName": "Precision Strike",
+    "description": "Hitting an enemy directly with the grenade increases Reload Speed by 150% for 5s.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Precision Strike was originally acquired by reaching Rank 23 in Nightwave during Series 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Precision Strike"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Aura/AvatarAuraPowerMaxMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Aura/AvatarAuraPowerMaxMod",
+    "wikiName": "Power Donation",
+    "description": "You lose 30% Ability Strength\r\nSquadmates gain 30% Ability Strength",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Power Donation"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/CritChanceWhileAimingRifleSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/CritChanceWhileAimingRifleSPMod",
+    "wikiName": "Galvanized Scope",
+    "description": "On Headshot:\r\n+120% Critical Chance when Aiming for 12s\r\nOn Headshot Kill:\r\n+40% Critical Chance when Aiming for 12s. Stacks up to 5x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Scope"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/BroncoNightwaveMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/BroncoNightwaveMod",
+    "wikiName": "Dizzying Rounds",
+    "description": "Shots from less than 8m stun enemies and open them to finishers.\r\n+200% Status Chance",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Dizzying Rounds was originally acquired by reaching Rank 20 in Nightwave during Series 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 6, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Dizzying Rounds"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModCollaboration": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModCollaboration",
+    "wikiName": "Coaction Drift",
+    "description": "Squad benefits +15% more from Auras\r\nYou benefit an additional +15% from Auras",
+    "acquisition": "- Coaction Drift is awarded upon completing the Collaboration Test in the Orokin Moon.",
+    "sourceRefs": [
+      "article page: Coaction Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorFinisherSporesPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorFinisherSporesPrecept",
+    "wikiName": "Paralytic Spores",
+    "description": "Charges at an enemy within 30m dealing 160 damage. This releases spores that affect enemies within 15m, opening them up to Melee Finishers, and slowing them by 50% for 10s.",
+    "acquisition": "Paralytic Spores is automatically acquired upon obtaining a Medjay Predasite.",
+    "sourceRefs": [
+      "article page: Paralytic Spores"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/WeaponFireIterationsSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/WeaponFireIterationsSPMod",
+    "wikiName": "Galvanized Chamber",
+    "description": "+80% Multishot\r\nOn Kill:\r\n+30% Multishot for 20s. Stacks up to 5x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Chamber"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/UniversalVacuum": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/UniversalVacuum",
+    "wikiName": "Vacuum",
+    "description": "13.5m Companion Gather-Link. Detects and collects items, including mods.",
+    "acquisition": "Vacuum does not drop from any enemy, and is not obtainable from any mission. Instead, you will be given one copy every time you claim a Sentinel from your Foundry.",
+    "sourceRefs": [
+      "article page: Vacuum"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Sandman/SandmanSwarmAugmentCard": {
+    "uniqueName": "/Lotus/Powersuits/Sandman/SandmanSwarmAugmentCard",
+    "wikiName": "Negation Swarm",
+    "description": "Scarab Swarm Augment: Scarab Armor protects Inaros from Status Effects, consuming 3% Bonus Armor for each effect resisted.",
+    "acquisition": "- This mod can be acquired by attaining the rank of Maxim under the Arbiters of Hexis, or the rank of Partner under the The Perrin Sequence, and spending 25,000 to purchase.\n- This mod can periodically be acquired from The Circuit.",
+    "sourceRefs": [
+      "article page: Negation Swarm"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/ProcAbsorb": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/ProcAbsorb",
+    "wikiName": "Negate",
+    "description": "Sentinel prevents Status Effects from applying to its owner once every 5s.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Negate"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/GrenadeLauncherProjectileMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/GrenadeLauncherProjectileMod",
+    "wikiName": "Napalm Grenades",
+    "description": "Grenades leave a burning patch on impact.\r\n+30 Final Status Chance",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Napalm Grenades was originally acquired by reaching Rank 22 in Nightwave during Series 1: The Wolf of Saturn Six or reaching Rank 13 during Intermission II.\n- Beginning with Nightwave Nora’s Mix: Vol. 6, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Napalm Grenades"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/GlaxionNightwaveMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/GlaxionNightwaveMod",
+    "wikiName": "Photon Overcharge",
+    "description": "+90% Critical Damage\r\nOn Kill or Assist: Slain enemies have a 2% chance to drop an Energy Orb per <DT_FREEZE_COLOR>Cold Status affecting them.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Photon Overcharge was originally acquired by reaching Rank 25 in Nightwave during Nora's Mix Volume 6.\n- Beginning with Nightwave Nora's Mix: Dreams of the Dead, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Photon Overcharge"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowGrabPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/KubrowPetPrecepts/KubrowGrabPrecept",
+    "wikiName": "Proboscis",
+    "description": "Helminth Charger whips a proboscis out at an enemy within 30m, pulling them back and dealing 100 damage.",
+    "acquisition": "Proboscis is automatically acquired upon obtaining a Helminth Charger.",
+    "sourceRefs": [
+      "article page: Proboscis"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveTigrisAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveTigrisAugmentMod",
+    "wikiName": "Combat Reload",
+    "description": "If 5 pellets are headshots, increase reload speed by +120% for 3s.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Combat Reload was originally acquired by reaching Rank 23 in Nightwave during Nora's Mix Volume 1.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Combat Reload"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveTiberonAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveTiberonAugmentMod",
+    "wikiName": "Critical Precision",
+    "description": "Burst Fire Only: Headshots increase Critical Chance by 10% up to 500%. Missing with all shots in a burst removes up to 100% of this bonus Critical Chance.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Critical Precision was originally acquired by reaching Rank 13 in Nightwave during Nora's Mix Volume 2.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Critical Precision"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/WeaponFireIterationsSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/WeaponFireIterationsSPMod",
+    "wikiName": "Galvanized Diffusion",
+    "description": "+110% Multishot\r\nOn Kill:\r\n+30% Multishot for 20s. Stacks up to 4x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Diffusion"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/CodexScannerPrecept": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/CodexScannerPrecept",
+    "wikiName": "Investigator",
+    "description": "Helios Sentinel will scan objects and enemies within 50m over 2.0s. This consumes Codex Scanner charges.",
+    "acquisition": "Investigator is automatically acquired upon obtaining Helios or Helios Prime.",
+    "sourceRefs": [
+      "article page: Investigator"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorInfectiousBitePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/CreaturePrecepts/InfestedPredatorInfectiousBitePrecept",
+    "wikiName": "Infectious Bite",
+    "description": "An attack that deals +200% Finisher Damage and infects the target with a Virus that grows 4 volatile pustules that react to damage and explode.",
+    "acquisition": "Infectious Bite is automatically acquired upon obtaining a Medjay Predasite.",
+    "sourceRefs": [
+      "article page: Infectious Bite"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/MeleeTrees/MonkeyKingStaffMeleeTreeRework": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/MeleeTrees/MonkeyKingStaffMeleeTreeRework",
+    "wikiName": "Primal Fury",
+    "description": "Stance: Summon the iron staff and unleash fury.",
+    "acquisition": "- Primal Fury is a unique stance which can only be temporarily obtained through the use of Wukong's Primal Fury. There are no other possible methods to obtain this stance.",
+    "sourceRefs": [
+      "article page: Primal Fury (Stance)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CatbrowPetPrecepts/CatbrowVampireBitePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CatbrowPetPrecepts/CatbrowVampireBitePrecept",
+    "wikiName": "Draining Bite",
+    "description": "Vasca Kavat inflicts 5 stacks of <DT_SLASH_COLOR>Slash at 150% of its melee damage and restores 10% Health to itself.",
+    "acquisition": "Draining Bite is automatically acquired upon obtaining a Vasca Kavat.",
+    "sourceRefs": [
+      "article page: Draining Bite"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModCunning": {
+    "uniqueName": "/Lotus/Upgrades/Mods/OrokinChallenge/OrokinChallengeModCunning",
+    "wikiName": "Cunning Drift",
+    "description": "+12% Slide\r\n-30% Friction\r\n+15% Ability Range",
+    "acquisition": "- Cunning Drift is rewarded upon completing the Cunning Test in the Orokin Moon.",
+    "sourceRefs": [
+      "article page: Cunning Drift"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Shotgun/WeaponStatusChanceSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Shotgun/WeaponStatusChanceSPMod",
+    "wikiName": "Galvanized Savvy",
+    "description": "+80% Status Chance\r\nOn Kill:\r\n+40% Direct Damage per Status Type affecting the target for 20s. Stacks up to 2x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Savvy"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Melee/Expert/WeaponMeleeStatusChanceSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Melee/Expert/WeaponMeleeStatusChanceSPMod",
+    "wikiName": "Galvanized Elementalist",
+    "description": "+80% Status Damage\r\nOn Melee Kill:\r\n+30% Status Chance for 20s. Stacks up to 4x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Elementalist"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Pistol/Event/CritChanceWhileAimingPistolSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Pistol/Event/CritChanceWhileAimingPistolSPMod",
+    "wikiName": "Galvanized Crosshairs",
+    "description": "On Headshot:\r\n+120% Critical Chance when Aiming for 12s\r\nOn Headshot Kill:\r\n+40% Critical Chance when Aiming for 12s. Stacks up to 5x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Crosshairs"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pirate/CannonBarrageAugmentCard": {
+    "uniqueName": "/Lotus/Powersuits/Pirate/CannonBarrageAugmentCard",
+    "wikiName": "Corroding Barrage",
+    "description": "Tempest Barrage Augment: Each projectile has a 100% chance of inflicting a <DT_CORROSIVE_COLOR>Corrosive Status Effect. Tempest Barrage gains 100% Ability Strength.",
+    "acquisition": "- This mod can be acquired by attaining the rank of Genius under Cephalon Suda, or the rank of Flawless under New Loka, and spending ‍25,000 to purchase.",
+    "sourceRefs": [
+      "article page: Corroding Barrage"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Ninja/TeleportToAugmentCard": {
+    "uniqueName": "/Lotus/Powersuits/Ninja/TeleportToAugmentCard",
+    "wikiName": "Fatal Teleport",
+    "description": "Teleport Augment: Teleport will perform a Finisher on the target, dealing 200% Extra Damage. 50% of Energy cost is refunded on a kill.",
+    "acquisition": "- This mod can be acquired by attaining the rank of Maxim under the Arbiters of Hexis, or the rank of Exalted under the Red Veil, and spending 25,000 to purchase.",
+    "sourceRefs": [
+      "article page: Fatal Teleport"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveZylokAugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveZylokAugmentMod",
+    "wikiName": "Eximus Advantage",
+    "description": "Headshots on Eximus enemies increase Secondary Damage by +600% for 10 secs.",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Eximus Advantage was originally acquired by reaching Rank 13 in Nightwave during Nora's Mix Volume 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 8, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Eximus Advantage"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaLiftBombPrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetPrecept/MoaLiftBombPrecept",
+    "wikiName": "Anti-Grav Grenade",
+    "description": "A grenade that levitates enemies in a 6m. After 6s afflicted enemies come crashing down, causing  <DT_IMPACT_COLOR>Impact Damage equal to 80% of the damage taken while floating.",
+    "acquisition": "Anti-Grav Grenade is automatically acquired upon obtaining a MOA built with the Para Model.",
+    "sourceRefs": [
+      "article page: Anti-Grav Grenade"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/ItemDropOnAssist": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/ItemDropOnAssist",
+    "wikiName": "Energy Generator",
+    "description": "Dethcube drops an Energy Orb after assisting in 10 kills.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Energy Generator"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/Looter": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/Looter",
+    "wikiName": "Looter",
+    "description": "Emits a pulse wave to break open Loot Crates within 22m.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Looter"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Shotgun/Event/Arbitration/CrpSplitLaserArbitrationMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Shotgun/Event/Arbitration/CrpSplitLaserArbitrationMod",
+    "wikiName": "Efficient Beams",
+    "description": "Only consume ammo when dealing damage.\r\n+150% Status Chance",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Efficient Beams was originally acquired by reaching Rank 7 in Nightwave during Series 2: The Emissary\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Efficient Beams"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/JumpRefreshOnKillRifleMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Event/Arbitration/JumpRefreshOnKillRifleMod",
+    "wikiName": "Aerial Ace",
+    "description": "On Kill:\r\nRefresh Double Jump up to 6x while Airborne.",
+    "acquisition": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for Vitus Essence 30 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Aerial Ace"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/MeleeTrees/DoomSwordMeleeTree": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/MeleeTrees/DoomSwordMeleeTree",
+    "wikiName": "Exalted Blade",
+    "description": "Stance: Summon a sword of pure light and immense power.",
+    "acquisition": "- Exalted Blade is a unique stance that can only be temporarily obtained through the use of Excalibur's Exalted Blade. There are no other possible methods to obtain this stance.",
+    "sourceRefs": [
+      "article page: Exalted Blade (Stance)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Shotgun/WeaponFireIterationsSPMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Shotgun/WeaponFireIterationsSPMod",
+    "wikiName": "Galvanized Hell",
+    "description": "+110% Multishot\r\nOn Kill:\r\n+30% Multishot for 20s. Stacks up to 4x.",
+    "acquisition": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+    "sourceRefs": [
+      "article page: Galvanized Hell"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetMagneticRepulsePrecept": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetPrecepts/ZanukaPetMagneticRepulsePrecept",
+    "wikiName": "Reflex Denial",
+    "description": "Generates a shield that reflects 90% Damage taken in pulses over 10s as <DT_MAGNETIC_COLOR>Magnetic Damage in a 12m radius.",
+    "acquisition": "Reflex Denial is automatically acquired upon obtaining a Hound built with the Cela Bracket.",
+    "sourceRefs": [
+      "article page: Reflex Denial"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPrecepts/PlantScannerPrecept": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPrecepts/PlantScannerPrecept",
+    "wikiName": "Botanist",
+    "description": "Oxylus Sentinel will automatically pick any plants within 50m over 2.0s.",
+    "acquisition": "- This mod can be acquired from Cephalon Simaris for 75,000.",
+    "sourceRefs": [
+      "article page: Botanist"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Mods/Nightwave/NightwaveTC2024AK47AugmentMod": {
+    "uniqueName": "/Lotus/Upgrades/Mods/Nightwave/NightwaveTC2024AK47AugmentMod",
+    "wikiName": "Biotic Rounds",
+    "description": "On Weak Point Kill:\r\n+150% <DT_VIRAL_COLOR>Viral and <DT_MAGNETIC_COLOR>Magnetic Damage and Status Chance for 15s",
+    "acquisition": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Biotic Rounds was originally acquired by reaching Rank 25 with Nightwave during Nora's Mix Volume 8\n- Beginning with Amir's Shockwave, it was added to the Nightwave Cred Offerings.",
+    "sourceRefs": [
+      "article page: Biotic Rounds"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

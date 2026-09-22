@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-maps/appimage-smoke.py"
+  ],
+  "container_name": "stage3k-maps-appimage-smoke-6871763d0a",
+  "cpus": 4,
+  "duration_seconds": 83.367,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-test",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/maps-appimage-smoke-container.log",
+  "memory": "4g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

@@ -1,0 +1,392 @@
+{
+  "/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/CatbrowPet/MirrorCatbrowPetPowerSuit",
+    "wikiName": "Adarza Kavat",
+    "description": "Piercing eyes reflect deadly instincts.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, and have installed the Kavat Incubator Upgrade Segment whose blueprint can be obtained from the Clan Dojo's Tenno Lab research or dropped by Hyekka Masters, or purchased fully built from the Market for 175. The player must also have 10 Kavat Genetic Codes from scanning Feral Kavats on the Orokin Derelict tileset on Deimos using Codex Scanners or Synthesis Scanners, and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kavat can be bred using the Incubator: a Random Incubation has a chance to create an Adarza Kavat, while using two Genetic Code Templates bought from the Market can be applied to created Kavats to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Adarza Kavat (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/CarrierPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/CarrierPowerSuit",
+    "wikiName": "Carrier",
+    "description": "With 'Assault Mode' and 'Ammo Case' as default Precepts, Carrier is a seeker Sentinel. Carrier also comes with a shotgun weapon.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 1000x Alloy Plate, 400x Circuits, 3x Control Module, 1500x Nano Spores.",
+    "sourceRefs": [
+      "Module:Companions/data['Carrier'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeCarrierPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeCarrierPowerSuit",
+    "wikiName": "Carrier Prime",
+    "description": "This ornate sentinel is an excellent example of late Orokin craftsmanship and styling.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 1x Carapace, 1x Cerebrum, 6x Orokin Cell, 1x Systems. Blueprint from: Lith V7 (Intact) (25.33%); Lith V7 (Exceptional) (23.33%); Lith V7 (Flawless) (20%); Lith V7 (Radiant) (16.67%).",
+    "sourceRefs": [
+      "Module:Companions/data['Carrier Prime'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit",
+    "wikiName": "Chesa Kubrow",
+    "description": "This Kubrow will disarm adversaries and retrieve the spoils of battle.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kubrow can be bred using the Incubator: a Random Incubation has a chance to create a Chesa Kubrow, while using two Genetic Code Templates bought from the Market can be applied to created Kubrows to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Chesa Kubrow (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/HornedInfestedCatbrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/HornedInfestedCatbrowPetPowerSuit",
+    "wikiName": "Crescent Vulpaphyla",
+    "description": "Fast and foxy, Vulpaphyla are agile allies to bring along on your next adventure.",
+    "acquisition": "Vulpaphylas are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Crescent Vulpaphyla during the Vome cycle via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Vulpaphyla cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Vulpaphyla by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+    "sourceRefs": [
+      "article page: Crescent Vulpaphyla (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/DethCubePowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/DethCubePowerSuit",
+    "wikiName": "Dethcube",
+    "description": "With 'Assault Mode' and 'Vaporize' as default precepts, Dethcube acts exactly as advertised, as a badass cube of 'deth'. Comes loaded with Deth Machine Rifle weapon.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 500x Alloy Plate, 400x Circuits, 1x Control Module, 200x Nano Spores.",
+    "sourceRefs": [
+      "Module:Companions/data['Dethcube'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeDethCubePowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeDethCubePowerSuit",
+    "wikiName": "Dethcube Prime",
+    "description": "With 'Assault Mode' and 'Vaporize' as default precepts, Dethcube Prime is the apex of lethal support. Comes loaded with Deth Machine Rifle Prime weapon.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 1x Carapace, 1x Cerebrum, 6x Orokin Cell, 1x Systems. Blueprint from: Lith D1 (Intact) (2%); Lith D1 (Exceptional) (4%); Lith D1 (Flawless) (6%); Lith D1 (Radiant) (10%).",
+    "sourceRefs": [
+      "Module:Companions/data['Dethcube Prime'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/ArcDronePowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/ArcDronePowerSuit",
+    "wikiName": "Diriga",
+    "description": "Diriga shocks nearby enemies, and picks off distant threats, utilizing the Vulklok sniper rifle and the 'Calculated Shot', 'Arc Coil' and 'Electro Pulse' precepts.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 600x Alloy Plate, 2x Argon Crystal, 350x Plastids, 500x Polymer Bundle.",
+    "sourceRefs": [
+      "Module:Companions/data['Diriga'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/GubberPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/GubberPowerSuit",
+    "wikiName": "Djinn",
+    "description": "With 'Thumper' and 'Fatal Attraction' as default Precepts, Djinn is a combat Sentinel. Djinn also comes with a poison dart weapon.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 30,000 Credits, 3500x Circuits, 2x Forma, 6x Mutagen Mass, 30000x Salvage.",
+    "sourceRefs": [
+      "Module:Companions/data['Djinn'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/MeleePetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/MeleePetPowerSuit",
+    "wikiName": "Helios",
+    "description": "With 'Investigator' as its unique Precept and 'Deconstructor' as its weapon, the versatile Helios Sentinel acts as both a lethal guardian and an automatic codex scanner. Scans require an equipped Codex Scanner and an available charge.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 5,000 Credits, 5000x Ferrite, 10x Fieldron, 1x Forma, 300x Oxium.",
+    "sourceRefs": [
+      "Module:Companions/data['Helios'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeHeliosPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeHeliosPowerSuit",
+    "wikiName": "Helios Prime",
+    "description": "This knowledge hungry protector defends its master with Deconstructor Prime.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 1x Carapace, 1x Cerebrum, 6x Orokin Cell, 1x Systems. Blueprint from: Lith C3 (Intact) (11%); Lith C3 (Exceptional) (13%); Lith C3 (Flawless) (17%); Lith C3 (Radiant) (20%).",
+    "sourceRefs": [
+      "Module:Companions/data['Helios Prime'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/ChargerKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/ChargerKubrowPetPowerSuit",
+    "wikiName": "Helminth Charger",
+    "description": "An Infested pet bred from the Helminth Cyst",
+    "acquisition": "right|299px|The Kubrow Incubator screen, with Helminth Cyst section visible.\nThe player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nUnlike other Kubrow breeds, the Helminth Charger requires a Helminth Cyst. Using the Nidus or Nidus Prime Warframe in the Orbiter's Helminth room will trigger an injection, which can spread to other player's Warframes in missions, Clan Dojos, or another player's Orbiter. 24 hours after infection, a pink cyst will appear on the infected Warframe's neck, which will reach full size after another 6 days indicated by a single tendril emerging from the follicle.\n\nWhile using the infected Warframe with a fully matured cyst, the player can select \"Begin Incubation\" under the Kubrow Breeding tab. There, a new Helminth Cyst option will appear at the bottom of the Incubator menu via a button marked \"Drain\". Clicking this will bring up a confirmation dialog, after which the incubation process will proceed as it would for any other Kubrow.",
+    "sourceRefs": [
+      "article page: Helminth Charger (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/FurtiveKubrowPetPowerSuit",
+    "wikiName": "Huras Kubrow",
+    "description": "Prized for its ability to sneak up on unsuspecting prey, the Huras Kubrow were first used as hunting companions by the Orokin elite. Orokin Era Tenno soon adapted the strain for use in covert missions and assassinations.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kubrow can be bred using the Incubator: a Random Incubation has a chance to create a Huras Kubrow, while using two Genetic Code Templates bought from the Market can be applied to created Kubrows to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Huras Kubrow (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/MedjayPredatorKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/MedjayPredatorKubrowPetPowerSuit",
+    "wikiName": "Medjay Predasite",
+    "description": "These hard-charging, four-legged predators make formidable companions when in the field.",
+    "acquisition": "To obtain a Predasite as a companion, players must acquire one through Revivification with Son in the Necralisk, Deimos. This process requires capturing a Weakened Medjay Predasite during the Vome cycle via Conservation, after it has been attacked by the Infested. Additionally, players need a Mutagen and an Antigen, which can be purchased from Son using Entrati Standing, along with 5,000 to initiate the Revivification process.\n\nA newly revived Predasite cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Predasite by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+    "sourceRefs": [
+      "article page: Medjay Predasite (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/EmpyreanSentinelPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/EmpyreanSentinelPowerSuit",
+    "wikiName": "Nautilus",
+    "description": "With 'Auto Omni' and 'Cordon' as default Precepts, this Sentinel is the ideal companion for long voyages aboard a Railjack.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 1x Carapace, 1x Cerebrum, 5x Nullstones, 1x Systems. Blueprint from: Neptune Proxima Point of Interest (6.06%); Neptune Proxima Defense (4.65%); Neptune Proxima Defense (4.26%); Neptune/Arva Vector (Skirmish, Rotation B) (4.65%).",
+    "sourceRefs": [
+      "Module:Companions/data['Nautilus'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/NautilusPrimeSentinelPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/NautilusPrimeSentinelPowerSuit",
+    "wikiName": "Nautilus Prime",
+    "description": "This brave deckhand defends his crew with Verglas Prime.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 1x Carapace, 1x Cerebrum, 5x Nullstones, 1x Systems.",
+    "sourceRefs": [
+      "Module:Companions/data['Nautilus Prime'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/RadarPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/RadarPowerSuit",
+    "wikiName": "Oxylus",
+    "description": "With 'Scan Aquatic Lifeforms' and 'Scan Matter' as default Precepts, Oxylus was designed to assist in Search-and-Rescue operations through the harsh landscape around The Orb Vallis. Oxylus also comes with a Multron rifle.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 45x Axidrol Alloy, 15x Goblite Tears, 10x Longwinder Lathe Coagulant, 40x Scrap.",
+    "sourceRefs": [
+      "Module:Companions/data['Oxylus'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/ArmoredInfestedCatbrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/ArmoredInfestedCatbrowPetPowerSuit",
+    "wikiName": "Panzer Vulpaphyla",
+    "description": "Fast and foxy, Vulpaphyla are agile allies to bring along on your next adventure.",
+    "acquisition": "Vulpaphylas are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Panzer Vulpaphyla via Conservation (found only during Fass cycle) after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Vulpaphyla cannot be renamed, customized, Polarized or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Vulpaphyla by achieving rank of Acquaintance with the Entrati, leveling the Vulpaphyla up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+    "sourceRefs": [
+      "article page: Panzer Vulpaphyla (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/PharaohPredatorKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/PharaohPredatorKubrowPetPowerSuit",
+    "wikiName": "Pharaoh Predasite",
+    "description": "These hard-charging, four-legged predators make formidable companions when in the field.",
+    "acquisition": "Predasites are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Pharaoh Predasite via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Predasite cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Predasite by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+    "sourceRefs": [
+      "article page: Pharaoh Predasite (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit",
+    "wikiName": "Prisma Shade",
+    "description": "A rare jewel of the void. How could anything so beautiful be crafted for stealth?",
+    "acquisition": "Blueprint sold by Baro Ki'Teer for 500 Ducats and 300,000 Credits.",
+    "sourceRefs": [
+      "Module:Companions/data['Prisma Shade'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit",
+    "wikiName": "Raksa Kubrow",
+    "description": "Designed by the Orokin to be the perfect companion, a Kubrow was never far from its master's side. Loyal and obedient, these creatures made ideal bodyguards. Equipped with shield generators for added protection, their fierce growl could paralyze any attacker with fear.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kubrow can be bred using the Incubator: a Random Incubation has a chance to create a Raksa Kubrow, while using two Genetic Code Templates bought from the Market can be applied to created Kubrows to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Raksa Kubrow (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/AdventurerKubrowPetPowerSuit",
+    "wikiName": "Sahasa Kubrow",
+    "description": "Enterprising Orokin genetic designers recognized that the Kubrow's affinity for games of fetch could be used for more serious endeavors. They soon developed a strain adept at reconnaissance and contraband recovery. Tenno often used the creatures to help resupply while in the field.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kubrow can be bred using the Incubator: a Random Incubation has a chance to create a Sahasa Kubrow, while using two Genetic Code Templates bought from the Market can be applied to created Kubrows to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Sahasa Kubrow (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/ShadePowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/ShadePowerSuit",
+    "wikiName": "Shade",
+    "description": "With 'Revenge' and 'Ghost' as default Precepts, Shade is well suited for stealth gameplay. Shade also comes with a burst laser pistol.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 500x Alloy Plate, 400x Circuits, 1x Control Module, 200x Nano Spores.",
+    "sourceRefs": [
+      "Module:Companions/data['Shade'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeShadePowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrimeShadePowerSuit",
+    "wikiName": "Shade Prime",
+    "description": "Shade Prime specializes in stealth and comes locked and loaded with the Burst Laser Prime.\r\n\r\nTogether, you can dominate the shadows.",
+    "acquisition": "Blueprint from: Axi A17 (Intact) (11%); Axi A17 (Exceptional) (13%); Axi A17 (Flawless) (17%); Axi A17 (Radiant) (20%).",
+    "sourceRefs": [
+      "Module:Companions/data['Shade Prime'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/VulpineInfestedCatbrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/VulpineInfestedCatbrowPetPowerSuit",
+    "wikiName": "Sly Vulpaphyla",
+    "description": "Fast and foxy, Vulpaphyla are agile allies to bring along on your next adventure.",
+    "acquisition": "Vulpaphylas are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Sly Vulpaphyla via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Vulpaphyla cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Vulpaphyla by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+    "sourceRefs": [
+      "article page: Sly Vulpaphyla (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit",
+    "wikiName": "Smeeta Kavat",
+    "description": "This sly feline is playful yet devious.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, and have installed the Kavat Incubator Upgrade Segment whose blueprint can be obtained from the Clan Dojo's Tenno Lab research or dropped by Hyekka Masters, or purchased fully built from the Market for 175. The player must also have 10 Kavat Genetic Codes from scanning Feral Kavats on the Orokin Derelict tileset on Deimos using Codex Scanners or Synthesis Scanners, and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kavat can be bred using the Incubator: a Random Incubation has a chance to create an Smeeta Kavat, while using two Genetic Code Templates bought from the Market can be applied to created Kavats to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Smeeta Kavat (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/HunterKubrowPetPowerSuit",
+    "wikiName": "Sunika Kubrow",
+    "description": "Once the value of Orokin guard-pets had been realized, Orokin scientists began experimenting with strains designed for combat. These were no longer household pets but superior war animals bred for ferocity and aggression.",
+    "acquisition": "The player must have completed the Howl of the Kubrow quest in order to have an operating Incubator on the Orbiter, as well as have acquired a Kubrow Egg from Kubrow Dens on the Grineer Forest tilesets of Earth and a built Incubator Power Core whose blueprint can be obtained from the Market.\n\nThe Kubrow can be bred using the Incubator: a Random Incubation has a chance to create a Sunika Kubrow, while using two Genetic Code Templates bought from the Market can be applied to created Kubrows to have a chance to pass on genetic traits.",
+    "sourceRefs": [
+      "article page: Sunika Kubrow (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Sentinels/SentinelPowersuits/TnSentinelCrossPowerSuit": {
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/TnSentinelCrossPowerSuit",
+    "wikiName": "Taxon",
+    "description": "With 'Assault Mode' and 'Molecular Conversion' as default Precepts, Taxon protects its owner with shield restoration. Equipped with the Artax ice-beam.\r\n\r\nNote: This item requires two open slots.",
+    "acquisition": "Built in Foundry for: 15,000 Credits, 500x Ferrite, 1x Neurodes, 200x Polymer Bundle, 200x Rubedo.",
+    "sourceRefs": [
+      "Module:Companions/data['Taxon'] (Components/BuildPrice)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/CatbrowPet/VampireCatbrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Game/CatbrowPet/VampireCatbrowPetPowerSuit",
+    "wikiName": "Vasca Kavat",
+    "description": "A true child of the night, and a drinker of life.",
+    "acquisition": "To breed a Vasca Kavat, players must first complete the Howl of the Kubrow quest to unlock the Incubator and install the Kavat Incubator Upgrade Segment. The segment’s blueprint can be researched in a Clan Dojo’s Tenno Lab, dropped by Hyekka Masters, or purchased fully built from the Market for 175. Players also need 10 Kavat Genetic Codes (scanned from Feral Kavats on Deimos) and a built Incubator Power Core (blueprint available from the Market).\n\nInstead of hatching from the Incubator, the player’s existing Kavat must be infected by wild Vasca roaming the Plains of Eidolon at night. They can also be lured using Conservation tools sold by Master Teasonai - the Vasca Kavat Lure (3,000) and Vasca Kavat Pheromone Oota (200). Once a Kavat is bitten, it will glow red to show infection. If it’s downed in one hit, it won’t become infected. Vulpaphylas cannot be infected.\n\nBack on the Orbiter, use a Genetic Code Template on the infected Kavat. The confirmation should read:\n\nCreating a pet imprint will consume a blank imprint and cure your Kavat of the Vasca Virus. Continue?\n\nSelecting YES creates a Vasca Imprint and removes the infection. Since two imprints are required to breed a Vasca Kavat, the infection process must be repeated (or done simultaneously using two Kavats).\n\nTo remove the infection without creating an imprint, use a Vasca Curative (500), purchasable from Master Teasonai as a gear item.\n\nAlternatively, players can buy the Vasca Kavat Starter Kit from the Market for 105, which includes two Vasca Imprints, 10 Kavat Genetic Codes, an Incubator Power Core, and a Genetic Code Template.",
+    "sourceRefs": [
+      "article page: Vasca Kavat (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/CreaturePets/VizierPredatorKubrowPetPowerSuit": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/CreaturePets/VizierPredatorKubrowPetPowerSuit",
+    "wikiName": "Vizier Predasite",
+    "description": "These hard-charging, four-legged predators make formidable companions when in the field.",
+    "acquisition": "Predasites are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Vizier Predasite via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Predasite cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Predasite by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+    "sourceRefs": [
+      "article page: Vizier Predasite (##Acquisition section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit": {
+    "uniqueName": "/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit",
+    "wikiName": "Venari",
+    "description": "Khora's loyal Kavat. Her constant companion and protector.",
+    "acquisition": "Exalted Companion - automatically available once Khora is acquired; summoned via Khora's Passive ability. Not separately purchased, crafted, or dropped.",
+    "sourceRefs": [
+      "Confirmed via Khora/Abilities#Passive link in Module:Companions/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit": {
+    "uniqueName": "/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit",
+    "wikiName": "Venari Prime",
+    "description": "Khora's will, Venari's fangs and claws.",
+    "acquisition": "Exalted Companion - automatically available once Khora is acquired; summoned via Khora's Passive ability. Not separately purchased, crafted, or dropped.",
+    "sourceRefs": [
+      "Confirmed via Khora/Abilities#Passive link in Module:Companions/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadB": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadB",
+    "wikiName": "Bhaira Hound",
+    "description": "Hounds are powerful robotic comanions optimized for combat. They are programmed to excel at battlefield control and can be configured for countless scenarios.",
+    "acquisition": "The Bhaira blueprint can be earned by vanquishing a Sisters of Parvos.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadA": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadA",
+    "wikiName": "Dorma Hound",
+    "description": "Hounds are powerful robotic comanions optimized for combat. They are programmed to excel at battlefield control and can be configured for countless scenarios.",
+    "acquisition": "The Dorma blueprint can be earned by vanquishing a Sisters of Parvos.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadC": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetParts/ZanukaPetPartHeadC",
+    "wikiName": "Hec Hound",
+    "description": "Hounds are powerful robotic comanions optimized for combat. They are programmed to excel at battlefield control and can be configured for countless scenarios.",
+    "acquisition": "The Hec blueprint can be earned by vanquishing a Sisters of Parvos.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadLambeo": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadLambeo",
+    "wikiName": "Lambeo Moa",
+    "description": "MOAs are versatile robotic allies that specialize in indirect support both in and outside of combat.",
+    "acquisition": "The Lambeo blueprint can be purchased from Legs after reaching the rank of Outworlder with Solaris United for 1,000 Standing.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadMelee": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadMelee",
+    "wikiName": "Nychus Moa",
+    "description": "MOAs are versatile robotic allies that specialize in indirect support both in and outside of combat.",
+    "acquisition": "The Nychus blueprint can be purchased from Legs after reaching the rank of Doer with Solaris United for 3,000 Standing.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadOloro": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadOloro",
+    "wikiName": "Oloro Moa",
+    "description": "MOAs are versatile robotic allies that specialize in indirect support both in and outside of combat.",
+    "acquisition": "The Oloro blueprint can be purchased from Legs after reaching the rank of Rapscallion with Solaris United for 2,000 Standing.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadPara": {
+    "uniqueName": "/Lotus/Types/Friendly/Pets/MoaPets/MoaPetParts/MoaPetHeadPara",
+    "wikiName": "Para Moa",
+    "description": "MOAs are versatile robotic allies that specialize in indirect support both in and outside of combat.",
+    "acquisition": "The Para blueprint can be purchased from Legs after reaching the rank of Neutral with Solaris United for 500 Standing.",
+    "sourceRefs": [
+      "article page 'Model' (section-based, matched by model name)"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

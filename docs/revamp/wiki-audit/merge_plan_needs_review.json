@@ -1,0 +1,141 @@
+{
+  "components": {
+    "/Lotus/Powersuits/Choir/Choir": {
+      "existingText": "Main Blueprint acquired upon completing the Jade Shadows quest. Component blueprints drop from Ascension on Brutus, Uranus (5% chance each), or can be purchased from Ordis in the Drifter's Camp (or Larunda Relay, Mercury during Operation: Belly of the Beast) using Vestigial Motes - 150 per component, 450 for the main blueprint (900 total).",
+      "newText": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Ascension (4.63%); Chassis: Ascension (4.63%); Systems: Ascension (4.63%).",
+      "source": "warframes",
+      "sourceRefs": [
+        "Module:Blueprints/data (Suits table)",
+        "Jade Neuroptics Blueprint",
+        "Jade Chassis Blueprint",
+        "Jade Systems Blueprint"
+      ],
+      "wikiName": "Jade",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Belly of the Beast",
+        "Drifter",
+        "Jade"
+      ],
+      "missingFromNew": [
+        "Belly of the Beast",
+        "Drifter",
+        "Jade"
+      ]
+    }
+  },
+  "mods": {
+    "Primed Sure Footed": {
+      "existingText": "Daily Tribute (login rewards) milestone at day 400/600/900 - NOT Baro",
+      "newText": "- This mod is exclusive to the Daily Tribute system. It will become available at day 400, 600 and 900, until chosen as the Milestone reward, among Primed Vigor, Primed Shred, and Primed Fury.\n- This mod first became available on May 20, 2018 UTC.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Primed Sure Footed"
+      ],
+      "wikiName": "Primed Sure Footed",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Baro"
+      ],
+      "missingFromNew": [
+        "Baro"
+      ]
+    },
+    "Primed Shred": {
+      "existingText": "Daily Tribute (login rewards) milestone at day 200/400/600/900 - NOT Baro",
+      "newText": "- This mod is exclusive to the Daily Tribute system. It will become available at day 200, 400, 600 and 900, until chosen as the Milestone reward, among Primed Vigor, Primed Fury, and (day 400+) Primed Sure Footed.\n- This mod first became available on July 24, 2017 UTC.\n- As with other Daily Tribute rewards, it can not be traded.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Primed Shred"
+      ],
+      "wikiName": "Primed Shred",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Baro"
+      ],
+      "missingFromNew": [
+        "Baro"
+      ]
+    },
+    "Primed Vigor": {
+      "existingText": "Daily Tribute (login rewards) milestone at day 200/400/600/900 - NOT Baro",
+      "newText": "- This mod is exclusive to the Daily Tribute system. It will become available at day 200, 400, 600 and 900, until chosen as the Milestone reward, among Primed Fury, Primed Shred, and (day 400+) Primed Sure Footed.\n- This mod first became available on January 5, 2017 UTC.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Primed Vigor"
+      ],
+      "wikiName": "Primed Vigor",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Baro"
+      ],
+      "missingFromNew": [
+        "Baro"
+      ]
+    },
+    "Power Drift": {
+      "existingText": "Reward for completing the Power Test in the Orokin Moon (Cephalon Simaris testing)",
+      "newText": "- Power Drift is rewarded upon completing the Power Test in the Orokin Moon.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Power Drift"
+      ],
+      "wikiName": "Power Drift",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Cephalon Simaris"
+      ],
+      "missingFromNew": [
+        "Cephalon Simaris"
+      ]
+    },
+    "Stealth Drift": {
+      "existingText": "Reward for completing the Stealth Test in the Orokin Moon (Cephalon Simaris testing)",
+      "newText": "- Stealth Drift is rewarded upon completing the Stealth Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Stealth Drift"
+      ],
+      "wikiName": "Stealth Drift",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Cephalon Simaris"
+      ],
+      "missingFromNew": [
+        "Cephalon Simaris"
+      ]
+    },
+    "Speed Drift": {
+      "existingText": "Reward for completing the Speed Test in the Orokin Moon (Cephalon Simaris testing)",
+      "newText": "- Speed Drift is rewarded upon completing the Speed Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Speed Drift"
+      ],
+      "wikiName": "Speed Drift",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Cephalon Simaris"
+      ],
+      "missingFromNew": [
+        "Cephalon Simaris"
+      ]
+    },
+    "Primed Fury": {
+      "existingText": "Daily Tribute (login rewards) milestone at day 200/400/600/900 - NOT Baro",
+      "newText": "- This mod is exclusive to the Daily Tribute system. It will become available at day 200, 400, 600 and 900, until chosen as the Milestone reward, among Primed Vigor, Primed Shred, and (day 400+) Primed Sure Footed.\n- As of , this mod cannot be traded between players, primarily to prevent farming Daily Tribute-rewarded mods by creating multiple accounts.\n- Cannot be equipped with Berserker Fury.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Primed Fury"
+      ],
+      "wikiName": "Primed Fury",
+      "classification": "needs_review",
+      "knownEntitiesInExisting": [
+        "Baro"
+      ],
+      "missingFromNew": [
+        "Baro"
+      ]
+    }
+  }
+}

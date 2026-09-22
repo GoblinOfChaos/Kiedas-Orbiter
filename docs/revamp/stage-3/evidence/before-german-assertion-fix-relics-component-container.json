@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relics/component.py"
+  ],
+  "container_name": "stage3g-component-final2-070e61aa54",
+  "cpus": 4,
+  "duration_seconds": 30.448,
+  "exit_code": 1,
+  "image": "localhost/kiedas-preview-ubuntu24-test",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relics-component-container.log",
+  "memory": "4g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

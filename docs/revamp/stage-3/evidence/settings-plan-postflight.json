@@ -1,0 +1,34 @@
+{
+  "status": "plan_ready_explicit_app_source_approval_required",
+  "risk": "higher",
+  "checks": {
+    "stage3i_accepted_in_ledger": true,
+    "stage3i_plan_marked_accepted": true,
+    "stage3i_preservation_marked_accepted": true,
+    "stage3j_plan_linked": true,
+    "stage3j_scope_awaits_approval": true,
+    "settings_source_unchanged": true,
+    "preview_settings_layout_absent": true,
+    "stage3k_layout_absent": true,
+    "accepted_stage3i_cumulative_patch_unchanged_and_frozen": true,
+    "cargo_lock_unchanged": true,
+    "tracked_baseline_850_of_850": true,
+    "navigation_source_fact_passed": true,
+    "persisted_keys_registered": true,
+    "command_inventory_registered": true,
+    "live_boundaries_source_verified": true,
+    "main_diff_check_passes": true,
+    "checkout_diff_check_passes": true
+  },
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "settings_source_sha256": "de41d7216fcb976c602bc76e2fd4abc894e56dd1631181a7446465571432a2b0",
+  "accepted_stage3i_cumulative_patch_sha256": "0c0757698e55b8824f38a1d5d126c6edcf515ec359df76ab99ee28e2a6a29cf4",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "planned_app_files": [
+    "src/screens/Settings.jsx",
+    "src/components/PreviewSettingsLayout.jsx"
+  ],
+  "settings_app_source_changed_for_stage3j": false,
+  "stage3k_app_source_started": false
+}

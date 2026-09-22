@@ -1,0 +1,65 @@
+{
+  "status": "pass",
+  "records": [
+    {
+      "path": "docs/revamp/stage-3/maps-implementation.patch",
+      "bytes": 12614,
+      "sha256": "9c987c776f9388c7a63d17e92c36c83f2b331f5aff29759f0a4b8e4b9ca4c259"
+    },
+    {
+      "path": "docs/revamp/stage-3/cumulative-implementation.patch",
+      "bytes": 3923683,
+      "sha256": "daa070f8b321c5f59c04f88a63952588fbe5d72c2917b223ce55f51682e08b0b"
+    },
+    {
+      "path": "docs/revamp/stage-3/maps-implementation.json",
+      "bytes": 2058,
+      "sha256": "2af13519fb357c948cbf50d52af41c9456bb9e39ab5e6231f3dd2bdfb29d56f8"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-component.json",
+      "bytes": 4455,
+      "sha256": "ce75353d12cfda63620775d7ea27c259d2e2815252fc532566b8a6fbc3b43471"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-stable-matrix.json",
+      "bytes": 17749,
+      "sha256": "0f0aa2e5347404b92f2fd3b77cd7a800fee295e959b73b78a0c1af2634797790"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-rust-reliability.json",
+      "bytes": 2724,
+      "sha256": "f5456b5e3cebddd912a423fb547075247ea69aa838025d462557dd2a00ca5743"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-deb-packaged-smoke.json",
+      "bytes": 83756,
+      "sha256": "4bdbfc17957637d5abe4f9084feabd8755f03a4e5d490039006e733007ed2ef9"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-appimage-packaged-smoke.json",
+      "bytes": 83700,
+      "sha256": "5cd75e1a61be0b3ee8518a458edb2437696853ae58ab1dc671bbde5adebc7a7a"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-release-artifacts.json",
+      "bytes": 971,
+      "sha256": "88994fee4387866dd9af809dc74cae118e25cb3378ab25437546367376966724"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-baseline-check.json",
+      "bytes": 2058,
+      "sha256": "2af13519fb357c948cbf50d52af41c9456bb9e39ab5e6231f3dd2bdfb29d56f8"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-language-source.json",
+      "bytes": 893,
+      "sha256": "632cf7ca2716efb647fc97f56bd08d3087f40e8be034b5108b00b191952eb492"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-validation-summary.json",
+      "bytes": 4578,
+      "sha256": "bf2cb00efc5169d9a8df3776acfef9687194057c22b02ab309be74222393961a"
+    }
+  ]
+}

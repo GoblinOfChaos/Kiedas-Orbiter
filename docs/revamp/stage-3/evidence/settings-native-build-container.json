@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-settings/native-build.py"
+  ],
+  "container_name": "stage3j-settings-native-build-adbdd4ca87",
+  "cpus": 4,
+  "duration_seconds": 64.207,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-stage2",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/settings-native-build-container.log",
+  "memory": "8g",
+  "network": "none",
+  "phase": "build",
+  "preflight": {
+    "phase": "build",
+    "preserved": [],
+    "removed": [],
+    "target": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target"
+  },
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

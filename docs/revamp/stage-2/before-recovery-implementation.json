@@ -1,0 +1,13 @@
+{
+  "baseline": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "commit": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "branch": "revamp/preview-shell",
+  "checkout": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2",
+  "patch_sha256": "d16699e97e9d879305580411ce0ce6ff632038143e52841bc1cffa5bce9916bf",
+  "gate": "HELD: dialog correction passed 60 component checks; rebuilt Debian and AppImage each passed 23 native smoke checks plus resource fallback; remaining acceptance limits in CURRENT-ACCEPTANCE.md",
+  "app_installed": false,
+  "uncommitted_changes": [
+    "src/main.jsx",
+    "src/components/PreviewImport.jsx"
+  ]
+}

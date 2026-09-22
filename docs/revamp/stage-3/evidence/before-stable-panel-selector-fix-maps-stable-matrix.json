@@ -1,0 +1,415 @@
+{
+  "tier": "stable before/after styled component state and interaction parity",
+  "comparisons": [
+    {
+      "state": "initial-populated",
+      "equal": true,
+      "before_length": 7457,
+      "after_length": 7457
+    },
+    {
+      "state": "initial-empty",
+      "equal": true,
+      "before_length": 5102,
+      "after_length": 5102
+    },
+    {
+      "state": "tab-plains",
+      "equal": true,
+      "before_length": 5102,
+      "after_length": 5102
+    },
+    {
+      "state": "tab-orb",
+      "equal": true,
+      "before_length": 5095,
+      "after_length": 5095
+    },
+    {
+      "state": "tab-cambion",
+      "equal": true,
+      "before_length": 5098,
+      "after_length": 5098
+    },
+    {
+      "state": "tab-duviri",
+      "equal": true,
+      "before_length": 5091,
+      "after_length": 5091
+    },
+    {
+      "state": "raw-map",
+      "equal": true,
+      "before_length": 7432,
+      "after_length": 7432
+    },
+    {
+      "state": "panel-open",
+      "equal": true,
+      "before_length": 10687,
+      "after_length": 10687
+    },
+    {
+      "state": "marker-editor",
+      "equal": true,
+      "before_length": 7457,
+      "after_length": 7457
+    },
+    {
+      "state": "new-config-modal",
+      "equal": true,
+      "before_length": 13129,
+      "after_length": 13129
+    }
+  ],
+  "interaction_parity": [
+    {
+      "state": "initial-populated",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "initial-empty",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        }
+      ]
+    },
+    {
+      "state": "tab-plains",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "tab-orb",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "tab-cambion",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "tab-duviri",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "raw-map",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "panel-open",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "marker-editor",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    },
+    {
+      "state": "new-config-modal",
+      "equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_maps_path"
+        },
+        {
+          "args": null,
+          "command": "list_map_configs"
+        },
+        {
+          "args": {
+            "filename": "plains-of-eidolon.json"
+          },
+          "command": "read_map_config"
+        }
+      ]
+    }
+  ]
+}

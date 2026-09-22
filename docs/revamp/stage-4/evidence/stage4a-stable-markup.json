@@ -1,0 +1,750 @@
+{
+  "tier": "stable Dashboard before/after styled browser comparison with frozen time and synthetic inputs",
+  "comparisons": [
+    {
+      "name": "loading",
+      "equal": true,
+      "before_length": 1797,
+      "after_length": 1797,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "sparse-empty",
+      "equal": true,
+      "before_length": 10775,
+      "after_length": 10775,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "populated",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "all-hidden",
+      "equal": true,
+      "before_length": 2541,
+      "after_length": 2541,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Holdfasts",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Cavia",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Hex",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Cetus",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Deimos",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Vallis",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Normal",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Steel Path",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Void Storm",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Deep",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "tab-Temporal",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "baro-dialog",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "wishlist-dialog",
+      "equal": true,
+      "before_length": 26324,
+      "after_length": 26324,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "descendia-dialog",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    },
+    {
+      "name": "refresh-callback",
+      "equal": true,
+      "before_length": 25259,
+      "after_length": 25259,
+      "calls_equal": true,
+      "before_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "url": "https://oracle.browse.wf/bounty-cycle"
+          },
+          "command": "fetch_url"
+        }
+      ]
+    }
+  ],
+  "passed": 19,
+  "total": 19,
+  "failures": [],
+  "fixture_source": "synthetic-ui-only"
+}

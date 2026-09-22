@@ -1,0 +1,46 @@
+
+ opened_relic_planner=js("const b=[...document.querySelectorAll('nav button')].find(e=>e.textContent.trim()==='Relic Planner');if(!b)return false;b.click();return true")
+ if not opened_relic_planner: raise RuntimeError('Relic Planner navigation button unavailable')
+ time.sleep(.5)
+ planner_rewards=[
+  {'type':'/Synthetic/Prime/PlannerAlphaPrimeBlueprint','rarity':'COMMON'},
+  {'type':'/Synthetic/Prime/PlannerBetaPrimeChassis','rarity':'COMMON'},
+  {'type':'/Synthetic/Prime/PlannerGammaPrimeSystems','rarity':'COMMON'},
+  {'type':'/Synthetic/Prime/PlannerDeltaPrimeBarrel','rarity':'UNCOMMON'},
+  {'type':'/Synthetic/Prime/PlannerEpsilonPrimeReceiver','rarity':'UNCOMMON'},
+  {'type':'/Synthetic/Prime/PlannerZetaPrimeStock','rarity':'RARE'}
+ ]
+ planner_items={row['type']:{'name':row['type'].split('/')[-1].replace('Planner','Planner ').replace('Prime',' Prime ')} for row in planner_rewards}
+ planner_export={'ExportRelics':{
+  '/Synthetic/Relics/T1VoidProjectionP1Bronze':{'uniqueName':'/Synthetic/Relics/T1VoidProjectionP1Bronze','era':'Lith','category':'P1','rewardManifest':'/Synthetic/Pools/PlannerOne','vaulted':False},
+  '/Synthetic/Relics/T2VoidProjectionP2Bronze':{'uniqueName':'/Synthetic/Relics/T2VoidProjectionP2Bronze','era':'Meso','category':'P2','rewardManifest':'/Synthetic/Pools/PlannerTwo','vaulted':True}
+ },'ExportRewards':{'/Synthetic/Pools/PlannerOne':planner_rewards,'/Synthetic/Pools/PlannerTwo':[planner_rewards[0]]+planner_rewards[2:]},'ExportItems':planner_items,'ExportRecipes':{},'ExportWeapons':{},'ExportWarframes':{},'ExportResources':{},'dict':{},'uniqueNameToName':{},'EI':{}}
+ planner_inventory={'relics':[{'name':'Lith P1 Relic','era':'Lith','refinements':{'Intact':1,'Exceptional':1,'Flawless':0,'Radiant':1}},{'name':'Meso P2 Relic','era':'Meso','refinements':{'Intact':1,'Exceptional':0,'Flawless':0,'Radiant':0}}],'prime_parts':[],'primeSets':{},'all':[],'resources':[],'consumables_catalog':[],'consumables':[],'mods':[],'warframes':[],'primary':[],'secondary':[],'melee':[],'sentinels':[],'archwing':[],'foundry':[],'craftable':[],'account':{'forma':0}}
+ planner_inject_script="""const el=document.getElementById('root').firstElementChild,key=Object.keys(el).find(k=>k.startsWith('__reactFiber$'));let f=el[key];while(f){const value=f.memoizedProps?.value;if(value&&Object.prototype.hasOwnProperty.call(value,'inventoryData')&&typeof value.setWorldState==='function')break;f=f.return;}if(!f||!f.return)return {ok:false,reason:'provider-not-found'};let h=f.return.memoizedState,states=[];while(h){if(h.queue&&typeof h.queue.dispatch==='function')states.push(h);h=h.next;}if(states.length<8)return {ok:false,reason:'state-hooks',count:states.length};states[0].queue.dispatch(arguments[0]);states[6].queue.dispatch(arguments[1]);states[7].queue.dispatch(false);return {ok:true,stateHooks:states.length};"""
+ planner_injection=js(planner_inject_script,[planner_export,planner_inventory])
+ results['relic_planner_state_injection']={'tier':'synthetic DE-export-shaped catalog and parsed-inventory-shaped ownership dispatched into the real packaged MonitoringProvider; no app source or backend mock','result':planner_injection}
+ if not planner_injection.get('ok'): raise RuntimeError('MonitoringContext Relic Planner test-state injection unavailable: '+str(planner_injection))
+ time.sleep(1)
+ for _ in range(30):
+  if js("return !!document.querySelector('[data-preview-relic-planner-layout]')"): break
+  time.sleep(.25)
+ if not js("return !!document.querySelector('[data-preview-relic-planner-layout]')"): raise RuntimeError('Relic Planner layout did not load')
+ results['relic_planner_checks']=[]
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.4)
+  state=js("""const root=document.querySelector('[data-preview-relic-planner-layout]'),workspace=root?.querySelector('[data-preview-relic-planner-workspace]'),panels=root?[...root.querySelectorAll('[data-preview-relic-planner-panel]')]:[],rails=root?[...root.querySelectorAll('[data-preview-relic-planner-rail]')]:[],rr=root?.getBoundingClientRect(),rects=panels.map(e=>e.getBoundingClientRect());return {present:!!root,body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},root:rr?{left:rr.left,right:rr.right}:null,columns:workspace?getComputedStyle(workspace).gridTemplateColumns.split(' ').length:0,panels:rects.map(r=>({top:r.top,height:r.height,left:r.left,right:r.right})),rails:rails.map(e=>({kind:e.dataset.previewRelicPlannerRail,overflow:getComputedStyle(e).overflowX,wrap:getComputedStyle(e).flexWrap})),noSell:root?![...root.querySelectorAll('button')].some(e=>/sell/i.test(e.textContent)):false};""")
+  aligned=len(state['panels'])==3 and max(p['top'] for p in state['panels'])-min(p['top'] for p in state['panels'])<=1 and max(p['height'] for p in state['panels'])-min(p['height'] for p in state['panels'])<=1
+  contained=state.get('root') and state['root']['left']>=-1 and state['root']['right']<=width+1 and state['body']['scroll']<=state['body']['client']+1 and all(p['top']+p['height']<=height+1 for p in state['panels'])
+  results['relic_planner_checks'].append({'size':[width,height],'kind':'three-panel-layout','state':state,'pass':state['present'] and state['columns']==3 and aligned and contained and len(state['rails'])==2 and all(r['overflow']=='auto' and r['wrap']=='nowrap' for r in state['rails'])})
+ picker=js("const root=document.querySelector('[data-preview-relic-planner-panel=picker]'),b=[...(root?.querySelectorAll('button:not(:disabled)')||[])].find(e=>e.textContent.includes('Planner'));if(!b)return {ok:false};const name=b.textContent.trim();b.click();return {ok:true,name};")
+ time.sleep(.5)
+ selected=js("const root=document.querySelector('[data-preview-relic-planner-layout]'),remove=root?.querySelector('[data-preview-relic-planner-panel=need] button[aria-label]');return {removeLabel:remove?.getAttribute('aria-label')||'',resultCount:root?.querySelectorAll('[data-preview-relic-planner-result]').length||0,selected:root?.querySelector('[data-preview-relic-planner-panel=need]')?.innerText||''};")
+ results['relic_planner_checks'].append({'kind':'real-catalog-selection-and-matching','picker':picker,'selected':selected,'pass':picker.get('ok') and picker['name'] in selected['selected'] and selected['removeLabel']=='Remove '+picker['name'] and selected['resultCount']>0})
+ focused=js("const e=document.querySelector('[data-preview-relic-planner-panel=need] button[aria-label]');if(!e)return false;e.focus();return document.activeElement===e")
+ api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'relic-planner-keyboard','actions':[{'type':'keyDown','value':'\ue007'},{'type':'keyUp','value':'\ue007'}]}]});time.sleep(.25)
+ try: api('DELETE',prefix+'/actions')
+ except Exception: pass
+ removed=js("return !document.querySelector('[data-preview-relic-planner-panel=need] button[aria-label]')&&!document.querySelector('[data-preview-relic-planner-result]')")
+ results['relic_planner_checks'].append({'kind':'keyboard-removal','focused':focused,'removed':removed,'pass':focused and removed})
+ surface=js("const root=document.querySelector('[data-preview-relic-planner-layout]');return {noSell:![...root.querySelectorAll('button')].some(e=>/sell/i.test(e.textContent)),panelKinds:[...root.querySelectorAll('[data-preview-relic-planner-panel]')].map(e=>e.dataset.previewRelicPlannerPanel),partFilters:[...root.querySelectorAll('[data-preview-relic-planner-rail=parts] button')].map(e=>e.textContent.trim()),ownershipFilters:[...root.querySelectorAll('[data-preview-relic-planner-rail=ownership] button')].map(e=>e.textContent.trim())};")
+ results['relic_planner_checks'].append({'kind':'controls-and-market-surface','state':surface,'pass':surface['noSell'] and surface['panelKinds']==['picker','need','results'] and surface['partFilters']==['All','Never Obtained','Missing'] and surface['ownershipFilters']==['All','Owned','Unowned']})

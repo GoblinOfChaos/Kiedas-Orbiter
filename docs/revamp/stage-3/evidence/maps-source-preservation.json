@@ -1,0 +1,15 @@
+{
+  "maps_before_sha256": "08ec81d260d07e20c85828040df620214af38b982ef9d4eea9549ee09f8f8514",
+  "maps_after_sha256": "44c391ba0ca4e10f5aa9a9b6ba63ab777db0c0af06db7ea848ae177fa4ea0ae5",
+  "main_before_sha256": "d801705ea0314ba4af8da12a8a39ac8bd2f7e685595776195401308fdb47e82d",
+  "main_after_sha256": "0b5a45af2c231e7231dbee8f4cbf39b4d64db0624235f43d3c9eb5ad2202c7a6",
+  "preview_layout_sha256": "bd7e003eb3acfd6faa233900e8d2760690d1d49957f6d2a1b1327c3bc9039fff",
+  "native_git_incremental_patch": true,
+  "reverse_restoration_exact": true,
+  "main_rs_changes_only_two_approved_corrections": true,
+  "unplanned_registered_sources_unchanged": true,
+  "stable_exact_markup": "4/4 component states",
+  "layout_has_no_business_logic_or_tauri": true,
+  "stable_state_markup_matrix": "16/16",
+  "stable_interaction_parity": "16/16"
+}

@@ -1,0 +1,527 @@
+{
+  "timestamp": "2026-09-06T18:05:18.180322+00:00",
+  "component_checks": 91,
+  "component_passed": 91,
+  "stable_exact_markup_comparison_count": 9,
+  "stable_exact_markup_states": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 12120,
+      "after_length": 12120
+    },
+    {
+      "state": "no-inventory",
+      "equal": true,
+      "before_length": 12444,
+      "after_length": 12444
+    },
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 39359,
+      "after_length": 39359
+    },
+    {
+      "state": "price-progress",
+      "equal": true,
+      "before_length": 39825,
+      "after_length": 39825
+    },
+    {
+      "state": "price-indeterminate",
+      "equal": true,
+      "before_length": 39816,
+      "after_length": 39816
+    },
+    {
+      "state": "no-export",
+      "equal": true,
+      "before_length": 28499,
+      "after_length": 28499
+    },
+    {
+      "state": "no-match",
+      "equal": true,
+      "before_length": 12805,
+      "after_length": 12805
+    },
+    {
+      "state": "non-name-sort",
+      "equal": true,
+      "before_length": 38390,
+      "after_length": 38390
+    },
+    {
+      "state": "drawer",
+      "equal": true,
+      "before_length": 41814,
+      "after_length": 41814
+    }
+  ],
+  "formula_cases": 32,
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 55,
+      "passed": 55,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5
+      },
+      "binary_sha256": "7c9bb1bbe19c66053f39c4899984039a27b9598d3a00e86ef3816ffd96e00683",
+      "relics_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-controls-and-cards",
+          "state": {
+            "cards": [
+              {
+                "label": "Lith A1 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Meso B2 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Requiem I Relic",
+                "tabIndex": 0,
+                "role": "button"
+              }
+            ],
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "traces": {
+              "left": 1020.25,
+              "right": 1156,
+              "text": "\nVOID TRACES\n275/ 1500\n"
+            },
+            "primaryColumns": 4,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "era",
+                "labels": [
+                  "All",
+                  "Lith",
+                  "Meso",
+                  "Requiem"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "quality",
+                "labels": [
+                  "All",
+                  "Intact",
+                  "Refined",
+                  "Exceptional",
+                  "Flawless",
+                  "Radiant"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "vault",
+                "labels": [
+                  "All",
+                  "Vaulted",
+                  "Unvaulted"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "sort",
+                "labels": [
+                  "Name",
+                  "Ducats",
+                  "Plat",
+                  "Refine (D)",
+                  "Refine (P)"
+                ],
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-controls-and-cards",
+          "state": {
+            "cards": [
+              {
+                "label": "Lith A1 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Meso B2 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Requiem I Relic",
+                "tabIndex": 0,
+                "role": "button"
+              }
+            ],
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "traces": {
+              "left": 720.25,
+              "right": 856,
+              "text": "\nVOID TRACES\n275/ 1500\n"
+            },
+            "primaryColumns": 1,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "era",
+                "labels": [
+                  "All",
+                  "Lith",
+                  "Meso",
+                  "Requiem"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "quality",
+                "labels": [
+                  "All",
+                  "Intact",
+                  "Refined",
+                  "Exceptional",
+                  "Flawless",
+                  "Radiant"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "vault",
+                "labels": [
+                  "All",
+                  "Vaulted",
+                  "Unvaulted"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "sort",
+                "labels": [
+                  "Name",
+                  "Ducats",
+                  "Plat",
+                  "Refine (D)",
+                  "Refine (P)"
+                ],
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "no_sell": true,
+          "zero_expected_value_visible": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 55,
+      "passed": 55,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5
+      },
+      "binary_sha256": "03bfc80b8a88e5d5926b598746158508eda0bd581e0e877ecc93a122215fbbaa",
+      "relics_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-controls-and-cards",
+          "state": {
+            "cards": [
+              {
+                "label": "Lith A1 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Meso B2 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Requiem I Relic",
+                "tabIndex": 0,
+                "role": "button"
+              }
+            ],
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "traces": {
+              "left": 1020.25,
+              "right": 1156,
+              "text": "\nVOID TRACES\n275/ 1500\n"
+            },
+            "primaryColumns": 4,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "era",
+                "labels": [
+                  "All",
+                  "Lith",
+                  "Meso",
+                  "Requiem"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "quality",
+                "labels": [
+                  "All",
+                  "Intact",
+                  "Refined",
+                  "Exceptional",
+                  "Flawless",
+                  "Radiant"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "vault",
+                "labels": [
+                  "All",
+                  "Vaulted",
+                  "Unvaulted"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "sort",
+                "labels": [
+                  "Name",
+                  "Ducats",
+                  "Plat",
+                  "Refine (D)",
+                  "Refine (P)"
+                ],
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-controls-and-cards",
+          "state": {
+            "cards": [
+              {
+                "label": "Lith A1 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Meso B2 Relic",
+                "tabIndex": 0,
+                "role": "button"
+              },
+              {
+                "label": "Requiem I Relic",
+                "tabIndex": 0,
+                "role": "button"
+              }
+            ],
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "traces": {
+              "left": 720.25,
+              "right": 856,
+              "text": "\nVOID TRACES\n275/ 1500\n"
+            },
+            "primaryColumns": 1,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "era",
+                "labels": [
+                  "All",
+                  "Lith",
+                  "Meso",
+                  "Requiem"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "quality",
+                "labels": [
+                  "All",
+                  "Intact",
+                  "Refined",
+                  "Exceptional",
+                  "Flawless",
+                  "Radiant"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "vault",
+                "labels": [
+                  "All",
+                  "Vaulted",
+                  "Unvaulted"
+                ],
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "sort",
+                "labels": [
+                  "Name",
+                  "Ducats",
+                  "Plat",
+                  "Refine (D)",
+                  "Refine (P)"
+                ],
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "no_sell": true,
+          "zero_expected_value_visible": true,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3G implemented and validated; awaiting user acceptance"
+}

@@ -1,0 +1,2331 @@
+# Source surface register
+
+Static candidate inventory, not runtime proof or an AST-complete control enumeration. Dynamic controls expand from option arrays/data; review their options before screen migration. Rows include source evidence, including non-UI state and comments. All rows must be mapped or explicitly classified before replacing a component.
+
+## src-tauri/src/log_scanner.rs
+
+- R00001 · event · line 128: `app.emit("relic-picker-closed", ()).unwrap_or_default();`
+- R00002 · event · line 150: `app.emit("fissure-reward-closed", ()).unwrap_or_default();`
+- R00003 · event · line 172: `app.emit("conquest-completed", ts).unwrap_or_default();`
+- R00004 · event · line 195: `app.emit("relic-picker-tier",`
+- R00005 · event · line 242: `app.emit("fissure-reward-closed", ()).unwrap_or_default();`
+- R00006 · event · line 259: `app.emit("relic-picker-opened", serde_json::json!({ "void_tier": None::<String>, "in_mission": false })).unwrap_or_default();`
+- R00007 · event · line 265: `app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier, "in_mission": true })).unwrap_or_default();`
+- R00008 · event · line 273: `app.emit("relic-picker-closed", ()).unwrap_or_default();`
+- R00009 · event · line 287: `app.emit("relic-picker-closed", ()).unwrap_or_default();`
+- R00010 · event · line 296: `app.emit("riven-linked-open", ()).unwrap_or_default();`
+- R00011 · event · line 300: `app.emit("riven-linked-closed", ()).unwrap_or_default();`
+- R00012 · event · line 308: `app.emit("riven-screen-open", ()).unwrap_or_default();`
+- R00013 · event · line 331: `app.emit("riven-reroll", ()).unwrap_or_default();`
+- R00014 · event · line 344: `app.emit("riven-screen-closed", ()).unwrap_or_default();`
+- R00015 · event · line 351: `app.emit("riven-screen-closed", ()).unwrap_or_default();`
+- R00016 · event · line 352: `app.emit("riven-linked-closed", ()).unwrap_or_default();`
+- R00017 · event · line 378: `app.emit("conquest-completed", ts).unwrap_or_default();`
+- R00018 · event · line 404: `app.emit(event_name, serde_json::json!({`
+- R00019 · event · line 442: `app.emit(event_name, serde_json::json!({`
+- R00020 · event · line 473: `app.emit("chat-incoming-message", serde_json::json!({`
+- R00021 · backend_command · line 589: `#[tauri::command]`
+- R00022 · platform · line 639: `#[cfg(target_os = "linux")]`
+- R00023 · platform · line 644: `#[cfg(target_os = "windows")]`
+- R00024 · platform · line 660: `#[cfg(target_os = "macos")]`
+- R00025 · platform · line 671: `#[cfg(target_os = "linux")]`
+- R00026 · platform · line 692: `#[cfg(target_os = "windows")]`
+- R00027 · platform · line 766: `#[cfg(target_os = "linux")]`
+- R00028 · platform · line 805: `#[cfg(target_os = "macos")]`
+- R00029 · event · line 1055: `app_inner.emit("scanner-hooked", ()).unwrap_or_default();`
+- R00030 · event · line 1068: `app_inner.emit("scanner-hooked", ()).unwrap_or_default();`
+
+## src-tauri/src/main.rs
+
+- R00031 · platform · line 3: `all(not(debug_assertions), target_os = "windows"),`
+- R00032 · option_or_label · line 34: `pub id: String,`
+- R00033 · option_or_label · line 36: `pub title: String,`
+- R00034 · platform · line 90: `if let Ok(appimage_path) = std::env::var("APPIMAGE") {`
+- R00035 · platform · line 97: `#[cfg(target_os = "macos")]`
+- R00036 · option_or_label · line 188: `fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String> {`
+- R00037 · platform · line 204: `#[cfg(unix)]`
+- R00038 · backend_command · line 238: `#[tauri::command]`
+- R00039 · backend_command · line 243: `#[tauri::command]`
+- R00040 · backend_command · line 370: `#[tauri::command]`
+- R00041 · backend_command · line 461: `// All functions marked #[tauri::command] are callable from the frontend via`
+- R00042 · command_call · line 462: `// invoke('command_name', args).  See MonitoringContext.jsx for the primary`
+- R00043 · backend_command · line 469: `#[tauri::command]`
+- R00044 · backend_command · line 579: `#[tauri::command]`
+- R00045 · backend_command · line 612: `#[tauri::command]`
+- R00046 · backend_command · line 651: `#[tauri::command]`
+- R00047 · option_or_label · line 677: `fn merge_nemesis_history(value: &mut Value) {`
+- R00048 · backend_command · line 721: `#[tauri::command]`
+- R00049 · backend_command · line 749: `#[tauri::command]`
+- R00050 · backend_command · line 834: `#[tauri::command]`
+- R00051 · backend_command · line 1085: `#[tauri::command]`
+- R00052 · option_or_label · line 1111: `let mut value: Value = serde_json::from_slice(&body)`
+- R00053 · backend_command · line 1145: `#[tauri::command]`
+- R00054 · backend_command · line 1248: `#[tauri::command]`
+- R00055 · backend_command · line 1328: `#[tauri::command]`
+- R00056 · backend_command · line 1339: `#[tauri::command]`
+- R00057 · backend_command · line 1350: `#[tauri::command]`
+- R00058 · backend_command · line 1370: `#[tauri::command]`
+- R00059 · platform · line 1373: `#[cfg(target_os = "windows")]`
+- R00060 · platform · line 1375: `#[cfg(target_os = "linux")]`
+- R00061 · platform · line 1377: `#[cfg(target_os = "macos")]`
+- R00062 · backend_command · line 1383: `#[tauri::command]`
+- R00063 · platform · line 1386: `#[cfg(target_os = "windows")]`
+- R00064 · platform · line 1388: `#[cfg(target_os = "linux")]`
+- R00065 · platform · line 1390: `#[cfg(target_os = "macos")]`
+- R00066 · backend_command · line 1396: `#[tauri::command]`
+- R00067 · platform · line 1399: `#[cfg(target_os = "windows")]`
+- R00068 · platform · line 1401: `#[cfg(target_os = "linux")]`
+- R00069 · platform · line 1403: `#[cfg(target_os = "macos")]`
+- R00070 · backend_command · line 1409: `#[tauri::command]`
+- R00071 · backend_command · line 1416: `#[tauri::command]`
+- R00072 · backend_command · line 1425: `#[tauri::command]`
+- R00073 · backend_command · line 1508: `#[tauri::command]`
+- R00074 · backend_command · line 1562: `#[tauri::command]`
+- R00075 · backend_command · line 1569: `#[tauri::command]`
+- R00076 · backend_command · line 1576: `#[tauri::command]`
+- R00077 · backend_command · line 1582: `#[tauri::command]`
+- R00078 · backend_command · line 1588: `#[tauri::command]`
+- R00079 · backend_command · line 1594: `#[tauri::command]`
+- R00080 · backend_command · line 1600: `#[tauri::command]`
+- R00081 · backend_command · line 1608: `#[tauri::command]`
+- R00082 · backend_command · line 1620: `#[tauri::command]`
+- R00083 · backend_command · line 1627: `#[tauri::command]`
+- R00084 · backend_command · line 1635: `#[tauri::command]`
+- R00085 · backend_command · line 1654: `#[tauri::command]`
+- R00086 · backend_command · line 1669: `#[tauri::command]`
+- R00087 · backend_command · line 1682: `#[tauri::command]`
+- R00088 · backend_command · line 1700: `#[tauri::command]`
+- R00089 · event · line 1710: `let _ = window.emit("card-progress", CardProgress {`
+- R00090 · event · line 1716: `let _ = window.emit("card-progress", CardProgress {`
+- R00091 · event · line 1751: `let _ = fix_win.emit("card-progress", CardProgress {`
+- R00092 · event · line 1758: `let _ = fix_win.emit("card-progress", CardProgress {`
+- R00093 · event · line 1779: `let _ = fix_win.emit("card-progress", CardProgress {`
+- R00094 · event · line 1788: `let _ = window.emit("card-progress", CardProgress {`
+- R00095 · backend_command · line 1797: `#[tauri::command]`
+- R00096 · backend_command · line 1924: `#[tauri::command]`
+- R00097 · platform · line 1932: `#[cfg(target_os = "windows")]`
+- R00098 · platform · line 1997: `#[cfg(target_os = "linux")]`
+- R00099 · platform · line 2035: `#[cfg(target_os = "macos")]`
+- R00100 · platform · line 2108: `#[cfg(unix)]`
+- R00101 · platform · line 2123: `#[cfg(target_os = "linux")]`
+- R00102 · platform · line 2131: `cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");`
+- R00103 · platform · line 2133: `cmd.env_remove("APPIMAGE");`
+- R00104 · platform · line 2150: `#[cfg(windows)]`
+- R00105 · platform · line 2202: `#[cfg(target_os = "linux")]`
+- R00106 · platform · line 2206: `ui_cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");`
+- R00107 · platform · line 2208: `ui_cmd.env_remove("APPIMAGE");`
+- R00108 · platform · line 2223: `#[cfg(windows)]`
+- R00109 · option_or_label · line 2270: `id: String,`
+- R00110 · option_or_label · line 2271: `title: String,`
+- R00111 · backend_command · line 2278: `#[tauri::command]`
+- R00112 · event · line 2305: `app.emit("show-relic-rewards", payload)`
+- R00113 · backend_command · line 2313: `#[tauri::command]`
+- R00114 · option_or_label · line 2316: `label: String,`
+- R00115 · backend_command · line 2335: `#[tauri::command]`
+- R00116 · event · line 2353: `let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": false }));`
+- R00117 · event · line 2355: `let _ = app_handle.emit("sidebar-visible", serde_json::json!({ "visible": false }));`
+- R00118 · event · line 2403: `let _ = main_win.emit("sidebar-mode-changed", serde_json::json!({ "active": true, "side": side }));`
+- R00119 · event · line 2405: `let _ = app_handle.emit("sidebar-visible", serde_json::json!({ "visible": true }));`
+- R00120 · backend_command · line 2429: `#[tauri::command]`
+- R00121 · backend_command · line 2451: `#[tauri::command]`
+- R00122 · backend_command · line 2550: `#[tauri::command]`
+- R00123 · event · line 2572: `app_handle.emit(&event, payload).map_err(|e| e.to_string())`
+- R00124 · backend_command · line 2575: `#[tauri::command]`
+- R00125 · backend_command · line 2581: `#[tauri::command]`
+- R00126 · backend_command · line 2602: `#[tauri::command]`
+- R00127 · option_or_label · line 2605: `label: String,`
+- R00128 · backend_command · line 2610: `#[tauri::command]`
+- R00129 · option_or_label · line 2613: `label: String,`
+- R00130 · backend_command · line 2620: `#[tauri::command]`
+- R00131 · backend_command · line 2628: `#[tauri::command]`
+- R00132 · option_or_label · line 2631: `label: String,`
+- R00133 · backend_command · line 2640: `#[tauri::command]`
+- R00134 · platform · line 2659: `#[cfg(target_os = "windows")]`
+- R00135 · platform · line 2684: `#[cfg(target_os = "macos")]`
+- R00136 · platform · line 2692: `#[cfg(target_os = "linux")]`
+- R00137 · backend_command · line 2728: `#[tauri::command]`
+- R00138 · option_or_label · line 2733: `id: Option<String>,`
+- R00139 · option_or_label · line 2734: `title: String,`
+- R00140 · event · line 2765: `let _ = w.emit("wipe-state", pos.clone());`
+- R00141 · event · line 2785: `app_handle.emit("new-notification", NotificationPayload {`
+- R00142 · option_or_label · line 2786: `id: notif_id,`
+- R00143 · backend_command · line 2797: `#[tauri::command]`
+- R00144 · platform · line 2800: `"is_appimage": std::env::var("APPIMAGE").is_ok(),`
+- R00145 · backend_command · line 2806: `#[tauri::command]`
+- R00146 · platform · line 2810: `std::env::var("APPIMAGE").map_err(|_| "Not running from AppImage".to_string())?;`
+- R00147 · platform · line 2816: `// ($APPIMAGE), not a filename derived from the release asset. That`
+- R00148 · platform · line 2854: `#[cfg(unix)]`
+- R00149 · backend_command · line 2869: `#[tauri::command]`
+- R00150 · platform · line 2871: `#[cfg(target_os = "linux")]`
+- R00151 · platform · line 2883: `"APPDIR", "APPIMAGE", "LD_LIBRARY_PATH", "LD_PRELOAD",`
+- R00152 · backend_command · line 2956: `#[tauri::command]`
+- R00153 · backend_command · line 2967: `#[tauri::command]`
+- R00154 · backend_command · line 2972: `#[tauri::command]`
+- R00155 · backend_command · line 2977: `#[tauri::command]`
+- R00156 · backend_command · line 2988: `#[tauri::command]`
+- R00157 · backend_command · line 2993: `#[tauri::command]`
+- R00158 · platform · line 3003: `#[cfg(target_os = "windows")]`
+- R00159 · platform · line 3014: `#[cfg(target_os = "linux")]`
+- R00160 · platform · line 3024: `#[cfg(not(any(target_os = "windows", target_os = "linux")))]`
+- R00161 · backend_command · line 3052: `#[tauri::command]`
+- R00162 · backend_command · line 3060: `#[tauri::command]`
+- R00163 · backend_command · line 3065: `#[tauri::command]`
+- R00164 · event · line 3071: `app.emit("fissure-relic-phase", FissureEvent {`
+- R00165 · event · line 3087: `app.emit("fissure-reward-phase", FissureEvent {`
+- R00166 · backend_command · line 3098: `#[tauri::command]`
+- R00167 · option_or_label · line 3099: `fn start_notif_autoclose_timer(app_handle: tauri::AppHandle, id: serde_json::Value, seconds: u64) {`
+- R00168 · event · line 3107: `let _ = app_handle.emit("expire-notification", id_str);`
+- R00169 · backend_command · line 3117: `#[tauri::command]`
+- R00170 · event · line 3186: `let _ = app.emit("riven-ocr-result", &msg);`
+- R00171 · event · line 3189: `let _ = app.emit("riven-ocr-result", &format!("[{}] Error: {}", pos_name, e));`
+- R00172 · backend_command · line 3202: `#[tauri::command]`
+- R00173 · option_or_label · line 3203: `fn log_timing(label: String) {`
+- R00174 · backend_command · line 3212: `#[tauri::command]`
+- R00175 · event · line 3219: `app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())`
+- R00176 · backend_command · line 3227: `#[tauri::command]`
+- R00177 · option_or_label · line 3228: `async fn set_setting(app_handle: tauri::AppHandle, key: String, value: Value) -> Result<(), String> {`
+- R00178 · event · line 3250: `app_handle.emit("settings-changed", ()).map_err(|e| e.to_string())`
+- R00179 · backend_command · line 3254: `#[tauri::command]`
+- R00180 · event · line 3258: `app_handle.emit("monitoring-active-changed", serde_json::json!({`
+- R00181 · backend_command · line 3266: `#[tauri::command]`
+- R00182 · backend_command · line 3272: `#[tauri::command]`
+- R00183 · platform · line 3322: `#[cfg(target_os = "linux")]`
+- R00184 · event · line 3331: `let _ = app_handle.emit("sidebar-side-changed", serde_json::json!({"side": side}));`
+- R00185 · backend_command · line 3337: `#[tauri::command]`
+- R00186 · platform · line 3339: `#[cfg(target_os = "linux")]`
+- R00187 · backend_command · line 3364: `#[tauri::command]`
+- R00188 · backend_command · line 3401: `#[tauri::command]`
+- R00189 · backend_command · line 3413: `#[tauri::command]`
+- R00190 · backend_command · line 3452: `#[tauri::command]`
+- R00191 · backend_command · line 3471: `#[tauri::command]`
+- R00192 · backend_command · line 3498: `#[tauri::command]`
+- R00193 · backend_command · line 3504: `#[tauri::command]`
+- R00194 · backend_command · line 3516: `#[tauri::command]`
+- R00195 · backend_command · line 3522: `#[tauri::command]`
+- R00196 · backend_command · line 3528: `#[tauri::command]`
+- R00197 · backend_command · line 3536: `#[tauri::command]`
+- R00198 · backend_command · line 3543: `#[tauri::command]`
+- R00199 · backend_command · line 3550: `#[tauri::command]`
+- R00200 · platform · line 3558: `#[cfg(target_os = "linux")]`
+- R00201 · platform · line 3602: `#[cfg(target_os = "linux")]`
+- R00202 · platform · line 3676: `#[cfg(target_os = "linux")]`
+- R00203 · option_or_label · line 3735: `fn wiki_actual(window_label: &str, label: &str) -> String {`
+- R00204 · backend_command · line 3744: `#[tauri::command]`
+- R00205 · option_or_label · line 3745: `fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) -> Result<String, String> {`
+- R00206 · platform · line 3774: `#[cfg(target_os = "linux")]`
+- R00207 · event · line 3799: `let _ = ah.emit("wiki-tab-opened", serde_json::json!({`
+- R00208 · event · line 3811: `let _ = ah_title.emit("wiki-tab-title", serde_json::json!({`
+- R00209 · event · line 3820: `let _ = ah_title.emit("wiki-tabs-changed", &*tabs);`
+- R00210 · event · line 3834: `let _ = ah_nav.emit("wiki-tabs-changed", snapshot);`
+- R00211 · platform · line 3852: `#[cfg(target_os = "linux")]`
+- R00212 · platform · line 3864: `#[cfg(target_os = "linux")]`
+- R00213 · option_or_label · line 3876: `id: canonical_id,`
+- R00214 · option_or_label · line 3878: `title: "New tab".to_string(),`
+- R00215 · event · line 3881: `let _ = app.emit("wiki-tabs-changed", &*tabs);`
+- R00216 · backend_command · line 3887: `#[tauri::command]`
+- R00217 · option_or_label · line 3888: `fn hide_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {`
+- R00218 · backend_command · line 3896: `#[tauri::command]`
+- R00219 · backend_command · line 3905: `#[tauri::command]`
+- R00220 · option_or_label · line 3906: `fn close_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {`
+- R00221 · event · line 3916: `let _ = app.emit("wiki-tabs-changed", &*tabs);`
+- R00222 · backend_command · line 3922: `#[tauri::command]`
+- R00223 · option_or_label · line 3923: `fn refresh_wiki_tab(webview: tauri::Webview, label: String) -> Result<(), String> {`
+- R00224 · backend_command · line 3931: `#[tauri::command]`
+- R00225 · option_or_label · line 3932: `fn sync_wiki_tab(webview: tauri::Webview, label: String, url: String) -> Result<(), String> {`
+- R00226 · backend_command · line 3942: `#[tauri::command]`
+- R00227 · option_or_label · line 3943: `fn reflow_wiki_tab(webview: tauri::Webview, label: String, x: f64, y: f64, width: f64, height: f64) -> Result<(), String> {`
+- R00228 · platform · line 3945: `#[cfg(target_os = "linux")]`
+- R00229 · platform · line 3956: `#[cfg(not(target_os = "linux"))]`
+- R00230 · platform · line 4163: `#[cfg(target_os = "linux")]`
+- R00231 · event · line 4280: `let _ = window.emit("app-closing", ());`
+- R00232 · platform · line 4319: `#[cfg(target_os = "linux")]`
+- R00233 · platform · line 4348: `#[cfg(target_os = "linux")]`
+- R00234 · platform · line 4356: `#[cfg(any(debug_assertions, feature = "devtools"))]`
+- R00235 · platform · line 4405: `#[cfg(target_os = "linux")]`
+
+## src-tauri/src/mem_reader.rs
+
+- R00236 · platform · line 66: `#[cfg(target_os = "linux")]`
+- R00237 · platform · line 86: `#[cfg(target_os = "windows")]`
+- R00238 · platform · line 137: `#[cfg(not(any(target_os = "linux", target_os = "windows")))]`
+
+## src-tauri/src/memory_scan.rs
+
+- R00239 · platform · line 43: `#[cfg(target_os = "linux")]`
+- R00240 · platform · line 56: `#[cfg(target_os = "windows")]`
+- R00241 · platform · line 68: `#[cfg(not(any(target_os = "linux", target_os = "windows")))]`
+- R00242 · platform · line 80: `#[cfg(target_os = "linux")]`
+- R00243 · platform · line 85: `#[cfg(target_os = "windows")]`
+- R00244 · platform · line 89: `#[cfg(not(any(target_os = "linux", target_os = "windows")))]`
+- R00245 · platform · line 162: `#[cfg(target_os = "linux")]`
+- R00246 · platform · line 188: `#[cfg(target_os = "linux")]`
+- R00247 · platform · line 216: `#[cfg(target_os = "windows")]`
+- R00248 · platform · line 299: `#[cfg(target_os = "windows")]`
+- R00249 · platform · line 396: `#[cfg(target_os = "linux")]`
+- R00250 · platform · line 434: `#[cfg(target_os = "windows")]`
+- R00251 · platform · line 508: `#[cfg(not(any(target_os = "linux", target_os = "windows")))]`
+- R00252 · platform · line 514: `#[cfg(target_os = "macos")]`
+
+## src-tauri/src/ocr.rs
+
+- R00253 · platform · line 6: `#[cfg(target_os = "linux")]`
+- R00254 · platform · line 8: `#[cfg(target_os = "linux")]`
+- R00255 · backend_command · line 193: `#[tauri::command]`
+- R00256 · backend_command · line 203: `#[tauri::command]`
+- R00257 · backend_command · line 212: `#[tauri::command]`
+- R00258 · platform · line 226: `#[cfg(target_os = "linux")]`
+- R00259 · platform · line 263: `#[cfg(target_os = "linux")]`
+- R00260 · platform · line 300: `#[cfg(target_os = "linux")]`
+- R00261 · platform · line 337: `#[cfg(target_os = "linux")]`
+- R00262 · platform · line 339: `std::env::var("XDG_CURRENT_DESKTOP")`
+- R00263 · platform · line 345: `#[cfg(target_os = "linux")]`
+- R00264 · platform · line 347: `let is_wayland = std::env::var("XDG_SESSION_TYPE")`
+- R00265 · platform · line 406: `#[cfg(not(target_os = "linux"))]`
+- R00266 · platform · line 458: `#[cfg(any(target_os = "linux", target_os = "windows"))]`
+- R00267 · event · line 914: `app.emit("fissure-reward-closed", ()).unwrap_or_default();`
+- R00268 · event · line 1125: `app.emit("scanner-relic-phase-start",`
+- R00269 · event · line 1128: `app.emit("fissure-relic-phase", &event_payload).unwrap_or_default();`
+- R00270 · event · line 1399: `app_c.emit("fissure-ocr-band", OcrBandResult { text: combined_text, slot_results, is_debug }).unwrap_or_default();`
+- R00271 · backend_command · line 1403: `#[tauri::command]`
+- R00272 · backend_command · line 1463: `#[tauri::command]`
+- R00273 · backend_command · line 1477: `#[tauri::command]`
+
+## src-tauri/src/overlay_utils.rs
+
+- R00274 · platform · line 3: `#[cfg(target_os = "linux")]`
+- R00275 · option_or_label · line 19: `fn get_or_create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<WebviewWindow, String> {`
+- R00276 · option_or_label · line 37: `pub(crate) fn find_overlay_window(app_handle: &AppHandle, label: &str) -> Option<WebviewWindow> {`
+- R00277 · option_or_label · line 52: `pub(crate) fn clear_shown_overlay(label: &str) {`
+- R00278 · option_or_label · line 56: `fn get_last_overlay_size(label: &str) -> Option<(f64, f64)> {`
+- R00279 · option_or_label · line 61: `fn set_last_overlay_size(label: &str, width: f64, height: f64) {`
+- R00280 · platform · line 78: `#[cfg(target_os = "linux")]`
+- R00281 · platform · line 99: `#[cfg(not(target_os = "linux"))]`
+- R00282 · option_or_label · line 106: `pub fn get_overlay_monitor(app_handle: &AppHandle, label: &str) -> Result<tauri::Monitor, String> {`
+- R00283 · option_or_label · line 171: `label: &str,`
+- R00284 · platform · line 211: `#[cfg(target_os = "macos")]`
+- R00285 · platform · line 226: `#[cfg(target_os = "windows")]`
+- R00286 · platform · line 250: `#[cfg(target_os = "linux")]`
+- R00287 · platform · line 284: `#[cfg(target_os = "linux")]`
+- R00288 · platform · line 290: `#[cfg(target_os = "linux")]`
+- R00289 · platform · line 303: `#[cfg(target_os = "linux")]`
+- R00290 · platform · line 322: `#[cfg(target_os = "linux")]`
+- R00291 · platform · line 349: `#[cfg(target_os = "linux")]`
+- R00292 · platform · line 410: `#[cfg(target_os = "linux")]`
+- R00293 · platform · line 422: `#[cfg(target_os = "linux")]`
+- R00294 · platform · line 434: `#[cfg(target_os = "linux")]`
+- R00295 · option_or_label · line 435: `fn install_deiconify_handler(window: &WebviewWindow, label: &str) {`
+- R00296 · platform · line 456: `#[cfg(target_os = "linux")]`
+- R00297 · platform · line 464: `#[cfg(not(target_os = "linux"))]`
+- R00298 · option_or_label · line 476: `fn create_overlay_window(app_handle: &AppHandle, label: &str) -> Result<tauri::WebviewWindow, String> {`
+- R00299 · platform · line 490: `#[cfg(target_os = "linux")]`
+- R00300 · option_or_label · line 499: `pub fn show_window_internal(app_handle: &AppHandle, label: &str) -> Result<(), String> {`
+- R00301 · platform · line 522: `#[cfg_attr(target_os = "linux", allow(unused_variables))]`
+- R00302 · platform · line 533: `#[cfg(target_os = "linux")]`
+- R00303 · platform · line 535: `#[cfg(not(target_os = "linux"))]`
+- R00304 · platform · line 555: `#[cfg(target_os = "linux")]`
+- R00305 · platform · line 590: `#[cfg(target_os = "linux")]`
+- R00306 · platform · line 594: `#[cfg(not(target_os = "linux"))]`
+- R00307 · platform · line 597: `#[cfg(target_os = "linux")]`
+- R00308 · platform · line 655: `#[cfg(not(target_os = "linux"))]`
+- R00309 · platform · line 678: `#[cfg(target_os = "linux")]`
+- R00310 · platform · line 689: `#[cfg(target_os = "linux")]`
+- R00311 · platform · line 740: `#[cfg(target_os = "linux")]`
+- R00312 · platform · line 743: `#[cfg(target_os = "linux")]`
+- R00313 · platform · line 769: `#[cfg(target_os = "linux")]`
+- R00314 · option_or_label · line 812: `fn overlay_size(label: &str) -> (f64, f64) {`
+- R00315 · option_or_label · line 829: `label: &str,`
+- R00316 · platform · line 846: `#[cfg(target_os = "linux")]`
+- R00317 · platform · line 858: `#[cfg(not(target_os = "linux"))]`
+- R00318 · platform · line 876: `#[cfg(target_os = "linux")]`
+- R00319 · platform · line 912: `#[cfg(target_os = "linux")]`
+- R00320 · platform · line 937: `#[cfg(target_os = "windows")]`
+- R00321 · platform · line 1002: `#[cfg(not(any(target_os = "linux", target_os = "windows")))]`
+
+## src/App.jsx
+
+- R00322 · state · line 1: `import { useState, lazy, Suspense, useEffect, useRef, useCallback } from 'react';`
+- R00323 · option_or_label · line 17: `{ id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },`
+- R00324 · option_or_label · line 18: `{ id: 'prime-resurgence', icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },`
+- R00325 · option_or_label · line 19: `{ id: 'market', icon: 'IconMarket.png', label: 'Market' },`
+- R00326 · option_or_label · line 20: `{ id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },`
+- R00327 · option_or_label · line 21: `{ id: 'foundry', icon: 'IconFoundry.png', label: 'Foundry' },`
+- R00328 · option_or_label · line 22: `{ id: 'mods', icon: 'Mods.png', label: 'Mods' },`
+- R00329 · option_or_label · line 23: `{ id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },`
+- R00330 · option_or_label · line 24: `{ id: 'relics', icon: 'IconRelic.png', label: 'Relics' },`
+- R00331 · option_or_label · line 25: `{ id: 'relic-planner', icon: 'VoidSymbol.png', label: 'Relic Planner' },`
+- R00332 · option_or_label · line 26: `{ id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },`
+- R00333 · option_or_label · line 27: `{ id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics, Decorations, Emotes' },`
+- R00334 · option_or_label · line 28: `{ id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },`
+- R00335 · option_or_label · line 29: `{ id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },`
+- R00336 · option_or_label · line 30: `{ id: 'history', lucide: BarChart3, label: 'History' },`
+- R00337 · option_or_label · line 31: `{ id: 'maps', icon: 'IconMap.png', label: 'Maps' },`
+- R00338 · option_or_label · line 32: `{ id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },`
+- R00339 · option_or_label · line 33: `{ id: 'notes', icon: 'IconNotes.png', label: 'Notes' },`
+- R00340 · option_or_label · line 34: `{ id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },`
+- R00341 · option_or_label · line 35: `{ id: 'settings', icon: 'IconSettings.png', label: 'Settings' },`
+- R00342 · option_or_label · line 36: `{ id: 'about', icon: 'IconInfo.png', label: 'About' }];`
+- R00343 · state · line 42: `const [iconCache, setIconCache] = useState({});`
+- R00344 · command_call · line 48: `const bytes = await invoke('read_file_bytes', { relative: data/assets/ui/${name} });`
+- R00345 · state · line 124: `const [show, setShow] = useState(false);`
+- R00346 · state · line 125: `const [checked, setChecked] = useState(false);`
+- R00347 · state · line 126: `const [locale, setLocale] = useState('en');`
+- R00348 · state · line 128: `const [cachePath, setCachePath] = useState('');`
+- R00349 · state · line 129: `const [ready, setReady] = useState(false);`
+- R00350 · persistence · line 135: `loadSettings().then(async () => {`
+- R00351 · persistence · line 139: `if (!getSetting('disclaimer-accepted')) {`
+- R00352 · persistence · line 141: `setCachePath(getSetting('warframe_cache_path', ''));`
+- R00353 · persistence · line 142: `setLocale(getSetting('gameLocale', 'en'));`
+- R00354 · persistence · line 146: `const savedHotkeys = getSetting('hotkeys', []);`
+- R00355 · command_call · line 149: `invoke('set_hotkeys', { hotkeys: valid }).`
+- R00356 · persistence · line 153: `if (getSetting('fissure_overlay_enabled')) {`
+- R00357 · command_call · line 154: `invoke('start_log_scanner').catch(console.error);`
+- R00358 · event · line 157: `emit('frontend-ready', {}).catch(() => {});`
+- R00359 · persistence · line 166: `await setSetting('warframe_cache_path', selected);`
+- R00360 · persistence · line 176: `await setSetting('gameLocale', l);`
+- R00361 · command_call · line 177: `await invoke('check_exports', { locale: l, force: false });`
+- R00362 · persistence · line 186: `await setSetting('disclaimer-accepted', 'true');`
+- R00363 · interaction · line 201: `<LanguagePicker value={locale} onChange={handleLocaleChange} />`
+- R00364 · control · line 210: `<input type="text" value={cachePath} readOnly placeholder={t('ui.setup.cache_folder_placeholder')}`
+- R00365 · interaction · line 212: `<button onClick={handleBrowseCache}`
+- R00366 · control · line 212: `<button onClick={handleBrowseCache}`
+- R00367 · interaction · line 231: `<div onClick={() => setChecked((v) => !v)}`
+- R00368 · interaction · line 239: `<button onClick={finish} disabled={!checked}`
+- R00369 · control · line 239: `<button onClick={finish} disabled={!checked}`
+- R00370 · state · line 251: `const [activeTab, setActiveTab] = useState('dashboard');`
+- R00371 · state · line 252: `const [sidebarActive, setSidebarActive] = useState(false);`
+- R00372 · state · line 253: `const [sidebarSide, setSidebarSide] = useState('left');`
+- R00373 · state · line 256: `const [updateBannerDismissed, setUpdateBannerDismissed] = useState(false);`
+- R00374 · state · line 257: `const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'`
+- R00375 · command_call · line 265: `invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'));`
+- R00376 · event · line 274: `const unsub = listen('scanner-hooked', () => {`
+- R00377 · command_call · line 275: `invoke('show_notification', {`
+- R00378 · option_or_label · line 276: `title: 'Scanner',`
+- R00379 · event · line 289: `const unsub = listen('sidebar-mode-changed', (e) => {`
+- R00380 · event · line 301: `const unsub = listen('sidebar-prepare', (e) => {`
+- R00381 · control · line 360: `<button`
+- R00382 · interaction · line 362: `onClick={() => setActiveTab(item.id)}`
+- R00383 · interaction · line 453: `onPointerDown={(e) => {`
+- R00384 · command_call · line 467: `invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: false }).catch(() => {});`
+- R00385 · command_call · line 474: `invoke('set_sidebar_width', { width: lastW, side: sidebarSide, persist: true }).catch(() => {});`
+- R00386 · persistence · line 475: `setSetting('sidebar_width', lastW).catch(() => {});`
+- R00387 · control · line 496: `<button`
+- R00388 · interaction · line 497: `onClick={installLatestUpdate}`
+- R00389 · control · line 501: `<button`
+- R00390 · interaction · line 502: `onClick={() => setUpdateBannerDismissed(true)}`
+
+## src/components/AcquisitionDrawer.jsx
+
+- R00391 · state · line 1: `import { useState, useCallback, useEffect } from 'react';`
+- R00392 · state · line 130: `const [openKey, setOpenKey] = useState(null);`
+- R00393 · state · line 145: `const [codexInfo, setCodexInfo] = useState(null);`
+- R00394 · state · line 146: `const [codexLoading, setCodexLoading] = useState(false);`
+- R00395 · state · line 147: `const [showReportModal, setShowReportModal] = useState(false);`
+- R00396 · command_call · line 175: `if (wikiLink?.url) invoke('open_url', { url: wikiLink.url }).catch(console.error);`
+- R00397 · interaction · line 203: `<button onClick={onClose} className="text-kronos-dim hover:text-kronos-text text-xs font-bold uppercase">`
+- R00398 · control · line 203: `<button onClick={onClose} className="text-kronos-dim hover:text-kronos-text text-xs font-bold uppercase">`
+- R00399 · control · line 235: `<button`
+- R00400 · interaction · line 236: `onClick={() => setShowReportModal(true)}`
+- R00401 · control · line 279: `<button`
+- R00402 · interaction · line 280: `onClick={openWikiLink}`
+
+## src/components/BackToTop.jsx
+
+- R00403 · state · line 1: `import { useState, useEffect } from 'react';`
+- R00404 · state · line 7: `const [visible, setVisible] = useState(false);`
+- R00405 · control · line 40: `<button`
+- R00406 · interaction · line 41: `onClick={scrollToTop}`
+
+## src/components/BugReporterModal.jsx
+
+- R00407 · state · line 1: `import React, { useState, useEffect } from 'react';`
+- R00408 · state · line 8: `const [description, setDescription] = useState(initialDescription);`
+- R00409 · state · line 9: `const [isSubmitting, setIsSubmitting] = useState(false);`
+- R00410 · state · line 10: `const [status, setStatus] = useState(null); // 'success' or 'error'`
+- R00411 · state · line 11: `const [errorMsg, setErrorMsg] = useState('');`
+- R00412 · command_call · line 27: `await invoke('prepare_bug_report', { description });`
+- R00413 · control · line 51: `<button`
+- R00414 · interaction · line 52: `onClick={onClose}`
+- R00415 · control · line 64: `<textarea`
+- R00416 · interaction · line 70: `onChange={(e) => setDescription(e.target.value)}`
+- R00417 · control · line 100: `<button`
+- R00418 · interaction · line 101: `onClick={onClose}`
+- R00419 · control · line 107: `<button`
+- R00420 · interaction · line 108: `onClick={handleSubmit}`
+
+## src/components/FeatureGuideModal.jsx
+
+- R00421 · state · line 1: `import React, { useState } from 'react';`
+- R00422 · state · line 7: `const [activeTab, setActiveTab] = useState('hotkeys');`
+- R00423 · control · line 25: `<button`
+- R00424 · interaction · line 26: `onClick={onClose}`
+- R00425 · control · line 35: `<button`
+- R00426 · interaction · line 36: `onClick={() => setActiveTab('hotkeys')}`
+- R00427 · control · line 46: `<button`
+- R00428 · interaction · line 47: `onClick={() => setActiveTab('screens')}`
+- R00429 · control · line 57: `<button`
+- R00430 · interaction · line 58: `onClick={() => setActiveTab('tips')}`
+- R00431 · control · line 191: `<button`
+- R00432 · interaction · line 192: `onClick={onClose}`
+
+## src/components/ItemImage.jsx
+
+- R00433 · state · line 1: `import { useState } from 'react'`
+- R00434 · state · line 49: `const [state, setState] = useState({ key: src, src, failed: false, triedFallback: false })`
+
+## src/components/LanguagePicker.jsx
+
+- R00435 · option_or_label · line 10: `{ value: 'en', label: 'English', flag: 'gb' },`
+- R00436 · option_or_label · line 11: `{ value: 'de', label: 'Deutsch', flag: 'de' },`
+- R00437 · option_or_label · line 12: `{ value: 'fr', label: 'Français', flag: 'fr' },`
+- R00438 · option_or_label · line 13: `{ value: 'es', label: 'Español', flag: 'es' },`
+- R00439 · option_or_label · line 14: `{ value: 'it', label: 'Italiano', flag: 'it' },`
+- R00440 · option_or_label · line 15: `{ value: 'pt', label: 'Português', flag: 'pt' },`
+- R00441 · option_or_label · line 16: `{ value: 'ru', label: 'Русский', flag: 'ru' },`
+- R00442 · option_or_label · line 17: `{ value: 'pl', label: 'Polski', flag: 'pl' },`
+- R00443 · option_or_label · line 18: `{ value: 'zh', label: '中文', flag: 'zh' },`
+- R00444 · option_or_label · line 19: `{ value: 'ko', label: '한국어', flag: 'ko' },`
+- R00445 · option_or_label · line 20: `{ value: 'ja', label: '日本語', flag: 'ja' },`
+- R00446 · option_or_label · line 21: `{ value: 'tc', label: '繁體中文', flag: 'tc' },`
+- R00447 · option_or_label · line 22: `{ value: 'th', label: 'ไทย', flag: 'th' },`
+- R00448 · option_or_label · line 23: `{ value: 'tr', label: 'Türkçe', flag: 'tr' },`
+- R00449 · option_or_label · line 24: `{ value: 'uk', label: 'Українська', flag: 'uk' },`
+- R00450 · control · line 33: `<button`
+- R00451 · interaction · line 36: `onClick={() => onChange(l.value)}`
+
+## src/components/ModCard.jsx
+
+- R00452 · state · line 5: `import { useState, useMemo, memo } from 'react';`
+- R00453 · state · line 242: `const [loadedSrc, setLoadedSrc] = useState(null);`
+- R00454 · state · line 243: `const [errorSrc, setErrorSrc] = useState(null);`
+- R00455 · state · line 333: `const [localImageFailed, setLocalImageFailed] = useState(false);`
+- R00456 · state · line 335: `const [hovered, setHovered] = useState(false);`
+
+## src/components/NotificationManager.jsx
+
+- R00457 · state · line 1: `import { useState, useEffect, useCallback, useMemo } from 'react';`
+- R00458 · state · line 11: `const [iconCache, setIconCache] = useState({});`
+- R00459 · command_call · line 17: `const bytes = await invoke('read_file_bytes', { relative: data/assets/ui/${name} });`
+- R00460 · state · line 40: `const [notifications, setNotifications] = useState([]);`
+- R00461 · state · line 41: `const [loading, setLoading] = useState(true);`
+- R00462 · state · line 45: `const [showLog, setShowLog] = useState(false);`
+- R00463 · persistence · line 59: `const saved = getSetting('notifications', []);`
+- R00464 · persistence · line 68: `await setSetting('notifications', updated);`
+- R00465 · control · line 135: `<select`
+- R00466 · interaction · line 137: `onChange={(e) => {if (e.target.value) {handleAdd(e.target.value);e.target.value = '';}}}`
+- R00467 · control · line 148: `<button`
+- R00468 · interaction · line 149: `onClick={() => setShowLog(true)}`
+- R00469 · control · line 156: `<Modal isOpen={showLog} onClose={() => setShowLog(false)} title={t('ui.notif_mgr.session_log')} maxWidth="max-w-md">`
+- R00470 · control · line 207: `<button`
+- R00471 · interaction · line 209: `onClick={() => onMultiSelect(notif.id, col.key, val)}`
+- R00472 · control · line 225: `<input`
+- R00473 · interaction · line 229: `onChange={(e) => onConfigChange(notif.id, col.key, Math.max(1, parseInt(e.target.value) || 1))}`
+- R00474 · control · line 243: `<button`
+- R00475 · interaction · line 244: `onClick={() => onDelete(notif.id)}`
+- R00476 · interaction · line 249: `<Toggle checked={notif.enabled} onChange={() => onToggle(notif.id)} />`
+- R00477 · control · line 249: `<Toggle checked={notif.enabled} onChange={() => onToggle(notif.id)} />`
+- R00478 · control · line 265: `<button`
+- R00479 · interaction · line 267: `onClick={() => onMultiSelect(notif.id, col.key, task.id)}`
+
+## src/components/RivenCard.jsx
+
+- R00480 · state · line 3: `import { useState, useCallback, useRef } from 'react';`
+- R00481 · state · line 38: `const [tooltipPos, setTooltipPos] = useState(null);`
+- R00482 · state · line 39: `const [showTooltip, setShowTooltip] = useState(false);`
+- R00483 · option_or_label · line 78: `const val = s.positive ? s.value : s.value.replace(/^-/, '');`
+
+## src/components/RivenGradeDrawer.jsx
+
+- R00484 · interaction · line 38: `<button onClick={onClose} className="text-kronos-dim hover:text-kronos-text text-xs font-bold uppercase">`
+- R00485 · control · line 38: `<button onClick={onClose} className="text-kronos-dim hover:text-kronos-text text-xs font-bold uppercase">`
+
+## src/components/UI.jsx
+
+- R00486 · state · line 2: `import { useRef, useEffect, useState } from 'react';`
+- R00487 · state · line 9: `const [coords, setCoords] = useState({ top: 0, left: 0 });`
+- R00488 · state · line 10: `const [opacity, setOpacity] = useState(0);`
+- R00489 · state · line 46: `const [mounted, setMounted] = useState(false);`
+- R00490 · state · line 87: `const [visible, setVisible] = useState(false);`
+- R00491 · interaction · line 135: `<Button onClick={goToSettings} className="px-8 font-black uppercase tracking-widest">`
+- R00492 · state · line 164: `const [visible, setVisible] = useState(false);`
+- R00493 · control · line 183: `<button`
+- R00494 · interaction · line 184: `onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}`
+- R00495 · control · line 277: `<button`
+- R00496 · control · line 296: `<input`
+- R00497 · control · line 316: `<button`
+- R00498 · interaction · line 318: `onClick={() => onChange(tab.id)}`
+- R00499 · control · line 342: `<select`
+- R00500 · interaction · line 344: `onChange={(e) => onChange(e.target.value)}`
+- R00501 · interaction · line 377: `onClick={onClose} />`
+- R00502 · control · line 384: `<button`
+- R00503 · interaction · line 385: `onClick={onClose}`
+- R00504 · control · line 402: `<button`
+- R00505 · interaction · line 405: `onClick={() => onChange(!checked)}`
+
+## src/components/overlays/RelicPickerOverlay.jsx
+
+- R00506 · state · line 1: `import React, { useState, useEffect, useRef, useCallback } from 'react'`
+- R00507 · state · line 16: `const [relics, setRelics] = useState(null)`
+- R00508 · state · line 17: `const [windowVisible, setWindowVisible] = useState(false)`
+- R00509 · option_or_label · line 25: `await invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(console.error)`
+- R00510 · command_call · line 25: `await invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(console.error)`
+- R00511 · option_or_label · line 37: `await invoke('hide_overlay_window', { label: 'overlay-relic-picker' }).catch(console.error)`
+- R00512 · command_call · line 37: `await invoke('hide_overlay_window', { label: 'overlay-relic-picker' }).catch(console.error)`
+- R00513 · event · line 43: `subs.push(listen('relic-picker-data', (e) => {`
+- R00514 · event · line 56: `subs.push(listen('relic-picker-closed', () => {`
+- R00515 · event · line 60: `subs.push(listen('fissure-reward-closed', () => {`
+- R00516 · option_or_label · line 116: `<EraCell item={row.ducat} valueClass="text-kronos-accent-secondary" value={row.ducat ? row.ducat.value : null} />`
+
+## src/components/overlays/RelicRewardOverlay.jsx
+
+- R00517 · state · line 1: `import React, { useState, useEffect, useRef, useCallback } from 'react';`
+- R00518 · state · line 21: `const [data, setData] = useState(null);`
+- R00519 · state · line 22: `const [localReward, setLocalReward] = useState(null);`
+- R00520 · state · line 23: `const [ocrResults, setOcrResults] = useState({});`
+- R00521 · state · line 24: `const [squadSize, setSquadSize] = useState(1);`
+- R00522 · state · line 25: `const [prices, setPrices] = useState({});`
+- R00523 · state · line 26: `const [remaining, setRemaining] = useState(RELIC_TIMEOUT);`
+- R00524 · state · line 27: `const [progress, setProgress] = useState(100);`
+- R00525 · state · line 33: `const [triggerKey, setTriggerKey] = useState(0);`
+- R00526 · option_or_label · line 47: `await invoke('show_overlay_window', { label: 'overlay-relic' }).catch(console.error);`
+- R00527 · command_call · line 47: `await invoke('show_overlay_window', { label: 'overlay-relic' }).catch(console.error);`
+- R00528 · option_or_label · line 55: `await invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error);`
+- R00529 · command_call · line 55: `await invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error);`
+- R00530 · command_call · line 67: `invoke('get_active_relic_session').`
+- R00531 · event · line 89: `subs.push(listen('scanner-relic-phase-start', (e) => {`
+- R00532 · event · line 103: `subs.push(listen('overlay-update-relics', (e) => {`
+- R00533 · event · line 118: `subs.push(listen('overlay-update-reward', (e) => {`
+- R00534 · event · line 124: `subs.push(listen('overlay-update-ocr', (e) => {`
+- R00535 · event · line 134: `subs.push(listen('overlay-squad-size', (e) => {`
+- R00536 · event · line 140: `subs.push(listen('fissure-reward-closed', () => {`
+- R00537 · option_or_label · line 161: `invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error);`
+- R00538 · command_call · line 161: `invoke('hide_overlay_window', { label: 'overlay-relic' }).catch(console.error);`
+- R00539 · command_call · line 223: `invoke('resize_overlay_window', {`
+- R00540 · option_or_label · line 224: `label: 'overlay-relic',`
+- R00541 · state · line 332: `const [iconsPath, setIconsPath] = useState('');`
+- R00542 · command_call · line 333: `useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);`
+
+## src/components/overlays/RivenOverlay.jsx
+
+- R00543 · state · line 1: `import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';`
+- R00544 · state · line 22: `const [visible, setVisible] = useState(false);`
+- R00545 · state · line 23: `const [refreshTick, setRefreshTick] = useState(0);`
+- R00546 · state · line 48: `const [parsed, setParsed] = useState(null);`
+- R00547 · state · line 49: `const [ocrLoading, setOcrLoading] = useState(false);`
+- R00548 · state · line 50: `const [estimatedPrice, setEstimatedPrice] = useState(null);`
+- R00549 · state · line 51: `const [rivenInfo, setRivenInfo] = useState(null);`
+- R00550 · state · line 52: `const [statGrade, setStatGrade] = useState(null);`
+- R00551 · state · line 53: `const [knownWeapons, setKnownWeapons] = useState([]);`
+- R00552 · command_call · line 61: `invoke('get_known_weapon_names').then((names) => {`
+- R00553 · persistence · line 69: `loadSettings().then(() => {`
+- R00554 · persistence · line 70: `const gameLocale = getSetting('gameLocale', 'en');`
+- R00555 · command_call · line 71: `invoke('get_localized_weapon_names', { locale: gameLocale }).then((pairs) => {`
+- R00556 · command_call · line 221: `invoke('estimate_riven_full', {`
+- R00557 · command_call · line 253: `invoke('ocr_riven_card', { position: pos }).`
+- R00558 · command_call · line 283: `invoke('show_overlay_window', { label }).catch(() => {}).`
+- R00559 · command_call · line 292: `if (!aliveRef.current) invoke('hide_overlay_window', { label }).catch(() => {});`
+- R00560 · command_call · line 303: `invoke('hide_overlay_window', { label }).catch(() => {});`
+- R00561 · event · line 308: `listen('riven-ocr-result', (e) => {`
+- R00562 · event · line 334: `listen('riven-reroll', () => {`
+- R00563 · event · line 340: `listen('riven-reroll-confirmed', () => {`
+- R00564 · event · line 344: `listen('riven-screen-closed', () => {`
+- R00565 · event · line 357: `listen('riven-linked-open', () => {show();doOcr('Linked');}),`
+- R00566 · event · line 358: `listen('riven-screen-open', () => {`
+- R00567 · event · line 362: `listen('riven-linked-closed', () => hide()),`
+- R00568 · event · line 363: `listen('riven-screen-closed', () => {`
+- R00569 · event · line 367: `listen('riven-reroll-confirmed', () => {`
+
+## src/components/overlays/SidebarOverlay.jsx
+
+- R00570 · state · line 1: `import { useState, lazy, Suspense, useEffect, useRef, useCallback } from 'react'`
+- R00571 · option_or_label · line 12: `{ id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },`
+- R00572 · option_or_label · line 13: `{ id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },`
+- R00573 · option_or_label · line 14: `{ id: 'mods', icon: 'Mods.png', label: 'Mods' },`
+- R00574 · option_or_label · line 15: `{ id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },`
+- R00575 · option_or_label · line 16: `{ id: 'relics', icon: 'IconRelic.png', label: 'Relics' },`
+- R00576 · option_or_label · line 17: `{ id: 'relic-planner', icon: 'VoidSymbol.png', label: 'Relic Planner' },`
+- R00577 · option_or_label · line 18: `{ id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },`
+- R00578 · option_or_label · line 19: `{ id: 'notes', icon: 'IconNotes.png', label: 'Notes' },`
+- R00579 · option_or_label · line 20: `{ id: 'maps', icon: 'IconMap.png', label: 'Maps' },`
+- R00580 · option_or_label · line 21: `{ id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },`
+- R00581 · option_or_label · line 22: `{ id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics' },`
+- R00582 · option_or_label · line 23: `{ id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },`
+- R00583 · option_or_label · line 24: `{ id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },`
+- R00584 · option_or_label · line 25: `{ id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },`
+- R00585 · option_or_label · line 26: `{ id: 'settings', icon: 'IconSettings.png', label: 'Settings' },`
+- R00586 · option_or_label · line 27: `{ id: 'about', icon: 'IconInfo.png', label: 'About' },`
+- R00587 · state · line 50: `const [iconCache, setIconCache] = useState({})`
+- R00588 · command_call · line 56: `const bytes = await invoke('read_file_bytes', { relative: data/assets/ui/${name} })`
+- R00589 · state · line 79: `const [activeTab, setActiveTab] = useState('dashboard')`
+- R00590 · state · line 81: `const [scannerStatus, setScannerStatus] = useState('idle')`
+- R00591 · state · line 82: `const [sidebarSide, setSidebarSide] = useState('left')`
+- R00592 · state · line 83: `const [sidebarWidth, setSidebarWidth] = useState(480)`
+- R00593 · persistence · line 89: `loadSettings().then(() => {`
+- R00594 · persistence · line 90: `const s = getSetting('sidebar_side', 'left')`
+- R00595 · persistence · line 91: `const w = parseInt(getSetting('sidebar_width', 480)) || 480`
+- R00596 · event · line 98: `const unsub = listen('sidebar-side-changed', (e) => {`
+- R00597 · command_call · line 107: `invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'))`
+- R00598 · command_call · line 115: `invoke('sidebar_ungrab').catch(() => {})`
+- R00599 · persistence · line 120: `setSetting('sidebar_width', newWidth).catch(() => {})`
+- R00600 · command_call · line 121: `invoke('set_sidebar_width', { width: newWidth, side: sidebarSide, persist: true }).catch(() => {})`
+- R00601 · persistence · line 125: `const currentW = parseInt(getSetting('sidebar_width', sidebarWidth)) || sidebarWidth`
+- R00602 · control · line 170: `<button`
+- R00603 · interaction · line 172: `onClick={() => setActiveTab(item.id)}`
+- R00604 · option_or_label · line 206: `{ label: 'S', width: 380 },`
+- R00605 · option_or_label · line 207: `{ label: 'M', width: 480 },`
+- R00606 · option_or_label · line 208: `{ label: 'L', width: 640 },`
+- R00607 · option_or_label · line 209: `{ label: 'XL', width: 800 },`
+- R00608 · control · line 212: `<button`
+- R00609 · interaction · line 213: `onClick={() => handleSetWidth(preset.width)}`
+
+## src/components/overlays/ToastOverlay.jsx
+
+- R00610 · state · line 1: `import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';`
+- R00611 · state · line 16: `const [iconCache, setIconCache] = useState({});`
+- R00612 · command_call · line 22: `const bytes = await invoke('read_file_bytes', { relative: data/assets/ui/${name} });`
+- R00613 · state · line 45: `const [visibleToasts, setVisibleToasts] = useState([]);`
+- R00614 · state · line 46: `const [queue, setQueue] = useState([]);`
+- R00615 · option_or_label · line 70: `invoke('start_notif_autoclose_timer', { id: next.id, seconds: 6 }).catch(console.error);`
+- R00616 · command_call · line 70: `invoke('start_notif_autoclose_timer', { id: next.id, seconds: 6 }).catch(console.error);`
+- R00617 · option_or_label · line 79: `invoke('resize_overlay_window', { label: myLabel, width: 1, height: 1 }).catch(() => {});`
+- R00618 · command_call · line 79: `invoke('resize_overlay_window', { label: myLabel, width: 1, height: 1 }).catch(() => {});`
+- R00619 · command_call · line 92: `invoke('resize_overlay_window', {`
+- R00620 · option_or_label · line 93: `label: myLabel,`
+- R00621 · event · line 107: `subs.push(listen('new-notification', (e) => {`
+- R00622 · option_or_label · line 112: `id: t-${Date.now()}-${Math.random().toString(36).slice(2, 9)},`
+- R00623 · event · line 121: `subs.push(listen('expire-notification', (e) => {`
+- R00624 · event · line 125: `subs.push(listen('wipe-state', (e) => {`
+- R00625 · state · line 163: `const [remaining, setRemaining] = useState(TOAST_MS);`
+- R00626 · state · line 164: `const [exiting, setExiting] = useState(false);`
+
+## src/contexts/MirroredMonitoringProvider.jsx
+
+- R00627 · state · line 1: `import { useState, useRef, useCallback, useEffect, useMemo } from 'react'`
+- R00628 · state · line 46: `const [exportData, setExportData] = useState(null)`
+- R00629 · state · line 47: `const [isMonitoring, setIsMonitoring] = useState(false)`
+- R00630 · state · line 48: `const [monitorResult, setMonitorResult] = useState('idle')`
+- R00631 · state · line 49: `const [autoStart, setAutoStartState] = useState(() => localStorage.getItem('autoStartMonitoring') === 'true')`
+- R00632 · persistence · line 49: `const [autoStart, setAutoStartState] = useState(() => localStorage.getItem('autoStartMonitoring') === 'true')`
+- R00633 · state · line 51: `const [lastUpdate, setLastUpdate] = useState(() => localStorage.getItem('lastUpdate') || null)`
+- R00634 · persistence · line 51: `const [lastUpdate, setLastUpdate] = useState(() => localStorage.getItem('lastUpdate') || null)`
+- R00635 · state · line 52: `const [rawInventory, setRawInventory] = useState(null)`
+- R00636 · state · line 54: `const [inventoryData, setInventoryData] = useState(undefined)`
+- R00637 · state · line 55: `const [isInventoryLoading, setIsInventoryLoading] = useState(true)`
+- R00638 · state · line 56: `const [allPrices, setAllPrices] = useState(() => {`
+- R00639 · persistence · line 58: `const data = localStorage.getItem('wfm_price_cache');`
+- R00640 · persistence · line 67: `const engineRaw = localStorage.getItem('market_engine_prices');`
+- R00641 · state · line 77: `const [isPriceLoading, setIsPriceLoading] = useState(false)`
+- R00642 · state · line 78: `const [priceFetchProgress, setPriceFetchProgress] = useState(null)`
+- R00643 · state · line 79: `const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)`
+- R00644 · persistence · line 79: `const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)`
+- R00645 · state · line 81: `const [worldState, setWorldState] = useState(null)`
+- R00646 · state · line 82: `const [statusText, setStatusText] = useState('Initializing…')`
+- R00647 · state · line 83: `const [nextRetryAt, setNextRetryAt] = useState(0)`
+- R00648 · state · line 84: `const [spIncursions, setSpIncursions] = useState(null)`
+- R00649 · state · line 85: `const [arbys, setArbys] = useState(null)`
+- R00650 · state · line 86: `const [descendiaDesc, setDescendiaDesc] = useState({})`
+- R00651 · state · line 87: `const [archonModifiers, setArchonModifiers] = useState(null)`
+- R00652 · state · line 88: `const [arbitrationModifiers, setArbitrationModifiers] = useState(null)`
+- R00653 · state · line 89: `const [cardImagesPath, setCardImagesPath] = useState('')`
+- R00654 · state · line 90: `const [fixProgress] = useState({ phase: 'done', checking: false })`
+- R00655 · persistence · line 104: `localStorage.setItem('autoStartMonitoring', String(v))`
+- R00656 · persistence · line 121: `await loadSettings()`
+- R00657 · persistence · line 122: `localeRef.current = getSetting('gameLocale', 'en')`
+- R00658 · command_call · line 127: `invoke('get_card_images_path').then(setCardImagesPath).catch(() => {})`
+- R00659 · command_call · line 130: `invoke('get_monitoring_active').then(setIsMonitoring).catch(() => {})`
+- R00660 · command_call · line 132: `invoke('sidebar_load_data')`
+- R00661 · command_call · line 140: `const bytes = await invoke('read_file_bytes', { relative: data/assets/data/${fname} })`
+- R00662 · command_call · line 145: `const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' })`
+- R00663 · command_call · line 149: `const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' })`
+- R00664 · command_call · line 153: `const glyphBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' })`
+- R00665 · command_call · line 158: `const bytes = await invoke('read_file_bytes', { relative: data/assets/data/${file} })`
+- R00666 · command_call · line 162: `const resourceBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-resources-acquisition.json' }).catch(() => null)`
+- R00667 · command_call · line 164: `const pageAcquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-page-acquisition.json' }).catch(() => null)`
+- R00668 · command_call · line 166: `const statusBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-acquisition-status.json' }).catch(() => null)`
+- R00669 · command_call · line 173: `invoke('load_txt_file', { name: 'sp-incursions.txt' }),`
+- R00670 · command_call · line 174: `invoke('load_txt_file', { name: 'arbys.txt' }),`
+- R00671 · command_call · line 175: `invoke('load_txt_file', { name: 'descendia.txt' }),`
+- R00672 · persistence · line 213: `localStorage.setItem('lastUpdate', String(result.inventoryTimestamp))`
+- R00673 · persistence · line 301: `localStorage.setItem('wfm_price_last_updated', String(now))`
+- R00674 · event · line 312: `const unsub = listen('sidebar-data-updated', () => {`
+- R00675 · command_call · line 313: `invoke('sidebar_load_inventory')`
+- R00676 · persistence · line 321: `localStorage.setItem('lastUpdate', String(result.inventoryTimestamp))`
+- R00677 · event · line 331: `const unsub = listen('monitoring-active-changed', async (e) => {`
+- R00678 · command_call · line 356: `invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r }).catch(() => {})`
+- R00679 · event · line 368: `const unsub = listen('archon-hunt-modifiers', (e) => {`
+- R00680 · event · line 376: `const unsub = listen('arbitration-modifiers', (e) => {`
+- R00681 · command_call · line 545: `const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null) || await invoke('fetch_url', { url: ORACLE_API }).catch(() => null)`
+- R00682 · persistence · line 613: `localStorage.setItem('lastUpdate', tsStr)`
+- R00683 · command_call · line 620: `const result = await invoke('sidebar_load_inventory')`
+- R00684 · command_call · line 630: `const raw = await invoke('call_api_helper')`
+- R00685 · command_call · line 662: `invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})`
+- R00686 · command_call · line 667: `invoke('set_monitoring_active', { active: true, result: r, statusText: msg2 }).catch(() => {})`
+- R00687 · command_call · line 677: `invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})`
+- R00688 · persistence · line 683: `localStorage.removeItem('wfm_price_cache')`
+- R00689 · persistence · line 734: `localStorage.setItem('wfm_price_last_updated', String(now))`
+
+## src/contexts/MonitoringContext.jsx
+
+- R00690 · state · line 1: `import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'`
+- R00691 · state · line 135: `const [exportData, setExportData] = useState(null)`
+- R00692 · state · line 136: `const [isMonitoring, setIsMonitoring] = useState(false)`
+- R00693 · state · line 137: `const [monitorResult, setMonitorResult] = useState('idle') // 'idle' | 'success' | 'error'`
+- R00694 · state · line 138: `const [autoStart, setAutoStartState] = useState(localStorage.getItem('autoStartMonitoring') === 'true')`
+- R00695 · persistence · line 138: `const [autoStart, setAutoStartState] = useState(localStorage.getItem('autoStartMonitoring') === 'true')`
+- R00696 · persistence · line 145: `localStorage.setItem('autoStartMonitoring', String(v))`
+- R00697 · state · line 148: `const [lastUpdate, setLastUpdate] = useState(localStorage.getItem('lastUpdate') || null)`
+- R00698 · persistence · line 148: `const [lastUpdate, setLastUpdate] = useState(localStorage.getItem('lastUpdate') || null)`
+- R00699 · state · line 149: `const [rawInventory, setRawInventory] = useState(null)`
+- R00700 · state · line 152: `const [inventoryData, setInventoryData] = useState(undefined)`
+- R00701 · state · line 153: `const [isInventoryLoading, setIsInventoryLoading] = useState(false)`
+- R00702 · command_call · line 161: `const result = await invoke('load_inventory_history', { range, filter, search })`
+- R00703 · state · line 169: `const [allPrices, setAllPrices] = useState(() => {`
+- R00704 · persistence · line 171: `const data = localStorage.getItem('wfm_price_cache');`
+- R00705 · persistence · line 180: `const engineRaw = localStorage.getItem('market_engine_prices');`
+- R00706 · state · line 189: `const [isPriceLoading, setIsPriceLoading] = useState(false)`
+- R00707 · state · line 190: `const [priceFetchProgress, setPriceFetchProgress] = useState(null)`
+- R00708 · state · line 191: `const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)`
+- R00709 · persistence · line 191: `const [priceLastUpdated, setPriceLastUpdated] = useState(localStorage.getItem('wfm_price_last_updated') || null)`
+- R00710 · state · line 192: `const [worldState, setWorldState] = useState(null)`
+- R00711 · state · line 193: `const [bountyCycle, setBountyCycle] = useState(null)`
+- R00712 · state · line 194: `const [statusText, setStatusText] = useState('Initializing…')`
+- R00713 · state · line 195: `const [spIncursions, setSpIncursions] = useState(null)`
+- R00714 · state · line 196: `const [arbys, setArbys] = useState(null)`
+- R00715 · state · line 197: `const [descendiaDesc, setDescendiaDesc] = useState({})`
+- R00716 · state · line 199: `const [archonModifiers, setArchonModifiers] = useState(null)`
+- R00717 · state · line 200: `const [arbitrationModifiers, setArbitrationModifiers] = useState(null)`
+- R00718 · state · line 209: `const [cardImagesPath, setCardImagesPath] = useState('')`
+- R00719 · state · line 210: `const [fixProgress, setFixProgress] = useState({ checking: true })`
+- R00720 · state · line 436: `const [notificationHistory, setNotificationHistory] = useState([])`
+- R00721 · persistence · line 439: `const raw = getSetting('notifications', [])`
+- R00722 · persistence · line 445: `const position = getSetting('notif_position', 'top-right')`
+- R00723 · persistence · line 446: `const lastFired = getSetting('notification_last_fired', {})`
+- R00724 · persistence · line 486: `const sound = getSetting('notif_sound', 'notification1.wav')`
+- R00725 · command_call · line 487: `invoke('play_notification_sound', { sound }).catch(console.error)`
+- R00726 · command_call · line 488: `invoke('show_notification', {`
+- R00727 · option_or_label · line 489: `title: r.title,`
+- R00728 · persistence · line 500: `setSetting('notification_last_fired', lastFired)`
+- R00729 · option_or_label · line 517: `{ id: 'baro', label: "Baro Ki'Teer", labelKey: 'ui.dashboard.baro_kiteer' },`
+- R00730 · option_or_label · line 518: `{ id: 'sortie', label: 'Sortie', labelKey: 'ui.dashboard.sortie' },`
+- R00731 · option_or_label · line 519: `{ id: 'foundry', label: 'Check Foundry', labelKey: 'checklist.task_foundry' },`
+- R00732 · option_or_label · line 520: `{ id: 'syndicates', label: 'Syndicate Standing', labelKey: 'checklist.task_syndicates' },`
+- R00733 · option_or_label · line 521: `{ id: 'focus', label: 'Daily Focus Cap', labelKey: 'checklist.task_focus' },`
+- R00734 · option_or_label · line 522: `{ id: 'steel_path', label: 'Steel Path Incursions', labelKey: 'ui.dashboard.sp_incursions' },`
+- R00735 · option_or_label · line 523: `{ id: 'acrithis_daily', label: 'Acrithis Daily', labelKey: 'checklist.task_acrithis_daily' },`
+- R00736 · option_or_label · line 524: `{ id: 'ticker', label: "Ticker's Railjack Crew", labelKey: 'checklist.task_ticker' },`
+- R00737 · option_or_label · line 525: `{ id: 'marie', label: "Marie's Shop", labelKey: 'checklist.task_marie' },`
+- R00738 · option_or_label · line 526: `{ id: 'grandmother', label: "Grandmother's Tokens", labelKey: 'checklist.task_grandmother' },`
+- R00739 · option_or_label · line 527: `{ id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', labelKey: 'checklist.task_yonta_daily' },`
+- R00740 · option_or_label · line 528: `{ id: 'voca', label: 'Loid: Voca', labelKey: 'checklist.task_voca' },`
+- R00741 · option_or_label · line 529: `{ id: 'nightwave', label: 'Nightwave Missions', labelKey: 'checklist.task_nightwave' },`
+- R00742 · option_or_label · line 530: `{ id: 'nightwave_spend', label: 'Nightwave Shop', labelKey: 'checklist.task_nightwave_spend' },`
+- R00743 · option_or_label · line 531: `{ id: 'ayatan', label: "Maroo's Ayatan Hunt", labelKey: 'checklist.task_ayatan' },`
+- R00744 · option_or_label · line 532: `{ id: 'clem', label: 'Help Clem', labelKey: 'checklist.task_clem' },`
+- R00745 · option_or_label · line 533: `{ id: 'narmer', label: 'Help Kahl: Break Narmer', labelKey: 'checklist.task_narmer' },`
+- R00746 · option_or_label · line 534: `{ id: 'archon', label: 'Archon Hunt', labelKey: 'ui.dashboard.archon_hunt' },`
+- R00747 · option_or_label · line 535: `{ id: 'circuit', label: 'Duviri Circuit', labelKey: 'checklist.task_circuit' },`
+- R00748 · option_or_label · line 536: `{ id: 'circuit_sp', label: 'Duviri Circuit SP', labelKey: 'checklist.task_circuit_sp' },`
+- R00749 · option_or_label · line 537: `{ id: 'pulses', label: 'Pulses: Netracell & Archimedea', labelKey: 'checklist.task_pulses' },`
+- R00750 · option_or_label · line 538: `{ id: 'calendar', label: '1999 Calendar', labelKey: 'checklist.task_calendar' },`
+- R00751 · option_or_label · line 539: `{ id: 'invigorations', label: 'Helminth Invigoration', labelKey: 'checklist.task_invigorations' },`
+- R00752 · option_or_label · line 540: `{ id: 'descendia', label: 'Descendia', labelKey: 'checklist.task_descendia' },`
+- R00753 · option_or_label · line 541: `{ id: 'descendia_sp', label: 'Descendia SP', labelKey: 'checklist.task_descendia_sp' },`
+- R00754 · option_or_label · line 542: `{ id: 'palladino', label: "Palladino's Shop", labelKey: 'checklist.task_palladino' },`
+- R00755 · option_or_label · line 543: `{ id: 'yonta_weekly', label: 'Yonta: Weekly Shop', labelKey: 'checklist.task_yonta_weekly' },`
+- R00756 · option_or_label · line 544: `{ id: 'acrithis_weekly', label: 'Acrithis Weekly', labelKey: 'checklist.task_acrithis_weekly' },`
+- R00757 · option_or_label · line 545: `{ id: 'teshin', label: 'Teshin Shop', labelKey: 'checklist.task_teshin' },`
+- R00758 · option_or_label · line 546: `{ id: 'bird3', label: 'Bird 3 Shop', labelKey: 'checklist.task_bird3' },`
+- R00759 · option_or_label · line 547: `{ id: 'nightcap', label: 'Nightcap Shop', labelKey: 'checklist.task_nightcap' },`
+- R00760 · persistence · line 573: `localStorage.setItem('lastUpdate', tsStr)`
+- R00761 · command_call · line 574: `invoke('relay_event', { event: 'sidebar-data-updated', payload: { ts: tsStr } }).catch(() => {})`
+- R00762 · persistence · line 582: `await loadSettings()`
+- R00763 · persistence · line 583: `localeRef.current = getSetting('gameLocale', 'en')`
+- R00764 · command_call · line 596: `invoke('check_exports', { locale: localeRef.current, force: false }),`
+- R00765 · command_call · line 597: `invoke('load_all_exports', { locale: localeRef.current }),`
+- R00766 · command_call · line 598: `invoke('check_media_assets'),`
+- R00767 · command_call · line 599: `invoke('check_pricer_models'),`
+- R00768 · command_call · line 600: `invoke('load_txt_file', { name: 'sp-incursions.txt' }),`
+- R00769 · command_call · line 601: `invoke('load_txt_file', { name: 'arbys.txt' }),`
+- R00770 · command_call · line 602: `invoke('load_txt_file', { name: 'descendia.txt' }),`
+- R00771 · option_or_label · line 605: `const exports = exportsRes.status === 'fulfilled' ? exportsRes.value : null`
+- R00772 · option_or_label · line 606: `const spiText = spiRes.status === 'fulfilled' ? spiRes.value : null`
+- R00773 · option_or_label · line 607: `const arbText = arbRes.status === 'fulfilled' ? arbRes.value : null`
+- R00774 · command_call · line 620: `const bytes = await invoke('read_file_bytes', { relative: data/assets/data/${fname} }).catch(() => null)`
+- R00775 · command_call · line 625: `const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' }).catch(() => null)`
+- R00776 · command_call · line 629: `const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' }).catch(() => null)`
+- R00777 · command_call · line 633: `const glyphBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' }).catch(() => null)`
+- R00778 · command_call · line 637: `const resourceBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-resources-acquisition.json' }).catch(() => null)`
+- R00779 · command_call · line 641: `const pageAcquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-page-acquisition.json' }).catch(() => null)`
+- R00780 · command_call · line 645: `const statusBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-acquisition-status.json' }).catch(() => null)`
+- R00781 · command_call · line 650: `const bytes = await invoke('read_file_bytes', { relative: data/assets/data/${file} }).catch(() => null)`
+- R00782 · command_call · line 658: `const cosmeticAdditionsBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' }).catch(() => null)`
+- R00783 · option_or_label · line 721: `const descText = descRes.status === 'fulfilled' ? descRes.value : null`
+- R00784 · command_call · line 736: `invoke('get_monitoring_active').then((active) => {`
+- R00785 · command_call · line 741: `const invRes = await Promise.allSettled([invoke('load_cached_inventory')])`
+- R00786 · persistence · line 764: `if (getSetting('fissure_overlay_enabled')) {`
+- R00787 · command_call · line 765: `invoke('start_log_scanner').catch(() => {})`
+- R00788 · command_call · line 779: `invoke('refresh_vault_trader').then(async (updated) => {`
+- R00789 · command_call · line 782: `const bytes = await invoke('read_file_bytes', { relative: 'data/export/VaultTrader.json' })`
+- R00790 · command_call · line 791: `const wsStr = await invoke('fetch_url', { url: OFFICIAL_API }).catch(() => null)`
+- R00791 · state · line 816: `const [nextRetryAt, setNextRetryAt] = useState(0)`
+- R00792 · command_call · line 821: `const result = await invoke('sidebar_load_inventory')`
+- R00793 · command_call · line 835: `const raw = await invoke('call_api_helper')`
+- R00794 · command_call · line 868: `invoke('set_monitoring_active', { active: true, result, statusText: msg }).catch(() => {})`
+- R00795 · command_call · line 873: `invoke('set_monitoring_active', { active: true, result: r, statusText: msg2 }).catch(() => {})`
+- R00796 · command_call · line 883: `invoke('set_monitoring_active', { active: false, result: 'idle', statusText: 'Syncing stopped' }).catch(() => {})`
+- R00797 · persistence · line 953: `localStorage.setItem('wfm_price_last_updated', String(now))`
+- R00798 · persistence · line 963: `localStorage.removeItem('wfm_price_cache')`
+- R00799 · persistence · line 1016: `localStorage.setItem('wfm_price_last_updated', String(now))`
+- R00800 · event · line 1036: `subs.push(listen('scanner-relic-phase-start', (e) => {`
+- R00801 · option_or_label · line 1042: `invoke('show_overlay_window', { label: 'overlay-relic' }).catch(() => { })`
+- R00802 · command_call · line 1042: `invoke('show_overlay_window', { label: 'overlay-relic' }).catch(() => { })`
+- R00803 · command_call · line 1043: `invoke('relay_event', { event: 'overlay-squad-size', payload: { squad_size } }).catch(() => { })`
+- R00804 · event · line 1046: `subs.push(listen('fissure-relic-phase', (e) => {`
+- R00805 · persistence · line 1055: `const sound = getSetting('notif_sound', 'notification1.wav')`
+- R00806 · command_call · line 1056: `invoke('play_notification_sound', { sound }).catch(console.error)`
+- R00807 · command_call · line 1058: `invoke('relay_event', { event: 'overlay-update-relics', payload: { squad_relics: resolved, squad_size } }).catch(() => { })`
+- R00808 · event · line 1062: `subs.push(listen('fissure-reward-phase', async (e) => {`
+- R00809 · command_call · line 1070: `invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size } }).catch(() => { })`
+- R00810 · event · line 1073: `subs.push(listen('fissure-ocr-band', async (e) => {`
+- R00811 · command_call · line 1163: `invoke('relay_event', {`
+- R00812 · event · line 1172: `subs.push(listen('fissure-reward-closed', () => {`
+- R00813 · option_or_label · line 1265: `ducat: bestDucat && bestDucat.evDucats > 0 ? { name: bestDucat.name, value: bestDucat.evDucats } : null,`
+- R00814 · option_or_label · line 1266: `plat: bestPlat && bestPlat.evPlat > 0 ? { name: bestPlat.name, value: bestPlat.evPlat } : null,`
+- R00815 · event · line 1274: `subs.push(listen('relic-picker-opened', (e) => {`
+- R00816 · option_or_label · line 1277: `invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})`
+- R00817 · command_call · line 1277: `invoke('show_overlay_window', { label: 'overlay-relic-picker' }).catch(() => {})`
+- R00818 · command_call · line 1278: `invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})`
+- R00819 · event · line 1281: `subs.push(listen('relic-picker-tier', (e) => {`
+- R00820 · command_call · line 1285: `invoke('relay_event', { event: 'relic-picker-data', payload }).catch(() => {})`
+- R00821 · event · line 1288: `subs.push(listen('archon-hunt-modifiers', (e) => {`
+- R00822 · event · line 1291: `subs.push(listen('arbitration-modifiers', (e) => {`
+- R00823 · event · line 1295: `subs.push(listen('chat-incoming-message', async (e) => {`
+- R00824 · persistence · line 1298: `const raw = getSetting('notifications', [])`
+- R00825 · command_call · line 1301: `const isFocused = await invoke('is_warframe_focused')`
+- R00826 · persistence · line 1303: `const position = getSetting('notif_position', 'top-right')`
+- R00827 · persistence · line 1304: `const sound = getSetting('notif_sound', 'notification1.wav')`
+- R00828 · command_call · line 1305: `invoke('play_notification_sound', { sound }).catch(console.error)`
+- R00829 · command_call · line 1306: `invoke('show_notification', {`
+- R00830 · option_or_label · line 1307: `title: 'New Chat Message',`
+- R00831 · event · line 1326: `const unsub = listen('monitoring-active-changed', async (e) => {`
+- R00832 · command_call · line 1345: `invoke('set_monitoring_active', { active: true, result: r, statusText: r === 'success' ? 'Syncing active' : r === 'cached' ? 'Game not running, using cached data' : r }).catch(() => {})`
+- R00833 · persistence · line 1360: `const savedPath = getSetting('warframe_cache_path', '')`
+- R00834 · command_call · line 1361: `const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)`
+- R00835 · command_call · line 1365: `const p = await invoke('ensure_card_images', { cachePath })`
+- R00836 · persistence · line 1366: `localStorage.setItem('kronos_card_images_path', p)`
+- R00837 · persistence · line 1367: `localStorage.setItem('kronos_card_images_ready', '1')`
+- R00838 · event · line 1392: `unlisten = await listen('card-progress', (e) => {`
+- R00839 · persistence · line 1396: `const savedPath = getSetting('warframe_cache_path', '')`
+- R00840 · command_call · line 1397: `const cachePath = savedPath || await invoke('detect_warframe_cache').catch(() => null)`
+- R00841 · persistence · line 1401: `const knownRoot = localStorage.getItem('kronos_card_images_path') || ''`
+- R00842 · persistence · line 1402: `if (knownRoot && localStorage.getItem('kronos_card_images_ready') === '1') {`
+- R00843 · command_call · line 1408: `const p = await invoke('ensure_card_images', { cachePath })`
+- R00844 · persistence · line 1409: `localStorage.setItem('kronos_card_images_path', p)`
+- R00845 · persistence · line 1410: `localStorage.setItem('kronos_card_images_ready', '1')`
+
+## src/contexts/ThemeContext.jsx
+
+- R00846 · state · line 1: `import { createContext, useContext, useState, useEffect, useRef } from 'react'`
+- R00847 · option_or_label · line 10: `{ id: 'vitruvian', name: 'Vitruvian', desc: 'Classic Vitruvian slate and blue' },`
+- R00848 · option_or_label · line 11: `{ id: 'corpus', name: 'Corpus', badge: 'Deuteranopia', desc: 'Optimized for Green-Blindness (Deuteranopia) — high-luminance cyan on deep navy avoids red-green confusion' },`
+- R00849 · option_or_label · line 12: `{ id: 'fortuna', name: 'Fortuna', badge: 'Protanopia', desc: 'Optimized for Red-Blindness (Protanopia) — electric neon cyan on dark purple avoids dark-red muddiness' },`
+- R00850 · option_or_label · line 13: `{ id: 'equinox', name: 'Equinox', badge: 'Monochrome / All', desc: '100% High-Contrast Monochrome (>18:1 ratio) — universal clarity for all color vision types' },`
+- R00851 · option_or_label · line 14: `{ id: 'harrier', name: 'Harrier', badge: 'Deuteranopia', desc: 'High-contrast safety orange on deep slate — distinct separation for green-weak vision' },`
+- R00852 · option_or_label · line 15: `{ id: 'grineer', name: 'Grineer', badge: 'Protanopia', desc: 'High-luminance amber-gold on dark olive — sharp luminance edge for red-weak vision' },`
+- R00853 · option_or_label · line 16: `{ id: 'stalker', name: 'Stalker', badge: 'Tritanopia', desc: 'Optimized for Blue-Yellow Blindness (Tritanopia) — stark crimson on pitch black' },`
+- R00854 · option_or_label · line 17: `{ id: 'conquera', name: 'Conquera', badge: 'Deuteranopia', desc: 'Vivid magenta-pink on deep purple with sharp text contrast' },`
+- R00855 · option_or_label · line 18: `{ id: 'lunar', name: 'Lunar Renewal', badge: 'Tritanopia', desc: 'High-contrast scarlet on dark burgundy for blue-yellow vision' },`
+- R00856 · option_or_label · line 19: `{ id: 'baruuk', name: 'Baruuk', desc: 'Warm desert amber and bronze' },`
+- R00857 · option_or_label · line 20: `{ id: 'darklotus', name: 'Dark Lotus', desc: 'Deep violet and orchid hues' },`
+- R00858 · option_or_label · line 21: `{ id: 'deadlock', name: 'Deadlock', desc: 'Golden Corpus aesthetics' },`
+- R00859 · option_or_label · line 22: `{ id: 'legacy', name: 'Legacy', desc: 'Classic teal and dark cyan' },`
+- R00860 · option_or_label · line 23: `{ id: 'pom2', name: 'POM-2', desc: 'Retro CRT phosphors' },`
+- R00861 · state · line 27: `const [loaded, setLoaded] = useState(false)`
+- R00862 · state · line 28: `const [theme, setThemeState] = useState('vitruvian')`
+- R00863 · state · line 29: `const [cursorStyle, setCursorStyleState] = useState('system')`
+- R00864 · state · line 30: `const [cursorTint, setCursorTintState] = useState(false)`
+- R00865 · state · line 31: `const [uiPath, setUiPath] = useState('')`
+- R00866 · persistence · line 40: `loadSettings(),`
+- R00867 · command_call · line 41: `invoke('get_ui_path').then(setUiPath).catch(() => {}),`
+- R00868 · persistence · line 43: `const saved = getSetting('kronos-theme', 'vitruvian')`
+- R00869 · persistence · line 48: `const cs = getSetting('cursor-style', 'system')`
+- R00870 · persistence · line 52: `const ct = getSetting('cursor-tint', false) === true`
+- R00871 · command_call · line 82: `const bytes = await invoke('read_file_bytes', { relative: data/assets/ui/${cursorFile}.png })`
+- R00872 · persistence · line 130: `setSetting('kronos-theme', theme)`
+- R00873 · persistence · line 136: `setSetting('cursor-style', cursorStyle)`
+- R00874 · persistence · line 142: `setSetting('cursor-tint', cursorTint)`
+- R00875 · event · line 149: `emit('theme-changed', newTheme)`
+- R00876 · event · line 165: `// If the component unmounts before a listen() promise resolves, pushing`
+- R00877 · event · line 174: `listen('theme-changed', (event) => {`
+- R00878 · event · line 183: `listen('request-theme', () => {`
+- R00879 · event · line 184: `emit('theme-changed', themeRef.current)`
+- R00880 · event · line 187: `emit('request-theme', {})`
+
+## src/contexts/UiContext.jsx
+
+- R00881 · state · line 1: `import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'`
+- R00882 · state · line 18: `const [state, setState] = useState({ ui: {}, locale: 'en', ready: false, i18nData: null })`
+- R00883 · persistence · line 27: `await loadSettings()`
+- R00884 · persistence · line 29: `const locale = getSetting('uiLocale') || getSetting('gameLocale') || 'en'`
+
+## src/contexts/UpdateContext.jsx
+
+- R00885 · state · line 1: `import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'`
+- R00886 · state · line 10: `const [updateState, setUpdateState] = useState({ status: 'idle', manifest: null, error: null })`
+- R00887 · state · line 14: `const [platformInfo, setPlatformInfo] = useState(null)`
+- R00888 · command_call · line 17: `invoke('get_platform_info').then(setPlatformInfo).catch(() => {})`
+- R00889 · command_call · line 44: `await invoke('download_appimage_update', { url })`
+- R00890 · persistence · line 106: `const autoCheck = getSetting('update_on_startup', true)`
+
+## src/lib/acquisitionData.js
+
+- R00891 · command_call · line 14631: `invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' })`
+- R00892 · command_call · line 14650: `invoke('read_file_bytes', { relative: 'data/assets/data/wiki-verified-all-acquisitions.json' })`
+
+## src/lib/customMarkers.js
+
+- R00893 · option_or_label · line 161: `id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 9),`
+- R00894 · option_or_label · line 162: `label: marker.label || markerInfo.label || In-Game Marker,`
+
+## src/lib/inventoryParser.js
+
+- R00895 · option_or_label · line 911: `value: uv?.value ?? 0.01,`
+- R00896 · option_or_label · line 2425: `const relicInventoryItems = Object.values(raw).flatMap((value) => Array.isArray(value) ? value : [])`
+- R00897 · option_or_label · line 2619: `value: valueStr,`
+
+## src/lib/marketEngine.js
+
+- R00898 · persistence · line 19: `const raw = localStorage.getItem(key);`
+- R00899 · persistence · line 28: `localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));`
+- R00900 · option_or_label · line 59: `map.set(item.gameRef, { name: item.i18n.en.name, id: item.id, slug: item.slug });`
+- R00901 · option_or_label · line 173: `if (onProgress) onProgress({ current: ++done, total, label: item.name });`
+
+## src/lib/notificationManager.js
+
+- R00902 · option_or_label · line 32: `id: 'fissure',`
+- R00903 · option_or_label · line 33: `label: 'Void Fissure',`
+- R00904 · option_or_label · line 34: `labelKey: 'ui.dashboard.void_fissures',`
+- R00905 · option_or_label · line 37: `key: 'difficulties', label: 'Difficulty', labelKey: 'ui.notif_mgr.col_difficulty', type: 'multi-select', options: [`
+- R00906 · option_or_label · line 38: `{ value: 'normal', label: 'Normal', labelKey: 'ui.notif_mgr.opt_normal' },`
+- R00907 · option_or_label · line 39: `{ value: 'steel_path', label: 'Steel Path', labelKey: 'ui.dashboard.steel_path' },`
+- R00908 · option_or_label · line 43: `key: 'tiers', label: 'Tiers', labelKey: 'ui.notif_mgr.col_tiers', type: 'multi-select', options: [`
+- R00909 · option_or_label · line 45: `].map(v => ({ value: v, label: v }))`
+- R00910 · option_or_label · line 48: `key: 'missionTypes', label: 'Mission Types', labelKey: 'ui.notif_mgr.col_mission_types', type: 'multi-select', options: [`
+- R00911 · option_or_label · line 52: `].map(v => ({ value: v, label: v }))`
+- R00912 · option_or_label · line 58: `id: 'arbitration',`
+- R00913 · option_or_label · line 59: `label: 'Arbitration',`
+- R00914 · option_or_label · line 60: `labelKey: 'ui.dashboard.arbitration',`
+- R00915 · option_or_label · line 63: `key: 'grades', label: 'Grade', labelKey: 'ui.notif_mgr.col_grade', type: 'multi-select', options: [`
+- R00916 · option_or_label · line 64: `{ value: 'S', label: 'S-Tier', labelKey: 'ui.notif_mgr.opt_s_tier' },`
+- R00917 · option_or_label · line 65: `{ value: 'A', label: 'A-Tier', labelKey: 'ui.notif_mgr.opt_a_tier' },`
+- R00918 · option_or_label · line 66: `{ value: 'B', label: 'B-Tier', labelKey: 'ui.notif_mgr.opt_b_tier' },`
+- R00919 · option_or_label · line 67: `{ value: 'C', label: 'C-Tier', labelKey: 'ui.notif_mgr.opt_c_tier' },`
+- R00920 · option_or_label · line 68: `{ value: 'D', label: 'D-Tier', labelKey: 'ui.notif_mgr.opt_d_tier' },`
+- R00921 · option_or_label · line 69: `{ value: 'F', label: 'F-Tier', labelKey: 'ui.notif_mgr.opt_f_tier' },`
+- R00922 · option_or_label · line 72: `{ key: 'advance', label: 'Alert before (min)', labelKey: 'ui.notif_mgr.col_alert_before', type: 'number', default: 30 },`
+- R00923 · option_or_label · line 77: `id: 'void_traces',`
+- R00924 · option_or_label · line 78: `label: 'Void Traces Capped',`
+- R00925 · option_or_label · line 79: `labelKey: 'ui.notif_mgr.trig_void_traces',`
+- R00926 · option_or_label · line 81: `{ key: 'cooldown', label: 'Cooldown (min)', labelKey: 'ui.notif_mgr.col_cooldown', type: 'number', default: 180 },`
+- R00927 · option_or_label · line 86: `id: 'chat',`
+- R00928 · option_or_label · line 87: `label: 'Incoming Messages',`
+- R00929 · option_or_label · line 88: `labelKey: 'ui.notif_mgr.trig_chat',`
+- R00930 · option_or_label · line 90: `{ key: '', label: 'Will only show notifications when Warframe is not focused.', labelKey: 'ui.notif_mgr.chat_hint' },`
+- R00931 · option_or_label · line 95: `id: 'syndicate',`
+- R00932 · option_or_label · line 96: `label: 'Syndicate Standing Capped',`
+- R00933 · option_or_label · line 97: `labelKey: 'ui.notif_mgr.trig_syndicate',`
+- R00934 · option_or_label · line 99: `{ key: 'cooldown', label: 'Cooldown (min)', labelKey: 'ui.notif_mgr.col_cooldown', type: 'number', default: 180 },`
+- R00935 · option_or_label · line 104: `id: 'syndicate_waste',`
+- R00936 · option_or_label · line 105: `label: 'Syndicate Standing Waste',`
+- R00937 · option_or_label · line 106: `labelKey: 'ui.notif_mgr.trig_syndicate_waste',`
+- R00938 · option_or_label · line 108: `{ key: 'cooldown', label: 'Cooldown (min)', labelKey: 'ui.notif_mgr.col_cooldown', type: 'number', default: 180 },`
+- R00939 · option_or_label · line 113: `id: 'foundry',`
+- R00940 · option_or_label · line 114: `label: 'Foundry Complete',`
+- R00941 · option_or_label · line 115: `labelKey: 'ui.notif_mgr.trig_foundry',`
+- R00942 · option_or_label · line 117: `{ key: 'advance', label: 'Notify when remaining time is (minutes)', labelKey: 'ui.notif_mgr.col_advance', type: 'number', default: 5 },`
+- R00943 · option_or_label · line 122: `id: 'mastery',`
+- R00944 · option_or_label · line 123: `label: 'Mastery Progress',`
+- R00945 · option_or_label · line 124: `labelKey: 'ui.notif_mgr.trig_mastery',`
+- R00946 · option_or_label · line 126: `{ key: 'threshold', label: 'Threshold %', labelKey: 'ui.notif_mgr.col_threshold', type: 'number', default: 75 },`
+- R00947 · option_or_label · line 131: `id: 'checklist',`
+- R00948 · option_or_label · line 132: `label: 'Checklist Reminder',`
+- R00949 · option_or_label · line 133: `labelKey: 'ui.notif_mgr.trig_checklist',`
+- R00950 · option_or_label · line 135: `{ key: 'taskFilter', label: 'Tasks', labelKey: 'ui.notif_mgr.col_tasks', type: 'checklist-tasks', placeholder: 'Filter tasks…' },`
+- R00951 · option_or_label · line 136: `{ key: 'interval', label: 'Interval (min)', labelKey: 'ui.notif_mgr.col_interval', type: 'number', default: 60 },`
+- R00952 · option_or_label · line 141: `id: 'sale',`
+- R00953 · option_or_label · line 142: `label: 'Wishlisted Item on Sale',`
+- R00954 · option_or_label · line 143: `labelKey: 'ui.notif_mgr.trig_sale',`
+- R00955 · option_or_label · line 145: `{ key: 'cooldown', label: 'Cooldown (min)', labelKey: 'ui.notif_mgr.col_cooldown', type: 'number', default: 180 },`
+- R00956 · option_or_label · line 150: `id: 'bounty',`
+- R00957 · option_or_label · line 151: `label: 'Bounty Available',`
+- R00958 · option_or_label · line 152: `labelKey: 'ui.dashboard.bounty',`
+- R00959 · option_or_label · line 155: `key: 'syndicates', label: 'Syndicate', labelKey: 'ui.notif_mgr.col_syndicate', type: 'multi-select', options: [`
+- R00960 · option_or_label · line 156: `{ value: 'ZarimanSyndicate', label: 'Zariman', labelKey: 'ui.dashboard.zariman' },`
+- R00961 · option_or_label · line 157: `{ value: 'EntratiLabSyndicate', label: 'Cavia', labelKey: 'ui.dashboard.cavia' },`
+- R00962 · option_or_label · line 158: `{ value: 'HexSyndicate', label: 'Hex', labelKey: 'ui.dashboard.hex' },`
+- R00963 · option_or_label · line 159: `{ value: 'CetusSyndicate', label: 'Cetus', labelKey: 'ui.dashboard.cetus' },`
+- R00964 · option_or_label · line 160: `{ value: 'EntratiSyndicate', label: 'Deimos', labelKey: 'ui.dashboard.deimos' },`
+- R00965 · option_or_label · line 161: `{ value: 'SolarisSyndicate', label: 'Vallis', labelKey: 'ui.dashboard.orb_vallis' },`
+- R00966 · option_or_label · line 165: `key: 'missionTypes', label: 'Mission Types', labelKey: 'ui.notif_mgr.col_mission_types', type: 'multi-select', options: [`
+- R00967 · option_or_label · line 170: `].map(v => ({ value: v, label: v }))`
+- R00968 · option_or_label · line 191: `id: crypto.randomUUID(),`
+- R00969 · option_or_label · line 267: `title: tr(t, 'ui.notif_mgr.msg_fissure_title', { tier: f.tier }),`
+- R00970 · option_or_label · line 296: `title: tr(t, 'ui.notif_mgr.msg_arby_active_title', { grade }),`
+- R00971 · option_or_label · line 317: `title: tr(t, 'ui.notif_mgr.msg_arby_soon_title', { grade: slot.grade }),`
+- R00972 · option_or_label · line 334: `title: tr(t, 'ui.notif_mgr.trig_void_traces'),`
+- R00973 · option_or_label · line 373: `title: tr(t, 'ui.notif_mgr.msg_syndicate_capped_title'),`
+- R00974 · option_or_label · line 415: `title: tr(t, 'ui.notif_mgr.msg_syndicate_risk_title'),`
+- R00975 · option_or_label · line 439: `title: tr(t, 'ui.notif_mgr.trig_foundry'),`
+- R00976 · option_or_label · line 449: `title: tr(t, 'ui.notif_mgr.trig_foundry'),`
+- R00977 · option_or_label · line 465: `title: tr(t, 'ui.notif_mgr.trig_mastery'),`
+- R00978 · option_or_label · line 484: `title: tr(t, 'ui.notif_mgr.trig_sale'),`
+- R00979 · option_or_label · line 521: `title: tr(t, 'ui.notif_mgr.msg_checklist_due_title'),`
+- R00980 · option_or_label · line 577: `title: tr(t, 'ui.notif_mgr.msg_bounty_title', { syn: synLabel }),`
+- R00981 · option_or_label · line 605: `title: tr(t, 'ui.notif_mgr.msg_bounty_title', { syn: synLabel }),`
+
+## src/lib/rivenGrader.js
+
+- R00982 · command_call · line 24: `dataPromise = invoke('read_file_bytes', { relative: 'data/assets/data/riven_good_rolls.json' })`
+- R00983 · option_or_label · line 50: `* @returns {{grade: 'S'|'A'|'B'|'C'|'D'|null, tier: string, label: string}}`
+- R00984 · option_or_label · line 53: `if (!dataCache) return { grade: null, tier: 'loading', label: '' };`
+- R00985 · option_or_label · line 56: `if (!profile) return { grade: null, tier: 'review', label: 'No profile' };`
+- R00986 · option_or_label · line 90: `if (!bestCombo) return { grade: null, tier: 'review', label: 'No target stats' };`
+
+## src/lib/rivenOcrI18n.js
+
+- R00987 · option_or_label · line 377: `stats.push({ value: pendingValue, name: pendingName.replace(/\s+/g, ' ').trim() || '?' })`
+
+## src/lib/rivenPerfectness.js
+
+- R00988 · command_call · line 37: `invoke('get_riven_base_data', { weaponName: weaponNameEn }).catch(() => null)`
+
+## src/lib/settings.js
+
+- R00989 · event · line 8: `listen('settings-changed', async () => {`
+- R00990 · command_call · line 10: `cachedSettings = await invoke('load_settings')`
+- R00991 · persistence · line 24: `export async function loadSettings() {`
+- R00992 · command_call · line 26: `const settings = await invoke('load_settings') || {}`
+- R00993 · persistence · line 28: `// Migration logic: if settings are empty, try to pull from localStorage.`
+- R00994 · persistence · line 29: `// This path does a full destructive overwrite via saveSettings(), so it`
+- R00995 · persistence · line 47: `const val = localStorage.getItem(k)`
+- R00996 · persistence · line 52: `await saveSettings(legacy)`
+- R00997 · persistence · line 79: `export async function setSetting(key, value) {`
+- R00998 · command_call · line 80: `await invoke('set_setting', { key, value }).catch((err) => console.error('Failed to save setting:', err))`
+- R00999 · persistence · line 81: `// Optimistic local update for this window's synchronous getSetting() reads;`
+- R01000 · persistence · line 89: `export async function saveSettings(settings) {`
+- R01001 · command_call · line 91: `await invoke('save_settings', { settings })`
+- R01002 · persistence · line 101: `export function getSetting(key, defaultValue = null) {`
+
+## src/lib/shareBundle.js
+
+- R01003 · command_call · line 33: `await invoke('write_file', { path, data: new TextEncoder().encode(JSON.stringify(payload, null, 2)) })`
+- R01004 · command_call · line 53: `const bytes = await invoke('read_file', { path })`
+
+## src/lib/wfcdGapFill.js
+
+- R01005 · option_or_label · line 57: `{ wfcdKey: 'WFCD_Primary', mainTable: 'ExportWeapons', categoryField: 'productCategory', pathPrefix: '/Lotus/Weapons/', mode: 'merge', label: 'Primary weapon' },`
+- R01006 · option_or_label · line 58: `{ wfcdKey: 'WFCD_Secondary', mainTable: 'ExportWeapons', categoryField: 'productCategory', pathPrefix: '/Lotus/Weapons/', mode: 'merge', label: 'Secondary weapon' },`
+- R01007 · option_or_label · line 59: `{ wfcdKey: 'WFCD_Melee', mainTable: 'ExportWeapons', categoryField: 'productCategory', pathPrefix: '/Lotus/Weapons/', mode: 'merge', label: 'Melee weapon' },`
+- R01008 · option_or_label · line 60: `{ wfcdKey: 'WFCD_Skins', mainTable: 'ExportCustoms', categoryField: null, pathPrefix: '/Lotus/Upgrades/Skins/', mode: 'audit', label: 'Cosmetic skin' },`
+- R01009 · command_call · line 159: `invoke('log_terminal', { message: lines.join('\n') }).catch(() => {})`
+
+## src/lib/wfcdLoader.js
+
+- R01010 · command_call · line 23: `const absolutePath = await invoke('resolve_asset_path', {`
+
+## src/lib/wfmCache.js
+
+- R01011 · persistence · line 41: `const data = localStorage.getItem(WFM_ITEMS_KEY);`
+- R01012 · option_or_label · line 65: `const info = { id: item.id, slug: item.slug, tradable: item.tradable !== false };`
+- R01013 · option_or_label · line 72: `const info = { id: item.id, slug: item.slug, tradable: item.tradable !== false };`
+- R01014 · persistence · line 77: `localStorage.setItem(WFM_ITEMS_KEY, JSON.stringify({ entries, timestamp: Date.now() }));`
+- R01015 · persistence · line 139: `const data = localStorage.getItem(CACHE_KEY);`
+- R01016 · persistence · line 153: `localStorage.setItem(CACHE_KEY, JSON.stringify(cache));`
+
+## src/lib/worldstateParser.js
+
+- R01017 · option_or_label · line 582: `id: raw.Incursions[0]._id?.$oid || raw.Incursions[0]._id,`
+- R01018 · option_or_label · line 617: `id: i._id?.$oid || i._id,`
+- R01019 · option_or_label · line 638: `id: f._id?.$oid || f._id,`
+- R01020 · option_or_label · line 664: `id: s._id?.$oid || s._id,`
+- R01021 · option_or_label · line 731: `id: d._id?.$oid || d._id,`
+- R01022 · option_or_label · line 762: `id: raw.Sorties[0]._id?.$oid || raw.Sorties[0]._id,`
+- R01023 · option_or_label · line 779: `id: raw.LiteSorties[0]._id?.$oid || raw.LiteSorties[0]._id,`
+- R01024 · option_or_label · line 795: `id: raw.SeasonInfo._id?.$oid || raw.SeasonInfo._id,`
+- R01025 · option_or_label · line 877: `id: c._id?.$oid || c._id,`
+- R01026 · option_or_label · line 896: `id: c._id?.$oid || c._id,`
+- R01027 · option_or_label · line 983: `id: a._id?.$oid || a._id,`
+- R01028 · option_or_label · line 1008: `id: g._id?.$oid || g._id,`
+
+## src/main.jsx
+
+- R01029 · command_call · line 23: `invoke('log_terminal', { message: [${level}] ${msg} }).catch(() => {});`
+
+## src/screens/About.jsx
+
+- R01030 · state · line 12: `import { useState, useEffect } from 'react';`
+- R01031 · option_or_label · line 20: `{ name: 'RHPestilence', desc: 'App icon, commissioned artwork', links: [{ label: 'Ko-fi', href: 'https://ko-fi.com/rhpestilence' }, { label: 'Etsy shop', href: 'https://rottingtrove.etsy.com' }, { label: 'X/Twitter', href: 'https://x.com/RHPestilence' }] },`
+- R01032 · state · line 33: `const [uiPath, setUiPath] = useState('');`
+- R01033 · command_call · line 34: `useEffect(() => {invoke('get_ui_path').then(setUiPath).catch(() => {});}, []);`
+- R01034 · command_call · line 38: `await invoke('open_url', { url });`
+- R01035 · interaction · line 68: `Kieda's Orbiter is a fork of <button onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')} className="text-kronos-accent hover:underline cursor-pointer font-medium">Cephalon Kronos</button> by glowseeker, used under the MIT License. See the Credits section below and the project's LICENSE file for full attribution.`
+- R01036 · control · line 68: `Kieda's Orbiter is a fork of <button onClick={() => handleOpenLink('https://github.com/glowseeker/cephalon-kronos')} className="text-kronos-accent hover:underline cursor-pointer font-medium">Cephalon Kronos</button> by glowseeker, used under the MIT License. See the Credits section below and the project's LICENSE file for full attribution.`
+- R01037 · control · line 71: `<button`
+- R01038 · interaction · line 72: `onClick={() => handleOpenLink('https://github.com/GoblinOfChaos/Kiedas-Orbiter')}`
+- R01039 · control · line 92: `<button`
+- R01040 · interaction · line 93: `onClick={() => handleOpenLink(href)}`
+- R01041 · control · line 106: `<button`
+- R01042 · interaction · line 107: `onClick={() => handleOpenLink(linkHref)}`
+
+## src/screens/Adversaries.jsx
+
+- R01043 · state · line 1: `import { useMemo, useState, useEffect } from 'react';`
+- R01044 · state · line 65: `const [iconsPath, setIconsPath] = useState('');`
+- R01045 · command_call · line 66: `useEffect(() => {invoke('get_icons_path').then(setIconsPath).catch(() => {});}, []);`
+- R01046 · state · line 67: `const [showKilled, setShowKilled] = useState(false);`
+- R01047 · control · line 126: `<input`
+- R01048 · interaction · line 129: `onChange={(e) => setShowKilled(e.target.checked)}`
+
+## src/screens/Checklist.jsx
+
+- R01049 · state · line 21: `import { useState, useEffect, useMemo } from 'react';`
+- R01050 · option_or_label · line 30: `{ id: 'baro', label: 'Baro Ki\'Teer', labelKey: 'ui.dashboard.baro_kiteer', reset: 'baro' },`
+- R01051 · option_or_label · line 31: `{ id: 'sortie', label: 'Sortie', labelKey: 'ui.dashboard.sortie', reset: 'daily' },`
+- R01052 · option_or_label · line 32: `{ id: 'foundry', label: 'Check Foundry', labelKey: 'checklist.task_foundry', reset: 'daily' },`
+- R01053 · option_or_label · line 33: `{ id: 'syndicates', label: 'Syndicate Standing', labelKey: 'checklist.task_syndicates', reset: 'daily' },`
+- R01054 · option_or_label · line 34: `{ id: 'focus', label: 'Daily Focus Cap', labelKey: 'checklist.task_focus', reset: 'daily' },`
+- R01055 · option_or_label · line 35: `{ id: 'steel_path', label: 'Steel Path Incursions', labelKey: 'ui.dashboard.sp_incursions', reset: 'daily' },`
+- R01056 · option_or_label · line 36: `{ id: 'acrithis_daily', label: 'Acrithis Daily', labelKey: 'checklist.task_acrithis_daily', reset: 'daily' },`
+- R01057 · option_or_label · line 37: `{ id: 'ticker', label: 'Ticker\'s Railjack Crew', labelKey: 'checklist.task_ticker', reset: 'daily' },`
+- R01058 · option_or_label · line 38: `{ id: 'marie', label: 'Marie\'s Shop', labelKey: 'checklist.task_marie', reset: 'daily' },`
+- R01059 · option_or_label · line 39: `{ id: 'glast', label: 'Ergo Glast: Tenet Melee', labelKey: 'checklist.task_glast', reset: 'glast' },`
+- R01060 · option_or_label · line 40: `{ id: 'eleanor', label: 'Eleanor\'s Shop (1999)', labelKey: 'checklist.task_eleanor', reset: 'eleanor' },`
+- R01061 · option_or_label · line 41: `{ id: 'grandmother', label: 'Grandmother\'s Tokens', labelKey: 'checklist.task_grandmother', reset: 'other' },`
+- R01062 · option_or_label · line 42: `{ id: 'yonta_daily', label: 'Yonta: Daily Voidplumes', labelKey: 'checklist.task_yonta_daily', reset: 'other' },`
+- R01063 · option_or_label · line 43: `{ id: 'voca', label: 'Loid: Voca', labelKey: 'checklist.task_voca', reset: 'other' },`
+- R01064 · option_or_label · line 44: `{ id: 'nightwave', label: 'Nightwave Season', labelKey: 'checklist.task_nightwave', reset: 'season' },`
+- R01065 · option_or_label · line 45: `{ id: 'nightwave_weekly', label: 'Nightwave Weekly Missions', labelKey: 'checklist.task_nightwave_weekly', reset: 'weekly' },`
+- R01066 · option_or_label · line 46: `{ id: 'nightwave_spend', label: 'Nightwave Cred Offerings', labelKey: 'checklist.task_nightwave_spend', reset: 'weekly' },`
+- R01067 · option_or_label · line 47: `{ id: 'ayatan', label: "Maroo's Ayatan Hunt", labelKey: 'checklist.task_ayatan', reset: 'weekly' },`
+- R01068 · option_or_label · line 48: `{ id: 'clem', label: "Help Clem", labelKey: 'checklist.task_clem', reset: 'weekly' },`
+- R01069 · option_or_label · line 49: `{ id: 'narmer', label: 'Help Kahl: Break Narmer', labelKey: 'checklist.task_narmer', reset: 'weekly' },`
+- R01070 · option_or_label · line 50: `{ id: 'archon', label: 'Archon Hunt', labelKey: 'ui.dashboard.archon_hunt', reset: 'weekly' },`
+- R01071 · option_or_label · line 51: `{ id: 'circuit', label: 'Duviri Circuit', labelKey: 'checklist.task_circuit', reset: 'weekly' },`
+- R01072 · option_or_label · line 52: `{ id: 'circuit_sp', label: 'Duviri Circuit SP', labelKey: 'checklist.task_circuit_sp', reset: 'weekly' },`
+- R01073 · option_or_label · line 53: `{ id: 'pulses', label: 'Pulses: Netracell & Archimedea', labelKey: 'checklist.task_pulses', reset: 'weekly' },`
+- R01074 · option_or_label · line 54: `{ id: 'calendar', label: '1999 Calendar', labelKey: 'checklist.task_calendar', reset: 'weekly' },`
+- R01075 · option_or_label · line 55: `{ id: 'invigorations', label: 'Helminth Invigoration', labelKey: 'checklist.task_invigorations', reset: 'weekly' },`
+- R01076 · option_or_label · line 56: `{ id: 'descendia', label: 'Descendia', labelKey: 'checklist.task_descendia', reset: 'weekly' },`
+- R01077 · option_or_label · line 57: `{ id: 'descendia_sp', label: 'Descendia SP', labelKey: 'checklist.task_descendia_sp', reset: 'weekly' },`
+- R01078 · option_or_label · line 58: `{ id: 'palladino', label: 'Palladino\'s Shop', labelKey: 'checklist.task_palladino', reset: 'weekly' },`
+- R01079 · option_or_label · line 59: `{ id: 'yonta_weekly', label: 'Yonta: Weekly Shop', labelKey: 'checklist.task_yonta_weekly', reset: 'weekly' },`
+- R01080 · option_or_label · line 60: `{ id: 'acrithis_weekly', label: 'Acrithis Weekly', labelKey: 'checklist.task_acrithis_weekly', reset: 'weekly' },`
+- R01081 · option_or_label · line 61: `{ id: 'teshin', label: 'Teshin Shop', labelKey: 'checklist.task_teshin', reset: 'weekly' },`
+- R01082 · option_or_label · line 62: `{ id: 'bird3', label: 'Bird 3 Shop', labelKey: 'checklist.task_bird3', reset: 'weekly' },`
+- R01083 · option_or_label · line 63: `{ id: 'nightcap', label: 'Nightcap Shop', labelKey: 'checklist.task_nightcap', reset: 'weekly' }];`
+- R01084 · option_or_label · line 222: `{ id: 'zenurik', label: 'Zenurik', key: 'AP_POWER' },`
+- R01085 · option_or_label · line 223: `{ id: 'naramon', label: 'Naramon', key: 'AP_TACTIC' },`
+- R01086 · option_or_label · line 224: `{ id: 'vazarin', label: 'Vazarin', key: 'AP_DEFENSE' },`
+- R01087 · option_or_label · line 225: `{ id: 'madurai', label: 'Madurai', key: 'AP_ATTACK' },`
+- R01088 · option_or_label · line 226: `{ id: 'unairu', label: 'Unairu', key: 'AP_WARD' }];`
+- R01089 · option_or_label · line 231: `{ id: 'focus_total', label: 'Daily Focus', color: 'focus' },`
+- R01090 · option_or_label · line 234: `...FOCUS_SCHOOLS.map((s) => ({ id: s.id, label: s.label, color: s.id, focusKey: s.key })),`
+- R01091 · option_or_label · line 237: `{ id: 'steel', label: 'Steel Meridian', tag: 'steel' },`
+- R01092 · option_or_label · line 238: `{ id: 'perrin', label: 'Perrin Sequence', tag: 'perrin' },`
+- R01093 · option_or_label · line 239: `{ id: 'arbiters', label: 'Arbiters of Hexis', tag: 'arbiters' },`
+- R01094 · option_or_label · line 240: `{ id: 'suda', label: 'Cephalon Suda', tag: 'suda' },`
+- R01095 · option_or_label · line 241: `{ id: 'veil', label: 'Red Veil', tag: 'veil' },`
+- R01096 · option_or_label · line 242: `{ id: 'newloka', label: 'New Loka', tag: 'newloka' },`
+- R01097 · option_or_label · line 245: `{ id: 'simaris', label: 'Cephalon Simaris', tag: 'simaris' },`
+- R01098 · option_or_label · line 248: `{ id: 'ostron', label: 'Ostron', tag: 'ostron' },`
+- R01099 · option_or_label · line 249: `{ id: 'quills', label: 'The Quills', tag: 'quills' },`
+- R01100 · option_or_label · line 252: `{ id: 'solaris', label: 'Solaris United', tag: 'solaris' },`
+- R01101 · option_or_label · line 253: `{ id: 'vox', label: 'Vox Solaris', tag: 'vox' },`
+- R01102 · option_or_label · line 254: `{ id: 'ventkids', label: 'Ventkids', tag: 'ventkids' },`
+- R01103 · option_or_label · line 257: `{ id: 'entrati', label: 'Entrati', tag: 'entrati' },`
+- R01104 · option_or_label · line 258: `{ id: 'necraloid', label: 'Necraloid', tag: 'necraloid' },`
+- R01105 · option_or_label · line 259: `{ id: 'cavia', label: 'Cavia', tag: 'cavia' },`
+- R01106 · option_or_label · line 262: `{ id: 'holdfasts', label: 'Holdfasts', tag: 'holdfasts' },`
+- R01107 · option_or_label · line 263: `{ id: 'hex', label: 'The Hex', tag: 'hex' },`
+- R01108 · option_or_label · line 266: `{ id: 'conclave', label: 'Conclave', tag: 'conclave' }];`
+- R01109 · control · line 317: `<button`
+- R01110 · interaction · line 318: `onClick={onHide}`
+- R01111 · control · line 324: `<button`
+- R01112 · interaction · line 325: `onClick={onToggle}`
+- R01113 · state · line 484: `const [hoveredTag, setHoveredTag] = useState(null);`
+- R01114 · state · line 485: `const [uiPath, setUiPath] = useState('');`
+- R01115 · command_call · line 487: `useEffect(() => {invoke('get_ui_path').then(setUiPath).catch(() => {});}, []);`
+- R01116 · state · line 489: `const [completed, setCompleted] = useState(() => {`
+- R01117 · persistence · line 491: `return JSON.parse(localStorage.getItem('checklist_completed') || '{}');`
+- R01118 · state · line 494: `const [hiddenMap, setHiddenMap] = useState(() => {`
+- R01119 · persistence · line 496: `return JSON.parse(localStorage.getItem('checklist_hidden') || '{}');`
+- R01120 · state · line 499: `const [autoTrack, setAutoTrack] = useState(() => {`
+- R01121 · persistence · line 501: `return JSON.parse(localStorage.getItem('checklist_auto_track') || 'true');`
+- R01122 · state · line 510: `const [lastConquestCompletion, setLastConquestCompletion] = useState(() => {`
+- R01123 · persistence · line 511: `try {return parseInt(localStorage.getItem('checklist_last_conquest_completion') || '0', 10);} catch {return 0;}`
+- R01124 · event · line 514: `const unlisten = listen('conquest-completed', () => {`
+- R01125 · persistence · line 517: `try {localStorage.setItem('checklist_last_conquest_completion', String(now));} catch {}`
+- R01126 · state · line 524: `const [completedResetAt, setCompletedResetAt] = useState(() => {`
+- R01127 · persistence · line 526: `return JSON.parse(localStorage.getItem('checklist_completed_reset_at') || '{}');`
+- R01128 · state · line 529: `const [showHiddenTasks, setShowHiddenTasks] = useState(false);`
+- R01129 · state · line 530: `const [cdnBase, setCdnBase] = useState('');`
+- R01130 · state · line 633: `const [now, setNow] = useState(Date.now());`
+- R01131 · persistence · line 645: `localStorage.setItem('checklist_completed', JSON.stringify(completed));`
+- R01132 · persistence · line 649: `localStorage.setItem('checklist_hidden', JSON.stringify(hiddenMap));`
+- R01133 · persistence · line 652: `localStorage.setItem('checklist_auto_track', JSON.stringify(autoTrack));`
+- R01134 · persistence · line 655: `localStorage.setItem('checklist_completed_reset_at', JSON.stringify(completedResetAt));`
+- R01135 · command_call · line 677: `invoke('get_cdn_base_url').then(setCdnBase).catch(() => {});`
+- R01136 · option_or_label · line 892: `id: t.id,`
+- R01137 · option_or_label · line 893: `label: t.label,`
+- R01138 · option_or_label · line 894: `labelKey: t.labelKey,`
+- R01139 · control · line 994: `<input`
+- R01140 · interaction · line 997: `onChange={(e) => setAutoTrack(e.target.checked)}`
+- R01141 · control · line 1005: `<button`
+- R01142 · interaction · line 1006: `onClick={() => setShowHiddenTasks(!showHiddenTasks)}`
+
+## src/screens/Collectibles.jsx
+
+- R01143 · state · line 1: `import { useMemo, useEffect, useState, useCallback, useRef } from 'react'`
+- R01144 · option_or_label · line 97: `{ type: 'series', key: '/Lotus/Objects/Orokin/Props/CollectibleSeriesOne', label: 'Kuria', icon: 'IconOrokitty.png', color: '#d4a843' },`
+- R01145 · option_or_label · line 98: `{ type: 'series', key: '/Lotus/Types/Lore/Fragments/DuviriFragments/DuviriCollectibleDeco', label: 'Lost Islands of Duviri', icon: 'DuviriFragment.png', color: '#7ec8e3' },`
+- R01146 · option_or_label · line 99: `{ type: 'series', key: '/Lotus/Types/Lore/Fragments/DuviriMITWFragments/DuviriMITWCollectibleDeco', label: 'Isleweaver Fragments', icon: 'IsleweaverFragment.png', color: '#c084fc' },`
+- R01147 · option_or_label · line 102: `{ type: 'marker', key: 'EidolonPlainsDiscoverable', label: 'Plains of Eidolon Caves', icon: 'IconPlainsOfEidolon.png', color: '#4ade80' },`
+- R01148 · option_or_label · line 103: `{ type: 'marker', key: 'OrbVallisCaveDiscoverable', label: 'Orb Vallis Caves', icon: 'VallisLandscape.png', color: '#60a5fa' },`
+- R01149 · option_or_label · line 104: `{ type: 'marker', key: 'FortunaMarker', label: 'Fortuna', icon: 'FortunaTown.png', color: '#fbbf24' },`
+- R01150 · option_or_label · line 105: `{ type: 'marker', key: 'NecraliskMarker', label: 'Necralisk', icon: 'IconNecralisk.png', color: '#c084fc' },`
+- R01151 · option_or_label · line 111: `{ type: 'fragment', label: 'Somachord Tunes', codexSection: 'songs', icon: 'IconSomachord.png', color: '#f472b6', match: (type) => type.includes('/MusicFragments/') },`
+- R01152 · option_or_label · line 112: `{ type: 'fragment', label: 'Frame Fighter Fragments', codexSection: 'fighterFrames', icon: 'IconFrameFighter.png', color: '#fb923c', match: (type) => type.includes('/FrameFighterFragments/') },`
+- R01153 · option_or_label · line 113: `{ type: 'fragment', label: 'Cephalon Fragments', icon: 'IconCephalonFragment.png', color: '#60a5fa', match: (type) => type.startsWith('/Lotus/Types/Lore/Fragments/') && !type.includes('/Eidolon') && !type.includes('/Music') && !type.includes('/FrameFighter') && !type.includes('/LoreCard') && !type.includes('/Solaris') && !type.includes('/GrineerGhoul') && !type.includes('/Albrect') && !type.includes('/Revenant') && !type.includes('/CorpusRelief') && !type.includes('/GasCity') && !type.includes('/GlassFragments') && !type.includes('/Duviri') },`
+- R01154 · option_or_label · line 114: `{ type: 'fragment', label: 'Leverian Prex Cards', icon: 'IconTarotCards.png', color: '#a78bfa', match: (type) => type.includes('/LoreCardFragments/') },`
+- R01155 · option_or_label · line 115: `{ type: 'fragment', label: 'Thousand-Year Fish', icon: 'GlassFish.png', color: '#34d399', match: (type) => type.includes('/EidolonFragments/') },`
+- R01156 · option_or_label · line 116: `{ type: 'fragment', label: 'Encrypted Journal Fragments', icon: 'GhoulDataFragment.png', color: '#a3e635', match: (type) => type.includes('/GrineerGhoulFragments/') },`
+- R01157 · option_or_label · line 117: `{ type: 'fragment', label: 'Glass Shard Fragments', icon: 'GlassFragment.png', color: '#6ee7b7', match: (type) => type.includes('/GlassFragments/') },`
+- R01158 · option_or_label · line 118: `{ type: 'fragment', label: 'Fortuna Fragments', icon: 'DebtTokenD.png', color: '#facc15', match: (type) => type.includes('/SolarisFragments/') },`
+- R01159 · option_or_label · line 119: `{ type: 'fragment', label: "Albrecht's Notes", icon: 'Grimoire.png', color: '#818cf8', match: (type) => type.includes('/AlbrectFragments/') },`
+- R01160 · option_or_label · line 120: `{ type: 'fragment', label: 'Nakak Memory Fragments', icon: 'RevenantQuestKeyChain.png', color: '#c084fc', match: (type) => type.includes('/RevenantFragments/') },`
+- R01161 · option_or_label · line 121: `{ type: 'fragment', label: 'The Tenets', icon: 'IconCorpusRelief.png', color: '#67e8f9', match: (type) => type.includes('/CorpusReliefFragments/') },`
+- R01162 · option_or_label · line 122: `{ type: 'fragment', label: 'Partnership Fragments', icon: 'IconGasCityLoreFragment.png', color: '#22d3ee', match: (type) => type.includes('/GasCityFragments/') },`
+- R01163 · command_call · line 153: `try { await invoke('open_url', { url }) } catch { /* ignore */ }`
+- R01164 · interaction · line 166: `<div className="absolute inset-0 bg-black/40" onClick={onClose} />`
+- R01165 · interaction · line 179: `<button onClick={onClose} className="text-white/50 hover:text-white p-1">`
+- R01166 · control · line 179: `<button onClick={onClose} className="text-white/50 hover:text-white p-1">`
+- R01167 · interaction · line 188: `<button onClick={() => handleOpenLink(cat.guideSource)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">`
+- R01168 · control · line 188: `<button onClick={() => handleOpenLink(cat.guideSource)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">`
+- R01169 · interaction · line 193: `<button onClick={() => handleOpenLink(cat.videoGuide)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">`
+- R01170 · control · line 193: `<button onClick={() => handleOpenLink(cat.videoGuide)} className="mt-1.5 text-xs font-bold text-kronos-accent hover:underline cursor-pointer">`
+- R01171 · interaction · line 228: `onClick={onClick}`
+- R01172 · state · line 263: `const [uiPath, setUiPath] = useState('')`
+- R01173 · state · line 264: `const [selectedCat, setSelectedCat] = useState(null)`
+- R01174 · state · line 265: `const [subpanelItems, setSubpanelItems] = useState([])`
+- R01175 · state · line 266: `const [collectibleLocations, setCollectibleLocations] = useState({})`
+- R01176 · command_call · line 268: `invoke('get_ui_path').then(setUiPath).catch(() => { })`
+- R01177 · command_call · line 269: `invoke('read_file_bytes', { relative: 'data/assets/data/collectible-locations.json' })`
+- R01178 · option_or_label · line 303: `label: cat.label,`
+- R01179 · option_or_label · line 353: `label: cat.label,`
+- R01180 · option_or_label · line 438: `label: cat.label,`
+
+## src/screens/Cosmetics.jsx
+
+- R01181 · state · line 1: `import { useEffect, useMemo, useState } from 'react'`
+- R01182 · interaction · line 118: `onClick={() => onAcquire(item.uniqueName)}`
+- R01183 · interaction · line 129: `<button type="button" onClick={(e) => { e.stopPropagation(); onAcquire(item.uniqueName); }} className="mt-3 w-full rounded-lg border border-kronos-accent/30 px-3 py-2 text-[10px] font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">`
+- R01184 · control · line 129: `<button type="button" onClick={(e) => { e.stopPropagation(); onAcquire(item.uniqueName); }} className="mt-3 w-full rounded-lg border border-kronos-accent/30 px-3 py-2 text-[10px] font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">`
+- R01185 · option_or_label · line 140: `{ id: 'name', label: t('mods.sort_name') },`
+- R01186 · state · line 143: `const [search, setSearch] = useState('')`
+- R01187 · state · line 144: `const [kindFilter, setKindFilter] = useState('all')`
+- R01188 · state · line 145: `const [ownershipFilter, setOwnershipFilter] = useState('all')`
+- R01189 · state · line 146: `const [sortCriteria, setSortCriteria] = useState('name')`
+- R01190 · state · line 147: `const [sortDirection, setSortDirection] = useState('asc')`
+- R01191 · state · line 148: `const [visibleCount, setVisibleCount] = useState(COSMETICS_PAGE_SIZE)`
+- R01192 · state · line 149: `const [overrides, setOverrides] = useState(null)`
+- R01193 · command_call · line 153: `invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })`
+- R01194 · interaction · line 287: `<div className="relative max-w-sm flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>`
+- R01195 · control · line 287: `<div className="relative max-w-sm flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>`
+- R01196 · control · line 294: `<button`
+- R01197 · interaction · line 297: `onClick={() => handleSortChange(c.id)}`
+- R01198 · control · line 308: `<Tabs`
+- R01199 · option_or_label · line 309: `tabs={['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other'].map((value) => ({ id: value, label: t(kindFilterKeys[value]) }))}`
+- R01200 · interaction · line 311: `onChange={setKindFilter}`
+- R01201 · control · line 313: `<Tabs`
+- R01202 · option_or_label · line 314: `tabs={['all', 'owned', 'unowned'].map((value) => ({ id: value, label: t(ownershipFilterKeys[value]) }))}`
+- R01203 · interaction · line 316: `onChange={setOwnershipFilter}`
+- R01204 · interaction · line 321: `{visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">{t('cosmetics.load_more', { remaining: filtered.length - visibleCount })}</button>}`
+- R01205 · control · line 321: `{visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">{t('cosmetics.load_more', { remaining: filtered.length - visibleCount })}</button>}`
+
+## src/screens/Dashboard.jsx
+
+- R01206 · state · line 25: `import { useState, useEffect, useMemo, useCallback } from 'react';`
+- R01207 · state · line 175: `const [worldstate, setWorldstate] = useState(null);`
+- R01208 · state · line 176: `const [bountyCycle, setBountyCycle] = useState(null);`
+- R01209 · state · line 177: `const [loading, setLoading] = useState(true);`
+- R01210 · state · line 178: `const [fissureTab, setFissureTab] = useState('normal');`
+- R01211 · state · line 179: `const [archimedeaTab, setArchimedeaTab] = useState('deep');`
+- R01212 · state · line 180: `const [bountyTab, setBountyTab] = useState('cetus');`
+- R01213 · state · line 181: `const [showBaroModal, setShowBaroModal] = useState(false);`
+- R01214 · state · line 182: `const [showWishlistModal, setShowWishlistModal] = useState(false);`
+- R01215 · state · line 183: `const [showSettings, setShowSettings] = useState(false);`
+- R01216 · state · line 184: `const [iconsPath, setIconsPath] = useState('');`
+- R01217 · state · line 185: `const [framesPath, setFramesPath] = useState('');`
+- R01218 · state · line 186: `const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)); // Default to Dec 1999`
+- R01219 · state · line 187: `const [selected1999Month, setSelected1999Month] = useState(0);`
+- R01220 · state · line 188: `const [selected1999Day, setSelected1999Day] = useState(-1);`
+- R01221 · state · line 189: `const [initialized1999, setInitialized1999] = useState(false);`
+- R01222 · state · line 190: `const [hiddenCards, setHiddenCards] = useState(() => {`
+- R01223 · persistence · line 192: `const saved = localStorage.getItem('dashboard_hidden_cards');`
+- R01224 · state · line 209: `const [nwSeenBelowGoal, setNwSeenBelowGoal] = useState(() => {`
+- R01225 · persistence · line 211: `const saved = localStorage.getItem('nightwave_seen_below_goal');`
+- R01226 · command_call · line 218: `useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);`
+- R01227 · command_call · line 219: `useEffect(() => {invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});}, []);`
+- R01228 · persistence · line 222: `localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards));`
+- R01229 · persistence · line 263: `localStorage.setItem('nightwave_seen_below_goal', JSON.stringify(next));`
+- R01230 · command_call · line 337: `const cycleStr = await invoke('fetch_url', { url: 'https://oracle.browse.wf/bounty-cycle' }).catch(() => null);`
+- R01231 · option_or_label · line 385: `{ label: 'Cetus', data: worldstate?.cetusCycle, getState: (d) => d.state },`
+- R01232 · option_or_label · line 386: `{ label: 'Orb Vallis', data: worldstate?.vallisCycle, getState: (d) => d.state },`
+- R01233 · option_or_label · line 388: `label: 'Cambion Drift', data: worldstate?.cambionCycle, getState: (d) =>`
+- R01234 · option_or_label · line 391: `{ label: 'Zariman', data: worldstate?.zarimanCycle, getState: (d) => d.state },`
+- R01235 · option_or_label · line 392: `{ label: 'Duviri', data: worldstate?.duviriCycle, getState: (d) => d.state },`
+- R01236 · option_or_label · line 393: `{ label: t('dashboard.daily_reset'), data: { expiry: new Date(new Date().setUTCHours(24, 0, 0, 0)) }, getState: () => 'Reset' }].`
+- R01237 · option_or_label · line 401: `{ id: 'normal', label: 'Normal' },`
+- R01238 · option_or_label · line 402: `{ id: 'steel', label: 'Steel Path' },`
+- R01239 · option_or_label · line 403: `{ id: 'storm', label: 'Void Storm' }];`
+- R01240 · option_or_label · line 425: `{ id: 'deep', label: 'Deep' },`
+- R01241 · option_or_label · line 426: `{ id: 'temporal', label: 'Temporal' }];`
+- R01242 · option_or_label · line 430: `{ id: 'holdfasts', label: 'Holdfasts', icon: iconSrc('MiniMapZariman') },`
+- R01243 · option_or_label · line 431: `{ id: 'cavia', label: 'Cavia', icon: iconSrc('MiniMapCaviaHubSyndicate') },`
+- R01244 · option_or_label · line 432: `{ id: 'hex', label: 'Hex', icon: iconSrc('MiniMapMarkersJobBoard') },`
+- R01245 · option_or_label · line 433: `{ id: 'cetus', label: 'Cetus', icon: iconSrc('MiniMapEidolonCetusElder') },`
+- R01246 · option_or_label · line 434: `{ id: 'deimos', label: 'Deimos', icon: iconSrc('MiniMapDeimosGrandmother') },`
+- R01247 · option_or_label · line 435: `{ id: 'vallis', label: 'Vallis', icon: iconSrc('MiniMapHubFortuna') }],`
+- R01248 · control · line 1000: `<button`
+- R01249 · interaction · line 1002: `onClick={() => goToMonth(idx)}`
+- R01250 · control · line 1037: `<button`
+- R01251 · interaction · line 1039: `onClick={() => setSelected1999Day(allDays.indexOf(dayData))}`
+- R01252 · state · line 1116: `const [showDescendiaModal, setShowDescendiaModal] = useState(false);`
+- R01253 · state · line 1117: `const [expandedWeek, setExpandedWeek] = useState(0);`
+- R01254 · control · line 1196: `<Modal`
+- R01255 · control · line 1209: `<button`
+- R01256 · interaction · line 1210: `onClick={() => setExpandedWeek(isExpanded ? -1 : setIdx)}`
+- R01257 · control · line 1291: `<button`
+- R01258 · interaction · line 1292: `onClick={() => setShowBaroModal(true)}`
+- R01259 · control · line 1331: `<Modal`
+- R01260 · state · line 1372: `const [wishlistPrices, setWishlistPrices] = useState({});`
+- R01261 · control · line 1437: `<Modal`
+- R01262 · interaction · line 1577: `<Button variant="ghost" onClick={handleRefresh} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">`
+- R01263 · control · line 1595: `<button`
+- R01264 · interaction · line 1596: `onClick={() => setShowSettings(!showSettings)}`
+- R01265 · interaction · line 1610: `<button onClick={() => setShowSettings(false)} className="text-kronos-dim hover:text-white"><X size={14} /></button>`
+- R01266 · control · line 1610: `<button onClick={() => setShowSettings(false)} className="text-kronos-dim hover:text-white"><X size={14} /></button>`
+- R01267 · option_or_label · line 1614: `{ id: 'bounty', label: t('ui.dashboard.bounties') },`
+- R01268 · option_or_label · line 1615: `{ id: 'news', label: t('ui.dashboard.latest_news') },`
+- R01269 · option_or_label · line 1616: `{ id: 'timers', label: t('ui.dashboard.world_timers') },`
+- R01270 · option_or_label · line 1617: `{ id: 'arb', label: t('ui.dashboard.arbitration') },`
+- R01271 · option_or_label · line 1618: `{ id: 'nightwave', label: t('ui.dashboard.nightwave') },`
+- R01272 · option_or_label · line 1619: `{ id: 'inv', label: t('ui.dashboard.invasions') },`
+- R01273 · option_or_label · line 1620: `{ id: 'fiss', label: t('dashboard.fissures') },`
+- R01274 · option_or_label · line 1621: `{ id: 'baro', label: t('ui.dashboard.baro_kiteer') },`
+- R01275 · option_or_label · line 1622: `{ id: 'arch', label: t('ui.dashboard.archimedea') },`
+- R01276 · option_or_label · line 1623: `{ id: '1999', label: t('checklist.task_calendar') },`
+- R01277 · option_or_label · line 1624: `{ id: 'inf', label: t('ui.dashboard.sp_incursions') },`
+- R01278 · option_or_label · line 1625: `{ id: 'desc', label: t('ui.dashboard.descendia') },`
+- R01279 · option_or_label · line 1626: `{ id: 'sortie', label: t('dashboard.sorties') },`
+- R01280 · option_or_label · line 1627: `{ id: 'hunt', label: t('dashboard.archon_hunts') },`
+- R01281 · option_or_label · line 1628: `{ id: 'circuit', label: t('ui.dashboard.the_circuit') },`
+- R01282 · option_or_label · line 1629: `{ id: 'deal', label: t('dashboard.daily_deals') },`
+- R01283 · option_or_label · line 1630: `{ id: 'sales', label: t('ui.dashboard.market_sales') },`
+- R01284 · option_or_label · line 1631: `{ id: 'alerts', label: t('ui.dashboard.alerts') },`
+- R01285 · option_or_label · line 1632: `{ id: 'event', label: t('ui.dashboard.events') }].`
+- R01286 · control · line 1636: `<input`
+- R01287 · interaction · line 1639: `onChange={() => toggleCard(card.id)}`
+- R01288 · interaction · line 1655: `onClick={handleRefresh}`
+- R01289 · interaction · line 1674: `<Tabs tabs={bountyTabs} activeTab={bountyTab} onChange={setBountyTab} className="mb-2" fullWidth />`
+- R01290 · control · line 1674: `<Tabs tabs={bountyTabs} activeTab={bountyTab} onChange={setBountyTab} className="mb-2" fullWidth />`
+- R01291 · control · line 1843: `<button`
+- R01292 · interaction · line 1844: `onClick={() => setShowWishlistModal(true)}`
+- R01293 · interaction · line 1963: `<Tabs tabs={archimedeaTabs} activeTab={archimedeaTab} onChange={setArchimedeaTab} className="mb-2" fullWidth />`
+- R01294 · control · line 1963: `<Tabs tabs={archimedeaTabs} activeTab={archimedeaTab} onChange={setArchimedeaTab} className="mb-2" fullWidth />`
+- R01295 · control · line 1975: `<button`
+- R01296 · interaction · line 1976: `onClick={() => setShowDescendiaModal(true)}`
+- R01297 · interaction · line 2011: `<Tabs tabs={fissureTabs} activeTab={fissureTab} onChange={setFissureTab} className="mb-2" fullWidth />`
+- R01298 · control · line 2011: `<Tabs tabs={fissureTabs} activeTab={fissureTab} onChange={setFissureTab} className="mb-2" fullWidth />`
+- R01299 · control · line 2115: `<button`
+- R01300 · interaction · line 2116: `onClick={() => {invoke('open_url', { url: item.link }).catch(console.error);}}`
+- R01301 · command_call · line 2116: `onClick={() => {invoke('open_url', { url: item.link }).catch(console.error);}}`
+
+## src/screens/Foundry.jsx
+
+- R01302 · state · line 1: `import { useMemo, useState } from 'react'`
+- R01303 · option_or_label · line 10: `{ id: 'all', labelKey: 'foundry.cat_all', keys: null },`
+- R01304 · option_or_label · line 11: `{ id: 'warframes', labelKey: 'foundry.cat_warframe', keys: ['warframes'] },`
+- R01305 · option_or_label · line 12: `{ id: 'primary', labelKey: 'foundry.cat_primary', keys: ['primary'] },`
+- R01306 · option_or_label · line 13: `{ id: 'secondary', labelKey: 'foundry.cat_secondary', keys: ['secondary'] },`
+- R01307 · option_or_label · line 14: `{ id: 'melee', labelKey: 'foundry.cat_melee', keys: ['melee'] },`
+- R01308 · option_or_label · line 15: `{ id: 'modular', labelKey: 'foundry.cat_modular', keys: ['kitguns', 'zaws', 'amps'] },`
+- R01309 · option_or_label · line 16: `{ id: 'arch', labelKey: 'foundry.cat_arch', keys: ['archwings', 'archweapons', 'necramechs'] },`
+- R01310 · option_or_label · line 17: `{ id: 'companion', labelKey: 'foundry.cat_companion', keys: ['companions', 'companion_weapons', 'sentinels', 'moas', 'hounds', 'beasts', 'robotics'] },`
+- R01311 · interaction · line 79: `return <button onClick={onClick} className={relative text-left rounded-xl border overflow-hidden transition-all ${selected ? 'border-kronos-accent ring-1 ring-kronos-accent/50' : owned ? 'border-emerald-500/70' : 'border-white/10'} ${owned ? 'bg-emerald-950/80' : 'bg-[#202a40]'} hover:border-kronos-accent/70}>`
+- R01312 · control · line 79: `return <button onClick={onClick} className={relative text-left rounded-xl border overflow-hidden transition-all ${selected ? 'border-kronos-accent ring-1 ring-kronos-accent/50' : owned ? 'border-emerald-500/70' : 'border-white/10'} ${owned ? 'bg-emerald-950/80' : 'bg-[#202a40]'} hover:border-kronos-accent/70}>`
+- R01313 · interaction · line 123: `<button onClick={onClose} className="text-kronos-dim hover:text-white text-xs font-bold uppercase">{t('foundry.close')}</button>`
+- R01314 · control · line 123: `<button onClick={onClose} className="text-kronos-dim hover:text-white text-xs font-bold uppercase">{t('foundry.close')}</button>`
+- R01315 · state · line 167: `const [activeCat, setActiveCat] = useState('all')`
+- R01316 · state · line 168: `const [search, setSearch] = useState('')`
+- R01317 · state · line 169: `const [ownershipFilter, setOwnershipFilter] = useState('all')`
+- R01318 · state · line 170: `const [readyOnly, setReadyOnly] = useState(false)`
+- R01319 · state · line 171: `const [masteryFilter, setMasteryFilter] = useState('all')`
+- R01320 · state · line 172: `const [selectedName, setSelectedName] = useState(null)`
+- R01321 · option_or_label · line 227: `const categoriesWithLabels = useMemo(() => CATEGORIES.map((c) => ({ ...c, label: t(c.labelKey) })), [t])`
+- R01322 · interaction · line 235: `<div className="relative flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('foundry.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-xs" /></div>`
+- R01323 · control · line 235: `<div className="relative flex-1 min-w-[200px]"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('foundry.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-xs" /></div>`
+- R01324 · option_or_label · line 239: `{ id: 'all', label: t('foundry.cat_all') },`
+- R01325 · option_or_label · line 240: `{ id: 'owned', label: t('foundry.owned') },`
+- R01326 · option_or_label · line 241: `{ id: 'unowned', label: t('ui.inventory.unowned') },`
+- R01327 · interaction · line 243: `<button key={opt.id} type="button" onClick={() => setOwnershipFilter(opt.id)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}}>`
+- R01328 · control · line 243: `<button key={opt.id} type="button" onClick={() => setOwnershipFilter(opt.id)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}}>`
+- R01329 · interaction · line 247: `<button type="button" onClick={() => setReadyOnly(!readyOnly)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${readyOnly ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}} aria-pressed={readyOnly}>`
+- R01330 · control · line 247: `<button type="button" onClick={() => setReadyOnly(!readyOnly)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${readyOnly ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}} aria-pressed={readyOnly}>`
+- R01331 · interaction · line 253: `<button key={value} type="button" onClick={() => setMasteryFilter(value)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${masteryFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}} aria-pressed={masteryFilter === value}>`
+- R01332 · control · line 253: `<button key={value} type="button" onClick={() => setMasteryFilter(value)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${masteryFilter === value ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}} aria-pressed={masteryFilter === value}>`
+- R01333 · interaction · line 260: `<Tabs tabs={categoriesWithLabels} activeTab={activeCat} onChange={(id) => { setActiveCat(id); setSelectedName(null) }} />`
+- R01334 · control · line 260: `<Tabs tabs={categoriesWithLabels} activeTab={activeCat} onChange={(id) => { setActiveCat(id); setSelectedName(null) }} />`
+- R01335 · interaction · line 263: `{filteredItems.length === 0 ? <Card className="p-8 text-center text-kronos-dim text-sm">{t('foundry.no_match')}</Card> : <div className="grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-2 content-start">{filteredItems.map((item) => <ItemCard key={item.unique_name} item={item} recipe={item.recipe} selected={item.unique_name === selectedName} onClick={() => setSelectedName(item.unique_name)} t={t} />)}</div>}`
+
+## src/screens/History.jsx
+
+- R01336 · state · line 12: `import { useState, useEffect, useCallback, useMemo, useRef } from 'react'`
+- R01337 · option_or_label · line 21: `{ key: 'credit', label: 'history.metric_credit', color: '#3ABFF8', category: 'currency' },`
+- R01338 · option_or_label · line 22: `{ key: 'platinum', label: 'history.metric_platinum', color: '#9333EA', category: 'currency' },`
+- R01339 · option_or_label · line 23: `{ key: 'endo', label: 'history.metric_endo', color: '#34D399', category: 'currency' },`
+- R01340 · option_or_label · line 24: `{ key: 'ducats', label: 'history.metric_ducats', color: '#FBBF24', category: 'currency' },`
+- R01341 · option_or_label · line 25: `{ key: 'mods', label: 'history.metric_mods', color: '#EC4899', category: 'group' },`
+- R01342 · option_or_label · line 26: `{ key: 'items', label: 'history.metric_items', color: '#8B5CF6', category: 'group' },`
+- R01343 · option_or_label · line 30: `{ key: '24h', label: 'history.range_24h', ms: 86400000 },`
+- R01344 · option_or_label · line 31: `{ key: '7d', label: 'history.range_7d', ms: 7 * 86400000 },`
+- R01345 · option_or_label · line 32: `{ key: '1m', label: 'history.range_1m', ms: 30 * 86400000 },`
+- R01346 · option_or_label · line 33: `{ key: '1y', label: 'history.range_1y', ms: 365 * 86400000 },`
+- R01347 · option_or_label · line 34: `{ key: 'all', label: 'history.range_all', ms: Infinity },`
+- R01348 · state · line 218: `const [dragging, setDragging] = useState(null)`
+- R01349 · interaction · line 296: `onMouseDown={handleMouseDown('start')}>`
+- R01350 · interaction · line 302: `onMouseDown={handleMouseDown('end')}>`
+- R01351 · state · line 404: `const [history, setHistory] = useState([])`
+- R01352 · state · line 405: `const [loading, setLoading] = useState(false)`
+- R01353 · state · line 406: `const [activeMetrics, setActiveMetrics] = useState(new Set(['credit']))`
+- R01354 · state · line 407: `const [range, setRange] = useState('all')`
+- R01355 · state · line 408: `const [startTime, setStartTime] = useState(0)`
+- R01356 · state · line 409: `const [endTime, setEndTime] = useState(Date.now())`
+- R01357 · state · line 421: `const [trackedItems, setTrackedItems] = useState([]) // [{key, name, color}]`
+- R01358 · state · line 422: `const [searchInput, setSearchInput] = useState('')`
+- R01359 · state · line 423: `const [searchQuery, setSearchQuery] = useState('')`
+- R01360 · state · line 424: `const [showSearch, setShowSearch] = useState(false)`
+- R01361 · option_or_label · line 524: `series.push({ ts: entry.timestamp, value: absVal })`
+- R01362 · option_or_label · line 526: `const lastValue = series.length > 0 ? series[series.length - 1].value : 0`
+- R01363 · option_or_label · line 527: `series.push({ ts: entry.timestamp, value: lastValue })`
+- R01364 · option_or_label · line 535: `series.push({ ts: entry.timestamp, value: absVal })`
+- R01365 · option_or_label · line 557: `series.push({ ts: entry.timestamp, value: lastVal })`
+- R01366 · interaction · line 656: `<button key={m.key} onClick={() => toggleMetric(m.key)}`
+- R01367 · control · line 656: `<button key={m.key} onClick={() => toggleMetric(m.key)}`
+- R01368 · interaction · line 669: `<button onClick={() => removeTrackedItem(t.key)} className="opacity-70 hover:opacity-100 ml-0.5">&times;</button>`
+- R01369 · control · line 669: `<button onClick={() => removeTrackedItem(t.key)} className="opacity-70 hover:opacity-100 ml-0.5">&times;</button>`
+- R01370 · control · line 676: `<input`
+- R01371 · interaction · line 679: `onChange={(e) => {`
+- R01372 · interaction · line 693: `<button key={r.key} onClick={() => addTrackedItem(r)}`
+- R01373 · control · line 693: `<button key={r.key} onClick={() => addTrackedItem(r)}`
+- R01374 · interaction · line 705: `onChange={(s, e) => { setStartTime(s); setEndTime(e); setRange('custom') }} />`
+- R01375 · interaction · line 710: `<button key={r.key} onClick={() => applyRange(r.key)}`
+- R01376 · control · line 710: `<button key={r.key} onClick={() => applyRange(r.key)}`
+
+## src/screens/Inventory.jsx
+
+- R01377 · state · line 8: `import { useState, useCallback, useMemo, useEffect, useRef } from 'react';`
+- R01378 · option_or_label · line 88: `{ id: 'all', label: t('ui.inventory.tab_all') },`
+- R01379 · option_or_label · line 89: `{ id: 'warframes', label: t('ui.inventory.tab_warframes') },`
+- R01380 · option_or_label · line 90: `{ id: 'weapons', label: t('ui.inventory.tab_weapons') },`
+- R01381 · option_or_label · line 91: `{ id: 'companions', label: t('ui.inventory.tab_companions') },`
+- R01382 · option_or_label · line 92: `{ id: 'companion_weapons', label: t('ui.inventory.tab_companion_weapons') },`
+- R01383 · option_or_label · line 93: `{ id: 'archweapons', label: t('ui.inventory.tab_archweapons') },`
+- R01384 · option_or_label · line 94: `{ id: 'vehicles', label: t('ui.inventory.tab_vehicles') },`
+- R01385 · option_or_label · line 95: `{ id: 'amps', label: t('ui.inventory.tab_amps') },`
+- R01386 · option_or_label · line 96: `{ id: 'arcanes', label: t('ui.inventory.tab_arcanes') },`
+- R01387 · option_or_label · line 97: `{ id: 'peely_pix', label: t('ui.inventory.tab_peely_pix') },`
+- R01388 · option_or_label · line 98: `{ id: 'consumables', label: t('ui.inventory.tab_consumables') },`
+- R01389 · option_or_label · line 99: `{ id: 'landing_craft', label: t('ui.inventory.tab_landing_craft') },`
+- R01390 · option_or_label · line 100: `{ id: 'resources', label: t('ui.inventory.tab_resources') },`
+- R01391 · option_or_label · line 101: `{ id: 'prime_parts', label: t('ui.inventory.tab_prime_parts') },`
+- R01392 · option_or_label · line 102: `{ id: 'ayatan', label: t('ui.inventory.tab_ayatan') }];`
+- R01393 · option_or_label · line 135: `all: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01394 · option_or_label · line 136: `warframes: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01395 · option_or_label · line 137: `weapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01396 · option_or_label · line 138: `companions: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01397 · option_or_label · line 139: `companion_weapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01398 · option_or_label · line 140: `archweapons: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01399 · option_or_label · line 141: `vehicles: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01400 · option_or_label · line 142: `amps: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],`
+- R01401 · option_or_label · line 143: `arcanes: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],`
+- R01402 · option_or_label · line 144: `peely_pix: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],`
+- R01403 · option_or_label · line 145: `consumables: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],`
+- R01404 · option_or_label · line 146: `landing_craft: [{ id: 'name', label: t('ui.inventory.sort_name') }],`
+- R01405 · option_or_label · line 147: `mods: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],`
+- R01406 · option_or_label · line 148: `prime_parts: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'completion', label: t('ui.inventory.sort_completion') }, { id: 'value', label: t('ui.inventory.sort_value') }],`
+- R01407 · option_or_label · line 149: `resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],`
+- R01408 · option_or_label · line 150: `ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]`
+- R01409 · state · line 153: `const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);`
+- R01410 · command_call · line 155: `invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })`
+- R01411 · state · line 160: `const [activeTab, setActiveTab] = useState('all');`
+- R01412 · state · line 161: `const [searchQuery, setSearchQuery] = useState('');`
+- R01413 · state · line 177: `const [showFilterSortPanel, setShowFilterSortPanel] = useState(false);`
+- R01414 · state · line 178: `const [currentFilters, setCurrentFilters] = useState({});`
+- R01415 · state · line 179: `const [sortCriteria, setSortCriteria] = useState('name');`
+- R01416 · state · line 180: `const [sortDirection, setSortDirection] = useState('asc');`
+- R01417 · state · line 181: `const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);`
+- R01418 · state · line 182: `const [framesPath, setFramesPath] = useState('');`
+- R01419 · state · line 183: `const [uiPath, setUiPath] = useState('');`
+- R01420 · state · line 184: `const [iconsPath, setIconsPath] = useState('');`
+- R01421 · command_call · line 185: `useEffect(() => {invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});}, []);`
+- R01422 · command_call · line 186: `useEffect(() => {invoke('get_ui_path').then((p) => setUiPath(p)).catch(() => {});}, []);`
+- R01423 · command_call · line 187: `useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);`
+- R01424 · state · line 214: `const [sellStatusMap, setSellStatusMap] = useState({});`
+- R01425 · persistence · line 231: `const wfmToken = await getSetting("wfm_token");`
+- R01426 · command_call · line 249: `await invoke("post_market_order", {`
+- R01427 · control · line 558: `<Input`
+- R01428 · interaction · line 561: `onChange={(e) => setSearchQuery(e.target.value)}`
+- R01429 · option_or_label · line 581: `{ id: undefined, label: t('ui.inventory.tab_all') },`
+- R01430 · option_or_label · line 582: `{ id: 'yes', label: t('ui.inventory.filter_owned') },`
+- R01431 · option_or_label · line 583: `{ id: 'no', label: t('ui.inventory.unowned') }].`
+- R01432 · control · line 585: `<button`
+- R01433 · interaction · line 587: `onClick={() => setCurrentFilters((prev) => {`
+- R01434 · control · line 606: `<button`
+- R01435 · interaction · line 608: `onClick={() => {`
+- R01436 · control · line 639: `<button`
+- R01437 · interaction · line 641: `onClick={() => {`
+- R01438 · control · line 661: `<Tabs tabs={INVENTORY_TABS.map((t) => {`
+- R01439 · interaction · line 672: `})} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />`
+- R01440 · interaction · line 879: `<div key={item.unique_name + idx} onClick={() => toggle(item.unique_name)} className={relative rounded-xl border overflow-hidden bg-kronos-panel/20 flex items-stretch h-32 cursor-pointer ${item.quantity > 0 ? 'border-white/5' : 'border-white/5 border-dashed opacity-60'}}>`
+- R01441 · interaction · line 921: `<div key={item.unique_name + idx} className={relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}} onClick={() => toggle(item.unique_name)}>`
+- R01442 · interaction · line 934: `<Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}}>`
+- R01443 · control · line 1041: `<button`
+- R01444 · interaction · line 1042: `onClick={(e) => handleSellOnWfm(e, item)}`
+- R01445 · control · line 1057: `<button`
+- R01446 · interaction · line 1058: `onClick={(e) => handleSellOnWfm(e, item)}`
+- R01447 · interaction · line 1205: `{visibleCount < filteredItems.length && <div className="flex justify-center py-8"><Button onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}>{t('ui.inventory.load_more_items')}</Button></div>}`
+
+## src/screens/Maps.jsx
+
+- R01448 · state · line 1: `import { useRef, useEffect, useCallback, useState } from 'react';`
+- R01449 · command_call · line 47: `const files = await invoke('list_map_configs');`
+- R01450 · command_call · line 51: `const text = await invoke('read_map_config', { filename });`
+- R01451 · command_call · line 67: `await invoke('write_map_config', { filename, content });`
+- R01452 · state · line 85: `const [activeTab, setActiveTab] = useState('0');`
+- R01453 · state · line 86: `const [mapsPath, setMapsPath] = useState('');`
+- R01454 · state · line 87: `const [allConfigs, setAllConfigs] = useState({});`
+- R01455 · state · line 88: `const [panelOpen, setPanelOpen] = useState(false);`
+- R01456 · state · line 89: `const [mode, setMode] = useState('view');`
+- R01457 · state · line 90: `const [selectedMarker, setSelectedMarker] = useState(null);`
+- R01458 · state · line 91: `const [deleteConfirm, setDeleteConfirm] = useState(null);`
+- R01459 · state · line 92: `const [addingMarker, setAddingMarker] = useState(null);`
+- R01460 · state · line 93: `const [configToEdit, setConfigToEdit] = useState(null);`
+- R01461 · state · line 94: `const [imageLoaded, setImageLoaded] = useState(false);`
+- R01462 · state · line 95: `const [imgNatural, setImgNatural] = useState({ w: 800, h: 600 });`
+- R01463 · state · line 96: `const [markerLabelEdit, setMarkerLabelEdit] = useState('');`
+- R01464 · state · line 97: `const [markerPathEnabled, setMarkerPathEnabled] = useState(false);`
+- R01465 · state · line 98: `const [markerPathText, setMarkerPathText] = useState('');`
+- R01466 · state · line 99: `const [markerNotesEdit, setMarkerNotesEdit] = useState('');`
+- R01467 · state · line 100: `const [pendingConfigId, setPendingConfigId] = useState(null);`
+- R01468 · state · line 101: `const [contextMenu, setContextMenuState] = useState(null);`
+- R01469 · command_call · line 127: `invoke('get_maps_path').then(setMapsPath).catch(console.error);`
+- R01470 · state · line 132: `const [useRawMap, setUseRawMap] = useState(false);`
+- R01471 · state · line 137: `const [timeLeft, setTimeLeft] = useState('');`
+- R01472 · interaction · line 281: `const onPointerDown = useCallback((e) => {`
+- R01473 · option_or_label · line 389: `const newConfig = { id: genId(), name: name || t('maps.new_config'), description: description || '', enabled: true, markers: [], paths: [] };`
+- R01474 · state · line 411: `const [autoPath, setAutoPath] = useState(false);`
+- R01475 · option_or_label · line 423: `const newMarker = { id: genId(), label: #${num}, x, y, color: COLORS[(num - 1) % COLORS.length], icon: 'MapPin', notes: '' };`
+- R01476 · option_or_label · line 427: `paths = [...paths, { id: genId(), fromMarkerId: prev.id, toMarkerId: newMarker.id, color: newMarker.color }];`
+- R01477 · option_or_label · line 460: `updateConfigs(configsForCurrentMap.map((c) => c.id === configId ? { ...c, paths: [...c.paths, { id: genId(), fromMarkerId: fromId, toMarkerId: toId, color }] } : c));`
+- R01478 · interaction · line 464: `const onContextMenu = useCallback((e) => {`
+- R01479 · option_or_label · line 503: `const mapTabs = MAPS.map((m, i) => ({ id: i.toString(), label: m.name }));`
+- R01480 · option_or_label · line 519: `config = { id: genId(), name: t('maps.game_markers_name'), description: t('maps.game_markers_desc'), enabled: true, markers: [], paths: [] };`
+- R01481 · interaction · line 543: `<Tabs tabs={mapTabs} activeTab={activeTab} onChange={switchTab} />`
+- R01482 · control · line 543: `<Tabs tabs={mapTabs} activeTab={activeTab} onChange={switchTab} />`
+- R01483 · interaction · line 554: `<button onClick={() => setUseRawMap((v) => !v)}`
+- R01484 · control · line 554: `<button onClick={() => setUseRawMap((v) => !v)}`
+- R01485 · interaction · line 563: `<button onClick={() => {setPanelOpen(!panelOpen);setMode('view');setPendingConfigId(null);}}`
+- R01486 · control · line 563: `<button onClick={() => {setPanelOpen(!panelOpen);setMode('view');setPendingConfigId(null);}}`
+- R01487 · control · line 573: `<button`
+- R01488 · interaction · line 574: `onClick={toggleAutoPath}`
+- R01489 · interaction · line 579: `<button onClick={() => {setMode('view');setPendingConfigId(null);}} className="ml-1 p-0.5 hover:bg-white/20 rounded"><X size={16} /></button>`
+- R01490 · control · line 579: `<button onClick={() => {setMode('view');setPendingConfigId(null);}} className="ml-1 p-0.5 hover:bg-white/20 rounded"><X size={16} /></button>`
+- R01491 · interaction · line 583: `<button onClick={resetTransform}`
+- R01492 · control · line 583: `<button onClick={resetTransform}`
+- R01493 · interaction · line 591: `onClick={(e) => e.stopPropagation()}`
+- R01494 · interaction · line 592: `onPointerDown={(e) => e.stopPropagation()}>`
+- R01495 · interaction · line 595: `<button onClick={closeMarkerPanel} className="p-1 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors">`
+- R01496 · control · line 595: `<button onClick={closeMarkerPanel} className="p-1 rounded-lg hover:bg-white/5 text-kronos-dim hover:text-kronos-text transition-colors">`
+- R01497 · control · line 602: `<input`
+- R01498 · interaction · line 604: `onChange={(e) => {`
+- R01499 · option_or_label · line 606: `updateMarker(selectedMarker.configId, selectedMarker.id, { label: e.target.value });`
+- R01500 · control · line 615: `<button key={c}`
+- R01501 · interaction · line 616: `onClick={() => updateMarker(selectedMarker.configId, selectedMarker.id, { color: c })}`
+- R01502 · control · line 626: `<button key={iconName}`
+- R01503 · interaction · line 627: `onClick={() => updateMarker(selectedMarker.configId, selectedMarker.id, { icon: iconName })}`
+- R01504 · control · line 644: `<button key={otherMarker.id}`
+- R01505 · interaction · line 645: `onClick={() => togglePath(selectedMarker.configId, selectedMarker.id, otherMarker.id, selectedMarker.color)}`
+- R01506 · control · line 664: `<textarea`
+- R01507 · interaction · line 666: `onChange={(e) => {`
+- R01508 · control · line 676: `<button`
+- R01509 · interaction · line 677: `onClick={() => zoomToMarker(selectedMarker)}`
+- R01510 · interaction · line 683: `onClick={() => {`
+- R01511 · interaction · line 690: `onClick={closeMarkerPanel}>{t('maps.done')}`
+- R01512 · interaction · line 700: `onPointerDown={onPointerDown}`
+- R01513 · interaction · line 701: `onMouseDown={onPointerDown}`
+- R01514 · interaction · line 702: `onContextMenu={onContextMenu}>`
+- R01515 · interaction · line 754: `onPointerDown={(e) => {`
+- R01516 · interaction · line 821: `<button onClick={importCustomMarkersFromGame}`
+- R01517 · control · line 821: `<button onClick={importCustomMarkersFromGame}`
+- R01518 · interaction · line 827: `<button onClick={() => invoke('open_map_configs_folder')}`
+- R01519 · control · line 827: `<button onClick={() => invoke('open_map_configs_folder')}`
+- R01520 · command_call · line 827: `<button onClick={() => invoke('open_map_configs_folder')}`
+- R01521 · interaction · line 832: `<button onClick={() => setConfigToEdit({ name: t('maps.config_default_name', { n: configsForCurrentMap.length + 1 }), description: '' })}`
+- R01522 · control · line 832: `<button onClick={() => setConfigToEdit({ name: t('maps.config_default_name', { n: configsForCurrentMap.length + 1 }), description: '' })}`
+- R01523 · interaction · line 851: `<button onClick={() => updateConfig(config.id, { enabled: !config.enabled })}`
+- R01524 · control · line 851: `<button onClick={() => updateConfig(config.id, { enabled: !config.enabled })}`
+- R01525 · control · line 857: `<input`
+- R01526 · interaction · line 859: `onChange={(e) => updateConfig(config.id, { name: e.target.value })}`
+- R01527 · control · line 863: `<input`
+- R01528 · interaction · line 865: `onChange={(e) => updateConfig(config.id, { description: e.target.value })}`
+- R01529 · interaction · line 874: `<button onClick={() => setDeleteConfirm({ type: 'config', id: config.id, name: config.name })}`
+- R01530 · control · line 874: `<button onClick={() => setDeleteConfirm({ type: 'config', id: config.id, name: config.name })}`
+- R01531 · option_or_label · line 874: `<button onClick={() => setDeleteConfirm({ type: 'config', id: config.id, name: config.name })}`
+- R01532 · control · line 880: `<button`
+- R01533 · interaction · line 881: `onClick={() => {`
+- R01534 · control · line 899: `<Modal isOpen={true} onClose={() => setConfigToEdit(null)} title={t('maps.new_config')} maxWidth="max-w-sm">`
+- R01535 · control · line 903: `<Input value={configToEdit.name}`
+- R01536 · interaction · line 904: `onChange={(e) => setConfigToEdit((prev) => ({ ...prev, name: e.target.value }))}`
+- R01537 · interaction · line 906: `onKeyDown={(e) => {if (e.key === 'Enter') {addConfig(configToEdit.name, configToEdit.description);setConfigToEdit(null);}}} />`
+- R01538 · control · line 911: `<Input value={configToEdit.description}`
+- R01539 · interaction · line 912: `onChange={(e) => setConfigToEdit((prev) => ({ ...prev, description: e.target.value }))}`
+- R01540 · interaction · line 917: `<Button variant="ghost" className="flex-1 text-xs" onClick={() => setConfigToEdit(null)}>{t('notes.cancel')}</Button>`
+- R01541 · interaction · line 919: `onClick={() => {addConfig(configToEdit.name, configToEdit.description);setConfigToEdit(null);}}>{t('maps.create')}`
+- R01542 · control · line 928: `<Modal isOpen={true} onClose={() => setDeleteConfirm(null)} title={t('maps.confirm_delete')} maxWidth="max-w-sm">`
+- R01543 · interaction · line 935: `<Button variant="ghost" className="flex-1 text-xs" onClick={() => setDeleteConfirm(null)}>{t('notes.cancel')}</Button>`
+- R01544 · interaction · line 937: `onClick={() => {`
+- R01545 · interaction · line 962: `onClick={() => setContextMenu(null)}`
+- R01546 · interaction · line 963: `onPointerDown={() => setContextMenu(null)}`
+- R01547 · interaction · line 964: `onContextMenu={(e) => {e.preventDefault();setContextMenu(null);}}>`
+- R01548 · interaction · line 972: `onClick={(e) => e.stopPropagation()}`
+- R01549 · interaction · line 973: `onPointerDown={(e) => e.stopPropagation()}>`
+- R01550 · control · line 975: `<button`
+- R01551 · interaction · line 977: `onClick={() => {`
+- R01552 · state · line 996: `const [label, setLabel] = useState('100%');`
+
+## src/screens/Market.jsx
+
+- R01553 · state · line 1: `import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";`
+- R01554 · state · line 47: `const [token, setToken] = useState("");`
+- R01555 · state · line 48: `const [activeTab, setActiveTab] = useState("active_orders");`
+- R01556 · state · line 49: `const [wfmMap, setWfmMap] = useState(null);`
+- R01557 · state · line 50: `const [catalogStatus, setCatalogStatus] = useState("loading"); // "loading" | "ready" | "error"`
+- R01558 · state · line 53: `const [orderFilter, setOrderFilter] = useState("all"); // "all" | "sell" | "buy" | "hidden"`
+- R01559 · state · line 54: `const [searchQuery, setSearchQuery] = useState("");`
+- R01560 · state · line 55: `const [loading, setLoading] = useState(false);`
+- R01561 · state · line 56: `const [orders, setOrders] = useState([]);`
+- R01562 · state · line 57: `const [idCatalog, setIdCatalog] = useState({});`
+- R01563 · state · line 58: `const [error, setError] = useState(null);`
+- R01564 · state · line 59: `const [successMsg, setSuccessMsg] = useState(null);`
+- R01565 · state · line 60: `const [editingOrder, setEditingOrder] = useState(null);`
+- R01566 · state · line 61: `const [editPrice, setEditPrice] = useState(1);`
+- R01567 · state · line 62: `const [actionLoading, setActionLoading] = useState({});`
+- R01568 · state · line 65: `const [stockSearch, setStockSearch] = useState("");`
+- R01569 · state · line 66: `const [stockFilter, setStockFilter] = useState("all"); // "all" | "sell_plat" | "ducats" | "duplicates" | "mastered" | "unmastered"`
+- R01570 · state · line 67: `const [stockSort, setStockSort] = useState("plat_ratio");`
+- R01571 · state · line 68: `const [isSortOpen, setIsSortOpen] = useState(false); // "plat_ratio" | "ducat_ratio" | "plat_desc" | "owned_desc" | "ducats_desc" | "name_asc"`
+- R01572 · state · line 69: `const [sellingItem, setSellingItem] = useState(null);`
+- R01573 · state · line 70: `const [sellPriceInput, setSellPriceInput] = useState({});`
+- R01574 · state · line 71: `const [sellStatus, setSellStatus] = useState({});`
+- R01575 · state · line 74: `const [priceStates, setPriceStates] = useState({});`
+- R01576 · state · line 78: `const [sortRefreshToken, setSortRefreshToken] = useState(0);`
+- R01577 · state · line 79: `const [stockOrderKeys, setStockOrderKeys] = useState([]);`
+- R01578 · persistence · line 85: `const cached = localStorage.getItem(WFM_ID_CATALOG_KEY);`
+- R01579 · option_or_label · line 117: `id: item.id,`
+- R01580 · persistence · line 125: `localStorage.setItem(WFM_ID_CATALOG_KEY, JSON.stringify(catalog));`
+- R01581 · persistence · line 137: `const settings = await loadSettings();`
+- R01582 · persistence · line 138: `const currentToken = settings?.wfm_token || getSetting("wfm_token", "") || "";`
+- R01583 · command_call · line 146: `await invoke("log_terminal", {`
+- R01584 · command_call · line 150: `const res = await invoke("get_my_market_orders", { token: currentToken });`
+- R01585 · command_call · line 169: `await invoke("log_terminal", {`
+- R01586 · command_call · line 176: `await invoke("log_terminal", {`
+- R01587 · command_call · line 193: `await invoke("delete_market_order", { token, orderId });`
+- R01588 · command_call · line 207: `await invoke("close_market_order", { token, orderId, quantity });`
+- R01589 · command_call · line 222: `await invoke("update_market_order", {`
+- R01590 · command_call · line 241: `await invoke("update_market_order", {`
+- R01591 · command_call · line 492: `await invoke("post_market_order", {`
+- R01592 · control · line 528: `<button`
+- R01593 · interaction · line 529: `onClick={fetchMyOrders}`
+- R01594 · control · line 558: `<button`
+- R01595 · interaction · line 559: `onClick={() => onNavigate("settings")}`
+- R01596 · control · line 634: `<button`
+- R01597 · interaction · line 635: `onClick={() => setActiveTab("active_orders")}`
+- R01598 · control · line 645: `<button`
+- R01599 · interaction · line 646: `onClick={() => setActiveTab("tradeable_stock")}`
+- R01600 · control · line 666: `<button`
+- R01601 · interaction · line 667: `onClick={() => setOrderFilter("all")}`
+- R01602 · control · line 674: `<button`
+- R01603 · interaction · line 675: `onClick={() => setOrderFilter("sell")}`
+- R01604 · control · line 682: `<button`
+- R01605 · interaction · line 683: `onClick={() => setOrderFilter("buy")}`
+- R01606 · control · line 690: `<button`
+- R01607 · interaction · line 691: `onClick={() => setOrderFilter("hidden")}`
+- R01608 · control · line 702: `<input`
+- R01609 · interaction · line 706: `onChange={(e) => setSearchQuery(e.target.value)}`
+- R01610 · control · line 785: `<input`
+- R01611 · interaction · line 789: `onChange={(e) => setEditPrice(e.target.value)}`
+- R01612 · control · line 793: `<button`
+- R01613 · interaction · line 794: `onClick={() => handleSavePrice(order.id)}`
+- R01614 · interaction · line 804: `onClick={() => {`
+- R01615 · control · line 819: `<button`
+- R01616 · interaction · line 820: `onClick={() => handleToggleVisibility(order)}`
+- R01617 · control · line 836: `<button`
+- R01618 · interaction · line 837: `onClick={() => handleCloseOrder(order.id, 1)}`
+- R01619 · control · line 845: `<button`
+- R01620 · interaction · line 846: `onClick={() => handleDeleteOrder(order.id)}`
+- R01621 · control · line 874: `<button`
+- R01622 · interaction · line 875: `onClick={() => setStockFilter("all")}`
+- R01623 · control · line 882: `<button`
+- R01624 · interaction · line 883: `onClick={() => setStockFilter("sell_plat")}`
+- R01625 · control · line 891: `<button`
+- R01626 · interaction · line 892: `onClick={() => setStockFilter("ducats")}`
+- R01627 · control · line 900: `<button`
+- R01628 · interaction · line 901: `onClick={() => setStockFilter("duplicates")}`
+- R01629 · control · line 908: `<button`
+- R01630 · interaction · line 909: `onClick={() => setStockFilter("mastered")}`
+- R01631 · control · line 922: `<input`
+- R01632 · interaction · line 926: `onChange={(e) => setStockSearch(e.target.value)}`
+- R01633 · control · line 933: `<button`
+- R01634 · interaction · line 935: `onClick={() => setIsSortOpen(prev => !prev)}`
+- R01635 · interaction · line 952: `<div className="fixed inset-0 z-40" onClick={() => setIsSortOpen(false)} />`
+- R01636 · option_or_label · line 955: `{ id: "plat_ratio", label: t("market.sort_best_plat") },`
+- R01637 · option_or_label · line 956: `{ id: "ducat_ratio", label: t("market.sort_best_ducats") },`
+- R01638 · option_or_label · line 957: `{ id: "plat_desc", label: t("market.sort_highest_plat") },`
+- R01639 · option_or_label · line 958: `{ id: "owned_desc", label: t("market.sort_most_owned") },`
+- R01640 · option_or_label · line 959: `{ id: "ducats_desc", label: t("market.sort_highest_ducats") },`
+- R01641 · option_or_label · line 960: `{ id: "name_asc", label: t("market.sort_name_az") },`
+- R01642 · control · line 962: `<button`
+- R01643 · interaction · line 965: `onClick={() => {`
+- R01644 · control · line 984: `<button`
+- R01645 · interaction · line 986: `onClick={() => setSortRefreshToken(v => v + 1)}`
+- R01646 · control · line 1005: `<button`
+- R01647 · interaction · line 1007: `onClick={ensureCatalog}`
+- R01648 · control · line 1097: `<input`
+- R01649 · interaction · line 1102: `onChange={(e) => setSellPriceInput(prev => ({ ...prev, [item.unique_name]: e.target.value }))}`
+- R01650 · control · line 1109: `<button`
+- R01651 · interaction · line 1110: `onClick={() => handleSellStockItem(item)}`
+
+## src/screens/Mastery.jsx
+
+- R01652 · state · line 20: `import { useState, useEffect } from 'react';`
+- R01653 · state · line 81: `const [selectedCategory, setSelectedCategory] = useState(null);`
+- R01654 · state · line 82: `const [iconsPath, setIconsPath] = useState('');`
+- R01655 · state · line 83: `const [uiPath, setUiPath] = useState('');`
+- R01656 · state · line 84: `const [hideNonMastery, setHideNonMastery] = useState(false);`
+- R01657 · command_call · line 87: `invoke('get_mastery_icons_path').then(setIconsPath).catch(console.error);`
+- R01658 · command_call · line 88: `invoke('get_ui_path').then(setUiPath).catch(() => {});`
+- R01659 · option_or_label · line 190: `{ label: t('mastery.cat_warframe'), ...getStats('warframes') },`
+- R01660 · option_or_label · line 191: `{ label: t('mastery.cat_primary'), ...getStats('primary') },`
+- R01661 · option_or_label · line 192: `{ label: t('mastery.cat_secondary'), ...getStats('secondary') },`
+- R01662 · option_or_label · line 193: `{ label: t('mastery.cat_melee'), ...getStats('melee') },`
+- R01663 · option_or_label · line 196: `{ label: t('mastery.cat_kitgun'), ...getStats('kitguns'), isSummary: true },`
+- R01664 · option_or_label · line 197: `{ label: t('mastery.cat_zaw'), ...getStats('zaws'), isSummary: true },`
+- R01665 · option_or_label · line 198: `{ label: t('mastery.cat_amp'), ...getStats('amps') },`
+- R01666 · option_or_label · line 199: `{ label: t('mastery.cat_sentinel'), ...getStats('sentinels') },`
+- R01667 · option_or_label · line 200: `{ label: t('mastery.cat_sentinel_weapon'), ...getStats('companion_weapons') },`
+- R01668 · option_or_label · line 201: `{ label: t('mastery.cat_moa'), ...getStats('moas') },`
+- R01669 · option_or_label · line 202: `{ label: t('mastery.cat_hound'), ...getStats('hounds') },`
+- R01670 · option_or_label · line 205: `{ label: t('mastery.cat_robotics'), ...getStats('robotics'), isSummary: true },`
+- R01671 · option_or_label · line 206: `{ label: t('mastery.cat_companions'), ...getStats('companions') },`
+- R01672 · option_or_label · line 207: `{ label: t('mastery.cat_archwing'), ...getStats('archwings') },`
+- R01673 · option_or_label · line 208: `{ label: t('mastery.cat_archgun'), ...getStats('archgun') },`
+- R01674 · option_or_label · line 209: `{ label: t('mastery.cat_archmelee'), ...getStats('archmelee') },`
+- R01675 · option_or_label · line 210: `{ label: t('mastery.cat_necramech'), ...getStats('necramechs') },`
+- R01676 · option_or_label · line 211: `{ label: t('mastery.cat_kdrive'), ...getStats('kdrives') },`
+- R01677 · option_or_label · line 212: `{ label: t('mastery.cat_plexus'), ...getStats('plexus') },`
+- R01678 · option_or_label · line 215: `{ label: t('mastery.cat_vehicles'), ...getStats('vehicles'), isSummary: true }];`
+- R01679 · option_or_label · line 223: `label: t('mastery.cat_railjack_intrinsic'),`
+- R01680 · option_or_label · line 231: `label: t('mastery.cat_drifter_intrinsic'),`
+- R01681 · option_or_label · line 244: `label: t('mastery.cat_starchart'),`
+- R01682 · option_or_label · line 253: `label: t('mastery.cat_steel_path'),`
+- R01683 · interaction · line 290: `onClick={() => setSelectedCategory(item)}`
+- R01684 · option_or_label · line 346: `{t('mastery.advance_to', { title: nextTitle })}`
+- R01685 · interaction · line 466: `onClick={() => setSelectedCategory(null)}>`
+- R01686 · interaction · line 471: `onClick={(e) => e.stopPropagation()}>`
+- R01687 · interaction · line 489: `onClick={() => setHideNonMastery(!hideNonMastery)}>`
+- R01688 · control · line 499: `<button`
+- R01689 · interaction · line 500: `onClick={() => setSelectedCategory(null)}`
+
+## src/screens/Mods.jsx
+
+- R01690 · state · line 1: `import { useState, useMemo, useEffect } from 'react';`
+- R01691 · option_or_label · line 24: `{ label: t('mods.cat_all'), icon: 'All', category: 'All' },`
+- R01692 · option_or_label · line 25: `{ label: t('mods.cat_warframe'), icon: 'Warframe', category: 'Warframe' },`
+- R01693 · option_or_label · line 26: `{ label: t('mods.cat_primary'), icon: 'Primary', category: 'Primary' },`
+- R01694 · option_or_label · line 27: `{ label: t('mods.cat_secondary'), icon: 'Secondary', category: 'Secondary' },`
+- R01695 · option_or_label · line 28: `{ label: t('mods.cat_melee'), icon: 'Melee', category: 'Melee' },`
+- R01696 · option_or_label · line 29: `{ label: t('mods.cat_sentinels'), icon: 'Sentinels', category: 'Sentinels' },`
+- R01697 · option_or_label · line 30: `{ label: t('mods.cat_robotic'), icon: 'Companion', category: 'Robotic' },`
+- R01698 · option_or_label · line 31: `{ label: t('mods.cat_beasts'), icon: 'Beasts', category: 'Beasts' },`
+- R01699 · option_or_label · line 32: `{ label: t('mods.cat_stance'), icon: 'Stance', category: 'Stance' },`
+- R01700 · option_or_label · line 33: `{ label: t('mods.cat_aura'), icon: 'Aura', category: 'Aura' },`
+- R01701 · option_or_label · line 34: `{ label: t('mods.cat_exilus'), icon: 'Exilus', category: 'Exilus' },`
+- R01702 · option_or_label · line 35: `{ label: t('mods.cat_railjack'), icon: 'Railjack', category: 'Railjack' },`
+- R01703 · option_or_label · line 36: `{ label: t('mods.cat_archgun'), icon: 'Archgun', category: 'Archgun' },`
+- R01704 · option_or_label · line 37: `{ label: t('mods.cat_archmelee'), icon: 'Archmelee', category: 'Archmelee' },`
+- R01705 · option_or_label · line 38: `{ label: t('mods.cat_parazon'), icon: 'Parazon', category: 'Parazon' },`
+- R01706 · option_or_label · line 39: `{ label: t('mods.cat_augment'), icon: 'Augment', category: 'Augment' },`
+- R01707 · option_or_label · line 40: `{ label: t('mods.cat_antique'), icon: 'Antique', category: 'Antique' },`
+- R01708 · option_or_label · line 41: `{ label: t('mods.cat_tome'), icon: 'Mods', category: 'Tome' },`
+- R01709 · option_or_label · line 42: `{ label: t('mods.cat_vehicles'), icon: 'Vehicles', category: 'Vehicles' },`
+- R01710 · option_or_label · line 46: `{ id: 'name', label: t('mods.sort_name') },`
+- R01711 · option_or_label · line 47: `{ id: 'rank', label: t('mods.sort_rank') },`
+- R01712 · option_or_label · line 48: `{ id: 'quantity', label: t('mods.sort_count') },`
+- R01713 · option_or_label · line 49: `{ id: 'rarity', label: t('mods.sort_rarity') },`
+- R01714 · option_or_label · line 50: `{ id: 'value', label: t('mods.sort_value') }];`
+- R01715 · state · line 54: `const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);`
+- R01716 · command_call · line 56: `invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })`
+- R01717 · state · line 61: `const [framesPath, setFramesPath] = useState('');`
+- R01718 · state · line 62: `const [iconsPath, setIconsPath] = useState('');`
+- R01719 · state · line 64: `const [searchQuery, setSearchQuery] = useState('');`
+- R01720 · state · line 65: `const [sortCriteria, setSortCriteria] = useState('name');`
+- R01721 · state · line 66: `const [sortDirection, setSortDirection] = useState('asc');`
+- R01722 · state · line 67: `const [selectedCategoryKey, setSelectedCategoryKey] = useState('All');`
+- R01723 · state · line 68: `const [ownershipFilter, setOwnershipFilter] = useState('all');`
+- R01724 · state · line 69: `const [maxRankOnly, setMaxRankOnly] = useState(false);`
+- R01725 · state · line 70: `const [hideConclave, setHideConclave] = useState(false);`
+- R01726 · state · line 71: `const [visibleCount, setVisibleCount] = useState(60);`
+- R01727 · command_call · line 81: `invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});`
+- R01728 · command_call · line 85: `invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});`
+- R01729 · interaction · line 169: `<Input placeholder={t('mods.search_placeholder')} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-12 bg-black/20 border-white/5 h-[42px]" />`
+- R01730 · control · line 169: `<Input placeholder={t('mods.search_placeholder')} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-12 bg-black/20 border-white/5 h-[42px]" />`
+- R01731 · control · line 179: `<button`
+- R01732 · interaction · line 181: `onClick={() => handleSortChange(c.id)}`
+- R01733 · option_or_label · line 197: `{ id: 'all', label: t('ui.inventory.tab_all') },`
+- R01734 · option_or_label · line 198: `{ id: 'owned', label: t('ui.inventory.filter_owned') },`
+- R01735 · option_or_label · line 199: `{ id: 'unowned', label: t('ui.inventory.unowned') },`
+- R01736 · control · line 201: `<button`
+- R01737 · interaction · line 203: `onClick={() => setOwnershipFilter(opt.id)}`
+- R01738 · control · line 208: `<button`
+- R01739 · interaction · line 209: `onClick={() => setMaxRankOnly((v) => !v)}`
+- R01740 · control · line 214: `<button`
+- R01741 · interaction · line 215: `onClick={() => setHideConclave((v) => !v)}`
+- R01742 · control · line 231: `<button`
+- R01743 · interaction · line 233: `onClick={() => setSelectedCategoryKey(category)}`
+- R01744 · interaction · line 331: `onClick={() => toggle(mod.unique_name)}>`
+- R01745 · interaction · line 346: `<Button onClick={() => setVisibleCount((prev) => prev + 60)} className="text-[10px] font-black uppercase tracking-widest">`
+
+## src/screens/Notes.jsx
+
+- R01746 · state · line 18: `import { useState, useRef, useEffect, useCallback } from 'react';`
+- R01747 · state · line 38: `const [editing, setEditing] = useState(false);`
+- R01748 · state · line 40: `const [val, setVal] = useState(filename.replace('.md', ''));`
+- R01749 · control · line 59: `<input`
+- R01750 · interaction · line 63: `onChange={(e) => setVal(e.target.value)}`
+- R01751 · interaction · line 65: `onKeyDown={(e) => {`
+- R01752 · control · line 75: `<button`
+- R01753 · interaction · line 76: `onClick={() => setEditing(true)}`
+- R01754 · state · line 88: `const [files, setFiles] = useState([]);`
+- R01755 · state · line 89: `const [activeFile, setActiveFile] = useState(null);`
+- R01756 · state · line 90: `const [content, setContent] = useState('');`
+- R01757 · state · line 91: `const [saving, setSaving] = useState(false);`
+- R01758 · state · line 92: `const [renamingTab, setRenamingTab] = useState(null);`
+- R01759 · state · line 93: `const [renameVal, setRenameVal] = useState('');`
+- R01760 · state · line 94: `const [fileToDelete, setFileToDelete] = useState(null);`
+- R01761 · command_call · line 101: `const list = await invoke('list_notes');`
+- R01762 · command_call · line 112: `await invoke('save_note', { filename, content: currentContent });`
+- R01763 · event · line 136: `const unlisten = listen('app-closing', () => {`
+- R01764 · command_call · line 154: `const text = await invoke('read_note', { filename });`
+- R01765 · command_call · line 184: `await invoke('save_note', { filename: name, content: # ${newNoteName}\n });`
+- R01766 · command_call · line 185: `const list = await invoke('list_notes');`
+- R01767 · command_call · line 196: `const src = activeFile === oldName ? latestContentRef.current : await invoke('read_note', { filename: oldName });`
+- R01768 · command_call · line 197: `await invoke('save_note', { filename: finalName, content: src });`
+- R01769 · command_call · line 198: `await invoke('delete_note', { filename: oldName });`
+- R01770 · command_call · line 199: `const list = await invoke('list_notes');`
+- R01771 · command_call · line 225: `await invoke('delete_note', { filename: fileToDelete });`
+- R01772 · command_call · line 226: `const list = await invoke('list_notes');`
+- R01773 · interaction · line 454: `<Button variant="secondary" onClick={() => setFileToDelete(null)}>{t('notes.cancel')}</Button>`
+- R01774 · interaction · line 455: `<Button onClick={confirmDelete} className="bg-red-500/20 text-red-500 hover:bg-red-500 hover:text-white border-red-500/50">{t('notes.delete')}</Button>`
+- R01775 · control · line 469: `<input autoFocus value={renameVal}`
+- R01776 · interaction · line 470: `onChange={(e) => setRenameVal(e.target.value)}`
+- R01777 · interaction · line 471: `onKeyDown={(e) => {`
+- R01778 · interaction · line 483: `onClick={() => selectFile(f)}`
+- R01779 · interaction · line 484: `onDoubleClick={() => {setRenamingTab(f);setRenameVal(f.replace('.md', ''));}}`
+- R01780 · interaction · line 491: `<button onClick={(e) => {e.stopPropagation();setFileToDelete(f);}}`
+- R01781 · control · line 491: `<button onClick={(e) => {e.stopPropagation();setFileToDelete(f);}}`
+- R01782 · interaction · line 498: `<button onClick={newFile}`
+- R01783 · control · line 498: `<button onClick={newFile}`
+- R01784 · interaction · line 505: `<button onClick={() => invoke('open_notes_folder')}`
+- R01785 · control · line 505: `<button onClick={() => invoke('open_notes_folder')}`
+- R01786 · command_call · line 505: `<button onClick={() => invoke('open_notes_folder')}`
+- R01787 · interaction · line 524: `onChange={(val) => {`
+
+## src/screens/PrimeResurgence.jsx
+
+- R01788 · state · line 1: `import { useMemo, useState } from 'react'`
+- R01789 · state · line 45: `const [search, setSearch] = useState('')`
+- R01790 · state · line 46: `const [filter, setFilter] = useState('all')`
+- R01791 · interaction · line 60: `<div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center"><div className="relative w-full sm:w-80"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('prime_resurgence.search_placeholder')} value={search} onChange={(event) => setSearch(event.target.value)} className="h-9 pl-9 text-xs" /></div><div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 sm:ml-auto">{[['all', t('prime_resurgence.filter_all')], ['equipment', t('prime_resurgence.filter_prime_sets')], ['cosmetics', t('prime_resurgence.filter_cosmetics')], ['owned', t('prime_resurgence.owned')], ['missing', t('prime_resurgence.missing')]].map(([id, label]) => <button key={id} type="button" onClick={() => setFilter(id)} className={rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${filter === id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5 hover:text-white'}}>{label}</button>)}</div></div>`
+- R01792 · control · line 60: `<div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center"><div className="relative w-full sm:w-80"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('prime_resurgence.search_placeholder')} value={search} onChange={(event) => setSearch(event.target.value)} className="h-9 pl-9 text-xs" /></div><div className="flex flex-wrap gap-1 rounded-xl border border-white/5 bg-black/20 p-1 sm:ml-auto">{[['all', t('prime_resurgence.filter_all')], ['equipment', t('prime_resurgence.filter_prime_sets')], ['cosmetics', t('prime_resurgence.filter_cosmetics')], ['owned', t('prime_resurgence.owned')], ['missing', t('prime_resurgence.missing')]].map(([id, label]) => <button key={id} type="button" onClick={() => setFilter(id)} className={rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-wider ${filter === id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:bg-white/5 hover:text-white'}}>{label}</button>)}</div></div>`
+
+## src/screens/RelicPlanner.jsx
+
+- R01793 · state · line 1: `import { useState, useMemo, useEffect } from 'react';`
+- R01794 · state · line 12: `const [partSearch, setPartSearch] = useState('');`
+- R01795 · state · line 13: `const [debouncedSearch, setDebouncedSearch] = useState('');`
+- R01796 · state · line 14: `const [partFilter, setPartFilter] = useState('all'); // 'all' | 'never-obtained' | 'missing'`
+- R01797 · state · line 15: `const [need, setNeed] = useState([]); // array of {uniqueName, name}`
+- R01798 · state · line 16: `const [ownershipFilter, setOwnershipFilter] = useState('all');`
+- R01799 · state · line 17: `const [iconsPath, setIconsPath] = useState('');`
+- R01800 · state · line 18: `const [displayLimit, setDisplayLimit] = useState(60);`
+- R01801 · command_call · line 30: `invoke('get_icons_path').then((path) => setIconsPath(path)).catch(() => {});`
+- R01802 · option_or_label · line 142: `{ label: t('relic_planner.stat_prime_parts'), value: allParts.length, icon: Package },`
+- R01803 · option_or_label · line 143: `{ label: t('relic_planner.stat_selected'), value: need.length, icon: Sparkles },`
+- R01804 · option_or_label · line 144: `{ label: t('relic_planner.stat_owned_matches'), value: ${ownedShown}/${results.length}, icon: Package },`
+- R01805 · interaction · line 170: `<Input placeholder={t('relic_planner.search_placeholder')} value={partSearch} onChange={(e) => setPartSearch(e.target.value)} className="pl-9 h-9 text-xs" />`
+- R01806 · control · line 170: `<Input placeholder={t('relic_planner.search_placeholder')} value={partSearch} onChange={(e) => setPartSearch(e.target.value)} className="pl-9 h-9 text-xs" />`
+- R01807 · option_or_label · line 174: `{ id: 'all', label: t('mods.cat_all') },`
+- R01808 · option_or_label · line 175: `{ id: 'never-obtained', label: t('relic_planner.filter_never_obtained') },`
+- R01809 · option_or_label · line 176: `{ id: 'missing', label: t('relic_planner.filter_missing') },`
+- R01810 · control · line 178: `<button`
+- R01811 · interaction · line 180: `onClick={() => setPartFilter(f.id)}`
+- R01812 · control · line 191: `<button`
+- R01813 · interaction · line 193: `onClick={() => addPart(p)}`
+- R01814 · control · line 203: `<button`
+- R01815 · interaction · line 204: `onClick={() => setDisplayLimit((prev) => prev + 60)}`
+- R01816 · interaction · line 229: `<button onClick={() => removePart(n.uniqueName)} className="text-kronos-dim hover:text-red-400 flex-shrink-0">`
+- R01817 · control · line 229: `<button onClick={() => removePart(n.uniqueName)} className="text-kronos-dim hover:text-red-400 flex-shrink-0">`
+- R01818 · interaction · line 238: `<Button onClick={clearNeed} className="flex-1 text-xs" variant="secondary">`
+- R01819 · interaction · line 242: `<Button onClick={addAllMissing} className="text-xs w-full" variant="secondary" title={t('relic_planner.add_all_missing_title')}>`
+- R01820 · interaction · line 245: `<Button onClick={addNeverObtained} className="text-xs w-full" variant="secondary" title={t('relic_planner.add_never_obtained_title')}>`
+- R01821 · option_or_label · line 260: `{ id: 'all', label: t('relics.ownership_all') },`
+- R01822 · option_or_label · line 261: `{ id: 'owned', label: t('relics.ownership_owned') },`
+- R01823 · option_or_label · line 262: `{ id: 'unowned', label: t('relics.ownership_unowned') },`
+- R01824 · interaction · line 264: `<button key={opt.id} type="button" onClick={() => setOwnershipFilter(opt.id)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}}>`
+- R01825 · control · line 264: `<button key={opt.id} type="button" onClick={() => setOwnershipFilter(opt.id)} className={px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors ${ownershipFilter === opt.id ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}}>`
+
+## src/screens/Relics.jsx
+
+- R01826 · state · line 18: `import { useState, useMemo, useEffect, useCallback } from 'react';`
+- R01827 · state · line 36: `const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);`
+- R01828 · command_call · line 38: `invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })`
+- R01829 · state · line 43: `const [searchQuery, setSearchQuery] = useState('');`
+- R01830 · state · line 44: `const [ownershipFilter, setOwnershipFilter] = useState('all'); // 'all' | 'owned' | 'unowned'`
+- R01831 · state · line 45: `const [vaultedFilter, setVaultedFilter] = useState('all'); // 'all' | 'vaulted' | 'unvaulted'`
+- R01832 · state · line 46: `const [activeEra, setActiveEra] = useState('All');`
+- R01833 · state · line 47: `const [activeQuality, setActiveQuality] = useState('All');`
+- R01834 · state · line 48: `const [squadSize, setSquadSize] = useState(1);`
+- R01835 · state · line 49: `const [sortMode, setSortMode] = useState('name'); // 'name' | 'ducat' | 'plat'`
+- R01836 · state · line 50: `const [sortOrder, setSortOrder] = useState('desc'); // 'asc' | 'desc'`
+- R01837 · state · line 51: `const [evRefinementOverride, setEvRefinementOverride] = useState('Intact'); // quality`
+- R01838 · state · line 52: `const [uiPath, setUiPath] = useState('');`
+- R01839 · state · line 53: `const [iconsPath, setIconsPath] = useState('');`
+- R01840 · command_call · line 55: `useEffect(() => {invoke('get_ui_path').then((p) => setUiPath(p)).catch(() => {});}, []);`
+- R01841 · command_call · line 56: `useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);`
+- R01842 · option_or_label · line 193: `return { [t('relics.sorted_by_group', { label: sortLabel, order: orderLabel })]: enriched };`
+- R01843 · option_or_label · line 226: `id: e,`
+- R01844 · option_or_label · line 227: `label: e,`
+- R01845 · option_or_label · line 232: `{ id: 'All', label: 'All' },`
+- R01846 · option_or_label · line 233: `{ id: 'Intact', label: 'Intact' },`
+- R01847 · option_or_label · line 234: `{ id: 'has_refinements', label: t('relics.refined_tab') },`
+- R01848 · option_or_label · line 235: `{ id: 'Exceptional', label: 'Exceptional' },`
+- R01849 · option_or_label · line 236: `{ id: 'Flawless', label: 'Flawless' },`
+- R01850 · option_or_label · line 237: `{ id: 'Radiant', label: 'Radiant' },`
+- R01851 · control · line 246: `<Input`
+- R01852 · interaction · line 249: `onChange={(e) => setSearchQuery(e.target.value)}`
+- R01853 · option_or_label · line 257: `{ id: 'all', label: t('relics.ownership_all') },`
+- R01854 · option_or_label · line 258: `{ id: 'owned', label: t('relics.ownership_owned') },`
+- R01855 · option_or_label · line 259: `{ id: 'unowned', label: t('relics.ownership_unowned') },`
+- R01856 · control · line 261: `<button`
+- R01857 · interaction · line 263: `onClick={() => setOwnershipFilter(opt.id)}`
+- R01858 · control · line 278: `<button`
+- R01859 · interaction · line 280: `onClick={() => setSquadSize(size)}`
+- R01860 · control · line 297: `<button`
+- R01861 · interaction · line 299: `onClick={() => setEvRefinementOverride(q)}`
+- R01862 · interaction · line 314: `<Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} />`
+- R01863 · control · line 314: `<Tabs tabs={eraTabs} activeTab={activeEra} onChange={setActiveEra} />`
+- R01864 · interaction · line 320: `<Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />`
+- R01865 · control · line 320: `<Tabs tabs={qualityTabs} activeTab={activeQuality} onChange={setActiveQuality} />`
+- R01866 · option_or_label · line 327: `{ id: 'all', label: t('relics.vault_filter_all') },`
+- R01867 · option_or_label · line 328: `{ id: 'vaulted', label: t('relics.vault_filter_vaulted') },`
+- R01868 · option_or_label · line 329: `{ id: 'unvaulted', label: t('relics.vault_filter_unvaulted') },`
+- R01869 · control · line 331: `<button`
+- R01870 · interaction · line 333: `onClick={() => setVaultedFilter(filter.id)}`
+- R01871 · option_or_label · line 347: `{ id: 'name', label: t('mods.sort_name'), icon: null },`
+- R01872 · option_or_label · line 348: `{ id: 'ducat', label: t('relics.sort_ducats'), icon: iconSrc('Ducats') },`
+- R01873 · option_or_label · line 349: `{ id: 'plat', label: t('relics.sort_plat'), icon: iconSrc('Platinum') },`
+- R01874 · option_or_label · line 350: `{ id: 'ducat_gain', label: t('relics.sort_refine_ducats'), icon: iconSrc('Ducats') },`
+- R01875 · option_or_label · line 351: `{ id: 'plat_gain', label: t('relics.sort_refine_plat'), icon: iconSrc('Platinum') }].`
+- R01876 · control · line 355: `<button`
+- R01877 · interaction · line 357: `onClick={() => {`
+- R01878 · interaction · line 467: `onClick={() => toggle(item.unique_name)}`
+
+## src/screens/Rivens.jsx
+
+- R01879 · state · line 1: `import { useState, useRef, useEffect, useMemo } from 'react';`
+- R01880 · option_or_label · line 14: `{ id: 'all', label: 'All' },`
+- R01881 · option_or_label · line 15: `{ id: 'rifle', label: 'Rifle' },`
+- R01882 · option_or_label · line 16: `{ id: 'pistol', label: 'Pistol' },`
+- R01883 · option_or_label · line 17: `{ id: 'melee', label: 'Melee' },`
+- R01884 · option_or_label · line 18: `{ id: 'shotgun', label: 'Shotgun' },`
+- R01885 · option_or_label · line 19: `{ id: 'sniper', label: 'Sniper' },`
+- R01886 · option_or_label · line 20: `{ id: 'kitgun', label: 'Kitgun' },`
+- R01887 · option_or_label · line 21: `{ id: 'zaw', label: 'Zaw' },`
+- R01888 · option_or_label · line 22: `{ id: 'archgun', label: 'Archgun' }];`
+- R01889 · option_or_label · line 26: `{ id: 'all', label: 'All States' },`
+- R01890 · option_or_label · line 27: `{ id: 'unveiled', label: 'Unveiled' },`
+- R01891 · option_or_label · line 28: `{ id: 'challenge', label: 'Challenge' },`
+- R01892 · option_or_label · line 29: `{ id: 'veiled', label: 'Veiled' }];`
+- R01893 · option_or_label · line 33: `{ id: 'name', label: 'Name' },`
+- R01894 · option_or_label · line 34: `{ id: 'plat', label: 'Plat' },`
+- R01895 · option_or_label · line 35: `{ id: 'grade', label: 'Grade' }];`
+- R01896 · state · line 97: `const [searchQuery, setSearchQuery] = useState('');`
+- R01897 · state · line 98: `const [activeType, setActiveType] = useState('all');`
+- R01898 · state · line 99: `const [activeState, setActiveState] = useState('all');`
+- R01899 · state · line 100: `const [sortCriteria, setSortCriteria] = useState(null);`
+- R01900 · state · line 101: `const [sortDirection, setSortDirection] = useState('desc');`
+- R01901 · state · line 102: `const [iconsPath, setIconsPath] = useState('');`
+- R01902 · state · line 103: `const [framesPath, setFramesPath] = useState('');`
+- R01903 · state · line 104: `const [pricingCache, setPricingCache] = useState({});`
+- R01904 · state · line 105: `const [retryTick, setRetryTick] = useState(0);`
+- R01905 · state · line 106: `const [statGradesReady, setStatGradesReady] = useState(false);`
+- R01906 · command_call · line 110: `invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});`
+- R01907 · command_call · line 111: `invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});`
+- R01908 · command_call · line 202: `invoke('estimate_riven_full_batch', { inputs }).then((results) => {`
+- R01909 · control · line 234: `<Input`
+- R01910 · interaction · line 237: `onChange={(e) => setSearchQuery(e.target.value)}`
+- R01911 · control · line 246: `<button`
+- R01912 · interaction · line 248: `onClick={() => setActiveState(t.id)}`
+- R01913 · control · line 263: `<button`
+- R01914 · interaction · line 265: `onClick={() => {`
+- R01915 · control · line 285: `<Tabs tabs={TYPE_TABS.map((t) => {`
+- R01916 · interaction · line 289: `})} activeTab={activeType} onChange={setActiveType} className="flex-1" />`
+- R01917 · interaction · line 321: `<div key={idx} className="cursor-pointer" onClick={() => toggle(rivenKeys.get(riven))}>`
+
+## src/screens/Settings.jsx
+
+- R01918 · state · line 1: `import { useState, useEffect, useRef } from 'react';`
+- R01919 · state · line 24: `const [recording, setRecording] = useState(false);`
+- R01920 · state · line 25: `const [needsModifier, setNeedsModifier] = useState(false);`
+- R01921 · control · line 78: `<button`
+- R01922 · interaction · line 80: `onClick={() => setRecording(!recording)}`
+- R01923 · state · line 100: `const [loading, setLoading] = useState(false);`
+- R01924 · state · line 101: `const [error, setError] = useState(null);`
+- R01925 · state · line 102: `const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'`
+- R01926 · state · line 103: `const [localeLoading, setLocaleLoading] = useState(false);`
+- R01927 · state · line 105: `const [showGuideModal, setShowGuideModal] = useState(false);`
+- R01928 · state · line 106: `const [coverageAuditStatus, setCoverageAuditStatus] = useState(null); // { text, error } | null`
+- R01929 · state · line 107: `const [showBugModal, setShowBugModal] = useState(false);`
+- R01930 · state · line 108: `const [tick, setTick] = useState(0);`
+- R01931 · state · line 115: `const [hotkeys, setHotkeys] = useState(`
+- R01932 · persistence · line 116: `() => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }, { action: 'toggle_sidebar', shortcut: '' }])`
+- R01933 · state · line 118: `const [sidebarSide, setSidebarSide] = useState(`
+- R01934 · persistence · line 119: `() => getSetting('sidebar_side', 'left')`
+- R01935 · state · line 121: `const [sidebarWidth, setSidebarWidth] = useState(`
+- R01936 · persistence · line 122: `() => parseInt(getSetting('sidebar_width', 480)) || 480`
+- R01937 · state · line 124: `const [sidebarHideOnFocusLoss, setSidebarHideOnFocusLoss] = useState(`
+- R01938 · persistence · line 125: `() => getSetting('sidebar_hide_on_focus_loss', true)`
+- R01939 · persistence · line 140: `await setSetting('hotkeys', newHotkeys);`
+- R01940 · command_call · line 144: `await invoke('set_hotkeys', { hotkeys: newHotkeys.filter((hk) => hk.shortcut && hk.action) });`
+- R01941 · option_or_label · line 151: `{ id: 'manual_ocr', label: t('settings.hotkey_action_manual_ocr') },`
+- R01942 · option_or_label · line 152: `{ id: 'toggle_sidebar', label: t('settings.hotkey_action_toggle_sidebar') }];`
+- R01943 · state · line 155: `const [version, setVersion] = useState('');`
+- R01944 · state · line 156: `const [updateOnStartup, setUpdateOnStartup] = useState(`
+- R01945 · persistence · line 157: `() => getSetting('update_on_startup', true)`
+- R01946 · command_call · line 172: `invoke('open_url', { url });`
+- R01947 · persistence · line 178: `await setSetting('update_on_startup', val);`
+- R01948 · state · line 182: `const [notifPosition, setNotifPosition] = useState(`
+- R01949 · persistence · line 183: `() => getSetting('notif_position', 'top-right')`
+- R01950 · state · line 185: `const [notifSound, setNotifSound] = useState(`
+- R01951 · persistence · line 186: `() => getSetting('notif_sound', 'notification1.wav')`
+- R01952 · state · line 189: `const [uiPath, setUiPath] = useState('');`
+- R01953 · command_call · line 190: `useEffect(() => {invoke('get_ui_path').then(setUiPath).catch(() => {});}, []);`
+- R01954 · state · line 192: `const [tintedCursors, setTintedCursors] = useState({});`
+- R01955 · state · line 227: `const [fissureOverlayEnabled, setFissureOverlayEnabled] = useState(`
+- R01956 · persistence · line 228: `() => getSetting('fissure_overlay_enabled')`
+- R01957 · state · line 230: `const [useEELog, setUseEELog] = useState(`
+- R01958 · persistence · line 231: `() => getSetting('use_ee_log') ?? false`
+- R01959 · state · line 233: `const [eeLogPath, setEeLogPath] = useState(`
+- R01960 · persistence · line 234: `() => getSetting('ee_log_path') ?? ''`
+- R01961 · state · line 237: `const [wfmToken, setWfmToken] = useState(`
+- R01962 · persistence · line 238: `() => getSetting('wfm_token') ?? ''`
+- R01963 · state · line 240: `const [warframeCachePath, setWarframeCachePath] = useState(`
+- R01964 · persistence · line 241: `() => getSetting('warframe_cache_path', '')`
+- R01965 · state · line 243: `const [fissureUiScale, setFissureUiScale] = useState(`
+- R01966 · persistence · line 244: `() => parseInt(getSetting('fissure_ui_scale', 100))`
+- R01967 · state · line 246: `const [fissureTargetMonitor, setFissureTargetMonitor] = useState(`
+- R01968 · persistence · line 247: `() => getSetting('fissure_target_monitor', 'auto')`
+- R01969 · state · line 249: `const [autoMonitor, setAutoMonitor] = useState(`
+- R01970 · persistence · line 250: `() => getSetting('fissure_target_monitor', 'auto') === 'auto'`
+- R01971 · state · line 252: `const [availableMonitors, setAvailableMonitors] = useState([]);`
+- R01972 · command_call · line 259: `invoke('get_scanner_status').then((s) => {`
+- R01973 · persistence · line 297: `await setSetting('notif_position', pos);`
+- R01974 · persistence · line 303: `const savedSound = getSetting('notif_sound', 'notification1.wav');`
+- R01975 · command_call · line 304: `invoke('set_notification_sound', { sound: savedSound }).catch(console.error);`
+- R01976 · persistence · line 307: `const savedScale = parseInt(getSetting('fissure_ui_scale', 100));`
+- R01977 · command_call · line 308: `invoke('set_fissure_ui_scale', { scale: savedScale }).catch(console.error);`
+- R01978 · command_call · line 311: `invoke('get_available_monitors').`
+- R01979 · persistence · line 316: `const savedMonitor = getSetting('fissure_target_monitor', 'auto');`
+- R01980 · command_call · line 317: `invoke('set_target_monitor', { monitor: savedMonitor }).catch(console.error);`
+- R01981 · persistence · line 320: `const savedSidebarHide = getSetting('sidebar_hide_on_focus_loss', true);`
+- R01982 · command_call · line 321: `invoke('set_sidebar_hide_on_focus_loss', { hide: savedSidebarHide }).catch(console.error);`
+- R01983 · persistence · line 328: `await setSetting('fissure_target_monitor', val);`
+- R01984 · command_call · line 329: `await invoke('set_target_monitor', { monitor: val }).catch(console.error);`
+- R01985 · command_call · line 344: `list = await invoke('get_available_monitors');`
+- R01986 · persistence · line 359: `await setSetting('notif_sound', sound);`
+- R01987 · command_call · line 362: `await invoke('set_notification_sound', { sound }).catch(console.error);`
+- R01988 · command_call · line 366: `await invoke('play_notification_sound', { sound }).catch(console.error);`
+- R01989 · persistence · line 373: `await setSetting('fissure_overlay_enabled', val);`
+- R01990 · command_call · line 376: `await invoke('stop_log_scanner').catch(console.error);`
+- R01991 · command_call · line 377: `invoke('start_log_scanner').catch(console.error);`
+- R01992 · command_call · line 380: `invoke('stop_log_scanner').catch(console.error);`
+- R01993 · persistence · line 386: `await setSetting('fissure_ui_scale', val);`
+- R01994 · command_call · line 387: `invoke('set_fissure_ui_scale', { scale: val }).catch(console.error);`
+- R01995 · persistence · line 395: `await setSetting('warframe_cache_path', selected);`
+- R01996 · persistence · line 405: `await setSetting('sidebar_side', side);`
+- R01997 · persistence · line 406: `const width = parseInt(getSetting('sidebar_width', 480)) || 480;`
+- R01998 · command_call · line 407: `invoke('set_sidebar_width', { width, side, persist: true }).catch(() => {});`
+- R01999 · persistence · line 412: `await setSetting('use_ee_log', val);`
+- R02000 · command_call · line 414: `await invoke('stop_log_scanner');`
+- R02001 · command_call · line 415: `await invoke('start_log_scanner');`
+- R02002 · persistence · line 423: `await setSetting('ee_log_path', val);`
+- R02003 · command_call · line 432: `await invoke('stop_log_scanner');`
+- R02004 · command_call · line 433: `await invoke('start_log_scanner');`
+- R02005 · persistence · line 443: `setSetting('wfm_token', val);`
+- R02006 · persistence · line 448: `await setSetting('sidebar_width', width);`
+- R02007 · command_call · line 449: `invoke('set_sidebar_width', { width, side: sidebarSide, persist: true }).catch(() => {});`
+- R02008 · persistence · line 454: `await setSetting('sidebar_hide_on_focus_loss', val);`
+- R02009 · command_call · line 455: `invoke('set_sidebar_hide_on_focus_loss', { hide: val }).catch(console.error);`
+- R02010 · command_call · line 464: `const bytes = await invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' });`
+- R02011 · command_call · line 484: `const dataRoot = await invoke('get_data_root_path');`
+- R02012 · command_call · line 487: `await invoke('write_file', { path: absolutePath, data: new TextEncoder().encode(report) });`
+- R02013 · command_call · line 492: `invoke('show_notification', {`
+- R02014 · option_or_label · line 493: `title: t('settings.acquisition_coverage_button'),`
+- R02015 · persistence · line 509: `const sound = getSetting('notif_sound', 'notification1.wav');`
+- R02016 · command_call · line 510: `invoke('play_notification_sound', { sound }).catch(console.error);`
+- R02017 · command_call · line 511: `invoke('show_notification', {`
+- R02018 · option_or_label · line 512: `title: 'Foundry Complete',`
+- R02019 · command_call · line 533: `await invoke('relay_event', {`
+- R02020 · command_call · line 542: `await invoke('relay_event', {`
+- R02021 · command_call · line 552: `await invoke('relay_event', {`
+- R02022 · control · line 590: `<button`
+- R02023 · interaction · line 592: `onClick={() => setTheme(t.id)}`
+- R02024 · control · line 657: `<button`
+- R02025 · interaction · line 659: `onClick={() => setCursorStyle(cs)}`
+- R02026 · interaction · line 686: `<input type="checkbox" checked={cursorTint} onChange={(e) => setCursorTint(e.target.checked)} className="sr-only peer" />`
+- R02027 · control · line 686: `<input type="checkbox" checked={cursorTint} onChange={(e) => setCursorTint(e.target.checked)} className="sr-only peer" />`
+- R02028 · control · line 707: `<button`
+- R02029 · interaction · line 709: `onClick={() => handleSetPosition(pos)}`
+- R02030 · option_or_label · line 727: `{ label: t('settings.sound_none'), value: 'none', icon: VolumeX },`
+- R02031 · option_or_label · line 728: `{ label: t('settings.sound_1'), value: 'notification1.wav', icon: Play },`
+- R02032 · option_or_label · line 729: `{ label: t('settings.sound_2'), value: 'notification2.wav', icon: Play }].`
+- R02033 · control · line 731: `<button`
+- R02034 · interaction · line 733: `onClick={() => handleSetSound(s.value)}`
+- R02035 · control · line 751: `<button`
+- R02036 · interaction · line 752: `onClick={() => handleTestNotification(notifPosition)}`
+- R02037 · control · line 757: `<button`
+- R02038 · interaction · line 758: `onClick={() => handleTestNotification(notifPosition, 5000)}`
+- R02039 · control · line 763: `<button`
+- R02040 · interaction · line 764: `onClick={handleTestRelicReward}`
+- R02041 · interaction · line 804: `<button onClick={manualRefresh} className="p-1 hover:bg-white/10 rounded transition-colors" title={t('settings.manual_refresh')}>`
+- R02042 · control · line 804: `<button onClick={manualRefresh} className="p-1 hover:bg-white/10 rounded transition-colors" title={t('settings.manual_refresh')}>`
+- R02043 · interaction · line 809: `<Toggle checked={isMonitoring} onChange={async (val) => {`
+- R02044 · control · line 809: `<Toggle checked={isMonitoring} onChange={async (val) => {`
+- R02045 · interaction · line 843: `<Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />`
+- R02046 · control · line 843: `<Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />`
+- R02047 · control · line 855: `<input`
+- R02048 · interaction · line 862: `<Button variant="secondary" onClick={handleBrowseCache} className="px-3">`
+- R02049 · control · line 890: `<input`
+- R02050 · interaction · line 895: `onChange={(e) => {`
+- R02051 · persistence · line 900: `setSetting('fissure_ui_scale', parsed);`
+- R02052 · command_call · line 901: `invoke('set_fissure_ui_scale', { scale: parsed }).catch(console.error);`
+- R02053 · persistence · line 909: `setSetting('fissure_ui_scale', clamped);`
+- R02054 · command_call · line 910: `invoke('set_fissure_ui_scale', { scale: clamped }).catch(console.error);`
+- R02055 · control · line 923: `<input`
+- R02056 · interaction · line 927: `onChange={() => handleAutoMonitorToggle(true)}`
+- R02057 · control · line 934: `<input`
+- R02058 · interaction · line 938: `onChange={() => handleAutoMonitorToggle(false)}`
+- R02059 · control · line 942: `<select`
+- R02060 · interaction · line 945: `onChange={(e) => {`
+- R02061 · control · line 957: `<button`
+- R02062 · interaction · line 958: `onClick={() => invoke('get_available_monitors').then(setAvailableMonitors).catch(console.error)}`
+- R02063 · command_call · line 958: `onClick={() => invoke('get_available_monitors').then(setAvailableMonitors).catch(console.error)}`
+- R02064 · persistence · line 986: `value={getSetting('gameLocale', 'en')}`
+- R02065 · interaction · line 987: `onChange={async (locale) => {`
+- R02066 · persistence · line 988: `if (locale === getSetting('gameLocale', 'en')) return;`
+- R02067 · persistence · line 994: `await setSetting('gameLocale', locale);`
+- R02068 · command_call · line 995: `await invoke('check_exports', { locale, force: true });`
+- R02069 · control · line 1018: `<button`
+- R02070 · interaction · line 1019: `onClick={() => setShowGuideModal(true)}`
+- R02071 · control · line 1025: `<button`
+- R02072 · interaction · line 1026: `onClick={() => setShowBugModal(true)}`
+- R02073 · control · line 1032: `<button`
+- R02074 · interaction · line 1033: `onClick={handleExportAcquisitionCoverageReport}`
+- R02075 · control · line 1065: `<button`
+- R02076 · interaction · line 1067: `onClick={() => handleSetSidebarSide(s)}`
+- R02077 · option_or_label · line 1083: `{ label: t('settings.width_compact'), width: 380 },`
+- R02078 · option_or_label · line 1084: `{ label: t('settings.width_default'), width: 480 },`
+- R02079 · option_or_label · line 1085: `{ label: t('settings.width_wide'), width: 640 },`
+- R02080 · option_or_label · line 1086: `{ label: t('settings.width_full'), width: 800 },`
+- R02081 · control · line 1088: `<button`
+- R02082 · interaction · line 1090: `onClick={() => handleSetSidebarWidth(width)}`
+- R02083 · control · line 1104: `<Toggle`
+- R02084 · interaction · line 1106: `onChange={handleSetSidebarHideOnFocusLoss}`
+- R02085 · control · line 1129: `<select`
+- R02086 · interaction · line 1131: `onChange={(e) => {`
+- R02087 · control · line 1147: `<HotkeyRecorder`
+- R02088 · interaction · line 1149: `onChange={(val) => {`
+- R02089 · control · line 1158: `<button`
+- R02090 · interaction · line 1159: `onClick={() => {`
+- R02091 · control · line 1172: `<button`
+- R02092 · interaction · line 1173: `onClick={() => handleUpdateHotkeys([...hotkeys, { action: '', shortcut: '' }])}`
+- R02093 · interaction · line 1197: `<Toggle checked={useEELog} onChange={handleUseEELogChange} />`
+- R02094 · control · line 1197: `<Toggle checked={useEELog} onChange={handleUseEELogChange} />`
+- R02095 · control · line 1207: `<input`
+- R02096 · interaction · line 1212: `onChange={(e) => handleEeLogPathChange(e.target.value)}`
+- R02097 · control · line 1237: `<input`
+- R02098 · interaction · line 1242: `onChange={(e) => handleWfmTokenChange(e.target.value)}`
+- R02099 · control · line 1263: `<Toggle`
+- R02100 · interaction · line 1265: `onChange={handleSetUpdateOnStartup}`
+- R02101 · control · line 1303: `<button`
+- R02102 · interaction · line 1304: `onClick={() => handleDownloadUpdate(updateState.manifest.downloadUrl)}`
+- R02103 · control · line 1314: `<button`
+- R02104 · interaction · line 1315: `onClick={checkForUpdates}`
+- R02105 · control · line 1325: `<button`
+- R02106 · interaction · line 1326: `onClick={handleInstallUpdate}`
+- R02107 · control · line 1358: `<button`
+- R02108 · interaction · line 1359: `onClick={refreshPrices}`
+
+## src/screens/Wiki.jsx
+
+- R02109 · state · line 1: `import { useRef, useState, useEffect, useCallback } from 'react';`
+- R02110 · state · line 15: `const [tabs, setTabs] = useState([]);`
+- R02111 · state · line 16: `const [activeTab, setActiveTab] = useState(null);`
+- R02112 · command_call · line 36: `invoke('reflow_wiki_tab', {`
+- R02113 · option_or_label · line 37: `label: id, x: r.left, y: r.top, width: r.width, height: r.height`
+- R02114 · option_or_label · line 43: `invoke('show_wiki_tab', { label: id, url }).`
+- R02115 · command_call · line 43: `invoke('show_wiki_tab', { label: id, url }).`
+- R02116 · option_or_label · line 50: `invoke('reflow_wiki_tab', { label: id, x: r.left, y: r.top, width: r.width, height: r.height }).`
+- R02117 · command_call · line 50: `invoke('reflow_wiki_tab', { label: id, x: r.left, y: r.top, width: r.width, height: r.height }).`
+- R02118 · command_call · line 62: `invoke('list_wiki_tabs').then((list) => {`
+- R02119 · option_or_label · line 67: `list.forEach((t) => invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {}));`
+- R02120 · command_call · line 67: `list.forEach((t) => invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {}));`
+- R02121 · event · line 76: `const unlistenTabsChanged = listen('wiki-tabs-changed', (e) => {`
+- R02122 · event · line 95: `const unlistenOpen = listen('wiki-tab-opened', (e) => {`
+- R02123 · option_or_label · line 96: `const { label: id, url, source_window } = e.payload;`
+- R02124 · event · line 101: `const unlistenTitle = listen('wiki-tab-title', (e) => {`
+- R02125 · option_or_label · line 102: `const { title, source_window, label: id } = e.payload;`
+- R02126 · event · line 108: `const unlistenSidebar = listen('sidebar-visible', (e) => {`
+- R02127 · option_or_label · line 111: `invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {});`
+- R02128 · command_call · line 111: `invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {});`
+- R02129 · option_or_label · line 136: `invoke('hide_wiki_tab', { label: activeTabRef.current }).catch(() => {});`
+- R02130 · command_call · line 136: `invoke('hide_wiki_tab', { label: activeTabRef.current }).catch(() => {});`
+- R02131 · option_or_label · line 147: `invoke('close_wiki_tab', { label: id }).catch(() => {});`
+- R02132 · command_call · line 147: `invoke('close_wiki_tab', { label: id }).catch(() => {});`
+- R02133 · interaction · line 159: `onClick={() => showTab(t.id, t.url)}`
+- R02134 · interaction · line 167: `<X size={12} onClick={(e) => closeTab(t.id, e)} className="hover:text-red-400" />`
+- R02135 · control · line 172: `<button`
+- R02136 · interaction · line 173: `onClick={() => invoke('refresh_wiki_tab', { label: activeTab }).catch(() => {})}`
+- R02137 · option_or_label · line 173: `onClick={() => invoke('refresh_wiki_tab', { label: activeTab }).catch(() => {})}`
+- R02138 · command_call · line 173: `onClick={() => invoke('refresh_wiki_tab', { label: activeTab }).catch(() => {})}`
+

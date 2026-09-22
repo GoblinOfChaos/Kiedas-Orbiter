@@ -1,0 +1,92 @@
+{
+  "status": "pass",
+  "checks": {
+    "postflight_passed": true,
+    "component_container_completed": true,
+    "component_container_bounded": true,
+    "stable_frontend_build_passed": true,
+    "preview_frontend_build_passed": true,
+    "navigation_label_source_verified": true,
+    "all_harness_and_build_failures_preserved": true
+  },
+  "files": [
+    {
+      "path": "docs/revamp/stage-3/settings-implementation.patch",
+      "bytes": 22955,
+      "sha256": "6b0889684d3c08df8ea837282898f5b7cc79ea6bc5c3696e2d9310750978c2ac"
+    },
+    {
+      "path": "docs/revamp/stage-3/cumulative-implementation.patch",
+      "bytes": 3911069,
+      "sha256": "00833a5578947073555d2d9fab1b360b989ba73ffe79220bb801ffa8d8d78815"
+    },
+    {
+      "path": "docs/revamp/stage-3/settings-implementation.json",
+      "bytes": 2641,
+      "sha256": "51536f21641609cf6b0b8482c363d357d18aecaa84873ae58c6b3142bd4c32c4"
+    },
+    {
+      "path": "docs/revamp/stage-3/settings-source-register.json",
+      "bytes": 6433,
+      "sha256": "18e8bdbe4abc566e8980ef5031e085d805c0faa866cf74519ee8aabef493d39a"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-postflight.json",
+      "bytes": 5676,
+      "sha256": "039ed27547dd15d9c195426849328a1562e434936e144a43aeaed81c4c188e0b"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-component.json",
+      "bytes": 45993,
+      "sha256": "56b07e055bdcd53871b5f11772138f46bae44b2203382ba7f2be308104c1075c"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-component-container.json",
+      "bytes": 560,
+      "sha256": "77af374507d18588ca200db05003c0ab80975695debc7e3e6ea316cbea9ca5ea"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-deb-packaged-smoke.json",
+      "bytes": 76726,
+      "sha256": "cae98041f7a5b49bd43e8bed6f6af7730f16d7c95fa69997205e96ea0c57345e"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-appimage-packaged-smoke.json",
+      "bytes": 76670,
+      "sha256": "1468388d6e298acd1287150321edf85ee64edb2fa751c57620ec855c164c5e50"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-validation-summary.json",
+      "bytes": 23986,
+      "sha256": "f5ea555980bbd5ee23cb1a00a7c8634b4dc4e70f2acad9788468e5680cbfa3e5"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-release-artifacts.json",
+      "bytes": 971,
+      "sha256": "ba998ada5bd10592fb353edd7ecefb2dcc4939b3535a3c7d28af0f096ffed8d9"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-baseline-check.json",
+      "bytes": 2641,
+      "sha256": "51536f21641609cf6b0b8482c363d357d18aecaa84873ae58c6b3142bd4c32c4"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-frontend-stable.log",
+      "bytes": 24583,
+      "sha256": "c5be0306552ae26ae79d69a45db65df1f57df720d243cb29a8aa0c75085a8426"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-frontend-preview.log",
+      "bytes": 19450,
+      "sha256": "3bc931883b10e41cce4cb64ec13e445e9d483bad3407d731b2bf3de550b14116"
+    }
+  ],
+  "preserved_failure_prefixes": [
+    "before-container-settings-component-host-path-failure",
+    "before-host-escalation-settings-component-container",
+    "before-disabled-group-count-fix-settings-component",
+    "before-cargo-path-settings-native-build-container",
+    "before-settings-native-harness-fix-settings-deb-packaged-smoke",
+    "before-settings-check-count-fix-settings-deb-packaged-smoke"
+  ]
+}

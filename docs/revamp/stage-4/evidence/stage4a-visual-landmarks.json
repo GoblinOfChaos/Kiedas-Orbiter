@@ -1,0 +1,86 @@
+{
+  "viewports": [
+    {
+      "size": [
+        1440,
+        900
+      ],
+      "expanded": "flex",
+      "rail": "none",
+      "headerHeight": 70,
+      "bodyHorizontal": false,
+      "routeHorizontal": false,
+      "shell": [
+        0,
+        0,
+        1440,
+        900
+      ],
+      "routeOverflowY": "auto",
+      "routeScrollable": true,
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "expanded": "flex",
+      "rail": "none",
+      "headerHeight": 70,
+      "bodyHorizontal": false,
+      "routeHorizontal": false,
+      "shell": [
+        0,
+        0,
+        1200,
+        800
+      ],
+      "routeOverflowY": "auto",
+      "routeScrollable": true,
+      "pass": true
+    },
+    {
+      "size": [
+        1024,
+        640
+      ],
+      "expanded": "none",
+      "rail": "flex",
+      "headerHeight": 60,
+      "bodyHorizontal": false,
+      "routeHorizontal": false,
+      "shell": [
+        0,
+        0,
+        1024,
+        640
+      ],
+      "routeOverflowY": "auto",
+      "routeScrollable": true,
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "expanded": "none",
+      "rail": "flex",
+      "headerHeight": 60,
+      "bodyHorizontal": false,
+      "routeHorizontal": false,
+      "shell": [
+        0,
+        0,
+        900,
+        500
+      ],
+      "routeOverflowY": "auto",
+      "routeScrollable": true,
+      "pass": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

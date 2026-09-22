@@ -1,0 +1,1992 @@
+{
+  "tier": "styled component browser with module mocks",
+  "fixture": "synthetic display data; no live game, inventory, acquisition, or market claims",
+  "checks": [
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-match-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-paginated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-drawer-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "1200-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "1200-15-category-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframe",
+        "Primary",
+        "Secondary",
+        "Melee",
+        "Archwing",
+        "Sentinel",
+        "Syandana",
+        "Armor",
+        "Animation",
+        "Glyph",
+        "Sigil",
+        "Decoration",
+        "Emote",
+        "Other"
+      ]
+    },
+    {
+      "name": "1200-3-ownership-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "1200-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 1200,
+        "scroll": 1200
+      }
+    },
+    {
+      "name": "1200-layout-in-bounds",
+      "pass": true,
+      "detail": {
+        "left": 220,
+        "width": 980,
+        "right": 1200
+      }
+    },
+    {
+      "name": "1200-toolbar-two-columns",
+      "pass": true,
+      "detail": {
+        "columns": "787.078125px 112.921875px"
+      }
+    },
+    {
+      "name": "1200-kind-scroll-contained",
+      "pass": true,
+      "detail": {
+        "wrap": "nowrap",
+        "client": 910,
+        "scroll": 1304,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "1200-ownership-contained",
+      "pass": true,
+      "detail": {
+        "wrap": "nowrap",
+        "client": 239,
+        "scroll": 239,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "1200-cards-at-least-220-and-bounded",
+      "pass": true,
+      "detail": [
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        }
+      ]
+    },
+    {
+      "name": "1200-grid-column-count",
+      "pass": false,
+      "detail": "296px 296px 296px"
+    },
+    {
+      "name": "1200-category-All",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Warframe",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Primary",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Secondary",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Melee",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Archwing",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Syandana",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Armor",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Animation",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Glyph",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Sigil",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Decoration",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Emote",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Other",
+      "pass": true
+    },
+    {
+      "name": "900-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "900-15-category-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframe",
+        "Primary",
+        "Secondary",
+        "Melee",
+        "Archwing",
+        "Sentinel",
+        "Syandana",
+        "Armor",
+        "Animation",
+        "Glyph",
+        "Sigil",
+        "Decoration",
+        "Emote",
+        "Other"
+      ]
+    },
+    {
+      "name": "900-3-ownership-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Owned",
+        "Unowned"
+      ]
+    },
+    {
+      "name": "900-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 900,
+        "scroll": 900
+      }
+    },
+    {
+      "name": "900-layout-in-bounds",
+      "pass": true,
+      "detail": {
+        "left": 220,
+        "width": 680,
+        "right": 900
+      }
+    },
+    {
+      "name": "900-toolbar-two-columns",
+      "pass": true,
+      "detail": {
+        "columns": "487.078125px 112.921875px"
+      }
+    },
+    {
+      "name": "900-kind-scroll-contained",
+      "pass": true,
+      "detail": {
+        "wrap": "nowrap",
+        "client": 610,
+        "scroll": 1304,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "900-ownership-contained",
+      "pass": true,
+      "detail": {
+        "wrap": "nowrap",
+        "client": 239,
+        "scroll": 239,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "900-cards-at-least-220-and-bounded",
+      "pass": true,
+      "detail": [
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        }
+      ]
+    },
+    {
+      "name": "900-grid-column-count",
+      "pass": true,
+      "detail": "300px 300px"
+    },
+    {
+      "name": "900-category-All",
+      "pass": true
+    },
+    {
+      "name": "900-category-Warframe",
+      "pass": true
+    },
+    {
+      "name": "900-category-Primary",
+      "pass": true
+    },
+    {
+      "name": "900-category-Secondary",
+      "pass": true
+    },
+    {
+      "name": "900-category-Melee",
+      "pass": true
+    },
+    {
+      "name": "900-category-Archwing",
+      "pass": true
+    },
+    {
+      "name": "900-category-Sentinel",
+      "pass": true
+    },
+    {
+      "name": "900-category-Syandana",
+      "pass": true
+    },
+    {
+      "name": "900-category-Armor",
+      "pass": true
+    },
+    {
+      "name": "900-category-Animation",
+      "pass": true
+    },
+    {
+      "name": "900-category-Glyph",
+      "pass": true
+    },
+    {
+      "name": "900-category-Sigil",
+      "pass": true
+    },
+    {
+      "name": "900-category-Decoration",
+      "pass": true
+    },
+    {
+      "name": "900-category-Emote",
+      "pass": true
+    },
+    {
+      "name": "900-category-Other",
+      "pass": true
+    },
+    {
+      "name": "initial-page-size-120",
+      "pass": true,
+      "detail": 120
+    },
+    {
+      "name": "subtitle-complete-catalog-count",
+      "pass": true,
+      "detail": "COSMETICS, DECORATIONS, EMOTES\n5 / 148 OWNED - SKINS, SIGILS, GLYPHS, SHIP DECORATIONS, AND EMOTES\n\nNAME\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nARCHWING\nSENTINEL\nSYANDANA\nARMOR\nANIMATION\nGLYPH\nSIGIL\nDECORATION\nEMOTE\nOTHER\n"
+    },
+    {
+      "name": "load-more-to-148-without-duplicates",
+      "pass": true,
+      "detail": 148
+    },
+    {
+      "name": "unowned-iconless-excluded",
+      "pass": true
+    },
+    {
+      "name": "owned-iconless-retained",
+      "pass": true
+    },
+    {
+      "name": "unowned-hidden-glyph-excluded",
+      "pass": true
+    },
+    {
+      "name": "owned-hidden-glyph-retained",
+      "pass": true
+    },
+    {
+      "name": "non-emote-flavour-excluded",
+      "pass": true
+    },
+    {
+      "name": "classification-warframe",
+      "pass": true,
+      "detail": [
+        "Alpha Noble Skin"
+      ]
+    },
+    {
+      "name": "classification-primary",
+      "pass": true,
+      "detail": [
+        "Braton Test Skin"
+      ]
+    },
+    {
+      "name": "classification-secondary",
+      "pass": true,
+      "detail": [
+        "Lato Test Skin"
+      ]
+    },
+    {
+      "name": "classification-melee",
+      "pass": true,
+      "detail": [
+        "Skana Test Skin"
+      ]
+    },
+    {
+      "name": "classification-archwing",
+      "pass": true,
+      "detail": [
+        "Odonata Test Skin"
+      ]
+    },
+    {
+      "name": "classification-sentinel",
+      "pass": true,
+      "detail": [
+        "Carrier Test Skin"
+      ]
+    },
+    {
+      "name": "classification-syandana",
+      "pass": true,
+      "detail": [
+        "Test Syandana"
+      ]
+    },
+    {
+      "name": "classification-armor",
+      "pass": true,
+      "detail": [
+        "Test Armor"
+      ]
+    },
+    {
+      "name": "classification-animation",
+      "pass": true,
+      "detail": [
+        "Test Animation"
+      ]
+    },
+    {
+      "name": "classification-sigil",
+      "pass": true,
+      "detail": [
+        "Test Sigil"
+      ]
+    },
+    {
+      "name": "classification-emote",
+      "pass": true,
+      "detail": [
+        "Test Emote"
+      ]
+    },
+    {
+      "name": "classification-other",
+      "pass": true,
+      "detail": [
+        "Operator Test Skin",
+        "Owned Iconless Skin"
+      ]
+    },
+    {
+      "name": "all-eight-decoration-parents",
+      "pass": true,
+      "detail": [
+        "Decoration 00",
+        "Decoration 01",
+        "Decoration 02",
+        "Decoration 03",
+        "Decoration 04",
+        "Decoration 05",
+        "Decoration 06",
+        "Decoration 07"
+      ]
+    },
+    {
+      "name": "glyph-source-count",
+      "pass": false,
+      "detail": {
+        "visible": 120
+      }
+    },
+    {
+      "name": "name-sort-both-directions",
+      "pass": true,
+      "detail": {
+        "ascending": [
+          "Decoration 00",
+          "Decoration 01",
+          "Decoration 02",
+          "Decoration 03",
+          "Decoration 04",
+          "Decoration 05",
+          "Decoration 06",
+          "Decoration 07"
+        ],
+        "descending": [
+          "Decoration 07",
+          "Decoration 06",
+          "Decoration 05",
+          "Decoration 04",
+          "Decoration 03",
+          "Decoration 02",
+          "Decoration 01",
+          "Decoration 00"
+        ]
+      }
+    },
+    {
+      "name": "search-input",
+      "pass": true
+    },
+    {
+      "name": "search-name-substring",
+      "pass": true,
+      "detail": [
+        "Page Glyph 124"
+      ]
+    },
+    {
+      "name": "search-no-match",
+      "pass": true
+    },
+    {
+      "name": "ownership-owned-five",
+      "pass": true,
+      "detail": [
+        "Alpha Noble Skin",
+        "Decoration 00",
+        "Owned Hidden Glyph",
+        "Owned Iconless Skin",
+        "Test Emote"
+      ]
+    },
+    {
+      "name": "ownership-unowned",
+      "pass": true,
+      "detail": {
+        "visible": 120
+      }
+    },
+    {
+      "name": "ownership-all-reset-page",
+      "pass": true,
+      "detail": 120
+    },
+    {
+      "name": "combined-search-kind-ownership",
+      "pass": true,
+      "detail": [
+        "Owned Hidden Glyph"
+      ]
+    },
+    {
+      "name": "filter-change-resets-and-no-match",
+      "pass": true
+    },
+    {
+      "name": "pointer-card-opens-drawer",
+      "pass": true
+    },
+    {
+      "name": "acquisition-button-enter-opens-once",
+      "pass": true
+    },
+    {
+      "name": "acquisition-button-space-opens-once",
+      "pass": true
+    },
+    {
+      "name": "outer-card-has-no-button-semantics",
+      "pass": true
+    },
+    {
+      "name": "german-category-labels",
+      "pass": true,
+      "detail": [
+        "Alle",
+        "Warframe",
+        "Prim\u00e4r",
+        "Sekund\u00e4r",
+        "Nahkampf",
+        "Archwing",
+        "Sentinel",
+        "Syandana",
+        "R\u00fcstung",
+        "Animation",
+        "Glyphe",
+        "Siegel",
+        "Dekoration",
+        "Emote",
+        "Andere"
+      ]
+    },
+    {
+      "name": "german-ownership-labels",
+      "pass": true,
+      "detail": [
+        "Alle",
+        "Eigentum",
+        "Nicht erworben"
+      ]
+    },
+    {
+      "name": "german-raw-kind-badge-preserved",
+      "pass": true
+    },
+    {
+      "name": "german-body-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "only-acquisition-override-command",
+      "pass": true,
+      "detail": [
+        "read_file_bytes"
+      ]
+    },
+    {
+      "name": "no-market-mutation-commands",
+      "pass": true,
+      "detail": [
+        "read_file_bytes"
+      ]
+    },
+    {
+      "name": "no-price-or-sell-ui",
+      "pass": true
+    },
+    {
+      "name": "catalog-image-url-branches",
+      "pass": false,
+      "detail": []
+    },
+    {
+      "name": "no-fixture-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "grid": {
+        "columns": "296px 296px 296px",
+        "left": 252,
+        "right": 1164
+      },
+      "toolbar": {
+        "columns": "787.078125px 112.921875px"
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "ownership": {
+        "wrap": "nowrap",
+        "client": 239,
+        "scroll": 239,
+        "overflow": "auto"
+      },
+      "viewport": [
+        1200,
+        800
+      ],
+      "layout": {
+        "left": 220,
+        "width": 980,
+        "right": 1200
+      },
+      "kinds": {
+        "wrap": "nowrap",
+        "client": 910,
+        "scroll": 1304,
+        "overflow": "auto"
+      },
+      "cards": [
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        },
+        {
+          "left": 252,
+          "width": 296,
+          "right": 548
+        },
+        {
+          "left": 560,
+          "width": 296,
+          "right": 856
+        },
+        {
+          "left": 868,
+          "width": 296,
+          "right": 1164
+        }
+      ]
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "grid": {
+        "columns": "300px 300px",
+        "left": 252,
+        "right": 864
+      },
+      "toolbar": {
+        "columns": "487.078125px 112.921875px"
+      },
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "ownership": {
+        "wrap": "nowrap",
+        "client": 239,
+        "scroll": 239,
+        "overflow": "auto"
+      },
+      "viewport": [
+        900,
+        500
+      ],
+      "layout": {
+        "left": 220,
+        "width": 680,
+        "right": 900
+      },
+      "kinds": {
+        "wrap": "nowrap",
+        "client": 610,
+        "scroll": 1304,
+        "overflow": "auto"
+      },
+      "cards": [
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        },
+        {
+          "left": 252,
+          "width": 300,
+          "right": 552
+        },
+        {
+          "left": 564,
+          "width": 300,
+          "right": 864
+        }
+      ]
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 562,
+      "after_length": 562
+    },
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 145813,
+      "after_length": 145813
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 145788,
+      "after_length": 145788
+    },
+    {
+      "state": "no-match",
+      "equal": true,
+      "before_length": 8822,
+      "after_length": 8822
+    },
+    {
+      "state": "paginated",
+      "equal": true,
+      "before_length": 178018,
+      "after_length": 178018
+    },
+    {
+      "state": "drawer-open",
+      "equal": true,
+      "before_length": 147847,
+      "after_length": 147847
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+FROM docker.io/library/ubuntu@sha256:561618e2c15bf2397621dd04f96926663a3b5616c189cf7e38db7e82f5c538ea
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential pkg-config python3 ca-certificates curl file patchelf libwebkit2gtk-4.1-dev libgtk-3-dev libssl-dev libxdo-dev libayatana-appindicator3-dev librsvg2-dev libasound2-dev libdbus-1-dev liblzma-dev libxcb1-dev libxrandr-dev libclang-dev clang cmake xvfb xauth dbus-x11 webkit2gtk-driver && rm -rf /var/lib/apt/lists/*

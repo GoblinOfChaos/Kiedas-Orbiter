@@ -1,0 +1,1680 @@
+diff --git a/src/App.jsx b/src/App.jsx
+index f59861a418d8053fca0dacc9ff212003452f50b3..0f685a86156f02abb42ec192ea514b54245fbbcf 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -6,7 +6,7 @@ import { MonitoringProvider } from './contexts/MonitoringContext';
+ import { UpdateProvider, useUpdate } from './contexts/UpdateContext';
+ import { Tooltip } from './components/UI';
+ import { UiProvider, useUi } from './contexts/UiContext';
+-import { AlertTriangle, FolderOpen, BarChart3 } from 'lucide-react';
++import { AlertTriangle, FolderOpen } from 'lucide-react';
+ import { invoke } from '@tauri-apps/api/core';
+ import { listen, emit } from '@tauri-apps/api/event';
+ import { open as openDialog } from '@tauri-apps/plugin-dialog';
+@@ -14,32 +14,8 @@ import { loadSettings, getSetting, setSetting } from './lib/settings';
+ import LanguagePicker from './components/LanguagePicker';
+ 
+ import { IS_PREVIEW } from './lib/buildProfile';
+-import PreviewNavigation from './components/PreviewNavigation';
+-
+-const NAV_ITEMS = [
+-{ id: 'dashboard', icon: 'IconDashboard.png', label: 'Dashboard' },
+-{ id: 'prime-resurgence', icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },
+-  { id: 'market', icon: 'IconMarket.png', label: 'Market' },
+-{ id: 'inventory', icon: 'IconInventory.png', label: 'Inventory' },
+-{ id: 'foundry', icon: 'IconFoundry.png', label: 'Foundry' },
+-{ id: 'mods', icon: 'Mods.png', label: 'Mods' },
+-{ id: 'rivens', icon: 'IconRiven.png', label: 'Rivens' },
+-{ id: 'relics', icon: 'IconRelic.png', label: 'Relics' },
+-{ id: 'relic-planner', icon: 'VoidSymbol.png', label: 'Relic Planner' },
+-{ id: 'collectibles', icon: 'GrimoireMarker.png', label: 'Collectibles' },
+-{ id: 'cosmetics', icon: 'Appearance.png', label: 'Cosmetics, Decorations, Emotes' },
+-{ id: 'adversaries', icon: 'Adversaries.png', label: 'Adversaries' },
+-{ id: 'mastery', icon: 'IconMastery.png', label: 'Mastery' },
+-{ id: 'history', lucide: BarChart3, label: 'History' },
+-{ id: 'maps', icon: 'IconMap.png', label: 'Maps' },
+-{ id: 'wiki', icon: 'Wiki.png', label: 'Wiki' },
+-{ id: 'notes', icon: 'IconNotes.png', label: 'Notes' },
+-{ id: 'checklist', icon: 'IconChecklist.png', label: 'Checklist' },
+-{ id: 'settings', icon: 'IconSettings.png', label: 'Settings' },
+-{ id: 'about', icon: 'IconInfo.png', label: 'About' }];
+-
+-
+-const ICON_NAMES = [...NAV_ITEMS.filter((i) => i.icon).map((i) => i.icon), 'IconKieda.png'];
++import PreviewAppShell from './preview/shell/PreviewAppShell';
++import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
+ 
+ function useUIIcons(iconNames) {
+   const [iconCache, setIconCache] = useState({});
+@@ -254,15 +230,16 @@ function AppContent() {
+   const [activeTab, setActiveTab] = useState('dashboard');
+   const [sidebarActive, setSidebarActive] = useState(false);
+   const [sidebarSide, setSidebarSide] = useState('left');
+-  const { lastUpdate, monitorResult, isMonitoring } = useMonitoring();
++  const { lastUpdate, monitorResult, isMonitoring, statusText } = useMonitoring();
+   const { updateState, installLatestUpdate } = useUpdate();
+   const [updateBannerDismissed, setUpdateBannerDismissed] = useState(false);
+-  const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
++  const [scannerStatus, setScannerStatus] = useState(IS_PREVIEW ? 'disabled' : 'idle'); // 'idle' | 'waiting' | 'active'
+ 
+-  const { uiIcon } = useUIIcons(ICON_NAMES);
++  const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
+   const { t } = useUi();
+ 
+   useEffect(() => {
++    if (IS_PREVIEW) return undefined;
+     // Poll scanner status every 2s so sidebar dot stays in sync
+     const checkScanner = () => {
+       invoke('get_scanner_status').then(setScannerStatus).catch(() => setScannerStatus('idle'));
+@@ -274,6 +251,7 @@ function AppContent() {
+ 
+   // Show toast when scanner latches onto Warframe (single notification, main window only)
+   useEffect(() => {
++    if (IS_PREVIEW) return undefined;
+     const unsub = listen('scanner-hooked', () => {
+       invoke('show_notification', {
+         title: 'Scanner',
+@@ -305,7 +283,8 @@ function AppContent() {
+       const side = e.payload.side;
+       if (!containerRef.current) return;
+       containerRef.current.classList.toggle('flex-row-reverse', side === 'right');
+-      const nav = containerRef.current.querySelector('nav');
++      const nav = containerRef.current.querySelector('[data-shell-nav-primary]') ??
++        containerRef.current.querySelector('nav');
+       if (nav) {
+         nav.classList.toggle('border-l', side === 'right');
+         nav.classList.toggle('border-r', side !== 'right');
+@@ -316,7 +295,7 @@ function AppContent() {
+   }, []);
+ 
+   const screens = {
+-    dashboard: <Dashboard />,
++    dashboard: <Dashboard onNavigate={setActiveTab} />,
+     market: <Market onNavigate={setActiveTab} />,
+     inventory: <Inventory />,
+     foundry: <Foundry />,
+@@ -338,10 +317,54 @@ function AppContent() {
+     adversaries: <Adversaries />
+   };
+ 
++  const screenContent = (
++    <Suspense fallback={
++      <div className="h-full flex items-center justify-center">
++        <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
++      </div>
++    }>
++      {screens[activeTab]}
++    </Suspense>
++  );
++  const syncLabel = monitorResult === 'success' ? t('sync.success') :
++    monitorResult === 'cached' ? t('sync.cached') :
++    monitorResult === 'error' ? t('sync.error') : t('sync.offline');
++  const previewStatus = {
++    inventorySync: {
++      state: monitorResult,
++      label: syncLabel,
++      detail: statusText || `${t('last_update')} ${formatLastUpdate(lastUpdate)}`,
++    },
++    liveIntegrations: {
++      state: 'disabled',
++      label: t('preview.status.live_disabled'),
++      detail: t('preview.status.live_disabled_detail'),
++    },
++    profile: {
++      state: 'preview',
++      label: t('preview.status.preview'),
++      detail: t('preview.status.isolated_profile'),
++    },
++  };
++
+   return (
+-    <div ref={containerRef} className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
++    <>
++      {IS_PREVIEW ? (
++        <PreviewAppShell
++          ref={containerRef}
++          activeRouteId={activeTab}
++          onNavigate={setActiveTab}
++          status={previewStatus}
++          uiIcon={uiIcon}
++          t={t}
++          sidebarActive={sidebarActive}
++          sidebarSide={sidebarSide}
++        >
++          {screenContent}
++        </PreviewAppShell>
++      ) : <div ref={containerRef} className={`flex h-screen overflow-hidden ${sidebarActive && sidebarSide === 'right' ? 'flex-row-reverse' : ''}`}>
+       {/* Sidebar */}
+-      {IS_PREVIEW ? <PreviewNavigation items={NAV_ITEMS} activeTab={activeTab} onNavigate={setActiveTab} uiIcon={uiIcon} t={t} /> : <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${sidebarActive && sidebarSide === 'right' ? 'border-l' : 'border-r'}`}>
++      <nav className={`glass-panel w-20 flex flex-col items-center py-6 gap-4 z-40 relative flex-shrink-0 ${sidebarActive && sidebarSide === 'right' ? 'border-l' : 'border-r'}`}>
+         {/* Logo */}
+         <div className="mb-4 flex-shrink-0">
+           <div className="w-12 h-12 rounded-lg flex items-center justify-center overflow-hidden">
+@@ -352,7 +375,7 @@ function AppContent() {
+         {/* Nav items */}
+         <div className="flex-1 w-full overflow-y-auto py-2 custom-scrollbar">
+           <div className="flex flex-col gap-6 items-center min-h-min pb-4">
+-            {NAV_ITEMS.map((item) => {
++            {STABLE_NAV_ITEMS.map((item) => {
+               const isActive = activeTab === item.id;
+               return (
+                 <div key={item.id} className="relative">
+@@ -434,18 +457,13 @@ function AppContent() {
+             </div>
+           </div>
+         </div>
+-      </nav>}
++      </nav>
+ 
+       {/* Main content */}
+       <main className="flex-1 min-w-0 overflow-hidden bg-kronos-bg">
+-        <Suspense fallback={
+-        <div className="h-full flex items-center justify-center">
+-            <div className="w-8 h-8 border-2 border-kronos-accent/20 border-t-kronos-accent rounded-full animate-spin" />
+-          </div>
+-        }>
+-          {screens[activeTab]}
+-        </Suspense>
++        {screenContent}
+       </main>
++      </div>}
+ 
+       {/* ── Resize handle for sidebar mode ── */}
+       {sidebarActive &&
+@@ -515,7 +533,7 @@ function AppContent() {
+         <p className="text-xs font-black uppercase tracking-wider text-kronos-text">Installing update…</p>
+       </div>
+       }
+-    </div>);
++    </>);
+ 
+ }
+ 
+diff --git a/src/components/PreviewDashboardLayout.jsx b/src/components/PreviewDashboardLayout.jsx
+deleted file mode 100644
+index 273889bb6f51ce3889d1fd9782c5d96c7468a1b0..0000000000000000000000000000000000000000
+--- a/src/components/PreviewDashboardLayout.jsx
++++ /dev/null
+@@ -1,73 +0,0 @@
+-import { isValidElement, useRef } from 'react';
+-
+-const SECTIONS = [
+-  { id: 'now', title: 'Now', cards: ['timers', 'alerts', 'arb', 'inf', 'fiss', 'inv'] },
+-  { id: 'activities', title: 'Activities & rotations', cards: ['bounty', 'nightwave', 'sortie', 'hunt', 'arch', 'desc', 'circuit', '1999'] },
+-  { id: 'news', title: 'News & offers', cards: ['baro', 'event', 'deal', 'sales', 'news'] },
+-];
+-const WIDE_CARDS = new Set(['bounty', 'nightwave', 'fiss', 'arch', '1999']);
+-
+-export default function PreviewDashboardLayout({ cards, onCustomize }) {
+-  const root = useRef(null);
+-  const sections = SECTIONS.map(section => ({
+-    ...section,
+-    cards: section.cards.filter(id => isValidElement(cards[id])),
+-  })).filter(section => section.cards.length);
+-
+-  function goToSection(event, id) {
+-    const heading = root.current?.querySelector(`#preview-dashboard-${id}`);
+-    if (!heading) return;
+-    event.preventDefault();
+-    heading.focus({ preventScroll: true });
+-    heading.scrollIntoView({ block: 'start', behavior: 'auto' });
+-  }
+-
+-  return (
+-    <div ref={root} className="preview-dashboard min-w-0 pb-4" style={{ containerType: 'inline-size', containerName: 'preview-dashboard' }}>
+-      <style>{`
+-        .preview-dashboard-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+-        .preview-dashboard-slot { min-width: 0; }
+-        @container preview-dashboard (min-width: 740px) {
+-          .preview-dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+-          .preview-dashboard-wide { grid-column: 1 / -1; }
+-        }
+-      `}</style>
+-      {sections.length ? (
+-        <>
+-          <nav aria-label="Dashboard sections" className="flex flex-wrap gap-2 mb-6">
+-            {sections.map(section => (
+-              <a key={section.id} href={`#preview-dashboard-${section.id}`}
+-                onClick={event => goToSection(event, section.id)}
+-                className="rounded-lg border border-kronos-accent/20 px-3 py-2 text-xs font-bold text-kronos-text hover:bg-kronos-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent">
+-                {section.title}
+-              </a>
+-            ))}
+-          </nav>
+-          {sections.map(section => (
+-            <section key={section.id} aria-labelledby={`preview-dashboard-${section.id}`} className="mb-6 last:mb-0">
+-              <h2 id={`preview-dashboard-${section.id}`} tabIndex={-1}
+-                className="mb-3 text-sm font-bold text-kronos-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent">
+-                {section.title}
+-              </h2>
+-              <div className="preview-dashboard-grid">
+-                {section.cards.map(id => (
+-                  <div key={id} data-dashboard-card={id}
+-                    className={`preview-dashboard-slot${WIDE_CARDS.has(id) ? ' preview-dashboard-wide' : ''}`}>
+-                    {cards[id]}
+-                  </div>
+-                ))}
+-              </div>
+-            </section>
+-          ))}
+-        </>
+-      ) : (
+-        <div className="rounded-xl border border-kronos-accent/20 p-6 text-sm text-kronos-dim">
+-          <p role="status">No cards to display. Choose which Dashboard cards to show.</p>
+-          <button onClick={onCustomize} className="mt-4 rounded-lg border border-kronos-accent/30 px-3 py-2 font-bold text-kronos-text hover:bg-kronos-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent">
+-            Choose visible cards
+-          </button>
+-        </div>
+-      )}
+-    </div>
+-  );
+-}
+diff --git a/src/components/PreviewNavigation.jsx b/src/components/PreviewNavigation.jsx
+deleted file mode 100644
+index 80d8f53ec90350c70330d76fa3182127a1606ee8..0000000000000000000000000000000000000000
+--- a/src/components/PreviewNavigation.jsx
++++ /dev/null
+@@ -1,68 +0,0 @@
+-import { useState } from 'react';
+-import { ChevronDown, ChevronRight, Star } from 'lucide-react';
+-import PreviewImport from './PreviewImport';
+-
+-export const NAV_GROUPS = [
+-  ['Today', ['dashboard']],
+-  ['Collection', ['inventory', 'mastery', 'mods', 'cosmetics', 'collectibles']],
+-  ['Planning', ['foundry', 'relics', 'relic-planner', 'prime-resurgence']],
+-  ['Trading', ['market', 'rivens']],
+-  ['Journal & Tools', ['history', 'adversaries', 'maps', 'wiki', 'notes', 'checklist']],
+-  ['Application', ['settings', 'about']],
+-];
+-const KEY = 'preview.navigation.v1';
+-function initialState() {
+-  try {
+-    const saved = JSON.parse(localStorage.getItem(KEY));
+-    return { collapsed: saved?.collapsed && typeof saved.collapsed === 'object' ? saved.collapsed : {}, favorites: Array.isArray(saved?.favorites) ? saved.favorites.filter(id => typeof id === 'string') : [] };
+-  } catch { return { collapsed: {}, favorites: [] }; }
+-}
+-export default function PreviewNavigation({ items, activeTab, onNavigate, uiIcon, t }) {
+-  const [state, setState] = useState(initialState);
+-  const [storageError, setStorageError] = useState('');
+-  const byId = new Map(items.map(item => [item.id, item]));
+-  function update(next) {
+-    setState(next);
+-    try { localStorage.setItem(KEY, JSON.stringify(next)); setStorageError(''); }
+-    catch { setStorageError('Navigation preferences could not be saved.'); }
+-  }
+-  function row(id, favorite = false) {
+-    const item = byId.get(id);
+-    if (!item) return null;
+-    const active = id === activeTab;
+-    const translated = t(`nav.${id}`);
+-    const label = translated === `nav.${id}` ? item.label : translated;
+-    const pinned = state.favorites.includes(id);
+-    return <div key={id} className="flex items-center gap-1">
+-      <button aria-current={active ? 'page' : undefined} id={!favorite && id === 'settings' ? 'nav-settings' : undefined}
+-        onClick={() => onNavigate(id)} className={`min-w-0 flex-1 flex items-center gap-2 px-2 py-2 rounded-lg text-left text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent ${active ? 'bg-kronos-accent/15 text-kronos-accent' : 'text-kronos-dim hover:bg-white/5 hover:text-kronos-text'}`}>
+-        {item.lucide ? <item.lucide size={18} className="shrink-0" /> : <img alt="" src={uiIcon(item.icon)} className="w-[18px] h-[18px] object-contain shrink-0" />}
+-        <span className="break-words">{label}</span>
+-      </button>
+-      <button aria-label={`${pinned ? 'Unpin' : 'Pin'} ${label}`} aria-pressed={pinned}
+-        onClick={() => update({ ...state, favorites: pinned ? state.favorites.filter(x => x !== id) : [...state.favorites, id] })}
+-        className="p-1 rounded text-kronos-dim hover:text-kronos-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent">
+-        <Star size={14} fill={pinned ? 'currentColor' : 'none'} />
+-      </button>
+-    </div>;
+-  }
+-  return <nav aria-label="Main navigation" className="w-52 shrink-0 h-full flex flex-col border-r border-white/10 bg-kronos-panel">
+-    <div className="p-3 border-b border-white/10 flex items-center gap-2">
+-      <img src={uiIcon('IconKieda.png')} alt="" className="w-8 h-8" />
+-      <div className="text-sm font-semibold">Kieda's Orbiter <span className="block text-xs text-kronos-accent">PREVIEW</span></div>
+-    </div>
+-    <div className="p-3 text-xs text-kronos-dim border-b border-white/10">Isolated profile · Live integrations and app updates disabled</div>
+-    <div className="flex-1 min-h-0 overflow-y-auto p-2 custom-scrollbar">
+-      {state.favorites.some(id => byId.has(id)) && <section aria-label="Favorites" className="mb-3"><h2 className="text-xs text-kronos-accent px-2 py-1">Favorites</h2>{state.favorites.map(id => row(id, true))}</section>}
+-      {NAV_GROUPS.map(([label, ids], index) => <section key={label} className="mb-2">
+-        <button aria-expanded={!state.collapsed[label]} aria-controls={`preview-group-${index}`} onClick={() => update({ ...state, collapsed: { ...state.collapsed, [label]: !state.collapsed[label] } })}
+-          className="w-full flex items-center gap-1 px-2 py-2 text-xs uppercase tracking-wide text-kronos-dim hover:text-kronos-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent">
+-          {state.collapsed[label] ? <ChevronRight size={13} /> : <ChevronDown size={13} />}{label}
+-        </button>
+-        <div id={`preview-group-${index}`} hidden={!!state.collapsed[label]}>{ids.map(id => row(id))}</div>
+-      </section>)}
+-    </div>
+-    {storageError && <p role="alert" className="text-xs p-2 text-amber-400">{storageError}</p>}
+-    <PreviewImport />
+-  </nav>;
+-}
+diff --git a/src/lib/i18n/en.json b/src/lib/i18n/en.json
+index e4a0455a8e9fd663f6a479cfa9adb41cd15f70a6..f3069b86aebf778d377e10bf050b28322d322f8b 100644
+--- a/src/lib/i18n/en.json
++++ b/src/lib/i18n/en.json
+@@ -409,6 +409,38 @@
+     "screen.checklist": "Checklist",
+     "screen.collectibles": "Collectibles",
+     "screen.dashboard": "Dashboard",
++    "preview.shell.menu": "Menu",
++    "preview.shell.close_navigation": "Close navigation",
++    "preview.shell.search_placeholder": "Search screens…",
++    "preview.shell.search_results": "Screen results",
++    "preview.shell.search_no_results": "No matching screens",
++    "preview.shell.more_actions": "More actions",
++    "preview.shell.import_profile": "Import a profile copy",
++    "preview.status.preview": "Preview",
++    "preview.status.isolated_profile": "Isolated profile",
++    "preview.status.live_disabled": "Live integrations disabled",
++    "preview.status.live_disabled_detail": "Monitoring, hotkeys, notifications and overlays are disabled in Preview.",
++    "preview.dashboard.eyebrow": "Today",
++    "preview.dashboard.heading": "Your next adventure",
++    "preview.dashboard.subtitle": "Your collection, plans, and live activities in one place.",
++    "preview.dashboard.tracked_targets": "tracked targets",
++    "preview.dashboard.targets_not_ready": "Not set up yet",
++    "preview.dashboard.ready_to_craft": "ready to craft",
++    "preview.dashboard.new_activity": "new activity this session",
++    "preview.dashboard.continue_plans": "Continue your plans",
++    "preview.dashboard.no_targets": "No farming targets yet",
++    "preview.dashboard.no_targets_detail": "Farming Targets are not available in this Preview build yet.",
++    "preview.dashboard.add_target": "Add a farming target",
++    "preview.dashboard.live_activities": "Live activities",
++    "preview.dashboard.session": "Since this session",
++    "preview.dashboard.no_session_activity": "No new activity this session",
++    "preview.dashboard.foundry_ready": "Ready in your Foundry",
++    "preview.dashboard.inventory_unavailable": "Inventory not available",
++    "preview.dashboard.view_foundry": "View in Foundry",
++    "preview.dashboard.view_history": "View history",
++    "preview.dashboard.view_all_activities": "View all live activities",
++    "preview.dashboard.all_activities": "All activities",
++    "preview.dashboard.customize": "Choose visible cards",
+     "screen.inventory": "Inventory",
+     "screen.maps": "Maps",
+     "screen.mastery": "Mastery",
+diff --git a/src/preview/components/PreviewButton.jsx b/src/preview/components/PreviewButton.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..cd37ac52e303d1c36c0e0e7353b0561779b7a9b6
+--- /dev/null
++++ b/src/preview/components/PreviewButton.jsx
+@@ -0,0 +1,18 @@
++export default function PreviewButton({
++  children,
++  variant = 'secondary',
++  iconOnly = false,
++  className = '',
++  type = 'button',
++  ...props
++}) {
++  return (
++    <button
++      type={type}
++      className={`preview-button preview-button--${variant}${iconOnly ? ' preview-button--icon' : ''} ${className}`.trim()}
++      {...props}
++    >
++      {children}
++    </button>
++  );
++}
+diff --git a/src/preview/components/PreviewDataState.jsx b/src/preview/components/PreviewDataState.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..1819b54af27fdcf671857ddaa10d0ddd346d7ecd
+--- /dev/null
++++ b/src/preview/components/PreviewDataState.jsx
+@@ -0,0 +1,22 @@
++import { AlertCircle, Inbox, Loader2 } from 'lucide-react';
++
++const ICONS = {
++  loading: Loader2,
++  empty: Inbox,
++  unavailable: AlertCircle,
++  error: AlertCircle,
++};
++
++export default function PreviewDataState({ state = 'empty', title, detail, action, compact = false }) {
++  const Icon = ICONS[state] || AlertCircle;
++  return (
++    <div className={`preview-data-state preview-data-state--${state}${compact ? ' preview-data-state--compact' : ''}`} role={state === 'error' ? 'alert' : 'status'}>
++      <Icon aria-hidden="true" className={state === 'loading' ? 'preview-spin' : ''} />
++      <div>
++        <strong>{title}</strong>
++        {detail && <p>{detail}</p>}
++      </div>
++      {action}
++    </div>
++  );
++}
+diff --git a/src/preview/components/PreviewPanel.jsx b/src/preview/components/PreviewPanel.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..fd2c9d12e0fadc2ea1bf391ebac1ac517fbec332
+--- /dev/null
++++ b/src/preview/components/PreviewPanel.jsx
+@@ -0,0 +1,3 @@
++export default function PreviewPanel({ as: Element = 'section', children, className = '', ...props }) {
++  return <Element className={`preview-panel ${className}`.trim()} {...props}>{children}</Element>;
++}
+diff --git a/src/preview/components/PreviewStatusBadge.jsx b/src/preview/components/PreviewStatusBadge.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..1e2aecfe77c44394b74b2f4352b35da28b033128
+--- /dev/null
++++ b/src/preview/components/PreviewStatusBadge.jsx
+@@ -0,0 +1,3 @@
++export default function PreviewStatusBadge({ children, tone = 'neutral', className = '', ...props }) {
++  return <span className={`preview-status-badge preview-status-badge--${tone} ${className}`.trim()} {...props}>{children}</span>;
++}
+diff --git a/src/preview/dashboard/PreviewDashboardView.jsx b/src/preview/dashboard/PreviewDashboardView.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..04465056d7964138a80ccfbde65a75182497431d
+--- /dev/null
++++ b/src/preview/dashboard/PreviewDashboardView.jsx
+@@ -0,0 +1,145 @@
++import { Anvil, ArrowRight, BellRing, RefreshCw, Sparkles, Target } from 'lucide-react';
++import { isValidElement, useRef, useState } from 'react';
++import PreviewButton from '../components/PreviewButton';
++import PreviewDataState from '../components/PreviewDataState';
++import PreviewPanel from '../components/PreviewPanel';
++import PreviewPage from '../shell/PreviewPage';
++import { DASHBOARD_PROMOTED_CARD_IDS, DASHBOARD_SECTIONS } from '../view-models/dashboardViewModel';
++
++function SummaryCard({ icon: Icon, value, label, detail }) {
++  return (
++    <PreviewPanel className="preview-dashboard__stat">
++      <Icon aria-hidden="true" />
++      <div><strong>{value}</strong><small>{label}</small></div>
++      {detail && <em>{detail}</em>}
++    </PreviewPanel>
++  );
++}
++
++function RecipeImage({ src, name }) {
++  const [failed, setFailed] = useState(!src);
++  if (failed) return <span className="preview-dashboard__recipe-image" role="img" aria-label={`${name}: image unavailable`}><Anvil aria-hidden="true" /></span>;
++  return <img src={src} alt={name} onError={() => setFailed(true)} />;
++}
++
++export default function PreviewDashboardView({
++  model,
++  cards = {},
++  actions,
++  loading = false,
++  targetNotice = false,
++  onAddFarmingTarget,
++  onNavigate,
++  onCustomize,
++  onRefresh,
++  t,
++}) {
++  const allActivitiesRef = useRef(null);
++  const promoted = DASHBOARD_PROMOTED_CARD_IDS.filter((id) => isValidElement(cards[id]));
++  const sections = DASHBOARD_SECTIONS.map((section) => ({
++    ...section,
++    cardIds: section.cardIds.filter((id) => !DASHBOARD_PROMOTED_CARD_IDS.includes(id) && isValidElement(cards[id])),
++  })).filter((section) => section.cardIds.length);
++  const visibleCount = Object.values(cards).filter(isValidElement).length;
++
++  return (
++    <PreviewPage
++      eyebrow={t('preview.dashboard.eyebrow')}
++      title={t('preview.dashboard.heading')}
++      summary={t('preview.dashboard.subtitle')}
++      actions={actions}
++      className="preview-dashboard"
++    >
++      {loading ? (
++        <div className="preview-dashboard__loading">
++          <PreviewDataState
++            state="loading"
++            title={t('ui.dashboard.loading_worldstate')}
++            action={<PreviewButton iconOnly onClick={onRefresh} aria-label={t('ui.dashboard.loading_worldstate')}><RefreshCw aria-hidden="true" /></PreviewButton>}
++          />
++        </div>
++      ) : (
++        <>
++          <div className="preview-dashboard__layout">
++            <div className="preview-dashboard__main">
++              <div className="preview-dashboard__summary" aria-label="Dashboard summary">
++                <SummaryCard icon={Target} value={model.targets.count} label={t('preview.dashboard.tracked_targets')} detail={t('preview.dashboard.targets_not_ready')} />
++                <SummaryCard icon={Anvil} value={model.foundry.known ? model.foundry.count : '—'} label={t('preview.dashboard.ready_to_craft')} detail={!model.foundry.known ? t('preview.dashboard.inventory_unavailable') : undefined} />
++                <SummaryCard icon={Sparkles} value={model.session.count} label={t('preview.dashboard.new_activity')} />
++              </div>
++
++              <PreviewPanel className="preview-dashboard__panel">
++                <header><h2>{t('preview.dashboard.continue_plans')}</h2></header>
++                <div className="preview-dashboard__target-empty">
++                  <Target aria-hidden="true" />
++                  <strong>{t('preview.dashboard.no_targets')}</strong>
++                  <p>{t('preview.dashboard.no_targets_detail')}</p>
++                  <PreviewButton variant="primary" onClick={onAddFarmingTarget}>{t('preview.dashboard.add_target')}</PreviewButton>
++                  {targetNotice && <p className="preview-dashboard__target-notice" role="status">{t('preview.dashboard.no_targets_detail')}</p>}
++                </div>
++              </PreviewPanel>
++
++              <PreviewPanel className="preview-dashboard__session">
++                <header>
++                  <h2>{t('preview.dashboard.session')}</h2>
++                  <PreviewButton variant="ghost" onClick={() => onNavigate('history')}>{t('preview.dashboard.view_history')}</PreviewButton>
++                </header>
++                {model.session.items.length ? (
++                  <div className="preview-dashboard__session-list">
++                    {model.session.items.map((item) => <div className="preview-dashboard__session-item" key={item.id}><span><strong>{item.title}</strong><small>{item.message}</small></span><BellRing aria-hidden="true" /></div>)}
++                  </div>
++                ) : <PreviewDataState compact state="empty" title={t('preview.dashboard.no_session_activity')} />}
++              </PreviewPanel>
++            </div>
++
++            <aside className="preview-dashboard__live" aria-labelledby="preview-dashboard-live-title">
++              <h2 id="preview-dashboard-live-title">{t('preview.dashboard.live_activities')}</h2>
++              <div className="preview-dashboard__live-cards">
++                {promoted.map((id) => <div className="preview-dashboard__live-card" data-dashboard-card={id} key={id}>{cards[id]}</div>)}
++              </div>
++              <PreviewButton className="preview-dashboard__view-all" variant="ghost" onClick={() => { allActivitiesRef.current?.focus(); allActivitiesRef.current?.scrollIntoView({ block: 'start' }); }}>
++                {t('preview.dashboard.view_all_activities')} <ArrowRight aria-hidden="true" />
++              </PreviewButton>
++            </aside>
++
++            <PreviewPanel className="preview-dashboard__foundry">
++              <header><h2>{t('preview.dashboard.foundry_ready')}</h2>{model.foundry.known && model.foundry.count > 2 && <PreviewButton variant="ghost" onClick={() => onNavigate('foundry')}>{t('preview.dashboard.view_foundry')}</PreviewButton>}</header>
++              {!model.foundry.known ? <PreviewDataState compact state="unavailable" title={t('preview.dashboard.inventory_unavailable')} /> : model.foundry.items.length ? (
++                <div className="preview-dashboard__foundry-grid">
++                  {model.foundry.items.map((item) => (
++                    <article className="preview-dashboard__recipe" key={item.id}>
++                      <RecipeImage src={item.image} name={item.name} />
++                      <div><h3>{item.name}</h3></div>
++                      <PreviewButton onClick={() => onNavigate('foundry')}>{t('preview.dashboard.view_foundry')}</PreviewButton>
++                    </article>
++                  ))}
++                </div>
++              ) : <PreviewDataState compact state="empty" title={`0 ${t('preview.dashboard.ready_to_craft')}`} />}
++            </PreviewPanel>
++
++            <section className="preview-dashboard__all" aria-labelledby="preview-dashboard-all-title">
++              <header className="preview-dashboard__panel-header">
++                <h2 id="preview-dashboard-all-title" ref={allActivitiesRef} tabIndex={-1}>{t('preview.dashboard.all_activities')}</h2>
++                <span>{visibleCount} visible</span>
++              </header>
++              {sections.length ? sections.map((section) => (
++                <section className="preview-dashboard__section" aria-labelledby={`preview-dashboard-${section.id}`} key={section.id}>
++                  <header><h2 id={`preview-dashboard-${section.id}`}>{section.title}</h2></header>
++                  <div className="preview-dashboard__card-grid">
++                    {section.cardIds.map((id) => <div className={`preview-dashboard__card-slot${['bounty', 'arch', '1999'].includes(id) ? ' preview-dashboard__card-slot--wide' : ''}`} data-dashboard-card={id} key={id}>{cards[id]}</div>)}
++                  </div>
++                </section>
++              )) : (
++                <PreviewDataState
++                  state="empty"
++                  title={t('ui.dashboard.visible_cards')}
++                  action={<PreviewButton onClick={onCustomize}>{t('preview.dashboard.customize')}</PreviewButton>}
++                />
++              )}
++            </section>
++          </div>
++        </>
++      )}
++    </PreviewPage>
++  );
++}
+diff --git a/src/preview/navigation.js b/src/preview/navigation.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..195817471fb8d3db31dbc2c5897ad52dd454ff13
+--- /dev/null
++++ b/src/preview/navigation.js
+@@ -0,0 +1,54 @@
++import { BarChart3 } from 'lucide-react';
++
++export const PREVIEW_NAV_GROUPS = [
++  { id: 'today', label: 'Today' },
++  { id: 'collection', label: 'Collection' },
++  { id: 'planning', label: 'Planning' },
++  { id: 'trading', label: 'Trading' },
++  { id: 'journal-tools', label: 'Journal & Tools' },
++  { id: 'application', label: 'Application' },
++];
++
++export const NAV_ITEMS = [
++  { id: 'dashboard', groupId: 'today', groupOrder: 1, stableOrder: 1, icon: 'IconDashboard.png', label: 'Dashboard' },
++  { id: 'prime-resurgence', groupId: 'planning', groupOrder: 4, stableOrder: 2, icon: 'BaroKiTeerFlat.png', label: 'Prime Resurgence' },
++  { id: 'market', groupId: 'trading', groupOrder: 1, stableOrder: 3, icon: 'IconMarket.png', label: 'Market' },
++  { id: 'inventory', groupId: 'collection', groupOrder: 1, stableOrder: 4, icon: 'IconInventory.png', label: 'Inventory' },
++  { id: 'foundry', groupId: 'planning', groupOrder: 1, stableOrder: 5, icon: 'IconFoundry.png', label: 'Foundry' },
++  { id: 'mods', groupId: 'collection', groupOrder: 3, stableOrder: 6, icon: 'Mods.png', label: 'Mods' },
++  { id: 'rivens', groupId: 'trading', groupOrder: 2, stableOrder: 7, icon: 'IconRiven.png', label: 'Rivens' },
++  { id: 'relics', groupId: 'planning', groupOrder: 2, stableOrder: 8, icon: 'IconRelic.png', label: 'Relics' },
++  { id: 'relic-planner', groupId: 'planning', groupOrder: 3, stableOrder: 9, icon: 'VoidSymbol.png', label: 'Relic Planner' },
++  { id: 'collectibles', groupId: 'collection', groupOrder: 5, stableOrder: 10, icon: 'GrimoireMarker.png', label: 'Collectibles' },
++  { id: 'cosmetics', groupId: 'collection', groupOrder: 4, stableOrder: 11, icon: 'Appearance.png', label: 'Cosmetics, Decorations, Emotes' },
++  { id: 'adversaries', groupId: 'journal-tools', groupOrder: 2, stableOrder: 12, icon: 'Adversaries.png', label: 'Adversaries' },
++  { id: 'mastery', groupId: 'collection', groupOrder: 2, stableOrder: 13, icon: 'IconMastery.png', label: 'Mastery' },
++  { id: 'history', groupId: 'journal-tools', groupOrder: 1, stableOrder: 14, lucide: BarChart3, label: 'History' },
++  { id: 'maps', groupId: 'journal-tools', groupOrder: 3, stableOrder: 15, icon: 'IconMap.png', label: 'Maps' },
++  { id: 'wiki', groupId: 'journal-tools', groupOrder: 4, stableOrder: 16, icon: 'Wiki.png', label: 'Wiki' },
++  { id: 'notes', groupId: 'journal-tools', groupOrder: 5, stableOrder: 17, icon: 'IconNotes.png', label: 'Notes' },
++  { id: 'checklist', groupId: 'journal-tools', groupOrder: 6, stableOrder: 18, icon: 'IconChecklist.png', label: 'Checklist' },
++  { id: 'settings', groupId: 'application', groupOrder: 1, stableOrder: 19, icon: 'IconSettings.png', label: 'Settings' },
++  { id: 'about', groupId: 'application', groupOrder: 2, stableOrder: 20, icon: 'IconInfo.png', label: 'About' },
++];
++
++export const STABLE_NAV_ITEMS = [...NAV_ITEMS].sort((a, b) => a.stableOrder - b.stableOrder);
++
++export const PREVIEW_GROUPED_NAV = PREVIEW_NAV_GROUPS.map((group) => ({
++  ...group,
++  items: NAV_ITEMS
++    .filter((item) => item.groupId === group.id)
++    .sort((a, b) => a.groupOrder - b.groupOrder),
++}));
++
++export const NAV_ICON_NAMES = [
++  ...STABLE_NAV_ITEMS.filter((item) => item.icon).map((item) => item.icon),
++  'IconKieda.png',
++];
++
++export function routeSearchText(item, translatedLabel, groupLabel) {
++  return [translatedLabel, item.label, item.id.replaceAll('-', ' '), groupLabel]
++    .filter(Boolean)
++    .join(' ')
++    .toLocaleLowerCase();
++}
+diff --git a/src/preview/shell/PreviewAppShell.jsx b/src/preview/shell/PreviewAppShell.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..69cae0c676966c3cb3444a7efeaa3f24d33fe65d
+--- /dev/null
++++ b/src/preview/shell/PreviewAppShell.jsx
+@@ -0,0 +1,68 @@
++import { forwardRef, useCallback, useRef, useState } from 'react';
++import PreviewImport from '../../components/PreviewImport';
++import PreviewGlobalHeader from './PreviewGlobalHeader';
++import PreviewNavigation from './PreviewNavigation';
++import '../styles/preview-tokens.css';
++import '../styles/preview-shell.css';
++import '../styles/preview-components.css';
++import '../styles/preview-dashboard.css';
++import '../styles/preview-responsive.css';
++
++const PreviewAppShell = forwardRef(function PreviewAppShell({
++  activeRouteId,
++  onNavigate,
++  status,
++  uiIcon,
++  t,
++  sidebarActive,
++  sidebarSide,
++  children,
++}, ref) {
++  const [drawerOpen, setDrawerOpen] = useState(false);
++  const drawerOpenerRef = useRef(null);
++
++  const openDrawer = useCallback((event) => {
++    drawerOpenerRef.current = event?.currentTarget || document.activeElement;
++    setDrawerOpen(true);
++  }, []);
++  const closeDrawer = useCallback(() => {
++    setDrawerOpen(false);
++    requestAnimationFrame(() => drawerOpenerRef.current?.focus());
++  }, []);
++  const navigate = useCallback((id) => {
++    onNavigate(id);
++    setDrawerOpen(false);
++  }, [onNavigate]);
++
++  return (
++    <div
++      ref={ref}
++      className={`preview-command-center${sidebarActive && sidebarSide === 'right' ? ' flex-row-reverse' : ''}`}
++      data-sidebar-mode={sidebarActive ? 'active' : 'inactive'}
++      data-sidebar-side={sidebarSide}
++    >
++      <PreviewNavigation
++        activeRouteId={activeRouteId}
++        onNavigate={navigate}
++        uiIcon={uiIcon}
++        t={t}
++        drawerOpen={drawerOpen}
++        onOpenDrawer={openDrawer}
++        onCloseDrawer={closeDrawer}
++      />
++      <div className="preview-shell-main">
++        <PreviewGlobalHeader
++          activeRouteId={activeRouteId}
++          onNavigate={navigate}
++          status={status}
++          t={t}
++          uiIcon={uiIcon}
++          importControl={<PreviewImport />}
++        />
++        <main className="preview-route-viewport">{children}</main>
++      </div>
++    </div>
++  );
++});
++
++export default PreviewAppShell;
+diff --git a/src/preview/shell/PreviewGlobalHeader.jsx b/src/preview/shell/PreviewGlobalHeader.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..8dcd70066e66c7942a7a3f5c6cf0383eb7823e8f
+--- /dev/null
++++ b/src/preview/shell/PreviewGlobalHeader.jsx
+@@ -0,0 +1,35 @@
++import { MoreVertical, X } from 'lucide-react';
++import { useEffect, useRef, useState } from 'react';
++import PreviewRouteSearch from './PreviewRouteSearch';
++import PreviewStatusSummary from './PreviewStatusSummary';
++
++export default function PreviewGlobalHeader({ activeRouteId, onNavigate, status, t, uiIcon, importControl }) {
++  const [open, setOpen] = useState(false);
++  const menuRef = useRef(null);
++
++  useEffect(() => {
++    if (!open) return undefined;
++    const onKeyDown = (event) => {
++      if (event.key === 'Escape') {
++        setOpen(false);
++        menuRef.current?.querySelector('button')?.focus();
++      }
++    };
++    document.addEventListener('keydown', onKeyDown);
++    return () => document.removeEventListener('keydown', onKeyDown);
++  }, [open]);
++
++  return (
++    <header className="preview-global-header">
++      <PreviewRouteSearch activeRouteId={activeRouteId} onNavigate={onNavigate} t={t} uiIcon={uiIcon} />
++      <PreviewStatusSummary status={status} />
++      <span className="preview-global-header__profile">{status.profile.label}<small>{status.profile.detail}</small></span>
++      <div ref={menuRef} className="preview-global-header__more">
++        <button type="button" aria-label={t('preview.shell.more_actions')} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
++          {open ? <X aria-hidden="true" /> : <MoreVertical aria-hidden="true" />}
++        </button>
++        {open && <div className="preview-global-header__menu">{importControl}</div>}
++      </div>
++    </header>
++  );
++}
+diff --git a/src/preview/shell/PreviewNavigation.jsx b/src/preview/shell/PreviewNavigation.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..3e4f1328d28ce0afa764f34eba182f1c38c0abab
+--- /dev/null
++++ b/src/preview/shell/PreviewNavigation.jsx
+@@ -0,0 +1,170 @@
++import { ChevronDown, ChevronRight, Menu, Star, X } from 'lucide-react';
++import { useEffect, useMemo, useRef, useState } from 'react';
++import { PREVIEW_GROUPED_NAV } from '../navigation';
++
++const STORAGE_KEY = 'preview.navigation.v1';
++const EMPTY_STATE = { collapsed: {}, favorites: [] };
++
++function loadState() {
++  try {
++    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
++    return {
++      collapsed: parsed.collapsed && typeof parsed.collapsed === 'object' ? parsed.collapsed : {},
++      favorites: Array.isArray(parsed.favorites) ? parsed.favorites : [],
++    };
++  } catch {
++    return EMPTY_STATE;
++  }
++}
++
++function NavIcon({ item, uiIcon }) {
++  if (item.lucide) {
++    const Icon = item.lucide;
++    return <Icon aria-hidden="true" />;
++  }
++  return <span className="preview-nav__mask" aria-hidden="true" style={{ '--preview-nav-icon': `url(${uiIcon(item.icon)})` }} />;
++}
++
++function GroupedNavigation({ activeRouteId, onNavigate, uiIcon, t, state, setState, setStorageError, compact = false }) {
++  const persist = (next) => {
++    setState(next);
++    try {
++      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
++      setStorageError('');
++    } catch (error) {
++      setStorageError(error?.message || 'Navigation preferences could not be saved.');
++    }
++  };
++
++  const toggleFavorite = (id) => {
++    const favorites = state.favorites.includes(id)
++      ? state.favorites.filter((value) => value !== id)
++      : [...state.favorites, id];
++    persist({ ...state, favorites });
++  };
++
++  if (compact) {
++    return <div className="preview-nav__rail-list">{PREVIEW_GROUPED_NAV.flatMap((group) => group.items).map((item) => (
++      <button
++        type="button"
++        key={item.id}
++        className={activeRouteId === item.id ? 'is-active' : ''}
++        aria-label={t(`nav.${item.id}`) || item.label}
++        aria-current={activeRouteId === item.id ? 'page' : undefined}
++        title={t(`nav.${item.id}`) || item.label}
++        onClick={() => onNavigate(item.id)}
++      >
++        <NavIcon item={item} uiIcon={uiIcon} />
++      </button>
++    ))}</div>;
++  }
++
++  return <div className="preview-nav__groups">{PREVIEW_GROUPED_NAV.map((group, index) => {
++    const collapsed = Boolean(state.collapsed[group.id]);
++    return (
++      <section key={group.id} aria-labelledby={`preview-nav-group-title-${group.id}`}>
++        <button
++          type="button"
++          className="preview-nav__group-heading"
++          aria-expanded={!collapsed}
++          aria-controls={`preview-nav-group-${group.id}`}
++          onClick={() => persist({ ...state, collapsed: { ...state.collapsed, [group.id]: !collapsed } })}
++        >
++          <span id={`preview-nav-group-title-${group.id}`}>{group.label}</span>
++          {collapsed ? <ChevronRight aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
++        </button>
++        <div id={`preview-nav-group-${group.id}`} hidden={collapsed}>
++          {group.items.map((item) => (
++            <div className="preview-nav__row" key={item.id}>
++              <button
++                type="button"
++                data-nav={item.id}
++                id={item.id === 'settings' ? 'nav-settings' : undefined}
++                className={activeRouteId === item.id ? 'is-active' : ''}
++                aria-current={activeRouteId === item.id ? 'page' : undefined}
++                onClick={() => onNavigate(item.id)}
++              >
++                <NavIcon item={item} uiIcon={uiIcon} />
++                <span>{t(`nav.${item.id}`) || item.label}</span>
++              </button>
++              <button
++                type="button"
++                className={state.favorites.includes(item.id) ? 'is-favorite' : ''}
++                aria-label={`${state.favorites.includes(item.id) ? 'Unpin' : 'Pin'} ${t(`nav.${item.id}`) || item.label}`}
++                onClick={() => toggleFavorite(item.id)}
++              >
++                <Star aria-hidden="true" />
++              </button>
++            </div>
++          ))}
++        </div>
++      </section>
++    );
++  })}</div>;
++}
++
++export default function PreviewNavigation({ activeRouteId, onNavigate, uiIcon, t, drawerOpen, onOpenDrawer, onCloseDrawer }) {
++  const [state, setState] = useState(loadState);
++  const [storageError, setStorageError] = useState('');
++  const drawerRef = useRef(null);
++  const headingId = 'preview-navigation-title';
++
++  useEffect(() => {
++    if (!drawerOpen) return undefined;
++    const drawer = drawerRef.current;
++    const focusable = drawer?.querySelectorAll('button:not([disabled]), a[href], input:not([disabled])') || [];
++    focusable[0]?.focus();
++    const onKeyDown = (event) => {
++      if (event.key === 'Escape') {
++        event.preventDefault();
++        onCloseDrawer();
++        return;
++      }
++      if (event.key !== 'Tab' || focusable.length === 0) return;
++      const first = focusable[0];
++      const last = focusable[focusable.length - 1];
++      if (event.shiftKey && document.activeElement === first) {
++        event.preventDefault();
++        last.focus();
++      } else if (!event.shiftKey && document.activeElement === last) {
++        event.preventDefault();
++        first.focus();
++      }
++    };
++    drawer?.addEventListener('keydown', onKeyDown);
++    return () => drawer?.removeEventListener('keydown', onKeyDown);
++  }, [drawerOpen, onCloseDrawer]);
++
++  const common = useMemo(() => ({ activeRouteId, uiIcon, t, state, setState, setStorageError }), [activeRouteId, uiIcon, t, state]);
++  const navigate = (id) => { onNavigate(id); onCloseDrawer(); };
++
++  return (
++    <>
++      <nav data-shell-nav-primary aria-labelledby={headingId} className="preview-nav preview-nav--expanded">
++        <div className="preview-nav__brand">
++          <img src={uiIcon('IconKieda.png')} alt="" />
++          <span><strong id={headingId}>Kieda's<br />Orbiter</strong><small>Preview command</small></span>
++        </div>
++        <GroupedNavigation {...common} onNavigate={onNavigate} />
++        {storageError && <p className="preview-nav__error" role="alert">{storageError}</p>}
++        <div className="preview-nav__profile"><span>KO</span><p><strong>Preview</strong><small>Isolated profile</small></p></div>
++      </nav>
++
++      <nav aria-label="Compact navigation" className="preview-nav preview-nav--rail">
++        <div className="preview-nav__rail-brand"><img src={uiIcon('IconKieda.png')} alt="Kieda's Orbiter" /></div>
++        <button type="button" className="preview-nav__menu" aria-label={t('preview.shell.menu')} aria-expanded={drawerOpen} onClick={onOpenDrawer}><Menu aria-hidden="true" /></button>
++        <GroupedNavigation {...common} onNavigate={onNavigate} compact />
++      </nav>
++
++      {drawerOpen && (
++        <div className="preview-nav-drawer-layer" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onCloseDrawer(); }}>
++          <nav ref={drawerRef} className="preview-nav-drawer" aria-label="Main navigation">
++            <header><strong>Navigation</strong><button type="button" onClick={onCloseDrawer} aria-label={t('preview.shell.close_navigation')}><X aria-hidden="true" /></button></header>
++            <GroupedNavigation {...common} onNavigate={navigate} />
++            {storageError && <p className="preview-nav__error" role="alert">{storageError}</p>}
++          </nav>
++        </div>
++      )}
++    </>
++  );
++}
+diff --git a/src/preview/shell/PreviewPage.jsx b/src/preview/shell/PreviewPage.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..6365aa01dab22c333b2836b93980bf1625f9b510
+--- /dev/null
++++ b/src/preview/shell/PreviewPage.jsx
+@@ -0,0 +1,17 @@
++export default function PreviewPage({ eyebrow, title, summary, actions, children, className = '' }) {
++  return (
++    <div className={`preview-page ${className}`.trim()}>
++      <div className="preview-page__scroll custom-scrollbar" data-preview-scroll-owner>
++        <header className="preview-page__header">
++          <div>
++            {eyebrow && <span className="preview-page__eyebrow">{eyebrow}</span>}
++            <h1>{title}</h1>
++            {summary && <p>{summary}</p>}
++          </div>
++          {actions && <div className="preview-page__actions">{actions}</div>}
++        </header>
++        <div className="preview-page__content">{children}</div>
++      </div>
++    </div>
++  );
++}
+diff --git a/src/preview/shell/PreviewRouteSearch.jsx b/src/preview/shell/PreviewRouteSearch.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..685adcc9aa18ac680abc816c1d7ed2ca55c680f1
+--- /dev/null
++++ b/src/preview/shell/PreviewRouteSearch.jsx
+@@ -0,0 +1,103 @@
++import { Search, X } from 'lucide-react';
++import { useMemo, useRef, useState } from 'react';
++import { PREVIEW_GROUPED_NAV, routeSearchText } from '../navigation';
++
++export default function PreviewRouteSearch({ activeRouteId, onNavigate, t, uiIcon }) {
++  const [query, setQuery] = useState('');
++  const [open, setOpen] = useState(false);
++  const [highlighted, setHighlighted] = useState(0);
++  const inputRef = useRef(null);
++  const normalized = query.trim().toLocaleLowerCase();
++  const groups = useMemo(() => new Map(PREVIEW_GROUPED_NAV.map((group) => [group.id, group.label])), []);
++  const results = useMemo(() => {
++    if (!normalized) return [];
++    return PREVIEW_GROUPED_NAV.flatMap((group) => group.items).filter((item) => {
++      const label = t(`nav.${item.id}`) || item.label;
++      return routeSearchText(item, label, groups.get(item.groupId)).includes(normalized);
++    });
++  }, [groups, normalized, t]);
++
++  const choose = (item) => {
++    onNavigate(item.id);
++    setQuery('');
++    setOpen(false);
++    setHighlighted(0);
++    inputRef.current?.focus();
++  };
++
++  const onKeyDown = (event) => {
++    if (event.key === 'Escape') {
++      setOpen(false);
++      setHighlighted(0);
++      return;
++    }
++    if (!open || results.length === 0) return;
++    if (event.key === 'ArrowDown') {
++      event.preventDefault();
++      setHighlighted((value) => (value + 1) % results.length);
++    } else if (event.key === 'ArrowUp') {
++      event.preventDefault();
++      setHighlighted((value) => (value - 1 + results.length) % results.length);
++    } else if (event.key === 'Enter') {
++      event.preventDefault();
++      choose(results[highlighted] || results[0]);
++    }
++  };
++
++  const listboxId = 'preview-route-search-results';
++  return (
++    <div className="preview-route-search">
++      <Search aria-hidden="true" className="preview-route-search__icon" />
++      <input
++        ref={inputRef}
++        type="search"
++        value={query}
++        placeholder={t('preview.shell.search_placeholder')}
++        aria-label={t('preview.shell.search_placeholder')}
++        aria-expanded={open && normalized.length > 0}
++        aria-controls={listboxId}
++        aria-activedescendant={open && results.length ? `preview-search-result-${results[highlighted]?.id}` : undefined}
++        role="combobox"
++        autoComplete="off"
++        onFocus={() => setOpen(true)}
++        onChange={(event) => {
++          setQuery(event.target.value);
++          setHighlighted(0);
++          setOpen(true);
++        }}
++        onKeyDown={onKeyDown}
++      />
++      {query && (
++        <button type="button" aria-label="Clear search" onClick={() => { setQuery(''); setHighlighted(0); inputRef.current?.focus(); }}>
++          <X aria-hidden="true" />
++        </button>
++      )}
++      {open && normalized && (
++        <div id={listboxId} className="preview-route-search__results" role="listbox" aria-label={t('preview.shell.search_results')}>
++          {results.length ? results.map((item, index) => {
++            const Icon = item.lucide;
++            return (
++              <button
++                type="button"
++                role="option"
++                aria-selected={index === highlighted}
++                id={`preview-search-result-${item.id}`}
++                key={item.id}
++                className={index === highlighted ? 'is-highlighted' : ''}
++                onMouseEnter={() => setHighlighted(index)}
++                onClick={() => choose(item)}
++              >
++                {Icon ? <Icon aria-hidden="true" /> : <span className="preview-route-search__asset" aria-hidden="true" style={{ '--preview-search-icon': `url(${uiIcon(item.icon)})` }} />}
++                <span>
++                  <strong>{t(`nav.${item.id}`) || item.label}</strong>
++                  <small>{groups.get(item.groupId)}</small>
++                </span>
++                {item.id === activeRouteId && <small>Current</small>}
++              </button>
++            );
++          }) : <p role="status">{t('preview.shell.search_no_results')}</p>}
++        </div>
++      )}
++    </div>
++  );
++}
+diff --git a/src/preview/shell/PreviewStatusSummary.jsx b/src/preview/shell/PreviewStatusSummary.jsx
+new file mode 100644
+index 0000000000000000000000000000000000000000..6cc9d567b9ea2338534ba3884dcebea64271fc3d
+--- /dev/null
++++ b/src/preview/shell/PreviewStatusSummary.jsx
+@@ -0,0 +1,24 @@
++import { Database, ShieldCheck } from 'lucide-react';
++
++const TONES = {
++  success: 'positive',
++  cached: 'warning',
++  error: 'danger',
++  idle: 'neutral',
++};
++
++export default function PreviewStatusSummary({ status }) {
++  const syncTone = TONES[status.inventorySync.state] || 'neutral';
++  return (
++    <div className="preview-global-status" aria-label="Application status">
++      <div className={`preview-global-status__item preview-global-status__item--${syncTone}`} title={status.inventorySync.detail}>
++        <Database aria-hidden="true" />
++        <span>{status.inventorySync.label}</span>
++      </div>
++      <div className="preview-global-status__item preview-global-status__item--preview" title={status.liveIntegrations.detail}>
++        <ShieldCheck aria-hidden="true" />
++        <span>{status.liveIntegrations.label}</span>
++      </div>
++    </div>
++  );
++}
+diff --git a/src/preview/styles/preview-components.css b/src/preview/styles/preview-components.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..ac191a488df9ffc356f486a7ee32c999833558f4
+--- /dev/null
++++ b/src/preview/styles/preview-components.css
+@@ -0,0 +1,82 @@
++.preview-button {
++  min-height: 38px;
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  gap: var(--preview-space-2);
++  border: 1px solid var(--preview-line);
++  border-radius: var(--preview-radius-md);
++  padding: 0 var(--preview-space-4);
++  color: var(--preview-text);
++  background: var(--preview-surface-raised);
++  font-size: 12px;
++  font-weight: 750;
++  transition: border-color 140ms ease, background 140ms ease, color 140ms ease;
++}
++
++.preview-button:hover:not(:disabled) { border-color: var(--preview-accent); }
++.preview-button:disabled { cursor: not-allowed; opacity: .48; }
++.preview-button--primary { background: var(--preview-accent); color: var(--preview-canvas); border-color: var(--preview-accent); }
++.preview-button--ghost { background: transparent; }
++.preview-button--icon { width: 38px; padding: 0; }
++
++.preview-button:focus-visible,
++.preview-command-center button:focus-visible,
++.preview-command-center input:focus-visible {
++  outline: 2px solid var(--preview-accent);
++  outline-offset: 2px;
++}
++
++.preview-panel {
++  min-width: 0;
++  border: 1px solid var(--preview-line);
++  border-radius: var(--preview-radius-md);
++  background: color-mix(in srgb, var(--preview-surface) 94%, transparent);
++}
++
++.preview-status-badge {
++  display: inline-flex;
++  align-items: center;
++  min-height: 22px;
++  padding: 0 8px;
++  border: 1px solid var(--preview-line-subtle);
++  border-radius: 999px;
++  color: var(--preview-muted);
++  font-size: 10px;
++  font-weight: 800;
++  letter-spacing: .08em;
++  text-transform: uppercase;
++}
++.preview-status-badge--positive { color: var(--preview-positive); }
++.preview-status-badge--warning { color: var(--preview-warning); }
++.preview-status-badge--danger { color: var(--preview-danger); }
++.preview-status-badge--preview { color: var(--preview-channel); }
++
++.preview-data-state {
++  min-height: 160px;
++  display: grid;
++  place-items: center;
++  align-content: center;
++  gap: var(--preview-space-3);
++  padding: var(--preview-space-8);
++  border: 1px dashed var(--preview-line);
++  border-radius: var(--preview-radius-md);
++  color: var(--preview-muted);
++  text-align: center;
++}
++.preview-data-state > svg { width: 32px; height: 32px; color: var(--preview-accent); }
++.preview-data-state strong { display: block; color: var(--preview-text); font-size: 15px; }
++.preview-data-state p { max-width: 440px; margin: 6px auto 0; font-size: 12px; }
++.preview-data-state--compact { min-height: 96px; grid-template-columns: auto minmax(0, 1fr) auto; place-items: center start; text-align: left; padding: var(--preview-space-4); }
++.preview-data-state--error > svg { color: var(--preview-danger); }
++.preview-spin { animation: preview-spin 900ms linear infinite; }
++@keyframes preview-spin { to { transform: rotate(360deg); } }
++
++@media (prefers-reduced-motion: reduce) {
++  .preview-command-center *, .preview-command-center *::before, .preview-command-center *::after {
++    scroll-behavior: auto !important;
++    transition-duration: 0.001ms !important;
++    animation-duration: 0.001ms !important;
++    animation-iteration-count: 1 !important;
++  }
++}
+diff --git a/src/preview/styles/preview-dashboard.css b/src/preview/styles/preview-dashboard.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..38825b90612a3c45cdc7ba379fd2d60b849cd9b2
+--- /dev/null
++++ b/src/preview/styles/preview-dashboard.css
+@@ -0,0 +1,51 @@
++.preview-dashboard__layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(310px, 350px); gap: 28px; align-items: start; }
++.preview-dashboard__main, .preview-dashboard__live { min-width: 0; }
++.preview-dashboard__summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
++.preview-dashboard__stat { min-height: 80px; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 12px; padding: 14px 16px; }
++.preview-dashboard__stat > svg { width: 30px; height: 30px; color: var(--preview-accent); }
++.preview-dashboard__stat strong, .preview-dashboard__stat small { display: block; }
++.preview-dashboard__stat strong { font-size: 24px; line-height: 1; }
++.preview-dashboard__stat small { margin-top: 5px; color: var(--preview-muted); font-size: 11px; }
++.preview-dashboard__stat em { grid-column: 2; color: var(--preview-muted); font-size: 9px; font-style: normal; }
++
++.preview-dashboard__panel { padding: 10px; }
++.preview-dashboard__panel > header, .preview-dashboard__section > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 5px 4px 8px; }
++.preview-dashboard__panel h2, .preview-dashboard__section h2, .preview-dashboard__live > h2 { margin: 0; font-size: 18px; font-weight: 750; text-transform: none; }
++
++.preview-dashboard__target-empty { min-height: 176px; display: grid; place-items: center; align-content: center; gap: 9px; padding: 24px; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(var(--color-accent-rgb), .12), transparent 58%); }
++.preview-dashboard__target-empty > svg { width: 34px; height: 34px; color: var(--preview-detail); }
++.preview-dashboard__target-empty strong { font-size: 16px; }
++.preview-dashboard__target-empty p { max-width: 430px; margin: 0; color: var(--preview-muted); font-size: 12px; }
++.preview-dashboard__target-notice { color: var(--preview-warning) !important; }
++
++.preview-dashboard__live { border-left: 1px solid var(--preview-line); padding-left: 24px; }
++.preview-dashboard__live > h2 { margin: 16px 0 12px; }
++.preview-dashboard__live-cards { display: grid; gap: 12px; }
++.preview-dashboard__live-card { min-width: 0; max-height: 270px; overflow: auto; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-md); background: var(--preview-surface); scrollbar-width: thin; }
++.preview-dashboard__live-card > * { border: 0 !important; border-radius: 0 !important; }
++.preview-dashboard__live-empty { padding: 20px; color: var(--preview-muted); font-size: 12px; }
++.preview-dashboard__view-all { width: 100%; margin-top: 12px; color: var(--preview-accent); }
++
++.preview-dashboard__session { margin-top: 16px; padding: 10px; }
++.preview-dashboard__session-list { display: grid; gap: 8px; }
++.preview-dashboard__session-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; padding: 10px; border-top: 1px solid var(--preview-line-subtle); }
++.preview-dashboard__session-item strong, .preview-dashboard__session-item small { display: block; }
++.preview-dashboard__session-item strong { font-size: 12px; }
++.preview-dashboard__session-item small { margin-top: 3px; color: var(--preview-muted); font-size: 10px; }
++
++.preview-dashboard__foundry { grid-column: 1 / -1; margin-top: 18px; padding: 12px; }
++.preview-dashboard__foundry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
++.preview-dashboard__recipe { min-height: 104px; display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid var(--preview-line-subtle); background: color-mix(in srgb, var(--preview-surface) 80%, transparent); }
++.preview-dashboard__recipe img, .preview-dashboard__recipe-image { width: 80px; height: 84px; object-fit: contain; }
++.preview-dashboard__recipe-image { display: grid; place-items: center; color: var(--preview-muted); }
++.preview-dashboard__recipe h3 { margin: 0; font-size: 15px; }
++.preview-dashboard__recipe p { margin: 4px 0 0; color: var(--preview-muted); font-size: 10px; }
++
++.preview-dashboard__all { grid-column: 1 / -1; margin-top: 18px; }
++.preview-dashboard__section { margin-top: 18px; }
++.preview-dashboard__card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
++.preview-dashboard__card-slot { min-width: 0; }
++.preview-dashboard__card-slot--wide { grid-column: span 2; }
++.preview-dashboard__card-slot > * { height: 100%; margin: 0; }
++
++.preview-dashboard__loading { padding-top: 44px; }
+diff --git a/src/preview/styles/preview-responsive.css b/src/preview/styles/preview-responsive.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..4e0ac5981d03b77f53da136154228e286e5883bd
+--- /dev/null
++++ b/src/preview/styles/preview-responsive.css
+@@ -0,0 +1,57 @@
++@media (max-width: 1050px) {
++  .preview-shell-main { grid-template-rows: 60px minmax(0, 1fr); }
++  .preview-nav--expanded { display: none; }
++  .preview-nav--rail { flex-basis: 72px; width: 72px; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
++  .preview-nav__rail-brand { width: 100%; height: 60px; display: grid; place-items: center; border-bottom: 1px solid var(--preview-line-subtle); }
++  .preview-nav__rail-brand img { width: 38px; height: 38px; object-fit: contain; }
++  .preview-nav__menu { width: 42px; height: 42px; display: grid; place-items: center; margin: 9px 0 5px; border-radius: 7px; color: var(--preview-muted); }
++  .preview-nav__menu svg { width: 18px; }
++  .preview-nav__rail-list { width: 100%; min-height: 0; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--preview-line) transparent; padding: 4px 0 12px; }
++  .preview-nav__rail-list button { width: 44px; height: 42px; display: grid; place-items: center; flex: 0 0 42px; border-radius: 7px; color: var(--preview-muted); }
++  .preview-nav__rail-list button:hover, .preview-nav__rail-list button.is-active { color: var(--preview-accent); background: var(--preview-surface-selected); }
++  .preview-nav__rail-list button.is-active { box-shadow: inset 3px 0 0 var(--preview-accent); }
++  .preview-nav__rail-list svg, .preview-nav__rail-list .preview-nav__mask { width: 19px; height: 19px; }
++
++  .preview-nav-drawer-layer { position: fixed; z-index: 1000; inset: 0; display: block; background: rgba(0, 0, 0, .62); }
++  .preview-nav-drawer { width: min(248px, calc(100vw - 32px)); height: 100%; display: flex; flex-direction: column; border-right: 1px solid var(--preview-line); background: var(--preview-canvas); box-shadow: var(--preview-shadow); }
++  .preview-nav-drawer > header { min-height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px 0 20px; border-bottom: 1px solid var(--preview-line); }
++  .preview-nav-drawer > header strong { font-size: 13px; text-transform: uppercase; letter-spacing: .12em; }
++  .preview-nav-drawer > header button { width: 36px; height: 36px; display: grid; place-items: center; }
++
++  .preview-global-header { gap: 10px; padding: 0 16px; }
++  .preview-route-search { width: min(340px, 48vw); }
++  .preview-route-search > input { height: 36px; }
++  .preview-route-search__icon { top: 10px; }
++  .preview-route-search > button { top: 5px; }
++  .preview-global-status__item--preview { display: none; }
++  .preview-global-header__profile small { display: none; }
++
++  .preview-page__scroll { padding: 18px 18px 36px; }
++  .preview-page__header { margin-bottom: 14px; }
++  .preview-dashboard__layout { display: block; }
++  .preview-dashboard__live { margin-top: 18px; padding-left: 0; border-left: 0; }
++  .preview-dashboard__live-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
++  .preview-dashboard__live-card { max-height: 230px; }
++  .preview-dashboard__card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
++}
++
++@media (max-width: 760px) {
++  .preview-global-status__item span, .preview-global-header__profile { display: none; }
++  .preview-route-search { width: auto; flex: 1; min-width: 0; }
++  .preview-dashboard__summary { grid-template-columns: 1fr; }
++  .preview-dashboard__live-cards, .preview-dashboard__foundry-grid, .preview-dashboard__card-grid { grid-template-columns: 1fr; }
++  .preview-dashboard__card-slot--wide { grid-column: auto; }
++  .preview-page__header { align-items: flex-start; flex-direction: column; }
++}
++
++@media (max-height: 600px) {
++  .preview-page__scroll { padding-top: 12px; }
++  .preview-page__header { margin-bottom: 10px; }
++  .preview-page__header h1 { font-size: 24px; }
++  .preview-page__header p { font-size: 11px; }
++  .preview-dashboard__summary { margin-bottom: 10px; }
++  .preview-dashboard__stat { min-height: 58px; padding: 9px 12px; }
++  .preview-dashboard__stat > svg { width: 24px; height: 24px; }
++  .preview-dashboard__stat strong { font-size: 20px; }
++  .preview-dashboard__target-empty { min-height: 120px; padding: 14px; }
++}
+diff --git a/src/preview/styles/preview-shell.css b/src/preview/styles/preview-shell.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..8f3a24d4f9af4d76f5a3ab5694c2d699426c4b04
+--- /dev/null
++++ b/src/preview/styles/preview-shell.css
+@@ -0,0 +1,143 @@
++.preview-command-center {
++  display: flex;
++  width: 100%;
++  height: 100vh;
++  min-width: 0;
++  overflow: hidden;
++  background: var(--preview-canvas);
++}
++
++.preview-shell-main {
++  min-width: 0;
++  flex: 1;
++  display: grid;
++  grid-template-rows: 70px minmax(0, 1fr);
++}
++
++.preview-route-viewport { min-width: 0; min-height: 0; overflow: hidden; background: var(--preview-canvas); }
++
++.preview-nav {
++  flex: 0 0 248px;
++  width: 248px;
++  min-width: 0;
++  height: 100vh;
++  border-right: 1px solid var(--preview-line);
++  background: color-mix(in srgb, var(--preview-canvas) 93%, var(--preview-accent) 7%);
++}
++.preview-command-center.flex-row-reverse .preview-nav--expanded { border-right: 0; border-left: 1px solid var(--preview-line); }
++.preview-nav--expanded { display: flex; flex-direction: column; }
++.preview-nav--rail { display: none; }
++
++.preview-nav__brand {
++  min-height: 88px;
++  display: flex;
++  align-items: center;
++  gap: 12px;
++  padding: 14px 20px;
++  border-bottom: 1px solid var(--preview-line-subtle);
++}
++.preview-nav__brand img { width: 38px; height: 38px; object-fit: contain; }
++.preview-nav__brand strong { display: block; font-size: 15px; line-height: 1.08; letter-spacing: .12em; text-transform: uppercase; }
++.preview-nav__brand small { display: block; margin-top: 5px; color: var(--preview-accent); font-size: 8px; letter-spacing: .18em; text-transform: uppercase; }
++
++.preview-nav__groups {
++  flex: 1;
++  min-height: 0;
++  overflow-y: auto;
++  scrollbar-gutter: stable;
++  scrollbar-width: thin;
++  scrollbar-color: var(--preview-line) transparent;
++  padding: 12px 10px 20px;
++}
++.preview-nav__group-heading {
++  width: 100%;
++  min-height: 30px;
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  padding: 0 10px;
++  color: color-mix(in srgb, var(--preview-accent) 70%, var(--preview-muted));
++  font-size: 9px;
++  font-weight: 750;
++  letter-spacing: .18em;
++  text-transform: uppercase;
++}
++.preview-nav__group-heading svg { width: 13px; height: 13px; }
++.preview-nav__row { display: grid; grid-template-columns: minmax(0, 1fr) 30px; align-items: center; margin-bottom: 2px; }
++.preview-nav__row > button:first-child {
++  min-width: 0;
++  min-height: 39px;
++  display: flex;
++  align-items: center;
++  gap: 11px;
++  border-radius: var(--preview-radius-sm);
++  padding: 0 10px;
++  color: var(--preview-muted);
++  font-size: 12px;
++  text-align: left;
++}
++.preview-nav__row > button:first-child > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
++.preview-nav__row > button:first-child:hover, .preview-nav__row > button:first-child.is-active { color: var(--preview-text); background: var(--preview-surface-selected); }
++.preview-nav__row > button:first-child.is-active { box-shadow: inset 3px 0 0 var(--preview-accent); color: var(--preview-accent); }
++.preview-nav__row > button:last-child { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 6px; color: color-mix(in srgb, var(--preview-muted) 45%, transparent); }
++.preview-nav__row > button:last-child:hover, .preview-nav__row > button:last-child.is-favorite { color: var(--preview-detail); }
++.preview-nav__row svg, .preview-nav__mask { width: 17px; height: 17px; flex: 0 0 17px; }
++.preview-nav__mask { display: block; background: currentColor; mask: var(--preview-nav-icon) center / contain no-repeat; -webkit-mask: var(--preview-nav-icon) center / contain no-repeat; }
++.preview-nav__error { margin: 0 12px 10px; color: var(--preview-warning); font-size: 10px; }
++.preview-nav__profile { min-height: 64px; display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-top: 1px solid var(--preview-line-subtle); }
++.preview-nav__profile > span { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--preview-accent); color: var(--preview-accent); font-size: 10px; font-weight: 900; }
++.preview-nav__profile strong, .preview-nav__profile small { display: block; }
++.preview-nav__profile strong { font-size: 11px; text-transform: uppercase; }
++.preview-nav__profile small { color: var(--preview-muted); font-size: 9px; }
++
++.preview-global-header {
++  position: relative;
++  z-index: 50;
++  min-width: 0;
++  display: flex;
++  align-items: center;
++  gap: 16px;
++  padding: 0 24px;
++  border-bottom: 1px solid var(--preview-line);
++  background: color-mix(in srgb, var(--preview-canvas) 96%, transparent);
++}
++.preview-route-search { position: relative; width: min(465px, 42vw); min-width: 220px; }
++.preview-route-search > input { width: 100%; height: 40px; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-sm); padding: 0 38px; color: var(--preview-text); background: color-mix(in srgb, var(--preview-surface) 65%, transparent); font-size: 12px; }
++.preview-route-search__icon { position: absolute; z-index: 1; left: 12px; top: 12px; width: 16px; height: 16px; color: var(--preview-muted); }
++.preview-route-search > button { position: absolute; z-index: 2; right: 7px; top: 7px; width: 26px; height: 26px; display: grid; place-items: center; color: var(--preview-muted); }
++.preview-route-search > button svg { width: 14px; }
++.preview-route-search__results { position: absolute; top: calc(100% + 7px); left: 0; right: 0; max-height: 320px; overflow-y: auto; padding: 6px; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-md); background: var(--preview-surface); box-shadow: var(--preview-shadow); }
++.preview-route-search__results > button { width: 100%; min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 7px 9px; border-radius: 6px; text-align: left; }
++.preview-route-search__results > button.is-highlighted { background: var(--preview-surface-selected); }
++.preview-route-search__results svg, .preview-route-search__asset { width: 17px; height: 17px; color: var(--preview-accent); }
++.preview-route-search__asset { display: block; flex: 0 0 17px; background: currentColor; mask: var(--preview-search-icon) center / contain no-repeat; -webkit-mask: var(--preview-search-icon) center / contain no-repeat; }
++.preview-route-search__results span { min-width: 0; flex: 1; }
++.preview-route-search__results strong, .preview-route-search__results small { display: block; }
++.preview-route-search__results strong { font-size: 12px; }
++.preview-route-search__results small, .preview-route-search__results > p { color: var(--preview-muted); font-size: 9px; }
++.preview-route-search__results > p { padding: 12px; text-align: center; }
++
++.preview-global-status { margin-left: auto; display: flex; align-items: center; gap: 14px; }
++.preview-global-status__item { display: flex; align-items: center; gap: 7px; color: var(--preview-muted); font-size: 10px; white-space: nowrap; }
++.preview-global-status__item svg { width: 14px; height: 14px; }
++.preview-global-status__item--positive { color: var(--preview-positive); }
++.preview-global-status__item--warning { color: var(--preview-warning); }
++.preview-global-status__item--danger { color: var(--preview-danger); }
++.preview-global-status__item--preview { color: var(--preview-channel); }
++.preview-global-header__profile { display: grid; color: var(--preview-text); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-align: right; text-transform: uppercase; white-space: nowrap; }
++.preview-global-header__profile small { color: var(--preview-muted); font-size: 8px; font-weight: 500; }
++.preview-global-header__more { position: relative; }
++.preview-global-header__more > button { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--preview-line); border-radius: 50%; color: var(--preview-muted); }
++.preview-global-header__more svg { width: 17px; }
++.preview-global-header__menu { position: absolute; right: 0; top: calc(100% + 8px); min-width: 240px; padding: 10px; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-md); background: var(--preview-surface); box-shadow: var(--preview-shadow); }
++.preview-global-header__menu > button { width: 100%; }
++
++.preview-page { height: 100%; min-width: 0; overflow: hidden; }
++.preview-page__scroll { height: 100%; min-width: 0; overflow-x: hidden; overflow-y: auto; scrollbar-gutter: stable; padding: 24px 28px 40px; }
++.preview-page__header { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
++.preview-page__eyebrow { display: block; margin-bottom: 4px; color: var(--preview-accent); font-size: 9px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
++.preview-page__header h1 { margin: 0; color: var(--preview-text); font-size: clamp(26px, 2.4vw, 34px); font-weight: 800; letter-spacing: -.025em; line-height: 1.1; text-transform: none; }
++.preview-page__header p { margin: 5px 0 0; color: var(--preview-muted); font-size: 13px; }
++.preview-page__actions { display: flex; align-items: center; gap: 10px; }
++
++.preview-nav-drawer-layer { display: none; }
+diff --git a/src/preview/styles/preview-tokens.css b/src/preview/styles/preview-tokens.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..9d34db6e40681d7ebc327881daeb344f6a04ff6a
+--- /dev/null
++++ b/src/preview/styles/preview-tokens.css
+@@ -0,0 +1,28 @@
++.preview-command-center {
++  --preview-canvas: var(--color-bg);
++  --preview-surface: var(--color-panel);
++  --preview-surface-raised: color-mix(in srgb, var(--color-panel) 88%, white 12%);
++  --preview-surface-selected: rgba(var(--color-accent-rgb), 0.12);
++  --preview-line: rgba(var(--color-accent-rgb), 0.24);
++  --preview-line-subtle: color-mix(in srgb, var(--color-text) 10%, transparent);
++  --preview-text: var(--color-text);
++  --preview-muted: var(--color-text-dim);
++  --preview-accent: var(--color-accent);
++  --preview-detail: var(--color-accent-secondary);
++  --preview-positive: #69df8b;
++  --preview-warning: #f0bd5f;
++  --preview-danger: #ff6e78;
++  --preview-channel: #aa8cff;
++  --preview-space-1: 4px;
++  --preview-space-2: 8px;
++  --preview-space-3: 12px;
++  --preview-space-4: 16px;
++  --preview-space-5: 20px;
++  --preview-space-6: 24px;
++  --preview-space-8: 32px;
++  --preview-radius-sm: 6px;
++  --preview-radius-md: 9px;
++  --preview-radius-lg: 13px;
++  --preview-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
++  color: var(--preview-text);
++}
+diff --git a/src/preview/view-models/dashboardViewModel.js b/src/preview/view-models/dashboardViewModel.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..64988adabf29192a465ac488fac3ff0164f2af69
+--- /dev/null
++++ b/src/preview/view-models/dashboardViewModel.js
+@@ -0,0 +1,44 @@
++export const DASHBOARD_PROMOTED_CARD_IDS = ['fiss', 'baro', 'nightwave'];
++
++export const DASHBOARD_SECTIONS = [
++  { id: 'now', title: 'Now', cardIds: ['timers', 'alerts', 'arb', 'inf', 'fiss', 'inv'] },
++  { id: 'activities', title: 'Activities & rotations', cardIds: ['bounty', 'nightwave', 'sortie', 'hunt', 'arch', 'desc', 'circuit', '1999'] },
++  { id: 'news', title: 'News & offers', cardIds: ['baro', 'event', 'deal', 'sales', 'news'] },
++];
++
++export function createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate }) {
++  const inventoryKnown = inventoryData !== undefined && inventoryData !== null;
++  const craftable = Array.isArray(inventoryData?.craftable) ? inventoryData.craftable : [];
++  const readyRecipes = inventoryKnown
++    ? craftable.filter((recipe) => recipe?.readyToCraft === true)
++    : null;
++  const sessionActivity = Array.isArray(notificationHistory) ? notificationHistory : [];
++
++  return {
++    targets: {
++      count: 0,
++      available: false,
++    },
++    foundry: {
++      known: inventoryKnown,
++      count: readyRecipes?.length ?? null,
++      items: (readyRecipes || []).slice(0, 2).map((recipe) => ({
++        id: recipe.uniqueName || recipe.resultType || recipe.bpName,
++        name: recipe.baseName || recipe.bpName || 'Unnamed recipe',
++        image: recipe.image || '',
++        blueprintCount: recipe.bpCount ?? 0,
++        ingredientCount: Array.isArray(recipe.ingredients) ? recipe.ingredients.length : 0,
++      })),
++    },
++    session: {
++      count: sessionActivity.length,
++      items: sessionActivity.slice(0, 3).map((entry, index) => ({
++        id: `${entry.notifId || 'activity'}-${entry.timestamp || index}`,
++        title: entry.title || 'Activity',
++        message: entry.message || '',
++        timestamp: entry.timestamp || null,
++      })),
++    },
++    lastUpdate: lastUpdate || null,
++  };
++}
+diff --git a/src/screens/Dashboard.jsx b/src/screens/Dashboard.jsx
+index da4e3aee4ff1e2d38ca59729f50c5353c33f3cae..a63c94a07b2fddffdceb5b57f1e1f2a145a03d14 100644
+--- a/src/screens/Dashboard.jsx
++++ b/src/screens/Dashboard.jsx
+@@ -1,5 +1,6 @@
+ import { IS_PREVIEW } from '../lib/buildProfile';
+-import PreviewDashboardLayout from '../components/PreviewDashboardLayout';
++import PreviewDashboardView from '../preview/dashboard/PreviewDashboardView';
++import { createDashboardViewModel } from '../preview/view-models/dashboardViewModel';
+ /**
+  * Dashboard.jsx
+  *
+@@ -165,14 +166,14 @@ function resolveCaviaGiver(challenge, name, desc, obj) {
+   return 'BountyFibonacci';
+ }
+ 
+-export default function Dashboard() {
++export default function Dashboard({ onNavigate = () => {} }) {
+   const { t } = useUi()
+   const {
+     exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
+     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
+     rawInventory, inventoryData, ES, ENWRawRewards, ExportImages, ExportTextIcons,
+     cardImagesPath, allPrices,
+-    manualRefresh, lastUpdate
++    manualRefresh, lastUpdate, notificationHistory
+   } = useMonitoring();
+   const [worldstate, setWorldstate] = useState(null);
+   const [bountyCycle, setBountyCycle] = useState(null);
+@@ -183,6 +184,7 @@ export default function Dashboard() {
+   const [showBaroModal, setShowBaroModal] = useState(false);
+   const [showWishlistModal, setShowWishlistModal] = useState(false);
+   const [showSettings, setShowSettings] = useState(false);
++  const [targetNotice, setTargetNotice] = useState(false);
+   const [iconsPath, setIconsPath] = useState('');
+   const [framesPath, setFramesPath] = useState('');
+   const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)); // Default to Dec 1999
+@@ -1572,6 +1574,18 @@ export default function Dashboard() {
+   };
+ 
+   if (loading && !worldstate) {
++    if (IS_PREVIEW) {
++      return <PreviewDashboardView
++        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate })}
++        loading
++        onRefresh={handleRefresh}
++        onNavigate={onNavigate}
++        onCustomize={() => setShowSettings(true)}
++        onAddFarmingTarget={() => setTargetNotice(true)}
++        targetNotice={targetNotice}
++        t={t}
++      />;
++    }
+     return (
+       <PageLayout
+         titleKey="screen.dashboard"
+@@ -1998,11 +2012,8 @@ export default function Dashboard() {
+             </Card>),
+   };
+ 
+-  return (
+-    <PageLayout
+-      titleKey="screen.dashboard"
+-      extra={
+-      <div className="flex items-center gap-3 relative">
++  const dashboardActions = (
++    <div className="flex items-center gap-3 relative">
+           <button
+           onClick={() => setShowSettings(!showSettings)}
+           className={`p-2 rounded-full transition-all border ${showSettings ?
+@@ -2074,9 +2085,30 @@ export default function Dashboard() {
+ 
+           </Button>
+         </div>
+-      }>
++  );
++  const dialogs = <><DescendiaModal /><BaroModal /><WishlistModal /></>;
++
++  if (IS_PREVIEW) {
++    return <>
++      <PreviewDashboardView
++        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate })}
++        cards={cards}
++        actions={dashboardActions}
++        targetNotice={targetNotice}
++        onAddFarmingTarget={() => setTargetNotice(true)}
++        onNavigate={onNavigate}
++        onCustomize={() => setShowSettings(true)}
++        onRefresh={handleRefresh}
++        t={t}
++      />
++      {dialogs}
++    </>;
++  }
+ 
+-      {IS_PREVIEW ? <PreviewDashboardLayout cards={cards} onCustomize={() => setShowSettings(true)} /> : (
++  return (
++    <PageLayout
++      titleKey="screen.dashboard"
++      extra={dashboardActions}>
+       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-4">
+         {/* Bounties - Full Width */}
+         {cards["bounty"]}
+@@ -2139,10 +2171,7 @@ export default function Dashboard() {
+           {cards["news"]}
+         </div>
+       </div>
+-      )}
+-      <DescendiaModal />
+-      <BaroModal />
+-      <WishlistModal />
++      {dialogs}
+     </PageLayout>);
+ 
+-}
+\ No newline at end of file
++}

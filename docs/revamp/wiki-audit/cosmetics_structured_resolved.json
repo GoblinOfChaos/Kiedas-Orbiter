@@ -1,0 +1,2642 @@
+{
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoF": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoF",
+    "wikiName": "Fumiro Ink",
+    "description": "Body art can convey that which brings you peace or drives your spirit.",
+    "acquisition": "Purchased from Quincy (Rank 4+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Fumiro Ink'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisTigris": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisTigris",
+    "wikiName": "Tigris Elixis Skin",
+    "description": "Gild the Tigris with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 275,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Tigris Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/KavatPetWings": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/KavatPetWings",
+    "wikiName": "Kavat Sentinel Wings",
+    "description": "A pair of wings for your sentinel pet.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 250,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Kavat Sentinel Wings'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/FurisArmor/PrismaFurisAArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/FurisArmor/PrismaFurisAArmor",
+    "wikiName": "Prisma Avia Shoulder Plate",
+    "description": "Streamlined Prisma armor in the style of the Furis and Sybaris.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 200,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Avia Shoulder Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/HornSkullScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/HornSkullScarf",
+    "wikiName": "Rakta Syandana",
+    "description": "The Rakta Syandana is awarded by the Red Veil for exemplary valor. This honor is rarely given to outsiders.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 350,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Rakta Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPGlaive": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPGlaive",
+    "wikiName": "Glaive Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Glaive Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPGorgon": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPGorgon",
+    "wikiName": "Gorgon Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Gorgon Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAklato": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAklato",
+    "wikiName": "Aklato Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Aklato Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetA/LunaroSetAA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetA/LunaroSetAA",
+    "wikiName": "Riv Min-Guard Arm",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 2+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Min-Guard Arm'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/PrismaRazorScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrismaRazorScarf",
+    "wikiName": "Prisma Uru Syandana",
+    "description": "Shimmering prisma crystals give this syandana a mesmerizing sheen.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 275,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Uru Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/TextureOverrides/SilkFabric": {
+    "uniqueName": "/Lotus/Upgrades/Skins/TextureOverrides/SilkFabric",
+    "wikiName": "Ayatan Elegance",
+    "description": "Hombask's material structures are imbued with the Zariman spirit of discovery and innovation.\r\n\r\nMaterial structures are exclusive to Voidshell skins.",
+    "acquisition": "Purchased from Hombask (Rank 1+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Ayatan Elegance'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/KDrive/KDriveVelocipodSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/KDrive/KDriveVelocipodSkin",
+    "wikiName": "Purple Velocipod K-Drive Skin",
+    "description": "Transforms your K-Drive in to a Purple Velocipod.",
+    "acquisition": "Purchased from Son for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Purple Velocipod K-Drive Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/BaruukImmortalSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Pacifist/BaruukImmortalSkin",
+    "wikiName": "Baruuk Immortal Skin",
+    "description": "The Immortal skin for the Baruuk Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Baruuk Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPAckBrunt": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPAckBrunt",
+    "wikiName": "Ack & Brunt Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Ack & Brunt Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisLatronPistol": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisLatronPistol",
+    "wikiName": "Elixis Latron Pistol Skin",
+    "description": "Give your pistol a formidable dose of old world class with this bronzed pistol skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 215,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Elixis Latron Pistol Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Tails/PrismaFishTail": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/PrismaFishTail",
+    "wikiName": "Prisma Koi Sentinel Tail",
+    "description": "An ordinary Sentinel becomes extraordinary with striking prisma accessories.",
+    "acquisition": "Sold by Baro Ki'Teer for 200 Ducats and 200,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Koi Sentinel Tail'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/CrpHighArmor/EvilBaroArcaArmorA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpHighArmor/EvilBaroArcaArmorA",
+    "wikiName": "Eskhatos Ki'Teer Shoulder Guards",
+    "description": "For no discernable reason, this armor produces a distinct feeling of unease in enemies, as well as the wearer.",
+    "acquisition": "Sold by Baro Ki'Teer for 109 Ducats and 278,000 Credits (offered on 4 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Eskhatos Ki'Teer Shoulder Guards'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPSybaris": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPSybaris",
+    "wikiName": "Sybaris Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Sybaris Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/EarpieceBaroA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/EarpieceBaroA",
+    "wikiName": "Ki'Teer Earpiece",
+    "description": "A stunning pair of the finest Ki'Teer jewelry.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 400,000 Credits (offered on 17 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Earpiece'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetC/LunaroSetCL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetC/LunaroSetCL",
+    "wikiName": "Riv Elite-Guard Leg",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Elite-Guard Leg'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPKraken": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPKraken",
+    "wikiName": "Kraken Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Kraken Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/KazBaroCape": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/KazBaroCape",
+    "wikiName": "Ki'Teer Diax Syandana",
+    "description": "Define style with this crystalline cape.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 450,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Diax Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronChestArmorPrisma": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronChestArmorPrisma",
+    "wikiName": "Prisma Latron Chest Plate",
+    "description": "Inspired by the design of the iconic Tenno weapon, this armor set has been infused with iridescent prisma crystal.",
+    "acquisition": "Sold by Baro Ki'Teer for 275 Ducats and 200,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Latron Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetC/LunaroSetCA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetC/LunaroSetCA",
+    "wikiName": "Riv Elite-Guard Arm",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Elite-Guard Arm'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/SmokeEphemera": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/SmokeEphemera",
+    "wikiName": "Fog Of War Ephemera",
+    "description": "Emerge from the fog of war unscathed.",
+    "acquisition": "Purchased from Kahl's Garrison (Rank 5+) for 45 Stock (Kahl).",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Fog Of War Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Camo/DesertDirigaSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Camo/DesertDirigaSkin",
+    "wikiName": "Diriga Desert-Camo Skin",
+    "description": "Desert camouflage skin for the Diriga Sentinel.",
+    "acquisition": "Sold by Baro Ki'Teer for 225 Ducats and 150,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Diriga Desert-Camo Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAngstrum": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAngstrum",
+    "wikiName": "Angstrum Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Angstrum Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/BaroCape2Scarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/BaroCape2Scarf",
+    "wikiName": "Ki'Teer Razza Syandana",
+    "description": "Exude style and poise with this refined accessory.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 350,000 Credits (offered on 14 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Razza Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Promo/Warframe/PromoParis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Warframe/PromoParis",
+    "wikiName": "Paris Abra Skin",
+    "description": "With it’s constantly shifting finish of polished cloud-stone, the Paris Abra Skin is sure to impress.",
+    "acquisition": "Sold by Baro Ki'Teer for 315 Ducats and 275,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Paris Abra Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/VTBoarExilis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/VTBoarExilis",
+    "wikiName": "Boar Elixis Skin",
+    "description": "Elevate the Boar's rough and ready functionality with this bronzed Elixis skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 330 Ducats and 300,000 Credits (offered on 1 recorded visit).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Boar Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPTonkor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPTonkor",
+    "wikiName": "Tonkor Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Tonkor Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoChestArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoChestArmor",
+    "wikiName": "Prisma Edo Chest Plate",
+    "description": "A decorative breastplate for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 225 Ducats and 250,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Edo Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Glass/GaraAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Glass/GaraAlternateSkin",
+    "wikiName": "Gara Immortal Skin",
+    "description": "The Immortal Skin for the Gara Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Gara Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeArmRightArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeArmRightArmor",
+    "wikiName": "Right Prisma Daedalus Shoulder Guard",
+    "description": "Decorative shoulder plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 65 Ducats and 75,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Right Prisma Daedalus Shoulder Guard'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetB/LunaroSetBC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetB/LunaroSetBC",
+    "wikiName": "Riv Comp-Guard Chest",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 3+) for 40,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Comp-Guard Chest'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnShinaiArmor/TnShinaiArmorC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnShinaiArmor/TnShinaiArmorC",
+    "wikiName": "Tannukai Chest Plate",
+    "description": "Honor the Tenno legacy with this finely crafted set of training armor, as worn during the annual Origin System ceremonial games.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 150,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Tannukai Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/EvilBaroSilvaAndAegis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/EvilBaroSilvaAndAegis",
+    "wikiName": "Silva & Aegis Eskhatos Skin",
+    "description": "The flames emanating from this skin for the Silva & Aegis waver uncertainly, as though they might wish to be elsewhere.",
+    "acquisition": "Sold by Baro Ki'Teer for 132 Ducats and 298,000 Credits (offered on 2 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Silva & Aegis Eskhatos Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/PrismaJetWings": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/PrismaJetWings",
+    "wikiName": "Prisma Jet Sentinel Wings",
+    "description": "An ordinary Sentinel becomes extraordinary with striking prisma accessories.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 200,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Jet Sentinel Wings'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Glaives/XorisExilisSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Glaives/XorisExilisSkin",
+    "wikiName": "Xoris Elixis Skin",
+    "description": "Give the Xoris a dose of old world class with this bronzed Elixis skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 320 Ducats and 280,000 Credits (offered on 1 recorded visit).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Xoris Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ConservationBadgeBItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/ConservationBadgeBItem",
+    "wikiName": "Vallis Beast And Bird Emblem",
+    "description": "Awarded for the diligent preservation of the Horrasques, Sawgaws and Stovers of the Orb Vallis.",
+    "acquisition": "Purchased from The Business for 1x Frogmouthed Sawgaw Tag, 1x Horrasque Stormer Tag, 1x Flossy Sawgaw Tag, 1x Fire-Veined Stover Tag, 1x Swimmer Horrasque Tag, 1x Fuming Dax Stover Tag, 1x Alpine Monitor Sawgaw Tag, 1x Dappled Horrasque Tag, 1x Sentinel Stover Tag.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Vallis Beast And Bird Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPLatron": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPLatron",
+    "wikiName": "Latron Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Latron Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetA/LunaroSetAC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetA/LunaroSetAC",
+    "wikiName": "Riv Min-Guard Chest",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 2+) for 30,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Min-Guard Chest'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/BaroScytheMacheteSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/BaroScytheMacheteSkin",
+    "wikiName": "Machete Syachid Skin",
+    "description": "A double-bladed Tenno skin of ferocious appearance.",
+    "acquisition": "Sold by Baro Ki'Teer for 375 Ducats and 300,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Machete Syachid Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorElixis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorElixis",
+    "wikiName": "Elixis Latron Shoulder Plate (Left)",
+    "description": "Inspired by the design of the iconic Tenno weapon, this armor set has been cast in shimmering bronze.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 220,000 Credits.",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Elixis Latron Shoulder Plate (Left)'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAkvasto": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAkvasto",
+    "wikiName": "Akvasto Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Akvasto Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/CrpHighArmor/EvilBaroArcaArmorC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpHighArmor/EvilBaroArcaArmorC",
+    "wikiName": "Eskhatos Ki'Teer Chest Guard",
+    "description": "For no discernable reason, this armor produces a distinct feeling of unease in enemies, as well as the wearer.",
+    "acquisition": "Sold by Baro Ki'Teer for 196 Ducats and 294,000 Credits (offered on 3 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Eskhatos Ki'Teer Chest Guard'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/TextureOverrides/Ivory": {
+    "uniqueName": "/Lotus/Upgrades/Skins/TextureOverrides/Ivory",
+    "wikiName": "White Sun Veneer",
+    "description": "Hombask's material structures are imbued with the Zariman spirit of discovery and innovation.\r\n\r\nMaterial structures are exclusive to Voidshell skins.",
+    "acquisition": "Purchased from Hombask (Rank 1+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'White Sun Veneer'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosLRArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosLRArmor",
+    "wikiName": "Right Eos Prime Spurs",
+    "description": "Decorative leg armor for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 65 Ducats and 50,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Right Eos Prime Spurs'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourTwo/BaroArmourTwoA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmourTwo/BaroArmourTwoA",
+    "wikiName": "Ki'Teer Foros Shoulder Plates",
+    "description": "Exhibit impeccable taste and standing with my exclusive new armor set.",
+    "acquisition": "Sold by Baro Ki'Teer for 310 Ducats and 100,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Foros Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/PlagueStarBadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/PlagueStarBadgeItem",
+    "wikiName": "Plague Star Emblem",
+    "description": "To commemorate Tenno who helped defend Cetus from the Infested scourge.",
+    "acquisition": "Purchased from Operational Supply for 500x Standing, 1000x Credits.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Plague Star Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/LisetInsectSkinPrimeTrader": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/LisetInsectSkinPrimeTrader",
+    "wikiName": "Mantis Prisma Skin",
+    "description": "A unique skin for the Mantis landing craft.",
+    "acquisition": "Sold by Baro Ki'Teer for 230 Ducats and 375,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mantis Prisma Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/NezhaLeverianCape": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/NezhaLeverianCape",
+    "wikiName": "Reshantur Cult Syandana",
+    "description": "This humble Syandana is modeled on those worn by the Children of Reshantur, who formed into a clan devoted to Nezha in defense of their home.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 350,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Reshantur Cult Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/Gyroscope/LisetGyroscopeSkinPrimeTrader": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/Gyroscope/LisetGyroscopeSkinPrimeTrader",
+    "wikiName": "Xiphos Prisma Skin",
+    "description": "A unique skin for the Xiphos landing craft.",
+    "acquisition": "Sold by Baro Ki'Teer for 220 Ducats and 400,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Xiphos Prisma Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourTwo/BaroArmourTwoL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmourTwo/BaroArmourTwoL",
+    "wikiName": "Ki'Teer Foros Leg Plates",
+    "description": "Exhibit impeccable taste and standing with my exclusive new armor set.",
+    "acquisition": "Sold by Baro Ki'Teer for 225 Ducats and 150,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Foros Leg Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/TextureOverrides/RoughMetal": {
+    "uniqueName": "/Lotus/Upgrades/Skins/TextureOverrides/RoughMetal",
+    "wikiName": "Tarnished Morphics",
+    "description": "Hombask's material structures are imbued with the Zariman spirit of discovery and innovation.\r\n\r\nMaterial structures are exclusive to Voidshell skins.",
+    "acquisition": "Purchased from Hombask (Rank 1+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Tarnished Morphics'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmour/BaroArmourL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmour/BaroArmourL",
+    "wikiName": "Ki'Teer Leg Plates",
+    "description": "This decorative armored plate is a Ki’Teer original.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 150,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Leg Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoArmRightArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoArmRightArmor",
+    "wikiName": "Right Prisma Edo Shoulder Plates",
+    "description": "Decorative shoulder plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 100 Ducats and 55,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Right Prisma Edo Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPVasto": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPVasto",
+    "wikiName": "Vasto Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Vasto Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Tails/ThanoTechTail": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/ThanoTechTail",
+    "wikiName": "Loid Sentinel Tail",
+    "description": "Necraloids take pride in keeping their medallion-embossed collars as clean and polished as they did when they were living servants.",
+    "acquisition": "Purchased from Necraloid (Rank 3+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Loid Sentinel Tail'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CNY2025SnakeEmblem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/CNY2025SnakeEmblem",
+    "wikiName": "Lunar Renewal Snake Emblem",
+    "description": "Celebrate the Lunar Renewal with the wisdom of the snake.",
+    "acquisition": "Sold by Baro Ki'Teer for 55 Ducats and 45,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Lunar Renewal Snake Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronChestArmorElixis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronChestArmorElixis",
+    "wikiName": "Elixis Latron Chest Plate",
+    "description": "Inspired by the design of the iconic Tenno weapon, this armor set has been cast in shimmering bronze.",
+    "acquisition": "Sold by Baro Ki'Teer for 275 Ducats and 200,000 Credits.",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Elixis Latron Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeLegLeftArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeLegLeftArmor",
+    "wikiName": "Left Prisma Daedalus Knee Plates",
+    "description": "Decorative leg plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 65 Ducats and 75,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Left Prisma Daedalus Knee Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/BaroTiara": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/BaroTiara",
+    "wikiName": "Ki'Teer Atmos Diadem",
+    "description": "Flaunt your good fortune with this exquisite diadem.",
+    "acquisition": "Sold by Baro Ki'Teer for 525 Ducats and 375,000 Credits (offered on 16 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Atmos Diadem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/Dragon2024BadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/Dragon2024BadgeItem",
+    "wikiName": "Lunar Renewal Dragon Emblem",
+    "description": "Celebrate the Lunar Renewal with the honor of the dragon.",
+    "acquisition": "Sold by Baro Ki'Teer for 55 Ducats and 45,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Lunar Renewal Dragon Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/EarpieceBaroB": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/EarpieceBaroB",
+    "wikiName": "Ki'Teer Solo Earpiece",
+    "description": "An enchanting design accentuated by a single earpiece.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 200,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Solo Earpiece'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrineerTurbines/WraithTurbinesChestArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GrineerTurbines/WraithTurbinesChestArmor",
+    "wikiName": "Harkonar Wraith Chest Armor",
+    "description": "A blood-red variant of this symbolic Grineer armor.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 250,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Harkonar Wraith Chest Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/DSPistols/LatoTekna": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/DSPistols/LatoTekna",
+    "wikiName": "Protokol Tekna Pistol Skin",
+    "description": "An ancient look for a reliable pistol.",
+    "acquisition": "Purchased from Quincy (Rank 4+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Protokol Tekna Pistol Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnShinaiArmor/TnShinaiArmorL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnShinaiArmor/TnShinaiArmorL",
+    "wikiName": "Tannukai Leg Plates",
+    "description": "Honor the Tenno legacy with this finely crafted set of training armor, as worn during the annual Origin System ceremonial games.",
+    "acquisition": "Sold by Baro Ki'Teer for 275 Ducats and 115,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Tannukai Leg Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Magician/LimboImmortalSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Magician/LimboImmortalSkin",
+    "wikiName": "Limbo Immortal Skin",
+    "description": "The Immortal Skin for the Limbo Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Limbo Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/ArchonShardEphemera": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/ArchonShardEphemera",
+    "wikiName": "Shard Hex Ephemera",
+    "description": "Expose the power that courses through you. This Ephemera dynamically updates with your Warframe’s installed Archon Shards.",
+    "acquisition": "Purchased from Kahl's Garrison (Rank 5+) for 45 Stock (Kahl).",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Shard Hex Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPKronen": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPKronen",
+    "wikiName": "Kronen Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Kronen Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/SummerSolstice/SummerIgnisSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/SummerSolstice/SummerIgnisSkin",
+    "wikiName": "Ignis Towsun Skin",
+    "description": "Weather the heat with this sizzling skin for the Ignis.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 300,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ignis Towsun Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetA/LunaroSetAL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetA/LunaroSetAL",
+    "wikiName": "Riv Min-Guard Leg",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 2+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Min-Guard Leg'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPSkana": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPSkana",
+    "wikiName": "Skana Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Skana Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Skins/GaussSentinelSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Skins/GaussSentinelSkin",
+    "wikiName": "Altra Sentinel Skin",
+    "description": "In this skin, your Sentinel will be indistinguishable from the air sentries that surrounded the ancient tower of Altra, as described by Drusus Leverian.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 425,000 Credits (offered on 4 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Altra Sentinel Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SolsticeNelumboCape": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeNelumboCape",
+    "wikiName": "Wintercress Syandana",
+    "description": "A familiar Solstice Syandana re-imagined and renewed.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 275,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Wintercress Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Masks/KavatPetMask": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/KavatPetMask",
+    "wikiName": "Kavat Sentinel Mask",
+    "description": "A mask attachment for your sentinel pet.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 200,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Kavat Sentinel Mask'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeLegRightArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeLegRightArmor",
+    "wikiName": "Right Prisma Daedalus Knee Plates",
+    "description": "Decorative leg plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 65 Ducats and 75,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Right Prisma Daedalus Knee Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Tails/KavatPetTail": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/KavatPetTail",
+    "wikiName": "Kavat Sentinel Tail",
+    "description": "A stylish tail attachment for your sentinel pet.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 250,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Kavat Sentinel Tail'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Skins/ThanotechSentinelSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Skins/ThanotechSentinelSkin",
+    "wikiName": "Loid Sentinel Skin",
+    "description": "This faithful Necraloid has served the Entrati family for centuries. He now stands ready to offer his service to you.",
+    "acquisition": "Purchased from Necraloid (Rank 3+) for 30,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Loid Sentinel Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPTwinVipers": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPTwinVipers",
+    "wikiName": "Twin Vipers Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Twin Vipers Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/SummerSolstice/SummerSolsticeTwinGrakatas": {
+    "uniqueName": "/Lotus/Upgrades/Skins/SummerSolstice/SummerSolsticeTwinGrakatas",
+    "wikiName": "Twin Grakatas Towsun Skin",
+    "description": "Weather the heat with this sizzling skin for the Twin Grakatas.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 300,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Twin Grakatas Towsun Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/CrpHighArmor/EvilBaroArcaArmorL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpHighArmor/EvilBaroArcaArmorL",
+    "wikiName": "Eskhatos Ki'Teer Knee Guards",
+    "description": "For no discernable reason, this armor produces a distinct feeling of unease in enemies, as well as the wearer.",
+    "acquisition": "Sold by Baro Ki'Teer for 184 Ducats and 251,000 Credits (offered on 2 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Eskhatos Ki'Teer Knee Guards'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrineerTurbines/WraithTurbinesArmArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GrineerTurbines/WraithTurbinesArmArmor",
+    "wikiName": "Harkonar Wraith Arm Armor",
+    "description": "A blood-red variant of this symbolic Grineer armor.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 150,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Harkonar Wraith Arm Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/BaroMeleeDangle": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/BaroMeleeDangle",
+    "wikiName": "Ki'Teer Sugatra",
+    "description": "The finest Sugatra for your finest weapon.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 250,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Sugatra'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeArmLeftArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeArmLeftArmor",
+    "wikiName": "Left Prisma Daedalus Shoulder Guard",
+    "description": "Decorative shoulder plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 65 Ducats and 75,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Left Prisma Daedalus Shoulder Guard'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmour/BaroArmourA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmour/BaroArmourA",
+    "wikiName": "Ki'Teer Shoulder Plates",
+    "description": "This decorative armored plate is a Ki’Teer original.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 110,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/BaroCape3Scarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/BaroCape3Scarf",
+    "wikiName": "Ki'Teer Straed Syandana",
+    "description": "Flaunt your impeccable taste in a Ki’Teer original syandana.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 500,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Straed Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/AshLeverianLiosPistol": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/AshLeverianLiosPistol",
+    "wikiName": "De Nas Pistol Skin",
+    "description": "This skin immortalizes the pistol Lio De Nas used in self-defense when Ash came calling, in the story told by Drusus Leverian.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 300,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'De Nas Pistol Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/LisetSkinVoidTrader": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/LisetSkinVoidTrader",
+    "wikiName": "Liset Prisma Skin",
+    "description": "A customized exterior for your Liset.",
+    "acquisition": "Sold by Baro Ki'Teer for 120 Ducats and 150,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Liset Prisma Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPLato": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPLato",
+    "wikiName": "Lato Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Lato Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SyndicateSMScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SyndicateSMScarf",
+    "wikiName": "Vaykor Syandana",
+    "description": "The Vaykor Syandana flares up whenever the Tenno takes damage.",
+    "acquisition": "Purchased from Steel Meridian (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Vaykor Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/LisetBlueSkySkinPrimeTrader": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/LisetBlueSkySkinPrimeTrader",
+    "wikiName": "Scimitar Prisma Skin",
+    "description": "A unique skin for the Scimitar landing craft.",
+    "acquisition": "Sold by Baro Ki'Teer for 210 Ducats and 450,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Scimitar Prisma Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/NecraArmor/NecraArmorA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/NecraArmor/NecraArmorA",
+    "wikiName": "Mulciber Shoulder Plate",
+    "description": "From the depths of Deimos comes a shoulder plate hand-forged by the creator of the Necramechs.",
+    "acquisition": "Sold by Baro Ki'Teer for 315 Ducats and 215,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mulciber Shoulder Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/ZephyrAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/ZephyrAlternateSkin",
+    "wikiName": "Zephyr Immortal Skin",
+    "description": "The Immortal Skin for the Zephyr Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Zephyr Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPFurax": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPFurax",
+    "wikiName": "Furax Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Furax Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBaro": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBaro",
+    "wikiName": "Ki'Teer Kubrow Armor",
+    "description": "Fashioned for the most refined breed of Kubrow.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 250,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Kubrow Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/VTDinoSpikeScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/VTDinoSpikeScarf",
+    "wikiName": "Prisma Yamako Syandana",
+    "description": "Forged by Orokin era artisans, this exquisite syandana is finished by bathing its prisma crystal in pure Void energy.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 250,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Yamako Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SyndicateAHScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SyndicateAHScarf",
+    "wikiName": "Telos Syandana",
+    "description": "With every enemy struck down the Telos Syandana glows stronger.",
+    "acquisition": "Purchased from Arbiters of Hexis (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Telos Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPSoma": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPSoma",
+    "wikiName": "Soma Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Soma Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/BaroInarosMeleeDangle": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/BaroInarosMeleeDangle",
+    "wikiName": "Anpu Sugatra",
+    "description": "This matching sugatra for the Anpu Staff Skin will add a dash of elegance to any Melee Weapon.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 250,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Anpu Sugatra'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/LisetInsectSkinInaros": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/LisetInsectSkinInaros",
+    "wikiName": "Mantis Cydonia Skin",
+    "description": "A unique skin for the Mantis landing craft.",
+    "acquisition": "Sold by Baro Ki'Teer for 425 Ducats and 320,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mantis Cydonia Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/ArchonShardEphemeraB": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/ArchonShardEphemeraB",
+    "wikiName": "Shard Bane Ephemera",
+    "description": "Express the Archon's fury. This Ephemera dynamically updates with your Warframe's installed Archon Shards.",
+    "acquisition": "Purchased from Kahl's Garrison (Rank 5+) for 45 Stock (Kahl).",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Shard Bane Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/VTRedeemerSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/VTRedeemerSkin",
+    "wikiName": "Redeemer Elixis Skin",
+    "description": "Gild the Redeemer with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 250,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Redeemer Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPKarak": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPKarak",
+    "wikiName": "Karak Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Karak Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/DSPistols/LexHammer": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/DSPistols/LexHammer",
+    "wikiName": "Protokol 95 Pistol Skin",
+    "description": "A real beauty from a former age.",
+    "acquisition": "Purchased from Quincy (Rank 4+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Protokol 95 Pistol Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPLex": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPLex",
+    "wikiName": "Lex Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Lex Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsNovaEngineer": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsNovaEngineer",
+    "wikiName": "Masker's Theodolite Crewsuit Leggings",
+    "description": "Historian Drusus Leverian recalls that the hostage crew of the passenger vessel, Masker's Theodolite, wore this very crewsuit when they were rescued by Nova.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 275,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Masker's Theodolite Crewsuit Leggings'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorPrisma": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorPrisma",
+    "wikiName": "Prisma Rostam Kubrow Armor",
+    "description": "A bold set of Kubrow armor coated in delicate Prisma crystals. ",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 175,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Rostam Kubrow Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/BaroCape": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/BaroCape",
+    "wikiName": "Ki'Teer Syandana",
+    "description": "Walk the cutting edge of fashion with this exclusive Ki'Teer original.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 500,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/VTHornSkullScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/VTHornSkullScarf",
+    "wikiName": "Prisma Hecate Syandana",
+    "description": "This Hecate Syandana has been threaded with filaments of prisma crystals.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 300,000 Credits (offered on 14 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Hecate Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Events/InfQuantaInfestedAladV": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Events/InfQuantaInfestedAladV",
+    "wikiName": "Paracyst Zebra Skin",
+    "description": "A unique skin for the Paracyst.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 300,000 Credits (offered on 5 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Paracyst Zebra Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/VTHalloweenDarkSword": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/VTHalloweenDarkSword",
+    "wikiName": "Dark Sword Day of the Dead Skin",
+    "description": "A morbidly festive skin for the Dark Sword.",
+    "acquisition": "Sold by Baro Ki'Teer for 320 Ducats and 250,000 Credits (offered on 21 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Dark Sword Day of the Dead Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/BaroInarosPolearmSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/BaroInarosPolearmSkin",
+    "wikiName": "Anpu Staff Skin",
+    "description": "Angular diamonds define this slender staff skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 250,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Anpu Staff Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SyndicateNLScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SyndicateNLScarf",
+    "wikiName": "Sancti Syandana",
+    "description": "The Sancti Syandana pulses every time the Tenno uses an ability and continues to strengthen with each ability used.",
+    "acquisition": "Purchased from New Loka (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Sancti Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/DSPistols/BroncoSpectre": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/DSPistols/BroncoSpectre",
+    "wikiName": "Protokol Spectre Pistol Skin",
+    "description": "In the distant past, pistols of this kind packed a mean punch.",
+    "acquisition": "Purchased from Quincy (Rank 4+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Protokol Spectre Pistol Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Tails/FishTail": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/FishTail",
+    "wikiName": "Koi Sentinel Tail",
+    "description": "A stylish tail attachment for your sentinel pet.",
+    "acquisition": "Sold by Baro Ki'Teer for 200 Ducats and 200,000 Credits.",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Koi Sentinel Tail'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangle": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangle",
+    "wikiName": "Pyra Sugatra",
+    "description": "During the height of the Old War, Tenno raiders used these flaming sugatras to intimidate and distract enemies.",
+    "acquisition": "Sold by Baro Ki'Teer for 100 Ducats and 200,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Pyra Sugatra'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Archwing/GrendelArchwingSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Archwing/GrendelArchwingSkin",
+    "wikiName": "Exo-Sac Archwing Skin",
+    "description": "This alternative look for any Archwing is modeled on the exo-sac levitators that the glutton Karissh used to support his additional grafted-on stomachs.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 300,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Exo-Sac Archwing Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/BaroQuantumBadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/BaroQuantumBadgeItem",
+    "wikiName": "Ki'Teer Sekhara",
+    "description": "Stand apart from the crowd with this Ki'Teer original.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 200,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Sekhara'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisOpticor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisOpticor",
+    "wikiName": "Opticor Elixis Skin",
+    "description": "Gild the Opticor with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 250,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Opticor Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/DualSword/DualRibbonKamasSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/DualSword/DualRibbonKamasSkin",
+    "wikiName": "Dual Sword Lemnas Skin",
+    "description": "An enchanted skin for any Dual Sword combination.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 300,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Dual Sword Lemnas Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Masks/GaussSentinelMask": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/GaussSentinelMask",
+    "wikiName": "Altra Sentinel Mask",
+    "description": "In this skin, your Sentinel will be indistinguishable from the air sentries that guarded the ancient tower of Altra, as described by Drusus Leverian.",
+    "acquisition": "Sold by Baro Ki'Teer for 450 Ducats and 400,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Altra Sentinel Mask'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/FurisArmor/PrismaFurisCArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/FurisArmor/PrismaFurisCArmor",
+    "wikiName": "Prisma Avia Chest Plate",
+    "description": "Streamlined Prisma armor in the style of the Furis and Sybaris.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 220,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Avia Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeC",
+    "wikiName": "Ki'Teer Greth Chest Plate",
+    "description": "Become the very picture of regard with this Ki'Teer original armor.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 300,000 Credits (offered on 14 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Greth Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/FurisArmor/PrismaFurisLArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/FurisArmor/PrismaFurisLArmor",
+    "wikiName": "Prisma Avia Ankle Plate",
+    "description": "Streamlined Prisma armor in the style of the Furis and Sybaris.",
+    "acquisition": "Sold by Baro Ki'Teer for 225 Ducats and 175,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Avia Ankle Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/Armor/CatbrowArmorHalloweenA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Catbrows/Armor/CatbrowArmorHalloweenA",
+    "wikiName": "Wysar Day of the Dead Kavat Armor",
+    "description": "Morbidly festive armor fitted for a Kavat.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 175,000 Credits (offered on 21 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Wysar Day of the Dead Kavat Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/EarpieceBaroC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/EarpieceBaroC",
+    "wikiName": "Ki'Teer Atmos Earpiece",
+    "description": "Add a hint of playful mischief with these luxury earpieces.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 400,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Atmos Earpiece'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitNovaEngineer": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitNovaEngineer",
+    "wikiName": "Masker's Theodolite Crewsuit",
+    "description": "Historian Drusus Leverian recalls that the hostage crew of the passenger vessel, Masker's Theodolite, wore this very crewsuit when they were rescued by Nova.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 275,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Masker's Theodolite Crewsuit'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPDragonNikana": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPDragonNikana",
+    "wikiName": "Dragon Nikana Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Dragon Nikana Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CNY2023EmblemItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/CNY2023EmblemItem",
+    "wikiName": "Lunar Renewal Rabbit Emblem",
+    "description": "Celebrate Lunar Renewal with the kind heart of the gentle rabbit.",
+    "acquisition": "Sold by Baro Ki'Teer for 55 Ducats and 45,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Lunar Renewal Rabbit Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/JaviExecutionHood": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/JaviExecutionHood",
+    "wikiName": "Transmuter Operator Hood",
+    "description": "The transmuter Javi was honored with this ceremonial hood on the day of his execution, in recognition of his Archimedean status.",
+    "acquisition": "Sold by Baro Ki'Teer for 450 Ducats and 450,000 Credits (offered on 18 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Transmuter Operator Hood'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/TextureOverrides/PatternWrapped": {
+    "uniqueName": "/Lotus/Upgrades/Skins/TextureOverrides/PatternWrapped",
+    "wikiName": "Cephalon Adornment",
+    "description": "Hombask's material structures are imbued with the Zariman spirit of discovery and innovation.\r\n\r\nMaterial structures are exclusive to Voidshell skins.",
+    "acquisition": "Purchased from Hombask (Rank 1+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Cephalon Adornment'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/NecraArmor/NecraArmorC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/NecraArmor/NecraArmorC",
+    "wikiName": "Mulciber Chest Plate",
+    "description": "From the depths of Deimos comes a chest plate hand-forged by the creator of the Necramechs.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 250,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mulciber Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/FootstepsMaple": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/FootstepsMaple",
+    "wikiName": "Fae Path Ephemera",
+    "description": "Your Warframe leaves a trail of fireflies and forest leaves in its wake.",
+    "acquisition": "Sold by Baro Ki'Teer for 15 Ducats and 1,000 Credits.",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Fae Path Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Infestation/NidusAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Infestation/NidusAlternateSkin",
+    "wikiName": "Nidus Immortal Skin",
+    "description": "The Immortal Skin for the Nidus Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 3 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Nidus Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Motorcycle/MotorcyclePrismaSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Motorcycle/MotorcyclePrismaSkin",
+    "wikiName": "Prisma Livery",
+    "description": "The Void-hardened Prisma crystals of this Atomicyle livery light up the night with a captivating gleam.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 380,000 Credits (offered on 1 recorded visit).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Livery'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SyndicateCSScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SyndicateCSScarf",
+    "wikiName": "Synoid Syandana",
+    "description": "The Synoid Syandana glows more brightly with every scan performed.",
+    "acquisition": "Purchased from Cephalon Suda (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Synoid Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ConclaveCape": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ConclaveCape",
+    "wikiName": "Celestia Syandana",
+    "description": "Displays Daily and Weekly Conclave Challenge and Mission progress, with a beam of light for each completed challenge or mission.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Celestia Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/KDrive/KDriveVelocipodRareSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/KDrive/KDriveVelocipodRareSkin",
+    "wikiName": "White Velocipod K-Drive Skin",
+    "description": "Transforms your K-Drive in to a White Velocipod.",
+    "acquisition": "Purchased from Son for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'White Velocipod K-Drive Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/InarosLisetSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/InarosLisetSkin",
+    "wikiName": "Liset Cydonia Skin",
+    "description": "Turn the Liset into a desert king’s chariot with this bold new exterior.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 300,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Liset Cydonia Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Liset/LisetBlueSkySkinInaros": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Liset/LisetBlueSkySkinInaros",
+    "wikiName": "Scimitar Cydonia Skin",
+    "description": "A unique skin for the Scimitar landing craft.",
+    "acquisition": "Sold by Baro Ki'Teer for 375 Ducats and 340,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Scimitar Cydonia Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoC",
+    "wikiName": "Yoshijo Ink",
+    "description": "Body art can convey that which brings you peace or drives your spirit.",
+    "acquisition": "Purchased from Quincy (Rank 2+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Yoshijo Ink'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoB": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoB",
+    "wikiName": "Ligumi Ink",
+    "description": "Body art can convey that which brings you peace or drives your spirit.",
+    "acquisition": "Purchased from Quincy (Rank 2+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Ligumi Ink'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/PrismaArrow": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/PrismaArrow",
+    "wikiName": "Prisma Arrows",
+    "description": "Forged from hardened prisma crystal, these extravagant arrows make a bold statement.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 75,000 Credits (offered on 17 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Arrows'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodNovaEngineer": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodNovaEngineer",
+    "wikiName": "Masker's Theodolite Crewsuit Hood",
+    "description": "Historian Drusus Leverian recalls that the hostage crew of the passenger vessel, Masker's Theodolite, wore this very crewsuit when they were rescued by Nova.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 375,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Masker's Theodolite Crewsuit Hood'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/AshLevarianTiara": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/AshLevarianTiara",
+    "wikiName": "Scoria Diadem",
+    "description": "During the Orokin era, those who bore this symbol inspired both admiration and fear. The jewel that adorned the Scoria, alumnae of the Orokin school of political assassination, is now yours to wear. Details of the school's ethos can be found in Ash's section of the Leverian.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 300,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Scoria Diadem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ConservationBadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/ConservationBadgeItem",
+    "wikiName": "Orb Vallis Conservation Emblem",
+    "description": "A symbol of your dedication to the safety and security of all creatures on the Orb Vallis.",
+    "acquisition": "Purchased from The Business for 1x Vallis Kubrodon Tag, 1x Spotted Bolarola Tag, 1x Red-Crested Virmink Tag, 1x Delicate Pobber Tag, 1x Brindle Kubrodon Tag, 1x Thorny Bolarola Tag, 1x Kubrodon Incarnadine Tag, 1x Subterranean Pobber Tag, 1x Dusky-Headed Virmink Tag, 1x White-Breasted Virmink Tag, 1x Sunny Pobber Tag, 1x Black-Banded Bolarola Tag.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Orb Vallis Conservation Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Choir/JadeImmortalSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Choir/JadeImmortalSkin",
+    "wikiName": "Jade Immortal Skin",
+    "description": "The Immortal Skin for the Jade Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 1 recorded visit).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Jade Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/BaroEphemeraB": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/BaroEphemeraB",
+    "wikiName": "Ki'Teer Reverence Ephemera",
+    "description": "Exemplify sophistication with every step.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 350,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Reverence Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPBraton": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPBraton",
+    "wikiName": "Braton Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Braton Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronLegArmorPrisma": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronLegArmorPrisma",
+    "wikiName": "Prisma Latron Leg Plate",
+    "description": "Inspired by the design of the iconic Tenno weapon, this armor set has been infused with iridescent prisma crystal.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 175,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Latron Leg Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosALArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosALArmor",
+    "wikiName": "Left Eos Prime Shoulder Plates",
+    "description": "Decorative shoulder plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 50 Ducats and 75,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Left Eos Prime Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternPrimeTraderA": {
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternPrimeTraderA",
+    "wikiName": "Nexus Fur Pattern",
+    "description": "A unique fur pattern for your Kubrow.",
+    "acquisition": "Sold by Baro Ki'Teer for 150 Ducats and 300,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Nexus Fur Pattern'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesNovaEngineer": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesNovaEngineer",
+    "wikiName": "Masker's Theodolite Crewsuit Sleeves",
+    "description": "Historian Drusus Leverian recalls that the hostage crew of the passenger vessel, Masker's Theodolite, wore this very crewsuit when they were rescued by Nova.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 275,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Masker's Theodolite Crewsuit Sleeves'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Dragon/ChromaAlternateSkin",
+    "wikiName": "Chroma Immortal Skin",
+    "description": "The Immortal Skin for the Chroma Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Chroma Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourTwo/BaroArmourTwoC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmourTwo/BaroArmourTwoC",
+    "wikiName": "Ki'Teer Foros Chest Plate",
+    "description": "Exhibit impeccable taste and standing with my exclusive new armor set.",
+    "acquisition": "Sold by Baro Ki'Teer for 175 Ducats and 200,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Foros Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Pirate/HydroidAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Pirate/HydroidAlternateSkin",
+    "wikiName": "Hydroid Immortal Skin",
+    "description": "The Immortal Skin for the Hydroid Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Hydroid Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SolsticeBaroCape": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeBaroCape",
+    "wikiName": "Ki'Teer Solstice Syandana",
+    "description": "A Ki'Teer Syandana that has been adorned with a festive design.",
+    "acquisition": "Sold by Baro Ki'Teer for 425 Ducats and 200,000 Credits (offered on 27 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Solstice Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SyndicatePSScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SyndicatePSScarf",
+    "wikiName": "Secura Syandana",
+    "description": "This Secura Syandana pulses every time a Tenno picks up credits and glows brighter as their wealth increases.",
+    "acquisition": "Purchased from The Perrin Sequence (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Secura Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/BaroMouthPieceA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/BaroMouthPieceA",
+    "wikiName": "Ki'Teer Atmos Mask",
+    "description": "Breathe crystal clean atmosphere with this deluxe respiratory device.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 400,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Atmos Mask'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/BaroHorn": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/BaroHorn",
+    "wikiName": "Ki'Teer Cornu Diadem",
+    "description": "Put a new face on fashion with this bold new Ki’Teer design.",
+    "acquisition": "Sold by Baro Ki'Teer for 525 Ducats and 375,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Cornu Diadem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Masks/PrismaMechHeadMask": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/PrismaMechHeadMask",
+    "wikiName": "Prisma Mech Head Sentinel Mask",
+    "description": "An ordinary Sentinel becomes extraordinary with striking prisma accessories.",
+    "acquisition": "Sold by Baro Ki'Teer for 175 Ducats and 200,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Mech Head Sentinel Mask'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Harlequin/MirageAlternateSkin",
+    "wikiName": "Mirage Immortal Skin",
+    "description": "The Immortal Skin for the Mirage Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mirage Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronLegArmorElixis": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronLegArmorElixis",
+    "wikiName": "Elixis Latron Leg Plate",
+    "description": "Inspired by the design of the iconic Tenno weapon, this armor set has been cast in shimmering bronze.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 175,000 Credits.",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Elixis Latron Leg Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoLegRightArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoLegRightArmor",
+    "wikiName": "Right Prisma Edo Knee Plates",
+    "description": "Decorative leg plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 100 Ducats and 55,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Right Prisma Edo Knee Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/InfestedMeleeDangle": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/InfestedMeleeDangle",
+    "wikiName": "Coccyst Sugatra",
+    "description": "Fashion elites across the system are discovering the sophisticated style of benign mutalist growths. Equip this undulating sugatra and find out what you're missing.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 200,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Coccyst Sugatra'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/NecraArmor/NecraArmorL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/NecraArmor/NecraArmorL",
+    "wikiName": "Mulciber Knee Plate",
+    "description": "From the depths of Deimos comes a knee plate hand-forged by the creator of the Necramechs.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 200,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mulciber Knee Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/LisetScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/LisetScarf",
+    "wikiName": "Domus Syandana",
+    "description": "Take to the stars with this sleek Syandana. Strapping in feels just like home.",
+    "acquisition": "Sold by Baro Ki'Teer for 600 Ducats and 400,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Domus Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Accessories/BaroVisor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/BaroVisor",
+    "wikiName": "Ki'Teer Atmos Oculus",
+    "description": "View your surroundings with ultimate clarity through this delicate eyewear.",
+    "acquisition": "Sold by Baro Ki'Teer for 525 Ducats and 375,000 Credits (offered on 16 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Atmos Oculus'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnLatronArmor/TnLatronArmArmorPrisma",
+    "wikiName": "Prisma Latron Shoulder Plate (Left)",
+    "description": "Inspired by the design of the iconic Tenno weapon, this armor set has been infused with iridescent prisma crystal.",
+    "acquisition": "Sold by Baro Ki'Teer for 325 Ducats and 220,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Latron Shoulder Plate (Left)'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoArmLeftArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoArmLeftArmor",
+    "wikiName": "Left Prisma Edo Shoulder Plates",
+    "description": "Decorative shoulder plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 100 Ducats and 55,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Left Prisma Edo Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeChestArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/VTSetThreeChestArmor",
+    "wikiName": "Prisma Daedalus Chest Plate",
+    "description": "A decorative breastplate for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 150 Ducats and 100,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Daedalus Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Skins/ExilisHelios": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Skins/ExilisHelios",
+    "wikiName": "Helios Elixis Skin",
+    "description": "Invigorate in style with this bronzed Elixis skin for the Helios.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 170,000 Credits (offered on 1 recorded visit).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Helios Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/TextureOverrides/Canvas": {
+    "uniqueName": "/Lotus/Upgrades/Skins/TextureOverrides/Canvas",
+    "wikiName": "Homestead Twill",
+    "description": "Hombask's material structures are imbued with the Zariman spirit of discovery and innovation.\r\n\r\nMaterial structures are exclusive to Voidshell skins.",
+    "acquisition": "Purchased from Hombask (Rank 1+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Homestead Twill'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/BaroPetWings": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/BaroPetWings",
+    "wikiName": "Ki'Teer Sentinel Wings",
+    "description": "Soar to new heights of luxury with these angular Sentinel wings.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 250,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Sentinel Wings'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPViper": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPViper",
+    "wikiName": "Viper Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Viper Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/PrismaLotusEmblem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/PrismaLotusEmblem",
+    "wikiName": "Prisma Lotus Emblem",
+    "description": "From Baro Ki'Teer comes this stylish reimagining of the Lotus' signature symbol.",
+    "acquisition": "Sold by Baro Ki'Teer for 80 Ducats and 50,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Prisma Lotus Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeL",
+    "wikiName": "Ki'Teer Greth Leg Plates",
+    "description": "Become the very picture of regard with this Ki'Teer original armor.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 350,000 Credits (offered on 14 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Greth Leg Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Skins/DesertTaxonSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Skins/DesertTaxonSkin",
+    "wikiName": "Taxon Desert-Camo Skin",
+    "description": "Desert camouflage skin for the Taxon Sentinel.",
+    "acquisition": "Sold by Baro Ki'Teer for 200 Ducats and 150,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Taxon Desert-Camo Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoD": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoD",
+    "wikiName": "Miyeti Ink",
+    "description": "Body art can convey that which brings you peace or drives your spirit.",
+    "acquisition": "Purchased from Quincy (Rank 3+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Miyeti Ink'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisOdonataSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisOdonataSkin",
+    "wikiName": "Odonata Elixis Skin",
+    "description": "Gild the Odonata with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 250,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Odonata Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Tails/BaroPetTail": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/BaroPetTail",
+    "wikiName": "Ki'Teer Sentinel Tail",
+    "description": "A statement piece for any Sentinel.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 250,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Sentinel Tail'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Masks/BaroPetMask": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/BaroPetMask",
+    "wikiName": "Ki'Teer Sentinel Mask",
+    "description": "A mask designed to match the one worn by Baro Ki'Teer, for your Sentinel pet.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 200,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Sentinel Mask'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/BaroKavatBadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/BaroKavatBadgeItem",
+    "wikiName": "Glaring Emblem",
+    "description": "An emblem representing your Kavat allegiance.",
+    "acquisition": "Sold by Baro Ki'Teer for 50 Ducats and 50,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Glaring Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPOpticor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPOpticor",
+    "wikiName": "Opticor Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Opticor Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoLegLeftArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetTwoSamurai/VTSetTwoLegLeftArmor",
+    "wikiName": "Left Prisma Edo Knee Plates",
+    "description": "Decorative leg plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 100 Ducats and 55,000 Credits (offered on 15 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Left Prisma Edo Knee Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MoaPet/BaroMoaPetSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MoaPet/BaroMoaPetSkin",
+    "wikiName": "Ki'Teer Moa Pet Skin",
+    "description": "A striking new skin for your favorite automatic pet, in the style of the System's most enigmatic trader.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 325,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Moa Pet Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/BaroArrow": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/BaroArrow",
+    "wikiName": "Ki'Teer Arrow Skin",
+    "description": "Arrows of distinction, the perfect compliment for any bow.",
+    "acquisition": "Sold by Baro Ki'Teer for 375 Ducats and 300,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Arrow Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/Armor/CatbrowArmorVoidTraderA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Catbrows/Armor/CatbrowArmorVoidTraderA",
+    "wikiName": "Ki'Teer Kavat Armor",
+    "description": "The armor your Kavat deserves.",
+    "acquisition": "Sold by Baro Ki'Teer for 500 Ducats and 275,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Kavat Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/BaroEphemeraA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/BaroEphemeraA",
+    "wikiName": "Ki'Teer Ephemera",
+    "description": "Spread the influence of the System's greatest trader wherever you go!",
+    "acquisition": "Sold by Baro Ki'Teer for 100 Ducats and 150,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/GaussSentinelWings": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/GaussSentinelWings",
+    "wikiName": "Altra Sentinel Wings",
+    "description": "In this skin, your Sentinel will be indistinguishable from the air sentries that guarded the ancient tower of Altra, as described by Drusus Leverian.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 500,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Altra Sentinel Wings'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPStrun": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPStrun",
+    "wikiName": "Strun Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Strun Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Leverian/NezhaLeverian/NezhaLeverianPolearm": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Leverian/NezhaLeverian/NezhaLeverianPolearm",
+    "wikiName": "Reshantur Cult Spear Skin",
+    "description": "Based on the spears carried by the Children of Reshantur, which were in turn modeled on Nezha's flaming spears.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 325,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Reshantur Cult Spear Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/WraithTurbinesScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/WraithTurbinesScarf",
+    "wikiName": "Harkonar Wraith Cloak",
+    "description": "A blood-red variant of this symbolic Grineer cloak.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 500,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Harkonar Wraith Cloak'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosARArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosARArmor",
+    "wikiName": "Right Eos Prime Shoulder Plates",
+    "description": "Decorative shoulder plates for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 50 Ducats and 75,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Right Eos Prime Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Swords/TnShinaiSword/TnShinaiSwordSkin": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/TnShinaiSword/TnShinaiSwordSkin",
+    "wikiName": "Tannukai Longsword Skin",
+    "description": "Give any longsword the appearance of a masterwork training weapon. A surface of lacquered wood and gold leaf may conceal a hard-biting edge.",
+    "acquisition": "Sold by Baro Ki'Teer for 375 Ducats and 280,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Tannukai Longsword Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/SummerSolstice/SummerSolsticeGorgon": {
+    "uniqueName": "/Lotus/Upgrades/Skins/SummerSolstice/SummerSolsticeGorgon",
+    "wikiName": "Gorgon Towsun Skin",
+    "description": "Weather the heat with this sizzling skin for the Gorgon.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 300,000 Credits (offered on 11 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Gorgon Towsun Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrineerTurbines/WraithTurbinesLegArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GrineerTurbines/WraithTurbinesLegArmor",
+    "wikiName": "Harkonar Wraith Leg Armor",
+    "description": "A blood-red variant of this symbolic Grineer armor.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 150,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Harkonar Wraith Leg Armor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/ConservationBadgeCItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/ConservationBadgeCItem",
+    "wikiName": "Plains Of Eidolon Conservation Emblem",
+    "description": "Awarded for the diligent preservation of the Kuakas, Condrocs and Mergoos of the Plains of Eidolon.",
+    "acquisition": "Purchased from Master Teasonai for 1x Rogue Condroc Tag, 1x Plains Kuaka Tag, 1x Woodland Mergoo Tag, 1x Splendid Mergoo Tag, 1x Coastal Mergoo Tag, 1x Ashen Kuaka Tag, 1x Common Condroc Tag, 1x Emperor Condroc Tag, 1x Ghost Kuaka Tag.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Plains Of Eidolon Conservation Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Staff/TnRibbonStaffSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Staff/TnRibbonStaffSkin",
+    "wikiName": "Lemnas Staff Skin",
+    "description": "An elegant staff of ancient Tenno design, the Lemnas dangles with a ribbon that distracts as you attack.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 275,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Lemnas Staff Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Grimoire/GrimoireEvilBaroSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Grimoire/GrimoireEvilBaroSkin",
+    "wikiName": "Eskhatos Grimoire Skin",
+    "description": "The seething cover of this skin for the Grimoire does all it can to disinvite touch.",
+    "acquisition": "Sold by Baro Ki'Teer for 227 Ducats and 302,000 Credits (offered on 3 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Eskhatos Grimoire Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Bows/PvPDaikyu": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Bows/PvPDaikyu",
+    "wikiName": "Daikyu Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Daikyu Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisNikana": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisNikana",
+    "wikiName": "Nikana Elixis Skin",
+    "description": "Gild the Nikana with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 375 Ducats and 275,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Nikana Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPDualSkana": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPDualSkana",
+    "wikiName": "Dual Skana Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Dual Skana Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Wisp/WispAlternateSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Wisp/WispAlternateSkin",
+    "wikiName": "Wisp Immortal Skin",
+    "description": "The Immortal Skin for the Wisp Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Wisp Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Masks/ThanoTechMask": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/ThanoTechMask",
+    "wikiName": "Loid Sentinel Mask",
+    "description": "Necraloids insist upon using archaic but reliable Entrati technology, in preference to anything more modern.",
+    "acquisition": "Purchased from Necraloid (Rank 3+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Loid Sentinel Mask'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/DSPistols/FurisVekesk": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/DSPistols/FurisVekesk",
+    "wikiName": "Protokol Vekesk Pistol Skin",
+    "description": "Give your pistol some primeval kick.",
+    "acquisition": "Purchased from Quincy (Rank 4+) for 20,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Protokol Vekesk Pistol Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisBallasSword": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisBallasSword",
+    "wikiName": "Paracesis Elixis Skin",
+    "description": "Gild the Paracesis with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 350 Ducats and 350,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Paracesis Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SyndicateRVScarf": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SyndicateRVScarf",
+    "wikiName": "Asita Rakta Syandana",
+    "description": "This Asita Rakta Syandana ignites a jet of flames that burns brighter with each stealth takedown.",
+    "acquisition": "Purchased from Red Veil (Rank 5+) for 100,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Asita Rakta Syandana'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/VTQuanta": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/VTQuanta",
+    "wikiName": "Quanta Aufeis Skin",
+    "description": "Once used by ice-pirates against Corpus caravans on Europa, this cold-blue Quanta is highly sought after by collectors.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 300,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Quanta Aufeis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Rapier/CrpRapierSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Rapier/CrpRapierSkin",
+    "wikiName": "Rapier Tributaker Skin",
+    "description": "Appropriate the Corpus aesthetic for your blade.",
+    "acquisition": "Sold by Baro Ki'Teer for 375 Ducats and 400,000 Credits (offered on 3 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Rapier Tributaker Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/BaroEvilEphemera": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/BaroEvilEphemera",
+    "wikiName": "Eskhatos Ki'Teer Ephemera",
+    "description": "Those in the vicinity of this ephemera claim to hear baneful whispers, but surely these are fanciful tales.",
+    "acquisition": "Sold by Baro Ki'Teer for 69 Ducats and 109,000 Credits (offered on 4 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Eskhatos Ki'Teer Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetB/LunaroSetBL": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetB/LunaroSetBL",
+    "wikiName": "Riv Comp-Guard Leg",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 3+) for 30,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Comp-Guard Leg'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisTiberon": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisTiberon",
+    "wikiName": "Tiberon Elixis Skin",
+    "description": "Gild the Tiberon with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 315 Ducats and 275,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Tiberon Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPTipedo": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPTipedo",
+    "wikiName": "Tipedo Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Tipedo Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetC/LunaroSetCC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetC/LunaroSetCC",
+    "wikiName": "Riv Elite-Guard Chest",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 120,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Elite-Guard Chest'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/BaroStalkerBadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/BaroStalkerBadgeItem",
+    "wikiName": "Despair Emblem",
+    "description": "Who do you hunt, Shadow?",
+    "acquisition": "Sold by Baro Ki'Teer for 55 Ducats and 60,000 Credits (offered on 3 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Despair Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPJatKittag": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPJatKittag",
+    "wikiName": "Jat Kittag Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Jat Kittag Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAkstiletto": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPAkstiletto",
+    "wikiName": "Akstiletto Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Akstiletto Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPGrinlok": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/LongGuns/PvPGrinlok",
+    "wikiName": "Grinlok Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Grinlok Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosChestArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosChestArmor",
+    "wikiName": "Eos Prime Chest Plate",
+    "description": "Decorative chest armor for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 125 Ducats and 75,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Eos Prime Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Pistols/PvPMarelok": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Pistols/PvPMarelok",
+    "wikiName": "Marelok Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Marelok Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmourThree/BaroArmourThreeA",
+    "wikiName": "Ki'Teer Greth Shoulder Plates",
+    "description": "Become the very picture of regard with this Ki'Teer original armor.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 350,000 Credits (offered on 14 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Greth Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/MesaImmortallSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Cowgirl/MesaImmortallSkin",
+    "wikiName": "Mesa Immortal Skin",
+    "description": "The Immortal skin for the Mesa Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 550 Ducats and 100,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Mesa Immortal Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/KDrive/KDriveVelocipodUncommonSkin": {
+    "uniqueName": "/Lotus/Upgrades/Skins/KDrive/KDriveVelocipodUncommonSkin",
+    "wikiName": "Green Velocipod K-Drive Skin",
+    "description": "Transforms your K-Drive in to a Green Velocipod.",
+    "acquisition": "Purchased from Son for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Green Velocipod K-Drive Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/MoonWarfanSugatraMeleeDangle": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/MoonWarfanSugatraMeleeDangle",
+    "wikiName": "Renayla Sugatra",
+    "description": "A sugatra inspired by the moon’s elegance.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 250,000 Credits (offered on 8 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Renayla Sugatra'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/TnShinaiArmor/TnShinaiArmorA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnShinaiArmor/TnShinaiArmorA",
+    "wikiName": "Tannukai Shoulder Plates",
+    "description": "Honor the Tenno legacy with this finely crafted set of training armor, as worn during the annual Origin System ceremonial games.",
+    "acquisition": "Sold by Baro Ki'Teer for 315 Ducats and 125,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Tannukai Shoulder Plates'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/LotusFlowers": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/LotusFlowers",
+    "wikiName": "Lotus Ephemera",
+    "description": "Your Warframe leaves a trail of fragrant petals in its wake.",
+    "acquisition": "Sold by Baro Ki'Teer for 250 Ducats and 450,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Lotus Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Wings/ThanoTechWings": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/ThanoTechWings",
+    "wikiName": "Loid Sentinel Wing",
+    "description": "All Necraloids can hover and maneuver with perfect poise. ",
+    "acquisition": "Purchased from Necraloid (Rank 3+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Loid Sentinel Wing'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/BaroArmour/BaroArmourC": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/BaroArmour/BaroArmourC",
+    "wikiName": "Ki'Teer Chest Plate",
+    "description": "This decorative armored plate is a Ki’Teer original.",
+    "acquisition": "Sold by Baro Ki'Teer for 150 Ducats and 250,000 Credits (offered on 10 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Ki'Teer Chest Plate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PvP/Melee/PvPNikana": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PvP/Melee/PvPNikana",
+    "wikiName": "Nikana Conclave Skin",
+    "description": "Bow to the Conclave with this weapon skin.",
+    "acquisition": "Purchased from Conclave (Rank 5+) for 50,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Nikana Conclave Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosLLArmor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/VTEos/VTEosLLArmor",
+    "wikiName": "Left Eos Prime Spurs",
+    "description": "Decorative leg armor for your Warframe.",
+    "acquisition": "Sold by Baro Ki'Teer for 65 Ducats and 50,000 Credits (offered on 9 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Left Eos Prime Spurs'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/VoidTrader/ElixisSonicor": {
+    "uniqueName": "/Lotus/Upgrades/Skins/VoidTrader/ElixisSonicor",
+    "wikiName": "Sonicor Elixis Skin",
+    "description": "Gild the Sonicor with this intricate bronze skin.",
+    "acquisition": "Sold by Baro Ki'Teer for 380 Ducats and 175,000 Credits (offered on 12 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Sonicor Elixis Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/CNY2022EmblemItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/CNY2022EmblemItem",
+    "wikiName": "Lunar Renewal Tiger Emblem",
+    "description": "Celebrate the Lunar Renewal with the strength of the tiger.",
+    "acquisition": "Sold by Baro Ki'Teer for 55 Ducats and 45,000 Credits (offered on 13 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Lunar Renewal Tiger Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentinels/Tails/GaussSentinelTail": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/GaussSentinelTail",
+    "wikiName": "Altra Sentinel Tail",
+    "description": "In this skin, your Sentinel will be indistinguishable from the air sentries that guarded the ancient tower of Altra, as described by Drusus Leverian.",
+    "acquisition": "Sold by Baro Ki'Teer for 400 Ducats and 500,000 Credits (offered on 7 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Altra Sentinel Tail'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Clan/BaroKubrowBadgeItem": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/BaroKubrowBadgeItem",
+    "wikiName": "Pack Leader Emblem",
+    "description": "An emblem representing your Kubrow allegiance.",
+    "acquisition": "Sold by Baro Ki'Teer for 50 Ducats and 50,000 Credits (offered on 6 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Pack Leader Emblem'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenDread": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDread",
+    "wikiName": "Dread Day of the Dead Skin",
+    "description": "A morbidly festive skin for the Dread.",
+    "acquisition": "Sold by Baro Ki'Teer for 300 Ducats and 275,000 Credits (offered on 17 recorded visits).",
+    "sourceRefs": [
+      "Module:Baro/data",
+      "exact name match: 'Dread Day of the Dead Skin'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Armor/LunaroSetB/LunaroSetBA": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/LunaroSetB/LunaroSetBA",
+    "wikiName": "Riv Comp-Guard Arm",
+    "description": "Decorative Lunaro padding.",
+    "acquisition": "Purchased from Conclave (Rank 3+) for 30,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Riv Comp-Guard Arm'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Effects/NokkoFootstepsEphemera 📖": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/NokkoFootstepsEphemera 📖",
+    "wikiName": "Rizoma Ephemera",
+    "description": "Everything is connected. Spores linger in your footsteps with this ephemera, evoking the underground web of life.",
+    "acquisition": "Purchased from Nightcap (Rank 5+) for 150 Fergolyte.",
+    "sourceRefs": [
+      "Module:Vendors/data",
+      "exact name match: 'Rizoma Ephemera'"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "approved_expected_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src-tauri/Cargo.lock",
+  "destination": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/src-tauri/Cargo.lock",
+  "source_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "destination_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "byte_identical": true,
+  "dependency_resolution_performed": false,
+  "preflight_gap": "The initial Stage 4 preflight incorrectly excluded src-tauri/Cargo.lock because it is Git-ignored.",
+  "future_preflight_now_requires_lockfile": true
+}

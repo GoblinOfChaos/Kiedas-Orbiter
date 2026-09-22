@@ -1,0 +1,30 @@
+[
+  {
+    "bytes": 71733360,
+    "sha256": "09b9f6cd4880d2e356f653fa99643fd49dbea42e4d4ac3860e3188743d8f1a76",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+    "current_file_available": false,
+    "availability_note": "Accepted Stage 3B hash record; shared target path was replaced by the authorized Stage 3C rebuild before a preservation copy was made."
+  },
+  {
+    "bytes": 71733360,
+    "sha256": "09b9f6cd4880d2e356f653fa99643fd49dbea42e4d4ac3860e3188743d8f1a76",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+    "current_file_available": false,
+    "availability_note": "Accepted Stage 3B hash record; shared target path was replaced by the authorized Stage 3C rebuild before a preservation copy was made."
+  },
+  {
+    "bytes": 116349168,
+    "sha256": "30e3638cdc56f64d3984cd8e31d3a5ea1c6f28dd4a807b9df6567027f1a6c041",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "current_file_available": false,
+    "availability_note": "Accepted Stage 3B hash record; shared target path was replaced by the authorized Stage 3C rebuild before a preservation copy was made."
+  },
+  {
+    "bytes": 190093816,
+    "sha256": "0836ef870d7e514122f5c9d1f6630cbe734e4ff374fcd458847255f2c73d7957",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "current_file_available": false,
+    "availability_note": "Accepted Stage 3B hash record; shared target path was replaced by the authorized Stage 3C rebuild before a preservation copy was made."
+  }
+]

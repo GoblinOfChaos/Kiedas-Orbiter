@@ -1,0 +1,9 @@
+{
+  "facts": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/rivens-nav-source-fact.json",
+  "facts_sha256": "2f8ab9b1390a466237644e33c629616b64692170d7d51a4385a6ce271339624e",
+  "harness": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-rivens/appimage-smoke.py",
+  "harness_sha256": "8a4e1dcc35d33267c42a78fc0d7162919402476c8f78d942667d818f3e8e08a9",
+  "occurrences": 3,
+  "pass": true,
+  "value": "Rivens"
+}

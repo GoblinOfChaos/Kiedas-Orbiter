@@ -1,0 +1,21 @@
+ opened_cosmetics=js("const b=[...document.querySelectorAll('nav button')].find(e=>e.textContent.trim()==='Cosmetics, Decorations, Emotes');if(!b)return false;b.click();return true")
+ if not opened_cosmetics: raise RuntimeError('Cosmetics navigation button unavailable')
+ time.sleep(2)
+ results['cosmetics_checks']=[]
+ expected_cosmetics=['All','Warframe','Primary','Secondary','Melee','Archwing','Sentinel','Syandana','Armor','Animation','Glyph','Sigil','Decoration','Emote','Other']
+ def press_cosmetics_key(value):
+  api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'cosmetics-keyboard','actions':[{'type':'keyDown','value':value},{'type':'keyUp','value':value}]}]})
+  time.sleep(.2)
+  try:api('DELETE',prefix+'/actions')
+  except Exception:pass
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.5)
+  state=js("""const root=document.querySelector('[data-preview-cosmetics-layout]');if(!root)return {present:false};const kinds=root.querySelector('.preview-cosmetics-kind-tabs'),own=root.querySelector('.preview-cosmetics-ownership-tabs'),toolbar=root.querySelector('[data-preview-cosmetics-toolbar]'),grid=root.querySelector('[data-preview-cosmetics-grid]'),cards=[...root.querySelectorAll('[data-preview-cosmetic-card]')],rr=root.getBoundingClientRect();return {present:true,categories:[...kinds.querySelectorAll('button')].map(e=>e.textContent.trim()),ownership:[...own.querySelectorAll('button')].map(e=>e.textContent.trim()),body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},root:{left:rr.left,right:rr.right},toolbarColumns:getComputedStyle(toolbar).gridTemplateColumns.split(' ').length,kinds:{client:kinds.clientWidth,scroll:kinds.scrollWidth,overflow:getComputedStyle(kinds).overflowX,wrap:getComputedStyle(kinds).flexWrap},cardCount:cards.length,cardWidths:cards.slice(0,3).map(e=>e.getBoundingClientRect().width),buttonCount:root.querySelectorAll('[data-preview-cosmetic-card] button').length,noZeroPrice:!root.innerText.includes('0p'),noSell:![...root.querySelectorAll('button')].some(e=>/sell/i.test(e.textContent))};""")
+  layout_pass=state.get('present') and state.get('categories')==expected_cosmetics and state.get('ownership')==['All','Owned','Unowned'] and state['body']['scroll']<=state['body']['client']+1 and state['root']['left']>=0 and state['root']['right']<=width+1 and state['toolbarColumns']==2 and state['kinds']['scroll']>state['kinds']['client'] and state['kinds']['overflow']=='auto' and state['kinds']['wrap']=='nowrap' and state['cardCount']>0 and all(value>=219 for value in state['cardWidths']) and state['buttonCount']==state['cardCount']
+  results['cosmetics_checks'].append({'size':[width,height],'kind':'layout-categories-and-buttons','state':state,'pass':layout_pass})
+  focused=js("const e=document.querySelector('[data-preview-cosmetic-card] button');if(!e)return false;e.focus();return document.activeElement===e&&e.tagName==='BUTTON'")
+  press_cosmetics_key('\ue007')
+  drawer=js("return {count:document.querySelectorAll('.fixed.bottom-0').length,title:document.querySelector('.fixed.bottom-0 h3')?.textContent||''}")
+  js("[...document.querySelectorAll('.fixed.bottom-0 button')].find(e=>e.textContent.trim().toLowerCase()==='close')?.click()");time.sleep(.15)
+  results['cosmetics_checks'].append({'size':[width,height],'kind':'native-acquisition-button','focused':focused,'drawer':drawer,'pass':focused and drawer['count']==1 and bool(drawer['title'])})
+ results['cosmetics_checks'].append({'kind':'price-and-market-surface','pass':state['noZeroPrice'] and state['noSell'],'no_zero_price':state['noZeroPrice'],'no_sell':state['noSell']})

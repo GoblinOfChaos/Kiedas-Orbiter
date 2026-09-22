@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/AppImage/type2-runtime/releases/download/continuous/runtime-x86_64",
+  "sha256": "1cc49bcf1e2ccd593c379adb17c9f85a36d619088296504de95b1d06215aebbf",
+  "bytes": 944632,
+  "configuration_source": "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/blob/master/README.md",
+  "setting": "LDAI_RUNTIME_FILE",
+  "note": "Downloaded via HTTPS from official upstream continuous release; content hash recorded, no independent signature verification."
+}

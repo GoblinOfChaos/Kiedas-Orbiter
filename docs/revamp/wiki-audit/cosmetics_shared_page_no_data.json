@@ -1,0 +1,356 @@
+{
+  "Accord Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Accord Sigil'"
+  },
+  "Ambition Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Ambition Sigil'"
+  },
+  "Ancient": {
+    "reason": "page 'Ancient (Scrawl)' fetched but never mentions 'Ancient'"
+  },
+  "Arbiters of Hexis Sigil": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Armada Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Armada Sigil'"
+  },
+  "Armored Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Armored Sigil'"
+  },
+  "Assassin Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Assassin Sigil'"
+  },
+  "Astreos Sword And Shield Skin": {
+    "reason": "page 'Astreos Sword and Shield Skin' fetched but never mentions 'Astreos Sword And Shield Skin'"
+  },
+  "Atomic Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Atomic Sigil'"
+  },
+  "Awakening Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Awakening Sigil'"
+  },
+  "Awareness Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Awareness Sigil'"
+  },
+  "Bending Will Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Bending Will Sigil'"
+  },
+  "Blades Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Blades Sigil'"
+  },
+  "Bounty Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Bounty Sigil'"
+  },
+  "Calculating Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Calculating Sigil'"
+  },
+  "Capital Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Capital Sigil'"
+  },
+  "Cephalon Suda Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Cephalon Suda Sigil'"
+  },
+  "Chairman Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Chairman Sigil'"
+  },
+  "Champion Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Champion Sigil'"
+  },
+  "Choice Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Choice Sigil'"
+  },
+  "Clarity Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Clarity Sigil'"
+  },
+  "Community of Tenno": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Conclave Sigil": {
+    "reason": "name collision in DE export: ['/Lotus/Upgrades/Skins/Sigils/OpticorConclaveVariantSigil', '/Lotus/Upgrades/Skins/Sigils/SyndicateSigilConclaveA']"
+  },
+  "Conquera Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'Conquera Sigil'"
+  },
+  "Conquera United Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'Conquera United Sigil'"
+  },
+  "Covert Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Covert Sigil'"
+  },
+  "Cull Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Cull Sigil'"
+  },
+  "DJ Shockwave Sigil": {
+    "reason": "page 'Sigils#Nightwave' fetched but never mentions 'DJ Shockwave Sigil'"
+  },
+  "Day of the Dead Sigil": {
+    "reason": "page 'Sigil#Tactical Alert Sigils' fetched but never mentions 'Day of the Dead Sigil'"
+  },
+  "Defiance Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Defiance Sigil'"
+  },
+  "Diligence Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Diligence Sigil'"
+  },
+  "Directives Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Directives Sigil'"
+  },
+  "Discipline Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Discipline Sigil'"
+  },
+  "Discovery Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Discovery Sigil'"
+  },
+  "Discretion Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Discretion Sigil'"
+  },
+  "EMOTION MODULE: SENSITIVE": {
+    "reason": "page 'EMOTION MODULE: SENSITIVE ' fetch failed or doesn't exist"
+  },
+  "Empathy Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Empathy Sigil'"
+  },
+  "Enlightenment Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Enlightenment Sigil'"
+  },
+  "Evergreen Sigil": {
+    "reason": "page 'Sigil#Tactical Alert Sigils' fetched but never mentions 'Evergreen Sigil'"
+  },
+  "Exclusive Sigil": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Exterminate": {
+    "reason": "page 'Exterminate (Scrawl)' fetched but never mentions 'Exterminate'"
+  },
+  "Fractal Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Fractal Sigil'"
+  },
+  "Freedom Fighter Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Freedom Fighter Sigil'"
+  },
+  "Freedom Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Freedom Sigil'"
+  },
+  "Gaia Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Gaia Sigil'"
+  },
+  "Gilded Clan Sigil": {
+    "reason": "page 'Sigil#Event Sigils' fetched but never mentions 'Gilded Clan Sigil'"
+  },
+  "Glyphed Clan Sigil": {
+    "reason": "page 'Sigil#Event Sigils' fetched but never mentions 'Glyphed Clan Sigil'"
+  },
+  "Grasp Sigil": {
+    "reason": "page 'Sigils#Arbiters of Hexis' fetched but never mentions 'Grasp Sigil'"
+  },
+  "Grim Grin Naberus Sigil": {
+    "reason": "page 'Sigil#Event Sigils' fetched but never mentions 'Grim Grin Naberus Sigil'"
+  },
+  "Growth Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Growth Sigil'"
+  },
+  "Guiding Path Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Guiding Path Sigil'"
+  },
+  "Hexan Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Hexan Sigil'"
+  },
+  "Hounding Kubrow Sigil": {
+    "reason": "page 'Sigil#Event Sigils' fetched but never mentions 'Hounding Kubrow Sigil'"
+  },
+  "Humanity Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Humanity Sigil'"
+  },
+  "Inktober Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'Inktober Sigil'"
+  },
+  "Insight Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Insight Sigil'"
+  },
+  "Justice": {
+    "reason": "page 'Justice (Scrawl)' fetched but never mentions 'Justice'"
+  },
+  "Labyrinth Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Labyrinth Sigil'"
+  },
+  "Lesion Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Lesion Sigil'"
+  },
+  "Lift Together Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'Lift Together Sigil'"
+  },
+  "Lunar Renewal Horse Sigil": {
+    "reason": "page 'Sigils#Baro Ki'Teer Sigils' fetched but never mentions 'Lunar Renewal Horse Sigil'"
+  },
+  "Maelstrom Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Maelstrom Sigil'"
+  },
+  "Malevolent Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Malevolent Sigil'"
+  },
+  "Manifold Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Manifold Sigil'"
+  },
+  "Multivariate Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Multivariate Sigil'"
+  },
+  "Nef Anyo Sigil": {
+    "reason": "page 'Sigils#Enemy Drop Sigils' fetched but never mentions 'Nef Anyo Sigil'"
+  },
+  "New Loka Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'New Loka Sigil'"
+  },
+  "Nistlebrush Sigil": {
+    "reason": "page 'Sigil#Tactical Alert Sigils' fetched but never mentions 'Nistlebrush Sigil'"
+  },
+  "Opportunity Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Opportunity Sigil'"
+  },
+  "Optimum Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Optimum Sigil'"
+  },
+  "Ostron Community Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'Ostron Community Sigil'"
+  },
+  "Pattern Match Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Pattern Match Sigil'"
+  },
+  "Perception Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Perception Sigil'"
+  },
+  "Perrin Sequence Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Perrin Sequence Sigil'"
+  },
+  "Potential Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Potential Sigil'"
+  },
+  "Progress Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Progress Sigil'"
+  },
+  "Protectorate Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Protectorate Sigil'"
+  },
+  "Prudence Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Prudence Sigil'"
+  },
+  "Purity Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Purity Sigil'"
+  },
+  "Query Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Query Sigil'"
+  },
+  "Rebellion Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Rebellion Sigil'"
+  },
+  "Rebirth Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Rebirth Sigil'"
+  },
+  "Red Veil Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Red Veil Sigil'"
+  },
+  "Revelation Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Revelation Sigil'"
+  },
+  "Rift Sigil": {
+    "reason": "page 'Sigil#Tactical Alert Sigils' fetched but never mentions 'Rift Sigil'"
+  },
+  "Ruin Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Ruin Sigil'"
+  },
+  "Sacrifice Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Sacrifice Sigil'"
+  },
+  "Scars of Arbitration Sigil": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Seal of Honoring": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Seal of Honoring II": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Seal of Honoring III": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Seal of Honoring IV": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Searching Sigil": {
+    "reason": "page 'Sigils#Cephalon Suda' fetched but never mentions 'Searching Sigil'"
+  },
+  "Seed Sigil": {
+    "reason": "page 'Sigils#New Loka' fetched but never mentions 'Seed Sigil'"
+  },
+  "Shroud of Dynar Sigil Sigil": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Somber Stalker Sigil": {
+    "reason": "page 'Sigil#Event Sigils' fetched but never mentions 'Somber Stalker Sigil'"
+  },
+  "Steel Meridian Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Steel Meridian Sigil'"
+  },
+  "Strategy Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Strategy Sigil'"
+  },
+  "Succession Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Succession Sigil'"
+  },
+  "Surpassing Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Surpassing Sigil'"
+  },
+  "Synergy Sigil": {
+    "reason": "page 'Sigils#Perrin Sequence' fetched but never mentions 'Synergy Sigil'"
+  },
+  "TennoGen Decennial Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'TennoGen Decennial Sigil'"
+  },
+  "TennoVIP 2026 Sigil": {
+    "reason": "page 'Sigils#Live Event Sigils' fetched but never mentions 'TennoVIP 2026 Sigil'"
+  },
+  "TennoVIP East Sigil": {
+    "reason": "page 'Sigils#Live Event Sigils' fetched but never mentions 'TennoVIP East Sigil'"
+  },
+  "Teralyst Prominence Sigil": {
+    "reason": "page 'Sigils#Event Sigils' fetched but never mentions 'Teralyst Prominence Sigil'"
+  },
+  "Threat Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Threat Sigil'"
+  },
+  "Tolling Sigil": {
+    "reason": "page 'Sigil#Tactical Alert Sigils' fetched but never mentions 'Tolling Sigil'"
+  },
+  "Truth Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Truth Sigil'"
+  },
+  "Unity Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Unity Sigil'"
+  },
+  "Unyielding Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Unyielding Sigil'"
+  },
+  "Uprising Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Uprising Sigil'"
+  },
+  "Vena's Talons": {
+    "reason": "page 'Vena Gemini Skin' fetched but never mentions 'Vena's Talons'"
+  },
+  "Vigilance Sigil": {
+    "reason": "page 'Sigils#Steel Meridian' fetched but never mentions 'Vigilance Sigil'"
+  },
+  "Viscera Sigil": {
+    "reason": "page 'Sigils#Red Veil' fetched but never mentions 'Viscera Sigil'"
+  },
+  "Volition Sigil": {
+    "reason": "page 'Sigils#Conclave Sigils' fetched but never mentions 'Volition Sigil'"
+  },
+  "Will Sigil": {
+    "reason": "page 'Sigils##Arbiters of Hexis' fetched but never mentions 'Will Sigil'"
+  },
+  "Winter Solstice Sigil": {
+    "reason": "no InternalName and no exact DE ExportCustoms name match"
+  },
+  "Wreath Sigil": {
+    "reason": "page 'Sigil#Tactical Alert Sigils' fetched but never mentions 'Wreath Sigil'"
+  }
+}

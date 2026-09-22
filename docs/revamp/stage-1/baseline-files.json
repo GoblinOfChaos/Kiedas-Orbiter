@@ -1,0 +1,4252 @@
+[
+  {
+    "path": ".gitattributes",
+    "sha256": "09c4f7b814706994e438b4193355a364c9e130601ba4797b9afbfa5cac4f1b2f",
+    "bytes": 138
+  },
+  {
+    "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+    "sha256": "40a156832c18349bade64e3b6135a39b6f04d990a2e9d2fe0049ca286420bdbe",
+    "bytes": 806
+  },
+  {
+    "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+    "sha256": "c42f9484152e685545d591467d3de750026ea9ad240fbb0b159a98ab5ff56794",
+    "bytes": 598
+  },
+  {
+    "path": ".github/workflows/discord_release.yml",
+    "sha256": "26b976ec89f0dd87adf0eff48da61461d651f84d278ce55b6203d247301b03f8",
+    "bytes": 1484
+  },
+  {
+    "path": ".github/workflows/release.yml",
+    "sha256": "a4153e875d010085d8128a0268cc2d549a51f01907efe95eb4ad11668be3dfa0",
+    "bytes": 14392
+  },
+  {
+    "path": ".gitignore",
+    "sha256": "1496e9b2523f7ef9b7a814afa42c6d91e8374177a86d4835b7f76d0c6798df69",
+    "bytes": 2309
+  },
+  {
+    "path": ".npmrc",
+    "sha256": "4fb55026576ef8afa5e31c239072355e90a12c6b092ffcc4253dcca68e7d3570",
+    "bytes": 28
+  },
+  {
+    "path": ".taurignore",
+    "sha256": "d2835e1a524b67d78b52ea0a5274f56218806314019e7c74a8d22eeb135b86a3",
+    "bytes": 65
+  },
+  {
+    "path": "AGENTS.md",
+    "sha256": "ec8a4f44cbc9115ddd9f3ef1c70c762d75ed1d803705aba676771a45b8ee40db",
+    "bytes": 1387
+  },
+  {
+    "path": "ARCHITECTURE.md",
+    "sha256": "9ced1b150e2be875498b209f91e81c3a6145f7664967e9cbaf8e372fbc70f7c3",
+    "bytes": 40752
+  },
+  {
+    "path": "CHANGELOG.md",
+    "sha256": "f4c68d9880c35e3b02ccb9051e1b0ddd8038a88d80bf86866da666feee83c568",
+    "bytes": 2754
+  },
+  {
+    "path": "CLAUDE_AUDIT_HANDOFF.md",
+    "sha256": "6b75b40ed49110796748b33fb665821bde431beafd0e8ec91ee01f3b2db7a33c",
+    "bytes": 11119
+  },
+  {
+    "path": "LICENSE",
+    "sha256": "f13036eebed76633a006a7b71bda94319050e84a3a49e7bdb6172b853610ec95",
+    "bytes": 2934
+  },
+  {
+    "path": "README.md",
+    "sha256": "77a672dc81c39a480623dbe4a006ab8ce1f24b67cec623e43879f6ffa5fa9a37",
+    "bytes": 6187
+  },
+  {
+    "path": "SECURITY.md",
+    "sha256": "c71f0ee9d25699e02047d267248fb11083fb9cf413349276791d403871efc96e",
+    "bytes": 1251
+  },
+  {
+    "path": "USER_GUIDE.md",
+    "sha256": "3a22cf152f2e61ffd86e87f9914ed5d607774620a4fe349e4c40c36b5b6e7a1d",
+    "bytes": 4423
+  },
+  {
+    "path": "docs/IconKronos.png",
+    "sha256": "d28725aec5db9952008b8aab8659dc480149c1cfeb7ac4b94ab4c8864be5849f",
+    "bytes": 7625
+  },
+  {
+    "path": "docs/RECURRING_ERRORS_REPORT.md",
+    "sha256": "29049435eaa2970e4d8a1fe541b95cc35b612c51f89bc281cd73b6d7781f85f6",
+    "bytes": 9567
+  },
+  {
+    "path": "docs/assets/Kronos.blend",
+    "sha256": "f2989199b9da5ef6969c25d6bdd65d724e4120d632481ce65db17551678ce7a7",
+    "bytes": 239590
+  },
+  {
+    "path": "docs/assets/Kronos.blend1",
+    "sha256": "83243c0df65ee7b9b63c6750800cabb278b9766c8e560014c2430cdde72df863",
+    "bytes": 228888
+  },
+  {
+    "path": "docs/assets/Kronos.glb",
+    "sha256": "2fe2b70347da44fe9f7659b5885ae0f9cf7b6bc0baf06583e11690cb97337a3f",
+    "bytes": 348276
+  },
+  {
+    "path": "docs/assets/cracked_concrete_wall_diff_1k.jpg",
+    "sha256": "f910cbaff5a0fbd778a8c41947ac826f2313e70e9b4077bc39221a417fa8d5b4",
+    "bytes": 1073985
+  },
+  {
+    "path": "docs/assets/cracked_concrete_wall_disp_1k.png",
+    "sha256": "c41c270151c2039ec86ac1f2e7d3a4e0f1bcef9b7c35a26641338bbb49366609",
+    "bytes": 1596900
+  },
+  {
+    "path": "docs/assets/cracked_concrete_wall_nor_1k.png",
+    "sha256": "4db1ab58766f708479cd0733c4b91fc3cc766f43959b20658cae67f44fbb347c",
+    "bytes": 5161809
+  },
+  {
+    "path": "docs/assets/cracked_concrete_wall_rough_1k.jpg",
+    "sha256": "35d570a9f5f2d30939ee07c5830a4045fe6034846e8961d817ce4fa07d08eab2",
+    "bytes": 94027
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/EVIDENCE.md",
+    "sha256": "f6c051c2f4fa610315c19e8fe1a59db76fa63412e68c5cf80dec49a6956b3ff8",
+    "bytes": 5627
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/FAILURES.md",
+    "sha256": "8f7a9a79a86f8b3f4f9059e3d04583e79446f284f20f89251698e661b0ca382d",
+    "bytes": 14663
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/FOLLOWUP-CLAUDE-2026-09-03.md",
+    "sha256": "ce1253935cd43d00bf11a09be0af1e01717c6f5426dcb1310236424761af6b39",
+    "bytes": 19446
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/LIVE-SESSION-RUNBOOK.md",
+    "sha256": "64fa667b7849e52373ad83b2161ebd976247cb3ef2e39650b58b4f67b6ce05e4",
+    "bytes": 9462
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/MASTER-REPORT.md",
+    "sha256": "953ee5ebe0d1e30bed2dd06a7cd2ac080ff271b07a4fc9551165243cc8a2b6d6",
+    "bytes": 5831
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-app-dashboard.png",
+    "sha256": "bb8743f84a975b84ca0e122130a62f097503006ed6398432512dc384f64d6047",
+    "bytes": 178607
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/about.png",
+    "sha256": "c0782ceacf10b43588708d10bdaa5485425db22b785ba663b0c1ae9c1229c683",
+    "bytes": 128172
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/adversaries.png",
+    "sha256": "757c4b4733475669ef65aff7ac332d1ff863f1f26ed21acddcbfeed431f2b5f0",
+    "bytes": 110537
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/checklist.png",
+    "sha256": "ace95aff4ed51643964ad8c00b6f299458f3f4102341a060a348870aacd9becf",
+    "bytes": 184002
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/collectibles.png",
+    "sha256": "d3d5a91b0ddf083a7d979a096594637651a7dd18ed231cd2060b718e92b00be3",
+    "bytes": 468387
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/contact-1.png",
+    "sha256": "02146b59c8872bad28fd4c50a15f940dd602d22c97511cd9ac0b3ed16ed17786",
+    "bytes": 1021790
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/contact-2.png",
+    "sha256": "a4b3051fe93d7ac8eb32f838c699ab5e1fa0459a95d54c2e365368da4635ff60",
+    "bytes": 1345731
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/contact-3.png",
+    "sha256": "01931b9ff40d4d17eacc37934ddb0c92730f973ef1b27eec6e38f03f4bd83112",
+    "bytes": 1059350
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/cosmetics.png",
+    "sha256": "3979742902cc1e132f971e1fe0502fcaf987422ccf3c47b563db0020e2c571c6",
+    "bytes": 300820
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/dashboard.png",
+    "sha256": "ba622380f88f35f8934cc27bc7becc31eebeed8fdf4938813cc581bef794d4fa",
+    "bytes": 179875
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/foundry-delayed.png",
+    "sha256": "8428418b0dd79bd4408ffbd7482e95b6e4ab8c8db52114c46d37bd3f13877905",
+    "bytes": 278404
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/foundry.png",
+    "sha256": "2f7155013f07d1862700143bd9d3f87b58b61cadc67dcb04261d5eb6bc89d68a",
+    "bytes": 29418
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/history.png",
+    "sha256": "4f455fb146b5eb45061337c82ffcc054fc39a877bcfbbc858b57af922699bdae",
+    "bytes": 97662
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/inventory.png",
+    "sha256": "19b31f0fbefa16bca6796e02d7373f4d71a5e637d9c02e35520ff3281d0681e6",
+    "bytes": 179777
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/maps.png",
+    "sha256": "53077229df573250052117dec86c8499662b6583953ff193d77d928265adf37d",
+    "bytes": 436468
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/market.png",
+    "sha256": "310f9bcf30063104e62c0fbf064ed249efbab54ee4e25b2a14a1e4c177dd495a",
+    "bytes": 77914
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/mastery.png",
+    "sha256": "a8787981baa0207ff7b3b0147a555540015324dbcae719b334f15c2b1c78f648",
+    "bytes": 121480
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/mods.png",
+    "sha256": "7e9c68a914d46b1a2ce49ac81d6bc222c5756e998405637db01c23f148573301",
+    "bytes": 523635
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/notes.png",
+    "sha256": "f3d0bfa48b7700bfec3342ab80dd117cc30fbd917aeafea1f01636263907c4fc",
+    "bytes": 63672
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/prime-resurgence.png",
+    "sha256": "e89f71c6568c2a97615e1e4357c14c51a232b93b2c828f6464bb12166c59883f",
+    "bytes": 105758
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/relic-planner.png",
+    "sha256": "98d75ea621825533b1e59d0bed34b896524faa3328029ec24c34e38e5eb9b30c",
+    "bytes": 87217
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/relics-delayed.png",
+    "sha256": "39d2f50a4a36efb4632ba6a9ae8f6e06e51eb25b25e6a8840b5d556f22f59e27",
+    "bytes": 158950
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/relics.png",
+    "sha256": "3428cfd31008704569204986ee9c59476dfc0d282494ca088df2507f8372a038",
+    "bytes": 29709
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/rivens.png",
+    "sha256": "7a175d0ab9ab89a135a2c2b17c6a2a94084d5c3a74c7bace18f28d9210d89bfb",
+    "bytes": 255612
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/settings.png",
+    "sha256": "a33132c90d06060eeb81f745d3ff0faab6b55c522d7c88116502df745d00de4a",
+    "bytes": 94534
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/sidebar-bottom.png",
+    "sha256": "2b5a4e0782792d58bab0395cd9fb505fabc6c9d640f7dcf05e240cbe7205b405",
+    "bytes": 65244
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/sidebar-middle.png",
+    "sha256": "538c78b92d53b21352fd3870c792088455175a420736e31a1e2ee8081e2fc0ed",
+    "bytes": 129579
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/sidebar-scrolled.png",
+    "sha256": "469b0eff6e14641e0edfbc945a4741853db3e279612f9ead847c1420a1d8c7b6",
+    "bytes": 157672
+  },
+  {
+    "path": "docs/audits/full-app-2026-09-03/evidence/real-screens/wiki.png",
+    "sha256": "3e024248f84bdef47c32c88d4e373374588a1391dfeafcbe43a1e57bd406a917",
+    "bytes": 437971
+  },
+  {
+    "path": "docs/collectibles-guides.md",
+    "sha256": "d18c3ddb94dda0a5c0c0be60283d6e32c037775d3ef8c1a7569642a846d5eb73",
+    "bytes": 13056
+  },
+  {
+    "path": "docs/cosmetics-audit-checklist.md",
+    "sha256": "5d37aff5376072d213952d870517d2cc6adb48a9a4863374019217de5cc961ae",
+    "bytes": 9086
+  },
+  {
+    "path": "docs/cosmetics-audit-findings-2026-09-02.md",
+    "sha256": "6180c1435c5d97476b6d9d67c20cfce9a9aa9694891be6eb75bdbca334aa8df4",
+    "bytes": 17699
+  },
+  {
+    "path": "docs/index.html",
+    "sha256": "1cd2a0218ae6ccf860e8cc57e30d1668630cd28f288ea1c4c706068773790af1",
+    "bytes": 7754
+  },
+  {
+    "path": "docs/live-qa-checklist.md",
+    "sha256": "948a5a160612b8c2bcc2bd1d845d04062617236f50fe09d686b4bff92023f862",
+    "bytes": 13453
+  },
+  {
+    "path": "docs/main.js",
+    "sha256": "822d05c3092a40ce931c36a09eb662b7b702a45c0b32baff3a9fac865ae523db",
+    "bytes": 23293
+  },
+  {
+    "path": "docs/missing-images.md",
+    "sha256": "7b83ba5b95ac4e986fe9b50e50f04f978842e9d4f1b646ec57a594f5abffff89",
+    "bytes": 6475
+  },
+  {
+    "path": "docs/overnight-progress-2026-09-02.md",
+    "sha256": "30fcf8340df2bc700d18beac4788b72d73f34d7334ae53506ee5222038097e77",
+    "bytes": 23718
+  },
+  {
+    "path": "docs/qa-checklist.md",
+    "sha256": "9ceb24c52c59eb2ef18f4a7e4664fd8829176250c7bcde95a60eca79dfd44eb9",
+    "bytes": 116721
+  },
+  {
+    "path": "docs/qa-findings.md",
+    "sha256": "f4cb8496722508643a66e7f14bb204913e81b8f02d45574e3235e8e2f8e50e31",
+    "bytes": 29702
+  },
+  {
+    "path": "docs/remaining-acquisitions.md",
+    "sha256": "ffb9b80594abf64fcd4d738a0bbf6b16f12573788ca2446c7b5fa1113ca65032",
+    "bytes": 1903
+  },
+  {
+    "path": "docs/screenshots/Dashboard.png",
+    "sha256": "651812ef74698830a799612df29244fe1fa053c7f422cae2d6e3a289c69236f9",
+    "bytes": 224729
+  },
+  {
+    "path": "docs/screenshots/Dashboard2.png",
+    "sha256": "dfce3153f5d197e294afd0d84a823681a52c9f2104bc04a3408db8b8300df2fb",
+    "bytes": 72963
+  },
+  {
+    "path": "docs/screenshots/checklist.png",
+    "sha256": "4be1822e0ab1c1f64256413952b30c9103b5da0942cb142a8998bdeb3540c633",
+    "bytes": 197120
+  },
+  {
+    "path": "docs/screenshots/collectibles.png",
+    "sha256": "8e0c523653c07a19a172a0fe1ee30270ab5a026d399595f77984f3daa1ff5cb0",
+    "bytes": 479519
+  },
+  {
+    "path": "docs/screenshots/inventory.png",
+    "sha256": "d18e34be2ad071944f0238946fa251e0fb36fed03fee85ac039b24aa61f86e21",
+    "bytes": 339139
+  },
+  {
+    "path": "docs/screenshots/inventory2.png",
+    "sha256": "91922e3c950af0876453e14b542dc5fea5697449b59f8aa05e13c4fc03706d91",
+    "bytes": 94451
+  },
+  {
+    "path": "docs/screenshots/inventory3.png",
+    "sha256": "395dcf0fc7e5afaafce217aaffde3a87c46b34d861ca723d786d248c053516cc",
+    "bytes": 98812
+  },
+  {
+    "path": "docs/screenshots/inventory4.png",
+    "sha256": "7432e249ce22c2ec829ea82bcd14f1ff60d7dbf8103f81dbb92f1016fcf66ae5",
+    "bytes": 132102
+  },
+  {
+    "path": "docs/screenshots/maps.png",
+    "sha256": "3d57514117c8915aa602e2c342fbcd404fa6bf7ebec60bd3152137152ee4ada9",
+    "bytes": 1100846
+  },
+  {
+    "path": "docs/screenshots/mastery.png",
+    "sha256": "71508f34801a88a515d193a35b979c8dc3518469605e27eb0601dff8429ac6e6",
+    "bytes": 124194
+  },
+  {
+    "path": "docs/screenshots/mastery2.png",
+    "sha256": "1f4dcf5b301c4e843ea83d291f20b37c37b58b06d255cd8bf82ea888fbe1cdd1",
+    "bytes": 17148
+  },
+  {
+    "path": "docs/screenshots/mods.png",
+    "sha256": "7531c5d75e076b27083f7b4bb71082a550e66a98d5419d9247c735c41b2eb1a6",
+    "bytes": 558691
+  },
+  {
+    "path": "docs/screenshots/mods2.png",
+    "sha256": "2e7c997ec1d07963419b96585df49d1d569d5f673082ba3dc17a327f0c7d4a12",
+    "bytes": 242323
+  },
+  {
+    "path": "docs/screenshots/notes.png",
+    "sha256": "7ab95bb2e3e03fafe5440bcc9f92ba9e35f0a90be0602b0ffff5363a541ffb1e",
+    "bytes": 61496
+  },
+  {
+    "path": "docs/screenshots/overlay.png",
+    "sha256": "7a88cd81fbc70480838d7687cb0a5a750fd1853c33f219030859216aa6a68c44",
+    "bytes": 1138677
+  },
+  {
+    "path": "docs/screenshots/relics.png",
+    "sha256": "a00a0f250b622e31ca285333ab3db4b1ff950ac5f56142e31fb68d28da995800",
+    "bytes": 286698
+  },
+  {
+    "path": "docs/screenshots/relics2.png",
+    "sha256": "293373fdbd7a96476ce96adae6ac6014dc6d8e4983e6b6e271102ceb269982f7",
+    "bytes": 139097
+  },
+  {
+    "path": "docs/screenshots/rivens.png",
+    "sha256": "a6d11bf5ff5cb25787e1ec379a0e9d10b474b82912032bf85ef6656a258672eb",
+    "bytes": 325454
+  },
+  {
+    "path": "docs/styles.css",
+    "sha256": "c269c3ec9758e0bf9344f23bb1db1a57e8db8af935d56881aff22aaa46e31250",
+    "bytes": 15204
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-baro-ownership-status.md",
+    "sha256": "7cd75d8a0cf92445c2eb0c2aa21f70d1b22075d1a02e13af69ba6b618030ee35",
+    "bytes": 7123
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-collectibles-per-item-locations.md",
+    "sha256": "43786b2ab6c6145e0873234ee0a0c704a582ed6d5d07bef7927407748138bd62",
+    "bytes": 11422
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-missing-item-acquisition-info.md",
+    "sha256": "ac4578cf3e71d4747c5c03f80f1336f2690bafeb16898b5d860168b10e781c96",
+    "bytes": 14117
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-relic-overlay-need-sort.md",
+    "sha256": "e6dfae3ec39866a5d5aa8f7bbe3b05fe6c472287ee267523235e3805aeabf27f",
+    "bytes": 7823
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-relic-planner.md",
+    "sha256": "20a78680b611c861c65f4e8fc29b0b8a92351e2ab64da178d7c0032c16ebc4f8",
+    "bytes": 15309
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-riven-slide-crit-ocr-status.md",
+    "sha256": "578be62e8ccbf311ff97c8d2b207ed0dd9df9d7cf7a753d5cb4fe9fe03897a12",
+    "bytes": 2156
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-08-riven-stat-based-grading.md",
+    "sha256": "8019c53d87a9792975bdbfd8f1f6b7b97c4586ad958d1ac734dfae6b66d6f3a0",
+    "bytes": 18317
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-09-acquisition-info-drawer.md",
+    "sha256": "aadff1fb01d51f71a906eacef997346b0b70ff1d80c9f7363fccea908b145d56",
+    "bytes": 33642
+  },
+  {
+    "path": "docs/superpowers/plans/2026-08-14-repository-informed-acquisition-guide.md",
+    "sha256": "4d00a721f8ae615b4d3db707f1073109a5ab8ae353030e158d375a13d13a0554",
+    "bytes": 9751
+  },
+  {
+    "path": "docs/superpowers/specs/2026-08-09-acquisition-info-drawer-design.md",
+    "sha256": "582056455737d3412fae85d902a9ac3039a9015170a61e6175441ef089ceaf16",
+    "bytes": 5403
+  },
+  {
+    "path": "docs/upstream-diff-tally.md",
+    "sha256": "51ea4c5485ed70f0cdca1c5f5ccbae11cfbe3047b684ec3c01848c09fd507fe2",
+    "bytes": 11511
+  },
+  {
+    "path": "eslint.config.js",
+    "sha256": "d7076912d1c9786ca76231a2a77cef475b7fafbe4950a8ecc430af171422993c",
+    "bytes": 19
+  },
+  {
+    "path": "index.html",
+    "sha256": "819dcf16f6e03c5d47b98d0de97970912debe09bbfaa89f9636969a662da1fc0",
+    "bytes": 1107
+  },
+  {
+    "path": "package.json",
+    "sha256": "98d482736835d6cb1c3beedcb8186f9ef982a9af3ef835d1e64d972d1c2ba46e",
+    "bytes": 1355
+  },
+  {
+    "path": "pnpm-lock.yaml",
+    "sha256": "94173e2fba1a1f011d05e5af9e104978020e1922d0cb587dca977ee3361cf1d5",
+    "bytes": 205830
+  },
+  {
+    "path": "pnpm-workspace.yaml",
+    "sha256": "927660f99b6a62129b7bf87d9b8513de6dff94d4f1e4fdb5c88a252ac3d4f9c2",
+    "bytes": 92
+  },
+  {
+    "path": "postcss.config.js",
+    "sha256": "7531ba2bf4c184ff5c3c84e5055749c4038ff6ac9e4c568b7c4c95d3736fadb2",
+    "bytes": 58
+  },
+  {
+    "path": "scratchpad/patch_i18n.py",
+    "sha256": "47caf072cb19cc3eda518198065342c66d6e880976c1d69a0291bfb3b25fcea5",
+    "bytes": 15763
+  },
+  {
+    "path": "scripts/_ui_keys/comp.json",
+    "sha256": "56673127bb41cb61ac6e55e8b8b8ebe86c5666b6f659d9dac86d1a7ab2f81b31",
+    "bytes": 188
+  },
+  {
+    "path": "scripts/_ui_keys/dashboard.json",
+    "sha256": "42d7f462ebf962b5d8bce82cf1519f05827d8297364752aac4011ad69083a495",
+    "bytes": 5342
+  },
+  {
+    "path": "scripts/_ui_keys/inventory.json",
+    "sha256": "84bfea385152a593c20df05f018034010e607ff80d35d6183a213609d0ea2c86",
+    "bytes": 4349
+  },
+  {
+    "path": "scripts/_ui_keys/mastery.json",
+    "sha256": "dcb752897b5fbacb0e5d4863998b18f15f65495580a953ef5faaa6be2b045f4c",
+    "bytes": 2547
+  },
+  {
+    "path": "scripts/_ui_keys/mod_card.json",
+    "sha256": "fd9ecd44bb9b80988813fc63c5925da9ddddc9fa6ffe91f8cc2f70bc21025c72",
+    "bytes": 82
+  },
+  {
+    "path": "scripts/_ui_keys/mods.json",
+    "sha256": "a32bccedb374ed9eb166446f10f0447d7835787db494d3fc80ec40d1638ba8ba",
+    "bytes": 1498
+  },
+  {
+    "path": "scripts/_ui_keys/notes.json",
+    "sha256": "24d38dbc6f7661a7f4f9b436a7614ef2929142e3396ad146a00aaf7657f72bdb",
+    "bytes": 914
+  },
+  {
+    "path": "scripts/_ui_keys/notif_mgr.json",
+    "sha256": "cfe3b14edd95ae725408c1d4e97b565c12c962455c9ed93db70609436172f419",
+    "bytes": 312
+  },
+  {
+    "path": "scripts/_ui_keys/relic_pick.json",
+    "sha256": "0cf2d12ab4af75fef54f1655578977942480fbed5f6ca8b31d5ee5ed2b999144",
+    "bytes": 114
+  },
+  {
+    "path": "scripts/_ui_keys/relic_reward.json",
+    "sha256": "fde89115d8a04207a4fb5a6780a37a9763fddf0f92b0fcf8d9eb19526e8867a5",
+    "bytes": 352
+  },
+  {
+    "path": "scripts/_ui_keys/riven_card.json",
+    "sha256": "3236f42c0040ce9deca27f90737d0b9167ba21ae4e773a52800b5ec7b01e5f74",
+    "bytes": 862
+  },
+  {
+    "path": "scripts/_ui_keys/riven_overlay.json",
+    "sha256": "8af511455d95fdf532a763fad5c52b1ab9252668ce98cc3bc6f37bc589f09e25",
+    "bytes": 889
+  },
+  {
+    "path": "scripts/_ui_keys/rivens.json",
+    "sha256": "5e62f41a3f76cfee64ebb0944867264e1c95c4e5448d739793375e99cb5be0d7",
+    "bytes": 869
+  },
+  {
+    "path": "scripts/_ui_keys/setup.json",
+    "sha256": "5473be841553165258a8bd94f360db49afac51c0e5e8986bc5fc785c7ac9f331",
+    "bytes": 867
+  },
+  {
+    "path": "scripts/_ui_keys/toast.json",
+    "sha256": "9ffd5b282caef5da876c9ecb25868381c1073f8295ed1fc28d1455107dd1a14e",
+    "bytes": 90
+  },
+  {
+    "path": "scripts/audit_e2e.js",
+    "sha256": "1e02c31bda3c6495ba92f1375dd087a0a436563999eea02dd9fedfc6dd82ef74",
+    "bytes": 11216
+  },
+  {
+    "path": "scripts/audit_heading_coverage.py",
+    "sha256": "01ec85b3784e6250005277853f42252af2459c2f9982477975b9b9c308587a7a",
+    "bytes": 4236
+  },
+  {
+    "path": "scripts/audit_missing_images.js",
+    "sha256": "37bc74c8582c05c665d3934cb0b329e34dccc858bfd6ea65516ada73c62c77ea",
+    "bytes": 21713
+  },
+  {
+    "path": "scripts/audit_static.js",
+    "sha256": "ca8ad859d76af0620089707f2c7cc51b4aa34f538a804ccb7a3a8dfb0ce14774",
+    "bytes": 5767
+  },
+  {
+    "path": "scripts/build_wiki_pdf_archive.py",
+    "sha256": "c72240050000792641437851c4430272bf3f1a26c1be383ef2ddad8a3ebd069d",
+    "bytes": 3413
+  },
+  {
+    "path": "scripts/rebuild-appimage.sh",
+    "sha256": "98e4c92f3f9c69a82e1f3e9f54bfbc8d0fab24df4eae0571a84ff8761f0a3b16",
+    "bytes": 4425
+  },
+  {
+    "path": "scripts/riven-stat-translations.seed.json",
+    "sha256": "5e9bd39228b6c1cba52a4446cc671ba75787ebaadfcc0567fa786ca0e8a705ba",
+    "bytes": 15377
+  },
+  {
+    "path": "scripts/stage_gallery_page.py",
+    "sha256": "2d8148e0a3bb40cceca424631e8f69ec0c51f4942dfcd20d1132964ca2737aee",
+    "bytes": 8844
+  },
+  {
+    "path": "scripts/stage_gene_masking_kits.py",
+    "sha256": "0cb88a351e24a605f8c42873157558edfed6982960faade9cf1b444e39acbe20",
+    "bytes": 3892
+  },
+  {
+    "path": "scripts/stage_glyphbox_page.py",
+    "sha256": "13ccc386bc3364b699eeabdb30ccd125704c9685ef3cc8c0a6a622111d3986ae",
+    "bytes": 5245
+  },
+  {
+    "path": "scripts/stage_operator_outfits.py",
+    "sha256": "73640c3e0daf3e19a5d132eddb736d8e3ea5b66cf2e5216fd1cc5e40a9a78001",
+    "bytes": 5835
+  },
+  {
+    "path": "scripts/stage_sentinel_attachments.py",
+    "sha256": "4d03e48fbb8c46311bbdb6b8c31102d5e73279e39b1c94b10443436fa4c80b1a",
+    "bytes": 6787
+  },
+  {
+    "path": "scripts/stage_sigilbox_page.py",
+    "sha256": "a35f36eeab9e00b9a09607a1ded096b2a2371cbf612f9336ee5b13657b803b91",
+    "bytes": 4782
+  },
+  {
+    "path": "scripts/stage_sugatras.py",
+    "sha256": "c9648ec2b414f4b05bd861b85887364b6e496484c030448827ee80e42f15baef",
+    "bytes": 2150
+  },
+  {
+    "path": "scripts/stage_syndicate_sigils.py",
+    "sha256": "8cebcbd3f9a9b36d847c3b1170396444c831b01b5597b61fe854aa24ab38ef57",
+    "bytes": 3741
+  },
+  {
+    "path": "scripts/stage_third_party_bundles.py",
+    "sha256": "2b0c91be2c54d6887e2f8f0cc1939b40da8019139e70c433213d83fdd2035338",
+    "bytes": 5057
+  },
+  {
+    "path": "scripts/stage_warframe_helmets.py",
+    "sha256": "8235a278572de2ded10b484a07ed42753265b0edd9b3ebe6f60f930c0cfcdace",
+    "bytes": 3351
+  },
+  {
+    "path": "scripts/stage_warframe_skins.py",
+    "sha256": "90405f05a9b49e5dc41d1721ba76179a3ec4c43a4c7e9e875d7eea2fa39437d8",
+    "bytes": 7193
+  },
+  {
+    "path": "scripts/sync-wfcd.js",
+    "sha256": "e7d014a2615290b5a2977988dbbc72a23a9b4daac4c2d7f7e0ff284932ddf486",
+    "bytes": 1746
+  },
+  {
+    "path": "scripts/wiki_page_to_pdf.py",
+    "sha256": "d19fe9d4e4c8d8c62441198090162b0cf5e1ad672da2d467226ca5f657a0237f",
+    "bytes": 8622
+  },
+  {
+    "path": "scripts/wiki_pdf_examples.py",
+    "sha256": "2f0f76e281f8e0b5633d97b4004e1dfc714b8b619826daf2550f46407434dd43",
+    "bytes": 5980
+  },
+  {
+    "path": "src-tauri/.cargo/config.toml",
+    "sha256": "8769102a7f52bbd2ff250da9e3ed16bc253833b00f2d4284d7e8ac3f8a14ab1f",
+    "bytes": 140
+  },
+  {
+    "path": "src-tauri/.taurignore",
+    "sha256": "83b8eee95b462b75886e7f07a09b24fc98ffa73a7ca575a057fe617784b4701e",
+    "bytes": 83
+  },
+  {
+    "path": "src-tauri/Cargo.toml",
+    "sha256": "a64ba8e2aebe3e2be8bba4ad3ab1e0444ec8f64afb01d7668a7c6db12e5af0b8",
+    "bytes": 2894
+  },
+  {
+    "path": "src-tauri/build.rs",
+    "sha256": "96171e0461bbc6e5cc9332afef09777a11ec721aa55f91804aedf78083fd70c4",
+    "bytes": 2193
+  },
+  {
+    "path": "src-tauri/capabilities/default.json",
+    "sha256": "c2aeb0fc21fe94e8996e2b380c69f7df23316257b14a8bcb9314967655fc1fa0",
+    "bytes": 1096
+  },
+  {
+    "path": "src-tauri/data/assets/audio/notification1.wav",
+    "sha256": "7232fd278d5e1bb7c3ca85fb149b4628299c6a2c9a677767b6d7fa7f6a052161",
+    "bytes": 148894
+  },
+  {
+    "path": "src-tauri/data/assets/audio/notification2.wav",
+    "sha256": "d194a8baeae5261a1b022d9503cb67c6e27e90e5c1d3664e1e1cf3869ebc1e42",
+    "bytes": 110634
+  },
+  {
+    "path": "src-tauri/data/assets/data/ExportAvionics_fixed.json",
+    "sha256": "97d3af5045cca638ad580e877f5c2bbe7dd88594ae9d014290bae0ae1a03a9ac",
+    "bytes": 78705
+  },
+  {
+    "path": "src-tauri/data/assets/data/ExportUpgrades_fixed.json",
+    "sha256": "3fec90b273a20c77bb1c7492a2964562e47319d4c44bb203599dc141e92cedf3",
+    "bytes": 2322555
+  },
+  {
+    "path": "src-tauri/data/assets/data/acquisition_overrides.json",
+    "sha256": "3ae935bff29d6f6203171efe197ab709d09181d8a8bc7837ceefe031dd581549",
+    "bytes": 1334822
+  },
+  {
+    "path": "src-tauri/data/assets/data/all-recipe-components.json",
+    "sha256": "c301b808cce84d67dc7aa0ba42e3c3bc7723cfa275ba2530cd16ad1325eab280",
+    "bytes": 189835
+  },
+  {
+    "path": "src-tauri/data/assets/data/browse-wf-glyphs.json",
+    "sha256": "b03f5ab9b81f7e8ad4649fd6eb8a8fefbbfa8c77f8e5c402cdde793cb47f51b9",
+    "bytes": 102165
+  },
+  {
+    "path": "src-tauri/data/assets/data/card-overlay-map.json",
+    "sha256": "6e3fe7bc28cd3f31e8edea164e8d0fc35c8c9a24660aae1c8a27fcae8c220530",
+    "bytes": 2336
+  },
+  {
+    "path": "src-tauri/data/assets/data/collectible-locations.json",
+    "sha256": "7ceeae012b8e2af25c81b1a0d9c55c53fd5d7e3ca18a53efcd31e92a5432bcd6",
+    "bytes": 92900
+  },
+  {
+    "path": "src-tauri/data/assets/data/cosmetic-catalog-additions.json",
+    "sha256": "2817e24f10fe9b0e50b21395147ae92c45f58abcccaeb9685c46263540e11fdf",
+    "bytes": 3191
+  },
+  {
+    "path": "src-tauri/data/assets/data/mod-icon-map.json",
+    "sha256": "1cee165ea410788c62c3e62a3e562bd5891e56f14485e563edf0b0f26b754aa2",
+    "bytes": 87090
+  },
+  {
+    "path": "src-tauri/data/assets/data/peely-pix-map.json",
+    "sha256": "da1a7aa737cb54fc25d72143e9e8888840974cd286e890c15c48f71f9e1c3a1c",
+    "bytes": 2665
+  },
+  {
+    "path": "src-tauri/data/assets/data/peely-pix-names.json",
+    "sha256": "3029e0f43fa41499147ce3df9d7cc3d16a02bb1ce29a68449353e78a296f011d",
+    "bytes": 4434
+  },
+  {
+    "path": "src-tauri/data/assets/data/riven_good_rolls.json",
+    "sha256": "5681cf7421c5a5db48290eda058cca253ccb85f9c70257d39049e366c4fc6776",
+    "bytes": 173278
+  },
+  {
+    "path": "src-tauri/data/assets/data/unmapped-components.json",
+    "sha256": "b3a503923647433055a3c55bc53ce4da9706d038618dced1d37242ba9ddeaf6d",
+    "bytes": 60866
+  },
+  {
+    "path": "src-tauri/data/assets/data/warframe-items-acquisition.json",
+    "sha256": "1f1cb14f2b1d300033b9c9a777862dae0f4aa06e22c02e26e7711b2c70dd6e41",
+    "bytes": 3130291
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-acquisition-status.json",
+    "sha256": "983d9e60f95bcba13b0af8f8534a73bc954a8395f75eef8b45619b9caee01d25",
+    "bytes": 192595
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-baro-acquisition.json",
+    "sha256": "908c6a3c6cc85a348ba7a5a1d4044b7c086c19932e2a76c1f84fe3d1e2f1d7cb",
+    "bytes": 14902
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-blueprints-acquisition.json",
+    "sha256": "85a871ff8bc90c46189843b7eb807ddbf255df6b0236bfbc193d2c710cf33d8f",
+    "bytes": 362490
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-description-acquisition.json",
+    "sha256": "23cf044aacf6e4aa7cd6c687a0270b63fff80bb93c3bbed0c1dc9686d1b6a30e",
+    "bytes": 46963
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-master-acquisitions.json",
+    "sha256": "6ceb4c2797ec0a6b0bc17e55f9bbd03028e8e3708edddf1df80daedfa367c782",
+    "bytes": 889555
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-page-acquisition.json",
+    "sha256": "f4604846d3175d57db02e2e86a2395d419d49656f2b4a34375b984e45343a4a5",
+    "bytes": 183122
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-prime-relic-drops.json",
+    "sha256": "92f88b6dc6c5c08f0cf3398a6a75fcf8686deee02774cbc8d69fd4d4853a9f46",
+    "bytes": 171348
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-research-acquisition.json",
+    "sha256": "bbba5819f8d96e78cdc80aa6c1c418a00a3694a2261b56dcfeb22d20c2e2e889",
+    "bytes": 80741
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-resources-acquisition.json",
+    "sha256": "9fc4490bd2b0ba7f0570cd074b96228446390e20e2600ffa6d93db2513cbe107",
+    "bytes": 129421
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-sigils-acquisition.json",
+    "sha256": "efacbf7cf5be0398ef6f90576d7a0ca981f8d11690681af4a75cd90022391d5f",
+    "bytes": 11946
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-tennogen-acquisition.json",
+    "sha256": "99a16a31915f0f63a2c52fbd4eb55dfca18ede6ae45a74fd020e500268f157c9",
+    "bytes": 40395
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-vendors-acquisition.json",
+    "sha256": "058f1256fc01ec508975736717e8d6d32259cf05662d8e1d70f51e1dd4ee2fb6",
+    "bytes": 129830
+  },
+  {
+    "path": "src-tauri/data/assets/data/wiki-verified-all-acquisitions.json",
+    "sha256": "5063ec6aa890d838d9cf70145f2c231520c11229f0674d58c247500544526e77",
+    "bytes": 423502
+  },
+  {
+    "path": "src-tauri/data/assets/maps/CambianDrift4kMap.png",
+    "sha256": "137afdd5eb3d003f6a70556c404c502789822dd27ef3e6b09702ec72c0ea6362",
+    "bytes": 6936933
+  },
+  {
+    "path": "src-tauri/data/assets/maps/Duviri_map_with_caves.png",
+    "sha256": "7f2901234552f9fe8e2a84f7cb19fd1462b80d2e23472dc6ee5115ed53c4c62e",
+    "bytes": 8215412
+  },
+  {
+    "path": "src-tauri/data/assets/maps/OrbVallis4kMap-min.png",
+    "sha256": "e8cbdc7eed07f3a0af41f35097fa451ef25230c79a7bd9104a406b0032a6c3c2",
+    "bytes": 7242224
+  },
+  {
+    "path": "src-tauri/data/assets/maps/PlainsofEidolon_4k_Map.png",
+    "sha256": "3f5872783b2933580f4fb543e8fc942141c4f17eeaacf162699edabba835fb42",
+    "bytes": 5908691
+  },
+  {
+    "path": "src-tauri/data/assets/maps/deimos_full.png",
+    "sha256": "6bcbc684e59f82639a418c375ad433b03c6d946cdf8bd0b699629ab1853c99b8",
+    "bytes": 4321783
+  },
+  {
+    "path": "src-tauri/data/assets/maps/poe_full.png",
+    "sha256": "890b4e100ccef2a27dbd6caa12081059d43ff44dbb94abbc7870eedfce3c6ea7",
+    "bytes": 3430895
+  },
+  {
+    "path": "src-tauri/data/assets/maps/venus_full.png",
+    "sha256": "d4f35b6c80baddf65f0c16c8e82cb7c0827a6fbc35b381f81ed560ad02879d3d",
+    "bytes": 9103481
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank00Unranked.png",
+    "sha256": "768a090e86ece928abb717ff83b990374d3da1554064c81da340b57e5260a47f",
+    "bytes": 3328
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank01Initiate.png",
+    "sha256": "3eb847c8bd340c5a1ac9936ad5dbe8c48c10d5bcd4d86493e98a55daa418ed58",
+    "bytes": 302210
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank02SilverInitiate.png",
+    "sha256": "cbd7483140dc521ce20fded31b29724197b9be73c2883fef614eede1f64fe008",
+    "bytes": 288951
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank03GoldInitiate.png",
+    "sha256": "1355a6f18043030cadf226ad75f67d30ef0f11ce3564dc1ba4eae4295254cda2",
+    "bytes": 300121
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank04Novice.png",
+    "sha256": "c415d21eabd9278603f896bd7aea7894b8b90872853d4cb2738f2de64857eb80",
+    "bytes": 287893
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank05SilverNovice.png",
+    "sha256": "057957e370eb8b71e0361ecb19c46d0a114687dc8e5b40c2a10a14106d048216",
+    "bytes": 276210
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank06GoldNovice.png",
+    "sha256": "82c7fa201741fc76dd4ec4a5ed35a5c109629fe14dc6930c01d298898a78f7e6",
+    "bytes": 294279
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank07Disciple.png",
+    "sha256": "5dc630016190ac15c9cbf9ac72aeb3ddc3e3f878ef70f819606e8482febd96d0",
+    "bytes": 285494
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank08SilverDisciple.png",
+    "sha256": "e7bc7c16b784982489b964bee1bdc4c1aef8c51f4a3913846f2b945b73ac2b05",
+    "bytes": 276011
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank09GoldDisciple.png",
+    "sha256": "5e732d6614d4042982cee162f727b4d92fc638050538120dad437cf9cebe7a8f",
+    "bytes": 293115
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank10Seeker.png",
+    "sha256": "22499186c8ab88f68675db20d90c26037cb8710a012012b18f731f18d51b4587",
+    "bytes": 289482
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank11SilverSeeker.png",
+    "sha256": "1c35650a9721a883d5edfc70ba83bf33676a1e7bc565ec8d89d4368131d3812d",
+    "bytes": 279367
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank12GoldSeeker.png",
+    "sha256": "901d04663b7fccd523a2e418230414438ff8d2ebbf05cfabf52f163334b49acf",
+    "bytes": 294372
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank13Hunter.png",
+    "sha256": "df9633db52737f262e1746e9204e33ddc82d6ba055255a30ce40f287fd088846",
+    "bytes": 288548
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank14SilverHunter.png",
+    "sha256": "374ed806b67f9e11548d9374ff324c2fc8654c68c60f39682087abb3d91cc81c",
+    "bytes": 276338
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank15GoldHunter.png",
+    "sha256": "68aaecc5a814d7d2b58fc9b2fbc22e9ceeaff7d29555e08811db0e495de04c03",
+    "bytes": 302506
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank16Eagle.png",
+    "sha256": "e57ea4a749ddff0ed8fcbf9d5b49d3249c7ca1974896243978d81260950dadfa",
+    "bytes": 280185
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank17SilverEagle.png",
+    "sha256": "b40e3882889329187d9817afa202d0b31089dcc249ca1ca3ee0609ccf7544a82",
+    "bytes": 270046
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank18GoldEagle.png",
+    "sha256": "dbc7ce6f2a4f09c4da6cfafa1a6980de3327da09be765027d8b806d518d22b83",
+    "bytes": 290443
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank19Tiger.png",
+    "sha256": "7b3487eea2c4bbc94f4cc109d8c3b71b69c5e3b7ac74508cbd4aedd5343c245c",
+    "bytes": 316828
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank20SilverTiger.png",
+    "sha256": "070fef5f617d7ab1ec5eca2e3d8e03ef2de5f6c5c983c5d649df7055fa6c6732",
+    "bytes": 312616
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank21GoldTiger.png",
+    "sha256": "5fcc61f51c45f1162c9b5cb09a3a3452617ba288a0f4633bcf77bf82900867a5",
+    "bytes": 329808
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank22Dragon.png",
+    "sha256": "9b89a690282b320bba4e4b175ff3346022e1055b4a33aa7868b62a00bb531c99",
+    "bytes": 289326
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank23SilverDragon.png",
+    "sha256": "79928497c0011b960a863bc93c0b588fc2f647daf33eee36339e3da29cb828cb",
+    "bytes": 288258
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank24GoldDragon.png",
+    "sha256": "5d1b131d37aa05a480b7ac8f259878dc93aaadf2dcdae7a16f88615d1c4a27cd",
+    "bytes": 309410
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank25Sage.png",
+    "sha256": "1178d4ae9b57dc14ef8ccbedb13d13361d7b25bbf3daca4bc7ba9249a71ba68a",
+    "bytes": 291512
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank26SilverSage.png",
+    "sha256": "1fa3b5e50e25c3c30bf598e0169870dc7139288584588de6bdf81474b4822921",
+    "bytes": 285265
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank27GoldSage.png",
+    "sha256": "2bccd691ef482e02e421129ee378f4d6b0e3befe567687a4489f162eddca6fa0",
+    "bytes": 306951
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank28Master.png",
+    "sha256": "acfd466c94d29116df37ec81cbb4b699db7283b5c5755eda8a2843b4d97b9f11",
+    "bytes": 289158
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank29MiddleMaster.png",
+    "sha256": "c1565066aaa55fa06d4115a56097262182a7485161fddbf4aa5fd5293a1ca283",
+    "bytes": 285517
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank30GrandMaster.png",
+    "sha256": "3e37c21f519843e833efb2f36b19919651aa40f1af9806a6077f0206c6910f55",
+    "bytes": 302999
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank31.png",
+    "sha256": "210fc7074edb013318a99be9235a6271e5dff0f17f34d5e4589044d06368fb6c",
+    "bytes": 308064
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank32.png",
+    "sha256": "fc8b22a13a5daf19656bbbc860056fc457299e1c6e9e041db9641d20c16306b8",
+    "bytes": 303846
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank33.png",
+    "sha256": "4cb81ba381a6fb0c63a2ccf544f046b97c5c8bd8de38a1b1a3f3356f14228f0a",
+    "bytes": 326010
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank34.png",
+    "sha256": "f8c407725105959c39b889baa375c308f5f7c6ae2f7d9b725c037508b5ba2238",
+    "bytes": 290501
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank35.png",
+    "sha256": "833ae614b32b2b70158aa863c202f0362ee3d9efdbefc890ac74cb7d6ce86279",
+    "bytes": 290702
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank36.png",
+    "sha256": "dde3f5a835092efa07c3e75503d51964d6bfdf8f59343bd8846612c7d6819af6",
+    "bytes": 318828
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank37.png",
+    "sha256": "d284f0a5dc038717d84b5f0c72992b8a2ae8a64118b17441a9be6210604d4361",
+    "bytes": 279795
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank38.png",
+    "sha256": "87e19595058d573a8b83b77d1a95d49635cd27f116b63e3b1a19e1d81618c6b2",
+    "bytes": 282852
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank39.png",
+    "sha256": "e29296ed766c9466a933e21083e2d61f609afd1b637746169bc4523d69de079d",
+    "bytes": 304376
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank40.png",
+    "sha256": "7929700f9e01896948cef982c31fc1231610038f52a1d8ab3dcd177172886e96",
+    "bytes": 267133
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank41.png",
+    "sha256": "2c92c648d894891002d5a45252637d4328d34592b2c6af776e8eae65fba8bff5",
+    "bytes": 268421
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank42.png",
+    "sha256": "c26ad70b681c179b826a9cbf33d3609cecaa7ae5cd9198f2c8150509767ce070",
+    "bytes": 284035
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank43.png",
+    "sha256": "d1f89222cf3bf93d013abc9cd814a2211cd1b374ba25df80a492201e652af2f2",
+    "bytes": 295073
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank44.png",
+    "sha256": "a6b200d17a399f3bb20f756e8d842747ab50c2e8d9327e815bb677f29df7974f",
+    "bytes": 288368
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank45.png",
+    "sha256": "ba752e505fcefbefdd2a13fb7387fe3ca303e27f65477071dbcb0fc2b7f821be",
+    "bytes": 309517
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank46.png",
+    "sha256": "3b973d360fbb6cee1029940095d8636842f1796f09ad6f07f9cf556d10d2ea8f",
+    "bytes": 279362
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank47.png",
+    "sha256": "70b4feaf3ed6a687bd23b5de6c928a262f070a413979cbc83d6f1795b1908f71",
+    "bytes": 266804
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank48.png",
+    "sha256": "8d4dd94099ac03ff403d901b8befac131c9fc9cdfd225f3b477aec6c685646db",
+    "bytes": 291277
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank49.png",
+    "sha256": "b894b2fb7d940a876596dcf08f92e4349682f8578c2fc21ae18074882f60c22e",
+    "bytes": 296376
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank50.png",
+    "sha256": "d84a54bcd16371a809bcfb53f610498505a7c99f1c8fe9098c82b82b7d769463",
+    "bytes": 291040
+  },
+  {
+    "path": "src-tauri/data/assets/mastery-icons/Rank51.png",
+    "sha256": "e8b4935bd7d4c9d75757b7e5254a3db41ae45be858918ef6a4119f62c710c2c6",
+    "bytes": 309922
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/Background.png",
+    "sha256": "f5d6c7d31416a94d69aa7b7a44dd2681f80f4173791344b67ec0049752f350b6",
+    "bytes": 73675
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/CornerLights.png",
+    "sha256": "eda105dec78901cbc4f63716bdbdc1c25854cd5ef7ceac2314db00373fac5f70",
+    "bytes": 3514
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/FrameBottom.png",
+    "sha256": "a7103ef5e32934e9cd360d10ca50ffaad67f1fb7d8dffe8dcd5ee8ebb13b7fb2",
+    "bytes": 27145
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/FrameTop.png",
+    "sha256": "aab1936dda3295da5dfc42c7a48d58703f4f14595f81a28c9995827f07b5b380",
+    "bytes": 19848
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/LowerTab.png",
+    "sha256": "fed3edfb500a061162c384ddcdc9134839d828d9be2d1f161676608c693e6841",
+    "bytes": 2029
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/RankSlotActive.png",
+    "sha256": "343202fdf10a93e04d3b71796742402a024c79986d73b1b08e7cd1d70d05842f",
+    "bytes": 439
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/RightBacker.png",
+    "sha256": "5ad1717fb03ca6bb1cfcffbddf255dc83978331feddcadd5a015811fbe6923e4",
+    "bytes": 1837
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Amalgam/SideLight.png",
+    "sha256": "657c7c8f0c8c33d14bcb5c2a990e6dd1eae3aaaf14c77dcf115e3db8d98b0596",
+    "bytes": 3908
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Antivirus/Background.png",
+    "sha256": "28da5d10c0b1821b5f44aefd1b0843d01f3437078b67ad7f34a79be90bb95acb",
+    "bytes": 79699
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Antivirus/Charge.png",
+    "sha256": "95550151e358d778b78c8585acc35213b8f8a3f5276117764027732545a59dda",
+    "bytes": 1021
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Antivirus/Depleted.png",
+    "sha256": "12d9b3da6c05755b7ac4cc22f0d49a049a18528a368a296475d9ef65115e849b",
+    "bytes": 34607
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Antivirus/RightBacker.png",
+    "sha256": "e5314796ff796214c6b10258f6346e2b13e4762b431a9c3835e76757242b8ad4",
+    "bytes": 1828
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/ArcaneAntique.png",
+    "sha256": "972f52982a83216cd0c98e2006b3d565bba52c5abc1527ea04007a4e7fc45370",
+    "bytes": 135752
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/ArcaneCommon.png",
+    "sha256": "3ae32fb5856863bd693a9328f2e70b7bb5c607a0d8f841a13f08e39f7b06f42c",
+    "bytes": 112671
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/ArcaneLegendary.png",
+    "sha256": "738b9ae536fdbec8f6a68d8ce3c8249bba7b1f7f7e199c612a5e4e53b2344aff",
+    "bytes": 124479
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/ArcaneRare.png",
+    "sha256": "4bf98678377c9620e1c3185dbf50945e17e05230a5f6185c29b1d8cf7d4209ce",
+    "bytes": 117267
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/ArcaneUncommon.png",
+    "sha256": "8c300fd23d71668ca86a766bb90b3119b26a221e1866ae9010f16a05b98b9798",
+    "bytes": 113547
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/RankSlotActive.png",
+    "sha256": "222476e908471b1563d910b632f8dfeac04327c1162f876b2afb58715dcade8d",
+    "bytes": 501
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Arcanes/RankSlotEmpty.png",
+    "sha256": "1821e868ae98baf6d602b5feac79f63f9b3861ac824141eac600c8c48e5492ae",
+    "bytes": 456
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/Background.png",
+    "sha256": "597ceed462179172ea1ad3ba7a52f1fc4ff33867f5175f444cd20547f80f56f9",
+    "bytes": 89665
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/FrameBottom.png",
+    "sha256": "b16faaa1d0faf4e58c7a37e967ca5be289125aa59ab25e96be981208136cffbf",
+    "bytes": 24954
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/FrameTop.png",
+    "sha256": "3b56ec11ceb0943f099c4a764b40db421ad3d4b66b0827b21a3bf04d3ec883a0",
+    "bytes": 23768
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/LowerTab.png",
+    "sha256": "406a2a27c7fe449760b22aa324fee1f8f5041155988e65809e90bca73aa7ab5f",
+    "bytes": 2276
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/RankCompleteLine.png",
+    "sha256": "572a78192537c96f6868fadb6c449cb6ea27db07eb349c9832c9268dc9ea5a14",
+    "bytes": 1266
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/RankSlotActive.png",
+    "sha256": "4ed09cb0f14ecb3ad9816d2adf78bd0d2cd10a5ba311ff019cf0672c19c2a749",
+    "bytes": 339
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Archon/RightBacker.png",
+    "sha256": "bfa86c05c738f38086080a32f3c3991216d1fd38cd2b7e7b7ab9a078d6193c5e",
+    "bytes": 1850
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/Background.png",
+    "sha256": "3953d4ffa11981ebf126c540227068a013cec64460aa57a6503096a2b56a4ada",
+    "bytes": 105538
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/FrameBottom.png",
+    "sha256": "78d681fc25dab9f78afbe7d796526e14abfeda8b92688273e5f2990fc55d8cca",
+    "bytes": 28838
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/FrameTop.png",
+    "sha256": "38d0778e2c45fce41cdfb723f6edb6c78013229cdb7fabadaf764b215422edb5",
+    "bytes": 36980
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/LowerTab.png",
+    "sha256": "9a1a4654cb12e745b498d134343bec6e44f20752d8596c8fdf269179047b6deb",
+    "bytes": 2029
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/RankSlotActive.png",
+    "sha256": "ca55b9950f86d4017e950939862bfeca12977cd0166622f3a84ebbe5a2549486",
+    "bytes": 375
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/RightBacker.png",
+    "sha256": "5ad1717fb03ca6bb1cfcffbddf255dc83978331feddcadd5a015811fbe6923e4",
+    "bytes": 1837
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Galvanized/SideLight.png",
+    "sha256": "bf57d6352dc51837f8a2ee9f6a9b16e724215bf510ddbce91a98ae3ea5392132",
+    "bytes": 12567
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/Background.png",
+    "sha256": "bd125533efdf94a93a8226c950eb3065309f2ba8e0b140f9eef100e8ea359f21",
+    "bytes": 79981
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/CornerLights.png",
+    "sha256": "2f28be8fd8824c0a4e31f70883e20ca056e60d697c9efab7961a19ccec67c7a3",
+    "bytes": 2322
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/FrameBottom.png",
+    "sha256": "c5fd8e9a444510f32be50f9b37e95046bca62b371312743ca7347f27d70fc5be",
+    "bytes": 22148
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/FrameTop.png",
+    "sha256": "aa115ef8416b171b913972d6cc1406b995951aebe976af81b9b2ba2d4e7725df",
+    "bytes": 5814
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/LowerTab.png",
+    "sha256": "e81e53b75fec61c66ead0b32d04294dc3dc12d5d1d9f98904766c1cab7f39cf0",
+    "bytes": 1958
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/RankSlotActive.png",
+    "sha256": "a7f4acd04cacee7dc154b413be1c44faa3871478cfd70df250eae0d8ba0e22cb",
+    "bytes": 376
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/RightBacker.png",
+    "sha256": "9f6b7c4e308568961b14ceeb966493ec7028b907637b5a8aaa103c1315dea944",
+    "bytes": 1736
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Common/SideLight.png",
+    "sha256": "48a3926cff503b8c517eb3b306b1ad20d3f317d9c33ebcbb2f305bc3c838db97",
+    "bytes": 4371
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/Background.png",
+    "sha256": "981be2c7cb7942c47f60ab67648277502817c57bbd2f73b86cca69a3fb38441f",
+    "bytes": 68296
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/CornerLights.png",
+    "sha256": "eda105dec78901cbc4f63716bdbdc1c25854cd5ef7ceac2314db00373fac5f70",
+    "bytes": 3514
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/FrameBottom.png",
+    "sha256": "9c3959cdc3fdc6c2896d52fc0729bb2e684d2593bbd0621ef16ce04516df3a7e",
+    "bytes": 17417
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/FrameTop.png",
+    "sha256": "3b6a881342fb77cace7098ec5951cd5554cb09054600b21c541d69fa4fc7a049",
+    "bytes": 5922
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/LowerTab.png",
+    "sha256": "f3f0d79cbc73da863805f2c130ef2eb8d8a40960b9bc0fc3f832f6795f891b30",
+    "bytes": 2019
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/RankSlotActive.png",
+    "sha256": "ca55b9950f86d4017e950939862bfeca12977cd0166622f3a84ebbe5a2549486",
+    "bytes": 375
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/RightBacker.png",
+    "sha256": "a2d05970b4e19241412442c75a20ffd09c1935ef3d1213b5be9ff97656414651",
+    "bytes": 1842
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Legendary/SideLight.png",
+    "sha256": "657c7c8f0c8c33d14bcb5c2a990e6dd1eae3aaaf14c77dcf115e3db8d98b0596",
+    "bytes": 3908
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/Background.png",
+    "sha256": "91b34e36f8d1d45ba7673cba7873cc8b9eda22bf17c59daf5dd3a05583864d1a",
+    "bytes": 108466
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/CornerLights.png",
+    "sha256": "b08086746aeb670d0301a5e5c2cf748b1b307097d308037629d499cf50ac5815",
+    "bytes": 3670
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/FrameBottom.png",
+    "sha256": "4758646be4d01b31957b3b7f9c556abb54de99164347feef77b8424bc3e45416",
+    "bytes": 22343
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/FrameTop.png",
+    "sha256": "f7f048a0704930794ba5e84d3101b0850f510ab0a2f8428a04804bc5c8b97320",
+    "bytes": 6352
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/LowerTab.png",
+    "sha256": "406a2a27c7fe449760b22aa324fee1f8f5041155988e65809e90bca73aa7ab5f",
+    "bytes": 2276
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/RankSlotActive.png",
+    "sha256": "8c2e6dbd4d5c85980aa9fa4953b5e87607fce7b19b723e1736df6b50f777eebb",
+    "bytes": 437
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/RankSlotEmpty.png",
+    "sha256": "2f716267a22b21aab6259e5d4f7db49c42df36da3e073c3c7bf04b6d1e144ef5",
+    "bytes": 205
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/RightBacker.png",
+    "sha256": "5d293e05049622344a5b567f0d233304a307baba7d0b8ab6b71134d4179841ea",
+    "bytes": 1798
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Rare/SideLight.png",
+    "sha256": "2792a57fac05383075bb1141615fe58b5fddfdeedcf76cc0b09eaa2022a852b9",
+    "bytes": 4529
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/Background.png",
+    "sha256": "80905cde2d60f02575074af51775dce8b3cd66f57125f9042a145fdbb1ff2d9a",
+    "bytes": 97676
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/CornerLights.png",
+    "sha256": "4835e988a35193bc1858bed94784f66124607bc96a122e8eb00612fe8f4af481",
+    "bytes": 1750
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/FrameBottom.png",
+    "sha256": "5a94335c7aeaa099acfc09a768e60f273c3279073b71dcd3cfb2fa8a2e086a0f",
+    "bytes": 19032
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/FrameTop.png",
+    "sha256": "b990fe183c77a0cf5945e1dea50b184c9649bd75e33288e3df2fe20fdf7398d8",
+    "bytes": 5719
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/LowerTab.png",
+    "sha256": "9c0721eb62c2f3c72de61e2cf33e8163b616ecaedac721fabc4b5fafdf36fdbf",
+    "bytes": 2455
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/RankSlotActive.png",
+    "sha256": "8c2e6dbd4d5c85980aa9fa4953b5e87607fce7b19b723e1736df6b50f777eebb",
+    "bytes": 437
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/RankSlotEmpty.png",
+    "sha256": "2f716267a22b21aab6259e5d4f7db49c42df36da3e073c3c7bf04b6d1e144ef5",
+    "bytes": 205
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/RightBacker.png",
+    "sha256": "c737d5f8517af54ed575388c1e29038787ffc334c0df31504e62bb51499d366c",
+    "bytes": 1981
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Normal Uncommon/SideLight.png",
+    "sha256": "0a823af6fe90ce0008065627c13c24d90a5b7a9180c2dfb7017393ba16dea2e1",
+    "bytes": 4043
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/Background.png",
+    "sha256": "9b0b97f926e097978a676ea45846718bf3ba895e05790f1fe75681b91ddb7305",
+    "bytes": 61640
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/CornerLights.png",
+    "sha256": "5565b745aa1097550270b6985c7c73d45e793d07097f36b71062523822459926",
+    "bytes": 3332
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/FrameBottom.png",
+    "sha256": "cca7dba86902048da250a2ed13cff7f4848032b414bd63425a93613e902330fc",
+    "bytes": 44225
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/FrameTop.png",
+    "sha256": "f6465aa4a4d54fe3aef5efb8a22bf3ddc22f224a3b6dbe02d1035859510ab066",
+    "bytes": 53341
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/LowerTab.png",
+    "sha256": "f4eb14f33d94320c347dc43379e2647f4eaa0d3944aac6d5a18173080cbd323e",
+    "bytes": 1996
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/RankSlotActive.png",
+    "sha256": "ca55b9950f86d4017e950939862bfeca12977cd0166622f3a84ebbe5a2549486",
+    "bytes": 375
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/RightBacker.png",
+    "sha256": "87af410ed4678e928643cc21ba244c61dfb8a28bc1f688743687effed0493652",
+    "bytes": 1845
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Peculiar/SideLight.png",
+    "sha256": "92c1628bfbb54c5b0a7845ed58dc2a362d8cac9274b87468eae3ecf8ebe4a09b",
+    "bytes": 24009
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/Background.png",
+    "sha256": "73dc78ac85dc5b2522b5e7921861c0fb69543a314be9da3c5df1d3c4311ea90c",
+    "bytes": 90911
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/CornerLights.png",
+    "sha256": "cec3a0e84880d65153bd2a379bfaaabcac16fa483df72360c65cc5471899110b",
+    "bytes": 2354
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/FrameBottom.png",
+    "sha256": "5d7ffba8b1f700af84b11f2c22bfc90ba729a0c390f048dc6041345ddf00e600",
+    "bytes": 28740
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/FrameTop.png",
+    "sha256": "c2003df615b2281b332744a2786ecd22487e00e3798c653cf1dd2ac34443d4fc",
+    "bytes": 26757
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/LowerTab.png",
+    "sha256": "093dba1003d47d859979394de2136a4e73bbfaef52c19ccb4a1d49ff27494ea4",
+    "bytes": 1912
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/RankSlotActive.png",
+    "sha256": "ca55b9950f86d4017e950939862bfeca12977cd0166622f3a84ebbe5a2549486",
+    "bytes": 375
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/RightBacker.png",
+    "sha256": "9f6b7c4e308568961b14ceeb966493ec7028b907637b5a8aaa103c1315dea944",
+    "bytes": 1736
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Common/SideLight.png",
+    "sha256": "48a3926cff503b8c517eb3b306b1ad20d3f317d9c33ebcbb2f305bc3c838db97",
+    "bytes": 4371
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/Background.png",
+    "sha256": "f38242ed3873f3ff084f284fd822b40cd5f912515d348ff555558e7d770d6f79",
+    "bytes": 113852
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/CornerLights.png",
+    "sha256": "f351d6708e3f4429cb0e6d662f4476db6808c71e28e615e90b5d9d9924ae1073",
+    "bytes": 3869
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/FrameBottom.png",
+    "sha256": "d6808407813cc50a11961e8f312a6c845a903619d0dadff9b2091add2b831ca0",
+    "bytes": 28992
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/FrameTop.png",
+    "sha256": "9c34ed2f6db3cc7331529a60f6bc82c7b87b18b3853dac9c39b5c60a94858d99",
+    "bytes": 26904
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/LowerTab.png",
+    "sha256": "61b8478626b66157c373da3570a119b870dd2c76da3f22bb6de09053ab39cd23",
+    "bytes": 2034
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/RankSlotActive.png",
+    "sha256": "ca55b9950f86d4017e950939862bfeca12977cd0166622f3a84ebbe5a2549486",
+    "bytes": 375
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/RightBacker.png",
+    "sha256": "4ea5fc6578f5e031ff957916f745a66b8725b0b585cc5fe889da69ec447abe9a",
+    "bytes": 1871
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Rare/SideLight.png",
+    "sha256": "95de7b71d69a011dc3170b060ac76bddaa1e6b58d92c81b785c15213804f68c7",
+    "bytes": 3032
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/Background.png",
+    "sha256": "8029078ebf91752facb8919f7432a9ff29527b0287e6b820e6a3d5da36e830bd",
+    "bytes": 96401
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/CornerLights.png",
+    "sha256": "3cd42d5cfa1728a47421c67cb75ee63c1f8ced0c468d106070918325b228206b",
+    "bytes": 1845
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/FrameBottom.png",
+    "sha256": "a07f6dae4c76a59b43c0ced16c4ccf1c519c20aaacc8588c9912f1529d209968",
+    "bytes": 27974
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/FrameTop.png",
+    "sha256": "57e039d3b5519706b3e3a0ab384b260db78be406da84875b5ee16cf0b6c3a643",
+    "bytes": 26372
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/LowerTab.png",
+    "sha256": "9a1a4654cb12e745b498d134343bec6e44f20752d8596c8fdf269179047b6deb",
+    "bytes": 2029
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/RankCompleteLine.png",
+    "sha256": "694a085485dd968c65b93878a7b4358267723d17c4c584f40388292903f44064",
+    "bytes": 1240
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/RankSlotActive.png",
+    "sha256": "ca55b9950f86d4017e950939862bfeca12977cd0166622f3a84ebbe5a2549486",
+    "bytes": 375
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/RightBacker.png",
+    "sha256": "06f9bdc5b6feb353f45a654ca1fb65aea80cd86b9d99a7c0324c59c5cda6bae0",
+    "bytes": 1797
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Plexus Uncommon/SideLight.png",
+    "sha256": "3c149b6fa50ff290eccec8a56cf3e5cfa4ccf36d5f3ab4b78f6a4e90963a08cb",
+    "bytes": 2855
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Potency/Background.png",
+    "sha256": "533f52214fea5884afbb3be8d0ca73ddeff73e052279e9c85e76bcb1f91e0f62",
+    "bytes": 86803
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Potency/Charge.png",
+    "sha256": "a5319f18dcbcd060d70ca9fd115dd54d51fbb8db37368c3ba1a7e18a0f45e792",
+    "bytes": 1033
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Potency/Depleted.png",
+    "sha256": "3f29b5d768984439ea6071b6ddf61684b1a6a1938bce13080ba59ec248546ceb",
+    "bytes": 26489
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Potency/RightBacker.png",
+    "sha256": "bfa86c05c738f38086080a32f3c3991216d1fd38cd2b7e7b7ab9a078d6193c5e",
+    "bytes": 1850
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/Background.png",
+    "sha256": "31a90d0552f04089a7b4c2ada15a32cfb368858d4765737041855cbb6823ff7f",
+    "bytes": 152062
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/Charge.png",
+    "sha256": "7cccf4060e918dc100ae99eadd99f3675ae9c2ef8acac7385fce69ec2046d0de",
+    "bytes": 3692
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/Depleted.png",
+    "sha256": "820457ae0f1509744331a92f7a8e2cd40a40ee237ca484e8f7bd08d7685657cb",
+    "bytes": 511462
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowChaos.png",
+    "sha256": "867a4a8cb008bfc5a14a3b25c3c34c0afa4d1cdf73417fb26348e491ddf5a47c",
+    "bytes": 26836
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowDecay.png",
+    "sha256": "6a8e55e0b2cb4ab484f1fc94f8152105f283d5dd4fc758b9733437471c65adf0",
+    "bytes": 26077
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowEmpty.png",
+    "sha256": "226402bd8fc47edb0b02629e87a4aa2165372b1bc633e822e1b7e35522d11ad3",
+    "bytes": 20079
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowForm.png",
+    "sha256": "ba1d3bce1849ebcf2b0669847c3c42e261786a50702d347ed9d5324881a6155e",
+    "bytes": 27363
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowLight.png",
+    "sha256": "a806e5dd3ff967f70b0cfbb74d25d7f4ab93f683230fbe777f4ef78ffa07da77",
+    "bytes": 28406
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowOrder.png",
+    "sha256": "fbaee89ac00512f4301fedda8807b947a5951837081bf1220c978ef1af10cac5",
+    "bytes": 27130
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowSlash.png",
+    "sha256": "a4fa85471a4a62bcd45925c016177778070018415aa4709309c56276de733b5f",
+    "bytes": 9353
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowTime.png",
+    "sha256": "2d5ccbeeee07c3c60d8ea54fe50f6374cebd6b4df179cc1c7a133c512f160705",
+    "bytes": 26765
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowTruth.png",
+    "sha256": "fff0c8916111583e7e4216991dcfccadf6af4a6724e2df199159b5b60b58f331",
+    "bytes": 26280
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/ImmortalRuneGlowVoid.png",
+    "sha256": "9b1df1e1aaa5eddb79faad35c9417a06d278ef392514ebb8bb9ca36cd8ede672",
+    "bytes": 29483
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Requiem/RightBacker.png",
+    "sha256": "5ad1717fb03ca6bb1cfcffbddf255dc83978331feddcadd5a015811fbe6923e4",
+    "bytes": 1837
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/Background.png",
+    "sha256": "52d3cfd01b8874abb8eee8e180d66692d4eb4fefee0ac6d912712e31a0f3f92d",
+    "bytes": 95330
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/CornerLights.png",
+    "sha256": "8338d3f7c836617465b3a3a906d332d4246864000376d3079bde41dbd4b64e65",
+    "bytes": 3548
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/FrameBottom.png",
+    "sha256": "de15c2a76a178a9588c1bcfa5983d3b5d57a4bb1b595a53fbb9ecd8ce22c01b3",
+    "bytes": 36195
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/FrameTop.png",
+    "sha256": "fb35003c66d33f4d826cf1406025f61dd7243cd820928e3e5e5e69cf4063d03e",
+    "bytes": 30633
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/LowerTab.png",
+    "sha256": "0360326df204863781535536c6e1cffc724ba71773b40d6007592c52543d4f7a",
+    "bytes": 2299
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/RankCompleteLine.png",
+    "sha256": "f8b18c4af47859dc16a007afb7397b2192d22e62bdb1238037ea3b757a2001c9",
+    "bytes": 1244
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/RankSlotActive.png",
+    "sha256": "343202fdf10a93e04d3b71796742402a024c79986d73b1b08e7cd1d70d05842f",
+    "bytes": 439
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/Reset.png",
+    "sha256": "33c9ad3c5720a04a26b65f9988a40d2a7bd45c72c2ef07d2aab12bcf3ef39584",
+    "bytes": 828
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/RightBacker.png",
+    "sha256": "877e5cd586e228356c2d27f7589fca3608fbeba9a78a3107f59d127f865f5a30",
+    "bytes": 2272
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Riven/SideLight.png",
+    "sha256": "5662638b8cd5717d4f1f61fc57a84384ecfeb62375b87b48b5c7ef9e3dfbdc34",
+    "bytes": 3480
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/AeroSet.png",
+    "sha256": "5433b77479130d4577e8dfc590327658f3caa1214a0f99c4eab4a777f2909883",
+    "bytes": 12411
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/AmarsSet.png",
+    "sha256": "434369f8bda4af6b2ba39423c9318c638fb7555551ae5c143ea8274308e4a400",
+    "bytes": 13840
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/AugurSet.png",
+    "sha256": "64791ec9446c3d07b0604b0c19640b06218c370657be7bfc5033a71756108058",
+    "bytes": 12980
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/BorealsSet.png",
+    "sha256": "c8dc46fa2bfef1b82f98ef53148b16a8467eda0d06e592321229717bb9d9fc4d",
+    "bytes": 14237
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/CarnisSet.png",
+    "sha256": "2cf3356b94f0dcb2215ad88ed46b63608336e1a954049f18c643c9c758fb7c5b",
+    "bytes": 14478
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/GladiatorSet.png",
+    "sha256": "108182db547702fb59fbea7f104aff00b0556f328ba400d633f5a15a0ba0dcaf",
+    "bytes": 12911
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/HunterSet.png",
+    "sha256": "75e6f099fd5438424ab449f0300e179d6a4bd70b545ca355b06b7aeca908deda",
+    "bytes": 13353
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/JugulusSet.png",
+    "sha256": "5f79fdf17a76e3c90ddd1158e60ac56e78469fc633d701e78f23e418b346607c",
+    "bytes": 13040
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/MechaSet.png",
+    "sha256": "b22ca1708f852ece75254a54096df169d459ce0d73fa2054580f2fcce4b84457",
+    "bytes": 12907
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/MotusSet.png",
+    "sha256": "4af8797333739fe7a98c4f3b53b2d2166749088fd9bf6dcdbabb58df03ddcaa8",
+    "bytes": 12956
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/NirasSet.png",
+    "sha256": "63ca103cba9d70db6a37c3a6c3497fdafd605f3a985f999eb53926d971c06f18",
+    "bytes": 13751
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/ProtonSet.png",
+    "sha256": "369884d3dffd947cd36573d6820135b44cba768c440fbdb1d2a4df44e6fce748",
+    "bytes": 12904
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/SacrificialSet.png",
+    "sha256": "06054dd820505726692edea6c00008337604c5903409da62307c02a73bd21b22",
+    "bytes": 12231
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/SaxumSet.png",
+    "sha256": "952f214eb29102bac5bc4641081b2731fb7d3247e5b3e12a82bc4c45bbe1aed3",
+    "bytes": 13286
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/StrainSet.png",
+    "sha256": "bfbef3c2ddc8bb02452e0002db73a153931eaf77fb65f802cddbea2f5e18e740",
+    "bytes": 13744
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/SynthSet.png",
+    "sha256": "36d815c6bd948aa102023ca0f39b001b4145d1354ac85445db69224d64e18d2c",
+    "bytes": 12857
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/TekSet.png",
+    "sha256": "05d8b8bc70a095e7c3004889458a95b557cb15c856f397c80ce671a3726db6c6",
+    "bytes": 12703
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/UmbralSet.png",
+    "sha256": "06054dd820505726692edea6c00008337604c5903409da62307c02a73bd21b22",
+    "bytes": 12231
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Sets/VigilanteSet.png",
+    "sha256": "feccddc113f86ca0ad696a5b41a2cf6603bc92a5e9140c8d3d8c097dacff562a",
+    "bytes": 12383
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Blue.png",
+    "sha256": "570dda76ba3924b6a0797daa8b20b96121bb258f61299b6c1ff62326bbf490b1",
+    "bytes": 4098
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Da-Ren.png",
+    "sha256": "7be437270792961498607c7300e9a29c771ce57d8f13a2e1b40cfbbc03ae645f",
+    "bytes": 206876
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Empazu-Shol.png",
+    "sha256": "eac7afd150cb59e8b3e5f0d402d7b140a8c232946dd882d5c41e76b068b572c4",
+    "bytes": 207212
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/EstiVel-Ikha.png",
+    "sha256": "6f3f999ae143dea20f2e4383a6cb6ced10eb0d149be73e666e4b7c6a6b448c5d",
+    "bytes": 177014
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Evir-Ti.png",
+    "sha256": "27f1e28fddedd52202afd3b7acaaf2d0637b2740e7abcbf112aa12409d5fbb39",
+    "bytes": 177526
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Hayan-Dabor.png",
+    "sha256": "546e07ce069264ef8801a401d98d8efcd2615454110aaba59d6e4f78e5e5faad",
+    "bytes": 214487
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Hok-Kaal.png",
+    "sha256": "2c26c46f44be12792d518980bb8c5b9843ec474455b3eb7791b340efbcb30d46",
+    "bytes": 195832
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Kaal-zidi.png",
+    "sha256": "5b3eff18e43482b4380f2e21f992b6e25021a709d22bf47d83f8faad71fddd28",
+    "bytes": 175545
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Lashta-Vak.png",
+    "sha256": "e86ccc4adff30f3f7f34c67275376163ba4e6b4d60caf149e7c654e4216ca64e",
+    "bytes": 196581
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Lorun-Tash.png",
+    "sha256": "b90b497e9d52896c32f2144a86cc6f0a3c6441f2ad5c72b529b23662986713d2",
+    "bytes": 214068
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Metem-Erun.png",
+    "sha256": "cebba4e715945e87b4198034e70f145dbe57b5599ea3f66c9ed6d5881fa2843e",
+    "bytes": 188207
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Metem-Hakh.png",
+    "sha256": "abbc0b7698e64e66e14e35afa7ce4543704fbacd3b5df65116e6fb04ff1fc7cf",
+    "bytes": 172176
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Omn-Evi.png",
+    "sha256": "29991468b3cf9975113784bc8accf6f9742d47cc0e844c4012d3397ed2a2f026",
+    "bytes": 204349
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankCompleteLineBlue.png",
+    "sha256": "332d12528b1e985da58cc16a0b59a00e2797eefbb0bfa6ea4a32feac586d4be1",
+    "bytes": 1104
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankCompleteLineRed.png",
+    "sha256": "7925b50bb9ccb27df3a3df12d6a88a9ebb8def67244b2460dd5563247ea18563",
+    "bytes": 1104
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankCompleteLineSilver.png",
+    "sha256": "a411d49ea2b1f02b8db5f889e0479fb1a8e3902610e0d6c5543fe8eaff95a293",
+    "bytes": 1104
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankSlotActiveBlue.png",
+    "sha256": "343202fdf10a93e04d3b71796742402a024c79986d73b1b08e7cd1d70d05842f",
+    "bytes": 439
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankSlotActiveRed.png",
+    "sha256": "e0fa9b08497f9119d795152a36690073311179802b39c58ba6d51f43455c6cbd",
+    "bytes": 258
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankSlotActiveSilver.png",
+    "sha256": "ae8ae51cdbc94593ef8880deafbc6b7d0bc677ddc591a08c3547a9c7d52db7f0",
+    "bytes": 258
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RankSlotEmpty.png",
+    "sha256": "f83176fb265ce5d45bfd0843975bca9a46d3fc8227714a1e9a857719443c36af",
+    "bytes": 255
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Red.png",
+    "sha256": "647076af884ba5ad63e999e4e86515d407b24f8e9e4c606d20f080be9a413e70",
+    "bytes": 4265
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/RightBacker.png",
+    "sha256": "b595170864a7cf932606f4c9313269721f6768092a40e7464c9cf7052dcd331c",
+    "bytes": 344
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Sey-Taph.png",
+    "sha256": "2d20f1ecb2cb82de166ab5680022ad3d4feff57ab15bb409c0cf95315651e866",
+    "bytes": 200351
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Sil-Tabol.png",
+    "sha256": "5e58679da12026708438e816fd2bff77be3fd9cbf99e7850d4c04df8c1aea51e",
+    "bytes": 200710
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Silver.png",
+    "sha256": "555edf33e868744ef03fddd14d14b160021ea87967743260f39b061dd6230922",
+    "bytes": 4101
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Talsek-An.png",
+    "sha256": "cce4baab80bec00548087243fc122343b7e04b64961746327aa9b69eb5028c66",
+    "bytes": 185687
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Ubri-Kaneph.png",
+    "sha256": "a916d8074d3e5ebbeb2f0c30772dda6de8ef7743235d05cca60035b271576a58",
+    "bytes": 198952
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Ulashta-Shol.png",
+    "sha256": "906ee8f608ac0485c0b8cfb1352637e02e1a826524532f5ad0588916cd0d80ba",
+    "bytes": 176929
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Vik-Anam.png",
+    "sha256": "249f10465f3d1c070ccf3befccbd99a94dbdec60065fa7a1124c2b12143a4b8c",
+    "bytes": 200577
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/Vikla-Safor.png",
+    "sha256": "992c9e355590168fec8924f536dc1b3291568e196d3244755d96dc5d24270736",
+    "bytes": 209123
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tektolyst/YarDal.png",
+    "sha256": "461c5a3cdd8e0ee1fbdd9474e0472defb62570a8c0d1fb54874ebfb2aea55762",
+    "bytes": 185097
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tome/Background.png",
+    "sha256": "ed3800e9feb5eba64ad3dd628f45f07643137af6fc22cbdd5c0768b07f65c590",
+    "bytes": 140795
+  },
+  {
+    "path": "src-tauri/data/assets/mod-frames/Tome/Charge.png",
+    "sha256": "b429d758409a4b20dc3379e2cb25e745b10da2075463457aa85bd35ebdb1c24f",
+    "bytes": 1310
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemFass.png",
+    "sha256": "773d60d21f79d9e9f6ef9fbe243d2b366077969f502e8807280dfa6eef7f6139",
+    "bytes": 8172
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemJahu.png",
+    "sha256": "25ae2192fb7ce5871e9aec3411fda41b1db4db73e8df707fe8864a958ed742cb",
+    "bytes": 7798
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemKhra.png",
+    "sha256": "be139c019f30e40f338fdb22c323a85aa2b47a1d665e4231b6f3e7eefa929480",
+    "bytes": 8173
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemLohk.png",
+    "sha256": "e912eb054e86d74586058821a24722417ff0c3e0dfe76bf5499a6f4df70e29ac",
+    "bytes": 7968
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemNetra.png",
+    "sha256": "143ea5c12430cbb917244e7fe76311e331670ffc255bd073aeb0a15d02d552fb",
+    "bytes": 7624
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemRis.png",
+    "sha256": "10b59e3082386f8013f4dbb1495dd9409efd61c1e39350c3b53ca0bb131564f0",
+    "bytes": 8224
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemVome.png",
+    "sha256": "d0a28167d336a762df65764ff1d21fabf63ae399db8aafafb4e7d8c2858366f0",
+    "bytes": 7970
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/RequiemXata.png",
+    "sha256": "2c36d4e8ff4495a40e327b45893d039ece6c6b70219820bc4e79b800ec5e76a4",
+    "bytes": 8430
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/rarity_common.png",
+    "sha256": "b0f48ef23d477cddd6f8901e36438f8d2e33069d5a6e3d344f4b98fdd41fd6e0",
+    "bytes": 1110
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/rarity_rare.png",
+    "sha256": "abb6200639010667f34c5dd098cd75e67728e4a1550b56946261c5c58581457f",
+    "bytes": 2283
+  },
+  {
+    "path": "src-tauri/data/assets/ocr/rarity_uncommon.png",
+    "sha256": "bd62d0e09f40b871340e8014e03e2ca55ddcb030d6078396724f0b3ad7a639b7",
+    "bytes": 1728
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Adversaries.png",
+    "sha256": "5e480c1be14301e9e5a032b9cbb1d3508b7a2d49859a420f6ce2c46373dfe8f4",
+    "bytes": 39462
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Alert.png",
+    "sha256": "9ebfa62180247ebc2b59295f7b234e0f3da4d5df12359122fb75eda497ef2bc1",
+    "bytes": 6776
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Appearance.png",
+    "sha256": "bb2a9afe17510e70155c6678ba42a0da8ac6fb1bbca7f6f18a39e0b808adb537",
+    "bytes": 43727
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ArchonAmarIcon.png",
+    "sha256": "a520aad723f80daffddb270de05cbfe2c133b441d7b0d5c1c52c63f3ed0eef0c",
+    "bytes": 7899
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ArchonBorealIcon.png",
+    "sha256": "a07d9a7b920ea0355185f737c7ef50030a5b98aa74911c053c379b6ca26b9d03",
+    "bytes": 7873
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ArchonNiraIcon.png",
+    "sha256": "9170c6d4f3e4c14a15518a535e4785174bf6f6988767d2bb1b049cb38b391517",
+    "bytes": 7989
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Axi.png",
+    "sha256": "2d0431023ded5d1ea0ee5cf1d0685968df36a800cb29da11372e9b908d882213",
+    "bytes": 11619
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BaroKiTeerFlat.png",
+    "sha256": "6f1d6609488d225b7a70b0b7966f61936a5a563b896214f7c4e7c3003e703bb7",
+    "bytes": 13959
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BlastSymbol.png",
+    "sha256": "bc2f8b7e91b027172fea3c78a8475b4fc8341102f572f33bd0a5cda3c0addbc3",
+    "bytes": 4105
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BlueprintOverlay.png",
+    "sha256": "bca93022f57848753a6a08f10d2e7d8855dfcae377acc5755988efa6e20a2a07",
+    "bytes": 66649
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyAmir.png",
+    "sha256": "e9a1953d524537b273308db8100c7408a063263f0e34b684e93c0dac4e9cebfc",
+    "bytes": 33707
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyAoi.png",
+    "sha256": "e2aeec66dcb2aa0fb1ddae531014de7458fdb775e0bce25da373292420c840b1",
+    "bytes": 29127
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyArthur.png",
+    "sha256": "767b402c0cd61b59f5288ec97c4644ad08b9d8f3828cf594232e94e636fb666e",
+    "bytes": 31784
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyBird3.png",
+    "sha256": "e50d059dd58f31caa6c36514dbcfe86d9098dc9e6f4716af5df9ee6b526d2316",
+    "bytes": 255821
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyCavalero.png",
+    "sha256": "b1a4e12025fb7d5525bcffe35cdd8e2dc047ac9303e3417b619963aa34d1d0d1",
+    "bytes": 269754
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyEleanor.png",
+    "sha256": "e43737ce7cf680c91ef738a00800f28bc3eef04f1355ef4557321e7e9b68536a",
+    "bytes": 28972
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyEudico.png",
+    "sha256": "7f5b0cc3c2fa0bba7deb221518c91bedb7cfe9ca748aee4c7a9a7fee5ab99a3f",
+    "bytes": 165533
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyFibonacci.png",
+    "sha256": "437814ae4d49b5267b30dc4c045850ed1862a454daf491d67484a803fa84f81f",
+    "bytes": 184193
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyHombask.png",
+    "sha256": "2f47ec4a91032c66f211b938f8040af8b3799cebf5ec15c1cc7033eb6787ecef",
+    "bytes": 282422
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyKonzu.png",
+    "sha256": "614b4f7de2f6c6016df953d61e906977cee9895d87eb4eb9a911f979135166fa",
+    "bytes": 262088
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyLettie.png",
+    "sha256": "40298835ea98bc1c21e2ff887448f411ed38230f12ca037c9cb54b6982d66ba7",
+    "bytes": 29743
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyLoid.png",
+    "sha256": "4bfe0fccdf7bb8966d8aaa3944090b1e913d2cfef39298f5322187d97bb7941d",
+    "bytes": 192538
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyMelica.png",
+    "sha256": "3bb8cb2ad41841ce3e9b2db78fecfb992f6cfd739604c820fe1a733bf6665d3a",
+    "bytes": 202091
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyMother.png",
+    "sha256": "3aa3aac9cc643bec17bcd4926a4788d76c976003b73d21a2831d176cb4143755",
+    "bytes": 359170
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyOtak.png",
+    "sha256": "a900c74f2ceefe4a9825a3f1713a7eb1e80e7408880d6eedad9b0fbc85b49352",
+    "bytes": 413722
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyQuincy.png",
+    "sha256": "bcb033b9d8fdce4ce95c3acb45af2d15b84d5d096ed412c47b792a0260cd6fe2",
+    "bytes": 37583
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyQuinn.png",
+    "sha256": "42a06e9b3ccb1a8589d7d74fbba782696e31b8f4755196979680457bbbac602c",
+    "bytes": 189420
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyTagfer.png",
+    "sha256": "47de0e5d252cf04660349241f171f6bf83e8ab0f612f6210cf446a6032dcc5e7",
+    "bytes": 217330
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyTechrot.png",
+    "sha256": "6b28ea1a71996b582796da8b86e3e84606552184dc19082bbefd9efb689e54fe",
+    "bytes": 42705
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyTheBusiness.png",
+    "sha256": "46ce504bd9cb95c7da6cf0680ffe475e84b6dece49e2b95adbc3bd804d2bc22d",
+    "bytes": 218627
+  },
+  {
+    "path": "src-tauri/data/assets/ui/BountyYonta.png",
+    "sha256": "99edc86adbecee1e0789c2803ac7c324ee51b972fe396cbc8aa8395e7bed8e4e",
+    "bytes": 302366
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Catalyst.png",
+    "sha256": "fd02ee92375a613304bbf07ddfb2d4978bc35dbc22357230924e72a069cac5ad",
+    "bytes": 89062
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/All.png",
+    "sha256": "ac78bff30b3e62fa824396993de00e2ac46ce35d2694ce11b3151d81f58fdcb2",
+    "bytes": 1332
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Amps.png",
+    "sha256": "a60f68685a032268687394b20028a2fc04f75b602a844554f769da98bd19bf1f",
+    "bytes": 4161
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Antique.png",
+    "sha256": "38e24664f3a5188b6303da9e9865bbae5f1fe3cdb55457bf66fa191021dff04c",
+    "bytes": 12381
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Arcanes.png",
+    "sha256": "e77f159effd4b56b9b9b20924e6da11c82191e976a33a8c803b0283cad6dd762",
+    "bytes": 4315
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Archgun.png",
+    "sha256": "e7463b0ffb20f89b16bce92345bc57d13ca7c4928f0cb893ba404d3a3ee155f1",
+    "bytes": 1544
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Archmelee.png",
+    "sha256": "8e507d2c30aedfea6105d9546414d21ce1c5c68c8bcdbca252b96925a08459a0",
+    "bytes": 1368
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Augment.png",
+    "sha256": "36faeb444d35ee9e6e8e208b110f22c4f0a79270557fd280eab4a201b15d9e9b",
+    "bytes": 1057
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Aura.png",
+    "sha256": "423856575a0abbb2df6954b9eb5c1f2e1629510abadf69af97037fba2c1367a8",
+    "bytes": 9709
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Ayatan.png",
+    "sha256": "643cbf432a932f7f50d1c102fb1c793af01db8984c6c4868f0d88bfb4b1cae88",
+    "bytes": 8082
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Beasts.png",
+    "sha256": "3b243c466cb7366b9b6e83c8551fc40ee860a21d6d4a5c4c28dbdd067572cd09",
+    "bytes": 1213
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Companion.png",
+    "sha256": "4f2f43e02d88c0cd9996d44081d94f631145a2a4eaff01e7a18e96d4314e437c",
+    "bytes": 10299
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Conclave.png",
+    "sha256": "900a15f906ffffadf9062335b71c772facca7735b38c5287a02c9cc9ed807ad6",
+    "bytes": 2287
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Duplicates.png",
+    "sha256": "21931783dd3d0fe2a95187ba56c906acd097dec9246adbdaeaae015767b3d47c",
+    "bytes": 353
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Exilus.png",
+    "sha256": "fa140339da9c9a754a07ca6ba85afaf35a4d19469a9aec0a6a8abe2498e6d843",
+    "bytes": 11592
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Kitgun.png",
+    "sha256": "bab1278caf7f163844652a3f5aeb4cf72a0d1c1a316816681a38f3ca2063f9ac",
+    "bytes": 8732
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Melee.png",
+    "sha256": "17596a9fe38215216f93b54a195dc4629c2a4579ee2c07e68de2286bbc042230",
+    "bytes": 1681
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Mods.png",
+    "sha256": "8c4a024fd7af0d2971b1313c9e95773ffd0c441ac8bc9aad7a328aec6735c55e",
+    "bytes": 1380
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Parazon.png",
+    "sha256": "492fcf6774dbdf948efe65dfd741dd9f880c888854a201843bb524ea7735628d",
+    "bytes": 15776
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Primary.png",
+    "sha256": "4a141c249ebc50b67eb6cb69ce5f7ed93bd124b120582b0a846644a5dedd438c",
+    "bytes": 1527
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/PrimeParts.png",
+    "sha256": "c996fe1269d87b3846ffb1c86aa2b6cf1fd51e8ad5c0ba1ea54f099f0b6e2712",
+    "bytes": 7523
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Railjack.png",
+    "sha256": "98981c8b2329e720958b3a16c24e18bef399139ab3f3c295372f6bff62c5a62c",
+    "bytes": 8602
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Resources.png",
+    "sha256": "9468078df36b5f8a3f24dd236e91a5052cee78861bba720f6cd869b1c87477b7",
+    "bytes": 1459
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Secondary.png",
+    "sha256": "37a80be8e41a39339b174fc95dd4db36250c8606e6d8dabd4e3051b2f39d7813",
+    "bytes": 1604
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Sentinels.png",
+    "sha256": "c37d1a5a65943be9b647ba095bf4ce07c28df1573da8e1338d681e2110188497",
+    "bytes": 9822
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Shotgun.png",
+    "sha256": "e764f4adee2049dc9c46c43e521cc1c62e1eb44fe72b3386dac6842b252efbc3",
+    "bytes": 1648
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Sniper.png",
+    "sha256": "ebe8a6180c17c31e21d06d9f88ffe53f225414ba0721a4d5f277e28ceb26caf8",
+    "bytes": 984
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Stance.png",
+    "sha256": "5611a1e138915adaa56898448fe655285116ea3c1960b3bfea356433e44f3998",
+    "bytes": 6987
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Vehicles.png",
+    "sha256": "3cf3d16ccffbb6c776063c61d5d2c5b30e119e8d143509ddbc269a94cb1f5f37",
+    "bytes": 18177
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Warframe.png",
+    "sha256": "0e0d3db36f798d4842f91a629044240c3934c4a15551b90318c50afd8ce763dc",
+    "bytes": 1765
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Weapons.png",
+    "sha256": "04a3499297e406673ae31cad1527bf9aaaf924e28e8d4fc3ece01a0c938cc274",
+    "bytes": 9947
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Categories/Zaw.png",
+    "sha256": "0d21119423dc871c58ecf6dac6268f01e7f3990cac5af3a338fad3b2ba335703",
+    "bytes": 9645
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ColdSymbol.png",
+    "sha256": "06d3283faefec95a3f5168a12c2ea6d12d109665c228c10add851d1e8914318b",
+    "bytes": 3484
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ConquestHardModeIcon.png",
+    "sha256": "6a5de59003530d3c905f14295bfc5c0dd03b841278fee8af75bd095238fd8549",
+    "bytes": 10777
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Conservation.png",
+    "sha256": "8640df903a2bb5fc166cfadbb33f052343b27ccc5d1ac3720fe758a3ac52f476",
+    "bytes": 2925
+  },
+  {
+    "path": "src-tauri/data/assets/ui/CorrosiveSymbol.png",
+    "sha256": "484b90faeae3925999d089df0277a1ce4c668831a1c4c1b99e85c855eafdc44a",
+    "bytes": 2816
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Credits.png",
+    "sha256": "9a14a0b92b25f4a3c8c7938e51410a0ee5b31e33a424a9e59b725e698ee32793",
+    "bytes": 3135
+  },
+  {
+    "path": "src-tauri/data/assets/ui/CursorDefault.png",
+    "sha256": "f44675af7bf1473ab8d2c30156df6105954a2af905639c67441d2618e4c7ac86",
+    "bytes": 10952
+  },
+  {
+    "path": "src-tauri/data/assets/ui/CursorRetro.png",
+    "sha256": "b417133d7ea81439b176fed72b701e1a051070017960ae518e8912cebb841404",
+    "bytes": 5404
+  },
+  {
+    "path": "src-tauri/data/assets/ui/DailyTimerIcon.png",
+    "sha256": "dcc12e5d99574eaf354a0252676cc0f09fb4dfecc039e9277c6c5ff71929f05e",
+    "bytes": 12511
+  },
+  {
+    "path": "src-tauri/data/assets/ui/DarvoIcon.png",
+    "sha256": "1158fbff40bacfcaf16a72d30ebe7309708e663e56cf087a09146e063f74108b",
+    "bytes": 20016
+  },
+  {
+    "path": "src-tauri/data/assets/ui/DebtTokenD.png",
+    "sha256": "ccec995d4c39d1fc952c7523c80904d21af803fed56d8b620e585cc6efd871d5",
+    "bytes": 162715
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Difficulty1.png",
+    "sha256": "fe468edae69a14edfbeb0e572ba6336b12ff82da13dbb5a6db4eefb3753dab80",
+    "bytes": 4478
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Difficulty2.png",
+    "sha256": "2de123d6be38b557077f3f0ae2bf6ecd32c68d283a42110b8e76bac87d688eba",
+    "bytes": 6698
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Difficulty3.png",
+    "sha256": "69db76143a3ac238140e2caa7968ce883f2a5feeacbc4639c508ac52513ab3cb",
+    "bytes": 7756
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Ducats.png",
+    "sha256": "a8c25cf2e9c779dd0c4747a7e721cf6bb904fc0e949542a5a1ff273b72e6b1c0",
+    "bytes": 3319
+  },
+  {
+    "path": "src-tauri/data/assets/ui/DuviriFragment.png",
+    "sha256": "e0f20733c053e3742334d2c221b8b9c8dede630c9f274d0a17fb96555d9fcbb5",
+    "bytes": 139077
+  },
+  {
+    "path": "src-tauri/data/assets/ui/DuviriMiniMapThrax.png",
+    "sha256": "dde604e6d098014bd81e3d2a4c7d4763c13045eede69b28d2accb79a550b5c38",
+    "bytes": 1463
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ElectricitySymbol.png",
+    "sha256": "70155f798a3a19653f8f9eacbfab184d74899dd796ecf48fd313ca182894a074",
+    "bytes": 1728
+  },
+  {
+    "path": "src-tauri/data/assets/ui/EliteAlertIconSimple.png",
+    "sha256": "d71c936d8abb28cd828f9fc440eac6ff4e6388f5dba3e0554e2b16b6ceea5ade",
+    "bytes": 9274
+  },
+  {
+    "path": "src-tauri/data/assets/ui/EndoIconRenderLarge.png",
+    "sha256": "413f368432c27517cb7a6bac8d1a448798e68511b437baff13837fd9def138ab",
+    "bytes": 159966
+  },
+  {
+    "path": "src-tauri/data/assets/ui/EventNotificationIcon.png",
+    "sha256": "923eff7e2dda332b2cd2e69e0f3b2d44e5ac33b4130bbf97447e395e0de8545c",
+    "bytes": 2492
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionCavia.png",
+    "sha256": "49d4db138e06efa078ff1692d88c637dc576d8f5983f31240284a66054480b9e",
+    "bytes": 31702
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionEntrati.png",
+    "sha256": "1e52252db4cbbdf8833824fc74e54f011e05f4f8629244ed6553b0d6ec48a3a9",
+    "bytes": 41820
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionHex.png",
+    "sha256": "1c942fddcd59300b38c3e786ebf51f17914a9dfe981c9506fef69aa0a786fac7",
+    "bytes": 22617
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionHoldfasts.png",
+    "sha256": "4b27491a670604bec601dc752c4493399a1e59edd435eed1e6d434441c15dd31",
+    "bytes": 62130
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionNarmer.png",
+    "sha256": "77a7d63aeb0d8f68890cbfd4f3b43e10ab499c3c955a1ae69ed31b9b3a1d42e3",
+    "bytes": 468
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionNecraloid.png",
+    "sha256": "ee924471bda04aa47a9aaa31b45dc30ba42db572b5f7f81996b4cf2d603c284d",
+    "bytes": 62780
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionOstron.png",
+    "sha256": "51d4f54ac7196c377e31583d63b1b7e0e1d6b783729891f246ddc869a3d0c0f7",
+    "bytes": 9901
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionQuills.png",
+    "sha256": "184a546d0ac45e728aaa62b34260d4ee6ff4a9658239c63718f14f79dd2c7f05",
+    "bytes": 9265
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionSolarisUnited.png",
+    "sha256": "d01c3ece76e0126bbe06e9cc2780dc4bb8cafea73b63d21a336b6c4700cb4505",
+    "bytes": 24152
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FactionVoxSolaris.png",
+    "sha256": "addbd3d2dafa770075f5ba9a175199400e30c384961e5fb472e2b86deb96180a",
+    "bytes": 12160
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FinisherSymbol.png",
+    "sha256": "72c25db88d5f9fda5b41d92419b46adc36c289e36ae1320ef2fc8ff8add4ce6c",
+    "bytes": 8229
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FocusSchoolMaurai.png",
+    "sha256": "0728d9af516d50244f3f753e2784397f9352519e96188b2c2724048bf28ee2fe",
+    "bytes": 304092
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FocusSchoolNaramon.png",
+    "sha256": "d837c0ff6a788b84cd5e535de0dee647d6796dd6a20f00dab67eccf68f763dfe",
+    "bytes": 300936
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FocusSchoolUnairu.png",
+    "sha256": "0c73ed7b732778296799c940f08f807c93919e26518f02c6dd15c3dc9bdec33f",
+    "bytes": 288596
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FocusSchoolVazarin.png",
+    "sha256": "dd4c8cb03f88f4f278f576b7983fe8760ad1a30cedfafaa7aee6586f9a5609f9",
+    "bytes": 336622
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FocusSchoolZenurik.png",
+    "sha256": "a92ddb349943e5268990ad80299e903da4eead1238dae39703914b96ac639ed2",
+    "bytes": 289345
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Forma.png",
+    "sha256": "a4deb868f0116e66d746267aaf556a1001da5bc38d5956d3bba9e795e42bfb78",
+    "bytes": 53658
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FormaStance.png",
+    "sha256": "c297b5d8a340c147f5aa3cfbad2db6d5c60cc98d72e3df44ae33e9a3bbb18a47",
+    "bytes": 114188
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FormaUmbra.png",
+    "sha256": "4948f5f3ddbd3a3ca54c23fe5bfc59eb3aee02cfa76cb46c94afa8bf901b2d9a",
+    "bytes": 117318
+  },
+  {
+    "path": "src-tauri/data/assets/ui/FortunaTown.png",
+    "sha256": "2a45120833b49749b3ab8e928c958ffa4a334491ac3580310d211ec5bc2fffa0",
+    "bytes": 401603
+  },
+  {
+    "path": "src-tauri/data/assets/ui/GasSymbol.png",
+    "sha256": "c3ebedc849d04d089cc85ddcd23769791f75f83445cbd46424fc7c4596358820",
+    "bytes": 4592
+  },
+  {
+    "path": "src-tauri/data/assets/ui/GhoulDataFragment.png",
+    "sha256": "cf41b5879f2a83536899481323eafa8d15b4f7b8f3d59efcdc81e0bfcba7e1b9",
+    "bytes": 92136
+  },
+  {
+    "path": "src-tauri/data/assets/ui/GlassFish.png",
+    "sha256": "a64e0b6581460b8b6493e17ad1edddcdded66696e9a834dcfeea7ffeed76073a",
+    "bytes": 204830
+  },
+  {
+    "path": "src-tauri/data/assets/ui/GlassFragment.png",
+    "sha256": "2c967c7f982c3c7be293bace350d4c9b1d2b040a260d1c6169ffb7150f19f514",
+    "bytes": 52135
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Grimoire.png",
+    "sha256": "2c2120290afb395f795489fd29009dcf5f25608252f70757d8d7578377474789",
+    "bytes": 160129
+  },
+  {
+    "path": "src-tauri/data/assets/ui/GrimoireMarker.png",
+    "sha256": "480a3af197e8fae94cd18fe7a0194da74b4de80dd579f75353d82023f6396ad8",
+    "bytes": 1395
+  },
+  {
+    "path": "src-tauri/data/assets/ui/HeatSymbol.png",
+    "sha256": "a8d2d1cbc256ebffe7ea6680a751395c483ee51e5d76f17d0a7f86fcdc41edcc",
+    "bytes": 2701
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconAlbrecht.png",
+    "sha256": "fdd804d974a98555a7cd98734c348797e39034e8d15c6463314bb2f2a70516e9",
+    "bytes": 8374
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconCephalonFragment.png",
+    "sha256": "51936c71bb18240cf0fada2f27ad1f826f0b2c3841458ec5673c7eca53dd63d7",
+    "bytes": 270809
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconChecklist.png",
+    "sha256": "896c62b795b69b2e671c4a30510b59044574bd66649335fcd47d1d60fb3a61b1",
+    "bytes": 7043
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconCorpusRelief.png",
+    "sha256": "7ae492a4616027192a2dfe3c086eedc7d1e9d9c277722cdd5e955ad933d6d9ef",
+    "bytes": 195111
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconDashboard.png",
+    "sha256": "b187281fdbd1a7d7d435915d6d4a81acd6935f1d3d112c3733b70b2e82294486",
+    "bytes": 2937
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconFoundry.png",
+    "sha256": "1a5a29bac193c7d0b36218e2026db312c271f0f77f6afd307c9df929b6ae7ae1",
+    "bytes": 1305
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconFrameFighter.png",
+    "sha256": "f9da9a2085b80312064cdc46fca3072e2d13d46c7b8dbd1caa53c94a8bf94431",
+    "bytes": 170005
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconGasCityLoreFragment.png",
+    "sha256": "d44b740a2526e3b962b42e307d9e3e1dd8e9387aee0a62073dcbc219074777ce",
+    "bytes": 98096
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconInfo.png",
+    "sha256": "3648fc8845dae94c522584144b646f5fcd36d255afe4ebe68d81796e3eaf5550",
+    "bytes": 1841
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconInventory.png",
+    "sha256": "a626b6f18d3ed95b17a18db848d92d5bc1f84644da500ad4e63c580c66eead59",
+    "bytes": 11930
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconKieda.png",
+    "sha256": "f05f6b7e26275d090e0db81350d9838ac9b1f7b34089c39528e539ccb1e9b5a8",
+    "bytes": 1259511
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconMap.png",
+    "sha256": "1de2f0d70c81de7425bf67f5d99bfd0de99ecfa7aca5df6e8dacd6a36bc68876",
+    "bytes": 3822
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconMarket.png",
+    "sha256": "f332f7278b0e659b033e1f7ecb31f0d074a9b19f65be980b1a090dbcdeb3c388",
+    "bytes": 2154
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconMastery.png",
+    "sha256": "d41d5817f7003bf04af1724b3809469caec19f500c329b85bfcdb3133414addb",
+    "bytes": 22813
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconNecralisk.png",
+    "sha256": "bb562c053984ac394142795220d630b534999715a6b226dba7d52ff91d8c5578",
+    "bytes": 368540
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconNotes.png",
+    "sha256": "e15495a1051810356f9ac3e6dd9162128c422ab1bef57484bf8e3ebe7ca8d425",
+    "bytes": 7363
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconOrokitty.png",
+    "sha256": "499b058b408dbfbcc8ff93adfa8ae8f738d0738e60f5d6fa182e6f5bad8676ec",
+    "bytes": 185836
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconPlainsOfEidolon.png",
+    "sha256": "a724f329046dacf05a8646a9784a1883f0df5399cfa0ea29234f558467c1a343",
+    "bytes": 461078
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconRelic.png",
+    "sha256": "cdb9c7b837913b2f81d4827e656ce9fc24ccfe8807bac5893a0344783c104ad6",
+    "bytes": 14710
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconRiven.png",
+    "sha256": "a1e9dbf54004e16d3a1cd4485e6d1dc3c0477c56c40f7aab521ab397f620bd1b",
+    "bytes": 6699
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconSettings.png",
+    "sha256": "4345c5612440e3ece8823baf4a55b60c66af8f74816724cb0f92ce86cce46614",
+    "bytes": 5754
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconSomachord.png",
+    "sha256": "eab3a5c1b8e13e1bb8b7f94cdf8bf101e50765f72e45654a671592565a052a07",
+    "bytes": 135678
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IconTarotCards.png",
+    "sha256": "bf5d76419c9fd29c06892fdd2e22aa9830309ed4ab1ec3cf92eb438b23a74216",
+    "bytes": 142516
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ImpactSymbol.png",
+    "sha256": "4e6e1577bb738765f09f46081fe4fc4dc4432f86b6fea0c1225d7bcba9d144c7",
+    "bytes": 2809
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Invasion.png",
+    "sha256": "0448050bf80d044abcd0e82d4be8001ef86f66bd05fee71913a77c9b93d688d0",
+    "bytes": 2045
+  },
+  {
+    "path": "src-tauri/data/assets/ui/IsleweaverFragment.png",
+    "sha256": "41bb1a2d169f41ab7be8e68a1e2d30991a8cadbbccd5fc9d40ab4e274e9e2c77",
+    "bytes": 111857
+  },
+  {
+    "path": "src-tauri/data/assets/ui/KuvaSiphonIcon.png",
+    "sha256": "13f72d1d08579196aca5c8ff4bd1c55d446a75e90eba4a13efb568ec3cbeeca3",
+    "bytes": 17797
+  },
+  {
+    "path": "src-tauri/data/assets/ui/LegendaryCoreModImage.png",
+    "sha256": "fcec6ff2fe37c20af9e368bc940d54763196e9a063d1ddb8127d9cd4591647f4",
+    "bytes": 61023
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Lith.png",
+    "sha256": "72b7cfda7fc29144a76d7693ba32c63efcb124d766d654fca2782bb64d596712",
+    "bytes": 10039
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MagneticSymbol.png",
+    "sha256": "202fd7a0b340756a50f0245c6a46fa566495fa5be0c58f0484ff1dbbaccd3ef2",
+    "bytes": 2264
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Meso.png",
+    "sha256": "347d7a066cc68aea3bdc990c7dc5b8082ff20c016fda17dd9e50b1b4a07fddfc",
+    "bytes": 8968
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapBountySource.png",
+    "sha256": "30803cb6cc6fca28b7d1030cc1db48991ce37ecb4104d34c50135b0bbe21409d",
+    "bytes": 1303
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapCaviaHubSyndicate.png",
+    "sha256": "7a49d64ad1f49d214bcf383817a069251d03db926d3c9fafde0d384067bc9ff2",
+    "bytes": 4883
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapDeimosGrandmother.png",
+    "sha256": "0353d699af1953938163875cb90f9a5a5e2c4f266048d18f2d98610d1feae0d7",
+    "bytes": 1789
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapEidolonCetusElder.png",
+    "sha256": "8791603d55bac3ea9e64d4fb7015ad0dab8459b3f18ada5d99178a8f2b4fe815",
+    "bytes": 931
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapHubFortuna.png",
+    "sha256": "58ba70552dd6f5d1978d4734d32b5dcbb96e476addbe8b44f87bdce82da84d83",
+    "bytes": 3521
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapMarkersJobBoard.png",
+    "sha256": "8cd49b6ce69473999d756ed92c42475cd991a94e2eafc0810ce8bb9a100189f2",
+    "bytes": 2380
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapRoathe.png",
+    "sha256": "9ecf0e117d9d635f7beb5c09c47b0c41d7117f600236d0845b1d8b2abec907da",
+    "bytes": 2002
+  },
+  {
+    "path": "src-tauri/data/assets/ui/MiniMapZariman.png",
+    "sha256": "f1bfb89094e09d0b357026f67bed4ceac11edd04f3bf481aae3a66cbae645391",
+    "bytes": 1437
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Mining.png",
+    "sha256": "dc07d446d77fa1784a3ca0590db0adcb8c1fd22494fa8ee39c45acc08622635f",
+    "bytes": 793
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Mods.png",
+    "sha256": "8c4a024fd7af0d2971b1313c9e95773ffd0c441ac8bc9aad7a328aec6735c55e",
+    "bytes": 1380
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Neo.png",
+    "sha256": "31fc0c2ed6962b482c5e0e20101c5352530e35614cf8b8b3b2c06b661eceae0b",
+    "bytes": 8221
+  },
+  {
+    "path": "src-tauri/data/assets/ui/News.png",
+    "sha256": "c45fce4d3a90f84a8cef8576b884304a0ba7214c48704f88496f64ce1ccaa012",
+    "bytes": 1069
+  },
+  {
+    "path": "src-tauri/data/assets/ui/NightmareIcon.png",
+    "sha256": "d3d6bd8c502bec69cd4a401c03b5aaf872abba3cda5d6f921abbf043e0467702",
+    "bytes": 13286
+  },
+  {
+    "path": "src-tauri/data/assets/ui/NightwaveIconSimple.png",
+    "sha256": "9740b6e79ec97f2ef3f51010cb501fa379f5a2fd218bc1b5165162b9667ae336",
+    "bytes": 24109
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OmegaForma.png",
+    "sha256": "6023a79775e94212e409c552ce31daa4563d1eb23797d5f80b09e045653a148c",
+    "bytes": 133101
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexA.png",
+    "sha256": "ea06688ebc9e7bb36233eb8ddaa6f65255c0d99c236262a521003d00d0700cf7",
+    "bytes": 272151
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexB.png",
+    "sha256": "87e7e21852f2e6e81aabe7588995e931fb65a4d9aaaf8e3b39cbe2536e5144d5",
+    "bytes": 244671
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexC.png",
+    "sha256": "19686fa3010cdb1be02e6ba195a5793881dd831d581fcad9e9b4d6e4149ef09d",
+    "bytes": 240463
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexD.png",
+    "sha256": "608f2e8af26bc916c2b525e4aa69f336567f82f624d6a80ec2f510711f10bf32",
+    "bytes": 186965
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexE.png",
+    "sha256": "6cf16c6f846614d608f8f2463325e37b53b830a470f6a8e531ddb6036dbcf9e1",
+    "bytes": 243578
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexEntrati.png",
+    "sha256": "03893036c8bc5ea46f84e5ec72897c51953b47292ea337093a5b185dbaa46d4a",
+    "bytes": 188638
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexF.png",
+    "sha256": "b499f21296592b4f9d9a71d2575650c6f32319112db2139d106ddf6139b70f2a",
+    "bytes": 238513
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexG.png",
+    "sha256": "026b78caa6b6b1bbacff9be2275b013a7e7579f5957f1c166db94f8051d90ab8",
+    "bytes": 188578
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexH.png",
+    "sha256": "48bed1186631e5f26b2e83a2b1095b8f5ea9d39c028baf30d1cab9468d2c5a90",
+    "bytes": 244522
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexI.png",
+    "sha256": "2c28f2319ea88d88ac804b26f7e7d57ffb67e70ca56135f978706ff7cbc5a666",
+    "bytes": 177794
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexJ.png",
+    "sha256": "e9f5878b5be44c99d05c419e46d6d081c96d068ebba9f54dc61262949b676240",
+    "bytes": 125591
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexOrnamentA.png",
+    "sha256": "63edb58e2679a1aed0adccf6fd5cebd4e3cd56e4e1c2d114de7e550fefe67e8a",
+    "bytes": 170439
+  },
+  {
+    "path": "src-tauri/data/assets/ui/OroFusexOrnamentB.png",
+    "sha256": "1557e9dd494d1262b84006dc09af5c5dd593be0e537738b87a64c267b9f2db88",
+    "bytes": 160160
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Platinum.png",
+    "sha256": "5873dfef7b86afe90caffd7e82d1e22c418667b665e67f3459e12996306d07c5",
+    "bytes": 3406
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityAura.png",
+    "sha256": "6be01c5be41038321864cb18963627a3967480135a569eb41ed5f0cdb5830709",
+    "bytes": 1366
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityCircle.png",
+    "sha256": "304deb1609681e4ce3a918a4dc3774bd87bee5cf57229f3a80f12add13025972",
+    "bytes": 588
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityMark.png",
+    "sha256": "30e526b855bdd70f4c55d7fe3a1fd96bd510e779c739a89d1477bbc912d05028",
+    "bytes": 686
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityPoint.png",
+    "sha256": "f6fb80d60d25e1bcad19cdde6a1967401fc39ba5acdd38d3c90f59b8db62f66e",
+    "bytes": 952
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityPrecept.png",
+    "sha256": "c6a8870aed916ee220d0ef047b7392ca92c0ce1d8dfd11fc87e5973729597464",
+    "bytes": 431
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityTriangle.png",
+    "sha256": "a65c38faa7e1608f18dc3c26d5b9930435c2b15a3fcd7cab7bacd2841b6ce223",
+    "bytes": 835
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityUmbra.png",
+    "sha256": "fd77f1f5d4b6dc2aef858ed9c9a4638b001f7f12daf63197d0fc0435360f61af",
+    "bytes": 1209
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityUniversal.png",
+    "sha256": "fc44f8601f205a70841488305d39798f9ddff3d1aab111d69de0458ed2c5f57a",
+    "bytes": 1241
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PolarityWard.png",
+    "sha256": "c9620fac0ad37421d8da07ca56548cca42a529e1b57201abecff094414cb246f",
+    "bytes": 969
+  },
+  {
+    "path": "src-tauri/data/assets/ui/PunctureSymbol.png",
+    "sha256": "19538b353d5aa0f1d2837d9e755988a12bb98e9f6ce2884854769799bd06b2d3",
+    "bytes": 3651
+  },
+  {
+    "path": "src-tauri/data/assets/ui/RadiationSymbol.png",
+    "sha256": "a9f827b83ed7c5f5f33aef357097f6d8e4901cb5f8219f1e3f7aa152e3f7a010",
+    "bytes": 2583
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Reactor.png",
+    "sha256": "f9e5a59dd1aad8bd6da92f5b67ceff66ec40145924fd420aafdf6d8d00922422",
+    "bytes": 87471
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Requiem.png",
+    "sha256": "3af389c1d513d62e7ee983e8b22489128fb8dd5f61132f19ec8139c677c6c45f",
+    "bytes": 15871
+  },
+  {
+    "path": "src-tauri/data/assets/ui/RetroChallenge.png",
+    "sha256": "a7fbd38425125722f78c4fe7f3ced7f44ceb26a04fface23e008325c17e8c161",
+    "bytes": 1993
+  },
+  {
+    "path": "src-tauri/data/assets/ui/RetroTaskbarCalendarLg.png",
+    "sha256": "115e219b54c4bdef0e9fab055c268f65e5a4a52253f6f46abc5a54fa3776d956",
+    "bytes": 4433
+  },
+  {
+    "path": "src-tauri/data/assets/ui/RevenantQuestKeyChain.png",
+    "sha256": "736ab05bc9374055716bca9579befb9072ac0823afa5358bc471db002d549982",
+    "bytes": 416682
+  },
+  {
+    "path": "src-tauri/data/assets/ui/SentientSymbol.png",
+    "sha256": "c2db4ef470c7e6547669dee4fe1746fdc2916044c9976077834ca756c6d9f591",
+    "bytes": 2965
+  },
+  {
+    "path": "src-tauri/data/assets/ui/SlashSymbol.png",
+    "sha256": "87dae92e34fd7d393c6e804c08df9f01a45fc8a9a3017e4bed5ddeaf6f36ae1f",
+    "bytes": 2202
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Sortie.png",
+    "sha256": "3b008fa975ad031a2c459c990be0ba5a0c5a77693462887224de79dc1e035a08",
+    "bytes": 1163
+  },
+  {
+    "path": "src-tauri/data/assets/ui/StatArrowUp_d.png",
+    "sha256": "e3fb6203a1da9193aee4418f42864bba6a1529c1bf32b17129f5c960803eb28e",
+    "bytes": 361
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Syndicates.png",
+    "sha256": "bd85e216b9441ce21aa09563e2400f697f9b90b01421c41f01ac1f38f7e695a1",
+    "bytes": 770
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ToxinSymbol.png",
+    "sha256": "18bd48af9156392be23c81415ad19d73aaf68e881373019a457c926a4b48f232",
+    "bytes": 3669
+  },
+  {
+    "path": "src-tauri/data/assets/ui/VallisLandscape.png",
+    "sha256": "2842e4fa6332b469b322daab53456a69ac2f49090225d782055fa64b977bad05",
+    "bytes": 285085
+  },
+  {
+    "path": "src-tauri/data/assets/ui/ViralSymbol.png",
+    "sha256": "11c2162a626bac99399ee28e9a5257538d351d94190a6461e9cce2597d3ef42d",
+    "bytes": 4625
+  },
+  {
+    "path": "src-tauri/data/assets/ui/VoidSymbol.png",
+    "sha256": "c3db344afcb4e7b83d7efc8fe35041d10a961484f11fd05f5f042e79f9de8102",
+    "bytes": 2501
+  },
+  {
+    "path": "src-tauri/data/assets/ui/VoidTearIcon.png",
+    "sha256": "12e5a58279da402b383f927bff98ad7a193079d452d9301d89b045d066d21bc1",
+    "bytes": 2243
+  },
+  {
+    "path": "src-tauri/data/assets/ui/VoidTraces.png",
+    "sha256": "d0b2a248a5c55cbb65912dba230f79388b7c6b5d4907f82a21ef7ec8ee937708",
+    "bytes": 37624
+  },
+  {
+    "path": "src-tauri/data/assets/ui/Wiki.png",
+    "sha256": "54f7a28d189f55c04f2a3b791e3d891fc51191f30f46efc532c6c7798610e684",
+    "bytes": 16120
+  },
+  {
+    "path": "src-tauri/data/assets/ui/teshin.png",
+    "sha256": "287d4daa1c73debdd90902a6489d1bfbac69b38ab5851c510a79d1f8726a2781",
+    "bytes": 1466259
+  },
+  {
+    "path": "src-tauri/data/assets/wfcd/wfcd-combined.json",
+    "sha256": "effdf1ca8d56361204be4e550b2caf103b0b1d09d273c487a374de424b1624c1",
+    "bytes": 33090574
+  },
+  {
+    "path": "src-tauri/data/bin/Warframe-Exporter-CLI",
+    "sha256": "93c9a9bf465ba3e0dc9b675c34b26b56e9f872062586dad64b55e18993ba7b9d",
+    "bytes": 3558368
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/attr_vocab.json",
+    "sha256": "1a8afd1af5f53984831ea6fd1a31c185e083cf001e4cf92449e890dd19f17444",
+    "bytes": 645
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/attribute_name_shortcuts.json",
+    "sha256": "049a88443ec6f238d84585acc6ee5d0fef830a4803aa9bae6355a3c2f19558bf",
+    "bytes": 2398
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/effect_to_url_name.json",
+    "sha256": "580dfa1479088f802246758e132796f784ee250af726780dfaf25339fc1e94f5",
+    "bytes": 1255
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/global_price_freq.json",
+    "sha256": "6a82c00fcecb455b48db85c1cc5f1d351848b6172e5a33e02812e2a5866906b9",
+    "bytes": 4113
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/items_data.json",
+    "sha256": "8b611f48f0cd0d709a4b3ed6c9851fa4bf2e833531162a2f6f25d7250ff5b0e7",
+    "bytes": 173315
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/price_model.onnx",
+    "sha256": "957738ff25bb4a380bcb0827e4bb8a269bac66b9587cf8724931fc1e2779c80e",
+    "bytes": 160123
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/weapon_ranking_information.json",
+    "sha256": "59dbb321470bea9182cfa27831ade8576a9dc99394bf06c0a84c5500b676d5eb",
+    "bytes": 3478137
+  },
+  {
+    "path": "src-tauri/data/bin/pricer-models/weapon_vocab.json",
+    "sha256": "625d698958d85ecdce9df89ef7c6af91d0ee93ae0b45fedff3928d6e861c2f3e",
+    "bytes": 4877
+  },
+  {
+    "path": "src-tauri/data/export/descendia.txt",
+    "sha256": "e66fb0d92421c1ccbafb0a8c0ebb95d8b4512f67b20d352317870500bd425829",
+    "bytes": 4843
+  },
+  {
+    "path": "src-tauri/data/user/placeholder",
+    "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "bytes": 1
+  },
+  {
+    "path": "src-tauri/icons/128x128.png",
+    "sha256": "5bce9b0faa17188fd7ff523ed2d83f25f317d2b3e841174f2eafa404dfc7d0b7",
+    "bytes": 32769
+  },
+  {
+    "path": "src-tauri/icons/128x128@2x.png",
+    "sha256": "61319d886fad5a0722e9b79e3b131f43ff00a63dd9875fb1e1e97182cee5d412",
+    "bytes": 117566
+  },
+  {
+    "path": "src-tauri/icons/32x32.png",
+    "sha256": "24ddc1f39c8bb7851c00f3d67481da5770927a749c2835dd2f3b65f21e24230b",
+    "bytes": 2791
+  },
+  {
+    "path": "src-tauri/icons/64x64.png",
+    "sha256": "dc0879d3c24204d34539b8a74dbd59fcca75cdab58deae784faccdd0de29d6d1",
+    "bytes": 9593
+  },
+  {
+    "path": "src-tauri/icons/Square107x107Logo.png",
+    "sha256": "f02fb85b99ec26a86555e5fd535fd612595f7421e3c644dc110be236df0eddf7",
+    "bytes": 23765
+  },
+  {
+    "path": "src-tauri/icons/Square142x142Logo.png",
+    "sha256": "9727c724caab4cea39c0880c0f1c883895918aae553d05e869389724a2ce0612",
+    "bytes": 39781
+  },
+  {
+    "path": "src-tauri/icons/Square150x150Logo.png",
+    "sha256": "b56c53e911d2b917ce6fe8a27456c6e60e234e9267e9072f1610d235fab56ee8",
+    "bytes": 43805
+  },
+  {
+    "path": "src-tauri/icons/Square284x284Logo.png",
+    "sha256": "6d3dec15894dd024621bf72d54e1d103d13fe754c47572d02ac999899f08080d",
+    "bytes": 143550
+  },
+  {
+    "path": "src-tauri/icons/Square30x30Logo.png",
+    "sha256": "2a06e90e051af3788dbecaae9eb2c4de56267750122b25dec292fca0f639a929",
+    "bytes": 2482
+  },
+  {
+    "path": "src-tauri/icons/Square310x310Logo.png",
+    "sha256": "a309943ec93838f617d7fef8e970cf16d6e750134f23f50945ba8d971e985713",
+    "bytes": 170061
+  },
+  {
+    "path": "src-tauri/icons/Square44x44Logo.png",
+    "sha256": "3537ba352b8b66ebfe336e9c8deedf0ab37ab7f8713797a41dc899984c7729c0",
+    "bytes": 4895
+  },
+  {
+    "path": "src-tauri/icons/Square71x71Logo.png",
+    "sha256": "7a3682ba28b21498c171020a03b4123c7b31e6ea57b5d3a8358abc2508ea264f",
+    "bytes": 11481
+  },
+  {
+    "path": "src-tauri/icons/Square89x89Logo.png",
+    "sha256": "6a01baf688f11108e316f98a3da14cb01b3efb3b51fcc5c7d6695fbacc9180f2",
+    "bytes": 17181
+  },
+  {
+    "path": "src-tauri/icons/StoreLogo.png",
+    "sha256": "268b4f31f9924ef95493602fd89372f8c61f921b3ff54bbbc8566523afe5c3f1",
+    "bytes": 6210
+  },
+  {
+    "path": "src-tauri/icons/icon.icns",
+    "sha256": "28a05e2907d8b09405b1bfab9c0aee9785039f35a7f2d670c83f8b62d736bb6f",
+    "bytes": 2383082
+  },
+  {
+    "path": "src-tauri/icons/icon.ico",
+    "sha256": "82ffbb1439e6188ac24f00e99d02620e065b2586bfd54f7042c12cf3c2f28e95",
+    "bytes": 137371
+  },
+  {
+    "path": "src-tauri/icons/icon.png",
+    "sha256": "7b8c0d956cea77d260c692f80d71d24b4f5f5fc940c64ae34040b7f6e07f15e6",
+    "bytes": 455035
+  },
+  {
+    "path": "src-tauri/src/log_scanner.rs",
+    "sha256": "69f11ed258fe86d16496a371444afadc9dab997ed51a001fee6027b53f95b222",
+    "bytes": 53223
+  },
+  {
+    "path": "src-tauri/src/logger.rs",
+    "sha256": "e9b317555f801010a69478702be0aa6606b375b262e8974ef4874b5d838f9c17",
+    "bytes": 3215
+  },
+  {
+    "path": "src-tauri/src/main.rs",
+    "sha256": "c75505b93fe486f1e50b8fcbbb7a003ada57de838f2a2ed2ce986fda5a46dd61",
+    "bytes": 186437
+  },
+  {
+    "path": "src-tauri/src/market.rs",
+    "sha256": "f8cd0d6d7eb9986f041d1d263712d9189514119eaf8c1026660a52009aa55ab1",
+    "bytes": 7181
+  },
+  {
+    "path": "src-tauri/src/mem_reader.rs",
+    "sha256": "ac69ca6902100d6fce57d6bd2419a4abcfaba416a0e696c522b621cb45b5e46a",
+    "bytes": 4999
+  },
+  {
+    "path": "src-tauri/src/memory_scan.rs",
+    "sha256": "256d3364cceb3c2424a277ee305034104919bf011d1a3f2ee9d49f38cf850593",
+    "bytes": 17999
+  },
+  {
+    "path": "src-tauri/src/ocr.rs",
+    "sha256": "55573e978dabe99c068b43c53f4a2dd8fee02e01fd35a05d0fac0f9add8181f3",
+    "bytes": 60733
+  },
+  {
+    "path": "src-tauri/src/ocr_engine.rs",
+    "sha256": "4e87c3bcb7b3ba010271d9e19f4b4057884af4fa97b86f4b0148cc1713030433",
+    "bytes": 4491
+  },
+  {
+    "path": "src-tauri/src/overlay_utils.rs",
+    "sha256": "14dc99b40c14e1243cc0f1c8c1d199cfd00b32e64c5109fb0a84eebefa6feed4",
+    "bytes": 46826
+  },
+  {
+    "path": "src-tauri/src/pricer.rs",
+    "sha256": "dcdde6c2fab5bbe8ae3d3308574b4fcb622381ce9a04e706c4c903d18971da77",
+    "bytes": 14432
+  },
+  {
+    "path": "src-tauri/src/riven_math.rs",
+    "sha256": "cb2582c9f7573c946927aa4c9df1fdf2ec839b11af05891675a87d05e51fc856",
+    "bytes": 4177
+  },
+  {
+    "path": "src-tauri/src/weapon_i18n.rs",
+    "sha256": "730e15f5654255e5707bd5d273b650a6aaa09614cb072d9934565227ead60d52",
+    "bytes": 5834
+  },
+  {
+    "path": "src-tauri/tauri.conf.json",
+    "sha256": "95425143cbc8d11fc0d50793ed7a9cbd19a49a0228aeaabc7c95e43b32db98c3",
+    "bytes": 4863
+  },
+  {
+    "path": "src-tauri/tauri.darwin.conf.json",
+    "sha256": "97bc3276b8563408a93adf02a4a323913626f1c710b70a4cffb74ca7246e96a1",
+    "bytes": 307
+  },
+  {
+    "path": "src-tauri/tauri.linux.conf.json",
+    "sha256": "512b5cc788c99fc652edb9048cdbe6ac4634e0eaccdccfb783afcc5faf916956",
+    "bytes": 544
+  },
+  {
+    "path": "src-tauri/tauri.windows.conf.json",
+    "sha256": "84d60945bdffd6a38d06c71ef428d6b310e3d546cbe9b1d883a8dbb0a9b6232d",
+    "bytes": 350
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/.cargo-ok",
+    "sha256": "afbf9d0f3560b0fd7795e81c42a0a79ee6b6fc67e064f77826aee642cad28d91",
+    "bytes": 7
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/.cargo_vcs_info.json",
+    "sha256": "d4d2001e82c8ce49f692132594557f20691b99891eddb273957d2cac07002d9e",
+    "bytes": 110
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/.gitignore",
+    "sha256": "937456f730114c410243b25f3587e29a6c608b3a79356adafeefb6b960e004b2",
+    "bytes": 7
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/Benches.md",
+    "sha256": "5e0a2292e9a2b6d5d7923f4b847a9aead7ab656326ef58018d30dfa46c53cf20",
+    "bytes": 2647
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/Cargo.lock",
+    "sha256": "3aa365b4633487152c3e09cef84eb10234b3d01cbab1a000df4b8af7066934a9",
+    "bytes": 595
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/Cargo.toml",
+    "sha256": "0ff579eaf0dbe4cb0529bc3e5256cd25eff1ae146289f40a4f77442171b5995b",
+    "bytes": 1468
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/Cargo.toml.orig",
+    "sha256": "2997b9ae39b90e388eec2165272176d8a2fd9ce261c24e1e26d82f0f419fb1b5",
+    "bytes": 1071
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/Changelog.md",
+    "sha256": "296a9f6db2fbc8813357d0cafb9c041efce7177d1f7b6026a7af81031defb879",
+    "bytes": 2697
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/LICENSE-APACHE",
+    "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "bytes": 11357
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/LICENSE-MIT",
+    "sha256": "d30047bca3b516639339a3c279bb84c3483124fb5a9dafe3c75056a85090e745",
+    "bytes": 1073
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/LICENSE-ZLIB",
+    "sha256": "d201d14804d3bcd3b944147173175e4abfbd838b7c8069b6bd3452496bf13e6c",
+    "bytes": 859
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/README.md",
+    "sha256": "d58a4403ff2b9f7eba16f1284a9b4a4c7125bc92dacd8f0fac1ee112e3a8b8ee",
+    "bytes": 3795
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/bitstream.rs",
+    "sha256": "0f053b8d4443b8818fe187be90304a4f3c645ee43bc9984b8baad4c8b39ce387",
+    "bytes": 30157
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/color_convert.rs",
+    "sha256": "e401a9c71beffd50a0b17330a5f64de82ad944e7f7cfe42a8a8bbf6b24ac245a",
+    "bytes": 3500
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/color_convert/avx.rs",
+    "sha256": "7be52b218a32ca06d8727dbd5d9ff18f0e09ee05c2147e2469e1b78f25e4f1f5",
+    "bytes": 10276
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/color_convert/neon64.rs",
+    "sha256": "7f7f1bf474a9a4778d1a021ebddba7cd98bbd256f14e8158c37c364592fe14d5",
+    "bytes": 5055
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/color_convert/scalar.rs",
+    "sha256": "daf7a7595775ce00bec28997330bc72f0fd3cd113d764cf742a7b502ca93c108",
+    "bytes": 4129
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/components.rs",
+    "sha256": "1699aab5b99818e51bdbfc43afb9567e4ac0ac67e68fbda9bfb3ac86b62489ea",
+    "bytes": 7595
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/decoder.rs",
+    "sha256": "7fdf4e5f585a1f7bfdba51b3ab3a851fb519a326324fdb9f44a236864c26a554",
+    "bytes": 36950
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/errors.rs",
+    "sha256": "106e9bca458efccd9b290ff5cf9365ad195d7afc3e414108111cc88b9c344e8f",
+    "bytes": 5986
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/headers.rs",
+    "sha256": "95d98217434a99171cc17453018658475659516eacefad63f4136550407b6147",
+    "bytes": 23751
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/huffman.rs",
+    "sha256": "921649bd61aeeecb11bf91d7e76afad583e54717255824bf0c2d4bb6160d6b10",
+    "bytes": 9033
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/idct.rs",
+    "sha256": "be856aec47d17f28dfaa98072f2317eb78be0f6b9dc9535f5d309e97da5cf8e8",
+    "bytes": 6890
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/idct/avx2.rs",
+    "sha256": "7e2d93e1e0cfe6735a75562866162f3a5d78072301d6189b7b02fba4dfbd2d88",
+    "bytes": 13415
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/idct/neon.rs",
+    "sha256": "33ef1506f2d14889f2039e483988ad3afe58c7daadd2d241be61e69908dd32dc",
+    "bytes": 9951
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/idct/scalar.rs",
+    "sha256": "1994c32030ac7ff9ab904f3b890dcd44dfa231551bd033749faab565c014b3f9",
+    "bytes": 7840
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/lib.rs",
+    "sha256": "31cfd2c21b47b86595dde3b39e93e2754031541f35deb35a43ee8a56488de68d",
+    "bytes": 6227
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/marker.rs",
+    "sha256": "10014f879004c0b1ca4bca66155eb2385820cce02ae6e48a9e9b37ca60ecd294",
+    "bytes": 2777
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/mcu.rs",
+    "sha256": "b2234b35227ee76fc43df76b64f5b68e44a395250d187016765d5922849dcfb3",
+    "bytes": 41016
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/mcu_prog.rs",
+    "sha256": "e8e7b1c4720469067af9893207f44d588304f74f362499f9c2a1f3fe7755228d",
+    "bytes": 34721
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/misc.rs",
+    "sha256": "1ba8300b38095fc0cb2e91f615d401d7a6b45d20115f314df66153add7b776da",
+    "bytes": 18760
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/unsafe_utils.rs",
+    "sha256": "8fa830ca67b7f701461fe2382f8843faa33c98b5f83f1845f60c8ef788143c75",
+    "bytes": 208
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/unsafe_utils_avx2.rs",
+    "sha256": "2e2a8294a8c8c6ca3e92356b47a088090c2c62853b37cfcadeba4ab55f545721",
+    "bytes": 5332
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/unsafe_utils_neon.rs",
+    "sha256": "1c869e09726cec6ae699fddcc8c0551a9e798ebaa5d55b3514b3bfb4874282c5",
+    "bytes": 8219
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/upsampler.rs",
+    "sha256": "81ca309c31baf578b293abc6dbeb4d37b69f14b0e2811d15fe3bb9aa637cc01a",
+    "bytes": 11047
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/upsampler/avx2.rs",
+    "sha256": "3416787605115cee9f7eb918b3dd05f6596c8ed15e4942d18a12d301f5d843bc",
+    "bytes": 6777
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/upsampler/neon.rs",
+    "sha256": "91465d872b387de31919d1e29688bd33ca54046f8e1825056bd61f2a28c6b6c8",
+    "bytes": 6019
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/upsampler/portable_simd.rs",
+    "sha256": "36bfef56cc9c36c796cfccca77c13c7e394042c9ebf53bb18ffaaeba2311913d",
+    "bytes": 5190
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/upsampler/scalar.rs",
+    "sha256": "cc86288e29db2d6cbb25f5238f3064e3ad30179d0c1cfdab35d51fd54b074710",
+    "bytes": 3993
+  },
+  {
+    "path": "src-tauri/vendor/zune-jpeg/src/worker.rs",
+    "sha256": "6f939fa614844d11b826c196ea56ea13846ba7725025da0e2418b2d453fecc6d",
+    "bytes": 22727
+  },
+  {
+    "path": "src/App.jsx",
+    "sha256": "fd5f73718a7fd3ac94e307d13a6c149f3aa7ac8f3dc5b5a5e2f3e38e78a917ce",
+    "bytes": 24989
+  },
+  {
+    "path": "src/components/AcquisitionDrawer.jsx",
+    "sha256": "1e671a63f0751c0f562e381eaa623a88e2e77972d585b503d3a57cc414a5d13a",
+    "bytes": 15326
+  },
+  {
+    "path": "src/components/BackToTop.jsx",
+    "sha256": "36b88317e279c3875ec7cb51566c35925238fe90043e41db2e0899f74e956848",
+    "bytes": 1509
+  },
+  {
+    "path": "src/components/BugReporterModal.jsx",
+    "sha256": "667d7199aad38bf94a6f619a8779ba6645a7c2ca317003f90c9523f92f33c5fd",
+    "bytes": 5423
+  },
+  {
+    "path": "src/components/FeatureGuideModal.jsx",
+    "sha256": "7579f5da25b16179ca393350321026cf4ae2a54f7ef9418be16f079f34e078e7",
+    "bytes": 11299
+  },
+  {
+    "path": "src/components/ItemImage.jsx",
+    "sha256": "4c2756184fd1c017a5bc7ce91630dc0bbddc9cae60646501ce0e09340839f307",
+    "bytes": 3495
+  },
+  {
+    "path": "src/components/LanguagePicker.jsx",
+    "sha256": "d2cd9f611907264d2b0998c8f8379ac140bd76dc9f10b7c2c7bdd5f688f44d8b",
+    "bytes": 2303
+  },
+  {
+    "path": "src/components/ModCard.jsx",
+    "sha256": "7f08e00e8c738f08e30440f2835919ee9703fad5761be780b6269ede942fe07a",
+    "bytes": 33033
+  },
+  {
+    "path": "src/components/NotificationManager.jsx",
+    "sha256": "bce3f5de9bd6ac01e75041d312112b4be1f0df2eb4cf27e36c044d986b5c3343",
+    "bytes": 10973
+  },
+  {
+    "path": "src/components/RivenCard.jsx",
+    "sha256": "ced02bf19c7c6316f94ec12208b96d44676e115ac5d75f768774fba718983198",
+    "bytes": 14522
+  },
+  {
+    "path": "src/components/RivenGradeDrawer.jsx",
+    "sha256": "d62bf025f99b21b022ae3975b9000b3fd875557cf6ee21c31252750af9817715",
+    "bytes": 3237
+  },
+  {
+    "path": "src/components/UI.jsx",
+    "sha256": "92b0ad65ce308144b53f77713f6c9ba577011fd6232d04e39aa67e394bbeed55",
+    "bytes": 16336
+  },
+  {
+    "path": "src/components/overlays/OverlayRouter.jsx",
+    "sha256": "e550e6b0dcba846fc24e510e3484ddc64cc91e5168802b5d84bf510173a09af1",
+    "bytes": 1308
+  },
+  {
+    "path": "src/components/overlays/RelicPickerOverlay.jsx",
+    "sha256": "c6eb06fe3dd7792c4127507dc521abbe1493f3c7f0ac03a2d4ce4ce6bff5185b",
+    "bytes": 7071
+  },
+  {
+    "path": "src/components/overlays/RelicRewardOverlay.jsx",
+    "sha256": "3354fb2ffb0a9e22fb51f97027bf2489b87de5f395678589752bfa85fa759552",
+    "bytes": 20585
+  },
+  {
+    "path": "src/components/overlays/RivenOverlay.jsx",
+    "sha256": "4a8fdd437c7887f7a4b5006abf366b6b825bcac928961ae00dc8e0ada1759ede",
+    "bytes": 22581
+  },
+  {
+    "path": "src/components/overlays/SidebarOverlay.jsx",
+    "sha256": "f224a6b056c243c17bc07b7326fce12e4be2f805ed3016fe4b190b9154a9229f",
+    "bytes": 12619
+  },
+  {
+    "path": "src/components/overlays/ToastOverlay.jsx",
+    "sha256": "dee010752d1eca0a3750de3d4021e5d42b8c6260d0b7e989004eb7da9d06fe24",
+    "bytes": 7790
+  },
+  {
+    "path": "src/contexts/MirroredMonitoringProvider.jsx",
+    "sha256": "6a2de6d52542e074efabf11252c8e63f8a75103fefbb83512d7f941ced5b9dd9",
+    "bytes": 36126
+  },
+  {
+    "path": "src/contexts/MonitoringContext.jsx",
+    "sha256": "3600852b0696e924c6861141119caf1051552188440cb98ca2d52f94ef770aea",
+    "bytes": 68768
+  },
+  {
+    "path": "src/contexts/ThemeContext.jsx",
+    "sha256": "577d844ea433abc1efaf813ec23cad52ee6f9e4c89b1a47cfa2e8eb93307b190",
+    "bytes": 8235
+  },
+  {
+    "path": "src/contexts/UiContext.jsx",
+    "sha256": "ec3308c981e303a4c247a7084ffa813b31384d62e7513303d808f5050463e5ef",
+    "bytes": 2338
+  },
+  {
+    "path": "src/contexts/UpdateContext.jsx",
+    "sha256": "67b86657250c61eef58fef3efc0d393bfb15ed6b521fb9aaf43f56d5bb1adca8",
+    "bytes": 4924
+  },
+  {
+    "path": "src/index.css",
+    "sha256": "a1a531740606584e3441ff54969867eed15e01994f6e01bfef588c44b18bc5d5",
+    "bytes": 9489
+  },
+  {
+    "path": "src/lib/acquisitionAudit.js",
+    "sha256": "db7725178f89b0627771d45aadb47f21bb60a17faf49a4198a00af677d555592",
+    "bytes": 13132
+  },
+  {
+    "path": "src/lib/acquisitionData.js",
+    "sha256": "77b3f2f8418f0c21677588d973a7bd41fae6f85a91a8731e7559d8ac61f64654",
+    "bytes": 1146562
+  },
+  {
+    "path": "src/lib/acquisitionInfo.js",
+    "sha256": "cbb9655309b10da4e7cbd7334e7f486ed6f8ee7418ee5853a364d15ecefc7f72",
+    "bytes": 68170
+  },
+  {
+    "path": "src/lib/baroRelics.js",
+    "sha256": "ec2e7ee916fb4619dbde403f0c72a71b107cee5d945dad3dc9771db6fee06804",
+    "bytes": 387
+  },
+  {
+    "path": "src/lib/codexSupplement.js",
+    "sha256": "94c749e8a873d81ec682fde1cdcfbb77156356506326ca92fbb3d726a45b7aab",
+    "bytes": 1451
+  },
+  {
+    "path": "src/lib/customMarkers.js",
+    "sha256": "421a27717ecb8fb2f803133e5bbd862ef9d75548ef8794ab262d32f66cd9aad0",
+    "bytes": 6538
+  },
+  {
+    "path": "src/lib/dropsParser.js",
+    "sha256": "4d2d43ac69a2a9ab340363df176fcbb494100132b938958a8d5e9ffad5643095",
+    "bytes": 22356
+  },
+  {
+    "path": "src/lib/i18n.js",
+    "sha256": "f6b2a9879b4e853a0943906792c0443c477318a21bcda4b21b4332a8e5e6ef24",
+    "bytes": 1589
+  },
+  {
+    "path": "src/lib/i18n/de.json",
+    "sha256": "ac04800845722a9e8036de10b3529312182d2ced307d4969765a69c0eb2b089f",
+    "bytes": 54092
+  },
+  {
+    "path": "src/lib/i18n/en.json",
+    "sha256": "2f252d7afcf6d63b86e08c459108ec0a30fab753b72ce3b78a7fd9604b2c039c",
+    "bytes": 56893
+  },
+  {
+    "path": "src/lib/i18n/es.json",
+    "sha256": "9d938a19b3f5829394d18755468eba000db204e3163d62e92e24e606f3cdd85c",
+    "bytes": 54974
+  },
+  {
+    "path": "src/lib/i18n/fr.json",
+    "sha256": "01b5899bf6c08952b0dd53952651e082ef92dbe538d9d00d5822aa1d35cbb5cf",
+    "bytes": 55678
+  },
+  {
+    "path": "src/lib/i18n/it.json",
+    "sha256": "faacdee4b3e2c46eaf1f988ba548a46a5e82a1b26316bb73dd70cfcc5b41c740",
+    "bytes": 54273
+  },
+  {
+    "path": "src/lib/i18n/ja.json",
+    "sha256": "4e146adc2ee9fea1c38ea196ac42f32120fdd5c631af7b438a32794f7f967149",
+    "bytes": 59108
+  },
+  {
+    "path": "src/lib/i18n/ko.json",
+    "sha256": "eb6e3648a76b886a4258b8bb8fe24b7ab59be3eee890ffb57e9227cb7b113f5e",
+    "bytes": 54947
+  },
+  {
+    "path": "src/lib/i18n/pl.json",
+    "sha256": "6fb63d28d0db0c0c88ca4b3316588f7bbd1745c2ea438a2323db0914b5874ae8",
+    "bytes": 54266
+  },
+  {
+    "path": "src/lib/i18n/pt.json",
+    "sha256": "e3b1f013d1c53bdf847d1f6c15fbf807055961099ac51d66ae2bc48e12ec0fe2",
+    "bytes": 54365
+  },
+  {
+    "path": "src/lib/i18n/ru.json",
+    "sha256": "420b325909bd553970fbbc01eff521bc7b6d62193bd534c1851b2562f0f5201e",
+    "bytes": 68809
+  },
+  {
+    "path": "src/lib/i18n/tc.json",
+    "sha256": "df1fd459cab02d00592f850f5c1effd90af34f48c9872a565831f2c81b4eaac4",
+    "bytes": 51129
+  },
+  {
+    "path": "src/lib/i18n/th.json",
+    "sha256": "a8106d2bab971dfe64076ea0e6959f58eb05d8a23b52a6cd5ac034ee0cf9ba1d",
+    "bytes": 78247
+  },
+  {
+    "path": "src/lib/i18n/tr.json",
+    "sha256": "deff51c98ef028fd1dbe9b3006c0f38dffa75f20ff521367dbc9729db6352a83",
+    "bytes": 53889
+  },
+  {
+    "path": "src/lib/i18n/uk.json",
+    "sha256": "22627acf37bfaa425b6f085d6ce3769d507255092ec860e2533f1ccc6746e052",
+    "bytes": 67897
+  },
+  {
+    "path": "src/lib/i18n/zh.json",
+    "sha256": "530c8f29b35ea3cba6c1076289f6f0b0e744858ef8ef1c4ac75108f5a344cd9a",
+    "bytes": 50964
+  },
+  {
+    "path": "src/lib/inventoryParser.js",
+    "sha256": "723f47347d12a55afb8c66e4e22c1e592d5b7bad8d788b2bf584858c8c682b7d",
+    "bytes": 159576
+  },
+  {
+    "path": "src/lib/marketEngine.js",
+    "sha256": "32747553cb2d9501c26ce67ff1dc2a195e6df1fc7fd2425d939f0e5b2fd5d7c0",
+    "bytes": 6275
+  },
+  {
+    "path": "src/lib/modWikiTags.js",
+    "sha256": "c8b00a1147ff962a736999127a5e14167e799db3d7ba5005962ac47faaf6aa6b",
+    "bytes": 123181
+  },
+  {
+    "path": "src/lib/notificationManager.js",
+    "sha256": "8fa31a6566ec5b9675559264fa07fc132db3795939ce4718f5f1c15eb809ed81",
+    "bytes": 23275
+  },
+  {
+    "path": "src/lib/primeResurgence.js",
+    "sha256": "f4cf8d1464822a8caf8e88242b52aea41c84a188eaff47ba80fb50d570a8f3d8",
+    "bytes": 9819
+  },
+  {
+    "path": "src/lib/relicParser.js",
+    "sha256": "037b9587830715002cecf7ec625da029b98e22eb180e986bef1e2cb6c3f6d0fc",
+    "bytes": 33863
+  },
+  {
+    "path": "src/lib/requiemModAliases.js",
+    "sha256": "5365cd450e56614e53befd03bfbd4df8ed3bf86f8c3dcb39bdc7525730b8b1f5",
+    "bytes": 1234
+  },
+  {
+    "path": "src/lib/rivenGrader.js",
+    "sha256": "6dd0a39543f1e4d2298661717a00a490ed9a491749f41d9f3ff07e0a39f75cc2",
+    "bytes": 5525
+  },
+  {
+    "path": "src/lib/rivenOcrI18n.js",
+    "sha256": "10e0f709651793f44358c2116a295bb9e093363c30395bf8b072198beeb9518e",
+    "bytes": 15629
+  },
+  {
+    "path": "src/lib/rivenPerfectness.js",
+    "sha256": "0ff075fde9972d0bf18efa871fdcf460fb56f32a6e1b6da4df67cb83659d7f37",
+    "bytes": 4214
+  },
+  {
+    "path": "src/lib/settings.js",
+    "sha256": "eea466969f7895c7a653fa3f347a67ed2baa1de41e76a21a07e5189c3b710e23",
+    "bytes": 3572
+  },
+  {
+    "path": "src/lib/shareBundle.js",
+    "sha256": "4693e6e981ab0c4f2b7264fcf6eed75a0b24e18ca3ff3a6a1f1c44171ee58efc",
+    "bytes": 1921
+  },
+  {
+    "path": "src/lib/warframeItemsTransform.js",
+    "sha256": "18dcff4a0374496e378124cec4c0683ff2d6f19f043edfccc95952bb158f6678",
+    "bytes": 5372
+  },
+  {
+    "path": "src/lib/warframeUtils.js",
+    "sha256": "3300c2022b959ab372a9af9467ed721e5eff14296d5e7586ed303c154ba03e36",
+    "bytes": 33102
+  },
+  {
+    "path": "src/lib/wfcdGapFill.js",
+    "sha256": "e8229c578f6d72f84c9a5d05c50d61108d467a76bf4dce73e858be1802a82c87",
+    "bytes": 8343
+  },
+  {
+    "path": "src/lib/wfcdLoader.js",
+    "sha256": "65c68556fd101c13a340041169701be8e45d8ca4ebab87d634ebc448af27672d",
+    "bytes": 1185
+  },
+  {
+    "path": "src/lib/wfmCache.js",
+    "sha256": "8729b16df40b50b440e6e9d06aac2534286d1897ac90008865786c45959c69b2",
+    "bytes": 8093
+  },
+  {
+    "path": "src/lib/wikiVerifiedAcquisitions.js",
+    "sha256": "7b64c567a911ad7041ae6f92a6a4326c9f5aa0ed897ce544605958b2b0c35c9a",
+    "bytes": 167032
+  },
+  {
+    "path": "src/lib/worldstateParser.js",
+    "sha256": "47fd67cb19e8511f120491a9eda73509f951444ec57ff2a51096430e308048c8",
+    "bytes": 58736
+  },
+  {
+    "path": "src/main.jsx",
+    "sha256": "d356670b31fed69c1d8042443442cbd154c4b88bc268890c8eab78ca7ba52995",
+    "bytes": 1554
+  },
+  {
+    "path": "src/screens/About.jsx",
+    "sha256": "041d668b691f5bf1fa31af7f3c8cd37db916f36ebc203a041be71667404595d5",
+    "bytes": 6705
+  },
+  {
+    "path": "src/screens/Adversaries.jsx",
+    "sha256": "a0bde93fafd99b12df87bc5da21c0c8900fa846043c8461f24fc5a9d90a04203",
+    "bytes": 9359
+  },
+  {
+    "path": "src/screens/Checklist.jsx",
+    "sha256": "0a7282d72aabc014cdd743074c11232804d8225ca58a09cde95cfb5febb07605",
+    "bytes": 43550
+  },
+  {
+    "path": "src/screens/Collectibles.jsx",
+    "sha256": "c21ec2c153a46feca0f2c3b592d407869fe60559429266d78044e9fbfcb531eb",
+    "bytes": 29844
+  },
+  {
+    "path": "src/screens/Cosmetics.jsx",
+    "sha256": "39e6ac70c275d3e2713fcfcf46463f1f009376ba31c31db4a90d09223ca76f3e",
+    "bytes": 19601
+  },
+  {
+    "path": "src/screens/Dashboard.jsx",
+    "sha256": "b200860d216d39e699fb693e1a31db249efca5c2650e9ced7770b0e8892a0bb6",
+    "bytes": 107232
+  },
+  {
+    "path": "src/screens/Foundry.jsx",
+    "sha256": "342161f53421586b516641ba07ba31a1949a231dc439d849a1ba344369bad7de",
+    "bytes": 17764
+  },
+  {
+    "path": "src/screens/History.jsx",
+    "sha256": "f7698f4f88d55c1ebf5b255da9388cecd5eee449daaf7d0f7720c6f69e23ea1d",
+    "bytes": 31205
+  },
+  {
+    "path": "src/screens/Inventory.jsx",
+    "sha256": "694967729a5e7edb74e2c8b331ea5618d889a3a1dd9b264864ced144bc398d4b",
+    "bytes": 77353
+  },
+  {
+    "path": "src/screens/Maps.jsx",
+    "sha256": "08ec81d260d07e20c85828040df620214af38b982ef9d4eea9549ee09f8f8514",
+    "bytes": 51171
+  },
+  {
+    "path": "src/screens/Market.jsx",
+    "sha256": "ed12f0eece72212d655ed1e56e9283d653c49f184d60a8d1dc9d51d42048b0be",
+    "bytes": 54757
+  },
+  {
+    "path": "src/screens/Mastery.jsx",
+    "sha256": "d0feff3f620e948d6450b03d493bc540ea1d13c25c609db2932de5bd27f3311e",
+    "bytes": 29040
+  },
+  {
+    "path": "src/screens/Mods.jsx",
+    "sha256": "0a1d5ecc75fda88b121f8533880ffab2a169639f6944c69ed074fab988b7aaeb",
+    "bytes": 18692
+  },
+  {
+    "path": "src/screens/Notes.jsx",
+    "sha256": "5f175bff200e3f0f6fab3dc2a6bb250aac874fa5a4aeeea23ab41be5d214cbca",
+    "bytes": 21953
+  },
+  {
+    "path": "src/screens/PrimeResurgence.jsx",
+    "sha256": "3e0dca3ffaf06d103a75e5f6baa3668ee58454a72eda4775d15d16bbd4b8f0b0",
+    "bytes": 7995
+  },
+  {
+    "path": "src/screens/RelicPlanner.jsx",
+    "sha256": "d9640721b7b89829615a3ce5aabf6dd7799c16d672e7e9b83a24966c6290a7ce",
+    "bytes": 16318
+  },
+  {
+    "path": "src/screens/Relics.jsx",
+    "sha256": "60381d7932030ee30186e69ed8367546f96be1a2d000c32c67fb34d4c83c8dac",
+    "bytes": 32445
+  },
+  {
+    "path": "src/screens/Rivens.jsx",
+    "sha256": "03e9a3d05f99c2a04373430dcf1be2a330f928e8bf47c64e553b673e14a6af4c",
+    "bytes": 13670
+  },
+  {
+    "path": "src/screens/Settings.jsx",
+    "sha256": "c64ea90f957983864b3004baf8db637f187471b5584bc0e1d8b2d3ef1ac5f203",
+    "bytes": 65816
+  },
+  {
+    "path": "src/screens/Wiki.jsx",
+    "sha256": "1814b965ec2e567d4e3277f08c9bbe95fe607657fd6759dabf241e078e515765",
+    "bytes": 6983
+  },
+  {
+    "path": "tailwind.config.js",
+    "sha256": "fe9ce0fc384266cb9a12edf00fa11fe056f59d756e0c7c8c6376b8fa6affe1e0",
+    "bytes": 634
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/data_files/attribute_name_shortcuts.json",
+    "sha256": "049a88443ec6f238d84585acc6ee5d0fef830a4803aa9bae6355a3c2f19558bf",
+    "bytes": 2398
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/data_files/attributes_data.json",
+    "sha256": "e2d964f89b02345c3b773fc829bef98f65296eb2fcd861d9b7ed247cba943498",
+    "bytes": 14118
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/data_files/ig_weapon_stats.json",
+    "sha256": "43c5e11d08a9ae8ef41b458b5ac6989efdc33295d96726bb5e0139fed558b3f0",
+    "bytes": 2375160
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/filepaths.py",
+    "sha256": "33fef72aad12e4404c3868be721415d44e83f5ec28fa6d9d6aad601e9a30324e",
+    "bytes": 5057
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/riven_tool/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/riven_tool/rivens_analysis.py",
+    "sha256": "3018a44d513ae6b3990c927a97b7e059462e7d3c1d81f6a97d23e1d522e3a7c7",
+    "bytes": 3044
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/setup.py",
+    "sha256": "1a9c8531f814dc81403e7fe674b9eade2df61d8b074147e2df14415256fcb01c",
+    "bytes": 179
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/shtuff/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/shtuff/data_handler.py",
+    "sha256": "9ae2487cc959fbd0bb5e8b10d89519c1f910fe2c3d4e73a57f2565e313479dae",
+    "bytes": 14554
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/shtuff/make_prediction.py",
+    "sha256": "4f2a26062045c3d1427301cd73c47a6930b55cb88923df31230757aad9d3ba2f",
+    "bytes": 6779
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/shtuff/riven_funcs.py",
+    "sha256": "5f07b52eb3b44be20ec25027aba60307ef6c35b98cfd84dd97f5d371b031d91e",
+    "bytes": 10527
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/shtuff/storage_handling.py",
+    "sha256": "8441f365d3c11150c7eea6c58b53e1f9b5d7182fb14ab6bed88c9b1ae418e329",
+    "bytes": 442
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/tool_setup_and_maintenance/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/tool_setup_and_maintenance/create_marketplace_dataframe.py",
+    "sha256": "1f69f65098f5406bcb82f3caff0db3ca86083070912f92fd5141089866fbc396",
+    "bytes": 13572
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/tool_setup_and_maintenance/download_data.py",
+    "sha256": "1d11ee557251c96c023646e0bdc14e260a647755094a3eb0d9d97f1aae9021a6",
+    "bytes": 9742
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/training/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/training/export_to_onnx.py",
+    "sha256": "ec83379d9cfb18fe66ec2c7e27651deb171810ecd09fe6d2c84de71fb0f30b8f",
+    "bytes": 5307
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/training/preprocessors/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/training/preprocessors/price_model_preprocessor.py",
+    "sha256": "3c2e0daa70ed9f7986f7bc0bd7822f84bf70091d2e1d8d72c86d9f1d5a94fed3",
+    "bytes": 10453
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/training/trainers/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "tools/riven-pricer/pipeline/training/trainers/train_price_model.py",
+    "sha256": "846d633ca234b39c8ecb75a21cb52917e32eee3c52bfaaadbb94d1536f5c44b5",
+    "bytes": 8108
+  },
+  {
+    "path": "tools/riven-pricer/retrain.py",
+    "sha256": "b30ad4d1a91b6c56f61934187d805640f350a59ed8255af177e8d5e443297676",
+    "bytes": 4846
+  },
+  {
+    "path": "tools/riven-pricer/setup_weapon_information_onnx.py",
+    "sha256": "8113748b75c5d8c5ee7387e5c962c495b22ddca5fbb88ca9ae94c78ec4be4fb3",
+    "bytes": 6656
+  },
+  {
+    "path": "trigger_release.sh",
+    "sha256": "d34ea84421a6c5f744f1c34a54c3448513825653733dc7a1c0e2174b3bc9f072",
+    "bytes": 2152
+  },
+  {
+    "path": "vite.config.js",
+    "sha256": "7c04c180ff0a7d16412bccf83462fff44f3ba7839e1cebdf88ae6b62ab30ed4c",
+    "bytes": 420
+  },
+  {
+    "path": "wiki/Build-from-Source.md",
+    "sha256": "c4016f907d87054545b9a3277e98132466b44aa2aa49e49a295190f25252b8e1",
+    "bytes": 2572
+  },
+  {
+    "path": "wiki/FAQ.md",
+    "sha256": "a1bb9a9580c841ce909df59215f101afa685d17bc910c2315e751b51adca7834",
+    "bytes": 1776
+  },
+  {
+    "path": "wiki/Features.md",
+    "sha256": "4ebb43ae3deb10422665fff8c296bd818c68c343006d083db898fd58d3bd43d4",
+    "bytes": 3603
+  },
+  {
+    "path": "wiki/Getting-Started.md",
+    "sha256": "237b022c1da9991e2f3a72e86183259c9ce2f26623b0d8b8035ab96610329d4b",
+    "bytes": 1990
+  },
+  {
+    "path": "wiki/Home.md",
+    "sha256": "13fda158f535779fb75a503a790a142e4d89c66568804de69a73d3626a1a4da6",
+    "bytes": 443
+  },
+  {
+    "path": "wiki/Privacy-and-Security.md",
+    "sha256": "97f609dee4f697e9b8a3295272d245944c8b35f0a7286aba7deeb55adc5faebe",
+    "bytes": 2065
+  }
+]

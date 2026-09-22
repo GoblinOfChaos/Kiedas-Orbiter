@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "component_65_of_65": true,
+    "stable_markup_7_of_7": true,
+    "debian_and_appimage_50_of_50": true,
+    "four_artifacts_match_current_files": true,
+    "cumulative_patch_applies": true,
+    "tracked_baseline_850_of_850": true,
+    "cargo_lock_unchanged": true,
+    "stage3g_source_absent": true,
+    "git_native_patch_rule_recorded": true,
+    "evidence_integrity_disclosed": true
+  },
+  "artifact_sha256": {
+    "kiedas-orbiter": "61e2ab376c6e6c5d1cea4c7a4fb4336219bb98b7520cfd9d0a2aef517287c774",
+    "kiedas-orbiter-preview": "61e2ab376c6e6c5d1cea4c7a4fb4336219bb98b7520cfd9d0a2aef517287c774",
+    "Kieda's Orbiter Preview_1.3.3_amd64.deb": "4ca82d6e82c278f2cecd6145cbe5aabf9c9bde62424633d008f58a45bf2ffcc9",
+    "Kieda's Orbiter Preview_1.3.3_amd64.AppImage": "7ce521117c48e81f18919888efa3c0bdf4eff9814fe52d35d2e7f0bda298175b"
+  },
+  "incremental_patch_sha256": "340fdfdc26820e7be21967bc28c24ed479d0bebc203df7e333556bc6fbff2e59",
+  "cumulative_patch_sha256": "87241d18ad98ba63ec9a3d49d402599ae568d80dcab495fbbc4a3aef6313411f",
+  "main_repo_status": [
+    "?? .preview-work/",
+    "?? docs/revamp/"
+  ],
+  "isolated_checkout_status": [
+    " M src-tauri/src/main.rs",
+    " M src-tauri/src/preview_import.rs",
+    " A src-tauri/src/preview_import_tests.rs",
+    " M src/components/PreviewImport.jsx",
+    "M  src/main.jsx",
+    " M src/screens/Cosmetics.jsx",
+    " M src/screens/Dashboard.jsx",
+    " M src/screens/Inventory.jsx",
+    " M src/screens/Mastery.jsx",
+    " M src/screens/Mods.jsx",
+    " M src/screens/Rivens.jsx",
+    " M src/screens/Settings.jsx",
+    "?? src/components/PreviewCosmeticsLayout.jsx",
+    "?? src/components/PreviewDashboardLayout.jsx",
+    "?? src/components/PreviewInventoryLayout.jsx",
+    "?? src/components/PreviewMasteryLayout.jsx",
+    "?? src/components/PreviewModsLayout.jsx",
+    "?? src/components/PreviewRivensLayout.jsx"
+  ],
+  "stage3g_app_source_started": false
+}

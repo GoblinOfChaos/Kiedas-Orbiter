@@ -1,0 +1,1282 @@
+{
+  "/Lotus/Upgrades/Skins/Ninja/NinjaAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Ninja/NinjaAgileAnims",
+    "wikiName": "Ash Agile Animation Set",
+    "description": "The Agile Animation Set for Ash.",
+    "acquisition": "Default/comes free with Ash. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Ash Animation Set (confirmed exact sentence match for 'Ash Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Ninja/NinjaNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Ninja/NinjaNobleAnims",
+    "wikiName": "Ash Noble Animation Set",
+    "description": "The Noble Animation Set for Ash.",
+    "acquisition": "Default/comes free with Ash. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Ash Animation Set (confirmed exact sentence match for 'Ash Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Brawler/BrawlerAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Brawler/BrawlerAgileAnims",
+    "wikiName": "Atlas Agile Animation Set",
+    "description": "The Agile Animation Set for Atlas.",
+    "acquisition": "Default/comes free with Atlas. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Atlas Animation Set (confirmed exact sentence match for 'Atlas Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Brawler/BrawlerNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Brawler/BrawlerNobleAnims",
+    "wikiName": "Atlas Noble Animation Set",
+    "description": "The Noble Animation Set for Atlas.",
+    "acquisition": "Default/comes free with Atlas. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Atlas Animation Set (confirmed exact sentence match for 'Atlas Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Decree/DecreeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/DecreeAgileAnims",
+    "wikiName": "Banshee Agile Animation Set",
+    "description": "The Agile Animation Set for Banshee.",
+    "acquisition": "Default/comes free with Banshee. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Banshee Animation Set (confirmed exact sentence match for 'Banshee Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Decree/DecreeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/DecreeNobleAnims",
+    "wikiName": "Banshee Noble Animation Set",
+    "description": "The Noble Animation Set for Banshee.",
+    "acquisition": "Default/comes free with Banshee. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Banshee Animation Set (confirmed exact sentence match for 'Banshee Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/PacifistAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Pacifist/PacifistAgileAnims",
+    "wikiName": "Baruuk Agile Animation Set",
+    "description": "The Agile Animation Set for Baruuk.",
+    "acquisition": "Default/comes free with Baruuk. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Baruuk Animation Set (confirmed exact sentence match for 'Baruuk Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Pacifist/PacifistNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Pacifist/PacifistNobleAnims",
+    "wikiName": "Baruuk Noble Animation Set",
+    "description": "The Noble Animation Set for Baruuk.",
+    "acquisition": "Default/comes free with Baruuk. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Baruuk Animation Set (confirmed exact sentence match for 'Baruuk Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/SentientAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentient/SentientAgileAnims",
+    "wikiName": "Caliban Agile Animation Set",
+    "description": "The Agile Animation Set for Caliban.",
+    "acquisition": "Default/comes free with Caliban. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Caliban Animation Set (confirmed exact sentence match for 'Caliban Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sentient/SentientNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentient/SentientNobleAnims",
+    "wikiName": "Caliban Noble Animation Set",
+    "description": "The Noble Animation Set for Caliban.",
+    "acquisition": "Default/comes free with Caliban. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Caliban Animation Set (confirmed exact sentence match for 'Caliban Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Dragon/ChromaAgileAnims",
+    "wikiName": "Chroma Agile Animation Set",
+    "description": "The Agile Animation Set for Chroma.",
+    "acquisition": "Default/comes free with Chroma. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Chroma Animation Set (confirmed exact sentence match for 'Chroma Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Dragon/ChromaNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Dragon/ChromaNobleAnims",
+    "wikiName": "Chroma Noble Animation Set",
+    "description": "The Noble Animation Set for Chroma.",
+    "acquisition": "Default/comes free with Chroma. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Chroma Animation Set (confirmed exact sentence match for 'Chroma Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Geode/GeodeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Geode/GeodeAgileAnims",
+    "wikiName": "Citrine Agile Animation Set",
+    "description": "The Agile Animation Set for Citrine.",
+    "acquisition": "Default/comes free with Citrine. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Citrine Animation Set (confirmed exact sentence match for 'Citrine Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Geode/GeodeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Geode/GeodeNobleAnims",
+    "wikiName": "Citrine Noble Animation Set",
+    "description": "The Noble Animation Set for Citrine.",
+    "acquisition": "Default/comes free with Citrine. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Citrine Animation Set (confirmed exact sentence match for 'Citrine Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Frumentarius/FrumentariusAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Frumentarius/FrumentariusAgileAnims",
+    "wikiName": "Cyte-09 Agile Animation Set",
+    "description": "The Agile Animation Set for Cyte-09.",
+    "acquisition": "Default/comes free with Cyte-09. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Cyte-09 Animation Set (confirmed exact sentence match for 'Cyte-09 Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Frumentarius/FrumentariusNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Frumentarius/FrumentariusNobleAnims",
+    "wikiName": "Cyte-09 Noble Animation Set",
+    "description": "The Noble Animation Set for Cyte-09.",
+    "acquisition": "Default/comes free with Cyte-09. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Cyte-09 Animation Set (confirmed exact sentence match for 'Cyte-09 Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Dagath/DagathAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Dagath/DagathAgileAnims",
+    "wikiName": "Dagath Agile Animation Set",
+    "description": "The Agile Animation Set for Dagath.",
+    "acquisition": "Default/comes free with Dagath. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Dagath Animation Set (confirmed exact sentence match for 'Dagath Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Dagath/DagathNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Dagath/DagathNobleAnims",
+    "wikiName": "Dagath Noble Animation Set",
+    "description": "The Noble Animation Set for Dagath.",
+    "acquisition": "Default/comes free with Dagath. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Dagath Animation Set (confirmed exact sentence match for 'Dagath Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Pagemaster/PagemasterAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Pagemaster/PagemasterAgileAnims",
+    "wikiName": "Dante Agile Animation Set",
+    "description": "The Agile Animation Set for Dante.",
+    "acquisition": "Default/comes free with Dante. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Dante Animation Set (confirmed exact sentence match for 'Dante Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Pagemaster/PagemasterNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Pagemaster/PagemasterNobleAnims",
+    "wikiName": "Dante Noble Animation Set",
+    "description": "The Noble Animation Set for Dante.",
+    "acquisition": "Default/comes free with Dante. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Dante Animation Set (confirmed exact sentence match for 'Dante Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Ember/EmberAgileAnims",
+    "wikiName": "Ember Agile Animation Set",
+    "description": "The Agile Animation Set for Ember.",
+    "acquisition": "Default/comes free with Ember. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Ember Animation Set (confirmed exact sentence match for 'Ember Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Ember/EmberNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Ember/EmberNobleAnims",
+    "wikiName": "Ember Noble Animation Set",
+    "description": "The Noble Animation Set for Ember.",
+    "acquisition": "Default/comes free with Ember. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Ember Animation Set (confirmed exact sentence match for 'Ember Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburAgileAnims",
+    "wikiName": "Excalibur Agile Animation Set",
+    "description": "The Agile Animation Set for Excalibur.",
+    "acquisition": "Default/comes free with Excalibur. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Excalibur Animation Set (confirmed exact sentence match for 'Excalibur Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburNobleAnims",
+    "wikiName": "Excalibur Noble Animation Set",
+    "description": "The Noble Animation Set for Excalibur.",
+    "acquisition": "Default/comes free with Excalibur. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Excalibur Animation Set (confirmed exact sentence match for 'Excalibur Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeAgileAnims",
+    "wikiName": "Excalibur Zato Agile Animation Set",
+    "description": "The Agile Animation Set for Excalibur Zato.",
+    "acquisition": "Default/comes free with Excalibur Zato. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Excalibur Zato Animation Set (confirmed exact sentence match for 'Excalibur Zato Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDeluxeNobleAnims",
+    "wikiName": "Excalibur Zato Noble Animation Set",
+    "description": "The Noble Animation Set for Excalibur Zato.",
+    "acquisition": "Default/comes free with Excalibur Zato. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Excalibur Zato Animation Set (confirmed exact sentence match for 'Excalibur Zato Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostAgileAnims",
+    "wikiName": "Frost Agile Animation Set",
+    "description": "The Agile Animation Set for Frost.",
+    "acquisition": "Default/comes free with Frost. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Frost Animation Set (confirmed exact sentence match for 'Frost Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostNobleAnims",
+    "wikiName": "Frost Noble Animation Set",
+    "description": "The Noble Animation Set for Frost.",
+    "acquisition": "Default/comes free with Frost. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Frost Animation Set (confirmed exact sentence match for 'Frost Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Glass/GlassAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Glass/GlassAgileAnims",
+    "wikiName": "Gara Agile Animation Set",
+    "description": "The Agile Animation Set for Gara.",
+    "acquisition": "Default/comes free with Gara. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Gara Animation Set (confirmed exact sentence match for 'Gara Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Glass/GlassNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Glass/GlassNobleAnims",
+    "wikiName": "Gara Noble Animation Set",
+    "description": "The Noble Animation Set for Gara.",
+    "acquisition": "Default/comes free with Gara. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Gara Animation Set (confirmed exact sentence match for 'Gara Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/GarudaAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Garuda/GarudaAgileAnims",
+    "wikiName": "Garuda Agile Animation Set",
+    "description": "The Agile Animation Set for Garuda.",
+    "acquisition": "Default/comes free with Garuda. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Garuda Animation Set (confirmed exact sentence match for 'Garuda Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Garuda/GarudaNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Garuda/GarudaNobleAnims",
+    "wikiName": "Garuda Noble Animation Set",
+    "description": "The Noble Animation Set for Garuda.",
+    "acquisition": "Default/comes free with Garuda. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Garuda Animation Set (confirmed exact sentence match for 'Garuda Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Runner/RunnerAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Runner/RunnerAgileAnims",
+    "wikiName": "Gauss Agile Animation Set",
+    "description": "The Agile Animation Set for Gauss.",
+    "acquisition": "Default/comes free with Gauss. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Gauss Animation Set (confirmed exact sentence match for 'Gauss Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Runner/RunnerNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Runner/RunnerNobleAnims",
+    "wikiName": "Gauss Noble Animation Set",
+    "description": "The Noble Animation Set for Gauss.",
+    "acquisition": "Default/comes free with Gauss. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Gauss Animation Set (confirmed exact sentence match for 'Gauss Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Devourer/DevourerAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Devourer/DevourerAgileAnims",
+    "wikiName": "Grendel Agile Animation Set",
+    "description": "The Agile Animation Set for Grendel.",
+    "acquisition": "Default/comes free with Grendel. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Grendel Animation Set (confirmed exact sentence match for 'Grendel Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Devourer/DevourerNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Devourer/DevourerNobleAnims",
+    "wikiName": "Grendel Noble Animation Set",
+    "description": "The Noble Animation Set for Grendel.",
+    "acquisition": "Default/comes free with Grendel. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Grendel Animation Set (confirmed exact sentence match for 'Grendel Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Gyre/GyreAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Gyre/GyreAgileAnims",
+    "wikiName": "Gyre Agile Animation Set",
+    "description": "The Agile Animation Set for Gyre.",
+    "acquisition": "Default/comes free with Gyre. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Gyre Animation Set (confirmed exact sentence match for 'Gyre Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Gyre/GyreNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Gyre/GyreNobleAnims",
+    "wikiName": "Gyre Noble Animation Set",
+    "description": "The Noble Animation Set for Gyre.",
+    "acquisition": "Default/comes free with Gyre. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Gyre Animation Set (confirmed exact sentence match for 'Gyre Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Priest/PriestAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Priest/PriestAgileAnims",
+    "wikiName": "Harrow Agile Animation Set",
+    "description": "The Agile Animation Set for Harrow.",
+    "acquisition": "Default/comes free with Harrow. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Harrow Animation Set (confirmed exact sentence match for 'Harrow Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Priest/PriestNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Priest/PriestNobleAnims",
+    "wikiName": "Harrow Noble Animation Set",
+    "description": "The Noble Animation Set for Harrow.",
+    "acquisition": "Default/comes free with Harrow. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Harrow Animation Set (confirmed exact sentence match for 'Harrow Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/IronFrame/IronFrameAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/IronFrame/IronFrameAgileAnims",
+    "wikiName": "Hildryn Agile Animation Set",
+    "description": "The Agile Animation Set for Hildryn.",
+    "acquisition": "Default/comes free with Hildryn. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Hildryn Animation Set (confirmed exact sentence match for 'Hildryn Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/IronFrame/IronFrameNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/IronFrame/IronFrameNobleAnims",
+    "wikiName": "Hildryn Noble Animation Set",
+    "description": "The Noble Animation Set for Hildryn.",
+    "acquisition": "Default/comes free with Hildryn. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Hildryn Animation Set (confirmed exact sentence match for 'Hildryn Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Hydroid/HydroidAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Hydroid/HydroidAgileAnims",
+    "wikiName": "Hydroid Agile Animation Set",
+    "description": "The Agile Animation Set for Hydroid.",
+    "acquisition": "Default/comes free with Hydroid. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Hydroid Animation Set (confirmed exact sentence match for 'Hydroid Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Hydroid/HydroidNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Hydroid/HydroidNobleAnims",
+    "wikiName": "Hydroid Noble Animation Set",
+    "description": "The Noble Animation Set for Hydroid.",
+    "acquisition": "Default/comes free with Hydroid. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Hydroid Animation Set (confirmed exact sentence match for 'Hydroid Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sandman/SandmanAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sandman/SandmanAgileAnims",
+    "wikiName": "Inaros Agile Animation Set",
+    "description": "The Agile Animation Set for Inaros.",
+    "acquisition": "Default/comes free with Inaros. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Inaros Animation Set (confirmed exact sentence match for 'Inaros Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Sandman/SandmanNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Sandman/SandmanNobleAnims",
+    "wikiName": "Inaros Noble Animation Set",
+    "description": "The Noble Animation Set for Inaros.",
+    "acquisition": "Default/comes free with Inaros. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Inaros Animation Set (confirmed exact sentence match for 'Inaros Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Ranger/RangerAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Ranger/RangerAgileAnims",
+    "wikiName": "Ivara Agile Animation Set",
+    "description": "The Agile Animation Set for Ivara.",
+    "acquisition": "Default/comes free with Ivara. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Ivara Animation Set (confirmed exact sentence match for 'Ivara Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Ranger/RangerNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Ranger/RangerNobleAnims",
+    "wikiName": "Ivara Noble Animation Set",
+    "description": "The Noble Animation Set for Ivara.",
+    "acquisition": "Default/comes free with Ivara. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Ivara Animation Set (confirmed exact sentence match for 'Ivara Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Choir/ChoirAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Choir/ChoirAgileAnims",
+    "wikiName": "Jade Agile Animation Set",
+    "description": "The Agile Animation Set for Jade.",
+    "acquisition": "Default/comes free with Jade. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Jade Animation Set (confirmed exact sentence match for 'Jade Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Choir/ChoirNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Choir/ChoirNobleAnims",
+    "wikiName": "Jade Noble Animation Set",
+    "description": "The Noble Animation Set for Jade.",
+    "acquisition": "Default/comes free with Jade. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Jade Animation Set (confirmed exact sentence match for 'Jade Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Khora/KhoraAgileAnims",
+    "wikiName": "Khora Agile Animation Set",
+    "description": "The Agile Animation Set for Khora.",
+    "acquisition": "Default/comes free with Khora. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Khora Animation Set (confirmed exact sentence match for 'Khora Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Khora/KhoraNobleAnims",
+    "wikiName": "Khora Noble Animation Set",
+    "description": "The Noble Animation Set for Khora.",
+    "acquisition": "Default/comes free with Khora. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Khora Animation Set (confirmed exact sentence match for 'Khora Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeAgileAnims",
+    "wikiName": "Khora Urushu Agile Animation Set",
+    "description": "The Agile Animation Set for Khora Urushu.",
+    "acquisition": "Default/comes free with Khora Urushu. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Khora Urushu Animation Set (confirmed exact sentence match for 'Khora Urushu Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeNobleAnims",
+    "wikiName": "Khora Urushu Noble Animation Set",
+    "description": "The Noble Animation Set for Khora Urushu.",
+    "acquisition": "Default/comes free with Khora Urushu. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Khora Urushu Animation Set (confirmed exact sentence match for 'Khora Urushu Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Koumei/KoumeiAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Koumei/KoumeiAgileAnims",
+    "wikiName": "Koumei Agile Animation Set",
+    "description": "The Agile Animation Set for Koumei.",
+    "acquisition": "Default/comes free with Koumei. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Koumei Animation Set (confirmed exact sentence match for 'Koumei Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Koumei/KoumeiNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Koumei/KoumeiNobleAnims",
+    "wikiName": "Koumei Noble Animation Set",
+    "description": "The Noble Animation Set for Koumei.",
+    "acquisition": "Default/comes free with Koumei. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Koumei Animation Set (confirmed exact sentence match for 'Koumei Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusAgileAnims",
+    "wikiName": "Kullervo Agile Animation Set",
+    "description": "The Agile Animation Set for Kullervo.",
+    "acquisition": "Default/comes free with Kullervo. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Kullervo Animation Set (confirmed exact sentence match for 'Kullervo Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusNobleAnims",
+    "wikiName": "Kullervo Noble Animation Set",
+    "description": "The Noble Animation Set for Kullervo.",
+    "acquisition": "Default/comes free with Kullervo. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Kullervo Animation Set (confirmed exact sentence match for 'Kullervo Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Alchemist/AlchemistAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Alchemist/AlchemistAgileAnims",
+    "wikiName": "Lavos Agile Animation Set",
+    "description": "The Agile Animation Set for Lavos.",
+    "acquisition": "Default/comes free with Lavos. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Lavos Animation Set (confirmed exact sentence match for 'Lavos Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Alchemist/AlchemistNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Alchemist/AlchemistNobleAnims",
+    "wikiName": "Lavos Noble Animation Set",
+    "description": "The Noble Animation Set for Lavos.",
+    "acquisition": "Default/comes free with Lavos. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Lavos Animation Set (confirmed exact sentence match for 'Lavos Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Magician/MagicianAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Magician/MagicianAgileAnims",
+    "wikiName": "Limbo Agile Animation Set",
+    "description": "The Agile Animation Set for Limbo.",
+    "acquisition": "Default/comes free with Limbo. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Limbo Animation Set (confirmed exact sentence match for 'Limbo Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Magician/MagicianNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Magician/MagicianNobleAnims",
+    "wikiName": "Limbo Noble Animation Set",
+    "description": "The Noble Animation Set for Limbo.",
+    "acquisition": "Default/comes free with Limbo. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Limbo Animation Set (confirmed exact sentence match for 'Limbo Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Loki/LokiAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Loki/LokiAgileAnims",
+    "wikiName": "Loki Agile Animation Set",
+    "description": "The Agile Animation Set for Loki.",
+    "acquisition": "Default/comes free with Loki. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Loki Animation Set (confirmed exact sentence match for 'Loki Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Loki/LokiNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Loki/LokiNobleAnims",
+    "wikiName": "Loki Noble Animation Set",
+    "description": "The Noble Animation Set for Loki.",
+    "acquisition": "Default/comes free with Loki. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Loki Animation Set (confirmed exact sentence match for 'Loki Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Mag/MagAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagAgileAnims",
+    "wikiName": "Mag Agile Animation Set",
+    "description": "The Agile Animation Set for Mag.",
+    "acquisition": "Default/comes free with Mag. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mag Animation Set (confirmed exact sentence match for 'Mag Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Mag/MagNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagNobleAnims",
+    "wikiName": "Mag Noble Animation Set",
+    "description": "The Noble Animation Set for Mag.",
+    "acquisition": "Default/comes free with Mag. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mag Animation Set (confirmed exact sentence match for 'Mag Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/CowgirlAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Cowgirl/CowgirlAgileAnims",
+    "wikiName": "Mesa Agile Animation Set",
+    "description": "The Agile Animation Set for Mesa.",
+    "acquisition": "Default/comes free with Mesa. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mesa Animation Set (confirmed exact sentence match for 'Mesa Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Cowgirl/CowgirlNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Cowgirl/CowgirlNobleAnims",
+    "wikiName": "Mesa Noble Animation Set",
+    "description": "The Noble Animation Set for Mesa.",
+    "acquisition": "Default/comes free with Mesa. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mesa Animation Set (confirmed exact sentence match for 'Mesa Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/HarlequinAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Harlequin/HarlequinAgileAnims",
+    "wikiName": "Mirage Agile Animation Set",
+    "description": "The Agile Animation Set for Mirage.",
+    "acquisition": "Default/comes free with Mirage. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mirage Animation Set (confirmed exact sentence match for 'Mirage Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/HarlequinNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Harlequin/HarlequinNobleAnims",
+    "wikiName": "Mirage Noble Animation Set",
+    "description": "The Noble Animation Set for Mirage.",
+    "acquisition": "Default/comes free with Mirage. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mirage Animation Set (confirmed exact sentence match for 'Mirage Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageDeluxeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Harlequin/MirageDeluxeAgileAnims",
+    "wikiName": "Mirage Oneiro Agile Animation Set",
+    "description": "The Agile Animation Set for Mirage Oneiro.",
+    "acquisition": "Default/comes free with Mirage Oneiro. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mirage Oneiro Animation Set (confirmed exact sentence match for 'Mirage Oneiro Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageDeluxeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Harlequin/MirageDeluxeNobleAnims",
+    "wikiName": "Mirage Oneiro Noble Animation Set",
+    "description": "The Noble Animation Set for Mirage Oneiro.",
+    "acquisition": "Default/comes free with Mirage Oneiro. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Mirage Oneiro Animation Set (confirmed exact sentence match for 'Mirage Oneiro Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Necro/NecroAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Necro/NecroAgileAnims",
+    "wikiName": "Nekros Agile Animation Set",
+    "description": "The Agile Animation Set for Nekros.",
+    "acquisition": "Default/comes free with Nekros. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nekros Animation Set (confirmed exact sentence match for 'Nekros Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Necro/NecroNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Necro/NecroNobleAnims",
+    "wikiName": "Nekros Noble Animation Set",
+    "description": "The Noble Animation Set for Nekros.",
+    "acquisition": "Default/comes free with Nekros. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nekros Animation Set (confirmed exact sentence match for 'Nekros Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Nezha/NezhaAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Nezha/NezhaAgileAnims",
+    "wikiName": "Nezha Agile Animation Set",
+    "description": "The Agile Animation Set for Nezha.",
+    "acquisition": "Default/comes free with Nezha. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nezha Animation Set (confirmed exact sentence match for 'Nezha Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Nezha/NezhaNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Nezha/NezhaNobleAnims",
+    "wikiName": "Nezha Noble Animation Set",
+    "description": "The Noble Animation Set for Nezha.",
+    "acquisition": "Default/comes free with Nezha. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nezha Animation Set (confirmed exact sentence match for 'Nezha Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Infestation/InfestationAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Infestation/InfestationAgileAnims",
+    "wikiName": "Nidus Agile Animation Set",
+    "description": "The Agile Animation Set for Nidus.",
+    "acquisition": "Default/comes free with Nidus. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nidus Animation Set (confirmed exact sentence match for 'Nidus Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Infestation/InfestationNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Infestation/InfestationNobleAnims",
+    "wikiName": "Nidus Noble Animation Set",
+    "description": "The Noble Animation Set for Nidus.",
+    "acquisition": "Default/comes free with Nidus. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nidus Animation Set (confirmed exact sentence match for 'Nidus Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/AntiMatterAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/AntiMatter/AntiMatterAgileAnims",
+    "wikiName": "Nova Agile Animation Set",
+    "description": "The Agile Animation Set for Nova.",
+    "acquisition": "Default/comes free with Nova. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nova Animation Set (confirmed exact sentence match for 'Nova Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/AntiMatter/AntiMatterNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/AntiMatter/AntiMatterNobleAnims",
+    "wikiName": "Nova Noble Animation Set",
+    "description": "The Noble Animation Set for Nova.",
+    "acquisition": "Default/comes free with Nova. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nova Animation Set (confirmed exact sentence match for 'Nova Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Jade/JadeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Jade/JadeAgileAnims",
+    "wikiName": "Nyx Agile Animation Set",
+    "description": "The Agile Animation Set for Nyx.",
+    "acquisition": "Default/comes free with Nyx. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nyx Animation Set (confirmed exact sentence match for 'Nyx Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Jade/JadeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Jade/JadeNobleAnims",
+    "wikiName": "Nyx Noble Animation Set",
+    "description": "The Noble Animation Set for Nyx.",
+    "acquisition": "Default/comes free with Nyx. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Nyx Animation Set (confirmed exact sentence match for 'Nyx Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Paladin/PaladinAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Paladin/PaladinAgileAnims",
+    "wikiName": "Oberon Agile Animation Set",
+    "description": "The Agile Animation Set for Oberon.",
+    "acquisition": "Default/comes free with Oberon. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Oberon Animation Set (confirmed exact sentence match for 'Oberon Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Paladin/PaladinNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Paladin/PaladinNobleAnims",
+    "wikiName": "Oberon Noble Animation Set",
+    "description": "The Noble Animation Set for Oberon.",
+    "acquisition": "Default/comes free with Oberon. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Oberon Animation Set (confirmed exact sentence match for 'Oberon Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Bard/BardAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Bard/BardAgileAnims",
+    "wikiName": "Octavia Agile Animation Set",
+    "description": "The Agile Animation Set for Octavia.",
+    "acquisition": "Default/comes free with Octavia. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Octavia Animation Set (confirmed exact sentence match for 'Octavia Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Bard/BardNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Bard/BardNobleAnims",
+    "wikiName": "Octavia Noble Animation Set",
+    "description": "The Noble Animation Set for Octavia.",
+    "acquisition": "Default/comes free with Octavia. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Octavia Animation Set (confirmed exact sentence match for 'Octavia Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Odalisk/OdaliskAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Odalisk/OdaliskAgileAnims",
+    "wikiName": "Protea Agile Animation Set",
+    "description": "The Agile Animation Set for Protea.",
+    "acquisition": "Default/comes free with Protea. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Protea Animation Set (confirmed exact sentence match for 'Protea Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Odalisk/OdaliskNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Odalisk/OdaliskNobleAnims",
+    "wikiName": "Protea Noble Animation Set",
+    "description": "The Noble Animation Set for Protea.",
+    "acquisition": "Default/comes free with Protea. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Protea Animation Set (confirmed exact sentence match for 'Protea Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/ConcreteFrame/ConcreteAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/ConcreteAgileAnims",
+    "wikiName": "Qorvex Agile Animation Set",
+    "description": "The Agile Animation Set for Qorvex.",
+    "acquisition": "Default/comes free with Qorvex. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Qorvex Animation Set (confirmed exact sentence match for 'Qorvex Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/ConcreteFrame/ConcreteNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/ConcreteNobleAnims",
+    "wikiName": "Qorvex Noble Animation Set",
+    "description": "The Noble Animation Set for Qorvex.",
+    "acquisition": "Default/comes free with Qorvex. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Qorvex Animation Set (confirmed exact sentence match for 'Qorvex Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Revenant/RevenantAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Revenant/RevenantAgileAnims",
+    "wikiName": "Revenant Agile Animation Set",
+    "description": "The Agile Animation Set for Revenant.",
+    "acquisition": "Default/comes free with Revenant. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Revenant Animation Set (confirmed exact sentence match for 'Revenant Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Revenant/RevenantNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Revenant/RevenantNobleAnims",
+    "wikiName": "Revenant Noble Animation Set",
+    "description": "The Noble Animation Set for Revenant.",
+    "acquisition": "Default/comes free with Revenant. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Revenant Animation Set (confirmed exact sentence match for 'Revenant Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoAgileAnims",
+    "wikiName": "Rhino Agile Animation Set",
+    "description": "The Agile Animation Set for Rhino.",
+    "acquisition": "Default/comes free with Rhino. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Rhino Animation Set (confirmed exact sentence match for 'Rhino Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2AgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2AgileAnims",
+    "wikiName": "Rhino Deathwatch Agile Animation Set",
+    "description": "The Agile Animation Set for Rhino Deathwatch.",
+    "acquisition": "Default/comes free with Rhino Deathwatch. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Rhino Deathwatch Animation Set (confirmed exact sentence match for 'Rhino Deathwatch Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2NobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoDeluxeV2NobleAnims",
+    "wikiName": "Rhino Deathwatch Noble Animation Set",
+    "description": "The Noble Animation Set for Rhino Deathwatch.",
+    "acquisition": "Default/comes free with Rhino Deathwatch. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Rhino Deathwatch Animation Set (confirmed exact sentence match for 'Rhino Deathwatch Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Rhino/RhinoNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Rhino/RhinoNobleAnims",
+    "wikiName": "Rhino Noble Animation Set",
+    "description": "The Noble Animation Set for Rhino.",
+    "acquisition": "Default/comes free with Rhino. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Rhino Animation Set (confirmed exact sentence match for 'Rhino Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Asp/AspAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Asp/AspAgileAnims",
+    "wikiName": "Saryn Agile Animation Set",
+    "description": "The Agile Animation Set for Saryn.",
+    "acquisition": "Default/comes free with Saryn. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Saryn Animation Set (confirmed exact sentence match for 'Saryn Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Asp/AspNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Asp/AspNobleAnims",
+    "wikiName": "Saryn Noble Animation Set",
+    "description": "The Noble Animation Set for Saryn.",
+    "acquisition": "Default/comes free with Saryn. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Saryn Animation Set (confirmed exact sentence match for 'Saryn Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/WraithAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Wraith/WraithAgileAnims",
+    "wikiName": "Sevagoth Agile Animation Set",
+    "description": "The Agile Animation Set for Sevagoth.",
+    "acquisition": "Default/comes free with Sevagoth. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Sevagoth Animation Set (confirmed exact sentence match for 'Sevagoth Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/WraithNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Wraith/WraithNobleAnims",
+    "wikiName": "Sevagoth Noble Animation Set",
+    "description": "The Noble Animation Set for Sevagoth.",
+    "acquisition": "Default/comes free with Sevagoth. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Sevagoth Animation Set (confirmed exact sentence match for 'Sevagoth Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/HopliteAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Hoplite/HopliteAgileAnims",
+    "wikiName": "Styanax Agile Animation Set",
+    "description": "The Agile Animation Set for Styanax.",
+    "acquisition": "Default/comes free with Styanax. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Styanax Animation Set (confirmed exact sentence match for 'Styanax Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/HopliteNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Hoplite/HopliteNobleAnims",
+    "wikiName": "Styanax Noble Animation Set",
+    "description": "The Noble Animation Set for Styanax.",
+    "acquisition": "Default/comes free with Styanax. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Styanax Animation Set (confirmed exact sentence match for 'Styanax Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Fairy/FairyAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Fairy/FairyAgileAnims",
+    "wikiName": "Titania Agile Animation Set",
+    "description": "The Agile Animation Set for Titania.",
+    "acquisition": "Default/comes free with Titania. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Titania Animation Set (confirmed exact sentence match for 'Titania Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Fairy/FairyNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Fairy/FairyNobleAnims",
+    "wikiName": "Titania Noble Animation Set",
+    "description": "The Noble Animation Set for Titania.",
+    "acquisition": "Default/comes free with Titania. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Titania Animation Set (confirmed exact sentence match for 'Titania Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Trinity/TrinityAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Trinity/TrinityAgileAnims",
+    "wikiName": "Trinity Agile Animation Set",
+    "description": "The Agile Animation Set for Trinity.",
+    "acquisition": "Default/comes free with Trinity. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Trinity Animation Set (confirmed exact sentence match for 'Trinity Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Trinity/TrinityNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Trinity/TrinityNobleAnims",
+    "wikiName": "Trinity Noble Animation Set",
+    "description": "The Noble Animation Set for Trinity.",
+    "acquisition": "Default/comes free with Trinity. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Trinity Animation Set (confirmed exact sentence match for 'Trinity Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/BerserkerAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Berserker/BerserkerAgileAnims",
+    "wikiName": "Valkyr Agile Animation Set",
+    "description": "The Agile Animation Set for Valkyr.",
+    "acquisition": "Default/comes free with Valkyr. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Valkyr Animation Set (confirmed exact sentence match for 'Valkyr Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/BerserkerDeluxeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Berserker/BerserkerDeluxeAgileAnims",
+    "wikiName": "Valkyr Carnivex Agile Animation Set",
+    "description": "The Agile Animation Set for Valkyr Carnivex.",
+    "acquisition": "Default/comes free with Valkyr Carnivex. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Valkyr Carnivex Animation Set (confirmed exact sentence match for 'Valkyr Carnivex Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/BerserkerDeluxeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Berserker/BerserkerDeluxeNobleAnims",
+    "wikiName": "Valkyr Carnivex Noble Animation Set",
+    "description": "The Noble Animation Set for Valkyr Carnivex.",
+    "acquisition": "Default/comes free with Valkyr Carnivex. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Valkyr Carnivex Animation Set (confirmed exact sentence match for 'Valkyr Carnivex Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Berserker/BerserkerNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Berserker/BerserkerNobleAnims",
+    "wikiName": "Valkyr Noble Animation Set",
+    "description": "The Noble Animation Set for Valkyr.",
+    "acquisition": "Default/comes free with Valkyr. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Valkyr Animation Set (confirmed exact sentence match for 'Valkyr Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/TrapperAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Trapper/TrapperAgileAnims",
+    "wikiName": "Vauban Agile Animation Set",
+    "description": "The Agile Animation Set for Vauban.",
+    "acquisition": "Default/comes free with Vauban. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Vauban Animation Set (confirmed exact sentence match for 'Vauban Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Trapper/TrapperNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Trapper/TrapperNobleAnims",
+    "wikiName": "Vauban Noble Animation Set",
+    "description": "The Noble Animation Set for Vauban.",
+    "acquisition": "Default/comes free with Vauban. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Vauban Animation Set (confirmed exact sentence match for 'Vauban Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/VoltAgileAnims",
+    "wikiName": "Volt Agile Animation Set",
+    "description": "The Agile Animation Set for Volt.",
+    "acquisition": "Default/comes free with Volt. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Volt Animation Set (confirmed exact sentence match for 'Volt Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Volt/VoltNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/VoltNobleAnims",
+    "wikiName": "Volt Noble Animation Set",
+    "description": "The Noble Animation Set for Volt.",
+    "acquisition": "Default/comes free with Volt. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Volt Animation Set (confirmed exact sentence match for 'Volt Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Werewolf/WerewolfAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Werewolf/WerewolfAgileAnims",
+    "wikiName": "Voruna Agile Animation Set",
+    "description": "The Agile Animation Set for Voruna.",
+    "acquisition": "Default/comes free with Voruna. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Voruna Animation Set (confirmed exact sentence match for 'Voruna Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Werewolf/WerewolfNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Werewolf/WerewolfNobleAnims",
+    "wikiName": "Voruna Noble Animation Set",
+    "description": "The Noble Animation Set for Voruna.",
+    "acquisition": "Default/comes free with Voruna. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Voruna Animation Set (confirmed exact sentence match for 'Voruna Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Wisp/WispAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Wisp/WispAgileAnims",
+    "wikiName": "Wisp Agile Animation Set",
+    "description": "The Agile Animation Set for Wisp.",
+    "acquisition": "Default/comes free with Wisp. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Wisp Animation Set (confirmed exact sentence match for 'Wisp Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Wisp/WispNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Wisp/WispNobleAnims",
+    "wikiName": "Wisp Noble Animation Set",
+    "description": "The Noble Animation Set for Wisp.",
+    "acquisition": "Default/comes free with Wisp. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Wisp Animation Set (confirmed exact sentence match for 'Wisp Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/MonkeyKingAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MonkeyKing/MonkeyKingAgileAnims",
+    "wikiName": "Wukong Agile Animation Set",
+    "description": "The Agile Animation Set for Wukong.",
+    "acquisition": "Default/comes free with Wukong. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Wukong Animation Set (confirmed exact sentence match for 'Wukong Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/MonkeyKing/MonkeyKingNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/MonkeyKing/MonkeyKingNobleAnims",
+    "wikiName": "Wukong Noble Animation Set",
+    "description": "The Noble Animation Set for Wukong.",
+    "acquisition": "Default/comes free with Wukong. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Wukong Animation Set (confirmed exact sentence match for 'Wukong Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/BrokenFrameAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/BrokenFrame/BrokenFrameAgileAnims",
+    "wikiName": "Xaku Agile Animation Set",
+    "description": "The Agile Animation Set for Xaku.",
+    "acquisition": "Default/comes free with Xaku. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Xaku Animation Set (confirmed exact sentence match for 'Xaku Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/BrokenFrameNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/BrokenFrame/BrokenFrameNobleAnims",
+    "wikiName": "Xaku Noble Animation Set",
+    "description": "The Noble Animation Set for Xaku.",
+    "acquisition": "Default/comes free with Xaku. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Xaku Animation Set (confirmed exact sentence match for 'Xaku Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Yareli/YareliAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Yareli/YareliAgileAnims",
+    "wikiName": "Yareli Agile Animation Set",
+    "description": "The Agile Animation Set for Yareli.",
+    "acquisition": "Default/comes free with Yareli. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Yareli Animation Set (confirmed exact sentence match for 'Yareli Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Yareli/YareliNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Yareli/YareliNobleAnims",
+    "wikiName": "Yareli Noble Animation Set",
+    "description": "The Noble Animation Set for Yareli.",
+    "acquisition": "Default/comes free with Yareli. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Yareli Animation Set (confirmed exact sentence match for 'Yareli Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/TenguAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/TenguAgileAnims",
+    "wikiName": "Zephyr Agile Animation Set",
+    "description": "The Agile Animation Set for Zephyr",
+    "acquisition": "Default/comes free with Zephyr. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Zephyr Animation Set (confirmed exact sentence match for 'Zephyr Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/TenguDeluxeAgileAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/TenguDeluxeAgileAnims",
+    "wikiName": "Zephyr Harrier Agile Animation Set",
+    "description": "The Agile Animation Set for Zephyr Harrier.",
+    "acquisition": "Default/comes free with Zephyr Harrier. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Zephyr Harrier Animation Set (confirmed exact sentence match for 'Zephyr Harrier Agile Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/TenguDeluxeNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/TenguDeluxeNobleAnims",
+    "wikiName": "Zephyr Harrier Noble Animation Set",
+    "description": "The Noble Animation Set for Zephyr Harrier.",
+    "acquisition": "Default/comes free with Zephyr Harrier. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Zephyr Harrier Animation Set (confirmed exact sentence match for 'Zephyr Harrier Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Tengu/TenguNobleAnims": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/TenguNobleAnims",
+    "wikiName": "Zephyr Noble Animation Set",
+    "description": "The Noble Animation Set for Zephyr",
+    "acquisition": "Default/comes free with Zephyr. Purchasable to use on any other Warframe for 50 Platinum via Market.",
+    "sourceRefs": [
+      "article page: Zephyr Animation Set (confirmed exact sentence match for 'Zephyr Noble Animation Set')"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

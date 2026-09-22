@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-09-06T18:50:06.891980+00:00",
+  "stage3g_cumulative_patch_sha256": "acd34333e50711d2c79b902480f5296501fda1464dd0904abe731e40e3cb75c5",
+  "relic_planner_incremental_patch_sha256": "eee5219575f5280ef2dca6089dd4d2211e690c06ffe5a38a0db192b7dfa9583a",
+  "cumulative_patch_sha256": "52fc11d28c8241cd707dd73ea0168b9e0d7c6bbf7332f64d81bd156f37e07419",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "d9640721b7b89829615a3ce5aabf6dd7799c16d672e7e9b83a24966c6290a7ce",
+    "after_sha256": "ef34ebf63d9a46be39dbaa67c6f91a7070a21fa9faa09f2209b56d646c513e76",
+    "preview_layout_sha256": "b8cb04856a8c3cd4cdf94399c2ed1648b6d95328a7eea7c7eb014885d847e938",
+    "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+    "catalog_inventory_status_search_selection_matching_sorting_and_persistence_logic_unchanged": true,
+    "layout_has_no_tauri_import": true,
+    "layout_has_no_state_or_effect_hooks": true,
+    "layout_has_no_market_terms": true,
+    "source_files_changed": [
+      "src/screens/RelicPlanner.jsx",
+      "src/components/PreviewRelicPlannerLayout.jsx"
+    ]
+  },
+  "stage3g_artifacts_preserved_and_matched": true,
+  "artifact_count": 4,
+  "component_checks": 62,
+  "stable_exact_markup_comparisons": 8,
+  "packaged_checks_per_artifact": 60,
+  "gate": "Stage 3H implemented and validated; awaiting user acceptance"
+}

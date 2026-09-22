@@ -1,0 +1,10 @@
+{
+  "captured_utc": "2026-09-05T02:35:28.526874+00:00",
+  "commit": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "branch": "main",
+  "snapshot_directory": "/tmp/kiedas-revamp-baseline-3038exxv/source",
+  "archive": "/tmp/kiedas-revamp-baseline-3038exxv/baseline.tar",
+  "archive_sha256": "d1ef5715a692c4b9ec6253da19e8f9aca8c9b15df509468c6f00d7ec6a7d695a",
+  "verified_files": 850,
+  "note": "Source-only committed snapshot; no dependencies, build outputs, ignored files or live user profile. Temporary copy may be cleared by OS; reconstruct using commit and manifest. Original Git metadata unchanged."
+}

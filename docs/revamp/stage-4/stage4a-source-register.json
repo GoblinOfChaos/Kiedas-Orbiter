@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-09-07T00:42:18.944103+00:00",
+  "baseline_commit": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "accepted_stage2_commit": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "reconstruction": "main baseline plus stage-3 cumulative patch, which already contains Stage 2",
+  "cumulative_patch_sha256": "daa070f8b321c5f59c04f88a63952588fbe5d72c2917b223ce55f51682e08b0b",
+  "application_files_compared": 744,
+  "mismatches": [],
+  "excluded_generated_paths": [
+    ".git",
+    "node_modules",
+    "target",
+    "src-tauri/gen",
+    "src-tauri/Cargo.lock"
+  ],
+  "preserved_preflight_failures": [
+    {
+      "attempt": "main git worktree at accepted Stage 2 commit",
+      "result": "failed before path creation",
+      "reason": "accepted commit belongs to standalone .preview-work/stage2 clone and is absent from main object database"
+    },
+    {
+      "attempt": "apply Stage 2 patch then Stage 3 cumulative patch",
+      "result": "second apply --check rejected duplicate hunks; no Stage 3 content applied",
+      "reason": "Stage 3 cumulative patch already contains Stage 2"
+    }
+  ],
+  "gate": "PASS",
+  "registered_sources": {
+    "src/App.jsx": "f12957ec9b0e402e721bcd31de7e84f67803d6190ba5663b56577ee3c659dca7",
+    "src/screens/Dashboard.jsx": "f14802af805421af410e025fb0a869d5978eed8197fae0ad6f547a8e382b9167",
+    "src/components/PreviewNavigation.jsx": "a69f4b2d21bbeeedba087acc4b3b37fd11ae4b2501a69a7d79791abb3d8bb6a4",
+    "src/components/PreviewDashboardLayout.jsx": "a624ad4ec319a00cf6464604b8d0923d0eff4305801e3163361fa3a50f892390",
+    "src/components/PreviewImport.jsx": "f7129bc29168e06128a37d69b65f5ef6dcf1f258a50e9115ef58094da2907ff8",
+    "src/components/UI.jsx": "92b0ad65ce308144b53f77713f6c9ba577011fd6232d04e39aa67e394bbeed55",
+    "src/contexts/MonitoringContext.jsx": "033b5f15b1ff475381d5078ca2e5b4fd0e53e845b9393ec11cae9b24ffb0626e",
+    "src/contexts/ThemeContext.jsx": "577d844ea433abc1efaf813ec23cad52ee6f9e4c89b1a47cfa2e8eb93307b190",
+    "src/contexts/UpdateContext.jsx": "de5046061b4877d20544b79ecbaf3579fbd30a1b0c8381016df68b51bb2bf0fc",
+    "src/contexts/UiContext.jsx": "ec3308c981e303a4c247a7084ffa813b31384d62e7513303d808f5050463e5ef",
+    "src/lib/buildProfile.js": "b7b4c317980fb3e585c16861801f494cf70e19c50ffc7ab9426053499b911bcc",
+    "src/lib/inventoryParser.js": "723f47347d12a55afb8c66e4e22c1e592d5b7bad8d788b2bf584858c8c682b7d",
+    "src/index.css": "a1a531740606584e3441ff54969867eed15e01994f6e01bfef588c44b18bc5d5",
+    "src/lib/i18n/en.json": "2f252d7afcf6d63b86e08c459108ec0a30fab753b72ce3b78a7fd9604b2c039c"
+  },
+  "authorized_modified": [
+    "src/App.jsx",
+    "src/screens/Dashboard.jsx",
+    "src/lib/i18n/en.json"
+  ],
+  "authorized_deleted": [
+    "src/components/PreviewNavigation.jsx",
+    "src/components/PreviewDashboardLayout.jsx"
+  ],
+  "application_edits_started": false,
+  "build_started": false
+}

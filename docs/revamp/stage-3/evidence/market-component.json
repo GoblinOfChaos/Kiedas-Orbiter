@@ -1,0 +1,1391 @@
+{
+  "tier": "styled component browser with module-boundary network/context/Tauri mocks",
+  "fixture": "synthetic WFM catalog, orders, explicit price states and parsed inventory; no real token, account, network or mutation",
+  "checks": [
+    {
+      "name": "stable-no-token-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-order-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-orders-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-sell-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-buy-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-hidden-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-order-search-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-edit-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-order-error-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-catalog-error-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-stock-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-stock-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-stock-filter-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-sort-menu-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "stable-delete-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "orderId": "order-sell-visible"
+            },
+            "command": "delete_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "orderId": "order-sell-visible"
+            },
+            "command": "delete_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-sold-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": 1,
+              "orderId": "order-sell-visible"
+            },
+            "command": "close_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": 1,
+              "orderId": "order-sell-visible"
+            },
+            "command": "close_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-visibility-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "visible": false,
+              "platinum": null,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "visible": false,
+              "platinum": null,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-save-price-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "visible": null,
+              "platinum": 17,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "visible": null,
+              "platinum": 17,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": null,
+              "orderId": "order-sell-visible"
+            },
+            "command": "update_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-sell-stock-mutation-payload-parity",
+      "pass": true,
+      "detail": {
+        "before": [],
+        "after": [
+          {
+            "args": {
+              "itemId": "item-beta",
+              "platPrice": 20,
+              "token": "SYNTHETIC-TOKEN",
+              "quantity": 1,
+              "rank": null
+            },
+            "command": "post_market_order"
+          }
+        ]
+      }
+    },
+    {
+      "name": "preview-read-only-notice",
+      "pass": true,
+      "detail": "Preview mode: market data is read-only. Listing, editing, visibility, sold, and delete actions are disabled."
+    },
+    {
+      "name": "preview-all-five-mutation-interactions-covered",
+      "pass": true,
+      "detail": {
+        "active": [
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "sold",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "sold",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          }
+        ],
+        "stock": [
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "preview-mutation-controls-disabled",
+      "pass": true,
+      "detail": {
+        "active": [
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "sold",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "sold",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          }
+        ],
+        "stock": [
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "preview-disabled-reason-consistent",
+      "pass": true,
+      "detail": {
+        "active": [
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "sold",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": false,
+            "onClick": false,
+            "kind": "edit-price",
+            "aria": "true"
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "visibility",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "sold",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "onClick": true,
+            "kind": "delete",
+            "aria": null
+          }
+        ],
+        "stock": [
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "listing-price",
+            "aria": null
+          },
+          {
+            "title": "Market changes are disabled in Preview",
+            "disabled": true,
+            "kind": "sell",
+            "aria": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "preview-zero-frontend-mutation-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "six-order-columns-preserved",
+      "pass": true,
+      "detail": [
+        "Item",
+        "Type",
+        "Quantity",
+        "Price",
+        "Status",
+        "Actions"
+      ]
+    },
+    {
+      "name": "order-filter-all",
+      "pass": true,
+      "detail": [
+        "Alpha Prime Blueprint",
+        "Beta Prime Chassis",
+        "Gamma Prime Systems"
+      ]
+    },
+    {
+      "name": "order-filter-sell",
+      "pass": true,
+      "detail": [
+        "Alpha Prime Blueprint",
+        "Gamma Prime Systems"
+      ]
+    },
+    {
+      "name": "order-filter-buy",
+      "pass": true,
+      "detail": [
+        "Beta Prime Chassis"
+      ]
+    },
+    {
+      "name": "order-filter-hidden",
+      "pass": true,
+      "detail": [
+        "Gamma Prime Systems"
+      ]
+    },
+    {
+      "name": "order-search-substring",
+      "pass": true,
+      "detail": [
+        "Beta Prime Chassis"
+      ]
+    },
+    {
+      "name": "verified-tradable-positive-stock-only",
+      "pass": true,
+      "detail": [
+        "Alpha Prime Blueprint\nOwned: 2\nDucats: 45d\nMastered\nKEEP FOR DUCATS\nHigh Ducat Yield (45d vs 3p, 1026d ago)\nPlat:\n\np\nSell on WFM\n",
+        "Beta Prime Chassis\nOwned: 1\nDucats: 50d\nSELL FOR PLAT\nHigh Plat Profit (20p vs 50d, 1026d ago)\nPlat:\n\np\nSell on WFM\n",
+        "Gamma Prime Systems\nOwned: 1\nDucats: 20d\nSELL FOR PLAT\nHigh Plat Profit (5p vs 20d, 1026d ago)\nPlat:\n\np\nSell on WFM\n",
+        "Delta Prime Barrel\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nNo current sell orders on Warframe.Market\nPlat:\n\np\nSell on WFM\n",
+        "Epsilon Prime Receiver\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nPrice unavailable (request failed, will retry)\nPlat:\n\np\nSell on WFM\n",
+        "Zeta Prime Stock\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nLoading price\u2026\nPlat:\n\np\nSell on WFM"
+      ]
+    },
+    {
+      "name": "price-state-alpha",
+      "pass": true,
+      "detail": {
+        "sellDisabled": false,
+        "input": "3",
+        "placeholder": "",
+        "text": "Alpha Prime Blueprint\nOwned: 2\nDucats: 45d\nMastered\nKEEP FOR DUCATS\nHigh Ducat Yield (45d vs 3p, 1026d ago)\nPlat:\n\np\nSell on WFM\n"
+      }
+    },
+    {
+      "name": "price-state-beta",
+      "pass": true,
+      "detail": {
+        "sellDisabled": false,
+        "input": "20",
+        "placeholder": "",
+        "text": "Beta Prime Chassis\nOwned: 1\nDucats: 50d\nSELL FOR PLAT\nHigh Plat Profit (20p vs 50d, 1026d ago)\nPlat:\n\np\nSell on WFM\n"
+      }
+    },
+    {
+      "name": "price-state-gamma",
+      "pass": true,
+      "detail": {
+        "sellDisabled": false,
+        "input": "5",
+        "placeholder": "",
+        "text": "Gamma Prime Systems\nOwned: 1\nDucats: 20d\nSELL FOR PLAT\nHigh Plat Profit (5p vs 20d, 1026d ago)\nPlat:\n\np\nSell on WFM\n"
+      }
+    },
+    {
+      "name": "price-state-delta",
+      "pass": true,
+      "detail": {
+        "sellDisabled": true,
+        "input": "",
+        "placeholder": "?",
+        "text": "Delta Prime Barrel\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nNo current sell orders on Warframe.Market\nPlat:\n\np\nSell on WFM\n"
+      }
+    },
+    {
+      "name": "price-state-epsilon",
+      "pass": true,
+      "detail": {
+        "sellDisabled": true,
+        "input": "",
+        "placeholder": "?",
+        "text": "Epsilon Prime Receiver\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nPrice unavailable (request failed, will retry)\nPlat:\n\np\nSell on WFM\n"
+      }
+    },
+    {
+      "name": "price-state-zeta",
+      "pass": true,
+      "detail": {
+        "sellDisabled": true,
+        "input": "",
+        "placeholder": "?",
+        "text": "Zeta Prime Stock\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nLoading price\u2026\nPlat:\n\np\nSell on WFM"
+      }
+    },
+    {
+      "name": "ready-prices-enable-stable-sell",
+      "pass": true
+    },
+    {
+      "name": "unresolved-prices-disable-stable-sell",
+      "pass": true
+    },
+    {
+      "name": "price-resolution-does-not-auto-reorder",
+      "pass": true,
+      "detail": {
+        "before": [
+          "Alpha Prime Blueprint",
+          "Beta Prime Chassis",
+          "Gamma Prime Systems",
+          "Delta Prime Barrel",
+          "Epsilon Prime Receiver",
+          "Zeta Prime Stock"
+        ],
+        "after": [
+          "Alpha Prime Blueprint",
+          "Beta Prime Chassis",
+          "Gamma Prime Systems",
+          "Delta Prime Barrel",
+          "Epsilon Prime Receiver",
+          "Zeta Prime Stock"
+        ]
+      }
+    },
+    {
+      "name": "stock-filter-sell",
+      "pass": true,
+      "detail": [
+        "Beta Prime Chassis",
+        "Gamma Prime Systems"
+      ]
+    },
+    {
+      "name": "stock-filter-best",
+      "pass": true,
+      "detail": [
+        "Alpha Prime Blueprint"
+      ]
+    },
+    {
+      "name": "stock-filter-duplicates",
+      "pass": true,
+      "detail": [
+        "Alpha Prime Blueprint"
+      ]
+    },
+    {
+      "name": "stock-filter-mastered",
+      "pass": true,
+      "detail": [
+        "Alpha Prime Blueprint"
+      ]
+    },
+    {
+      "name": "dormant-unmastered-control-absent",
+      "pass": true
+    },
+    {
+      "name": "stock-search-substring",
+      "pass": true,
+      "detail": [
+        "Gamma Prime Systems"
+      ]
+    },
+    {
+      "name": "stock-sort-sort-best-plat",
+      "pass": true,
+      "detail": "Beta Prime Chassis"
+    },
+    {
+      "name": "stock-sort-sort-best-ducats",
+      "pass": true,
+      "detail": "Alpha Prime Blueprint"
+    },
+    {
+      "name": "stock-sort-highest-plat-price",
+      "pass": true,
+      "detail": "Beta Prime Chassis"
+    },
+    {
+      "name": "stock-sort-most-owned",
+      "pass": true,
+      "detail": "Alpha Prime Blueprint"
+    },
+    {
+      "name": "stock-sort-highest-ducats",
+      "pass": true,
+      "detail": "Beta Prime Chassis"
+    },
+    {
+      "name": "stock-sort-name-a-z",
+      "pass": true,
+      "detail": "Alpha Prime Blueprint"
+    },
+    {
+      "name": "1200-active-orders-contained",
+      "pass": true,
+      "detail": {
+        "metricsColumns": 4,
+        "rail": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "mutations": true,
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "table": {
+          "width": 950,
+          "client": 950,
+          "scroll": 950,
+          "overflow": "auto"
+        },
+        "tabs": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "present": true
+      }
+    },
+    {
+      "name": "1200-tradeable-stock-contained",
+      "pass": true,
+      "detail": {
+        "present": true,
+        "rail": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "mutations": true,
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "gridColumns": 3,
+        "toolsWidth": 464.921875,
+        "cards": 6
+      }
+    },
+    {
+      "name": "900-active-orders-contained",
+      "pass": true,
+      "detail": {
+        "metricsColumns": 2,
+        "rail": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "mutations": true,
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "table": {
+          "width": 768,
+          "client": 650,
+          "scroll": 768,
+          "overflow": "auto"
+        },
+        "tabs": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "present": true
+      }
+    },
+    {
+      "name": "900-tradeable-stock-contained",
+      "pass": true,
+      "detail": {
+        "present": true,
+        "rail": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "mutations": true,
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "gridColumns": 2,
+        "toolsWidth": 652,
+        "cards": 6
+      }
+    },
+    {
+      "name": "german-labels-from-real-locale",
+      "pass": true,
+      "detail": {
+        "title": true,
+        "sync": true,
+        "metrics": true,
+        "filters": true,
+        "sort": true
+      }
+    },
+    {
+      "name": "literal-preview-notice-boundary-recorded",
+      "pass": true
+    },
+    {
+      "name": "no-browser-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "no-token",
+      "equal": true,
+      "before_length": 10054,
+      "after_length": 10054
+    },
+    {
+      "state": "order-loading",
+      "equal": true,
+      "before_length": 9196,
+      "after_length": 9196
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 9153,
+      "after_length": 9153
+    },
+    {
+      "state": "populated-orders",
+      "equal": true,
+      "before_length": 17144,
+      "after_length": 17144
+    },
+    {
+      "state": "sell-filter",
+      "equal": true,
+      "before_length": 14524,
+      "after_length": 14524
+    },
+    {
+      "state": "buy-filter",
+      "equal": true,
+      "before_length": 11530,
+      "after_length": 11530
+    },
+    {
+      "state": "hidden-filter",
+      "equal": true,
+      "before_length": 11797,
+      "after_length": 11797
+    },
+    {
+      "state": "order-search",
+      "equal": true,
+      "before_length": 11525,
+      "after_length": 11525
+    },
+    {
+      "state": "price-edit",
+      "equal": true,
+      "before_length": 17469,
+      "after_length": 17469
+    },
+    {
+      "state": "order-error",
+      "equal": true,
+      "before_length": 9692,
+      "after_length": 9692
+    },
+    {
+      "state": "catalog-error",
+      "equal": true,
+      "before_length": 17144,
+      "after_length": 17144
+    },
+    {
+      "state": "empty-stock",
+      "equal": true,
+      "before_length": 11744,
+      "after_length": 11744
+    },
+    {
+      "state": "populated-stock",
+      "equal": true,
+      "before_length": 26902,
+      "after_length": 26902
+    },
+    {
+      "state": "stock-filter",
+      "equal": true,
+      "before_length": 13728,
+      "after_length": 13728
+    },
+    {
+      "state": "sort-menu",
+      "equal": true,
+      "before_length": 28601,
+      "after_length": 28601
+    }
+  ],
+  "stable_mutation_parity": [
+    {
+      "interaction": "delete",
+      "before": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "orderId": "order-sell-visible"
+          },
+          "command": "delete_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "orderId": "order-sell-visible"
+          },
+          "command": "delete_market_order"
+        }
+      ],
+      "expected": {
+        "command": "delete_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible"
+        }
+      },
+      "approved_behavior_correction": false,
+      "frozen_default_price_rejected": null,
+      "pass": true
+    },
+    {
+      "interaction": "sold",
+      "before": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": 1,
+            "orderId": "order-sell-visible"
+          },
+          "command": "close_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": 1,
+            "orderId": "order-sell-visible"
+          },
+          "command": "close_market_order"
+        }
+      ],
+      "expected": {
+        "command": "close_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible",
+          "quantity": 1
+        }
+      },
+      "approved_behavior_correction": false,
+      "frozen_default_price_rejected": null,
+      "pass": true
+    },
+    {
+      "interaction": "visibility",
+      "before": [
+        {
+          "args": {
+            "visible": false,
+            "platinum": null,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "visible": false,
+            "platinum": null,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "expected": {
+        "command": "update_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible",
+          "platinum": null,
+          "quantity": null,
+          "visible": false
+        }
+      },
+      "approved_behavior_correction": false,
+      "frozen_default_price_rejected": null,
+      "pass": true
+    },
+    {
+      "interaction": "save-price",
+      "before": [
+        {
+          "args": {
+            "visible": null,
+            "platinum": 17,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "after": [
+        {
+          "args": {
+            "visible": null,
+            "platinum": 17,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": null,
+            "orderId": "order-sell-visible"
+          },
+          "command": "update_market_order"
+        }
+      ],
+      "expected": {
+        "command": "update_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "orderId": "order-sell-visible",
+          "platinum": 17,
+          "quantity": null,
+          "visible": null
+        }
+      },
+      "approved_behavior_correction": false,
+      "frozen_default_price_rejected": null,
+      "pass": true
+    },
+    {
+      "interaction": "sell-stock",
+      "before": [],
+      "after": [
+        {
+          "args": {
+            "itemId": "item-beta",
+            "platPrice": 20,
+            "token": "SYNTHETIC-TOKEN",
+            "quantity": 1,
+            "rank": null
+          },
+          "command": "post_market_order"
+        }
+      ],
+      "expected": {
+        "command": "post_market_order",
+        "args": {
+          "token": "SYNTHETIC-TOKEN",
+          "itemId": "item-beta",
+          "platPrice": 20,
+          "quantity": 1,
+          "rank": null
+        }
+      },
+      "approved_behavior_correction": true,
+      "frozen_default_price_rejected": true,
+      "pass": true
+    }
+  ],
+  "preview_mutation_invocations": [],
+  "frozen_default_price_evidence": {
+    "file": "before-alert-sequencing-fix-market-component.json",
+    "alert": "Enter a listing price before selling."
+  },
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "tab": "active-orders",
+      "metricsColumns": 4,
+      "rail": {
+        "wrap": "nowrap",
+        "overflow": "auto"
+      },
+      "mutations": true,
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "table": {
+        "width": 950,
+        "client": 950,
+        "scroll": 950,
+        "overflow": "auto"
+      },
+      "tabs": {
+        "wrap": "nowrap",
+        "overflow": "auto"
+      },
+      "present": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "tab": "tradeable-stock",
+      "present": true,
+      "rail": {
+        "wrap": "nowrap",
+        "overflow": "auto"
+      },
+      "mutations": true,
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "gridColumns": 3,
+      "toolsWidth": 464.921875,
+      "cards": 6
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "tab": "active-orders",
+      "metricsColumns": 2,
+      "rail": {
+        "wrap": "nowrap",
+        "overflow": "auto"
+      },
+      "mutations": true,
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "table": {
+        "width": 768,
+        "client": 650,
+        "scroll": 768,
+        "overflow": "auto"
+      },
+      "tabs": {
+        "wrap": "nowrap",
+        "overflow": "auto"
+      },
+      "present": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "tab": "tradeable-stock",
+      "present": true,
+      "rail": {
+        "wrap": "nowrap",
+        "overflow": "auto"
+      },
+      "mutations": true,
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "gridColumns": 2,
+      "toolsWidth": 652,
+      "cards": 6
+    }
+  ]
+}

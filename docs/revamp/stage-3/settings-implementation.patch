@@ -1,0 +1,457 @@
+diff --git a/src/components/PreviewSettingsLayout.jsx b/src/components/PreviewSettingsLayout.jsx
+new file mode 100644
+index 0000000..8d4d09e
+--- /dev/null
++++ b/src/components/PreviewSettingsLayout.jsx
+@@ -0,0 +1,105 @@
++export function PreviewSettingsDisabled({ enabled, reason, children }) {
++  if (!enabled) return children;
++
++  return (
++    <fieldset
++      disabled
++      aria-label={reason}
++      title={reason}
++      data-preview-settings-disabled=""
++      className="m-0 min-w-0 border-0 p-0 opacity-55"
++    >
++      {children}
++    </fieldset>
++  );
++}
++
++export default function PreviewSettingsLayout({ enabled, sections, children }) {
++  if (!enabled) return children;
++
++  return (
++    <div className="preview-settings-shell min-w-0" data-preview-settings-shell="">
++      <div
++        role="status"
++        className="mb-3 rounded-xl border border-kronos-accent/25 bg-kronos-accent/10 px-4 py-3 text-xs text-kronos-dim"
++      >
++        Live monitoring, scanner and hotkey registration, notification and overlay tests, and app updates are disabled in Preview. Profile preferences and read-only data tools remain available.
++      </div>
++      <nav
++        aria-label="Settings sections"
++        className="preview-settings-rail custom-scrollbar sticky top-0 z-20 mb-4 flex max-w-full gap-2 overflow-x-auto rounded-xl border border-white/5 bg-kronos-bg/95 p-2 backdrop-blur"
++      >
++        {sections.map((section) => (
++          <a
++            key={section.id}
++            href={`#preview-settings-${section.id}`}
++            className="shrink-0 rounded-lg border border-white/10 bg-kronos-panel/40 px-3 py-2 text-[10px] font-black uppercase tracking-wider text-kronos-dim transition-colors hover:border-kronos-accent/40 hover:text-kronos-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent"
++          >
++            {section.label}
++          </a>
++        ))}
++      </nav>
++      {children}
++      <style>{`
++        .preview-settings-shell {
++          container-type: inline-size;
++        }
++
++        .preview-settings-shell [data-preview-settings-section] {
++          min-width: 0;
++          scroll-margin-top: 4.75rem;
++        }
++
++        .preview-settings-shell [data-preview-settings-disabled] {
++          width: 100%;
++        }
++
++        .preview-settings-shell [data-preview-settings-disabled] :is(button, input, select) {
++          cursor: not-allowed;
++        }
++
++        @container (max-width: 44rem) {
++          .preview-settings-shell [data-preview-settings-grid="themes"] {
++            grid-template-columns: repeat(3, minmax(0, 1fr));
++          }
++
++          .preview-settings-shell [data-preview-settings-grid="notification-preferences"],
++          .preview-settings-shell [data-preview-settings-grid="monitoring"],
++          .preview-settings-shell [data-preview-settings-grid="maintenance"] {
++            grid-template-columns: minmax(0, 1fr);
++          }
++
++          .preview-settings-shell [data-preview-settings-grid="notification-tests"],
++          .preview-settings-shell [data-preview-settings-grid="sidebar-width"] {
++            grid-template-columns: repeat(2, minmax(0, 1fr));
++          }
++
++          .preview-settings-shell [data-preview-settings-row="cache-path"],
++          .preview-settings-shell [data-preview-settings-row="monitor-auto"],
++          .preview-settings-shell [data-preview-settings-row="monitor-manual"],
++          .preview-settings-shell [data-preview-settings-row="hotkey"] {
++            flex-direction: column;
++            align-items: stretch;
++          }
++
++          .preview-settings-shell [data-preview-settings-row="monitor-manual"] select {
++            width: 100%;
++          }
++        }
++
++        @container (max-width: 30rem) {
++          .preview-settings-shell [data-preview-settings-grid="themes"],
++          .preview-settings-shell [data-preview-settings-grid="notification-tests"] {
++            grid-template-columns: repeat(2, minmax(0, 1fr));
++          }
++
++          .preview-settings-shell [data-preview-settings-row="ui-scale"],
++          .preview-settings-shell [data-preview-settings-row="sidebar-side"] {
++            align-items: stretch;
++            flex-direction: column;
++          }
++        }
++      `}</style>
++    </div>
++  );
++}
+diff --git a/src/screens/Settings.jsx b/src/screens/Settings.jsx
+index 66cf49f..655f5c7 100644
+--- a/src/screens/Settings.jsx
++++ b/src/screens/Settings.jsx
+@@ -18,6 +18,8 @@ import FeatureGuideModal from '../components/FeatureGuideModal';
+ import BugReporterModal from '../components/BugReporterModal';
+ import { Bug } from 'lucide-react';
+ import { Compass, BookOpen } from 'lucide-react';
++import { IS_PREVIEW } from '../lib/buildProfile';
++import PreviewSettingsLayout, { PreviewSettingsDisabled } from '../components/PreviewSettingsLayout';
+ 
+ function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
+   const { t } = useUi();
+@@ -136,6 +138,7 @@ export default function SettingsScreen() {
+   }, []);
+ 
+   const handleUpdateHotkeys = async (newHotkeys) => {
++    if (IS_PREVIEW) return;
+     setHotkeys(newHotkeys);
+     await setSetting('hotkeys', newHotkeys);
+ 
+@@ -362,13 +365,14 @@ export default function SettingsScreen() {
+     await invoke('set_notification_sound', { sound }).catch(console.error);
+ 
+     // Preview sound via Rust (one-time manual play)
+-    if (sound !== 'none') {
++    if (!IS_PREVIEW && sound !== 'none') {
+       await invoke('play_notification_sound', { sound }).catch(console.error);
+     }
+   };
+ 
+   // Fissure Overlay handlers
+   const handleSetFissureEnabled = async (val) => {
++    if (IS_PREVIEW) return;
+     setFissureOverlayEnabled(val);
+     await setSetting('fissure_overlay_enabled', val);
+     if (val) {
+@@ -408,6 +412,7 @@ export default function SettingsScreen() {
+   };
+ 
+     const handleUseEELogChange = async (val) => {
++    if (IS_PREVIEW) return;
+     setUseEELog(val);
+     await setSetting('use_ee_log', val);
+     try {
+@@ -419,6 +424,7 @@ export default function SettingsScreen() {
+   };
+ 
+   const handleEeLogPathChange = async (val) => {
++    if (IS_PREVIEW) return;
+     setEeLogPath(val);
+     await setSetting('ee_log_path', val);
+     if (useEELog) {
+@@ -489,7 +495,7 @@ export default function SettingsScreen() {
+         text: t('settings.acquisition_coverage_done', { count: audit.totalMissing, path: absolutePath }),
+         error: false,
+       });
+-      invoke('show_notification', {
++      if (!IS_PREVIEW) invoke('show_notification', {
+         title: t('settings.acquisition_coverage_button'),
+         message: t('settings.acquisition_coverage_done', { count: audit.totalMissing, path: absolutePath }),
+         position: 'bottom-right',
+@@ -501,6 +507,7 @@ export default function SettingsScreen() {
+   };
+ 
+   const handleTestNotification = (position, delay = 0) => {
++    if (IS_PREVIEW) return;
+     setTimeout(() => {
+       // Every real notification path (MonitoringContext.jsx) pairs
+       // play_notification_sound with show_notification - this test button
+@@ -517,6 +524,7 @@ export default function SettingsScreen() {
+   };
+ 
+   const handleTestRelicReward = async () => {
++    if (IS_PREVIEW) return;
+     const mockRelics = [
+     { era: 'Lith', tier: 'T1', refinement: 'Intact', unique_name: 'Lith S9 Relic' },
+     { era: 'Lith', tier: 'T1', refinement: 'Exceptional', unique_name: 'Lith B6 Relic' },
+@@ -561,10 +569,24 @@ export default function SettingsScreen() {
+ 
+   return <>
+     <PageLayout titleKey="screen.settings">
++      <PreviewSettingsLayout
++        enabled={IS_PREVIEW}
++        sections={[
++          { id: 'appearance', label: t('settings.theme') },
++          { id: 'notifications', label: t('settings.notifications') },
++          { id: 'language', label: t('game_language') },
++          { id: 'help', label: t('settings.help_diagnostics') },
++          { id: 'sidebar', label: t('settings.sidebar') },
++          { id: 'hotkeys', label: t('settings.global_hotkeys') },
++          { id: 'safe-mode', label: t('settings.safe_mode_tracking') },
++          { id: 'market', label: 'Warframe.Market' },
++          { id: 'updates', label: t('settings.updates') },
++        ]}
++      >
+       <div className="space-y-6">
+ 
+         {/* Theme Selector with Accessibility Badges */}
+-        <Card glow className="p-5">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-appearance' : undefined} data-preview-settings-section={IS_PREVIEW ? 'appearance' : undefined}>
+           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+             <div className="flex items-center gap-2.5">
+               <Palette className="text-kronos-accent" size={22} />
+@@ -583,7 +605,7 @@ export default function SettingsScreen() {
+             </div>
+           </div>
+ 
+-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
++          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" data-preview-settings-grid={IS_PREVIEW ? 'themes' : undefined}>
+             {themes.map((t) => {
+               const isSelected = theme === t.id;
+               return (
+@@ -645,7 +667,7 @@ export default function SettingsScreen() {
+         </Card>
+ 
+         {/* Cursor Selector */}
+-        <Card glow className="p-4">
++        <Card glow className="p-4" data-preview-settings-section={IS_PREVIEW ? 'cursor' : undefined}>
+           <div className="flex items-center justify-between mb-4">
+             <div className="flex items-center gap-2">
+               <MousePointer className="text-kronos-accent" size={20} />
+@@ -692,14 +714,14 @@ export default function SettingsScreen() {
+         </Card>
+ 
+         {/* Notifications & Overlays */}
+-        <Card glow className="p-5">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-notifications' : undefined} data-preview-settings-section={IS_PREVIEW ? 'notifications' : undefined}>
+           <div className="flex items-center gap-2 mb-5">
+             <Bell className="text-kronos-accent" size={24} />
+             <h2 className="text-xl font-semibold uppercase tracking-tight">{t('settings.notifications')}</h2>
+           </div>
+ 
+           {/* Position & Sound - side by side on wide, stacked on narrow */}
+-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
++          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5" data-preview-settings-grid={IS_PREVIEW ? 'notification-preferences' : undefined}>
+             <div>
+               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.toast_position')}</p>
+               <div className="grid grid-cols-3 gap-2">
+@@ -747,7 +769,8 @@ export default function SettingsScreen() {
+           {/* Test buttons */}
+           <div className="mb-5 pt-4 border-t border-white/5">
+             <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.test_buttons')}</p>
+-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
++            <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Notification and overlay tests are disabled in Preview">
++            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2" data-preview-settings-grid={IS_PREVIEW ? 'notification-tests' : undefined}>
+               <button
+                 onClick={() => handleTestNotification(notifPosition)}
+                 className="py-2 px-3 rounded-lg border text-xs font-black uppercase tracking-wider transition-all bg-kronos-panel/20 border-white/5 text-kronos-dim hover:border-white/20">{t('settings.test_notification')}
+@@ -767,10 +790,11 @@ export default function SettingsScreen() {
+ 
+               </button>
+             </div>
++            </PreviewSettingsDisabled>
+           </div>
+ 
+           {/* Inventory Sync + Log Scanner */}
+-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 border-t border-white/5">
++          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 pt-4 border-t border-white/5" data-preview-settings-grid={IS_PREVIEW ? 'monitoring' : undefined}>
+             <div>
+               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-1">{t('sync.success')}</p>
+               <p className="text-[10px] text-zinc-500 mb-3">{t('settings.sync_inventory')}</p>
+@@ -806,7 +830,9 @@ export default function SettingsScreen() {
+                     </button>
+                   </div>
+                   <div className="flex items-center gap-2">
++                    <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Periodic inventory monitoring is disabled in Preview">
+                     <Toggle checked={isMonitoring} onChange={async (val) => {
++                      if (IS_PREVIEW) return;
+                       setAutoStart(val);
+                       if (val) {
+                         await startMonitoring();
+@@ -814,6 +840,7 @@ export default function SettingsScreen() {
+                         stopMonitoring();
+                       }
+                     }} />
++                    </PreviewSettingsDisabled>
+                   </div>
+                 </div>
+               </div>
+@@ -840,7 +867,9 @@ export default function SettingsScreen() {
+                       t('settings.scanner_offline')}
+                     </span>
+                   </div>
+-                  <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
++                  <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="The log scanner is disabled in Preview">
++                    <Toggle checked={fissureOverlayEnabled} onChange={handleSetFissureEnabled} />
++                  </PreviewSettingsDisabled>
+                 </div>
+               </div>
+             </div>
+@@ -851,7 +880,7 @@ export default function SettingsScreen() {
+             <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.game_assets')}</p>
+             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+-                <div className="flex-1 flex gap-2">
++                <div className="flex-1 flex gap-2" data-preview-settings-row={IS_PREVIEW ? 'cache-path' : undefined}>
+                   <input
+                     type="text"
+                     value={warframeCachePath}
+@@ -881,7 +910,7 @@ export default function SettingsScreen() {
+           {/* UI Scale & Notification Monitor */}
+           <div className="mb-4 space-y-3">
+             <div className="p-3 bg-kronos-panel/20 rounded-lg border border-white/5">
+-              <div className="flex items-center justify-between">
++              <div className="flex items-center justify-between" data-preview-settings-row={IS_PREVIEW ? 'ui-scale' : undefined}>
+                 <div>
+                   <p className="text-sm font-bold text-kronos-text uppercase">{t('settings.ui_scale')}</p>
+                   <p className="text-xs text-kronos-dim uppercase">{t('settings.ui_scale_hint')}</p>
+@@ -919,7 +948,7 @@ export default function SettingsScreen() {
+               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.notification_monitor')}</p>
+               <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">{t('settings.notification_monitor_desc')}</p>
+               <div className="space-y-2">
+-                <div className="flex items-center gap-3">
++                <div className="flex items-center gap-3" data-preview-settings-row={IS_PREVIEW ? 'monitor-auto' : undefined}>
+                   <input
+                     type="radio"
+                     name="notif-monitor"
+@@ -930,7 +959,7 @@ export default function SettingsScreen() {
+                   <span className="text-xs font-black uppercase text-kronos-text shrink-0">{t('settings.spawn_active_monitor')}</span>
+                   <span className="text-[10px] text-kronos-dim">{t('settings.spawn_active_monitor_hint')}</span>
+                 </div>
+-                <div className="flex items-center gap-3">
++                <div className="flex items-center gap-3" data-preview-settings-row={IS_PREVIEW ? 'monitor-manual' : undefined}>
+                   <input
+                     type="radio"
+                     name="notif-monitor"
+@@ -974,7 +1003,7 @@ export default function SettingsScreen() {
+         </Card>
+ 
+         {/* Game Locale */}
+-        <Card glow className="p-5">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-language' : undefined} data-preview-settings-section={IS_PREVIEW ? 'language' : undefined}>
+           <div className="flex items-center gap-3 mb-6">
+             <div>
+               <h2 className="text-xl font-black uppercase tracking-tight">{t('game_language')}</h2>
+@@ -1003,7 +1032,7 @@ export default function SettingsScreen() {
+         </Card>
+ 
+                 {/* Feature Guide & Support */}
+-        <Card glow className="p-5">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-help' : undefined} data-preview-settings-section={IS_PREVIEW ? 'help' : undefined}>
+           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+             <div className="flex items-center gap-3">
+               <Compass className="text-kronos-accent" size={28} />
+@@ -1046,7 +1075,7 @@ export default function SettingsScreen() {
+         </Card>
+ 
+         {/* In-Game Sidebar */}
+-        <Card glow className="p-5">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-sidebar' : undefined} data-preview-settings-section={IS_PREVIEW ? 'sidebar' : undefined}>
+           <div className="flex items-center gap-3 mb-6">
+             <PanelLeft className="text-kronos-accent" size={28} />
+             <div>
+@@ -1060,7 +1089,7 @@ export default function SettingsScreen() {
+           <div className="space-y-4">
+             <div>
+               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.sidebar_side')}</p>
+-              <div className="flex gap-2">
++              <div className="flex gap-2" data-preview-settings-row={IS_PREVIEW ? 'sidebar-side' : undefined}>
+                 {['left', 'right'].map((s) =>
+                 <button
+                   key={s}
+@@ -1078,7 +1107,7 @@ export default function SettingsScreen() {
+             </div>
+             <div>
+               <p className="text-sm font-black uppercase tracking-widest text-kronos-dim mb-3">{t('settings.sidebar_width')}</p>
+-              <div className="grid grid-cols-4 gap-2">
++              <div className="grid grid-cols-4 gap-2" data-preview-settings-grid={IS_PREVIEW ? 'sidebar-width' : undefined}>
+                 {[
+                   { label: t('settings.width_compact'), width: 380 },
+                   { label: t('settings.width_default'), width: 480 },
+@@ -1112,7 +1141,7 @@ export default function SettingsScreen() {
+         </Card>
+ 
+         {/* Global Hotkeys */}
+-        <Card glow className="p-5">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-hotkeys' : undefined} data-preview-settings-section={IS_PREVIEW ? 'hotkeys' : undefined}>
+           <div className="flex items-center gap-3 mb-6">
+             <Keyboard className="text-kronos-accent" size={28} />
+             <div>
+@@ -1121,9 +1150,10 @@ export default function SettingsScreen() {
+             </div>
+           </div>
+ 
++          <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Global hotkey registration is disabled in Preview">
+           <div className="space-y-3">
+             {hotkeys.map((hk, idx) =>
+-            <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-kronos-panel/20 rounded-xl border border-white/5">
++            <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 bg-kronos-panel/20 rounded-xl border border-white/5" data-preview-settings-row={IS_PREVIEW ? 'hotkey' : undefined}>
+                 <div className="flex-1">
+                   <p className="text-[10px] font-black uppercase text-kronos-dim mb-1.5 tracking-wider">{t('settings.action')}</p>
+                   <select
+@@ -1181,10 +1211,12 @@ export default function SettingsScreen() {
+           <p className="text-[9px] text-zinc-600 mt-4 italic uppercase tracking-wider px-1">{t('settings.shortcut_note')}
+ 
+           </p>
++          </PreviewSettingsDisabled>
+         </Card>
+ 
+                 {/* Safe Mode Tracking */}
+-        <Card glow className="p-5 mb-6">
++        <Card glow className="p-5 mb-6" id={IS_PREVIEW ? 'preview-settings-safe-mode' : undefined} data-preview-settings-section={IS_PREVIEW ? 'safe-mode' : undefined}>
++          <PreviewSettingsDisabled enabled={IS_PREVIEW} reason="Safe-mode scanner tracking is disabled in Preview">
+           <div className="flex items-start gap-4 mb-6">
+             <div className="p-3 rounded-xl bg-kronos-accent/10 border border-kronos-accent/20">
+               <FolderOpen className="text-kronos-accent" size={24} />
+@@ -1214,10 +1246,11 @@ export default function SettingsScreen() {
+               />
+             </div>
+           </div>
++          </PreviewSettingsDisabled>
+         </Card>
+ 
+         {/* Warframe Market Integration */}
+-        <Card glow className="p-5 mb-6">
++        <Card glow className="p-5 mb-6" id={IS_PREVIEW ? 'preview-settings-market' : undefined} data-preview-settings-section={IS_PREVIEW ? 'market' : undefined}>
+           <div className="flex items-start gap-4 mb-6">
+             <div className="p-3 rounded-xl bg-kronos-accent/10 border border-kronos-accent/20">
+               <RefreshCw className="text-kronos-accent" size={24} />
+@@ -1246,8 +1279,8 @@ export default function SettingsScreen() {
+         </Card>
+ 
+         {/* Updates & Price Cache */}
+-        <Card glow className="p-5">
+-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
++        <Card glow className="p-5" id={IS_PREVIEW ? 'preview-settings-updates' : undefined} data-preview-settings-section={IS_PREVIEW ? 'updates' : undefined}>
++          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-preview-settings-grid={IS_PREVIEW ? 'maintenance' : undefined}>
+             {/* App Updates */}
+             <div>
+               <div className="flex items-center gap-3 mb-4">
+@@ -1379,6 +1412,7 @@ export default function SettingsScreen() {
+           </div>
+         </Card>
+       </div>
++      </PreviewSettingsLayout>
+ 
+       <FeatureGuideModal isOpen={showGuideModal} onClose={() => setShowGuideModal(false)} />
+       <BugReporterModal isOpen={showBugModal} onClose={() => setShowBugModal(false)} />
+@@ -1396,4 +1430,4 @@ export default function SettingsScreen() {
+     }
+     </>;
+ 
+-}
+\ No newline at end of file
++}

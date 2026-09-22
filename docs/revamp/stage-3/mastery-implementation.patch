@@ -1,0 +1,210 @@
+--- a/src/screens/Mastery.jsx
++++ b/src/screens/Mastery.jsx
+@@ -23,6 +23,8 @@
+ import { Trophy, X, Check, Circle } from 'lucide-react';
+ import { useMonitoring } from '../contexts/MonitoringContext';
+ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
++import { IS_PREVIEW } from '../lib/buildProfile';
++import PreviewMasteryLayout from '../components/PreviewMasteryLayout';
+ 
+ // Each MR1–30 rank costs a flat 75,000 XP. Cumulative at MR30 = 2,250,000.
+ // Legendary ranks (MR31+) each cost 147,500 XP.
+@@ -278,16 +280,26 @@
+   const currentTitle = t(mrTitleKey(currentRank), currentRank > 30 ? { n: currentRank - 30 } : undefined);
+   const nextTitle = t(mrTitleKey(nextRank), nextRank > 30 ? { n: nextRank - 30 } : undefined);
+ 
+-  const Section = ({ title, items, gridCols = "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" }) =>
+-  <div className="space-y-3">
++  const Section = ({ title, items, kind, gridCols = "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6" }) =>
++  <div className="space-y-3" data-preview-mastery-section={IS_PREVIEW ? kind : undefined}>
+       <h3 className="text-xs font-bold text-kronos-accent uppercase tracking-widest opacity-70">
+         {title}
+       </h3>
+-      <div className={`grid ${gridCols} gap-2`}>
++      <div className={`grid ${gridCols} gap-2`} data-preview-mastery-grid={IS_PREVIEW ? kind : undefined}>
+         {items.map((item) =>
+       <div
+         key={item.label}
+         onClick={() => setSelectedCategory(item)}
++        onKeyDown={IS_PREVIEW ? (event) => {
++          if (event.key === 'Enter' || event.key === ' ') {
++            event.preventDefault();
++            setSelectedCategory(item);
++          }
++        } : undefined}
++        role={IS_PREVIEW ? 'button' : undefined}
++        tabIndex={IS_PREVIEW ? 0 : undefined}
++        aria-label={IS_PREVIEW ? `${item.label}: ${item.mastered} / ${item.total}` : undefined}
++        data-preview-mastery-card={IS_PREVIEW ? '' : undefined}
+         className={`rounded p-2 flex flex-col items-center justify-center text-center transition-all duration-200 hover:glow-hover cursor-pointer active:scale-95 border-2 ${item.mastered < item.total ?
+         'bg-kronos-panel/10 border-dashed border-kronos-accent opacity-100' :
+         'bg-kronos-panel border-kronos-panel/40'}`
+@@ -312,12 +324,15 @@
+ 
+   return (
+     <PageLayout titleKey="screen.mastery">
++      <PreviewMasteryLayout enabled={IS_PREVIEW}>
+       <div className="space-y-8">
+         {/* MR card */}
+         <Card glow className="p-0 overflow-hidden border-kronos-accent/30 shadow-2xl">
+           {/* Rank-up banner - shown when ready*/}
+           {isRankUpReady &&
+-          <div className="flex flex-col md:flex-row relative overflow-hidden bg-gradient-to-br from-kronos-accent/20 via-kronos-accent/5 to-transparent min-h-[400px]">
++          <div
++            data-preview-mastery-rank-state={IS_PREVIEW ? 'ready' : undefined}
++            className="flex flex-col md:flex-row relative overflow-hidden bg-gradient-to-br from-kronos-accent/20 via-kronos-accent/5 to-transparent min-h-[400px]">
+               {/* Content on the left */}
+ 
+               <div className="relative z-10 flex-1 p-10 flex flex-col items-start text-left">
+@@ -352,7 +367,9 @@
+               </div>
+ 
+               {/* Teshin Image on the right - transparent png */}
+-              <div className="relative w-full md:w-[45%] h-80 md:h-[450px] overflow-visible">
++              <div
++                data-preview-mastery-art={IS_PREVIEW ? '' : undefined}
++                className="relative w-full md:w-[45%] h-80 md:h-[450px] overflow-visible">
+                 <img
+                 src={uiPath ? convertFileSrc(`${uiPath}/teshin.png`) : ''}
+                 alt="Teshin"
+@@ -364,7 +381,9 @@
+ 
+           {/* Progress card - visible only when NOT ready for rank up */}
+           {!isRankUpReady &&
+-          <div className="bg-gradient-to-br from-kronos-accent/10 via-transparent to-transparent p-6">
++          <div
++            data-preview-mastery-rank-state={IS_PREVIEW ? 'progress' : undefined}
++            className="bg-gradient-to-br from-kronos-accent/10 via-transparent to-transparent p-6">
+               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                 <div className="flex items-center gap-6">
+                   <div className="relative w-20 h-20 flex items-center justify-center">
+@@ -451,18 +470,23 @@
+         </Card>
+ 
+         <div className="space-y-8">
+-          <Section title={t('mastery.section_item_completion')} items={itemCompletion} />
+-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+-            <Section title={t('mastery.section_intrinsic_completion')} items={intrinsicCompletion} gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
+-            <Section title={t('mastery.section_starchart_completion')} items={starchartCompletion} gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
++          <Section title={t('mastery.section_item_completion')} items={itemCompletion} kind="items" />
++          <div className="grid grid-cols-1 md:grid-cols-2 gap-8" data-preview-mastery-secondary={IS_PREVIEW ? '' : undefined}>
++            <Section title={t('mastery.section_intrinsic_completion')} items={intrinsicCompletion} kind="intrinsics" gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
++            <Section title={t('mastery.section_starchart_completion')} items={starchartCompletion} kind="starchart" gridCols="grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-2" />
+           </div>
+         </div>
+       </div>
++      </PreviewMasteryLayout>
+ 
+       {/* Detail Modal */}
+       {selectedCategory &&
+       <div
+         className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-kronos-bg/80 backdrop-blur-sm animate-in fade-in duration-200"
++        role={IS_PREVIEW ? 'dialog' : undefined}
++        aria-modal={IS_PREVIEW ? true : undefined}
++        aria-labelledby={IS_PREVIEW ? 'preview-mastery-dialog-title' : undefined}
++        data-preview-mastery-modal={IS_PREVIEW ? '' : undefined}
+         onClick={() => setSelectedCategory(null)}>
+         
+           <Card
+@@ -472,7 +496,7 @@
+           
+             <div className="p-6 border-b border-kronos-panel flex items-center justify-between bg-kronos-panel/20">
+               <div className="flex-1">
+-                <h3 className="text-xl font-bold text-kronos-accent">{selectedCategory.label}{t('mastery.details')}</h3>
++                <h3 id={IS_PREVIEW ? 'preview-mastery-dialog-title' : undefined} className="text-xl font-bold text-kronos-accent">{selectedCategory.label}{t('mastery.details')}</h3>
+                 <p className="text-sm text-kronos-dim">
+                   {selectedCategory.mastered} / {selectedCategory.total}{t('mastery.completed')}
+               </p>
+--- /dev/null
++++ b/src/components/PreviewMasteryLayout.jsx
+@@ -0,0 +1,90 @@
++export default function PreviewMasteryLayout({ enabled, children }) {
++  if (!enabled) return children;
++
++  return (
++    <section
++      data-preview-mastery-layout
++      aria-label="Mastery overview"
++      className="preview-mastery-layout min-w-0"
++      style={{ containerType: 'inline-size', containerName: 'preview-mastery' }}
++    >
++      <style>{`
++        .preview-mastery-layout,
++        .preview-mastery-layout > div,
++        [data-preview-mastery-rank-state] {
++          min-width: 0;
++        }
++        [data-preview-mastery-card]:focus-visible {
++          outline: 2px solid rgb(var(--kronos-accent-rgb));
++          outline-offset: 2px;
++        }
++        [data-preview-mastery-grid="items"] {
++          grid-template-columns: repeat(2, minmax(0, 1fr));
++        }
++        [data-preview-mastery-secondary] {
++          grid-template-columns: minmax(0, 1fr);
++        }
++        [data-preview-mastery-rank-state="ready"] > div:first-child > div:first-child {
++          flex-wrap: wrap;
++          gap: 1.5rem;
++        }
++        @container preview-mastery (min-width: 520px) {
++          [data-preview-mastery-grid="items"] {
++            grid-template-columns: repeat(3, minmax(0, 1fr));
++          }
++        }
++        @container preview-mastery (min-width: 760px) {
++          [data-preview-mastery-grid="items"] {
++            grid-template-columns: repeat(4, minmax(0, 1fr));
++          }
++          [data-preview-mastery-secondary] {
++            grid-template-columns: repeat(2, minmax(0, 1fr));
++          }
++        }
++        @container preview-mastery (max-width: 699px) {
++          .preview-mastery-layout > div {
++            row-gap: 1.25rem;
++          }
++          [data-preview-mastery-rank-state="ready"] {
++            flex-direction: column;
++            min-height: 0;
++          }
++          [data-preview-mastery-rank-state="ready"] > div:first-child {
++            padding: 1.25rem;
++          }
++          [data-preview-mastery-art] {
++            width: 100%;
++            height: 13rem;
++          }
++          [data-preview-mastery-rank-state="progress"] {
++            padding: 1.25rem;
++          }
++          [data-preview-mastery-rank-state="progress"] > div:first-child {
++            flex-direction: column;
++            align-items: flex-start;
++          }
++          [data-preview-mastery-rank-state="progress"] > div:first-child > div:first-child {
++            gap: 1rem;
++          }
++          [data-preview-mastery-rank-state="progress"] h2 {
++            font-size: 1.75rem;
++          }
++        }
++        @media (max-width: 1000px) and (max-height: 540px) {
++          [data-preview-mastery-modal] {
++            padding: .5rem;
++          }
++          [data-preview-mastery-modal] > div {
++            max-height: calc(100dvh - 1rem);
++          }
++          [data-preview-mastery-modal] > div > div:first-child {
++            padding: 1rem;
++            gap: .75rem;
++            flex-wrap: wrap;
++          }
++        }
++      `}</style>
++      {children}
++    </section>
++  );
++}

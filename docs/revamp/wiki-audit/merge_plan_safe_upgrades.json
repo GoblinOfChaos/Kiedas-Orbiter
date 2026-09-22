@@ -1,0 +1,2778 @@
+{
+  "components": {
+    "/Lotus/Types/Friendly/Pets/CreaturePets/HornedInfestedCatbrowPetPowerSuit": {
+      "existingText": "Captured as a Weakened Crescent Vulpaphyla in the Cambion Drift via Conservation mechanics (attacked into a weakened state by roaming Infested, then tranquilized), then revivified by Son at the Necralisk for 5,000 Credits along with a chosen Mutagen and Antigen.",
+      "newText": "Vulpaphylas are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Crescent Vulpaphyla during the Vome cycle via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Vulpaphyla cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Vulpaphyla by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+      "source": "companions",
+      "sourceRefs": [
+        "article page: Crescent Vulpaphyla (##Acquisition section)"
+      ],
+      "wikiName": "Crescent Vulpaphyla",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "/Lotus/Types/Friendly/Pets/CreaturePets/MedjayPredatorKubrowPetPowerSuit": {
+      "existingText": "Captured as a Weakened Medjay Predasite in the Cambion Drift via Conservation mechanics (attacked into a weakened state by roaming Infested, then tranquilized), then revivified by Son at the Necralisk for 5,000 Credits along with a chosen Mutagen and Antigen.",
+      "newText": "To obtain a Predasite as a companion, players must acquire one through Revivification with Son in the Necralisk, Deimos. This process requires capturing a Weakened Medjay Predasite during the Vome cycle via Conservation, after it has been attacked by the Infested. Additionally, players need a Mutagen and an Antigen, which can be purchased from Son using Entrati Standing, along with 5,000 to initiate the Revivification process.\n\nA newly revived Predasite cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Predasite by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+      "source": "companions",
+      "sourceRefs": [
+        "article page: Medjay Predasite (##Acquisition section)"
+      ],
+      "wikiName": "Medjay Predasite",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "/Lotus/Types/Friendly/Pets/CreaturePets/ArmoredInfestedCatbrowPetPowerSuit": {
+      "existingText": "Captured as a Weakened Panzer Vulpaphyla in the Cambion Drift via Conservation mechanics (attacked into a weakened state by roaming Infested, then tranquilized), then revivified by Son at the Necralisk for 5,000 Credits along with a chosen Mutagen and Antigen.",
+      "newText": "Vulpaphylas are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Panzer Vulpaphyla via Conservation (found only during Fass cycle) after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Vulpaphyla cannot be renamed, customized, Polarized or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Vulpaphyla by achieving rank of Acquaintance with the Entrati, leveling the Vulpaphyla up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+      "source": "companions",
+      "sourceRefs": [
+        "article page: Panzer Vulpaphyla (##Acquisition section)"
+      ],
+      "wikiName": "Panzer Vulpaphyla",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "/Lotus/Types/Friendly/Pets/CreaturePets/PharaohPredatorKubrowPetPowerSuit": {
+      "existingText": "Captured as a Weakened Pharaoh Predasite in the Cambion Drift via Conservation mechanics (attacked into a weakened state by roaming Infested, then tranquilized), then revivified by Son at the Necralisk for 5,000 Credits along with a chosen Mutagen and Antigen.",
+      "newText": "Predasites are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Pharaoh Predasite via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Predasite cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Predasite by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+      "source": "companions",
+      "sourceRefs": [
+        "article page: Pharaoh Predasite (##Acquisition section)"
+      ],
+      "wikiName": "Pharaoh Predasite",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "/Lotus/Types/Friendly/Pets/CreaturePets/VulpineInfestedCatbrowPetPowerSuit": {
+      "existingText": "Captured as a Weakened Sly Vulpaphyla in the Cambion Drift via Conservation mechanics (attacked into a weakened state by roaming Infested, then tranquilized), then revivified by Son at the Necralisk for 5,000 Credits along with a chosen Mutagen and Antigen.",
+      "newText": "Vulpaphylas are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Sly Vulpaphyla via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Vulpaphyla cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Vulpaphyla by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+      "source": "companions",
+      "sourceRefs": [
+        "article page: Sly Vulpaphyla (##Acquisition section)"
+      ],
+      "wikiName": "Sly Vulpaphyla",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "/Lotus/Types/Friendly/Pets/CreaturePets/VizierPredatorKubrowPetPowerSuit": {
+      "existingText": "Captured as a Weakened Vizier Predasite in the Cambion Drift via Conservation mechanics (attacked into a weakened state by roaming Infested, then tranquilized), then revivified by Son at the Necralisk for 5,000 Credits along with a chosen Mutagen and Antigen.",
+      "newText": "Predasites are acquired through Revivification with Son in the Necralisk, Deimos. The player must capture a Weakened Vizier Predasite via Conservation after it has been attacked by Infested, as well as obtain a Mutagen and Antigen bought from Son with Entrati Standing, and 5,000 to initiate the Revivification process.\n\nA newly revived Predasite cannot be renamed, customized, Polarized, equipped with a Focus Lens, or earn Mastery Rank experience, but can equip an Orokin Reactor. In order to unlock these features, the player must Gild their Predasite by leveling it up to Rank 30 and then returning to Son along with 10 Son Token and 5,000.",
+      "source": "companions",
+      "sourceRefs": [
+        "article page: Vizier Predasite (##Acquisition section)"
+      ],
+      "wikiName": "Vizier Predasite",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemB": {
+      "existingText": "Dropped by defeating The Fragmented Zelator (1, or 2 on Steel Path) or The Fragmented One (2) in Effervo, Deimos, during Operation: Gargoyle's Cry.",
+      "newText": "Location (per in-game description): Effervo (Deimos) during Operation Gargoyle's Cry.",
+      "source": "resources",
+      "sourceRefs": [
+        "Module:Resources/data Description field (verbatim 'Location:' text)"
+      ],
+      "wikiName": "Curse of Hearing",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemC": {
+      "existingText": "Dropped by defeating The Fragmented Anchorite (1, or 2 on Steel Path) or The Fragmented One (2) in Effervo, Deimos, during Operation: Gargoyle's Cry.",
+      "newText": "Location (per in-game description): Effervo (Deimos) during Operation Gargoyle's Cry.",
+      "source": "resources",
+      "sourceRefs": [
+        "Module:Resources/data Description field (verbatim 'Location:' text)"
+      ],
+      "wikiName": "Curse of Seeing",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemA": {
+      "existingText": "Dropped by defeating The Fragmented Suzerain (1, or 2 on Steel Path) or The Fragmented One (2) in Effervo, Deimos, during Operation: Gargoyle's Cry.",
+      "newText": "Location (per in-game description): Effervo (Deimos) during Operation Gargoyle's Cry.",
+      "source": "resources",
+      "sourceRefs": [
+        "Module:Resources/data Description field (verbatim 'Location:' text)"
+      ],
+      "wikiName": "Curse of Knowing",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkin": {
+      "existingText": "Available through the PlayStation Store via the Obsidian Azura Collection.",
+      "newText": "The Excalibur Obsidian Skin was available through the PlayStation store via the Renown Pack III<ref>https://warframe.com/en/news/renown-pack-iii-available-now</ref> and the Renown Collection<ref>https://warframe.com/news/renown-collection</ref>.",
+      "source": "cosmetics_dedicated_page",
+      "sourceRefs": [
+        "article page: Excalibur Obsidian Skin (##Acquisition section)"
+      ],
+      "wikiName": "Excalibur Obsidian Skin",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "/Lotus/Powersuits/Choir/Choir": {
+      "newText": "Main Blueprint can be purchased from Market for 325 Platinum, obtained by completing the Jade Shadows quest, or purchased from Ordis in the Drifter's Camp (or Larunda Relay, Mercury during Operation: Belly of the Beast) using Vestigial Motes (150 per component, 450 for the main blueprint, 900 total). Components - Neuroptics/Chassis/Systems: drop from Ascension (Brutus, Uranus) at ~4.63% each, or purchased individually from Ordis for 150 Vestigial Motes each.",
+      "source": "manual_combine",
+      "sourceRefs": [
+        "combined from existing live text (Ordis/Vestigial Motes path) + freshly-resolved Blueprints/data+DropTables/data (Market price, exact drop %) - user-confirmed both Market purchase and quest completion are valid, non-conflicting paths"
+      ],
+      "wikiName": "Jade (internal: Choir)"
+    }
+  },
+  "mods": {
+    "Primed Combustion Rounds": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 390 Ducats and 210,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Combustion Rounds",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Jolt": {
+      "existingText": "Baro Ki'Teer (Void Trader), 150,000 Credits + 300 Ducats",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 150,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Jolt",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Reroot Rampage": {
+      "existingText": "Syndicate offering: Red Veil rank 5 or The Perrin Sequence rank 5, 25,000 standing",
+      "newText": "Purchased from The Perrin Sequence (Rank 5+) for 25,000 Standing; or Red Veil (Rank 5+) for 25,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Reroot Rampage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Perrin Sequence",
+        "Red Veil"
+      ]
+    },
+    "Bloodthirst": {
+      "existingText": "Master Teasonai, Cetus, for 3 Ostia Vasca + 3 Nephil Vasca Kavat Tags",
+      "newText": "Purchased from Master Teasonai for 3x Nephil Vasca Kavat Tag, 3x Ostia Vasca Kavat Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Bloodthirst",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Master Teasonai"
+      ]
+    },
+    "Disabling Conditioning": {
+      "existingText": "The Business, Fortuna, Venus",
+      "newText": "Purchased from The Business for 3x Thorny Bolarola Tag, 3x Black-Banded Bolarola Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Disabling Conditioning",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Expel Infested": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Expel Infested",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Firestorm": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 175,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Firestorm",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Slip Magazine": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 280 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Slip Magazine",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Astral Bond": {
+      "existingText": "The Business, Fortuna/Solaris United, for 20,000 Standing at Rank 3 - Doer",
+      "newText": "Purchased from The Business (Rank 3+) for 20,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Astral Bond",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Polar Magazine": {
+      "existingText": "Baro Ki'Teer (Void Trader), 210,000 Credits and 390 Ducats when offered.",
+      "newText": "Sold by Baro Ki'Teer for 390 Ducats and 210,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Polar Magazine",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Expel The Murmur": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 375 Ducats and 130,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Expel The Murmur",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Deadly Efficiency": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 375 Ducats and 300,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Deadly Efficiency",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Heated Charge": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 175,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Heated Charge",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Steady Hands": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 220,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Steady Hands",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Chamber": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 2995 Ducats and 1,000,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Chamber",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Reach": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 220,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Reach",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Smite Grineer": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Smite Grineer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Bhisaj-Bal": {
+      "existingText": "Father, Entrati Rank 4 (Friend), for 20,000 Standing",
+      "newText": "Purchased from Father (Rank 4+) for 20,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Bhisaj-Bal",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Father"
+      ]
+    },
+    "Primed Fast Hands": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 375 Ducats and 120,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Fast Hands",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Cleanse Orokin": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Cleanse Orokin",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Frenzied Posture": {
+      "existingText": "Son, Necralisk, Deimos, for 3 Sly Vulpaphyla tags",
+      "newText": "Purchased from Son for 3x Panzer Vulpaphyla Tag, 3x Crescent Vulpaphyla Tag, 3x Sly Vulpaphyla Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Frenzied Posture",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "Prosperous Retriever": {
+      "existingText": "The Business (Fortuna) for 7 assorted creature tags (Sunny Pobber, White-Breasted Virmink, Flossy Sawgaw, Spotted Bolarola, Dappled Horrasque, Sentinel Stover, Brindle Kubrodon)",
+      "newText": "Purchased from The Business for 1x Brindle Kubrodon Tag, 1x Dappled Horrasque Tag, 1x Spotted Bolarola Tag, 1x Sentinel Stover Tag, 1x White-Breasted Virmink Tag, 1x Sunny Pobber Tag, 1x Flossy Sawgaw Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Prosperous Retriever",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Kumihimo Loading": {
+      "existingText": "Arbiters of Hexis or New Loka, Rank 5, 25,000 Standing",
+      "newText": "Purchased from Arbiters of Hexis (Rank 5+) for 25,000 Standing; or New Loka (Rank 5+) for 25,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Kumihimo Loading",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis",
+        "New Loka"
+      ]
+    },
+    "Primed Rifle Ammo Mutation": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Rifle Ammo Mutation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Cryo Rounds": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 110,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Cryo Rounds",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Cleanse The Murmur": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 375 Ducats and 130,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Cleanse The Murmur",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Magnetic Strike": {
+      "existingText": "Son, Necralisk, Deimos, for 3 Sporule Avichaea + 3 Panzer Vulpaphyla tags",
+      "newText": "Purchased from Son for 3x Panzer Vulpaphyla Tag, 3x Sporule Avichaea Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Magnetic Strike",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "Loyal Retriever": {
+      "existingText": "Master Teasonai, Cetus (free login gift for pre-existing Smeeta Kavat owners at Update 37.0)",
+      "newText": "Purchased from Master Teasonai for 1x Coastal Mergoo Tag, 1x Common Condroc Tag, 1x Plains Kuaka Tag, 1x Ostia Vasca Kavat Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Loyal Retriever",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Master Teasonai"
+      ]
+    },
+    "Bell Ringer": {
+      "existingText": "Son, Necralisk, Deimos",
+      "newText": "Purchased from Son for 3x Purple Velocipod Tag, 3x White Velocipod Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Bell Ringer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "Primed Target Cracker": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 150,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Target Cracker",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Voltaic Strike": {
+      "existingText": "Baro Ki'Teer (Void Trader), 300 Orokin Ducats + 150,000 Credits",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 150,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Voltaic Strike",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Brute Conditioning": {
+      "existingText": "The Business, Fortuna, Venus",
+      "newText": "Purchased from The Business for 3x Kubrodon Incarnadine Tag, 3x Vallis Kubrodon Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Brute Conditioning",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Cleanse Corpus": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Cleanse Corpus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Fulmination": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 175,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Fulmination",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Pressure Point": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 385 Ducats and 300,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Pressure Point",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Peculiar Audience": {
+      "existingText": "Baro Ki'Teer (Void Trader), 200,000 Credits + 250 Orokin Ducats",
+      "newText": "Sold by Baro Ki'Teer for 250 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Peculiar Audience",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Convulsion": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 175,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Convulsion",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Enduring Bastille": {
+      "existingText": "Cephalon Suda Rank 5 (Genius) or Perrin Sequence Rank 5 (Partner), 25,000 Standing; also periodically from The Circuit",
+      "newText": "Purchased from Cephalon Suda (Rank 5+) for 25,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Enduring Bastille",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Cephalon Suda"
+      ]
+    },
+    "Protector Posture": {
+      "existingText": "The Business (Fortuna) for 3x Spotted Bolarola, 3x Black-Banded Bolarola, 3x Thorny Bolarola tags",
+      "newText": "Purchased from The Business for 3x Thorny Bolarola Tag, 3x Black-Banded Bolarola Tag, 3x Spotted Bolarola Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Protector Posture",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Stabilizer": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 220,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Stabilizer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Dual Rounds": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 250,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Dual Rounds",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Quickdraw": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 375 Ducats and 120,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Quickdraw",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Rubedo-Lined Barrel": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 175,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Rubedo-Lined Barrel",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Split Flights": {
+      "existingText": "Baro Ki'Teer (Void Trader), 300 Orokin Ducats + 200,000 Credits",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Split Flights",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Persistent Posture": {
+      "existingText": "The Business (Fortuna) for 3x Dappled Horrasque, 3x Swimmer Horrasque, 3x Horrasque Stormer tags",
+      "newText": "Purchased from The Business for 3x Dappled Horrasque Tag, 3x Horrasque Stormer Tag, 3x Swimmer Horrasque Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Persistent Posture",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Shocking Claws": {
+      "existingText": "The Business (Fortuna) for 5x Delicate Pobber + 3x Horrasque Stormer tags",
+      "newText": "Purchased from The Business for 5x Delicate Pobber Tag, 3x Horrasque Stormer Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Shocking Claws",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Shotgun Ammo Mutation": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Shotgun Ammo Mutation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Sepsis Claws": {
+      "existingText": "Son (Necralisk, Deimos) for 3x Pharaoh Predasite + 3x Caustic Cryptilex tags",
+      "newText": "Purchased from Son for 3x Caustic Cryptilex Tag, 3x Pharaoh Predasite Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Sepsis Claws",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "Primed Animal Instinct": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Animal Instinct",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Heavy Trauma": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 100,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Heavy Trauma",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Smite Orokin": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Smite Orokin",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Magazine Warp": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 280 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Magazine Warp",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Rhythm Guard": {
+      "existingText": "Syndicate offering: New Loka rank 5 or Steel Meridian rank 5, 25,000 standing",
+      "newText": "Purchased from Steel Meridian (Rank 5+) for 25,000 Standing; or New Loka (Rank 5+) for 25,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Rhythm Guard",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Steel Meridian",
+        "New Loka"
+      ]
+    },
+    "Resourceful Retriever": {
+      "existingText": "Son (Necralisk, Deimos) for 7 assorted beast tags (Sly Vulpaphyla, Purple Velocipod, Burrowing Cryptilex, Common Avichaea, Amethyst Nexifera, Vizier Predasite, Umber Undazoa)",
+      "newText": "Purchased from Son for 1x Purple Velocipod Tag, 1x Burrowing Cryptilex Tag, 1x Sly Vulpaphyla Tag, 1x Amethyst Nexifera Tag, 1x Vizier Predasite Tag, 1x Umber Undazoa Tag, 1x Common Avichaea Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Resourceful Retriever",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "Chilling Claws": {
+      "existingText": "The Business, Fortuna, Venus",
+      "newText": "Purchased from The Business for 3x Red-Crested Virmink Tag, 3x Alpine Monitor Sawgaw Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Chilling Claws",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Immunity Resistance": {
+      "existingText": "Son, Necralisk, Deimos, for 3 Amethyst Nexifera + 1 Scarlet Nexifera Tags",
+      "newText": "Purchased from Son for 1x Amethyst Nexifera Tag, 1x Scarlet Nexifera Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Immunity Resistance",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Son"
+      ]
+    },
+    "Peculiar End": {
+      "existingText": "Baro Ki'Teer (Void Trader), 1,000,001 Credits + 228 Orokin Ducats",
+      "newText": "Sold by Baro Ki'Teer for 228 Ducats and 1,000,001 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Peculiar End",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Tactical Pump": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Tactical Pump",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Smite The Murmur": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 375 Ducats and 130,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Smite The Murmur",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Smite Infested": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Smite Infested",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Smite Corpus": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Smite Corpus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Regen": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 220,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Regen",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Redirection": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 225,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Redirection",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Ravage": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 280 Ducats and 100,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Ravage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Point Blank": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 110,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Point Blank",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Pistol Ammo Mutation": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Pistol Ammo Mutation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Pack Leader": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Pack Leader",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Morphic Transformer": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 150,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Morphic Transformer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Flow": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 110,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Flow",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Fever Strike": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Fever Strike",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Expel Grineer": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Expel Grineer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Expel Orokin": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Expel Orokin",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Counterbalance": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 220,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Counterbalance",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Cleanse Grineer": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Cleanse Grineer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Chilling Grasp": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 125,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Chilling Grasp",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Charged Shell": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Charged Shell",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Ammo Stock": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 280 Ducats and 200,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Ammo Stock",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Ammo Chain": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 390 Ducats and 210,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Ammo Chain",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Expel Corpus": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Expel Corpus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Sniper Ammo Mutation": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Sniper Ammo Mutation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Noctua Swarm": {
+      "existingText": "Arbiters of Hexis Rank 5 (Maxim) or Cephalon Suda Rank 5 (Genius), 25,000 Standing",
+      "newText": "Purchased from Cephalon Suda (Rank 5+) for 25,000 Standing; or Arbiters of Hexis (Rank 5+) for 25,000 Standing.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Noctua Swarm",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis",
+        "Cephalon Suda"
+      ]
+    },
+    "Burning Claws": {
+      "existingText": "The Business, Fortuna, Venus, for 3 Fuming Dax Stover Tags",
+      "newText": "Purchased from The Business for 5x Fuming Dax Stover Tag, 3x Fire-Veined Stover Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Burning Claws",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Venomous Clip": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 390 Ducats and 210,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Venomous Clip",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Primed Continuity": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 100,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Continuity",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Precision Conditioning": {
+      "existingText": "Master Teasonai (Cetus) for 3x Splendid Mergoo + 3x Bau Vasca Kavat tags",
+      "newText": "Purchased from Master Teasonai for 3x Splendid Mergoo Tag, 3x Bau Vasca Kavat Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Precision Conditioning",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Master Teasonai"
+      ]
+    },
+    "Primed Cleanse Infested": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 350 Ducats and 140,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Cleanse Infested",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Assassin Posture": {
+      "existingText": "The Business, Fortuna, at Rank 0 (Neutral) for 3 of each conservation tag type",
+      "newText": "Purchased from The Business for 3x Brindle Kubrodon Tag, 3x Vallis Kubrodon Tag, 3x Kubrodon Incarnadine Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Assassin Posture",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "The Business"
+      ]
+    },
+    "Primed Pistol Gambit": {
+      "existingText": "Baro Ki'Teer (Void Trader)",
+      "newText": "Sold by Baro Ki'Teer for 400 Ducats and 220,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Primed Pistol Gambit",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Combo Fury": {
+      "existingText": "Baro Ki'Teer (Void Trader), 115,000 Credits + 300 Ducats",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 115,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Combo Fury",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Elusive Posture": {
+      "existingText": "Master Teasonai, Cetus, for 3 Plains/Ashen/Ghost Kuaka Tags",
+      "newText": "Purchased from Master Teasonai for 3x Ashen Kuaka Tag, 3x Plains Kuaka Tag, 3x Ghost Kuaka Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Elusive Posture",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Master Teasonai"
+      ]
+    },
+    "Combo Killer": {
+      "existingText": "Baro Ki'Teer (Void Trader), 115,000 Credits + 300 Ducats",
+      "newText": "Sold by Baro Ki'Teer for 300 Ducats and 115,000 Credits.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Baro/data"
+      ],
+      "wikiName": "Combo Killer",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Baro Ki'Teer",
+        "Baro"
+      ]
+    },
+    "Balanced Posture": {
+      "existingText": "Reward for Howl of the Kubrow quest; extra copies from Master Teasonai, Cetus",
+      "newText": "Purchased from Master Teasonai for 3x Coastal Mergoo Tag, 3x Ashen Kuaka Tag.",
+      "source": "mods_main",
+      "sourceRefs": [
+        "Module:Vendors/data"
+      ],
+      "wikiName": "Balanced Posture",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Master Teasonai"
+      ]
+    },
+    "Galvanized Reflex": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Reflex"
+      ],
+      "wikiName": "Galvanized Reflex",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Panzer Devolution": {
+      "existingText": "Automatically acquired upon obtaining a Panzer Vulpaphyla companion",
+      "newText": "Panzer Devolution is automatically acquired upon obtaining a Panzer Vulpaphyla.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Panzer Devolution"
+      ],
+      "wikiName": "Panzer Devolution",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Anabolic Pollination": {
+      "existingText": "Auto-acquired with a Pharaoh Predasite",
+      "newText": "Anabolic Pollination is automatically acquired upon obtaining a Pharaoh Predasite.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Anabolic Pollination"
+      ],
+      "wikiName": "Anabolic Pollination",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Evasive Denial": {
+      "existingText": "Auto-acquired with a Hound built with the Zubb Bracket",
+      "newText": "Evasive Denial is automatically acquired upon obtaining a Hound built with the Zubb Bracket.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Evasive Denial"
+      ],
+      "wikiName": "Evasive Denial",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Dreadful Killshot": {
+      "existingText": "Nightwave Nora's Mix: Dreams of the Dead, Rank 10",
+      "newText": "- Dreadful Killshot was originally obtained by reaching Rank 10 with Nightwave during Nora's Mix: Dreams of the Dead.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Dreadful Killshot"
+      ],
+      "wikiName": "Dreadful Killshot",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Amanata Pressure": {
+      "existingText": "Koumei's Shrine, Cetus (Steel Path required) for 150 Fate Pearl",
+      "newText": "- Amanata Pressure can be obtained by purchasing it from Koumei's Shrine on Cetus, Earth for 150 Fate Pearl. The mod will only appear in the shop if the player has access to The Steel Path.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Amanata Pressure"
+      ],
+      "wikiName": "Amanata Pressure",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Koumei's Shrine",
+        "Koumei"
+      ]
+    },
+    "Amalgam Barrel Diffusion": {
+      "existingText": "Thermia Fractures event reward (50 points)",
+      "newText": "- This mod can be acquired by accumulating at least 50 points during the recurring Thermia Fractures event.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Amalgam Barrel Diffusion"
+      ],
+      "wikiName": "Amalgam Barrel Diffusion",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Clip Delegation": {
+      "existingText": "Originally Nightwave Nora's Mix Volume 6 Rank 15; now rotational Nightwave Cred Offerings",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Clip Delegation was originally acquired by reaching Rank 15 in Nightwave during Nora's Mix Volume 6.\n- Beginning with Nightwave Nora’s Mix: Dreams of the Dead, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Clip Delegation"
+      ],
+      "wikiName": "Clip Delegation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Diversified Denial": {
+      "existingText": "Auto-acquired with a Hound built with the Urga Bracket",
+      "newText": "Diversified Denial is automatically acquired upon obtaining a Hound built with the Urga Bracket.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Diversified Denial"
+      ],
+      "wikiName": "Diversified Denial",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Endurance Drift": {
+      "existingText": "Reward for completing the Endurance Test in the Orokin Moon (Halls of Ascension)",
+      "newText": "- Endurance Drift is rewarded upon completing the Endurance Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Endurance Drift"
+      ],
+      "wikiName": "Endurance Drift",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Galvanized Shot": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Shot"
+      ],
+      "wikiName": "Galvanized Shot",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Crescent Charge": {
+      "existingText": "Auto-acquired with a Crescent Vulpaphyla",
+      "newText": "Crescent Charge is automatically acquired upon obtaining a Crescent Vulpaphyla.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Crescent Charge"
+      ],
+      "wikiName": "Crescent Charge",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Calculated Shot": {
+      "existingText": "Auto-acquired with Diriga sentinel",
+      "newText": "Calculated Shot is automatically acquired upon obtaining Diriga.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Calculated Shot"
+      ],
+      "wikiName": "Calculated Shot",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Burning Hate": {
+      "existingText": "Nightwave Nora's Mix Volume 7, Rank 15",
+      "newText": "Burning Hate could be obtained by reaching Rank 15 with Nightwave during Nora's Mix Volume 7.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Burning Hate"
+      ],
+      "wikiName": "Burning Hate",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Endoparasitic Vector": {
+      "existingText": "Auto-acquired with a Pharaoh Predasite",
+      "newText": "Endoparasitic Vector is automatically acquired upon obtaining a Pharaoh Predasite.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Endoparasitic Vector"
+      ],
+      "wikiName": "Endoparasitic Vector",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Cautious Shot": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Cautious Shot"
+      ],
+      "wikiName": "Cautious Shot",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Metamorphic Magazine": {
+      "existingText": "Nightwave Nora's Mix Volume 3, Rank 23 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Metamorphic Magazine was originally acquired by reaching Rank 23 in Nightwave during Nora's Mix Volume 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 8, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Metamorphic Magazine"
+      ],
+      "wikiName": "Metamorphic Magazine",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Wild Frenzy": {
+      "existingText": "Nightwave Cred Offerings (20 Cred); originally Nightwave Series 1 rank 14 / Intermission II rank 20 reward",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Wild Frenzy was originally acquired by reaching Rank 14 in Nightwave during Series 1: The Wolf of Saturn Six or reaching Rank 20 during Intermission II.\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Wild Frenzy"
+      ],
+      "wikiName": "Wild Frenzy",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Synergized Prospectus": {
+      "existingText": "Automatically acquired upon obtaining a Hound built with the Hinta Stabilizer",
+      "newText": "Synergized Prospectus is automatically acquired upon obtaining a Hound built with the Hinta Stabilizer.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Synergized Prospectus"
+      ],
+      "wikiName": "Synergized Prospectus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Dreamer's Bond": {
+      "existingText": "Reward for completing the Earth to Venus Junction (also rotational Nightwave Cred offering)",
+      "newText": "- Awarded from completing the Earth to Venus Junction.\n- Players who have already completed the Junction prior to 35.1 will receive the mod in their inbox messages.\n- Available for 20 creds from the Nightwave Cred Offerings store.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Dreamer's Bond"
+      ],
+      "wikiName": "Dreamer's Bond",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Auto Omni": {
+      "existingText": "Auto-acquired with Nautilus/Nautilus Prime sentinel",
+      "newText": "Auto Omni is automatically acquired upon obtaining Nautilus or Nautilus Prime.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Auto Omni"
+      ],
+      "wikiName": "Auto Omni",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Tractor Beam": {
+      "existingText": "Automatically acquired upon obtaining a MOA built with the Oloro Model",
+      "newText": "Tractor Beam is automatically acquired upon obtaining a MOA built with the Oloro Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Tractor Beam"
+      ],
+      "wikiName": "Tractor Beam",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Truth's Flame": {
+      "existingText": "Purchased from Aspirant Zorba at any relay for 360 Atramentum",
+      "newText": "Purchased from Aspirant Zorba at any relay for 360 Atramentum.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Truth's Flame"
+      ],
+      "wikiName": "Truth's Flame",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Survival Instinct": {
+      "existingText": "Automatically acquired upon obtaining a Sly Vulpaphyla and undergoing revivification",
+      "newText": "Survival Instinct is automatically acquired upon obtaining a Sly Vulpaphyla and undergoing revivification.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Survival Instinct"
+      ],
+      "wikiName": "Survival Instinct",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Counterbalance": {
+      "existingText": "Teshin's Steel Path Honors for 35 Steel Essence",
+      "newText": "- Can be purchased from Teshin's Steel Path Honors for 35 Steel Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Counterbalance"
+      ],
+      "wikiName": "Counterbalance",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Equilibrium Audit": {
+      "existingText": "Auto-acquired with a Hound built with the Hec Model",
+      "newText": "Equilibrium Audit is automatically acquired upon obtaining a Hound built with the Hec Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Equilibrium Audit"
+      ],
+      "wikiName": "Equilibrium Audit",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Sly Devolution": {
+      "existingText": "Automatically acquired upon obtaining a Sly Vulpaphyla companion",
+      "newText": "Sly Devolution is automatically acquired upon obtaining a Sly Vulpaphyla.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Sly Devolution"
+      ],
+      "wikiName": "Sly Devolution",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Crescent Devolution": {
+      "existingText": "Auto-acquired with a Crescent Vulpaphyla",
+      "newText": "Crescent Devolution is automatically acquired upon obtaining a Crescent Vulpaphyla.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Crescent Devolution"
+      ],
+      "wikiName": "Crescent Devolution",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Necrophagic Vigor": {
+      "existingText": "Nightwave Nora's Mix: Dreams of the Dead, Rank 25",
+      "newText": "- Necrophagic Vigor was originally obtained by reaching Rank 25 with Nightwave during Nora's Mix: Dreams of the Dead.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Necrophagic Vigor"
+      ],
+      "wikiName": "Necrophagic Vigor",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Vile Discharge": {
+      "existingText": "Originally Nightwave Nora's Mix Vol. 2 rank 23 reward; also purchasable from Daughter during Nights of Naberus event (50 Mother Tokens)",
+      "newText": "- Vile Discharge was originally acquired by reaching Rank 23 with Nightwave during Nora's Mix Volume 2.\n- Beginning with Amir's Shockwave, it was added to Nightwave Cred Offerings for 20.\n\n- Could be purchased from Daughter during the October 2024 Nights of Naberus event for 50 Mother Token.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Vile Discharge"
+      ],
+      "wikiName": "Vile Discharge",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nights of Naberus",
+        "Nightwave",
+        "Daughter"
+      ]
+    },
+    "Cordon": {
+      "existingText": "Auto-acquired with Nautilus/Nautilus Prime sentinel",
+      "newText": "Cordon is automatically acquired upon obtaining Nautilus or Nautilus Prime.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Cordon"
+      ],
+      "wikiName": "Cordon",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Mending Shot": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 30 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 30 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Mending Shot"
+      ],
+      "wikiName": "Mending Shot",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Trample": {
+      "existingText": "Automatically acquired upon obtaining a Helminth Charger companion",
+      "newText": "Trample is automatically acquired upon obtaining a Helminth Charger.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Trample"
+      ],
+      "wikiName": "Trample",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Blast Shield": {
+      "existingText": "Auto-acquired with a MOA built with the Nychus Model",
+      "newText": "Blast Shield is automatically acquired upon obtaining a MOA built with the Nychus Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Blast Shield"
+      ],
+      "wikiName": "Blast Shield",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Molecular Conversion": {
+      "existingText": "Auto-acquired with Taxon sentinel",
+      "newText": "Molecular Conversion is automatically acquired upon obtaining Taxon.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Molecular Conversion"
+      ],
+      "wikiName": "Molecular Conversion",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Iatric Mycelium": {
+      "existingText": "Auto-acquired with a Vizier Predasite",
+      "newText": "Iatric Mycelium is automatically acquired upon obtaining a Vizier Predasite.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Iatric Mycelium"
+      ],
+      "wikiName": "Iatric Mycelium",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Galvanized Steel": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Steel"
+      ],
+      "wikiName": "Galvanized Steel",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Sentient Surge": {
+      "existingText": "Nightwave Nora's Mix Vol. 4 rank 9 reward, or purchased from Daughter during Nights of Naberus event (50 Mother Tokens)",
+      "newText": "- Sentient Surge can be obtained by reaching Rank 9 with Nightwave during Nora's Mix Volume 4.\n- Can be purchased from Daughter during the October 2025 Nights of Naberus event for 50 Mother Token.\n- Can be purchased from the standard rotation of Nightwave Cred Offerings for 20 Nightwave Creds.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Sentient Surge"
+      ],
+      "wikiName": "Sentient Surge",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nights of Naberus",
+        "Nightwave",
+        "Daughter"
+      ]
+    },
+    "Aerial Prospectus": {
+      "existingText": "Auto-acquired with a Hound built with the Wanz Stabilizer",
+      "newText": "Aerial Prospectus is automatically acquired upon obtaining a Hound built with the Wanz Stabilizer.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Aerial Prospectus"
+      ],
+      "wikiName": "Aerial Prospectus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Mountain's Edge": {
+      "existingText": "Reward for completing The Duviri Paradox quest (Sun and Moon stance)",
+      "newText": "- This mod is awarded upon completing The Duviri Paradox quest.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Mountain's Edge"
+      ],
+      "wikiName": "Mountain's Edge",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Electro Pulse": {
+      "existingText": "Auto-acquired with Diriga sentinel",
+      "newText": "Electro Pulse is automatically acquired upon obtaining Diriga.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Electro Pulse"
+      ],
+      "wikiName": "Electro Pulse",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Meticulous Aim": {
+      "existingText": "Nightwave Series 2/Intermission III, Rank 23/14",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Meticulous Aim was originally acquired by reaching Rank 23 in Nightwave during Series 2: The Emissary, and again by reaching Rank 14 during Intermission III.\n- Beginning with Nightwave: Amir's Shockwave, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Meticulous Aim"
+      ],
+      "wikiName": "Meticulous Aim",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Preparation": {
+      "existingText": "Arbiters of Hexis Arbitration vendor in Relays, 30 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 30 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Preparation"
+      ],
+      "wikiName": "Preparation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Null Audit": {
+      "existingText": "Auto-acquired with a Hound built with the Bhaira Model",
+      "newText": "Null Audit is automatically acquired upon obtaining a Hound built with the Bhaira Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Null Audit"
+      ],
+      "wikiName": "Null Audit",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Galvanized Aptitude": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Aptitude"
+      ],
+      "wikiName": "Galvanized Aptitude",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Whiplash Mine": {
+      "existingText": "Automatically acquired upon obtaining a MOA built with the Para Model",
+      "newText": "Whiplash Mine is automatically acquired upon obtaining a MOA built with the Para Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Whiplash Mine"
+      ],
+      "wikiName": "Whiplash Mine",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Volatile Variant": {
+      "existingText": "Nightwave Cred Offerings (20 Cred); originally Nora's Mix Vol. 5 rank 25 reward",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Volatile Variant was originally acquired by reaching Rank 25 in Nightwave during Nora's Mix Volume 5.\n- Beginning with Nightwave Nora’s Mix: Vol. 9, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Volatile Variant"
+      ],
+      "wikiName": "Volatile Variant",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Viral Quills": {
+      "existingText": "Automatically acquired upon obtaining a Panzer Vulpaphyla companion",
+      "newText": "Viral Quills is automatically acquired upon obtaining a Panzer Vulpaphyla.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Viral Quills"
+      ],
+      "wikiName": "Viral Quills",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Vigorous Swap": {
+      "existingText": "Arbiters of Hexis Arbitration vendor in Relays, 20 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Vigorous Swap"
+      ],
+      "wikiName": "Vigorous Swap",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Dead Eye": {
+      "existingText": "Rotational Nightwave Cred Offerings",
+      "newText": "- Available for 20 creds from the Nightwave Cred Offerings store.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Dead Eye"
+      ],
+      "wikiName": "Dead Eye",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Critical Mutation": {
+      "existingText": "Nightwave Nora's Mix Volume 5, Rank 13 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Critical Mutation was originally acquired by reaching Rank 13 in Nightwave during Nora's Mix Volume 5.\n- Beginning with Nightwave Nora’s Mix: Vol. 9, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Critical Mutation"
+      ],
+      "wikiName": "Critical Mutation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Galvanized Acceleration": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Acceleration"
+      ],
+      "wikiName": "Galvanized Acceleration",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Sentient Barrage": {
+      "existingText": "Nightwave Cred Offerings (20 Cred); originally Nora's Mix Vol. 4 rank 23 reward",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Sentient Barrage was originally acquired by reaching Rank 23 in Nightwave during Nora's Mix Volume 4.\n- Beginning with Nightwave Nora’s Mix: Vol. 8, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Sentient Barrage"
+      ],
+      "wikiName": "Sentient Barrage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Velox Conclusion": {
+      "existingText": "Nightwave rank 25 reward during Nora's Mix: Time Tempests",
+      "newText": "Velox Conclusion was originally obtained by reaching Rank 25 with Nightwave during Nora's Mix: Time Tempests.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Velox Conclusion"
+      ],
+      "wikiName": "Velox Conclusion",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Unseen Dread": {
+      "existingText": "Originally Nightwave Nora's Mix Vol. 7 rank 25 reward; now trade-only",
+      "newText": "Unseen Dread could be obtained by reaching Rank 25 with Nightwave during Nora's Mix Volume 7.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Unseen Dread"
+      ],
+      "wikiName": "Unseen Dread",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Bursting Mass": {
+      "existingText": "Nightwave (Series 1/Intermission III originally); rotational Nightwave Cred Offerings since Volume 6",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Bursting mass was originally acquired by reaching Rank 18 in Nightwave during Series 1: The Wolf of Saturn Six or reaching Rank 20 during Intermission III.\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Bursting Mass"
+      ],
+      "wikiName": "Bursting Mass",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Focused Prospectus": {
+      "existingText": "Auto-acquired with a Hound built with the Frak Stabilizer",
+      "newText": "Focused Prospectus is automatically acquired upon obtaining a Hound built with the Frak Stabilizer.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Focused Prospectus"
+      ],
+      "wikiName": "Focused Prospectus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Resilient Focus": {
+      "existingText": "UNOBTAINABLE - briefly released via a 2013 transmutation bug (Update 10.6), fixed in Hotfix 11.0.6; not legitimately obtainable now",
+      "newText": "- For a short time after 10.6 [https://forums.warframe.com/index.php?/topic/126550-psa-unintended-modaura-inclusion/ this mod could have been acquired] via Transmutation. This was due to a bug where all mods, including unreleased ones such as this one, became obtainable through transmutation. This has since been fixed, but players who obtained the mod this way were allowed to keep them. There is currently no way to obtain this mod.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Resilient Focus"
+      ],
+      "wikiName": "Resilient Focus",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Transfusion": {
+      "existingText": "Automatically acquired upon obtaining a Vasca Kavat companion",
+      "newText": "Transfusion is automatically acquired upon obtaining a Vasca Kavat.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Transfusion"
+      ],
+      "wikiName": "Transfusion",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Amalgam Organ Shatter": {
+      "existingText": "Thermia Fractures event reward (50 points)",
+      "newText": "- This mod can be acquired by accumulating at least 50 points during the recurring Thermia Fractures event.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Amalgam Organ Shatter"
+      ],
+      "wikiName": "Amalgam Organ Shatter",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Targeting Receptor": {
+      "existingText": "Automatically acquired upon obtaining Helios or Helios Prime",
+      "newText": "Targeting Receptor is automatically acquired upon obtaining Helios or Helios Prime.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Targeting Receptor"
+      ],
+      "wikiName": "Targeting Receptor",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Neutralize": {
+      "existingText": "Auto-acquired with a Chesa Kubrow",
+      "newText": "Neutralize is automatically acquired upon obtaining a Chesa Kubrow.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Neutralize (Mod)"
+      ],
+      "wikiName": "Neutralize",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Deadly Maneuvers": {
+      "existingText": "Nightwave Series 3, Rank 7 (rotational Nightwave Cred offering since Volume 6)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Deadly Maneuvers was originally acquired by reaching Rank 7 in Nightwave during Series 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 6, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Deadly Maneuvers"
+      ],
+      "wikiName": "Deadly Maneuvers",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Amalgam Shotgun Barrage": {
+      "existingText": "Thermia Fractures event reward (25 points)",
+      "newText": "- This mod can be acquired by accumulating at least 25 points during the recurring Thermia Fractures event.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Amalgam Shotgun Barrage"
+      ],
+      "wikiName": "Amalgam Shotgun Barrage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Amalgam Serration": {
+      "existingText": "Thermia Fractures event reward (25 points)",
+      "newText": "- This mod can be acquired by accumulating at least 25 points during the recurring Thermia Fractures event.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Amalgam Serration"
+      ],
+      "wikiName": "Amalgam Serration",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Stasis Field": {
+      "existingText": "Automatically acquired upon obtaining a MOA built with the Lambeo Model",
+      "newText": "Stasis Field is automatically acquired upon obtaining a MOA built with the Lambeo Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Stasis Field"
+      ],
+      "wikiName": "Stasis Field",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Higasa Serration": {
+      "existingText": "Koumei's Shrine, Cetus (Steel Path required) for 150 Fate Pearl",
+      "newText": "Higasa Serration can be purchased from Koumei's Shrine on Cetus, Earth for 150 Fate Pearl. The mod will only appear in the shop if the player has access to The Steel Path.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Higasa Serration"
+      ],
+      "wikiName": "Higasa Serration",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Koumei's Shrine",
+        "Koumei"
+      ]
+    },
+    "Range Advantage": {
+      "existingText": "Nightwave Cred Offerings (20 Cred); originally Nora's Mix Vol. 1 rank 20 reward",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Range Advantage was originally acquired by reaching Rank 20 in Nightwave during Nora's Mix Volume 1.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Range Advantage"
+      ],
+      "wikiName": "Range Advantage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Agility Drift": {
+      "existingText": "Reward for completing the Agility Test in the Orokin Moon (Halls of Ascension)",
+      "newText": "- Agility Drift is rewarded upon completing the Agility Test in the Orokin Moon. It is the only way to obtain this mod outside of Trading.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Agility Drift"
+      ],
+      "wikiName": "Agility Drift",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Spontaneous Singularity": {
+      "existingText": "Nightwave Nora's Mix Vol. 9 rank 25 reward",
+      "newText": "Spontaneous Singularity can be obtained by reaching Rank 25 with Nightwave during Nora's Mix Volume 9.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Spontaneous Singularity"
+      ],
+      "wikiName": "Spontaneous Singularity",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Shield Disruption": {
+      "existingText": "Nightwave Cred Offerings, 20 Cred",
+      "newText": "- Available for 20 creds from the Nightwave Cred Offerings store.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Shield Disruption"
+      ],
+      "wikiName": "Shield Disruption",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Pain Points": {
+      "existingText": "Nightwave Nora's Mix Vol. 9 rank 13 reward (originally); also tradeable",
+      "newText": "- Pain Points can be obtained by reaching Rank 13 with Nightwave during Nora's Mix Volume 9.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Pain Points"
+      ],
+      "wikiName": "Pain Points",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Energizing Shot": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 30 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 30 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Energizing Shot"
+      ],
+      "wikiName": "Energizing Shot",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Security Override": {
+      "existingText": "Automatically acquired upon obtaining a MOA built with the Oloro Model",
+      "newText": "Security Override is automatically acquired upon obtaining a MOA built with the Oloro Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Security Override"
+      ],
+      "wikiName": "Security Override",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Prototype Shock Coils": {
+      "existingText": "Nightwave rank 10 reward during Amir's Shockwave.",
+      "newText": "- Prototype Shock Coils can be obtained by reaching Rank 10 with Nightwave during Amir's Shockwave.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Prototype Shock Coils"
+      ],
+      "wikiName": "Prototype Shock Coils",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave",
+        "Amir"
+      ]
+    },
+    "Rolling Guard": {
+      "existingText": "Arbiters of Hexis Arbitration vendor in Relays, 20 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Rolling Guard"
+      ],
+      "wikiName": "Rolling Guard",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Retrieve": {
+      "existingText": "Automatically acquired upon obtaining a Chesa Kubrow companion",
+      "newText": "Retrieve is automatically acquired upon obtaining a Chesa Kubrow.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Retrieve"
+      ],
+      "wikiName": "Retrieve",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Exposing Harpoon": {
+      "existingText": "Nightwave Series 2/Nora's Choice, Rank 20 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Exposing Harpoon was originally acquired by reaching Rank 20 in Nightwave during Series 2: The Emissary or Rank 20 during Nora's Choice.\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Exposing Harpoon"
+      ],
+      "wikiName": "Exposing Harpoon",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Repo Audit": {
+      "existingText": "Automatically acquired upon obtaining a Hound built with the Dorma Model",
+      "newText": "Repo Audit is automatically acquired upon obtaining a Hound built with the Dorma Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Repo Audit"
+      ],
+      "wikiName": "Repo Audit",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Scan Matter": {
+      "existingText": "Automatically acquired upon obtaining the Oxylus sentinel",
+      "newText": "Scan Matter is automatically acquired upon obtaining Oxylus.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Scan Matter"
+      ],
+      "wikiName": "Scan Matter",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Leaded Gas": {
+      "existingText": "Nightwave Nora's Mix Volume 8, Rank 13",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Leaded Gas was originally acquired by reaching Rank 13 with Nightwave during Nora's Mix Volume 8.\n- Beginning with Amir's Shockwave, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Leaded Gas"
+      ],
+      "wikiName": "Leaded Gas",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Arc Coil": {
+      "existingText": "Auto-acquired with Diriga sentinel",
+      "newText": "Arc Coil is automatically acquired upon obtaining Diriga.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Arc Coil"
+      ],
+      "wikiName": "Arc Coil",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Sharpshooter": {
+      "existingText": "Arbiters of Hexis Arbitration vendor in Relays, 20 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Sharpshooter"
+      ],
+      "wikiName": "Sharpshooter",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Hard Engage": {
+      "existingText": "Auto-acquired with a MOA built with the Nychus Model",
+      "newText": "Hard Engage is automatically acquired upon obtaining a MOA built with the Nychus Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Hard Engage"
+      ],
+      "wikiName": "Hard Engage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Sentient Incision": {
+      "existingText": "Nightwave rank 10 reward during Nora's Mix: Time Tempests",
+      "newText": "Sentient Incision was originally obtained by reaching Rank 10 with Nightwave during Nora's Mix: Time Tempests.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Sentient Incision"
+      ],
+      "wikiName": "Sentient Incision",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Acidic Spittle": {
+      "existingText": "Auto-acquired with a Vizier Predasite (Predasite precept mod)",
+      "newText": "Acidic Spittle is automatically acquired upon obtaining a Vizier Predasite.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Acidic Spittle"
+      ],
+      "wikiName": "Acidic Spittle",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Precision Strike": {
+      "existingText": "Nightwave Cred Offerings (20 Cred); originally Nightwave Series 3 rank 23 reward",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Precision Strike was originally acquired by reaching Rank 23 in Nightwave during Series 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Precision Strike"
+      ],
+      "wikiName": "Precision Strike",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Power Donation": {
+      "existingText": "Arbiters of Hexis Arbitration vendor in Relays, 20 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Power Donation"
+      ],
+      "wikiName": "Power Donation",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Galvanized Scope": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Scope"
+      ],
+      "wikiName": "Galvanized Scope",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Dizzying Rounds": {
+      "existingText": "Nightwave Series 3, Rank 20 (rotational Nightwave Cred offering since Volume 6)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Dizzying Rounds was originally acquired by reaching Rank 20 in Nightwave during Series 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 6, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Dizzying Rounds"
+      ],
+      "wikiName": "Dizzying Rounds",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Coaction Drift": {
+      "existingText": "Reward for completing the Collaboration Test in the Orokin Moon (Halls of Ascension)",
+      "newText": "- Coaction Drift is awarded upon completing the Collaboration Test in the Orokin Moon.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Coaction Drift"
+      ],
+      "wikiName": "Coaction Drift",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Paralytic Spores": {
+      "existingText": "Automatically acquired upon obtaining a Medjay Predasite companion",
+      "newText": "Paralytic Spores is automatically acquired upon obtaining a Medjay Predasite.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Paralytic Spores"
+      ],
+      "wikiName": "Paralytic Spores",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Galvanized Chamber": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Chamber"
+      ],
+      "wikiName": "Galvanized Chamber",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Vacuum": {
+      "existingText": "Automatically granted (1 copy) whenever a Sentinel is claimed from the Foundry (originally a Carrier-exclusive precept, changed to universal equippable mod in 2016)",
+      "newText": "Vacuum does not drop from any enemy, and is not obtainable from any mission. Instead, you will be given one copy every time you claim a Sentinel from your Foundry.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Vacuum"
+      ],
+      "wikiName": "Vacuum",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Napalm Grenades": {
+      "existingText": "Nightwave Series 1/Intermission II originally; rotational Nightwave Cred Offerings since Volume 6",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Napalm Grenades was originally acquired by reaching Rank 22 in Nightwave during Series 1: The Wolf of Saturn Six or reaching Rank 13 during Intermission II.\n- Beginning with Nightwave Nora’s Mix: Vol. 6, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Napalm Grenades"
+      ],
+      "wikiName": "Napalm Grenades",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Photon Overcharge": {
+      "existingText": "Nightwave Cred Offerings (20 Cred); originally Nora's Mix Vol. 6 rank 25 reward",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Photon Overcharge was originally acquired by reaching Rank 25 in Nightwave during Nora's Mix Volume 6.\n- Beginning with Nightwave Nora's Mix: Dreams of the Dead, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Photon Overcharge"
+      ],
+      "wikiName": "Photon Overcharge",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Proboscis": {
+      "existingText": "Automatically acquired upon obtaining a Helminth Charger companion",
+      "newText": "Proboscis is automatically acquired upon obtaining a Helminth Charger.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Proboscis"
+      ],
+      "wikiName": "Proboscis",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Combat Reload": {
+      "existingText": "Originally Nightwave Nora's Mix Volume 1 Rank 23; now rotational Nightwave Cred Offerings",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Combat Reload was originally acquired by reaching Rank 23 in Nightwave during Nora's Mix Volume 1.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Combat Reload"
+      ],
+      "wikiName": "Combat Reload",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Critical Precision": {
+      "existingText": "Nightwave Nora's Mix Volume 2, Rank 13 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Critical Precision was originally acquired by reaching Rank 13 in Nightwave during Nora's Mix Volume 2.\n- Beginning with Nightwave Nora’s Mix: Vol. 7, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Critical Precision"
+      ],
+      "wikiName": "Critical Precision",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Galvanized Diffusion": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Diffusion"
+      ],
+      "wikiName": "Galvanized Diffusion",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Investigator": {
+      "existingText": "Auto-acquired with Helios/Helios Prime sentinel",
+      "newText": "Investigator is automatically acquired upon obtaining Helios or Helios Prime.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Investigator"
+      ],
+      "wikiName": "Investigator",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Infectious Bite": {
+      "existingText": "Auto-acquired with a Medjay Predasite",
+      "newText": "Infectious Bite is automatically acquired upon obtaining a Medjay Predasite.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Infectious Bite"
+      ],
+      "wikiName": "Infectious Bite",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Draining Bite": {
+      "existingText": "Auto-acquired with a Vasca Kavat",
+      "newText": "Draining Bite is automatically acquired upon obtaining a Vasca Kavat.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Draining Bite"
+      ],
+      "wikiName": "Draining Bite",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Cunning Drift": {
+      "existingText": "Reward for completing the Cunning Test in the Orokin Moon (Halls of Ascension)",
+      "newText": "- Cunning Drift is rewarded upon completing the Cunning Test in the Orokin Moon.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Cunning Drift"
+      ],
+      "wikiName": "Cunning Drift",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Galvanized Savvy": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Savvy"
+      ],
+      "wikiName": "Galvanized Savvy",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Galvanized Elementalist": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Elementalist"
+      ],
+      "wikiName": "Galvanized Elementalist",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Galvanized Crosshairs": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Crosshairs"
+      ],
+      "wikiName": "Galvanized Crosshairs",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Eximus Advantage": {
+      "existingText": "Nightwave Nora's Mix Volume 3, Rank 13 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Eximus Advantage was originally acquired by reaching Rank 13 in Nightwave during Nora's Mix Volume 3.\n- Beginning with Nightwave Nora’s Mix: Vol. 8, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Eximus Advantage"
+      ],
+      "wikiName": "Eximus Advantage",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Anti-Grav Grenade": {
+      "existingText": "Auto-acquired with a MOA built with the Para Model",
+      "newText": "Anti-Grav Grenade is automatically acquired upon obtaining a MOA built with the Para Model.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Anti-Grav Grenade"
+      ],
+      "wikiName": "Anti-Grav Grenade",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Efficient Beams": {
+      "existingText": "Nightwave Series 2, Rank 7 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Efficient Beams was originally acquired by reaching Rank 7 in Nightwave during Series 2: The Emissary\n- Beginning with Nightwave Nora’s Mix: Vol. 5, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Efficient Beams"
+      ],
+      "wikiName": "Efficient Beams",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    },
+    "Aerial Ace": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 30 Vitus Essence",
+      "newText": "Obtainable from the Arbitrations vendor in the Arbiters of Hexis room in Relays for Vitus Essence 30 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Aerial Ace"
+      ],
+      "wikiName": "Aerial Ace",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Galvanized Hell": {
+      "existingText": "Arbitrations vendor (Arbiters of Hexis, Relays) for 20 Vitus Essence",
+      "newText": "This mod can be bought from the Arbitrations vendor in the Arbiters of Hexis room in Relays for 20 Vitus Essence.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Galvanized Hell"
+      ],
+      "wikiName": "Galvanized Hell",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Arbiters of Hexis"
+      ]
+    },
+    "Reflex Denial": {
+      "existingText": "Automatically acquired upon obtaining a Hound built with the Cela Bracket",
+      "newText": "Reflex Denial is automatically acquired upon obtaining a Hound built with the Cela Bracket.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Reflex Denial"
+      ],
+      "wikiName": "Reflex Denial",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": []
+    },
+    "Biotic Rounds": {
+      "existingText": "Nightwave Nora's Mix Volume 8, Rank 25 (rotational Nightwave Cred offering)",
+      "newText": "- Available for 20 from the Nightwave Cred Offerings store on a rotational basis.\n- Biotic Rounds was originally acquired by reaching Rank 25 with Nightwave during Nora's Mix Volume 8\n- Beginning with Amir's Shockwave, it was added to the Nightwave Cred Offerings.",
+      "source": "mods_fallback",
+      "sourceRefs": [
+        "article page: Biotic Rounds"
+      ],
+      "wikiName": "Biotic Rounds",
+      "classification": "safe_upgrade",
+      "knownEntitiesInExisting": [
+        "Nightwave"
+      ]
+    }
+  }
+}

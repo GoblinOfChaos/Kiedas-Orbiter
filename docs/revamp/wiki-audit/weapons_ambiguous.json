@@ -1,0 +1,13 @@
+{
+  "Braton Vandal": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Rifle/VIPRifle",
+    "wikiName": "Braton Vandal",
+    "description": null,
+    "acquisition": "Blueprint: or as a drop from: Elite Sanctuary Onslaught (2.51%); Elite Sanctuary Onslaught (3.16%); Elite Sanctuary Onslaught (3.16%). (No confirmed drop source found for: Barrel, Receiver, Stock - needs manual check.)",
+    "sourceRefs": [
+      "Module:Blueprints/data (Blueprints table)"
+    ],
+    "verifiedDate": "2026-09-09",
+    "reason": "parts with no confirmed drop source: ['Barrel', 'Receiver', 'Stock']"
+  }
+}

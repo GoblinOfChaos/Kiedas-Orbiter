@@ -1,0 +1,13 @@
+{
+  "source": "/var/home/jedwards/.local/share/kiedas-orbiter/data/user/inventory.json",
+  "source_sha256": "2ec6c8de48b6b0b88e839889642e0df81a591ef0d5ebe9bd979032cf99acc2b0",
+  "available": true,
+  "custom_markers_available": false,
+  "group_count": 0,
+  "marker_count": 0,
+  "group_keys": [],
+  "marker_info_keys": [],
+  "marker_keys": [],
+  "sensitive_values_recorded": false,
+  "note": "Only schema keys and counts are recorded; labels, coordinates, tags, paths and inventory contents are omitted."
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-validation/stage4a-app-boundary-runner.py"
+  ],
+  "container_name": "stage4a-app-boundary-cb350107f8",
+  "cpus": 4,
+  "duration_seconds": 9.408,
+  "exit_code": 1,
+  "image": "localhost/kiedas-preview-ubuntu24-test",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-4/evidence/stage4a-app-boundary-container.log",
+  "memory": "4g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

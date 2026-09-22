@@ -1,0 +1,28 @@
+{
+  "release_binary": {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+    "bytes": 71746872,
+    "sha256": "80d30cf8b4abce11c05074636b7b9395b6d3b8bc412dee374c248115f756f344"
+  },
+  "bundle_input_copy": {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+    "bytes": 71746872,
+    "sha256": "80d30cf8b4abce11c05074636b7b9395b6d3b8bc412dee374c248115f756f344"
+  },
+  "debian_package": {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "bytes": 116361416,
+    "sha256": "00edfa36c7fced5f9e187d372ecc3950cc68a999c531d119fc4f214378824d6b"
+  },
+  "appimage": {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "bytes": 190097912,
+    "sha256": "15cfc5e9584a69bab43048fb361026524d849fb49116a4dd957448491e3e7a52"
+  },
+  "accepted_lockfile": {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/src-tauri/Cargo.lock",
+    "bytes": 217673,
+    "sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+    "matches_accepted": true
+  }
+}

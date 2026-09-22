@@ -11,6 +11,17 @@ node_modules
 dist
 dist-ssr
 *.local
+.pnpm-store/
+
+# Preview app source is its own separate git repo (origin points back here);
+# other .preview-work/* entries are disposable build/smoke-test scratch.
+.preview-work/
+
+# Raw/mirrored wiki scrape data feeding scripts/resolve_*.py - regenerable, not source.
+wf-wiki-module-data-mirror/
+wiki_article_wikitext/
+wiki_module_archive/
+wiki_module_json/
 
 # Editor directories and files
 .vscode/*

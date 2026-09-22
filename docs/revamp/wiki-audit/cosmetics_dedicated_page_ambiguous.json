@@ -1,0 +1,22 @@
+{
+  "Banshee Threnodia Skin": {
+    "wikiName": "Banshee Threnodia Skin",
+    "reason": "acquisition text found but Cosmetics/data has no InternalName to key it by",
+    "text": "<!--The Banshee Threnodia Skin is available in the Market for TBA, or as part of the Banshee Threnodia Collection for TBA, which also includes the Rathan Sword & Shield Skin, Liania Signa. -->"
+  },
+  "Neviti Ephemera": {
+    "wikiName": "Neviti Ephemera",
+    "reason": "acquisition text found but Cosmetics/data has no InternalName to key it by",
+    "text": "Purchased from the Market for 90 or as part of the Baruuk Shaoshi Collection."
+  },
+  "Okuri Tails Prime Ephemera": {
+    "wikiName": "Okuri Tails Prime Ephemera",
+    "reason": "acquisition text found but Cosmetics/data has no InternalName to key it by",
+    "text": "Obtained via [https://www.warframe.com/en/news/voruna-prime-access Voruna Prime Access Accessories Pack], available from April 8, 2026."
+  },
+  "Qorvex Basilica Skin": {
+    "wikiName": "Qorvex Basilica Skin",
+    "reason": "acquisition text found but Cosmetics/data has no InternalName to key it by",
+    "text": "<!--The Qorvex Basilica Skin is available in the Market for TBA, or as part of the Qorvex Basilica Collection for TBA, which also includes the Rathan Sword & Shield Skin, Liania Signa. -->"
+  }
+}

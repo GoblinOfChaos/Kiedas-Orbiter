@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-06T18:05:18.180322+00:00",
+  "stage3f_cumulative_patch_sha256": "87241d18ad98ba63ec9a3d49d402599ae568d80dcab495fbbc4a3aef6313411f",
+  "relics_incremental_patch_sha256": "e0c6ec8c28951e1ed133cd852595640007e13dec4938d6a662e9e36ca240e57f",
+  "cumulative_patch_sha256": "acd34333e50711d2c79b902480f5296501fda1464dd0904abe731e40e3cb75c5",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "60381d7932030ee30186e69ed8367546f96be1a2d000c32c67fb34d4c83c8dac",
+    "after_sha256": "24c2f9cf0faeb9b45a83f6381e51a43088c393dd530e242c5f90847d86f5eef3",
+    "preview_layout_sha256": "6c5b95a03a4d9d0f7c8cc597c91ea9935b39de593c0af161b8e8aee8aebfcea5",
+    "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+    "catalog_search_filter_sort_expected_value_price_card_acquisition_and_backend_behavior_unchanged": true,
+    "marketplace_mutation_commands_present": false,
+    "source_files_changed": [
+      "src/screens/Relics.jsx",
+      "src/components/PreviewRelicsLayout.jsx"
+    ]
+  },
+  "stage3f_artifacts_preserved_and_matched": true,
+  "artifact_count": 4,
+  "component_checks": 91,
+  "stable_exact_markup_comparisons": 9,
+  "formula_cases": 32,
+  "packaged_checks_per_artifact": 55,
+  "gate": "Stage 3G implemented and validated; awaiting user acceptance"
+}

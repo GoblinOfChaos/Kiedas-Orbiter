@@ -1,0 +1,92 @@
+{
+  "captured_on": "2026-09-05",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "accepted_linux",
+  "sources": {
+    "src/screens/Inventory.jsx": {
+      "sha256": "694967729a5e7edb74e2c8b331ea5618d889a3a1dd9b264864ced144bc398d4b",
+      "lines": 1253
+    },
+    "src/screens/Market.jsx": {
+      "sha256": "ed12f0eece72212d655ed1e56e9283d653c49f184d60a8d1dc9d51d42048b0be"
+    },
+    "src/lib/wfmCache.js": {
+      "sha256": "8729b16df40b50b440e6e9d06aac2534286d1897ac90008865786c45959c69b2"
+    },
+    "src/lib/marketEngine.js": {
+      "sha256": "32747553cb2d9501c26ce67ff1dc2a195e6df1fc7fd2425d939f0e5b2fd5d7c0"
+    }
+  },
+  "visible_tab_ids": [
+    "all",
+    "warframes",
+    "weapons",
+    "companions",
+    "companion_weapons",
+    "archweapons",
+    "vehicles",
+    "amps",
+    "arcanes",
+    "peely_pix",
+    "consumables",
+    "landing_craft",
+    "resources",
+    "prime_parts",
+    "ayatan"
+  ],
+  "unreachable_source_branches": [
+    "mods",
+    "prime_junk"
+  ],
+  "planned_app_files": [
+    "src/screens/Inventory.jsx",
+    "src/components/PreviewInventoryLayout.jsx"
+  ],
+  "market_comparison": {
+    "market_filters_by_verified_catalog_match": true,
+    "market_explicit_price_states": [
+      "loading",
+      "ready",
+      "no_orders",
+      "error"
+    ],
+    "inventory_unresolved_price_fallback": {
+      "value": 0,
+      "reachable_literal_0p_render": false
+    },
+    "inventory_implicit_listing_price_fallback": {
+      "value": 1,
+      "reachable_ui_caller": false
+    }
+  },
+  "reachability_review": {
+    "active_tab_initial": "all",
+    "active_tab_setters": 1,
+    "setter_inputs_from_visible_tabs": true,
+    "prime_junk_visible": false,
+    "prime_parts_uses_specialized_branch_before_generic_cards": true,
+    "handle_sell_callers": 2,
+    "reachable_handle_sell_callers": 0,
+    "current_live_inventory_listing_risk_confirmed": false
+  },
+  "after_sources": {
+    "src/screens/Inventory.jsx": {
+      "sha256": "867553ce86dcef88d3d105e31351a277bf782e5187c59d26d67a1de167fd8880"
+    },
+    "src/components/PreviewInventoryLayout.jsx": {
+      "sha256": "7824d1c744ccbded5b539db0cb19f34d84d97672a523f777ca8c7d8beedcf9d9"
+    }
+  },
+  "validation": {
+    "component_checks": "177/177",
+    "control_matrix_checks": "96/96",
+    "debian_native_checks": "30/30",
+    "appimage_native_checks": "30/30",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true,
+    "stage3c_started": false
+  },
+  "accepted_on": "2026-09-05"
+}

@@ -1,0 +1,43 @@
+ def js(script,args=[]):return api('POST',prefix+'/execute/sync',{'script':script,'args':args})['value']
+ def ipc(command,args={}):return api('POST',prefix+'/execute/async',{'script':"const done=arguments[arguments.length-1];window.__TAURI_INTERNALS__.invoke(arguments[0],arguments[1]).then(v=>done({ok:true,value:v})).catch(e=>done({ok:false,error:String(e)}));",'args':[command,args]})['value']
+ results['remaining_guards']=[]
+ for command,args in [('save_debug_screenshot',{}),('trigger_manual_ocr',{}),('start_debug_ocr_session',{}),('show_relic_overlay',{'rewards':[]}),('toggle_sidebar',{}),('play_notification_sound',{'sound':'synthetic'}),('call_api_helper',{}),('set_monitoring_active',{'active':True}),('resize_overlay_window',{'label':'overlay-sidebar','width':100,'height':100})]:
+  value=ipc(command,args);results['remaining_guards'].append({'command':command,'result':value,'pass':not value['ok'] and 'disabled' in value.get('error','')})
+ stable=scratch/'xdgdata/kiedas-orbiter';stable.mkdir(exist_ok=True);(stable/'sentinel').write_text('unchanged')
+ alias=scratch/'stable-alias';alias.symlink_to(stable,target_is_directory=True)
+ results['export_checks']=[]
+ for destination in ['relative.txt',str(scratch/'x/../escape.txt'),str(stable/'blocked.txt'),str(alias/'blocked.txt')]:
+  value=ipc('write_file',{'path':destination,'data':[1,2,3]});results['export_checks'].append({'path':destination,'result':value,'pass':not value['ok']})
+ results['stable_marker_preserved']=(stable/'sentinel').read_text()=='unchanged' and not (stable/'blocked.txt').exists()
+ source=scratch/'extra-import';source.mkdir()
+ for name,value in [('inventory.json',{'synthetic':True,'token':'REMOVE'}),('inventory_history.json',[{'synthetic':True,'password':'REMOVE'}]),('settings.json',{'kronos-theme':'dark','wfm_token':'REMOVE','autoStartMonitoring':True}),('checklist-export.json',{'checklist_hidden':'["synthetic"]'})]: (source/name).write_text(json.dumps(value))
+ result=ipc('import_preview_profile',{'source':str(source),'categories':['inventory','history','preferences','checklist'],'replace':True})
+ results['extra_import']={'result':result,'inventory_scrubbed':json.loads((preview/'inventory.json').read_text())=={'synthetic':True},'history_scrubbed':json.loads((preview/'inventory_history.json').read_text())==[{'synthetic':True}],'preferences_safe':'REMOVE' not in (preview/'settings.json').read_text() and json.loads((preview/'settings.json').read_text()).get('autoStartMonitoring') is not True}
+ # Remove synthetic inventory/history before rendering screens: these are transport fixtures, not game schema fixtures.
+ (preview/'inventory.json').unlink();(preview/'inventory_history.json').unlink()
+ api('POST',prefix+'/refresh',{});time.sleep(3)
+ results['checklist_hydrated']=js("return localStorage.getItem('checklist_hidden')")=='["synthetic"]'
+ js("const label=[...document.querySelectorAll('label')].find(x=>x.innerText.includes('I understand')); if(label) label.querySelector('div').click();")
+ time.sleep(.3)
+ js("const b=[...document.querySelectorAll('button')].find(x=>x.innerText.trim()==='CONTINUE');if(b)b.click();")
+ time.sleep(1)
+ def click_xpath(xpath):
+  element=api('POST',prefix+'/element',{'using':'xpath','value':xpath})['value']['element-6066-11e4-a52e-4f735466cecf'];api('POST',prefix+'/element/'+element+'/click',{})
+ labels=js("return [...document.querySelectorAll('nav [id^=preview-group-] button:not([aria-label])')].map(x=>x.innerText.trim())")
+ results['screen_checks']=[]
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.5)
+  for label in labels:
+   click_xpath("//nav//button[not(@aria-label) and normalize-space(.)='"+label+"']");time.sleep(.2)
+   state=js("return {active:[...document.querySelectorAll('nav button[aria-current=page]')].map(x=>x.innerText.trim()),text:document.body.innerText.slice(-2000),width:innerWidth,height:innerHeight,overflow:document.documentElement.scrollWidth>innerWidth}")
+   results['screen_checks'].append({'requested_size':[width,height],'label':label,'state':state,'pass':label in state['active']})
+ def key(value):api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'keyboard','actions':[{'type':'keyDown','value':value},{'type':'keyUp','value':value}]}]})
+ js("document.querySelector('nav [id=preview-group-0] button').focus()")
+ key('\ue004')
+ results['tab_reaches_pin']=js("return document.activeElement.getAttribute('aria-label')")=='Pin Dashboard'
+ key('\ue007');time.sleep(.3)
+ results['enter_pins_dashboard']=js("return !!document.querySelector('button[aria-label=\"Unpin Dashboard\"]')")
+ click_xpath("//button[normalize-space(.)='Import a profile copy']");time.sleep(.3)
+ results['import_dialog_open']=js("return !!document.querySelector('[role=dialog]')")
+ key('\ue00c');time.sleep(.3)
+ results['escape_closes_import']=js("return !document.querySelector('[role=dialog]')")

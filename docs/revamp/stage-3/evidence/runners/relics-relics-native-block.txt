@@ -1,0 +1,39 @@
+ opened_relics=js("const b=[...document.querySelectorAll('nav button')].find(e=>e.textContent.trim()==='Relics');if(!b)return false;b.click();return true")
+ if not opened_relics: raise RuntimeError('Relics navigation button unavailable')
+ time.sleep(1)
+ synthetic_rewards=[
+  {'name':'Synthetic Prime Blueprint','uniqueName':'/Synthetic/Rewards/Blueprint','rarity':'COMMON','tier':0,'ducats':15},
+  {'name':'Synthetic Prime Chassis','uniqueName':'/Synthetic/Rewards/Chassis','rarity':'COMMON','tier':0,'ducats':15},
+  {'name':'Synthetic Prime Systems','uniqueName':'/Synthetic/Rewards/Systems','rarity':'COMMON','tier':0,'ducats':25},
+  {'name':'Synthetic Forma Blueprint','uniqueName':'/Synthetic/Rewards/Forma','rarity':'UNCOMMON','tier':1,'ducats':0},
+  {'name':'Synthetic Prime Link','uniqueName':'/Synthetic/Rewards/Link','rarity':'UNCOMMON','tier':1,'ducats':45},
+  {'name':'Synthetic Prime Rare','uniqueName':'/Synthetic/Rewards/Rare','rarity':'RARE','tier':2,'ducats':100}
+ ]
+ synthetic_relics={'account':{'void_traces':275,'void_traces_max':1500},'relics':[
+  {'unique_name':'Synthetic Lith A1','real_unique_name':'/Synthetic/Relics/LithA1','name':'Lith A1 Relic','era':'Lith','owned':True,'vaulted':False,'refinements':{'Intact':2,'Exceptional':1,'Flawless':0,'Radiant':1},'rewards':synthetic_rewards},
+  {'unique_name':'Synthetic Meso B2','real_unique_name':'/Synthetic/Relics/MesoB2','name':'Meso B2 Relic','era':'Meso','owned':True,'vaulted':True,'refinements':{'Intact':1,'Exceptional':0,'Flawless':2,'Radiant':0},'rewards':synthetic_rewards},
+  {'unique_name':'Synthetic Requiem I','real_unique_name':'/Synthetic/Relics/RequiemI','name':'Requiem I Relic','era':'Requiem','owned':True,'vaulted':False,'refinements':{'Intact':3,'Exceptional':0,'Flawless':0,'Radiant':0},'rewards':[{'name':'Synthetic Requiem '+str(i+1),'uniqueName':'/Synthetic/Requiem/'+str(i),'rarity':'COMMON','tier':0,'ducats':10+i} for i in range(8)]}
+ ]}
+ relics_injection=js(inject_script,[synthetic_relics])
+ results['relics_state_injection']={'tier':'synthetic parsed-shape inventory dispatched into real MonitoringProvider state; bundled export catalog and real relic parser remain active','result':relics_injection}
+ if not relics_injection.get('ok'): raise RuntimeError('MonitoringContext Relics test-state injection unavailable: '+str(relics_injection))
+ time.sleep(1)
+ if not js("const b=[...document.querySelectorAll('[data-preview-relics-ownership] button')].find(e=>e.textContent.trim()==='Owned');if(!b)return false;b.click();return true"): raise RuntimeError('Owned relic filter unavailable')
+ time.sleep(.5)
+ results['relics_checks']=[]
+ def press_relic_key(value):
+  api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'relics-keyboard','actions':[{'type':'keyDown','value':value},{'type':'keyUp','value':value}]}]})
+  time.sleep(.2)
+  try:api('DELETE',prefix+'/actions')
+  except Exception:pass
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.4)
+  state=js("""const root=document.querySelector('[data-preview-relics-layout]');if(!root)return {present:false};const primary=root.querySelector('[data-preview-relics-primary-controls]'),rails=[...root.querySelectorAll('[data-preview-relics-rail]')],cards=[...root.querySelectorAll('[data-preview-relic-card]')],traces=root.querySelector('[data-preview-relics-traces]'),rr=root.getBoundingClientRect(),tr=traces.getBoundingClientRect();return {present:true,body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},root:{left:rr.left,right:rr.right},primaryColumns:getComputedStyle(primary).gridTemplateColumns.split(' ').length,rails:rails.map(e=>({kind:e.dataset.previewRelicsRail,overflow:getComputedStyle(e).overflowX,wrap:getComputedStyle(e).flexWrap,labels:[...e.querySelectorAll('button')].map(b=>b.textContent.trim())})),traces:{left:tr.left,right:tr.right,text:traces.innerText},cards:cards.map(e=>({role:e.getAttribute('role'),tabIndex:e.tabIndex,label:e.getAttribute('aria-label')})),noSell:![...root.querySelectorAll('button')].some(e=>/sell/i.test(e.textContent))};""")
+  layout_pass=state.get('present') and state['body']['scroll']<=state['body']['client']+1 and state['root']['left']>=0 and state['root']['right']<=width+1 and state['primaryColumns']==(4 if width==1200 else 1) and len(state['rails'])==4 and all(r['overflow']=='auto' and r['wrap']=='nowrap' for r in state['rails']) and state['traces']['left']>=state['root']['left']-1 and state['traces']['right']<=state['root']['right']+1 and '275' in state['traces']['text'] and len(state['cards'])==3 and all(c['role']=='button' and c['tabIndex']==0 and c['label'] for c in state['cards'])
+  results['relics_checks'].append({'size':[width,height],'kind':'layout-controls-and-cards','state':state,'pass':layout_pass})
+  focused=js("const e=document.querySelector('[data-preview-relic-card]');if(!e)return false;e.focus();return document.activeElement===e")
+  press_relic_key(chr(0xE007))
+  opened=js("return document.querySelectorAll('.fixed.bottom-0').length===1")
+  js("document.querySelector('.fixed.bottom-0 button')?.click()");time.sleep(.15)
+  results['relics_checks'].append({'size':[width,height],'kind':'keyboard-drawer','focused':focused,'opened':opened,'pass':focused and opened})
+ results['relics_checks'].append({'kind':'price-and-market-surface','no_sell':state['noSell'],'zero_expected_value_visible':js("return document.querySelector('[data-preview-relics-layout]').innerText.includes('0P')"),'pass':state['noSell'] and js("return document.querySelector('[data-preview-relics-layout]').innerText.includes('0P')")})

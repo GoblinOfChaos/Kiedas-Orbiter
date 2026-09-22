@@ -1,0 +1,222 @@
+{
+  "captured_on": "2026-09-05",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "accepted_linux",
+  "sources": {
+    "src/screens/Mods.jsx": {
+      "sha256": "0a1d5ecc75fda88b121f8533880ffab2a169639f6944c69ed074fab988b7aaeb",
+      "lines": 357
+    }
+  },
+  "accepted_cumulative_patch_sha256": "4eb0ddbe003e991c2277d74bc2862497013191bf2ca08a5e9c1ead4420348b18",
+  "categories": [
+    {
+      "key": "mods.cat_all",
+      "category": "All",
+      "icon": "All"
+    },
+    {
+      "key": "mods.cat_warframe",
+      "category": "Warframe",
+      "icon": "Warframe"
+    },
+    {
+      "key": "mods.cat_primary",
+      "category": "Primary",
+      "icon": "Primary"
+    },
+    {
+      "key": "mods.cat_secondary",
+      "category": "Secondary",
+      "icon": "Secondary"
+    },
+    {
+      "key": "mods.cat_melee",
+      "category": "Melee",
+      "icon": "Melee"
+    },
+    {
+      "key": "mods.cat_sentinels",
+      "category": "Sentinels",
+      "icon": "Sentinels"
+    },
+    {
+      "key": "mods.cat_robotic",
+      "category": "Robotic",
+      "icon": "Companion"
+    },
+    {
+      "key": "mods.cat_beasts",
+      "category": "Beasts",
+      "icon": "Beasts"
+    },
+    {
+      "key": "mods.cat_stance",
+      "category": "Stance",
+      "icon": "Stance"
+    },
+    {
+      "key": "mods.cat_aura",
+      "category": "Aura",
+      "icon": "Aura"
+    },
+    {
+      "key": "mods.cat_exilus",
+      "category": "Exilus",
+      "icon": "Exilus"
+    },
+    {
+      "key": "mods.cat_railjack",
+      "category": "Railjack",
+      "icon": "Railjack"
+    },
+    {
+      "key": "mods.cat_archgun",
+      "category": "Archgun",
+      "icon": "Archgun"
+    },
+    {
+      "key": "mods.cat_archmelee",
+      "category": "Archmelee",
+      "icon": "Archmelee"
+    },
+    {
+      "key": "mods.cat_parazon",
+      "category": "Parazon",
+      "icon": "Parazon"
+    },
+    {
+      "key": "mods.cat_augment",
+      "category": "Augment",
+      "icon": "Augment"
+    },
+    {
+      "key": "mods.cat_antique",
+      "category": "Antique",
+      "icon": "Antique"
+    },
+    {
+      "key": "mods.cat_tome",
+      "category": "Tome",
+      "icon": "Mods"
+    },
+    {
+      "key": "mods.cat_vehicles",
+      "category": "Vehicles",
+      "icon": "Vehicles"
+    }
+  ],
+  "sorts": [
+    "name",
+    "rank",
+    "quantity",
+    "rarity",
+    "value"
+  ],
+  "ownership_filters": [
+    "all",
+    "owned",
+    "unowned"
+  ],
+  "boolean_filters": [
+    "maxRankOnly",
+    "hideConclave"
+  ],
+  "pagination": {
+    "initial": 60,
+    "reset": 60,
+    "increment": 60
+  },
+  "search_fields": [
+    "name",
+    "description",
+    "levelStats.stats",
+    "arcaneType",
+    "MOD_WIKI_TAGS"
+  ],
+  "state_register": {
+    "fix": [
+      "checking",
+      "extracting",
+      "fixing",
+      "compositing",
+      "preparing"
+    ],
+    "inventory": [
+      "loading",
+      "no inventory",
+      "frames path pending",
+      "no match",
+      "populated"
+    ],
+    "prices": [
+      "fetch progress",
+      "loading",
+      "positive",
+      "zero or absent"
+    ]
+  },
+  "commands": [
+    "read_file_bytes",
+    "get_mod_frames_path",
+    "get_icons_path"
+  ],
+  "market_safety": {
+    "market_mutation_callers": 0,
+    "sell_controls": 0,
+    "zero_price_visible": false,
+    "price_badge_condition": "platValue > 0 in all three ModCard branches",
+    "value_sort_zero_fallback": "ordering only"
+  },
+  "locale_fallback": {
+    "german_missing_explicit_keys": [
+      "mods.cat_robotic",
+      "mods.cat_tome"
+    ],
+    "ui_context_english_base_merge": true,
+    "raw_key_expected": false,
+    "translation_change_planned": false
+  },
+  "planned_app_files": [
+    "src/screens/Mods.jsx",
+    "src/components/PreviewModsLayout.jsx"
+  ],
+  "source_boundaries": {
+    "catalog_or_filter_change": false,
+    "price_or_market_change": false,
+    "acquisition_change": false,
+    "inventory_parser_change": false,
+    "monitoring_context_change": false,
+    "shared_mod_card_change": false,
+    "shared_drawer_change": false,
+    "global_css_change": false,
+    "translation_change": false,
+    "dependency_change": false
+  },
+  "accessibility_finding": {
+    "mod_card_wrapper_element": "div",
+    "pointer_click": true,
+    "keyboard_activation": false,
+    "proposed_scope": "Preview-only role, focus, accessible label and Enter/Space activation; stable output unchanged"
+  },
+  "after_sources": {
+    "src/screens/Mods.jsx": {
+      "sha256": "c3c7b278911a36a100b923f5e404a1edceb5f27e7928961f2ccd09fb4f3c3fb2"
+    },
+    "src/components/PreviewModsLayout.jsx": {
+      "sha256": "7d01ca30b52906a3a91bb3889bc92fd6be9934942ed99264017dd454678c9fda"
+    }
+  },
+  "validation": {
+    "component_checks": "119/119",
+    "stable_exact_markup_comparisons": "9/9",
+    "debian_native_checks": "40/40",
+    "appimage_native_checks": "40/40",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true,
+    "stage3e_started": false
+  },
+  "accepted_on": "2026-09-05"
+}

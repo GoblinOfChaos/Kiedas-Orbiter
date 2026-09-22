@@ -1,0 +1,112 @@
+{
+  "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet",
+    "wikiName": "Excalibur Dex Helmet",
+    "description": "A gift from the Lotus to commemorate the fifth anniversary of the first Tenno waking from Cryo stasis.",
+    "acquisition": "The Excalibur Dex Skin was available for logging in to Warframe from March 14, 2018 to March 28, 2018. Then, from March 27, 2019 to April 10, 2019 and March 13, 2020 to March 16, 2020, players were able to obtain this skin by completing Anniversary alerts.\n\nIn subsequent years, the skin has been available as a reward from Anniversary alerts.",
+    "sourceRefs": [
+      "article page: Excalibur Dex Skin (Deluxe set page, confirmed to reference 'Excalibur Dex Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostDeluxeHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostDeluxeHelmet",
+    "wikiName": "Frost Harka Helmet",
+    "description": "Frost Harka's signature helmet.",
+    "acquisition": "The Frost Harka Skin is available in the Market for 165, or as part of the Frost Harka Bundle for 215, which also includes the Frysta Longsword Skin.",
+    "sourceRefs": [
+      "article page: Frost Harka Skin (Deluxe set page, confirmed to reference 'Frost Harka Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Khora/KhoraDeluxeHelmet",
+    "wikiName": "Khora Urushu Helmet",
+    "description": "Khora Urushu's signature helmet.",
+    "acquisition": "The Khora Urushu Skin is available in the Market for 165, or as part of the Khora Urushu Collection for 225, which also includes the Veratria Blade and Whip Skin, Pulchranopsis Syandana and Maculatia Kavat Skin. The skin also comes with its own Agile and Noble Animations.",
+    "sourceRefs": [
+      "article page: Khora Urushu Skin (Deluxe set page, confirmed to reference 'Khora Urushu Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Alchemist/SWYersinHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Alchemist/SWYersinHelmet",
+    "wikiName": "Lavos Yersin Helmet",
+    "description": "A helmet for the Lavos Warframe, designed by Lubox.",
+    "acquisition": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam.\n\nPurchasing this skin includes the following pieces of cosmetics:\n- Lavos Yersin Skin\n- Lavos Yersin Helmet\n- Lavos Yersin Armor\n\n<gallery widths=\"160\" hideaddbutton=\"true\" captionalign=\"center\" spacing=\"small\" bordersize=\"none\" bordercolor=\"transparent\" position=\"center\">\nLavosYersinSkin.png|Lavos Yersin Skin\nLavosYersinHelmet.png|Lavos Yersin Helmet\nLavosYersinArmor.png|Lavos Yersin Armor\n</gallery>\n\n__NOTOC__\nCategory:Skins\nCategory:Lavos",
+    "sourceRefs": [
+      "article page: Lavos Yersin Skin (Deluxe set page, confirmed to reference 'Lavos Yersin Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Necro/SWNekrosAusirylystHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Necro/SWNekrosAusirylystHelmet",
+    "wikiName": "Nekros Ausirylyst Helmet",
+    "description": "A helmet for the Nekros Warframe, designed by LostEpoch.",
+    "acquisition": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam.\n\nFor Console players, this item can be purchased for 165 from the Marketplace.",
+    "sourceRefs": [
+      "article page: Nekros Ausirylyst Skin (Deluxe set page, confirmed to reference 'Nekros Ausirylyst Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Revenant/SWRevenantWightHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Revenant/SWRevenantWightHelmet",
+    "wikiName": "Revenant Wight Helmet",
+    "description": "A helmet for the Revenant Warframe, designed by malaya, Awk'Q-Luz and Jadie.",
+    "acquisition": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam.\n\nFor Console players, this item can be purchased for 165 from the Marketplace.",
+    "sourceRefs": [
+      "article page: Revenant Wight Skin (Deluxe set page, confirmed to reference 'Revenant Wight Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Wraith/SWSevagothEzrielHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Wraith/SWSevagothEzrielHelmet",
+    "wikiName": "Sevagoth Ezriel Helmet",
+    "description": "A helmet for the Sevagoth Warframe, designed by Goosmo.",
+    "acquisition": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam.\n\nFor Console players, this item can be purchased for 165 from the Marketplace.",
+    "sourceRefs": [
+      "article page: Sevagoth Ezriel Skin (Deluxe set page, confirmed to reference 'Sevagoth Ezriel Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/SWStyanaxAresHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Hoplite/SWStyanaxAresHelmet",
+    "wikiName": "Styanax Ares Helmet",
+    "description": "A unique helmet for the Styanax Warframe, designed by blazingcobalt and Vis.",
+    "acquisition": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam.\n\nFor Console players, this item can be purchased for 165 from the Marketplace.",
+    "sourceRefs": [
+      "article page: Styanax Ares Skin (Deluxe set page, confirmed to reference 'Styanax Ares Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/Hoplite/StyanaxDeluxeHelmet",
+    "wikiName": "Styanax Tonatiuh Helmet",
+    "description": "Styanax Tonatiuh's signature helmet.",
+    "acquisition": "The Styanax Tonatiuh Skin is available in the Market for 175, or as part of the Styanax Tonatiuh Collection for 295, which also includes the Tequihua Polearm Skin, Huitzilin Syandana and Chimalli & Tequihua Decoration.",
+    "sourceRefs": [
+      "article page: Styanax Tonatiuh Skin (Deluxe set page, confirmed to reference 'Styanax Tonatiuh Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/SWXakuDeatheaHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/BrokenFrame/SWXakuDeatheaHelmet",
+    "wikiName": "Xaku Deathea Helmet",
+    "description": "A helmet for the Xaku Warframe, designed by kakarrot2812.",
+    "acquisition": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam.\n\nFor Console players, this item can be purchased for 165 from the Marketplace.",
+    "sourceRefs": [
+      "article page: Xaku Deathea Skin (Deluxe set page, confirmed to reference 'Xaku Deathea Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/Skins/BrokenFrame/XakuDeluxeHelmet": {
+    "uniqueName": "/Lotus/Upgrades/Skins/BrokenFrame/XakuDeluxeHelmet",
+    "wikiName": "Xaku Kagura Helmet",
+    "description": "Xaku Kagura's signature helmet.",
+    "acquisition": "The Xaku Kagura Skin is available in the Market for 165, or as part of the Golden Mend Collection for 430, which also includes the Lotus Amaga Skin, the Lohk's Embrace Ephemera, six Gallixware Decorations, the Lotus Mended Glyph and the Xaku Mended Glyph.",
+    "sourceRefs": [
+      "article page: Xaku Kagura Skin (Deluxe set page, confirmed to reference 'Xaku Kagura Helmet' by exact-name match)"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "checks": [
+    {
+      "id": "bounty",
+      "pass": true,
+      "before_expression_sha256": "99a5278725f03ec8979c894533d58aed6c49f80ce2a8c77c955f8142a0d80cd8",
+      "after_expression_sha256": "99a5278725f03ec8979c894533d58aed6c49f80ce2a8c77c955f8142a0d80cd8"
+    },
+    {
+      "id": "nightwave",
+      "pass": true,
+      "before_expression_sha256": "fd2964db5030571180b81f41eaf6686c3001c9dda56bad35ab55afa9d3de1699",
+      "after_expression_sha256": "fd2964db5030571180b81f41eaf6686c3001c9dda56bad35ab55afa9d3de1699"
+    },
+    {
+      "id": "alerts",
+      "pass": true,
+      "before_expression_sha256": "680766d0e4ae879daa7258a6c0da150b12b3398a9d1b54d7ba673092b1db88f2",
+      "after_expression_sha256": "680766d0e4ae879daa7258a6c0da150b12b3398a9d1b54d7ba673092b1db88f2"
+    },
+    {
+      "id": "timers",
+      "pass": true,
+      "before_expression_sha256": "0d4b6ee9d7465d18dd2a33d35f7f4123019e368397aa1e885ae0c7724ea7a357",
+      "after_expression_sha256": "0d4b6ee9d7465d18dd2a33d35f7f4123019e368397aa1e885ae0c7724ea7a357"
+    },
+    {
+      "id": "baro",
+      "pass": true,
+      "before_expression_sha256": "c35ac97272b4cd22958723f69747348c9ffeb372426497a7c9078b85e6845047",
+      "after_expression_sha256": "c35ac97272b4cd22958723f69747348c9ffeb372426497a7c9078b85e6845047"
+    },
+    {
+      "id": "arb",
+      "pass": true,
+      "before_expression_sha256": "a51da2499e14cb3cbb01a192ebbed9981121c292e828122a5bf62bdb8fee6812",
+      "after_expression_sha256": "a51da2499e14cb3cbb01a192ebbed9981121c292e828122a5bf62bdb8fee6812"
+    },
+    {
+      "id": "deal",
+      "pass": true,
+      "before_expression_sha256": "90b256a9f0c26a283fbe46a5030e566dcf7c1b762fda0ce6ce7b4a177e2ffce7",
+      "after_expression_sha256": "90b256a9f0c26a283fbe46a5030e566dcf7c1b762fda0ce6ce7b4a177e2ffce7"
+    },
+    {
+      "id": "sales",
+      "pass": true,
+      "before_expression_sha256": "dd36134b0b5769e9f1dfc99e477f0e8c7976de116d335507be710edd8507a0f2",
+      "after_expression_sha256": "dd36134b0b5769e9f1dfc99e477f0e8c7976de116d335507be710edd8507a0f2"
+    },
+    {
+      "id": "event",
+      "pass": true,
+      "before_expression_sha256": "3dbff652c6096192da9188d30ad0583e91bba9c9c599532f314ee3ba20fb7cbc",
+      "after_expression_sha256": "3dbff652c6096192da9188d30ad0583e91bba9c9c599532f314ee3ba20fb7cbc"
+    },
+    {
+      "id": "inf",
+      "pass": true,
+      "before_expression_sha256": "8dacbb110d5c3a61254834147774d958cc656efcb05dea3b8d7e1e7f4df7faba",
+      "after_expression_sha256": "8dacbb110d5c3a61254834147774d958cc656efcb05dea3b8d7e1e7f4df7faba"
+    },
+    {
+      "id": "sortie",
+      "pass": true,
+      "before_expression_sha256": "3693ea77b0626a6ebf6dda2ebb0b43bcd274ab83dd389db0734d03dcd5521c78",
+      "after_expression_sha256": "3693ea77b0626a6ebf6dda2ebb0b43bcd274ab83dd389db0734d03dcd5521c78"
+    },
+    {
+      "id": "hunt",
+      "pass": true,
+      "before_expression_sha256": "ec03d25494ce694719a93a12e8dd9b74f9d9b4e614f3388683720958c776f5b5",
+      "after_expression_sha256": "ec03d25494ce694719a93a12e8dd9b74f9d9b4e614f3388683720958c776f5b5"
+    },
+    {
+      "id": "arch",
+      "pass": true,
+      "before_expression_sha256": "b96f4d4b9d77b35d03ff4655377a49e1e8a9f0829f6062ff48b3696352c41fa4",
+      "after_expression_sha256": "b96f4d4b9d77b35d03ff4655377a49e1e8a9f0829f6062ff48b3696352c41fa4"
+    },
+    {
+      "id": "desc",
+      "pass": true,
+      "before_expression_sha256": "577c1363abd425d4d64cd87d08d3468bf1939db2102f35d9da2e707bd062ac74",
+      "after_expression_sha256": "577c1363abd425d4d64cd87d08d3468bf1939db2102f35d9da2e707bd062ac74"
+    },
+    {
+      "id": "circuit",
+      "pass": true,
+      "before_expression_sha256": "e89ebd30a1f3c882f7dd9f6013ca07b9c86ee9dd64bfdfd76148fd714e59fd93",
+      "after_expression_sha256": "e89ebd30a1f3c882f7dd9f6013ca07b9c86ee9dd64bfdfd76148fd714e59fd93"
+    },
+    {
+      "id": "1999",
+      "pass": true,
+      "before_expression_sha256": "fc59df8830a398948612f00c717046c6ee6183069ff8f552b9f699f7667bb843",
+      "after_expression_sha256": "fc59df8830a398948612f00c717046c6ee6183069ff8f552b9f699f7667bb843"
+    },
+    {
+      "id": "fiss",
+      "pass": true,
+      "before_expression_sha256": "57ea3a10a15904b90c99195a0ffad210c56bfaaeaecbc08630e2c599cdbf8e8c",
+      "after_expression_sha256": "57ea3a10a15904b90c99195a0ffad210c56bfaaeaecbc08630e2c599cdbf8e8c"
+    },
+    {
+      "id": "inv",
+      "pass": true,
+      "before_expression_sha256": "f7bec754ace0e255b0797bc233af706d3708e6b1be8de17439ee798954372026",
+      "after_expression_sha256": "f7bec754ace0e255b0797bc233af706d3708e6b1be8de17439ee798954372026"
+    },
+    {
+      "id": "news",
+      "pass": true,
+      "before_expression_sha256": "14eaf03cf37e75e89aa7f8e5d5bb6069b48fb67dd0fa7200b234fdd0df3a6584",
+      "after_expression_sha256": "14eaf03cf37e75e89aa7f8e5d5bb6069b48fb67dd0fa7200b234fdd0df3a6584"
+    }
+  ]
+}

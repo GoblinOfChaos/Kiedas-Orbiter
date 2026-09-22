@@ -1,0 +1,15 @@
+{
+  "status": "source_verified_proposed_corrections_awaiting_approval",
+  "open_empty_folder": {
+    "reachable_control": "configuration panel always renders open_map_configs_folder button",
+    "backend_creates_directory": false,
+    "finding": "The command resolves and opens data/user/map-configs without creating it; a fresh profile can invoke it while the directory is absent.",
+    "proposed_correction": "Create the isolated map-config directory before launching the platform file manager."
+  },
+  "truncating_config_write": {
+    "uses_plain_fs_write": true,
+    "existing_atomic_helper_available": true,
+    "finding": "write_map_config truncates the destination in place, so a process kill during the write can leave invalid JSON.",
+    "proposed_correction": "Route the already serialized JSON bytes through existing write_bytes_atomic; retain filename validation and payload bytes."
+  }
+}

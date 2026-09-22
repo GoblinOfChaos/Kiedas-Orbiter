@@ -1,0 +1,261 @@
+{
+  "tier": "styled component browser with module-boundary context and Tauri mocks",
+  "fixture": "synthetic app-owned map configurations only; no invented game marker records",
+  "checks": [
+    {
+      "name": "stable-configured-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-raw-toggle-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-panel-open-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "preview-shell-present",
+      "pass": true
+    },
+    {
+      "name": "four-map-tabs",
+      "pass": true
+    },
+    {
+      "name": "seven-map-files-source-preserved",
+      "pass": true,
+      "detail": {
+        "verified_by": "source register and frontend build"
+      }
+    },
+    {
+      "name": "preview-1200x800-closed-contained",
+      "pass": true,
+      "detail": {
+        "size": [
+          1200,
+          800
+        ],
+        "shell": [
+          32,
+          84,
+          960,
+          768
+        ],
+        "panel": false,
+        "canvas": [
+          64,
+          84,
+          928,
+          736
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "name": "preview-1200x800-panel-contained",
+      "pass": true,
+      "detail": {
+        "rect": [
+          608,
+          84,
+          928,
+          736
+        ],
+        "within": true,
+        "overflow": false
+      }
+    },
+    {
+      "name": "preview-900x500-closed-contained",
+      "pass": true,
+      "detail": {
+        "size": [
+          900,
+          500
+        ],
+        "shell": [
+          32,
+          84,
+          660,
+          468
+        ],
+        "panel": false,
+        "canvas": [
+          44,
+          84,
+          648,
+          456
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "name": "preview-900x500-panel-contained",
+      "pass": true,
+      "detail": {
+        "rect": [
+          328,
+          92,
+          648,
+          460
+        ],
+        "within": true,
+        "overflow": false
+      }
+    },
+    {
+      "name": "configured-markers-render",
+      "pass": true,
+      "detail": 2
+    },
+    {
+      "name": "keyboard-marker-selection",
+      "pass": true
+    },
+    {
+      "name": "narrow-marker-editor-contained",
+      "pass": true,
+      "detail": {
+        "rect": [
+          57,
+          197,
+          635,
+          447
+        ],
+        "within": true
+      }
+    },
+    {
+      "name": "raw-and-tab-switching",
+      "pass": true
+    },
+    {
+      "name": "reset-control-present",
+      "pass": true
+    },
+    {
+      "name": "config-write-payload",
+      "pass": false
+    },
+    {
+      "name": "no-component-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "configured",
+      "equal": true,
+      "before_length": 7457,
+      "after_length": 7457
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 5102,
+      "after_length": 5102
+    },
+    {
+      "state": "raw-toggle",
+      "equal": true,
+      "before_length": 7432,
+      "after_length": 7432
+    },
+    {
+      "state": "panel-open",
+      "equal": true,
+      "before_length": 10687,
+      "after_length": 10687
+    }
+  ],
+  "geometry": [
+    {
+      "state": "closed",
+      "value": {
+        "size": [
+          1200,
+          800
+        ],
+        "shell": [
+          32,
+          84,
+          960,
+          768
+        ],
+        "panel": false,
+        "canvas": [
+          64,
+          84,
+          928,
+          736
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "state": "open",
+      "value": {
+        "rect": [
+          608,
+          84,
+          928,
+          736
+        ],
+        "within": true,
+        "overflow": false
+      }
+    },
+    {
+      "state": "closed",
+      "value": {
+        "size": [
+          900,
+          500
+        ],
+        "shell": [
+          32,
+          84,
+          660,
+          468
+        ],
+        "panel": false,
+        "canvas": [
+          44,
+          84,
+          648,
+          456
+        ],
+        "overflow": false
+      }
+    },
+    {
+      "state": "open",
+      "value": {
+        "rect": [
+          328,
+          92,
+          648,
+          460
+        ],
+        "within": true,
+        "overflow": false
+      }
+    }
+  ],
+  "calls": [],
+  "passed": 17,
+  "total": 18,
+  "failures": [
+    {
+      "name": "config-write-payload",
+      "pass": false
+    }
+  ]
+}

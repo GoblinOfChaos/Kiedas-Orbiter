@@ -1,0 +1,128 @@
+{
+  "status": "pass",
+  "checks": {
+    "component_61_of_61": true,
+    "stable_markup_15_of_15": true,
+    "component_zero_frontend_mutations": true,
+    "debian_70_of_70": true,
+    "appimage_70_of_70": true,
+    "both_packages_zero_frontend_mutations": true,
+    "both_packages_directly_reject_all_four": true,
+    "artifact_hashes_current": true,
+    "stage3h_artifacts_preserved": true,
+    "tracked_baseline_850_of_850": true,
+    "lockfile_unchanged": true,
+    "cumulative_patch_applies": true,
+    "main_diff_check": true,
+    "checkout_diff_check": true,
+    "stage3j_layout_absent": true,
+    "docs_await_acceptance": true,
+    "summary_safety_flags": true,
+    "register_status": true
+  },
+  "packages": {
+    "deb": {
+      "checks": 70,
+      "market_checks": 10,
+      "frontend_mutation_invocations": [],
+      "direct_rejections": {
+        "close_market_order": {
+          "command": "close_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "delete_market_order": {
+          "command": "delete_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "post_market_order": {
+          "command": "post_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "update_market_order": {
+          "command": "update_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        }
+      },
+      "all_pass": true
+    },
+    "appimage": {
+      "checks": 70,
+      "market_checks": 10,
+      "frontend_mutation_invocations": [],
+      "direct_rejections": {
+        "close_market_order": {
+          "command": "close_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "delete_market_order": {
+          "command": "delete_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "post_market_order": {
+          "command": "post_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "update_market_order": {
+          "command": "update_market_order",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        }
+      },
+      "all_pass": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+      "bytes": 71737752,
+      "sha256": "448c346bbb02432f5902a41bf7fa75ee4df65bbff1fbed838ffff866f5dd63cf"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+      "bytes": 71737752,
+      "sha256": "448c346bbb02432f5902a41bf7fa75ee4df65bbff1fbed838ffff866f5dd63cf"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+      "bytes": 116351656,
+      "sha256": "636c99d362ecad9ba728cb12036fd3ee2e641ee69747724109b2742cd0b53cc6"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+      "bytes": 190077432,
+      "sha256": "97007a611d43e66ea3a376382f73da6064e85dd3b96b1ff023e65980e357b476"
+    }
+  ],
+  "gate": "Stage 3I implemented and validated; awaiting user acceptance"
+}

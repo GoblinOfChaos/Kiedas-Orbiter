@@ -1,0 +1,122 @@
+[
+  {
+    "mode": "empty",
+    "runner_exit": 0,
+    "error": null,
+    "checks": [
+      {
+        "name": "legacy_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "legacy_sentinel_not_imported",
+        "pass": true
+      },
+      {
+        "name": "stable_os_profile_not_created",
+        "pass": true
+      },
+      {
+        "name": "legacy_credentials_not_imported",
+        "pass": true
+      },
+      {
+        "name": "legacy_auto_monitoring_not_imported",
+        "pass": true
+      },
+      {
+        "name": "preview_document_title",
+        "pass": true
+      },
+      {
+        "name": "preview_title_after_reload",
+        "pass": true
+      },
+      {
+        "name": "preview_navigation_after_reload",
+        "pass": true
+      }
+    ],
+    "binary_sha256": "75b18e435e9b1698131ad78a876b9f1cdad5f44f744337b33a61e3beb2aa9cd2"
+  },
+  {
+    "mode": "directory",
+    "runner_exit": 0,
+    "error": null,
+    "checks": [
+      {
+        "name": "legacy_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "legacy_sentinel_not_imported",
+        "pass": true
+      },
+      {
+        "name": "stable_os_profile_not_created",
+        "pass": true
+      },
+      {
+        "name": "legacy_credentials_not_imported",
+        "pass": true
+      },
+      {
+        "name": "legacy_auto_monitoring_not_imported",
+        "pass": true
+      },
+      {
+        "name": "preview_document_title",
+        "pass": true
+      },
+      {
+        "name": "preview_title_after_reload",
+        "pass": true
+      },
+      {
+        "name": "preview_navigation_after_reload",
+        "pass": true
+      }
+    ],
+    "binary_sha256": "75b18e435e9b1698131ad78a876b9f1cdad5f44f744337b33a61e3beb2aa9cd2"
+  },
+  {
+    "mode": "settings",
+    "runner_exit": 0,
+    "error": null,
+    "checks": [
+      {
+        "name": "legacy_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "legacy_sentinel_not_imported",
+        "pass": true
+      },
+      {
+        "name": "stable_os_profile_not_created",
+        "pass": true
+      },
+      {
+        "name": "legacy_credentials_not_imported",
+        "pass": true
+      },
+      {
+        "name": "legacy_auto_monitoring_not_imported",
+        "pass": true
+      },
+      {
+        "name": "preview_document_title",
+        "pass": true
+      },
+      {
+        "name": "preview_title_after_reload",
+        "pass": true
+      },
+      {
+        "name": "preview_navigation_after_reload",
+        "pass": true
+      }
+    ],
+    "binary_sha256": "75b18e435e9b1698131ad78a876b9f1cdad5f44f744337b33a61e3beb2aa9cd2"
+  }
+]

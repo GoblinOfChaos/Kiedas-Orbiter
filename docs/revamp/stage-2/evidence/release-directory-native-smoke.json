@@ -1,0 +1,82 @@
+{
+  "binary_sha256": "75b18e435e9b1698131ad78a876b9f1cdad5f44f744337b33a61e3beb2aa9cd2",
+  "private_network_namespace": true,
+  "synthetic_profile": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-7fh9s5h3",
+  "checks": [
+    {
+      "name": "legacy_source_unchanged",
+      "pass": true
+    },
+    {
+      "name": "legacy_sentinel_not_imported",
+      "pass": true
+    },
+    {
+      "name": "stable_os_profile_not_created",
+      "pass": true
+    },
+    {
+      "name": "legacy_credentials_not_imported",
+      "pass": true
+    },
+    {
+      "name": "legacy_auto_monitoring_not_imported",
+      "pass": true
+    },
+    {
+      "name": "preview_document_title",
+      "pass": true
+    },
+    {
+      "name": "preview_title_after_reload",
+      "pass": true
+    },
+    {
+      "name": "preview_navigation_after_reload",
+      "pass": true
+    }
+  ],
+  "profile_mode": "directory",
+  "session_response": {
+    "value": {
+      "sessionId": "0f87de04-feee-4fd2-b181-130db4919954",
+      "capabilities": {
+        "browserName": "wry",
+        "browserVersion": "0.55.1",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "url": {
+    "value": "tauri://localhost"
+  },
+  "title": {
+    "value": "Kieda's Orbiter Preview"
+  },
+  "body": {
+    "value": "WELCOME TO KIEDA'S ORBITER\nLet's get you set up. Pick your language below; the paths are optional and can be configured later in Settings.\n\nGAME LANGUAGE\n\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nThe app reloads to apply your language choice. You can change it anytime in Settings.\nGAME ASSETS(optional)\n\nBROWSE\nPoint to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.\nDISCLAIMER\nThis app reads session tokens from game memory. Digital Extremes has not approved this application.\nI understand and accept the risks described above.\nCONTINUE\n\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nDASHBOARD\n\nLoading worldstate..."
+  },
+  "preview_files": [
+    "xdgdata/com.jacob.kiedasorbiter.preview/hsts-storage.sqlite",
+    "xdgdata/kiedas-orbiter-preview/data/user/settings.json",
+    "xdgdata/kiedas-orbiter-preview/data/user/logs/app-2026-09-05.log",
+    "xdgdata/com.jacob.kiedasorbiter.preview/storage/salt",
+    "xdgdata/com.jacob.kiedasorbiter.preview/CacheStorage/salt",
+    "xdgdata/com.jacob.kiedasorbiter.preview/localstorage/tauri_localhost_0.localstorage",
+    "xdgdata/com.jacob.kiedasorbiter.preview/localstorage/tauri_localhost_0.localstorage-wal",
+    "xdgdata/com.jacob.kiedasorbiter.preview/localstorage/tauri_localhost_0.localstorage-shm",
+    "xdgdata/com.jacob.kiedasorbiter.preview/mediakeys/v1/salt",
+    "xdgdata/com.jacob.kiedasorbiter.preview/WebKitCache/Version 17/salt"
+  ]
+}

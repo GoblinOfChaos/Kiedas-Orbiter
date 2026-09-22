@@ -1,0 +1,17 @@
+{
+  "before_sha256": "de41d7216fcb976c602bc76e2fd4abc894e56dd1631181a7446465571432a2b0",
+  "after_sha256": "567fcaf2c1188ed338889384d9c00891245a0087b0654f89e9025cf7f0cff736",
+  "preview_layout_sha256": "6669cb44b1f90db1cabb470302fbb1888515ba7e4f397052d345c0281f98a479",
+  "native_git_incremental_patch": true,
+  "stable_source_restores_exactly_after_reversing_approved_patch": true,
+  "stable_exact_markup_comparisons": "20/20",
+  "stable_interaction_parity": "19/19",
+  "all_unplanned_registered_sources_unchanged": true,
+  "layout_has_no_tauri_import": true,
+  "layout_has_no_state_or_effect_hooks": true,
+  "layout_has_no_live_commands": true,
+  "source_files_changed": [
+    "src/screens/Settings.jsx",
+    "src/components/PreviewSettingsLayout.jsx"
+  ]
+}

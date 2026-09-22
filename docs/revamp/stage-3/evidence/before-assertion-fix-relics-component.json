@@ -1,0 +1,1397 @@
+{
+  "tier": "styled component browser with module-boundary context/Tauri mocks and real relicParser helper",
+  "fixture": "synthetic parsed-shape relics and DE-export-shaped catalog; no live account, network, or market claims",
+  "checks": [
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-inventory-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-progress-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-indeterminate-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-export-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-match-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-sort-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-drawer-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "1200-layout-and-containment",
+      "pass": true,
+      "detail": {
+        "cards": [
+          {
+            "label": "Lith A1 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Meso B2 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Neo C3 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Axi D4 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Requiem I Relic",
+            "tabIndex": 0,
+            "role": "button"
+          }
+        ],
+        "secondaryColumns": 2,
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "primaryColumns": 4,
+        "traces": {
+          "left": 820.25,
+          "right": 956,
+          "text": "\nVOID TRACES\n275/ 1500\n"
+        },
+        "rails": [
+          {
+            "labels": [
+              "All",
+              "Lith",
+              "Meso",
+              "Neo",
+              "Axi",
+              "Requiem"
+            ],
+            "kind": "era",
+            "wrap": "nowrap",
+            "client": 924,
+            "scroll": 924,
+            "overflow": "auto"
+          },
+          {
+            "labels": [
+              "All",
+              "Intact",
+              "Refined",
+              "Exceptional",
+              "Flawless",
+              "Radiant"
+            ],
+            "kind": "quality",
+            "wrap": "nowrap",
+            "client": 924,
+            "scroll": 924,
+            "overflow": "auto"
+          },
+          {
+            "labels": [
+              "All",
+              "Vaulted",
+              "Unvaulted"
+            ],
+            "kind": "vault",
+            "wrap": "nowrap",
+            "client": 924,
+            "scroll": 924,
+            "overflow": "auto"
+          },
+          {
+            "labels": [
+              "Name",
+              "Ducats",
+              "Plat",
+              "Refine (D)",
+              "Refine (P)"
+            ],
+            "kind": "sort",
+            "wrap": "nowrap",
+            "client": 924,
+            "scroll": 924,
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "root": {
+          "left": 0,
+          "right": 992
+        },
+        "present": true
+      }
+    },
+    {
+      "name": "1200-controls-and-traces",
+      "pass": true
+    },
+    {
+      "name": "1200-cards-accessible-and-market-absent",
+      "pass": true
+    },
+    {
+      "name": "1200-enter-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "1200-space-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "900-layout-and-containment",
+      "pass": true,
+      "detail": {
+        "cards": [
+          {
+            "label": "Lith A1 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Meso B2 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Neo C3 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Axi D4 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Requiem I Relic",
+            "tabIndex": 0,
+            "role": "button"
+          }
+        ],
+        "secondaryColumns": 1,
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "primaryColumns": 1,
+        "traces": {
+          "left": 520.25,
+          "right": 656,
+          "text": "\nVOID TRACES\n275/ 1500\n"
+        },
+        "rails": [
+          {
+            "labels": [
+              "All",
+              "Lith",
+              "Meso",
+              "Neo",
+              "Axi",
+              "Requiem"
+            ],
+            "kind": "era",
+            "wrap": "nowrap",
+            "client": 624,
+            "scroll": 624,
+            "overflow": "auto"
+          },
+          {
+            "labels": [
+              "All",
+              "Intact",
+              "Refined",
+              "Exceptional",
+              "Flawless",
+              "Radiant"
+            ],
+            "kind": "quality",
+            "wrap": "nowrap",
+            "client": 624,
+            "scroll": 624,
+            "overflow": "auto"
+          },
+          {
+            "labels": [
+              "All",
+              "Vaulted",
+              "Unvaulted"
+            ],
+            "kind": "vault",
+            "wrap": "nowrap",
+            "client": 624,
+            "scroll": 624,
+            "overflow": "auto"
+          },
+          {
+            "labels": [
+              "Name",
+              "Ducats",
+              "Plat",
+              "Refine (D)",
+              "Refine (P)"
+            ],
+            "kind": "sort",
+            "wrap": "nowrap",
+            "client": 624,
+            "scroll": 624,
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "root": {
+          "left": 0,
+          "right": 692
+        },
+        "present": true
+      }
+    },
+    {
+      "name": "900-controls-and-traces",
+      "pass": true
+    },
+    {
+      "name": "900-cards-accessible-and-market-absent",
+      "pass": true
+    },
+    {
+      "name": "900-enter-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "900-space-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "ownership-Owned",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "ownership-Unowned",
+      "pass": true,
+      "detail": [
+        "Neo C3 Relic",
+        "Axi D4 Relic"
+      ]
+    },
+    {
+      "name": "ownership-All",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic",
+        "Neo C3 Relic",
+        "Axi D4 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "vault-Vaulted",
+      "pass": true,
+      "detail": [
+        "Meso B2 Relic",
+        "Axi D4 Relic"
+      ]
+    },
+    {
+      "name": "vault-Unvaulted",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Neo C3 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "vault-All",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic",
+        "Neo C3 Relic",
+        "Axi D4 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "quality-Intact",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "quality-Refined",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic"
+      ]
+    },
+    {
+      "name": "quality-Exceptional",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic"
+      ]
+    },
+    {
+      "name": "quality-Flawless",
+      "pass": true,
+      "detail": [
+        "Meso B2 Relic"
+      ]
+    },
+    {
+      "name": "quality-Radiant",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic"
+      ]
+    },
+    {
+      "name": "quality-All",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic",
+        "Neo C3 Relic",
+        "Axi D4 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "era-All",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic",
+        "Meso B2 Relic",
+        "Neo C3 Relic",
+        "Axi D4 Relic",
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "era-Lith",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic"
+      ]
+    },
+    {
+      "name": "era-Meso",
+      "pass": true,
+      "detail": [
+        "Meso B2 Relic"
+      ]
+    },
+    {
+      "name": "era-Neo",
+      "pass": true,
+      "detail": [
+        "Neo C3 Relic"
+      ]
+    },
+    {
+      "name": "era-Axi",
+      "pass": true,
+      "detail": [
+        "Axi D4 Relic"
+      ]
+    },
+    {
+      "name": "era-Requiem",
+      "pass": true,
+      "detail": [
+        "Requiem I Relic"
+      ]
+    },
+    {
+      "name": "squad-1",
+      "pass": true
+    },
+    {
+      "name": "squad-2",
+      "pass": true
+    },
+    {
+      "name": "squad-3",
+      "pass": true
+    },
+    {
+      "name": "squad-4",
+      "pass": true
+    },
+    {
+      "name": "target-I",
+      "pass": true
+    },
+    {
+      "name": "target-E",
+      "pass": true
+    },
+    {
+      "name": "target-F",
+      "pass": true
+    },
+    {
+      "name": "target-R",
+      "pass": true
+    },
+    {
+      "name": "sort-toggle-Name",
+      "pass": true
+    },
+    {
+      "name": "sort-toggle-Ducats",
+      "pass": true
+    },
+    {
+      "name": "sort-toggle-Plat",
+      "pass": true
+    },
+    {
+      "name": "sort-toggle-Refine (D)",
+      "pass": true
+    },
+    {
+      "name": "sort-toggle-Refine (P)",
+      "pass": true
+    },
+    {
+      "name": "relic-name-search",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic"
+      ]
+    },
+    {
+      "name": "reward-all-words-search",
+      "pass": true,
+      "detail": [
+        "Lith A1 Relic"
+      ]
+    },
+    {
+      "name": "ampersand-reward-highlight",
+      "pass": false,
+      "detail": {
+        "labels": [
+          "Lith A1 Relic",
+          "Meso B2 Relic",
+          "Neo C3 Relic",
+          "Axi D4 Relic"
+        ],
+        "highlight": false
+      }
+    },
+    {
+      "name": "no-match-message",
+      "pass": true
+    },
+    {
+      "name": "german-labels",
+      "pass": false
+    },
+    {
+      "name": "formula-standard-Intact-1",
+      "pass": true,
+      "detail": [
+        14.6721,
+        20.881500000000003
+      ]
+    },
+    {
+      "name": "formula-standard-Intact-2",
+      "pass": true,
+      "detail": [
+        21.175421910000008,
+        28.05498095
+      ]
+    },
+    {
+      "name": "formula-standard-Intact-3",
+      "pass": true,
+      "detail": [
+        25.312582449063008,
+        32.698933905855
+      ]
+    },
+    {
+      "name": "formula-standard-Intact-4",
+      "pass": true,
+      "detail": [
+        28.425300227929394,
+        36.36317027219508
+      ]
+    },
+    {
+      "name": "formula-standard-Exceptional-1",
+      "pass": true,
+      "detail": [
+        16.532100000000003,
+        22.681500000000007
+      ]
+    },
+    {
+      "name": "formula-standard-Exceptional-2",
+      "pass": true,
+      "detail": [
+        24.741545910000006,
+        31.71960095
+      ]
+    },
+    {
+      "name": "formula-standard-Exceptional-3",
+      "pass": true,
+      "detail": [
+        30.304021993263007,
+        37.74619323085499
+      ]
+    },
+    {
+      "name": "formula-standard-Exceptional-4",
+      "pass": true,
+      "detail": [
+        34.66222026905731,
+        42.52225529008428
+      ]
+    },
+    {
+      "name": "formula-standard-Flawless-1",
+      "pass": true,
+      "detail": [
+        18.500000000000007,
+        24.650000000000006
+      ]
+    },
+    {
+      "name": "formula-standard-Flawless-2",
+      "pass": true,
+      "detail": [
+        28.517000000000003,
+        35.86150000000001
+      ]
+    },
+    {
+      "name": "formula-standard-Flawless-3",
+      "pass": true,
+      "detail": [
+        35.43311000000001,
+        43.26159500000001
+      ]
+    },
+    {
+      "name": "formula-standard-Flawless-4",
+      "pass": true,
+      "detail": [
+        40.8524213,
+        48.96007075000001
+      ]
+    },
+    {
+      "name": "formula-standard-Radiant-1",
+      "pass": true,
+      "detail": [
+        22.1679,
+        28.168499999999995
+      ]
+    },
+    {
+      "name": "formula-standard-Radiant-2",
+      "pass": true,
+      "detail": [
+        34.984159909999995,
+        42.206510949999995
+      ]
+    },
+    {
+      "name": "formula-standard-Radiant-3",
+      "pass": true,
+      "detail": [
+        43.941771995637,
+        51.408427299645
+      ]
+    },
+    {
+      "name": "formula-standard-Radiant-4",
+      "pass": true,
+      "detail": [
+        50.89047348848173,
+        58.279663796901666
+      ]
+    },
+    {
+      "name": "formula-requiem-Intact-1",
+      "pass": true,
+      "detail": [
+        4.5,
+        13.5
+      ]
+    },
+    {
+      "name": "formula-requiem-Intact-2",
+      "pass": true,
+      "detail": [
+        5.8125,
+        14.8125
+      ]
+    },
+    {
+      "name": "formula-requiem-Intact-3",
+      "pass": true,
+      "detail": [
+        6.46875,
+        15.46875
+      ]
+    },
+    {
+      "name": "formula-requiem-Intact-4",
+      "pass": true,
+      "detail": [
+        6.8583984375,
+        15.8583984375
+      ]
+    },
+    {
+      "name": "formula-requiem-Exceptional-1",
+      "pass": true,
+      "detail": [
+        4.5,
+        13.5
+      ]
+    },
+    {
+      "name": "formula-requiem-Exceptional-2",
+      "pass": true,
+      "detail": [
+        5.8125,
+        14.8125
+      ]
+    },
+    {
+      "name": "formula-requiem-Exceptional-3",
+      "pass": true,
+      "detail": [
+        6.46875,
+        15.46875
+      ]
+    },
+    {
+      "name": "formula-requiem-Exceptional-4",
+      "pass": true,
+      "detail": [
+        6.8583984375,
+        15.8583984375
+      ]
+    },
+    {
+      "name": "formula-requiem-Flawless-1",
+      "pass": true,
+      "detail": [
+        4.5,
+        13.5
+      ]
+    },
+    {
+      "name": "formula-requiem-Flawless-2",
+      "pass": true,
+      "detail": [
+        5.8125,
+        14.8125
+      ]
+    },
+    {
+      "name": "formula-requiem-Flawless-3",
+      "pass": true,
+      "detail": [
+        6.46875,
+        15.46875
+      ]
+    },
+    {
+      "name": "formula-requiem-Flawless-4",
+      "pass": true,
+      "detail": [
+        6.8583984375,
+        15.8583984375
+      ]
+    },
+    {
+      "name": "formula-requiem-Radiant-1",
+      "pass": true,
+      "detail": [
+        4.5,
+        13.5
+      ]
+    },
+    {
+      "name": "formula-requiem-Radiant-2",
+      "pass": true,
+      "detail": [
+        5.8125,
+        14.8125
+      ]
+    },
+    {
+      "name": "formula-requiem-Radiant-3",
+      "pass": true,
+      "detail": [
+        6.46875,
+        15.46875
+      ]
+    },
+    {
+      "name": "formula-requiem-Radiant-4",
+      "pass": true,
+      "detail": [
+        6.8583984375,
+        15.8583984375
+      ]
+    },
+    {
+      "name": "missing-price-semantics",
+      "pass": true
+    },
+    {
+      "name": "no-market-mutation-command",
+      "pass": true
+    },
+    {
+      "name": "no-browser-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 12120,
+      "after_length": 12120
+    },
+    {
+      "state": "no-inventory",
+      "equal": true,
+      "before_length": 12444,
+      "after_length": 12444
+    },
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 39359,
+      "after_length": 39359
+    },
+    {
+      "state": "price-progress",
+      "equal": true,
+      "before_length": 39825,
+      "after_length": 39825
+    },
+    {
+      "state": "price-indeterminate",
+      "equal": true,
+      "before_length": 39816,
+      "after_length": 39816
+    },
+    {
+      "state": "no-export",
+      "equal": true,
+      "before_length": 28499,
+      "after_length": 28499
+    },
+    {
+      "state": "no-match",
+      "equal": true,
+      "before_length": 12805,
+      "after_length": 12805
+    },
+    {
+      "state": "non-name-sort",
+      "equal": true,
+      "before_length": 38390,
+      "after_length": 38390
+    },
+    {
+      "state": "drawer",
+      "equal": true,
+      "before_length": 41814,
+      "after_length": 41814
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "cards": [
+        {
+          "label": "Lith A1 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Meso B2 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Neo C3 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Axi D4 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Requiem I Relic",
+          "tabIndex": 0,
+          "role": "button"
+        }
+      ],
+      "secondaryColumns": 2,
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "primaryColumns": 4,
+      "traces": {
+        "left": 820.25,
+        "right": 956,
+        "text": "\nVOID TRACES\n275/ 1500\n"
+      },
+      "rails": [
+        {
+          "labels": [
+            "All",
+            "Lith",
+            "Meso",
+            "Neo",
+            "Axi",
+            "Requiem"
+          ],
+          "kind": "era",
+          "wrap": "nowrap",
+          "client": 924,
+          "scroll": 924,
+          "overflow": "auto"
+        },
+        {
+          "labels": [
+            "All",
+            "Intact",
+            "Refined",
+            "Exceptional",
+            "Flawless",
+            "Radiant"
+          ],
+          "kind": "quality",
+          "wrap": "nowrap",
+          "client": 924,
+          "scroll": 924,
+          "overflow": "auto"
+        },
+        {
+          "labels": [
+            "All",
+            "Vaulted",
+            "Unvaulted"
+          ],
+          "kind": "vault",
+          "wrap": "nowrap",
+          "client": 924,
+          "scroll": 924,
+          "overflow": "auto"
+        },
+        {
+          "labels": [
+            "Name",
+            "Ducats",
+            "Plat",
+            "Refine (D)",
+            "Refine (P)"
+          ],
+          "kind": "sort",
+          "wrap": "nowrap",
+          "client": 924,
+          "scroll": 924,
+          "overflow": "auto"
+        }
+      ],
+      "noSell": true,
+      "root": {
+        "left": 0,
+        "right": 992
+      },
+      "present": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "cards": [
+        {
+          "label": "Lith A1 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Meso B2 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Neo C3 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Axi D4 Relic",
+          "tabIndex": 0,
+          "role": "button"
+        },
+        {
+          "label": "Requiem I Relic",
+          "tabIndex": 0,
+          "role": "button"
+        }
+      ],
+      "secondaryColumns": 1,
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "primaryColumns": 1,
+      "traces": {
+        "left": 520.25,
+        "right": 656,
+        "text": "\nVOID TRACES\n275/ 1500\n"
+      },
+      "rails": [
+        {
+          "labels": [
+            "All",
+            "Lith",
+            "Meso",
+            "Neo",
+            "Axi",
+            "Requiem"
+          ],
+          "kind": "era",
+          "wrap": "nowrap",
+          "client": 624,
+          "scroll": 624,
+          "overflow": "auto"
+        },
+        {
+          "labels": [
+            "All",
+            "Intact",
+            "Refined",
+            "Exceptional",
+            "Flawless",
+            "Radiant"
+          ],
+          "kind": "quality",
+          "wrap": "nowrap",
+          "client": 624,
+          "scroll": 624,
+          "overflow": "auto"
+        },
+        {
+          "labels": [
+            "All",
+            "Vaulted",
+            "Unvaulted"
+          ],
+          "kind": "vault",
+          "wrap": "nowrap",
+          "client": 624,
+          "scroll": 624,
+          "overflow": "auto"
+        },
+        {
+          "labels": [
+            "Name",
+            "Ducats",
+            "Plat",
+            "Refine (D)",
+            "Refine (P)"
+          ],
+          "kind": "sort",
+          "wrap": "nowrap",
+          "client": 624,
+          "scroll": 624,
+          "overflow": "auto"
+        }
+      ],
+      "noSell": true,
+      "root": {
+        "left": 0,
+        "right": 692
+      },
+      "present": true
+    }
+  ],
+  "formula_results": [
+    {
+      "dataset": "standard",
+      "refinement": "Intact",
+      "squad": 1,
+      "values": [
+        14.6721,
+        20.881500000000003
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Intact",
+      "squad": 2,
+      "values": [
+        21.175421910000008,
+        28.05498095
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Intact",
+      "squad": 3,
+      "values": [
+        25.312582449063008,
+        32.698933905855
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Intact",
+      "squad": 4,
+      "values": [
+        28.425300227929394,
+        36.36317027219508
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Exceptional",
+      "squad": 1,
+      "values": [
+        16.532100000000003,
+        22.681500000000007
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Exceptional",
+      "squad": 2,
+      "values": [
+        24.741545910000006,
+        31.71960095
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Exceptional",
+      "squad": 3,
+      "values": [
+        30.304021993263007,
+        37.74619323085499
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Exceptional",
+      "squad": 4,
+      "values": [
+        34.66222026905731,
+        42.52225529008428
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Flawless",
+      "squad": 1,
+      "values": [
+        18.500000000000007,
+        24.650000000000006
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Flawless",
+      "squad": 2,
+      "values": [
+        28.517000000000003,
+        35.86150000000001
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Flawless",
+      "squad": 3,
+      "values": [
+        35.43311000000001,
+        43.26159500000001
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Flawless",
+      "squad": 4,
+      "values": [
+        40.8524213,
+        48.96007075000001
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Radiant",
+      "squad": 1,
+      "values": [
+        22.1679,
+        28.168499999999995
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Radiant",
+      "squad": 2,
+      "values": [
+        34.984159909999995,
+        42.206510949999995
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Radiant",
+      "squad": 3,
+      "values": [
+        43.941771995637,
+        51.408427299645
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "standard",
+      "refinement": "Radiant",
+      "squad": 4,
+      "values": [
+        50.89047348848173,
+        58.279663796901666
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Intact",
+      "squad": 1,
+      "values": [
+        4.5,
+        13.5
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Intact",
+      "squad": 2,
+      "values": [
+        5.8125,
+        14.8125
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Intact",
+      "squad": 3,
+      "values": [
+        6.46875,
+        15.46875
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Intact",
+      "squad": 4,
+      "values": [
+        6.8583984375,
+        15.8583984375
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Exceptional",
+      "squad": 1,
+      "values": [
+        4.5,
+        13.5
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Exceptional",
+      "squad": 2,
+      "values": [
+        5.8125,
+        14.8125
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Exceptional",
+      "squad": 3,
+      "values": [
+        6.46875,
+        15.46875
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Exceptional",
+      "squad": 4,
+      "values": [
+        6.8583984375,
+        15.8583984375
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Flawless",
+      "squad": 1,
+      "values": [
+        4.5,
+        13.5
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Flawless",
+      "squad": 2,
+      "values": [
+        5.8125,
+        14.8125
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Flawless",
+      "squad": 3,
+      "values": [
+        6.46875,
+        15.46875
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Flawless",
+      "squad": 4,
+      "values": [
+        6.8583984375,
+        15.8583984375
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Radiant",
+      "squad": 1,
+      "values": [
+        4.5,
+        13.5
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Radiant",
+      "squad": 2,
+      "values": [
+        5.8125,
+        14.8125
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Radiant",
+      "squad": 3,
+      "values": [
+        6.46875,
+        15.46875
+      ],
+      "pass": true
+    },
+    {
+      "dataset": "requiem",
+      "refinement": "Radiant",
+      "squad": 4,
+      "values": [
+        6.8583984375,
+        15.8583984375
+      ],
+      "pass": true
+    }
+  ]
+}

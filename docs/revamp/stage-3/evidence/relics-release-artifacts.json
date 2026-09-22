@@ -1,0 +1,30 @@
+[
+  {
+    "bytes": 71737856,
+    "sha256": "3189dbee0b72dffd8ddd4009848d775723a2efcab889e1b69f5ea09bc3c1ee5b",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/preserved-stage3g-native/kiedas-orbiter",
+    "current_file_available_at_original_path": false
+  },
+  {
+    "bytes": 71737856,
+    "sha256": "3189dbee0b72dffd8ddd4009848d775723a2efcab889e1b69f5ea09bc3c1ee5b",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/preserved-stage3g-native/kiedas-orbiter-preview",
+    "current_file_available_at_original_path": false
+  },
+  {
+    "bytes": 116351678,
+    "sha256": "56beebda725969d05c7daee90c7a9ab4d3e020ac8e3daec07bbae584109c976b",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/preserved-stage3g-native/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "current_file_available_at_original_path": false
+  },
+  {
+    "bytes": 190077432,
+    "sha256": "03bfc80b8a88e5d5926b598746158508eda0bd581e0e877ecc93a122215fbbaa",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/preserved-stage3g-native/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "current_file_available_at_original_path": false
+  }
+]

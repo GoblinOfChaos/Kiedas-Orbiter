@@ -1,0 +1,155 @@
+{
+  "status": "pass",
+  "checks": {
+    "component_62_of_62": true,
+    "stable_markup_20_of_20": true,
+    "stable_interactions_19_of_19": true,
+    "component_zero_unavailable_invocations": true,
+    "component_zero_relay_event_invocations": true,
+    "component_zero_stop_log_scanner_invocations": true,
+    "debian_82_of_82": true,
+    "appimage_82_of_82": true,
+    "both_packages_12_settings_checks": true,
+    "both_packages_zero_unavailable_invocations": true,
+    "both_packages_zero_relay_event_invocations": true,
+    "both_packages_zero_stop_log_scanner_invocations": true,
+    "both_packages_reject_all_five_guarded_commands": true,
+    "summary_explicitly_names_unguarded_surfaces": true,
+    "artifact_hashes_current": true,
+    "stage3i_artifacts_preserved": true,
+    "tracked_baseline_850_of_850": true,
+    "lockfile_unchanged": true,
+    "incremental_patch_native_git": true,
+    "stable_source_reverse_restoration": true,
+    "cumulative_patch_applies": true,
+    "main_diff_check": true,
+    "checkout_diff_check": true,
+    "stage3k_maps_untouched": true,
+    "docs_await_acceptance": true,
+    "register_status": true
+  },
+  "packages": {
+    "deb": {
+      "checks": 82,
+      "settings_checks": 12,
+      "all_pass": true,
+      "unavailable_invocations": [],
+      "relay_event_invocations": [],
+      "stop_log_scanner_invocations": [],
+      "direct_guard_commands": [
+        "play_notification_sound",
+        "set_hotkeys",
+        "set_monitoring_active",
+        "show_notification",
+        "start_log_scanner"
+      ],
+      "direct_guards_pass": true
+    },
+    "appimage": {
+      "checks": 82,
+      "settings_checks": 12,
+      "all_pass": true,
+      "unavailable_invocations": [],
+      "relay_event_invocations": [],
+      "stop_log_scanner_invocations": [],
+      "direct_guard_commands": [
+        "play_notification_sound",
+        "set_hotkeys",
+        "set_monitoring_active",
+        "show_notification",
+        "start_log_scanner"
+      ],
+      "direct_guards_pass": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+      "bytes": 71737624,
+      "sha256": "3f7aff1ad3d900c29e21269ffd2cdf767d40d17a1af9d95830e4481113e01499"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+      "bytes": 71737624,
+      "sha256": "3f7aff1ad3d900c29e21269ffd2cdf767d40d17a1af9d95830e4481113e01499"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+      "bytes": 116350712,
+      "sha256": "6e600fdf349ae9bbd13e72c06ceb18736dd3676cfd339626bc317a25ffbe62ad"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+      "bytes": 190081528,
+      "sha256": "e5ed4407d8ded373f23dc1f8c3010dd2cc2838f618eb19fa2a7035c0e212e2ef"
+    }
+  ],
+  "integrity": [
+    {
+      "path": "docs/revamp/stage-3/settings-implementation.patch",
+      "bytes": 22955,
+      "sha256": "6b0889684d3c08df8ea837282898f5b7cc79ea6bc5c3696e2d9310750978c2ac"
+    },
+    {
+      "path": "docs/revamp/stage-3/cumulative-implementation.patch",
+      "bytes": 3911069,
+      "sha256": "00833a5578947073555d2d9fab1b360b989ba73ffe79220bb801ffa8d8d78815"
+    },
+    {
+      "path": "docs/revamp/stage-3/settings-implementation.json",
+      "bytes": 2641,
+      "sha256": "51536f21641609cf6b0b8482c363d357d18aecaa84873ae58c6b3142bd4c32c4"
+    },
+    {
+      "path": "docs/revamp/stage-3/settings-source-register.json",
+      "bytes": 6433,
+      "sha256": "18e8bdbe4abc566e8980ef5031e085d805c0faa866cf74519ee8aabef493d39a"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-component.json",
+      "bytes": 45993,
+      "sha256": "56b07e055bdcd53871b5f11772138f46bae44b2203382ba7f2be308104c1075c"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-source-preservation.json",
+      "bytes": 760,
+      "sha256": "26a7fa6ec0aaf1cd747cca905a79a3274e4a167e12f3967a2b935773257af00d"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-validation-summary.json",
+      "bytes": 23986,
+      "sha256": "f5ea555980bbd5ee23cb1a00a7c8634b4dc4e70f2acad9788468e5680cbfa3e5"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-release-artifacts.json",
+      "bytes": 971,
+      "sha256": "ba998ada5bd10592fb353edd7ecefb2dcc4939b3535a3c7d28af0f096ffed8d9"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-baseline-check.json",
+      "bytes": 2641,
+      "sha256": "51536f21641609cf6b0b8482c363d357d18aecaa84873ae58c6b3142bd4c32c4"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-deb-packaged-smoke.json",
+      "bytes": 76726,
+      "sha256": "cae98041f7a5b49bd43e8bed6f6af7730f16d7c95fa69997205e96ea0c57345e"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-appimage-packaged-smoke.json",
+      "bytes": 76670,
+      "sha256": "1468388d6e298acd1287150321edf85ee64edb2fa751c57620ec855c164c5e50"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-native-build-container.json",
+      "bytes": 718,
+      "sha256": "b42e528146486d5d1ba9335b932fe2c48639d1c7b0376ead0bdeb566335160ef"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-native-bundle-container.json",
+      "bytes": 719,
+      "sha256": "bfb6aecaf4038d11bc39997816e788d9bcd4d79b7b8b4116212e7a276ee2dc35"
+    }
+  ],
+  "gate": "Stage 3J implemented and validated on Linux; awaiting user acceptance"
+}

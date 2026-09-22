@@ -1,0 +1,31 @@
+{
+  "status": "plan_ready_explicit_app_source_approval_required",
+  "risk": "higher",
+  "checks": {
+    "stage3h_accepted_in_ledger": true,
+    "stage3i_marked_higher_risk": true,
+    "explicit_approval_required": true,
+    "market_source_unchanged": true,
+    "preview_market_layout_absent": true,
+    "stage3h_cumulative_patch_unchanged_and_frozen": true,
+    "cargo_lock_unchanged": true,
+    "tracked_baseline_850_of_850": true,
+    "source_fact_passed": true,
+    "rust_mutation_guards_source_verified": true,
+    "stage3i_source_absent_from_status": true,
+    "stage3j_source_not_started": true,
+    "main_diff_check_passes": true,
+    "checkout_diff_check_passes": true
+  },
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "market_source_sha256": "ed12f0eece72212d655ed1e56e9283d653c49f184d60a8d1dc9d51d42048b0be",
+  "accepted_stage3h_cumulative_patch_sha256": "52fc11d28c8241cd707dd73ea0168b9e0d7c6bbf7332f64d81bd156f37e07419",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "planned_app_files": [
+    "src/screens/Market.jsx",
+    "src/components/PreviewMarketLayout.jsx"
+  ],
+  "market_app_source_changed": false,
+  "stage3j_app_source_started": false
+}

@@ -1,0 +1,2420 @@
+{
+  "binary_sha256": "5f30aed54a00564e8d97caf19932d36633181eca5e567f0ab9bad6a0179faa63",
+  "private_container_network": true,
+  "installed_package": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+  "legacy_adjacency_test": false,
+  "synthetic_profile": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-2zu7lkq6",
+  "checks": [
+    {
+      "name": "legacy_source_unchanged",
+      "pass": true
+    },
+    {
+      "name": "legacy_sentinel_not_imported",
+      "pass": true
+    },
+    {
+      "name": "stable_os_profile_not_created",
+      "pass": true
+    },
+    {
+      "name": "legacy_credentials_not_imported",
+      "pass": true
+    },
+    {
+      "name": "legacy_auto_monitoring_not_imported",
+      "pass": true
+    },
+    {
+      "name": "preview_document_title",
+      "pass": true
+    },
+    {
+      "name": "preview_title_after_reload",
+      "pass": true
+    },
+    {
+      "name": "preview_navigation_after_reload",
+      "pass": true
+    },
+    {
+      "name": "1200-dialog-escape-focus",
+      "pass": true
+    },
+    {
+      "name": "900-dialog-escape-focus",
+      "pass": true
+    }
+  ],
+  "session_response": {
+    "value": {
+      "sessionId": "f818be96-8271-49e4-8282-2dac8e307b09",
+      "capabilities": {
+        "browserName": "wry",
+        "browserVersion": "0.55.1",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "url": {
+    "value": "tauri://localhost"
+  },
+  "title": {
+    "value": "Kieda's Orbiter Preview"
+  },
+  "body": {
+    "value": "WELCOME TO KIEDA'S ORBITER\nLet's get you set up. Pick your language below; the paths are optional and can be configured later in Settings.\n\nGAME LANGUAGE\n\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nThe app reloads to apply your language choice. You can change it anytime in Settings.\nGAME ASSETS(optional)\n\nBROWSE\nPoint to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.\nDISCLAIMER\nThis app reads session tokens from game memory. Digital Extremes has not approved this application.\nI understand and accept the risks described above.\nCONTINUE\n\nKIEDA'S\nORBITER\nPREVIEW COMMAND\n\nTODAY\n\nDashboard\n\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\n\nTRADING\n\nMarket\n\n\nRivens\n\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nKO\nPREVIEW\nIsolated profile\n\nInventory Sync Offline\nLive integrations disabled\nPREVIEW\nISOLATED PROFILE\n\nTODAY\nYour next adventure\nYour collection, plans, and live activities in one place.\nLoading worldstate...\n"
+  },
+  "preview_files": [
+    "xdgdata/com.jacob.kiedasorbiter.preview/hsts-storage.sqlite",
+    "xdgdata/kiedas-orbiter-preview/data/user/.preview-profile.lock",
+    "xdgdata/kiedas-orbiter-preview/data/user/.preview-import.lock",
+    "xdgdata/kiedas-orbiter-preview/data/user/settings.json",
+    "xdgdata/kiedas-orbiter-preview/data/user/logs/app-2026-09-07.log",
+    "xdgdata/kiedas-orbiter-preview/data/assets/audio/notification1.wav",
+    "xdgdata/kiedas-orbiter-preview/data/assets/audio/notification2.wav",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/ExportAvionics_fixed.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/ExportUpgrades_fixed.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/acquisition_overrides.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/all-recipe-components.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/browse-wf-glyphs.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/card-overlay-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/collectible-locations.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/cosmetic-catalog-additions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/mod-icon-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/peely-pix-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/peely-pix-names.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/riven_good_rolls.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/unmapped-components.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/warframe-items-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-acquisition-status.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-baro-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-blueprints-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-description-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-master-acquisitions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-page-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-prime-relic-drops.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-research-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-resources-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-sigils-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-tennogen-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-vendors-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-verified-all-acquisitions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/CambianDrift4kMap.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/Duviri_map_with_caves.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/OrbVallis4kMap-min.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/PlainsofEidolon_4k_Map.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/deimos_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/poe_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/venus_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank00Unranked.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank01Initiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank02SilverInitiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank03GoldInitiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank04Novice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank05SilverNovice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank06GoldNovice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank07Disciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank08SilverDisciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank09GoldDisciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank10Seeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank11SilverSeeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank12GoldSeeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank13Hunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank14SilverHunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank15GoldHunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank16Eagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank17SilverEagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank18GoldEagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank19Tiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank20SilverTiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank21GoldTiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank22Dragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank23SilverDragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank24GoldDragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank25Sage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank26SilverSage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank27GoldSage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank28Master.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank29MiddleMaster.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank30GrandMaster.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank31.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank32.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank33.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank34.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank35.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank36.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank37.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank38.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank39.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank40.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank41.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank42.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank43.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank44.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank45.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank46.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank47.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank48.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank49.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank50.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank51.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemFass.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemJahu.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemKhra.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemLohk.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemNetra.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemRis.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemVome.png"
+  ],
+  "packaged_resource_check": {
+    "resolved": true,
+    "matches_installed_bytes": true,
+    "profile_copy_absent": false
+  },
+  "bundle_fallback_check": {
+    "profile_copy_absent": true,
+    "resolved": true,
+    "matches_installed_bytes": true
+  },
+  "dialog_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "mode": "empty",
+      "state": {
+        "scrollHeight": 492,
+        "viewport": [
+          1200,
+          800
+        ],
+        "top": 153,
+        "clientHeight": 492,
+        "height": 494,
+        "overflowY": "auto",
+        "maxHeight": "768px",
+        "bottom": 647
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "visible": true
+        },
+        {
+          "label": "inventory",
+          "visible": true
+        },
+        {
+          "label": "notes",
+          "visible": true
+        },
+        {
+          "label": "maps",
+          "visible": true
+        },
+        {
+          "label": "preferences",
+          "visible": true
+        },
+        {
+          "label": "history",
+          "visible": true
+        },
+        {
+          "label": "checklist",
+          "visible": true
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "visible": true
+        },
+        {
+          "label": "Close",
+          "visible": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "mode": "synthetic-dom-content",
+      "state": {
+        "scrollHeight": 580,
+        "viewport": [
+          1200,
+          800
+        ],
+        "top": 109,
+        "clientHeight": 580,
+        "height": 582,
+        "overflowY": "auto",
+        "maxHeight": "768px",
+        "bottom": 691
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "visible": true
+        },
+        {
+          "label": "inventory",
+          "visible": true
+        },
+        {
+          "label": "notes",
+          "visible": true
+        },
+        {
+          "label": "maps",
+          "visible": true
+        },
+        {
+          "label": "preferences",
+          "visible": true
+        },
+        {
+          "label": "history",
+          "visible": true
+        },
+        {
+          "label": "checklist",
+          "visible": true
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "visible": true
+        },
+        {
+          "label": "Close",
+          "visible": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "mode": "empty",
+      "state": {
+        "scrollHeight": 492,
+        "viewport": [
+          900,
+          500
+        ],
+        "top": 16,
+        "clientHeight": 466,
+        "height": 468,
+        "overflowY": "auto",
+        "maxHeight": "468px",
+        "bottom": 484
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "visible": true
+        },
+        {
+          "label": "inventory",
+          "visible": true
+        },
+        {
+          "label": "notes",
+          "visible": true
+        },
+        {
+          "label": "maps",
+          "visible": true
+        },
+        {
+          "label": "preferences",
+          "visible": true
+        },
+        {
+          "label": "history",
+          "visible": true
+        },
+        {
+          "label": "checklist",
+          "visible": true
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "visible": true
+        },
+        {
+          "label": "Close",
+          "visible": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "mode": "synthetic-dom-content",
+      "state": {
+        "scrollHeight": 580,
+        "viewport": [
+          900,
+          500
+        ],
+        "top": 16,
+        "clientHeight": 466,
+        "height": 468,
+        "overflowY": "auto",
+        "maxHeight": "468px",
+        "bottom": 484
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "visible": true
+        },
+        {
+          "label": "inventory",
+          "visible": true
+        },
+        {
+          "label": "notes",
+          "visible": true
+        },
+        {
+          "label": "maps",
+          "visible": true
+        },
+        {
+          "label": "preferences",
+          "visible": true
+        },
+        {
+          "label": "history",
+          "visible": true
+        },
+        {
+          "label": "checklist",
+          "visible": true
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "visible": true
+        },
+        {
+          "label": "Close",
+          "visible": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "guard_checks": [
+    {
+      "command": "start_log_scanner",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "set_hotkeys",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "show_overlay_window",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "show_notification",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "download_appimage_update",
+      "result": {
+        "resolved": false,
+        "error": "Application updates are disabled in Preview"
+      },
+      "pass": true
+    }
+  ],
+  "market_guards": [
+    {
+      "command": "post_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "delete_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "update_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "close_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    }
+  ],
+  "updater_ui_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "state": {
+        "startupAbsent": true,
+        "messageRect": {
+          "x": 322,
+          "width": 367,
+          "left": 322,
+          "right": 689,
+          "top": 645,
+          "height": 16,
+          "y": 645,
+          "bottom": 661
+        },
+        "buttonDisabled": true,
+        "viewport": [
+          1200,
+          800
+        ],
+        "installAbsent": true,
+        "message": "Application updates are disabled in Preview."
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "state": {
+        "startupAbsent": true,
+        "messageRect": {
+          "x": 146,
+          "width": 305,
+          "left": 146,
+          "right": 451,
+          "top": 345,
+          "height": 16,
+          "y": 345,
+          "bottom": 361
+        },
+        "buttonDisabled": true,
+        "viewport": [
+          900,
+          500
+        ],
+        "installAbsent": true,
+        "message": "Application updates are disabled in Preview."
+      },
+      "pass": true
+    },
+    {
+      "name": "disabled_state_after_reload",
+      "pass": true
+    }
+  ],
+  "dashboard_state_injection": {
+    "tier": "synthetic empty parsed WorldState injected into real React MonitoringContext; no backend mocking",
+    "succeeded": true
+  },
+  "dashboard_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "state": {
+        "stats": [
+          "0",
+          "\u2014",
+          "0"
+        ],
+        "rail": "none",
+        "expanded": "flex",
+        "heading": "Your next adventure",
+        "bodyOverflow": false,
+        "targetNames": false,
+        "routeOverflow": false,
+        "summaryCount": 3,
+        "scrollOwner": "auto",
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "state": {
+        "stats": [
+          "0",
+          "\u2014",
+          "0"
+        ],
+        "rail": "flex",
+        "expanded": "none",
+        "heading": "Your next adventure",
+        "bodyOverflow": false,
+        "targetNames": false,
+        "routeOverflow": false,
+        "summaryCount": 3,
+        "scrollOwner": "auto",
+        "present": true
+      },
+      "pass": true
+    }
+  ],
+  "inventory_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "state": {
+        "sellVisible": false,
+        "categories": {
+          "wrap": "nowrap",
+          "client": 874,
+          "scroll": 1943,
+          "overflow": "auto"
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "toolbarColumns": 2,
+        "tabs": [
+          "All",
+          "Warframes",
+          "Weapons",
+          "Companions",
+          "Companion Weapons",
+          "Archweapons",
+          "Vehicles",
+          "Amps",
+          "Arcanes",
+          "Peely Pix",
+          "Consumables",
+          "Landing Craft",
+          "Resources",
+          "Prime Sets",
+          "Ayatan"
+        ],
+        "root": {
+          "left": 280,
+          "right": 1156
+        },
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "state": {
+        "sellVisible": false,
+        "categories": {
+          "wrap": "nowrap",
+          "client": 750,
+          "scroll": 1943,
+          "overflow": "auto"
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "toolbarColumns": 2,
+        "tabs": [
+          "All",
+          "Warframes",
+          "Weapons",
+          "Companions",
+          "Companion Weapons",
+          "Archweapons",
+          "Vehicles",
+          "Amps",
+          "Arcanes",
+          "Peely Pix",
+          "Consumables",
+          "Landing Craft",
+          "Resources",
+          "Prime Sets",
+          "Ayatan"
+        ],
+        "root": {
+          "left": 104,
+          "right": 856
+        },
+        "present": true
+      },
+      "pass": false
+    }
+  ],
+  "mastery_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "layout",
+      "state": {
+        "itemColumns": 4,
+        "secondaryColumns": 2,
+        "present": true,
+        "labels": [
+          "Warframe",
+          "Primary",
+          "Secondary",
+          "Melee",
+          "Kitgun",
+          "Zaw",
+          "Amp",
+          "Sentinel",
+          "Sentinel Weapon",
+          "MOA",
+          "Hound",
+          "Robotics",
+          "Companions",
+          "Archwing",
+          "Archgun",
+          "Archmelee",
+          "Necramech",
+          "K-Drive",
+          "Plexus",
+          "Vehicles",
+          "Railjack Intrinsic",
+          "Drifter Intrinsic",
+          "Starchart",
+          "The Steel Path"
+        ],
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "firstRole": "button",
+        "firstTabIndex": 0,
+        "root": {
+          "left": 280,
+          "right": 1156
+        },
+        "rank": {
+          "left": 305,
+          "right": 1131
+        }
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "keyboard-dialog",
+      "enter": {
+        "modal": "true",
+        "heading": "WarframeDetails",
+        "role": "dialog",
+        "present": true
+      },
+      "space": {
+        "heading": "The Steel PathDetails",
+        "role": "dialog",
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "layout",
+      "state": {
+        "itemColumns": 3,
+        "secondaryColumns": 1,
+        "present": true,
+        "labels": [
+          "Warframe",
+          "Primary",
+          "Secondary",
+          "Melee",
+          "Kitgun",
+          "Zaw",
+          "Amp",
+          "Sentinel",
+          "Sentinel Weapon",
+          "MOA",
+          "Hound",
+          "Robotics",
+          "Companions",
+          "Archwing",
+          "Archgun",
+          "Archmelee",
+          "Necramech",
+          "K-Drive",
+          "Plexus",
+          "Vehicles",
+          "Railjack Intrinsic",
+          "Drifter Intrinsic",
+          "Starchart",
+          "The Steel Path"
+        ],
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "firstRole": "button",
+        "firstTabIndex": 0,
+        "root": {
+          "left": 104,
+          "right": 856
+        },
+        "rank": {
+          "left": 129,
+          "right": 831
+        }
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "keyboard-dialog",
+      "enter": {
+        "modal": "true",
+        "heading": "WarframeDetails",
+        "role": "dialog",
+        "present": true
+      },
+      "space": {
+        "heading": "The Steel PathDetails",
+        "role": "dialog",
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "rank-ready",
+      "injection": {
+        "previousInventory": {
+          "account": {
+            "mastery_rank": 15
+          },
+          "intrinsics": [],
+          "starchart": {
+            "total": 0,
+            "steel_path": 0,
+            "origin": 0,
+            "nodes": [],
+            "origin_xp": 0,
+            "steel_path_xp": 0
+          }
+        },
+        "ok": true,
+        "stateHooks": 24
+      },
+      "state": {
+        "bounds": {
+          "left": 129,
+          "right": 831
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "image": "asset://localhost/%2Fvar%2Fhome%2Fjedwards%2Fkiedas-orbiter%2F.preview-work%2Fnative-smoke-2zu7lkq6%2Fxdgdata%2Fkiedas-orbiter-preview%2Fdata%2Fassets%2Fui%2Fteshin.png",
+        "text": "\nCURRENT RANK: 0\nREADY\n\nNEXT:MR1\nMASTERY RANK UP AVAILABLE\nAdvance to Initiate\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+        "present": true
+      },
+      "pass": true
+    }
+  ],
+  "mastery_state_injection": {
+    "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock",
+    "result": {
+      "previousInventory": null,
+      "ok": true,
+      "stateHooks": 24
+    }
+  },
+  "mods_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "layout-and-categories",
+      "state": {
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "toolbarColumns": 2,
+        "cardCount": 17,
+        "firstTabIndex": 0,
+        "categoriesState": {
+          "wrap": "nowrap",
+          "client": 886,
+          "scroll": 1843,
+          "overflow": "auto"
+        },
+        "present": true,
+        "noZeroPrice": true,
+        "root": {
+          "left": 248,
+          "right": 1200
+        },
+        "categories": [
+          "All",
+          "Warframe",
+          "Primary",
+          "Secondary",
+          "Melee",
+          "Sentinels",
+          "Robotic",
+          "Beasts",
+          "Stance",
+          "Aura",
+          "Exilus",
+          "Railjack",
+          "Archgun",
+          "Archmelee",
+          "Parazon",
+          "Augment",
+          "Antique",
+          "Tome",
+          "Vehicles"
+        ],
+        "cardWidths": [
+          200,
+          200,
+          200
+        ],
+        "firstRole": "button",
+        "noSell": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "keyboard-drawer",
+      "enter": true,
+      "space": true,
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "layout-and-categories",
+      "state": {
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "toolbarColumns": 2,
+        "cardCount": 17,
+        "firstTabIndex": 0,
+        "categoriesState": {
+          "wrap": "nowrap",
+          "client": 762,
+          "scroll": 1843,
+          "overflow": "auto"
+        },
+        "present": true,
+        "noZeroPrice": true,
+        "root": {
+          "left": 72,
+          "right": 900
+        },
+        "categories": [
+          "All",
+          "Warframe",
+          "Primary",
+          "Secondary",
+          "Melee",
+          "Sentinels",
+          "Robotic",
+          "Beasts",
+          "Stance",
+          "Aura",
+          "Exilus",
+          "Railjack",
+          "Archgun",
+          "Archmelee",
+          "Parazon",
+          "Augment",
+          "Antique",
+          "Tome",
+          "Vehicles"
+        ],
+        "cardWidths": [
+          200,
+          200,
+          200
+        ],
+        "firstRole": "button",
+        "noSell": true
+      },
+      "pass": false
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "keyboard-drawer",
+      "enter": true,
+      "space": true,
+      "pass": true
+    },
+    {
+      "kind": "price-and-market-surface",
+      "pass": true,
+      "no_zero_price": true,
+      "no_sell": true
+    }
+  ],
+  "mods_state_injection": {
+    "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock",
+    "result": {
+      "previousInventory": {
+        "account": {
+          "mastery_rank": 0
+        },
+        "warframes": [
+          {
+            "mastered": true,
+            "name": "Synthetic Mastered",
+            "unique_name": "/Synthetic/Mastered",
+            "mastery_xp": 3000,
+            "rank": 30
+          }
+        ],
+        "intrinsics": [],
+        "starchart": {
+          "total": 0,
+          "steel_path": 0,
+          "origin": 0,
+          "nodes": [],
+          "origin_xp": 0,
+          "steel_path_xp": 0
+        }
+      },
+      "ok": true,
+      "stateHooks": 24
+    }
+  },
+  "cosmetics_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "layout-categories-and-buttons",
+      "state": {
+        "ownership": [
+          "All",
+          "Owned",
+          "Unowned"
+        ],
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "toolbarColumns": 2,
+        "cardCount": 120,
+        "buttonCount": 120,
+        "kinds": {
+          "wrap": "nowrap",
+          "client": 886,
+          "scroll": 1304,
+          "overflow": "auto"
+        },
+        "root": {
+          "left": 248,
+          "right": 1200
+        },
+        "noZeroPrice": true,
+        "present": true,
+        "categories": [
+          "All",
+          "Warframe",
+          "Primary",
+          "Secondary",
+          "Melee",
+          "Archwing",
+          "Sentinel",
+          "Syandana",
+          "Armor",
+          "Animation",
+          "Glyph",
+          "Sigil",
+          "Decoration",
+          "Emote",
+          "Other"
+        ],
+        "cardWidths": [
+          288,
+          288,
+          288
+        ],
+        "noSell": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "native-acquisition-button",
+      "focused": true,
+      "drawer": {
+        "title": "-Chroma- Prime Partner Glyph",
+        "count": 1
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "layout-categories-and-buttons",
+      "state": {
+        "ownership": [
+          "All",
+          "Owned",
+          "Unowned"
+        ],
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "toolbarColumns": 2,
+        "cardCount": 120,
+        "buttonCount": 120,
+        "kinds": {
+          "wrap": "nowrap",
+          "client": 762,
+          "scroll": 1304,
+          "overflow": "auto"
+        },
+        "root": {
+          "left": 72,
+          "right": 900
+        },
+        "noZeroPrice": true,
+        "present": true,
+        "categories": [
+          "All",
+          "Warframe",
+          "Primary",
+          "Secondary",
+          "Melee",
+          "Archwing",
+          "Sentinel",
+          "Syandana",
+          "Armor",
+          "Animation",
+          "Glyph",
+          "Sigil",
+          "Decoration",
+          "Emote",
+          "Other"
+        ],
+        "cardWidths": [
+          246.65625,
+          246.671875,
+          246.65625
+        ],
+        "noSell": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "native-acquisition-button",
+      "focused": true,
+      "drawer": {
+        "title": "-Chroma- Prime Partner Glyph",
+        "count": 1
+      },
+      "pass": true
+    },
+    {
+      "kind": "price-and-market-surface",
+      "pass": true,
+      "no_zero_price": true,
+      "no_sell": true
+    }
+  ],
+  "rivens_state_injection": {
+    "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; real packaged estimator IPC remains active and may return no estimate for synthetic weapons",
+    "result": {
+      "previousInventory": {
+        "mods_catalog": [
+          {
+            "owned": true,
+            "rank": 5,
+            "modFrame": "Normal Rare",
+            "category": "Warframe",
+            "baseDrain": 4,
+            "name": "Synthetic Warframe Mod",
+            "unique_name": "/Synthetic/Warframe",
+            "rarity": "rare",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 2,
+            "modFrame": "Normal Common",
+            "category": "Primary",
+            "baseDrain": 4,
+            "name": "Synthetic Primary Mod",
+            "unique_name": "/Synthetic/Primary",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 2,
+            "description": "Synthetic"
+          },
+          {
+            "owned": false,
+            "rank": 0,
+            "modFrame": "Normal Uncommon",
+            "category": "Secondary",
+            "baseDrain": 4,
+            "name": "Synthetic Secondary Mod",
+            "unique_name": "/Synthetic/Secondary",
+            "rarity": "uncommon",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 3,
+            "modFrame": "Normal Legendary",
+            "category": "Melee",
+            "baseDrain": 4,
+            "name": "Synthetic Melee Mod",
+            "unique_name": "/Synthetic/Melee",
+            "rarity": "legendary",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Sentinels",
+            "baseDrain": 4,
+            "name": "Synthetic Sentinel Mod",
+            "unique_name": "/Synthetic/Sentinels",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Robotic",
+            "baseDrain": 4,
+            "name": "Synthetic Robotic Mod",
+            "unique_name": "/Synthetic/Robotic",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Beasts",
+            "baseDrain": 4,
+            "name": "Synthetic Beast Mod",
+            "unique_name": "/Synthetic/Beasts",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Stance",
+            "baseDrain": 4,
+            "name": "Synthetic Stance Mod",
+            "unique_name": "/Synthetic/Stance",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Aura",
+            "baseDrain": 4,
+            "name": "Synthetic Aura Mod",
+            "unique_name": "/Synthetic/Aura",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Railjack",
+            "baseDrain": 4,
+            "name": "Synthetic Railjack Mod",
+            "unique_name": "/Synthetic/Railjack",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Archgun",
+            "baseDrain": 4,
+            "name": "Synthetic Archgun Mod",
+            "unique_name": "/Synthetic/Archgun",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Archmelee",
+            "baseDrain": 4,
+            "name": "Synthetic Archmelee Mod",
+            "unique_name": "/Synthetic/Archmelee",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Parazon",
+            "baseDrain": 4,
+            "name": "Synthetic Parazon Mod",
+            "unique_name": "/Synthetic/Parazon",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Augment",
+            "baseDrain": 4,
+            "name": "Synthetic Augment Mod",
+            "unique_name": "/Synthetic/Augment",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Antique",
+            "baseDrain": 4,
+            "name": "Synthetic Antique Mod",
+            "unique_name": "/Synthetic/Antique",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          },
+          {
+            "owned": true,
+            "isExilus": true,
+            "modFrame": "Tome",
+            "category": "Tome",
+            "baseDrain": 4,
+            "unique_name": "/Synthetic/Tome",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic",
+            "name": "Synthetic Tome Exilus",
+            "rank": 1
+          },
+          {
+            "owned": true,
+            "rank": 1,
+            "modFrame": "Normal Common",
+            "category": "Vehicles",
+            "baseDrain": 4,
+            "name": "Synthetic Vehicle Mod",
+            "unique_name": "/Synthetic/Vehicles",
+            "rarity": "common",
+            "max_rank": 5,
+            "quantity": 1,
+            "description": "Synthetic"
+          }
+        ]
+      },
+      "ok": true,
+      "stateHooks": 24
+    }
+  },
+  "rivens_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "layout-filters-and-cards",
+      "state": {
+        "cards": [
+          {
+            "left": 379.921875,
+            "width": 200,
+            "right": 579.921875,
+            "role": "button",
+            "label": "Alpha Critatis",
+            "tabIndex": 0
+          },
+          {
+            "left": 618,
+            "width": 200,
+            "right": 818,
+            "role": "button",
+            "label": "Alpha Critatis",
+            "tabIndex": 0
+          },
+          {
+            "left": 856.078125,
+            "width": 200,
+            "right": 1056.078125,
+            "role": "button",
+            "label": "Shotgun Riven Challenge",
+            "tabIndex": 0
+          },
+          {
+            "left": 379.921875,
+            "width": 200,
+            "right": 579.921875,
+            "role": "button",
+            "label": "Melee Riven Mod",
+            "tabIndex": 0
+          }
+        ],
+        "grid": {
+          "left": 280,
+          "right": 1156
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "primaryColumns": 3,
+        "noSell": true,
+        "typeRail": {
+          "wrap": "nowrap",
+          "client": 874,
+          "scroll": 918,
+          "overflow": "auto"
+        },
+        "types": [
+          "All",
+          "Rifle",
+          "Pistol",
+          "Melee",
+          "Shotgun",
+          "Sniper",
+          "Kitgun",
+          "Zaw",
+          "Archgun"
+        ],
+        "states": [
+          "All States",
+          "Unveiled",
+          "Challenge",
+          "Veiled"
+        ],
+        "sort": [
+          "Name",
+          "Plat",
+          "Grade"
+        ],
+        "root": {
+          "left": 248,
+          "right": 1200
+        },
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "keyboard-drawer",
+      "focused": true,
+      "opened": true,
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "layout-filters-and-cards",
+      "state": {
+        "cards": [
+          {
+            "left": 146.890625,
+            "width": 200,
+            "right": 346.890625,
+            "role": "button",
+            "label": "Alpha Critatis",
+            "tabIndex": 0
+          },
+          {
+            "left": 380,
+            "width": 200,
+            "right": 580,
+            "role": "button",
+            "label": "Alpha Critatis",
+            "tabIndex": 0
+          },
+          {
+            "left": 613.109375,
+            "width": 200,
+            "right": 813.109375,
+            "role": "button",
+            "label": "Shotgun Riven Challenge",
+            "tabIndex": 0
+          },
+          {
+            "left": 146.890625,
+            "width": 200,
+            "right": 346.890625,
+            "role": "button",
+            "label": "Melee Riven Mod",
+            "tabIndex": 0
+          }
+        ],
+        "grid": {
+          "left": 104,
+          "right": 856
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "primaryColumns": 3,
+        "noSell": true,
+        "typeRail": {
+          "wrap": "nowrap",
+          "client": 750,
+          "scroll": 918,
+          "overflow": "auto"
+        },
+        "types": [
+          "All",
+          "Rifle",
+          "Pistol",
+          "Melee",
+          "Shotgun",
+          "Sniper",
+          "Kitgun",
+          "Zaw",
+          "Archgun"
+        ],
+        "states": [
+          "All States",
+          "Unveiled",
+          "Challenge",
+          "Veiled"
+        ],
+        "sort": [
+          "Name",
+          "Plat",
+          "Grade"
+        ],
+        "root": {
+          "left": 72,
+          "right": 900
+        },
+        "present": true
+      },
+      "pass": false
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "keyboard-drawer",
+      "focused": true,
+      "opened": true,
+      "pass": true
+    },
+    {
+      "kind": "price-and-market-surface",
+      "pass": true,
+      "no_sell": true
+    }
+  ],
+  "relics_state_injection": {
+    "tier": "synthetic parsed-shape inventory dispatched into real MonitoringProvider state; bundled export catalog and real relic parser remain active",
+    "result": {
+      "previousInventory": {
+        "account": {
+          "riven_capacity": 18
+        },
+        "rivens": [
+          {
+            "stats": [
+              {
+                "isPercent": true,
+                "positive": true,
+                "value": "55",
+                "statKey": "Critical Chance",
+                "tag": "Critical Chance"
+              },
+              {
+                "isPercent": true,
+                "positive": false,
+                "value": "20",
+                "statKey": "Zoom",
+                "tag": "Zoom"
+              }
+            ],
+            "polarity": "AP_ATTACK",
+            "weapon_name_en": "Alpha",
+            "_grade": "S",
+            "weapon_type": "Rifle",
+            "rerolls": 3,
+            "name": "Alpha Critatis",
+            "weapon_name": "Alpha",
+            "item_id": "native-alpha-1",
+            "mr": 12,
+            "rank": 8
+          },
+          {
+            "stats": [
+              {
+                "isPercent": true,
+                "positive": true,
+                "value": "35",
+                "statKey": "Critical Chance",
+                "tag": "Critical Chance"
+              },
+              {
+                "isPercent": true,
+                "positive": false,
+                "value": "20",
+                "statKey": "Zoom",
+                "tag": "Zoom"
+              }
+            ],
+            "polarity": "AP_DEFENSE",
+            "weapon_name_en": "Alpha",
+            "_grade": "A",
+            "weapon_type": "Rifle",
+            "rerolls": 1,
+            "name": "Alpha Critatis",
+            "weapon_name": "Alpha",
+            "item_id": "native-alpha-2",
+            "mr": 10,
+            "rank": 4
+          },
+          {
+            "_grade": "B",
+            "challenge": "Complete a synthetic challenge",
+            "weapon_type": "Shotgun",
+            "name": "Shotgun Riven Challenge",
+            "weapon_name": "Shotgun",
+            "item_id": "native-challenge-1",
+            "rerolls": 2,
+            "quantity": 1
+          },
+          {
+            "veiled": true,
+            "_grade": "B",
+            "weapon_type": "Melee",
+            "name": "Melee Riven Mod",
+            "weapon_name": "Melee",
+            "rerolls": 0,
+            "quantity": 3
+          }
+        ]
+      },
+      "ok": true,
+      "stateHooks": 24
+    }
+  },
+  "relics_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "layout-controls-and-cards",
+      "state": {
+        "cards": [
+          {
+            "label": "Lith A1 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Meso B2 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Requiem I Relic",
+            "tabIndex": 0,
+            "role": "button"
+          }
+        ],
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "traces": {
+          "left": 1020.25,
+          "right": 1156,
+          "text": "\nVOID TRACES\n275/ 1500\n"
+        },
+        "primaryColumns": 4,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "era",
+            "labels": [
+              "All",
+              "Lith",
+              "Meso",
+              "Requiem"
+            ],
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "quality",
+            "labels": [
+              "All",
+              "Intact",
+              "Refined",
+              "Exceptional",
+              "Flawless",
+              "Radiant"
+            ],
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "vault",
+            "labels": [
+              "All",
+              "Vaulted",
+              "Unvaulted"
+            ],
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "sort",
+            "labels": [
+              "Name",
+              "Ducats",
+              "Plat",
+              "Refine (D)",
+              "Refine (P)"
+            ],
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "root": {
+          "left": 248,
+          "right": 1200
+        },
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "keyboard-drawer",
+      "focused": true,
+      "opened": true,
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "layout-controls-and-cards",
+      "state": {
+        "cards": [
+          {
+            "label": "Lith A1 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Meso B2 Relic",
+            "tabIndex": 0,
+            "role": "button"
+          },
+          {
+            "label": "Requiem I Relic",
+            "tabIndex": 0,
+            "role": "button"
+          }
+        ],
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "traces": {
+          "left": 720.25,
+          "right": 856,
+          "text": "\nVOID TRACES\n275/ 1500\n"
+        },
+        "primaryColumns": 4,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "era",
+            "labels": [
+              "All",
+              "Lith",
+              "Meso",
+              "Requiem"
+            ],
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "quality",
+            "labels": [
+              "All",
+              "Intact",
+              "Refined",
+              "Exceptional",
+              "Flawless",
+              "Radiant"
+            ],
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "vault",
+            "labels": [
+              "All",
+              "Vaulted",
+              "Unvaulted"
+            ],
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "sort",
+            "labels": [
+              "Name",
+              "Ducats",
+              "Plat",
+              "Refine (D)",
+              "Refine (P)"
+            ],
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "root": {
+          "left": 72,
+          "right": 900
+        },
+        "present": true
+      },
+      "pass": false
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "keyboard-drawer",
+      "focused": true,
+      "opened": true,
+      "pass": true
+    },
+    {
+      "kind": "price-and-market-surface",
+      "no_sell": true,
+      "zero_expected_value_visible": true,
+      "pass": true
+    }
+  ],
+  "relic_planner_state_injection": {
+    "tier": "synthetic DE-export-shaped catalog and parsed-inventory-shaped ownership dispatched into the real packaged MonitoringProvider; no app source or backend mock",
+    "result": {
+      "ok": true,
+      "stateHooks": 24
+    }
+  },
+  "relic_planner_checks": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "three-panel-layout",
+      "state": {
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "panels": [
+          {
+            "height": 584,
+            "left": 280,
+            "right": 523.421875,
+            "top": 284
+          },
+          {
+            "height": 584,
+            "left": 535.421875,
+            "right": 778.84375,
+            "top": 284
+          },
+          {
+            "height": 584,
+            "left": 790.84375,
+            "right": 1155.984375,
+            "top": 284
+          }
+        ],
+        "columns": 3,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "parts",
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "ownership",
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "root": {
+          "left": 280,
+          "right": 1156
+        },
+        "present": true
+      },
+      "pass": false
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "three-panel-layout",
+      "state": {
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "panels": [
+          {
+            "height": 284,
+            "left": 104,
+            "right": 312,
+            "top": 274
+          },
+          {
+            "height": 284,
+            "left": 324,
+            "right": 532,
+            "top": 274
+          },
+          {
+            "height": 284,
+            "left": 544,
+            "right": 856,
+            "top": 274
+          }
+        ],
+        "columns": 3,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "parts",
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "ownership",
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "root": {
+          "left": 104,
+          "right": 856
+        },
+        "present": true
+      },
+      "pass": false
+    },
+    {
+      "kind": "real-catalog-selection-and-matching",
+      "picker": {
+        "name": "Planner Alpha Prime Blueprint",
+        "ok": true
+      },
+      "selected": {
+        "selected": "NEED LIST\n1 selected\nPlanner Alpha Prime Blueprint\n\nClear\nAdd All Missing Parts\nAdd Never Obtained\n",
+        "removeLabel": "Remove Planner Alpha Prime Blueprint",
+        "resultCount": 2
+      },
+      "pass": true
+    },
+    {
+      "kind": "keyboard-removal",
+      "focused": true,
+      "removed": true,
+      "pass": true
+    },
+    {
+      "kind": "controls-and-market-surface",
+      "state": {
+        "noSell": true,
+        "panelKinds": [
+          "picker",
+          "need",
+          "results"
+        ],
+        "partFilters": [
+          "All",
+          "Never Obtained",
+          "Missing"
+        ],
+        "ownershipFilters": [
+          "All",
+          "Owned",
+          "Unowned"
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "market_state_injection": {
+    "tier": "synthetic parsed inventory, catalog, orders and explicit price states dispatched into the real packaged React components; no backend or network mock",
+    "provider": {
+      "ok": true,
+      "stateHooks": 24
+    },
+    "market": {
+      "ok": true,
+      "stateHooks": 24
+    }
+  },
+  "market_checks": [
+    {
+      "kind": "identity-readonly-and-read-actions",
+      "state": {
+        "website": true,
+        "notice": "Preview mode: market data is read-only. Listing, editing, visibility, sold, and delete actions are disabled.",
+        "metrics": 4,
+        "sync": true,
+        "tabs": [
+          "Active Orders (3)",
+          "Tradeable Stock (4)"
+        ],
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "active-orders-geometry",
+      "state": {
+        "rows": 3,
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "table": {
+          "width": 910,
+          "client": 910,
+          "scroll": 910,
+          "overflow": "auto"
+        },
+        "metricColumns": 4,
+        "root": {
+          "left": 248,
+          "right": 1200
+        },
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "active-orders-geometry",
+      "state": {
+        "rows": 3,
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "table": {
+          "width": 786,
+          "client": 786,
+          "scroll": 786,
+          "overflow": "auto"
+        },
+        "metricColumns": 2,
+        "root": {
+          "left": 72,
+          "right": 900
+        },
+        "present": true
+      },
+      "pass": true
+    },
+    {
+      "kind": "keyboard-tab-and-toolbar-access",
+      "initialFocus": true,
+      "state": {
+        "stockVisible": true,
+        "search": true,
+        "filterButtons": 5,
+        "focused": true
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "kind": "tradeable-stock-geometry",
+      "state": {
+        "present": true,
+        "rail": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "columns": 3,
+        "root": {
+          "left": 248,
+          "right": 1200
+        },
+        "cards": 4
+      },
+      "pass": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "kind": "tradeable-stock-geometry",
+      "state": {
+        "present": true,
+        "rail": {
+          "wrap": "nowrap",
+          "overflow": "auto"
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "columns": 2,
+        "root": {
+          "left": 72,
+          "right": 900
+        },
+        "cards": 4
+      },
+      "pass": true
+    },
+    {
+      "kind": "price-states-tradability-and-quantity",
+      "state": {
+        "names": [
+          "Market Beta Prime Chassis",
+          "Market Alpha Prime Blueprint",
+          "Market Gamma Prime Systems",
+          "Market Delta Prime Barrel"
+        ],
+        "blocked": true,
+        "zero": true,
+        "cards": [
+          {
+            "sellDisabled": true,
+            "name": "Market Beta Prime Chassis",
+            "input": "20",
+            "placeholder": "",
+            "text": "Market Beta Prime Chassis\nOwned: 1\nDucats: 50d\nSELL FOR PLAT\nHigh Plat Profit (20p vs 50d, 1027d ago)\nPlat:\n\np\nSell on WFM\n"
+          },
+          {
+            "sellDisabled": true,
+            "name": "Market Alpha Prime Blueprint",
+            "input": "3",
+            "placeholder": "",
+            "text": "Market Alpha Prime Blueprint\nOwned: 2\nDucats: 45d\nMastered\nKEEP FOR DUCATS\nHigh Ducat Yield (45d vs 3p, 1027d ago)\nPlat:\n\np\nSell on WFM\n"
+          },
+          {
+            "sellDisabled": true,
+            "name": "Market Gamma Prime Systems",
+            "input": "",
+            "placeholder": "?",
+            "text": "Market Gamma Prime Systems\nOwned: 1\nDucats: 20d\nCANNOT COMPARE YET\nNo current sell orders on Warframe.Market\nPlat:\n\np\nSell on WFM\n"
+          },
+          {
+            "sellDisabled": true,
+            "name": "Market Delta Prime Barrel",
+            "input": "",
+            "placeholder": "?",
+            "text": "Market Delta Prime Barrel\nOwned: 1\nDucats: 25d\nCANNOT COMPARE YET\nPrice unavailable (request failed, will retry)\nPlat:\n\np\nSell on WFM"
+          }
+        ]
+      },
+      "pass": true
+    },
+    {
+      "kind": "mutation-controls-disabled-with-reason",
+      "controls": [
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": false,
+          "kind": "edit-price",
+          "aria": "true"
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "visibility",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "sold",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "delete",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": false,
+          "kind": "edit-price",
+          "aria": "true"
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "visibility",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "delete",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": false,
+          "kind": "edit-price",
+          "aria": "true"
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "visibility",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "sold",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "delete",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "listing-price",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "sell",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "listing-price",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "sell",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "listing-price",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "sell",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "listing-price",
+          "aria": null
+        },
+        {
+          "title": "Market changes are disabled in Preview",
+          "disabled": true,
+          "kind": "sell",
+          "aria": null
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "error": "[Errno 2] No such file or directory: '/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-4/evidence/market-component.json'",
+  "removal": {
+    "exit": 0,
+    "executable_absent": true,
+    "synthetic_profile_retained": true
+  }
+}

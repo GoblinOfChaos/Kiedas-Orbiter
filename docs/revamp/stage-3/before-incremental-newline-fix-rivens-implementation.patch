@@ -1,0 +1,176 @@
+--- a/src/screens/Rivens.jsx
++++ b/src/screens/Rivens.jsx
+@@ -9,6 +9,8 @@
+ import RivenGradeDrawer from '../components/RivenGradeDrawer';
+ import { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
+ import { loadRivenGoodRolls, getRivenStatGrade } from '../lib/rivenGrader';
++import { IS_PREVIEW } from '../lib/buildProfile';
++import PreviewRivensLayout from '../components/PreviewRivensLayout';
+ 
+ const TYPE_TABS = [
+ { id: 'all', label: 'All' },
+@@ -227,9 +229,9 @@
+   const capacity = inventoryData?.account?.riven_capacity ?? 0;
+ 
+   const renderHeaderPanel = () =>
+-  <div className="flex flex-col gap-4">
+-      <div className="flex items-center gap-4">
+-        <div className="relative flex-1 group">
++  <div className="flex flex-col gap-4" data-preview-rivens-header={IS_PREVIEW ? '' : undefined}>
++      <div className={IS_PREVIEW ? "flex items-center gap-4 preview-rivens-primary-controls" : "flex items-center gap-4"} data-preview-rivens-primary-controls={IS_PREVIEW ? '' : undefined}>
++        <div className="relative flex-1 group" data-preview-rivens-search={IS_PREVIEW ? '' : undefined}>
+           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-kronos-dim group-focus-within:text-kronos-accent transition-colors" size={18} />
+           <Input
+           placeholder={t('rivens.search_placeholder')}
+@@ -239,7 +241,7 @@
+         
+         </div>
+ 
+-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
++        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-rivens-state={IS_PREVIEW ? '' : undefined}>
+           <Filter size={14} className="text-kronos-dim mx-1" />
+           <div className="flex gap-1">
+             {STATE_TABS.map((t) =>
+@@ -254,7 +256,7 @@
+           </div>
+         </div>
+ 
+-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
++        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-rivens-sort={IS_PREVIEW ? '' : undefined}>
+           <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
+           <div className="flex gap-1">
+             {SORT_CRITERIA.map((c) => {
+@@ -281,17 +283,18 @@
+         </div>
+       </div>
+ 
+-      <div className="flex items-center gap-3">
++      <div className="flex items-center gap-3" data-preview-rivens-types-row={IS_PREVIEW ? '' : undefined}>
+         <Tabs tabs={TYPE_TABS.map((t) => {
+         const iconMap = { rifle: 'Primary', pistol: 'Secondary' };
+         const iconName = iconMap[t.id] || t.label;
+         return { ...t, icon: iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null };
+-      })} activeTab={activeType} onChange={setActiveType} className="flex-1" />
++      })} activeTab={activeType} onChange={setActiveType} className={IS_PREVIEW ? "flex-1 preview-rivens-types" : "flex-1"} />
+       </div>
+     </div>;
+ 
+ 
+   return (
++    <PreviewRivensLayout enabled={IS_PREVIEW}>
+     <>
+     <PageLayout
+       titleKey="screen.rivens"
+@@ -312,13 +315,26 @@
+             </div>
+           </Card> :
+ 
+-        <div className="grid pb-4" style={{
++        <div className="grid pb-4" data-preview-rivens-grid={IS_PREVIEW ? '' : undefined} style={{
+           gridTemplateColumns: 'repeat(auto-fill, 200px)',
+-          gap: '50px',
++          gap: IS_PREVIEW ? undefined : '50px',
+           justifyContent: 'center'
+         }}>
+             {filtered.map((riven, idx) =>
+-          <div key={idx} className="cursor-pointer" onClick={() => toggle(rivenKeys.get(riven))}>
++          <div
++            key={idx}
++            className={IS_PREVIEW ? "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-kronos-accent focus-visible:outline-offset-4 rounded-xl" : "cursor-pointer"}
++            data-preview-riven-card={IS_PREVIEW ? '' : undefined}
++            role={IS_PREVIEW ? 'button' : undefined}
++            tabIndex={IS_PREVIEW ? 0 : undefined}
++            aria-label={IS_PREVIEW ? riven.name : undefined}
++            onClick={() => toggle(rivenKeys.get(riven))}
++            onKeyDown={IS_PREVIEW ? (event) => {
++              if (event.key === 'Enter' || event.key === ' ') {
++                event.preventDefault();
++                toggle(rivenKeys.get(riven));
++              }
++            } : undefined}>
+               <RivenCard riven={riven} framesPath={framesPath} iconsPath={iconsPath} width={200} estimate={pricingCache[rivenKeys.get(riven)]} statGrade={statGrades.get(riven)} />
+             </div>
+           )}
+@@ -327,6 +343,7 @@
+       </div>
+     </PageLayout>
+     {openRiven && <RivenGradeDrawer riven={openRiven} statGrade={statGrades.get(openRiven)} onClose={close} />}
+-    </>);
++    </>
++    </PreviewRivensLayout>);
+ 
+ }--- /dev/null
++++ b/src/components/PreviewRivensLayout.jsx
+@@ -0,0 +1,72 @@
++export default function PreviewRivensLayout({ enabled, children }) {
++  if (!enabled) return children;
++
++  return (
++    <section
++      data-preview-rivens-layout
++      aria-label="Riven collection"
++      className="preview-rivens-layout h-full min-w-0"
++      style={{ containerType: 'inline-size', containerName: 'preview-rivens' }}
++    >
++      <style>{`
++        .preview-rivens-layout,
++        .preview-rivens-layout > div,
++        [data-preview-rivens-header],
++        [data-preview-rivens-primary-controls],
++        [data-preview-rivens-types-row],
++        [data-preview-rivens-grid] {
++          min-width: 0;
++        }
++        [data-preview-rivens-primary-controls] {
++          display: grid;
++          grid-template-columns: minmax(0, 1fr);
++          align-items: stretch;
++          gap: .75rem;
++        }
++        [data-preview-rivens-search] {
++          min-width: 0;
++        }
++        [data-preview-rivens-state],
++        [data-preview-rivens-sort] {
++          width: 100%;
++          height: auto;
++          min-height: 42px;
++          overflow-x: auto;
++          scrollbar-width: thin;
++        }
++        [data-preview-rivens-state] > div,
++        [data-preview-rivens-sort] > div {
++          width: max-content;
++          min-width: 100%;
++        }
++        [data-preview-rivens-types-row] {
++          width: 100%;
++        }
++        .preview-rivens-types {
++          width: 100%;
++          min-width: 0;
++          flex-wrap: nowrap;
++          overflow-x: auto;
++          scrollbar-width: thin;
++        }
++        .preview-rivens-types > button {
++          flex-shrink: 0;
++        }
++        [data-preview-rivens-grid] {
++          gap: clamp(1.25rem, 4cqi, 3.125rem);
++        }
++        @container preview-rivens (min-width: 760px) {
++          [data-preview-rivens-primary-controls] {
++            grid-template-columns: minmax(14rem, 1fr) auto auto;
++            align-items: center;
++          }
++          [data-preview-rivens-state],
++          [data-preview-rivens-sort] {
++            width: max-content;
++          }
++        }
++      `}</style>
++      {children}
++    </section>
++  );
++}

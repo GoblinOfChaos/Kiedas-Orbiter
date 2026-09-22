@@ -1,0 +1,57 @@
+{
+  "status": "failures_preserved",
+  "app_source_corrections_after_initial_approved_implementation": 0,
+  "records": [
+    {
+      "name": "fixture_build_before_catalog_shape_correction",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-catalog-fixture-fix-relics-component-build.log",
+      "bytes": 1016,
+      "sha256": "708b418374950a246506c5087b857305dbe12dff51bf7598bda3386b38de2db9",
+      "note": "failed before bundle completion; retained filename predates the later root-cause refinement"
+    },
+    {
+      "name": "fixture_build_before_absolute_import_correction",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-relative-import-fix-relics-component-build.log",
+      "bytes": 1016,
+      "sha256": "76534fd3d212746ccd836b4c39bab722ac9cf76953a9f32fa114ddb396eba99a",
+      "note": "failed because relocated frozen source still used relative imports"
+    },
+    {
+      "name": "container_before_sandbox_retry",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-sandbox-retry-relics-component-container.json",
+      "bytes": 554,
+      "sha256": "71fafb93b8eac24dfc891cc2c46ac78bb59a0b53f83041b0b239a43dbcd58c86",
+      "note": "host-bus access denied before container creation"
+    },
+    {
+      "name": "component_before_assertion_correction",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-assertion-fix-relics-component.json",
+      "bytes": 26940,
+      "sha256": "dd7f755d12c90ce34e349388f5749a939d624d0952345d2007dd395275aae5f3",
+      "note": "89 of 91; fixture-only ampersand and German assertions failed"
+    },
+    {
+      "name": "component_before_inner_log_path_correction",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-log-path-fix-relics-component.json",
+      "bytes": 419,
+      "sha256": "f9d94defed531e07f0d2373726c6780a5d9fa8bd5a4d1975913d61d24b78b978",
+      "note": "rejected before browser startup because evidence log paths already existed"
+    },
+    {
+      "name": "component_before_german_assertion_correction",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-german-assertion-fix-relics-component.json",
+      "bytes": 26938,
+      "sha256": "e58ea82fd5399f9099ccc451c8df22e7adf20d85473ae0e1f64195204bab9117",
+      "note": "90 of 91; German extraction assertion failed"
+    }
+  ],
+  "final_component": {
+    "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relics-component.json",
+    "sha256": "3d376282d9650050d999cf2a80c9cdf0962eaca06122c54bf0e259183ed459f8",
+    "checks": "91/91"
+  },
+  "final_packages": {
+    "debian": "55/55",
+    "appimage": "55/55"
+  }
+}

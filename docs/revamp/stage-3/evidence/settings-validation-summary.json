@@ -1,0 +1,778 @@
+{
+  "timestamp": "2026-09-06T20:21:57.109023+00:00",
+  "risk": "higher",
+  "component_checks": 62,
+  "component_passed": 62,
+  "stable_exact_markup_comparison_count": 20,
+  "stable_interaction_parity_count": 19,
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 82,
+      "passed": 82,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5,
+        "relic_planner_checks": 5,
+        "market_checks": 10,
+        "settings_checks": 12
+      },
+      "binary_sha256": "bf3a3de66bd5f04290a5f78e9c8a16679431efbff8e027bf299076d4924135d1",
+      "settings_checks": [
+        {
+          "kind": "identity-sections-and-disabled-groups",
+          "state": {
+            "links": [
+              {
+                "href": "#preview-settings-appearance",
+                "text": "Theme"
+              },
+              {
+                "href": "#preview-settings-notifications",
+                "text": "Notifications & Overlays"
+              },
+              {
+                "href": "#preview-settings-language",
+                "text": "Game Language"
+              },
+              {
+                "href": "#preview-settings-help",
+                "text": "Help & Diagnostics"
+              },
+              {
+                "href": "#preview-settings-sidebar",
+                "text": "In-Game Sidebar"
+              },
+              {
+                "href": "#preview-settings-hotkeys",
+                "text": "Global Hotkeys"
+              },
+              {
+                "href": "#preview-settings-safe-mode",
+                "text": "Safe Mode Tracking"
+              },
+              {
+                "href": "#preview-settings-market",
+                "text": "Warframe.Market"
+              },
+              {
+                "href": "#preview-settings-updates",
+                "text": "Updates"
+              }
+            ],
+            "disabled": [
+              {
+                "disabled": true,
+                "label": "Notification and overlay tests are disabled in Preview",
+                "controls": 3
+              },
+              {
+                "disabled": true,
+                "label": "Periodic inventory monitoring is disabled in Preview",
+                "controls": 1
+              },
+              {
+                "disabled": true,
+                "label": "The log scanner is disabled in Preview",
+                "controls": 1
+              },
+              {
+                "disabled": true,
+                "label": "Global hotkey registration is disabled in Preview",
+                "controls": 7
+              },
+              {
+                "disabled": true,
+                "label": "Safe-mode scanner tracking is disabled in Preview",
+                "controls": 2
+              }
+            ],
+            "notice": true,
+            "sections": [
+              "appearance",
+              "cursor",
+              "notifications",
+              "language",
+              "help",
+              "sidebar",
+              "hotkeys",
+              "safe-mode",
+              "market",
+              "updates"
+            ],
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "layout-geometry",
+          "size": [
+            1200,
+            800
+          ],
+          "state": {
+            "rail": {
+              "client": 914,
+              "scroll": 1176,
+              "overflow": "auto"
+            },
+            "cardsContained": true,
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "root": {
+              "left": 240,
+              "right": 1156
+            },
+            "disabledCount": 5
+          },
+          "pass": true
+        },
+        {
+          "kind": "layout-geometry",
+          "size": [
+            900,
+            500
+          ],
+          "state": {
+            "rail": {
+              "client": 614,
+              "scroll": 1176,
+              "overflow": "auto"
+            },
+            "cardsContained": true,
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "root": {
+              "left": 240,
+              "right": 856
+            },
+            "disabledCount": 5
+          },
+          "pass": true
+        },
+        {
+          "kind": "keyboard-focus-and-section-anchor",
+          "state": {
+            "allTargets": true,
+            "focusedBeforeActivation": true,
+            "target": true,
+            "hash": "#preview-settings-updates"
+          },
+          "pass": true
+        },
+        {
+          "kind": "zero-preview-unavailable-frontend-invocations",
+          "tier": "module-boundary component capture plus native packaged disabled-fieldset verification",
+          "component_evidence": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/settings-component.json",
+          "component_sha256": "56b07e055bdcd53871b5f11772138f46bae44b2203382ba7f2be308104c1075c",
+          "invocations": [],
+          "native_disabled_groups": [
+            {
+              "disabled": true,
+              "label": "Notification and overlay tests are disabled in Preview",
+              "controls": 3
+            },
+            {
+              "disabled": true,
+              "label": "Periodic inventory monitoring is disabled in Preview",
+              "controls": 1
+            },
+            {
+              "disabled": true,
+              "label": "The log scanner is disabled in Preview",
+              "controls": 1
+            },
+            {
+              "disabled": true,
+              "label": "Global hotkey registration is disabled in Preview",
+              "controls": 7
+            },
+            {
+              "disabled": true,
+              "label": "Safe-mode scanner tracking is disabled in Preview",
+              "controls": 2
+            }
+          ],
+          "pass": true
+        },
+        {
+          "kind": "zero-preview-relay_event-invocations",
+          "tier": "module-boundary component capture; relay_event has no Rust require_live guard",
+          "invocations": [],
+          "pass": true
+        },
+        {
+          "kind": "zero-preview-stop_log_scanner-invocations",
+          "tier": "module-boundary component capture; stop_log_scanner has no Rust require_live guard",
+          "invocations": [],
+          "pass": true
+        },
+        {
+          "kind": "direct-five-live-ipc-rejections",
+          "commands": [
+            "start_log_scanner",
+            "set_hotkeys",
+            "play_notification_sound",
+            "show_notification",
+            "set_monitoring_active"
+          ],
+          "results": [
+            {
+              "command": "start_log_scanner",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "set_hotkeys",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "play_notification_sound",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "show_notification",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "set_monitoring_active",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            }
+          ],
+          "pass": true
+        },
+        {
+          "kind": "profile-and-read-only-tools-retained",
+          "state": {
+            "updaterMessage": true,
+            "wfmPassword": true,
+            "soundChoices": true,
+            "priceRefresh": true,
+            "cacheBrowse": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "updater-disabled-state-retained",
+          "state": {
+            "startupAbsent": true,
+            "buttonDisabled": true,
+            "message": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "reload-persistence",
+          "state": {
+            "contained": true,
+            "notice": true,
+            "sections": 10,
+            "present": true,
+            "disabled": 5,
+            "bodyScroll": 900,
+            "bodyClient": 900,
+            "links": 9
+          },
+          "pass": true
+        },
+        {
+          "kind": "component-evidence-completeness",
+          "summary": {
+            "total": 62,
+            "passed": 62,
+            "stable_exact_markup": 20,
+            "stable_interaction_parity": 19,
+            "preview_unavailable_invocation_count": 0,
+            "preview_relay_event_invocation_count": 0,
+            "preview_stop_log_scanner_invocation_count": 0
+          },
+          "pass": true
+        }
+      ],
+      "preview_unavailable_invocations": [],
+      "preview_relay_event_invocations": [],
+      "preview_stop_log_scanner_invocations": [],
+      "direct_settings_ipc_rejections": {
+        "play_notification_sound": {
+          "command": "play_notification_sound",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "set_hotkeys": {
+          "command": "set_hotkeys",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "set_monitoring_active": {
+          "command": "set_monitoring_active",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "show_notification": {
+          "command": "show_notification",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "start_log_scanner": {
+          "command": "start_log_scanner",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        }
+      }
+    },
+    {
+      "kind": "appimage",
+      "checks": 82,
+      "passed": 82,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5,
+        "relic_planner_checks": 5,
+        "market_checks": 10,
+        "settings_checks": 12
+      },
+      "binary_sha256": "e5ed4407d8ded373f23dc1f8c3010dd2cc2838f618eb19fa2a7035c0e212e2ef",
+      "settings_checks": [
+        {
+          "kind": "identity-sections-and-disabled-groups",
+          "state": {
+            "links": [
+              {
+                "href": "#preview-settings-appearance",
+                "text": "Theme"
+              },
+              {
+                "href": "#preview-settings-notifications",
+                "text": "Notifications & Overlays"
+              },
+              {
+                "href": "#preview-settings-language",
+                "text": "Game Language"
+              },
+              {
+                "href": "#preview-settings-help",
+                "text": "Help & Diagnostics"
+              },
+              {
+                "href": "#preview-settings-sidebar",
+                "text": "In-Game Sidebar"
+              },
+              {
+                "href": "#preview-settings-hotkeys",
+                "text": "Global Hotkeys"
+              },
+              {
+                "href": "#preview-settings-safe-mode",
+                "text": "Safe Mode Tracking"
+              },
+              {
+                "href": "#preview-settings-market",
+                "text": "Warframe.Market"
+              },
+              {
+                "href": "#preview-settings-updates",
+                "text": "Updates"
+              }
+            ],
+            "disabled": [
+              {
+                "disabled": true,
+                "label": "Notification and overlay tests are disabled in Preview",
+                "controls": 3
+              },
+              {
+                "disabled": true,
+                "label": "Periodic inventory monitoring is disabled in Preview",
+                "controls": 1
+              },
+              {
+                "disabled": true,
+                "label": "The log scanner is disabled in Preview",
+                "controls": 1
+              },
+              {
+                "disabled": true,
+                "label": "Global hotkey registration is disabled in Preview",
+                "controls": 7
+              },
+              {
+                "disabled": true,
+                "label": "Safe-mode scanner tracking is disabled in Preview",
+                "controls": 2
+              }
+            ],
+            "notice": true,
+            "sections": [
+              "appearance",
+              "cursor",
+              "notifications",
+              "language",
+              "help",
+              "sidebar",
+              "hotkeys",
+              "safe-mode",
+              "market",
+              "updates"
+            ],
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "layout-geometry",
+          "size": [
+            1200,
+            800
+          ],
+          "state": {
+            "rail": {
+              "client": 914,
+              "scroll": 1176,
+              "overflow": "auto"
+            },
+            "cardsContained": true,
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "root": {
+              "left": 240,
+              "right": 1156
+            },
+            "disabledCount": 5
+          },
+          "pass": true
+        },
+        {
+          "kind": "layout-geometry",
+          "size": [
+            900,
+            500
+          ],
+          "state": {
+            "rail": {
+              "client": 614,
+              "scroll": 1176,
+              "overflow": "auto"
+            },
+            "cardsContained": true,
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "root": {
+              "left": 240,
+              "right": 856
+            },
+            "disabledCount": 5
+          },
+          "pass": true
+        },
+        {
+          "kind": "keyboard-focus-and-section-anchor",
+          "state": {
+            "allTargets": true,
+            "focusedBeforeActivation": true,
+            "target": true,
+            "hash": "#preview-settings-updates"
+          },
+          "pass": true
+        },
+        {
+          "kind": "zero-preview-unavailable-frontend-invocations",
+          "tier": "module-boundary component capture plus native packaged disabled-fieldset verification",
+          "component_evidence": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/settings-component.json",
+          "component_sha256": "56b07e055bdcd53871b5f11772138f46bae44b2203382ba7f2be308104c1075c",
+          "invocations": [],
+          "native_disabled_groups": [
+            {
+              "disabled": true,
+              "label": "Notification and overlay tests are disabled in Preview",
+              "controls": 3
+            },
+            {
+              "disabled": true,
+              "label": "Periodic inventory monitoring is disabled in Preview",
+              "controls": 1
+            },
+            {
+              "disabled": true,
+              "label": "The log scanner is disabled in Preview",
+              "controls": 1
+            },
+            {
+              "disabled": true,
+              "label": "Global hotkey registration is disabled in Preview",
+              "controls": 7
+            },
+            {
+              "disabled": true,
+              "label": "Safe-mode scanner tracking is disabled in Preview",
+              "controls": 2
+            }
+          ],
+          "pass": true
+        },
+        {
+          "kind": "zero-preview-relay_event-invocations",
+          "tier": "module-boundary component capture; relay_event has no Rust require_live guard",
+          "invocations": [],
+          "pass": true
+        },
+        {
+          "kind": "zero-preview-stop_log_scanner-invocations",
+          "tier": "module-boundary component capture; stop_log_scanner has no Rust require_live guard",
+          "invocations": [],
+          "pass": true
+        },
+        {
+          "kind": "direct-five-live-ipc-rejections",
+          "commands": [
+            "start_log_scanner",
+            "set_hotkeys",
+            "play_notification_sound",
+            "show_notification",
+            "set_monitoring_active"
+          ],
+          "results": [
+            {
+              "command": "start_log_scanner",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "set_hotkeys",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "play_notification_sound",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "show_notification",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            },
+            {
+              "command": "set_monitoring_active",
+              "result": {
+                "resolved": false,
+                "error": "Live integrations and market mutations are disabled in this Preview milestone"
+              },
+              "pass": true
+            }
+          ],
+          "pass": true
+        },
+        {
+          "kind": "profile-and-read-only-tools-retained",
+          "state": {
+            "updaterMessage": true,
+            "wfmPassword": true,
+            "soundChoices": true,
+            "priceRefresh": true,
+            "cacheBrowse": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "updater-disabled-state-retained",
+          "state": {
+            "startupAbsent": true,
+            "buttonDisabled": true,
+            "message": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "reload-persistence",
+          "state": {
+            "contained": true,
+            "notice": true,
+            "sections": 10,
+            "present": true,
+            "disabled": 5,
+            "bodyScroll": 900,
+            "bodyClient": 900,
+            "links": 9
+          },
+          "pass": true
+        },
+        {
+          "kind": "component-evidence-completeness",
+          "summary": {
+            "total": 62,
+            "passed": 62,
+            "stable_exact_markup": 20,
+            "stable_interaction_parity": 19,
+            "preview_unavailable_invocation_count": 0,
+            "preview_relay_event_invocation_count": 0,
+            "preview_stop_log_scanner_invocation_count": 0
+          },
+          "pass": true
+        }
+      ],
+      "preview_unavailable_invocations": [],
+      "preview_relay_event_invocations": [],
+      "preview_stop_log_scanner_invocations": [],
+      "direct_settings_ipc_rejections": {
+        "play_notification_sound": {
+          "command": "play_notification_sound",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "set_hotkeys": {
+          "command": "set_hotkeys",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "set_monitoring_active": {
+          "command": "set_monitoring_active",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "show_notification": {
+          "command": "show_notification",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        },
+        "start_log_scanner": {
+          "command": "start_log_scanner",
+          "result": {
+            "resolved": false,
+            "error": "Live integrations and market mutations are disabled in this Preview milestone"
+          },
+          "pass": true
+        }
+      }
+    }
+  ],
+  "safety": {
+    "preview_unavailable_frontend_invocations": {
+      "component": [],
+      "deb": [],
+      "appimage": []
+    },
+    "zero_preview_unavailable_frontend_invocations_confirmed": true,
+    "preview_relay_event_invocations": {
+      "component": [],
+      "deb": [],
+      "appimage": []
+    },
+    "zero_preview_relay_event_invocations_confirmed": true,
+    "relay_event_rust_require_live_guard": false,
+    "preview_stop_log_scanner_invocations": {
+      "component": [],
+      "deb": [],
+      "appimage": []
+    },
+    "zero_preview_stop_log_scanner_invocations_confirmed": true,
+    "stop_log_scanner_rust_require_live_guard": false,
+    "direct_preview_ipc_commands_rejected": [
+      "play_notification_sound",
+      "set_hotkeys",
+      "set_monitoring_active",
+      "show_notification",
+      "start_log_scanner"
+    ],
+    "all_five_direct_settings_ipc_commands_rejected": true
+  },
+  "harness_corrections": [
+    {
+      "issue": "two source-backed labels used incorrect translation keys and anchor focus was sampled after hash navigation",
+      "scope": "test harness only",
+      "preserved_prefix": "before-settings-native-harness-fix-"
+    },
+    {
+      "issue": "a bookkeeping self-check added a thirteenth Settings row to a twelve-check target",
+      "scope": "test harness only",
+      "preserved_prefix": "before-settings-check-count-fix-"
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3J implemented and validated on Linux; awaiting user acceptance"
+}

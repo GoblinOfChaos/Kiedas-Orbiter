@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/usr/bin/find",
+    "/",
+    "-type",
+    "f",
+    "-name",
+    "cargo"
+  ],
+  "container_name": "stage3h-find-cargo-7164484308",
+  "cpus": 1,
+  "duration_seconds": 1.57,
+  "exit_code": 1,
+  "image": "localhost/kiedas-preview-ubuntu24-stage2",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relic-planner-find-cargo.log",
+  "memory": "1g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

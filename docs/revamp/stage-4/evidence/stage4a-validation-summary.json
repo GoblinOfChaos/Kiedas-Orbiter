@@ -1,0 +1,63 @@
+{
+  "status": "IMPLEMENTED_AND_VALIDATED_LINUX_AWAITING_USER_ACCEPTANCE",
+  "source_facts": {
+    "passed": 18,
+    "total": 18
+  },
+  "component": {
+    "passed": 31,
+    "total": 31
+  },
+  "stable_dashboard": {
+    "passed": 19,
+    "total": 19
+  },
+  "themes": {
+    "passed": 14,
+    "total": 14
+  },
+  "visual_landmarks": {
+    "passed": 4,
+    "total": 4
+  },
+  "full_app_boundary": {
+    "passed": 21,
+    "total": 21,
+    "forbidden_invocations": []
+  },
+  "packages": {
+    "deb": {
+      "passed": 141,
+      "total": 141,
+      "failures": [],
+      "error": null,
+      "binary_sha256": "5f30aed54a00564e8d97caf19932d36633181eca5e567f0ab9bad6a0179faa63"
+    },
+    "appimage": {
+      "passed": 141,
+      "total": 141,
+      "failures": [],
+      "error": null,
+      "binary_sha256": "15cfc5e9584a69bab43048fb361026524d849fb49116a4dd957448491e3e7a52"
+    }
+  },
+  "frontend_builds": {
+    "preview": "PASS",
+    "stable": "PASS"
+  },
+  "native_build": "PASS --release --offline --locked, bounded to four jobs",
+  "native_bundle": "PASS Debian and AppImage, unsigned local artifacts",
+  "baseline": {
+    "tracked_files_checked": 850,
+    "mismatches": []
+  },
+  "lockfile": {
+    "sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+    "matches_accepted": true
+  },
+  "platform_scope": {
+    "linux": "VALIDATED",
+    "windows": "BLOCKED until hardware or CI exists",
+    "macos": "UNAVAILABLE until hardware or CI exists"
+  }
+}

@@ -1,0 +1,261 @@
+diff --git a/src-tauri/src/main.rs b/src-tauri/src/main.rs
+index 287a0de..5eb4624 100644
+--- a/src-tauri/src/main.rs
++++ b/src-tauri/src/main.rs
+@@ -1426,6 +1426,7 @@ async fn open_notes_folder() -> Result<(), String> {
+ #[tauri::command]
+ async fn open_map_configs_folder() -> Result<(), String> {
+     let path = resolve_path("data/user/map-configs");
++    fs::create_dir_all(&path).map_err(|e| e.to_string())?;
+     #[cfg(target_os = "windows")]
+     { std::process::Command::new("explorer").arg(&path).spawn().map_err(|e| e.to_string())?; }
+     #[cfg(target_os = "linux")]
+@@ -1448,7 +1449,7 @@ async fn write_map_config(filename: String, content: String) -> Result<(), Strin
+     let dir = resolve_path("data/user/map-configs");
+     fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+     let path = safe_relative_join(&dir, &filename)?;
+-    fs::write(path, content).map_err(|e| e.to_string())
++    write_bytes_atomic(&path, content).map_err(|e| e.to_string())
+ }
+ 
+ /// List all `.json` files in the map-configs directory.
+diff --git a/src/components/PreviewMapsLayout.jsx b/src/components/PreviewMapsLayout.jsx
+new file mode 100644
+index 0000000..6445120
+--- /dev/null
++++ b/src/components/PreviewMapsLayout.jsx
+@@ -0,0 +1,104 @@
++export default function PreviewMapsLayout({ enabled, children }) {
++  if (!enabled) return children;
++
++  return (
++    <div className="preview-maps-shell absolute inset-0 min-h-0 min-w-0" data-preview-maps-shell="">
++      {children}
++      <style>{`
++        .preview-maps-shell {
++          container-type: size;
++        }
++
++        .preview-maps-shell [data-preview-maps-body],
++        .preview-maps-shell [data-preview-maps-canvas-column],
++        .preview-maps-shell [data-preview-maps-canvas],
++        .preview-maps-shell [data-preview-maps-viewport] {
++          min-height: 0;
++          min-width: 0;
++        }
++
++        .preview-maps-shell [data-preview-maps-config-panel] {
++          max-height: 100% !important;
++        }
++
++        .preview-maps-shell [data-preview-maps-tabs] > :first-child {
++          flex-wrap: nowrap;
++        }
++
++        @container (max-width: 46rem) {
++          .preview-maps-shell [data-preview-maps-body] {
++            gap: 0;
++            padding-left: 0.75rem;
++            padding-right: 0.75rem;
++            padding-bottom: 0.75rem;
++            position: relative;
++          }
++
++          .preview-maps-shell [data-preview-maps-tabs] {
++            left: 0.75rem;
++            right: 0.75rem;
++            top: 3.5rem;
++            max-width: none;
++            overflow-x: auto;
++            padding-bottom: 0.25rem;
++          }
++
++          .preview-maps-shell [data-preview-maps-tabs] > :first-child {
++            flex-shrink: 0;
++          }
++
++          .preview-maps-shell [data-preview-maps-utilities] {
++            right: 0.75rem;
++            top: 0.75rem;
++          }
++
++          .preview-maps-shell [data-preview-maps-add-notice] {
++            left: 0.75rem;
++            right: 0.75rem;
++            top: 7rem;
++            max-width: calc(100% - 1.5rem);
++            transform: none;
++            flex-wrap: wrap;
++          }
++
++          .preview-maps-shell [data-preview-maps-reset] {
++            bottom: 0.75rem;
++            right: 0.75rem;
++          }
++
++          .preview-maps-shell [data-preview-maps-config-panel] {
++            bottom: 0.75rem;
++            max-height: none !important;
++            position: absolute;
++            right: 0.75rem;
++            top: 0.75rem;
++            width: min(20rem, calc(100% - 1.5rem));
++            z-index: 30;
++          }
++
++          .preview-maps-shell [data-preview-maps-marker-editor] {
++            bottom: 0.75rem;
++            left: 0.75rem;
++            max-height: calc(100% - 8rem);
++            overflow-y: auto;
++            right: 0.75rem;
++            top: 7rem;
++            width: auto;
++          }
++        }
++
++        @container (max-height: 28rem) {
++          .preview-maps-shell [data-preview-maps-config-panel] {
++            bottom: 0.5rem;
++            top: 0.5rem;
++          }
++
++          .preview-maps-shell [data-preview-maps-marker-editor] {
++            bottom: 0.5rem;
++            max-height: calc(100% - 7.5rem);
++          }
++        }
++      `}</style>
++    </div>
++  );
++}
+diff --git a/src/screens/Maps.jsx b/src/screens/Maps.jsx
+index 150165a..c6d9c17 100644
+--- a/src/screens/Maps.jsx
++++ b/src/screens/Maps.jsx
+@@ -5,6 +5,8 @@ import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+ import { useMonitoring } from '../contexts/MonitoringContext';
+ import { parseCustomMarkers } from '../lib/customMarkers';
+ import { MapPin, Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react';
++import { IS_PREVIEW } from '../lib/buildProfile';
++import PreviewMapsLayout from '../components/PreviewMapsLayout';
+ 
+ 
+ const ICONS = {
+@@ -535,11 +537,12 @@ export default function Maps() {
+   const nextMarkerNum = selectedMarkerConfig ? getNextLabelNum(selectedMarkerConfig.markers) : 1;
+   return (
+     <PageLayout titleKey="screen.maps">
+-      <div className="absolute inset-0 flex flex-col">
+-        <div className="flex flex-1 min-h-0 gap-2 px-8 pb-8">
+-          <div className="flex-1 min-h-0 relative">
+-            <Card className="glass-panel rounded-lg overflow-hidden p-0 relative min-h-0 bg-black/40 h-full w-full">
+-              <div className="absolute top-4 left-4 z-10 max-w-[calc(100%-300px)] flex items-center gap-2">
++      <PreviewMapsLayout enabled={IS_PREVIEW}>
++      <div className="absolute inset-0 flex flex-col" data-preview-maps-workspace={IS_PREVIEW ? '' : undefined}>
++        <div className="flex flex-1 min-h-0 gap-2 px-8 pb-8" data-preview-maps-body={IS_PREVIEW ? '' : undefined}>
++          <div className="flex-1 min-h-0 relative" data-preview-maps-canvas-column={IS_PREVIEW ? '' : undefined}>
++            <Card className="glass-panel rounded-lg overflow-hidden p-0 relative min-h-0 bg-black/40 h-full w-full" data-preview-maps-canvas={IS_PREVIEW ? '' : undefined}>
++              <div className="absolute top-4 left-4 z-10 max-w-[calc(100%-300px)] flex items-center gap-2" data-preview-maps-tabs={IS_PREVIEW ? '' : undefined}>
+                 <Tabs tabs={mapTabs} activeTab={activeTab} onChange={switchTab} />
+                 {activeTab === '3' && duviriCycle &&
+                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-black/40 backdrop-blur border border-white/5">
+@@ -549,7 +552,7 @@ export default function Maps() {
+                 }
+               </div>
+ 
+-              <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
++              <div className="absolute top-4 right-4 z-10 flex items-center gap-2" data-preview-maps-utilities={IS_PREVIEW ? '' : undefined}>
+                 <ZoomBadge xfRef={xfRef} />
+                 <button onClick={() => setUseRawMap((v) => !v)}
+                 className={`p-2 rounded-lg transition-colors ${useRawMap ? 'bg-kronos-accent/20 text-kronos-accent border border-kronos-accent/30' : 'bg-kronos-bg/80 backdrop-blur text-kronos-dim hover:text-kronos-text border border-white/5'}`}
+@@ -568,7 +571,7 @@ export default function Maps() {
+               </div>
+ 
+               {mode === 'addMarker' && pendingConfigId &&
+-              <div className="absolute top-16 left-1/2 -translate-x-1/2 z-10 bg-kronos-accent px-4 py-2 rounded-lg text-sm text-kronos-bg font-bold shadow-lg flex items-center gap-2">
++              <div className="absolute top-16 left-1/2 -translate-x-1/2 z-10 bg-kronos-accent px-4 py-2 rounded-lg text-sm text-kronos-bg font-bold shadow-lg flex items-center gap-2" data-preview-maps-add-notice={IS_PREVIEW ? '' : undefined}>
+                   <Crosshair size={16} /> {t('maps.adding_markers', { name: configsForCurrentMap.find((c) => c.id === pendingConfigId)?.name || '...' })}
+                   <button
+                   onClick={toggleAutoPath}
+@@ -581,13 +584,14 @@ export default function Maps() {
+               }
+ 
+               <button onClick={resetTransform}
+-              className="absolute bottom-4 right-4 z-10 bg-kronos-bg/80 backdrop-blur px-3 py-1.5 rounded-md text-sm text-kronos-dim font-bold shadow-lg border border-white/5 hover:text-kronos-text transition-colors">{t('maps.reset_view')}
++              className="absolute bottom-4 right-4 z-10 bg-kronos-bg/80 backdrop-blur px-3 py-1.5 rounded-md text-sm text-kronos-dim font-bold shadow-lg border border-white/5 hover:text-kronos-text transition-colors" data-preview-maps-reset={IS_PREVIEW ? '' : undefined}>{t('maps.reset_view')}
+ 
+               </button>
+ 
+               {selectedMarker &&
+               <div data-float-panel="true"
+               className="absolute top-16 right-4 z-20 bg-kronos-panel border border-white/10 rounded-xl p-4 shadow-2xl w-72"
++              data-preview-maps-marker-editor={IS_PREVIEW ? '' : undefined}
+               onClick={(e) => e.stopPropagation()}
+               onPointerDown={(e) => e.stopPropagation()}>
+                   <div className="flex items-center justify-between mb-3">
+@@ -696,6 +700,7 @@ export default function Maps() {
+               }
+ 
+               <div ref={wrapRef} className="w-full h-full overflow-hidden"
++              data-preview-maps-viewport={IS_PREVIEW ? '' : undefined}
+               style={{ cursor: mode === 'addMarker' && pendingConfigId ? 'crosshair' : 'grab', position: 'relative', userSelect: 'none', touchAction: 'none' }}
+               onPointerDown={onPointerDown}
+               onMouseDown={onPointerDown}
+@@ -744,6 +749,9 @@ export default function Maps() {
+                         <div key={marker.id}
+                         className="map-marker-container"
+                         data-marker-id={marker.id}
++                        role={IS_PREVIEW ? 'button' : undefined}
++                        tabIndex={IS_PREVIEW ? 0 : undefined}
++                        aria-label={IS_PREVIEW ? `${marker.label}: ${t('maps.marker_editor')}` : undefined}
+                         style={{
+                           position: 'absolute', left: `${marker.x * 100}%`, top: `${marker.y * 100}%`,
+                           transform: `translate(-50%, -50%) scale(${1 / xfRef.current.scale})`,
+@@ -785,7 +793,13 @@ export default function Maps() {
+                           };
+                           el.addEventListener('pointermove', onMove);
+                           el.addEventListener('pointerup', onUp);
+-                        }}>
++                        }}
++                        onKeyDown={IS_PREVIEW ? (e) => {
++                          if (e.key === 'Enter' || e.key === ' ') {
++                            e.preventDefault();
++                            selectMarkerHandler(config.id, marker);
++                          }
++                        } : undefined}>
+                           
+                             <div className={`relative ${isSelected ? 'scale-125' : 'group-hover:scale-110'} transition-transform`}>
+                               <IconComp size={24} color={marker.color} fill={marker.color} fillOpacity="0.25" strokeWidth="2" />
+@@ -813,7 +827,7 @@ export default function Maps() {
+           </div>
+ 
+           {panelOpen &&
+-          <div className="w-80 flex-shrink-0 glass-panel rounded-lg p-4 flex flex-col gap-3 overflow-y-auto custom-scrollbar" style={{ maxHeight: 'calc(100vh - 200px)' }}>
++          <div className="w-80 flex-shrink-0 glass-panel rounded-lg p-4 flex flex-col gap-3 overflow-y-auto custom-scrollbar" style={{ maxHeight: 'calc(100vh - 200px)' }} data-preview-maps-config-panel={IS_PREVIEW ? '' : undefined}>
+               <div className="flex items-center justify-between">
+                 <h3 className="text-sm font-bold uppercase tracking-wider text-kronos-accent">{t('maps.configurations')}</h3>
+                 <div className="flex items-center gap-1">
+@@ -959,6 +973,7 @@ export default function Maps() {
+       {contextMenu &&
+       <div
+         className="fixed inset-0 z-50 pointer-events-none"
++        data-preview-maps-context-layer={IS_PREVIEW ? '' : undefined}
+         onClick={() => setContextMenu(null)}
+         onPointerDown={() => setContextMenu(null)}
+         onContextMenu={(e) => {e.preventDefault();setContextMenu(null);}}>
+@@ -988,6 +1003,7 @@ export default function Maps() {
+           </div>
+         </div>
+       }
++      </PreviewMapsLayout>
+     </PageLayout>);
+ 
+ }
+@@ -1003,4 +1019,4 @@ function ZoomBadge({ xfRef }) {
+       {label}
+     </div>);
+ 
+-}
+\ No newline at end of file
++}

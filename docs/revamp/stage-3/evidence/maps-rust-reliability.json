@@ -1,0 +1,94 @@
+{
+  "checks": [
+    {
+      "name": "stable-fresh-folder-created-before-open",
+      "pass": true,
+      "detail": {
+        "before": false,
+        "result": {
+          "resolved": true,
+          "value": null
+        },
+        "created": true,
+        "received": "/var/home/jedwards/kiedas-orbiter/.preview-work/maps-reliability-v74r1tjj/xdgdata/kiedas-orbiter/data/user/map-configs"
+      }
+    },
+    {
+      "name": "preview-fresh-folder-created-before-open",
+      "pass": true,
+      "detail": {
+        "before": false,
+        "result": {
+          "resolved": true,
+          "value": null
+        },
+        "created": true,
+        "received": "/var/home/jedwards/kiedas-orbiter/.preview-work/maps-reliability-v74r1tjj/xdgdata/kiedas-orbiter-preview/data/user/map-configs"
+      }
+    },
+    {
+      "name": "stable-preview-roots-distinct",
+      "pass": true,
+      "detail": {
+        "stable": "/var/home/jedwards/kiedas-orbiter/.preview-work/maps-reliability-v74r1tjj/xdgdata/kiedas-orbiter/data/user/map-configs",
+        "preview": "/var/home/jedwards/kiedas-orbiter/.preview-work/maps-reliability-v74r1tjj/xdgdata/kiedas-orbiter-preview/data/user/map-configs"
+      }
+    },
+    {
+      "name": "traversal-rejected",
+      "pass": true,
+      "detail": {
+        "resolved": false,
+        "error": "invalid path: ../escape.json"
+      }
+    },
+    {
+      "name": "atomic-rename-failure-keeps-old-complete",
+      "pass": true,
+      "detail": {
+        "traversal": {
+          "resolved": false,
+          "error": "invalid path: ../escape.json"
+        },
+        "failure": {
+          "resolved": false,
+          "error": "Input/output error (os error 5)"
+        },
+        "old_after": "{\"safe\":\"old-complete\"}",
+        "tmp": "{\"safe\":\"new-complete\"}"
+      }
+    },
+    {
+      "name": "later-clean-write-succeeds-exactly",
+      "pass": true,
+      "detail": {
+        "success": {
+          "resolved": true,
+          "value": null
+        },
+        "read": {
+          "resolved": true,
+          "value": "{\"safe\":\"new-complete\"}"
+        },
+        "bytes": "{\"safe\":\"new-complete\"}",
+        "tmp_exists": false
+      }
+    },
+    {
+      "name": "commands-do-not-cross-profile-roots",
+      "pass": true,
+      "detail": {
+        "stable_files": [],
+        "preview_files": [
+          "atomic.json"
+        ]
+      }
+    }
+  ],
+  "stable_binary_sha256": "d90ac366d8de32961674a05f9188efbdb5d0440dde8f81f6d7c962c89c4fb2eb",
+  "preview_binary_sha256": "c3777d6260ee3f4b0a35fad7124511544f2a746fd1806a0769ef5dd499413d1a",
+  "fault_injector_sha256": "f939090fcd13cab8808a629522579adfed0afa8bbebf343460ec4e790fc752ee",
+  "passed": 7,
+  "total": 7,
+  "failures": []
+}

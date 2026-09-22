@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-settings/bundle.py"
+  ],
+  "container_name": "stage3j-settings-native-bundle-9990c82e91",
+  "cpus": 4,
+  "duration_seconds": 59.043,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-package",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/settings-native-bundle-container.log",
+  "memory": "8g",
+  "network": "none",
+  "phase": "package",
+  "preflight": {
+    "phase": "package",
+    "preserved": [],
+    "removed": [],
+    "target": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target"
+  },
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

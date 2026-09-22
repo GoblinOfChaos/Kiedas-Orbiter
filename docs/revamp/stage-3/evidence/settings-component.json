@@ -1,0 +1,2065 @@
+{
+  "tier": "styled component browser with module-boundary context, settings and Tauri mocks",
+  "fixture": "synthetic isolated preferences and local data only; no real account, game, network, notification, overlay or hotkey registration",
+  "checks": [
+    {
+      "name": "stable-default-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-appearance-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-monitoring-cached-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-monitoring-error-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-scanner-idle-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-scanner-waiting-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-scanner-active-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-scanner-stale-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-long-paths-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-manual-monitor-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-wfm-token-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-updater-idle-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-updater-checking-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-updater-available-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-updater-current-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-updater-installing-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-updater-error-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-guide-modal-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-bug-modal-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-shell",
+      "pass": true
+    },
+    {
+      "name": "stable-theme-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "high-contrast"
+            },
+            "command": "setTheme"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "high-contrast"
+            },
+            "command": "setTheme"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-cursor-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "retro"
+            },
+            "command": "setCursorStyle"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "retro"
+            },
+            "command": "setCursorStyle"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-cursor-tint-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": true
+            },
+            "command": "setCursorTint"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": true
+            },
+            "command": "setCursorTint"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-notification-position-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "top-left",
+              "key": "notif_position"
+            },
+            "command": "setSetting"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "top-left",
+              "key": "notif_position"
+            },
+            "command": "setSetting"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-notification-sound-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "notification2.wav",
+              "key": "notif_sound"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "sound": "notification2.wav"
+            },
+            "command": "set_notification_sound"
+          },
+          {
+            "args": {
+              "sound": "notification2.wav"
+            },
+            "command": "play_notification_sound"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "notification2.wav",
+              "key": "notif_sound"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "sound": "notification2.wav"
+            },
+            "command": "set_notification_sound"
+          },
+          {
+            "args": {
+              "sound": "notification2.wav"
+            },
+            "command": "play_notification_sound"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-manual-refresh-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "command": "manualRefresh"
+          }
+        ],
+        "after": [
+          {
+            "command": "manualRefresh"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-monitoring-toggle-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": true
+            },
+            "command": "setAutoStart"
+          },
+          {
+            "command": "startMonitoring"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": true
+            },
+            "command": "setAutoStart"
+          },
+          {
+            "command": "startMonitoring"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-scanner-toggle-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": true,
+              "key": "fissure_overlay_enabled"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": null,
+            "command": "get_scanner_status"
+          },
+          {
+            "args": null,
+            "command": "stop_log_scanner"
+          },
+          {
+            "args": null,
+            "command": "start_log_scanner"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": true,
+              "key": "fissure_overlay_enabled"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": null,
+            "command": "get_scanner_status"
+          },
+          {
+            "args": null,
+            "command": "stop_log_scanner"
+          },
+          {
+            "args": null,
+            "command": "start_log_scanner"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-cache-picker-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "directory": true,
+              "multiple": false
+            },
+            "command": "openDialog"
+          },
+          {
+            "args": {
+              "value": "/synthetic/Cache.Windows",
+              "key": "warframe_cache_path"
+            },
+            "command": "setSetting"
+          },
+          {
+            "command": "retryCardImages"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "directory": true,
+              "multiple": false
+            },
+            "command": "openDialog"
+          },
+          {
+            "args": {
+              "value": "/synthetic/Cache.Windows",
+              "key": "warframe_cache_path"
+            },
+            "command": "setSetting"
+          },
+          {
+            "command": "retryCardImages"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-sidebar-side-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "right",
+              "key": "sidebar_side"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "width": 480,
+              "side": "right",
+              "persist": true
+            },
+            "command": "set_sidebar_width"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "right",
+              "key": "sidebar_side"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "width": 480,
+              "side": "right",
+              "persist": true
+            },
+            "command": "set_sidebar_width"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-sidebar-width-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": 640,
+              "key": "sidebar_width"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "width": 640,
+              "side": "left",
+              "persist": true
+            },
+            "command": "set_sidebar_width"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": 640,
+              "key": "sidebar_width"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "width": 640,
+              "side": "left",
+              "persist": true
+            },
+            "command": "set_sidebar_width"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-sidebar-focus-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": false,
+              "key": "sidebar_hide_on_focus_loss"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "hide": false
+            },
+            "command": "set_sidebar_hide_on_focus_loss"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": false,
+              "key": "sidebar_hide_on_focus_loss"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "hide": false
+            },
+            "command": "set_sidebar_hide_on_focus_loss"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-hotkey-add-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": [
+                {
+                  "action": "manual_ocr",
+                  "shortcut": "Ctrl+R"
+                },
+                {
+                  "action": "toggle_sidebar",
+                  "shortcut": "Ctrl+M"
+                },
+                {
+                  "action": "",
+                  "shortcut": ""
+                }
+              ],
+              "key": "hotkeys"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "hotkeys": [
+                {
+                  "action": "manual_ocr",
+                  "shortcut": "Ctrl+R"
+                },
+                {
+                  "action": "toggle_sidebar",
+                  "shortcut": "Ctrl+M"
+                }
+              ]
+            },
+            "command": "set_hotkeys"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": [
+                {
+                  "action": "manual_ocr",
+                  "shortcut": "Ctrl+R"
+                },
+                {
+                  "action": "toggle_sidebar",
+                  "shortcut": "Ctrl+M"
+                },
+                {
+                  "action": "",
+                  "shortcut": ""
+                }
+              ],
+              "key": "hotkeys"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "hotkeys": [
+                {
+                  "action": "manual_ocr",
+                  "shortcut": "Ctrl+R"
+                },
+                {
+                  "action": "toggle_sidebar",
+                  "shortcut": "Ctrl+M"
+                }
+              ]
+            },
+            "command": "set_hotkeys"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-safe-mode-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": true,
+              "key": "use_ee_log"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": null,
+            "command": "stop_log_scanner"
+          },
+          {
+            "args": null,
+            "command": "start_log_scanner"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": true,
+              "key": "use_ee_log"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": null,
+            "command": "stop_log_scanner"
+          },
+          {
+            "args": null,
+            "command": "start_log_scanner"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-wfm-token-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "SYNTHETIC-NEW-TOKEN",
+              "key": "wfm_token"
+            },
+            "command": "setSetting"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "SYNTHETIC-NEW-TOKEN",
+              "key": "wfm_token"
+            },
+            "command": "setSetting"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-price-refresh-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "command": "refreshPrices"
+          }
+        ],
+        "after": [
+          {
+            "command": "refreshPrices"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-update-check-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "command": "checkForUpdates"
+          }
+        ],
+        "after": [
+          {
+            "command": "checkForUpdates"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-coverage-export-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "relative": "data/assets/data/acquisition_overrides.json"
+            },
+            "command": "read_file_bytes"
+          },
+          {
+            "args": null,
+            "command": "get_data_root_path"
+          },
+          {
+            "args": {
+              "data": {
+                "0": 115,
+                "13": 101,
+                "18": 32,
+                "4": 104,
+                "14": 114,
+                "5": 101,
+                "2": 110,
+                "6": 116,
+                "7": 105,
+                "19": 114,
+                "3": 116,
+                "10": 99,
+                "23": 114,
+                "24": 116,
+                "17": 101,
+                "15": 97,
+                "1": 121,
+                "20": 101,
+                "12": 118,
+                "21": 112,
+                "8": 99,
+                "16": 103,
+                "22": 111,
+                "9": 32,
+                "11": 111
+              },
+              "path": "/synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+            },
+            "command": "write_file"
+          },
+          {
+            "args": {
+              "title": "Create Missing Acquisition Report",
+              "position": "bottom-right",
+              "message": "2 items missing acquisition info. Report saved to /synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+            },
+            "command": "show_notification"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "relative": "data/assets/data/acquisition_overrides.json"
+            },
+            "command": "read_file_bytes"
+          },
+          {
+            "args": null,
+            "command": "get_data_root_path"
+          },
+          {
+            "args": {
+              "data": {
+                "0": 115,
+                "13": 101,
+                "18": 32,
+                "4": 104,
+                "14": 114,
+                "5": 101,
+                "2": 110,
+                "6": 116,
+                "7": 105,
+                "19": 114,
+                "3": 116,
+                "10": 99,
+                "23": 114,
+                "24": 116,
+                "17": 101,
+                "15": 97,
+                "1": 121,
+                "20": 101,
+                "12": 118,
+                "21": 112,
+                "8": 99,
+                "16": 103,
+                "22": 111,
+                "9": 32,
+                "11": 111
+              },
+              "path": "/synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+            },
+            "command": "write_file"
+          },
+          {
+            "args": {
+              "title": "Create Missing Acquisition Report",
+              "position": "bottom-right",
+              "message": "2 items missing acquisition info. Report saved to /synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+            },
+            "command": "show_notification"
+          }
+        ]
+      }
+    },
+    {
+      "name": "stable-locale-change-side-effect-parity",
+      "pass": true,
+      "detail": {
+        "before": [
+          {
+            "args": {
+              "value": "de",
+              "key": "gameLocale"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "locale": "de",
+              "force": true
+            },
+            "command": "check_exports"
+          }
+        ],
+        "after": [
+          {
+            "args": {
+              "value": "de",
+              "key": "gameLocale"
+            },
+            "command": "setSetting"
+          },
+          {
+            "args": {
+              "locale": "de",
+              "force": true
+            },
+            "command": "check_exports"
+          }
+        ]
+      }
+    },
+    {
+      "name": "preview-section-notice",
+      "pass": true
+    },
+    {
+      "name": "preview-nine-source-derived-section-links",
+      "pass": true,
+      "detail": [
+        "Theme",
+        "Notifications & Overlays",
+        "Game Language",
+        "Help & Diagnostics",
+        "In-Game Sidebar",
+        "Global Hotkeys",
+        "Safe Mode Tracking",
+        "Warframe.Market",
+        "Updates"
+      ]
+    },
+    {
+      "name": "preview-section-targets-exist",
+      "pass": true,
+      "detail": [
+        "#preview-settings-appearance",
+        "#preview-settings-notifications",
+        "#preview-settings-language",
+        "#preview-settings-help",
+        "#preview-settings-sidebar",
+        "#preview-settings-hotkeys",
+        "#preview-settings-safe-mode",
+        "#preview-settings-market",
+        "#preview-settings-updates"
+      ]
+    },
+    {
+      "name": "preview-five-disabled-live-groups",
+      "pass": true,
+      "detail": [
+        {
+          "disabled": true,
+          "reason": "Notification and overlay tests are disabled in Preview",
+          "controls": 3
+        },
+        {
+          "disabled": true,
+          "reason": "Periodic inventory monitoring is disabled in Preview",
+          "controls": 1
+        },
+        {
+          "disabled": true,
+          "reason": "The log scanner is disabled in Preview",
+          "controls": 1
+        },
+        {
+          "disabled": true,
+          "reason": "Global hotkey registration is disabled in Preview",
+          "controls": 7
+        },
+        {
+          "disabled": true,
+          "reason": "Safe-mode scanner tracking is disabled in Preview",
+          "controls": 2
+        }
+      ]
+    },
+    {
+      "name": "preview-zero-unavailable-live-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "preview-zero-relay-event-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "preview-zero-stop-log-scanner-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "preview-sound-preference-without-live-preview",
+      "pass": true,
+      "detail": [
+        {
+          "args": {
+            "value": "notification2.wav",
+            "key": "notif_sound"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "sound": "notification2.wav"
+          },
+          "command": "set_notification_sound"
+        }
+      ]
+    },
+    {
+      "name": "preview-coverage-export-without-notification",
+      "pass": true,
+      "detail": [
+        {
+          "args": {
+            "relative": "data/assets/data/acquisition_overrides.json"
+          },
+          "command": "read_file_bytes"
+        },
+        {
+          "args": null,
+          "command": "get_data_root_path"
+        },
+        {
+          "args": {
+            "data": {
+              "0": 115,
+              "13": 101,
+              "18": 32,
+              "4": 104,
+              "14": 114,
+              "5": 101,
+              "2": 110,
+              "6": 116,
+              "7": 105,
+              "19": 114,
+              "3": 116,
+              "10": 99,
+              "23": 114,
+              "24": 116,
+              "17": 101,
+              "15": 97,
+              "1": 121,
+              "20": 101,
+              "12": 118,
+              "21": 112,
+              "8": 99,
+              "16": 103,
+              "22": 111,
+              "9": 32,
+              "11": 111
+            },
+            "path": "/synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+          },
+          "command": "write_file"
+        }
+      ]
+    },
+    {
+      "name": "preview-updater-disabled-message",
+      "pass": true
+    },
+    {
+      "name": "preview-updater-button-disabled-and-startup-toggle-absent",
+      "pass": true,
+      "detail": {
+        "button": true,
+        "startup": false
+      }
+    },
+    {
+      "name": "preview-1200x800-no-page-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "cardsWithin": true,
+        "grids": {
+          "maintenance": 2,
+          "notification-tests": 4,
+          "notification-preferences": 2,
+          "themes": 5,
+          "monitoring": 2,
+          "sidebar-width": 4
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "viewport": [
+          1200,
+          800
+        ],
+        "rail": {
+          "client": 922,
+          "scroll": 1176
+        },
+        "shell": {
+          "left": 32,
+          "right": 956
+        },
+        "disabled": true,
+        "requested": [
+          1200,
+          800
+        ]
+      }
+    },
+    {
+      "name": "preview-1200x800-cards-contained",
+      "pass": true,
+      "detail": {
+        "cardsWithin": true,
+        "grids": {
+          "maintenance": 2,
+          "notification-tests": 4,
+          "notification-preferences": 2,
+          "themes": 5,
+          "monitoring": 2,
+          "sidebar-width": 4
+        },
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "viewport": [
+          1200,
+          800
+        ],
+        "rail": {
+          "client": 922,
+          "scroll": 1176
+        },
+        "shell": {
+          "left": 32,
+          "right": 956
+        },
+        "disabled": true,
+        "requested": [
+          1200,
+          800
+        ]
+      }
+    },
+    {
+      "name": "preview-1200x800-section-rail-contained",
+      "pass": true,
+      "detail": {
+        "client": 922,
+        "scroll": 1176
+      }
+    },
+    {
+      "name": "preview-1200x800-disabled-state-persists",
+      "pass": true
+    },
+    {
+      "name": "preview-900x500-no-page-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "cardsWithin": true,
+        "grids": {
+          "maintenance": 1,
+          "notification-tests": 2,
+          "notification-preferences": 1,
+          "themes": 3,
+          "monitoring": 1,
+          "sidebar-width": 2
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "viewport": [
+          900,
+          500
+        ],
+        "rail": {
+          "client": 622,
+          "scroll": 1176
+        },
+        "shell": {
+          "left": 32,
+          "right": 656
+        },
+        "disabled": true,
+        "requested": [
+          900,
+          500
+        ]
+      }
+    },
+    {
+      "name": "preview-900x500-cards-contained",
+      "pass": true,
+      "detail": {
+        "cardsWithin": true,
+        "grids": {
+          "maintenance": 1,
+          "notification-tests": 2,
+          "notification-preferences": 1,
+          "themes": 3,
+          "monitoring": 1,
+          "sidebar-width": 2
+        },
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "viewport": [
+          900,
+          500
+        ],
+        "rail": {
+          "client": 622,
+          "scroll": 1176
+        },
+        "shell": {
+          "left": 32,
+          "right": 656
+        },
+        "disabled": true,
+        "requested": [
+          900,
+          500
+        ]
+      }
+    },
+    {
+      "name": "preview-900x500-section-rail-contained",
+      "pass": true,
+      "detail": {
+        "client": 622,
+        "scroll": 1176
+      }
+    },
+    {
+      "name": "preview-900x500-disabled-state-persists",
+      "pass": true
+    },
+    {
+      "name": "preview-narrow-container-layout",
+      "pass": true,
+      "detail": {
+        "maintenance": 1,
+        "notification-tests": 2,
+        "notification-preferences": 1,
+        "themes": 3,
+        "monitoring": 1,
+        "sidebar-width": 2
+      }
+    },
+    {
+      "name": "preview-german-section-labels-from-real-locale",
+      "pass": true,
+      "detail": [
+        "Design",
+        "Benachrichtigungen & Overlays",
+        "Spielsprache",
+        "Hilfe & Diagnose",
+        "In-Game-Seitenleiste",
+        "Globale Tastenk\u00fcrzel",
+        "Sicherer Tracking-Modus",
+        "Warframe.Market",
+        "Updates"
+      ]
+    },
+    {
+      "name": "no-browser-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "default",
+      "equal": true,
+      "before_length": 38107,
+      "after_length": 38107
+    },
+    {
+      "state": "appearance",
+      "equal": true,
+      "before_length": 38130,
+      "after_length": 38130
+    },
+    {
+      "state": "monitoring-cached",
+      "equal": true,
+      "before_length": 38168,
+      "after_length": 38168
+    },
+    {
+      "state": "monitoring-error",
+      "equal": true,
+      "before_length": 38153,
+      "after_length": 38153
+    },
+    {
+      "state": "scanner-idle",
+      "equal": true,
+      "before_length": 38111,
+      "after_length": 38111
+    },
+    {
+      "state": "scanner-waiting",
+      "equal": true,
+      "before_length": 38183,
+      "after_length": 38183
+    },
+    {
+      "state": "scanner-active",
+      "equal": true,
+      "before_length": 38174,
+      "after_length": 38174
+    },
+    {
+      "state": "scanner-stale",
+      "equal": true,
+      "before_length": 38173,
+      "after_length": 38173
+    },
+    {
+      "state": "long-paths",
+      "equal": true,
+      "before_length": 38198,
+      "after_length": 38198
+    },
+    {
+      "state": "manual-monitor",
+      "equal": true,
+      "before_length": 38075,
+      "after_length": 38075
+    },
+    {
+      "state": "wfm-token",
+      "equal": true,
+      "before_length": 38127,
+      "after_length": 38127
+    },
+    {
+      "state": "price-loading",
+      "equal": true,
+      "before_length": 38189,
+      "after_length": 38189
+    },
+    {
+      "state": "updater-idle",
+      "equal": true,
+      "before_length": 38107,
+      "after_length": 38107
+    },
+    {
+      "state": "updater-checking",
+      "equal": true,
+      "before_length": 38539,
+      "after_length": 38539
+    },
+    {
+      "state": "updater-available",
+      "equal": true,
+      "before_length": 38514,
+      "after_length": 38514
+    },
+    {
+      "state": "updater-current",
+      "equal": true,
+      "before_length": 38105,
+      "after_length": 38105
+    },
+    {
+      "state": "updater-installing",
+      "equal": true,
+      "before_length": 38538,
+      "after_length": 38538
+    },
+    {
+      "state": "updater-error",
+      "equal": true,
+      "before_length": 38132,
+      "after_length": 38132
+    },
+    {
+      "state": "guide-modal",
+      "equal": true,
+      "before_length": 38187,
+      "after_length": 38187
+    },
+    {
+      "state": "bug-modal",
+      "equal": true,
+      "before_length": 38187,
+      "after_length": 38187
+    }
+  ],
+  "stable_interaction_parity": [
+    {
+      "interaction": "theme",
+      "before_calls": [
+        {
+          "args": {
+            "value": "high-contrast"
+          },
+          "command": "setTheme"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "high-contrast"
+          },
+          "command": "setTheme"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "cursor",
+      "before_calls": [
+        {
+          "args": {
+            "value": "retro"
+          },
+          "command": "setCursorStyle"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "retro"
+          },
+          "command": "setCursorStyle"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "cursor-tint",
+      "before_calls": [
+        {
+          "args": {
+            "value": true
+          },
+          "command": "setCursorTint"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": true
+          },
+          "command": "setCursorTint"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "notification-position",
+      "before_calls": [
+        {
+          "args": {
+            "value": "top-left",
+            "key": "notif_position"
+          },
+          "command": "setSetting"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "top-left",
+            "key": "notif_position"
+          },
+          "command": "setSetting"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "notification-sound",
+      "before_calls": [
+        {
+          "args": {
+            "value": "notification2.wav",
+            "key": "notif_sound"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "sound": "notification2.wav"
+          },
+          "command": "set_notification_sound"
+        },
+        {
+          "args": {
+            "sound": "notification2.wav"
+          },
+          "command": "play_notification_sound"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "notification2.wav",
+            "key": "notif_sound"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "sound": "notification2.wav"
+          },
+          "command": "set_notification_sound"
+        },
+        {
+          "args": {
+            "sound": "notification2.wav"
+          },
+          "command": "play_notification_sound"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "manual-refresh",
+      "before_calls": [
+        {
+          "command": "manualRefresh"
+        }
+      ],
+      "after_calls": [
+        {
+          "command": "manualRefresh"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "monitoring-toggle",
+      "before_calls": [
+        {
+          "args": {
+            "value": true
+          },
+          "command": "setAutoStart"
+        },
+        {
+          "command": "startMonitoring"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": true
+          },
+          "command": "setAutoStart"
+        },
+        {
+          "command": "startMonitoring"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "scanner-toggle",
+      "before_calls": [
+        {
+          "args": {
+            "value": true,
+            "key": "fissure_overlay_enabled"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": null,
+          "command": "get_scanner_status"
+        },
+        {
+          "args": null,
+          "command": "stop_log_scanner"
+        },
+        {
+          "args": null,
+          "command": "start_log_scanner"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": true,
+            "key": "fissure_overlay_enabled"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": null,
+          "command": "get_scanner_status"
+        },
+        {
+          "args": null,
+          "command": "stop_log_scanner"
+        },
+        {
+          "args": null,
+          "command": "start_log_scanner"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "cache-picker",
+      "before_calls": [
+        {
+          "args": {
+            "directory": true,
+            "multiple": false
+          },
+          "command": "openDialog"
+        },
+        {
+          "args": {
+            "value": "/synthetic/Cache.Windows",
+            "key": "warframe_cache_path"
+          },
+          "command": "setSetting"
+        },
+        {
+          "command": "retryCardImages"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "directory": true,
+            "multiple": false
+          },
+          "command": "openDialog"
+        },
+        {
+          "args": {
+            "value": "/synthetic/Cache.Windows",
+            "key": "warframe_cache_path"
+          },
+          "command": "setSetting"
+        },
+        {
+          "command": "retryCardImages"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "sidebar-side",
+      "before_calls": [
+        {
+          "args": {
+            "value": "right",
+            "key": "sidebar_side"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "width": 480,
+            "side": "right",
+            "persist": true
+          },
+          "command": "set_sidebar_width"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "right",
+            "key": "sidebar_side"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "width": 480,
+            "side": "right",
+            "persist": true
+          },
+          "command": "set_sidebar_width"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "sidebar-width",
+      "before_calls": [
+        {
+          "args": {
+            "value": 640,
+            "key": "sidebar_width"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "width": 640,
+            "side": "left",
+            "persist": true
+          },
+          "command": "set_sidebar_width"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": 640,
+            "key": "sidebar_width"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "width": 640,
+            "side": "left",
+            "persist": true
+          },
+          "command": "set_sidebar_width"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "sidebar-focus",
+      "before_calls": [
+        {
+          "args": {
+            "value": false,
+            "key": "sidebar_hide_on_focus_loss"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "hide": false
+          },
+          "command": "set_sidebar_hide_on_focus_loss"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": false,
+            "key": "sidebar_hide_on_focus_loss"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "hide": false
+          },
+          "command": "set_sidebar_hide_on_focus_loss"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "hotkey-add",
+      "before_calls": [
+        {
+          "args": {
+            "value": [
+              {
+                "action": "manual_ocr",
+                "shortcut": "Ctrl+R"
+              },
+              {
+                "action": "toggle_sidebar",
+                "shortcut": "Ctrl+M"
+              },
+              {
+                "action": "",
+                "shortcut": ""
+              }
+            ],
+            "key": "hotkeys"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "hotkeys": [
+              {
+                "action": "manual_ocr",
+                "shortcut": "Ctrl+R"
+              },
+              {
+                "action": "toggle_sidebar",
+                "shortcut": "Ctrl+M"
+              }
+            ]
+          },
+          "command": "set_hotkeys"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": [
+              {
+                "action": "manual_ocr",
+                "shortcut": "Ctrl+R"
+              },
+              {
+                "action": "toggle_sidebar",
+                "shortcut": "Ctrl+M"
+              },
+              {
+                "action": "",
+                "shortcut": ""
+              }
+            ],
+            "key": "hotkeys"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "hotkeys": [
+              {
+                "action": "manual_ocr",
+                "shortcut": "Ctrl+R"
+              },
+              {
+                "action": "toggle_sidebar",
+                "shortcut": "Ctrl+M"
+              }
+            ]
+          },
+          "command": "set_hotkeys"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "safe-mode",
+      "before_calls": [
+        {
+          "args": {
+            "value": true,
+            "key": "use_ee_log"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": null,
+          "command": "stop_log_scanner"
+        },
+        {
+          "args": null,
+          "command": "start_log_scanner"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": true,
+            "key": "use_ee_log"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": null,
+          "command": "stop_log_scanner"
+        },
+        {
+          "args": null,
+          "command": "start_log_scanner"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "wfm-token",
+      "before_calls": [
+        {
+          "args": {
+            "value": "SYNTHETIC-NEW-TOKEN",
+            "key": "wfm_token"
+          },
+          "command": "setSetting"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "SYNTHETIC-NEW-TOKEN",
+            "key": "wfm_token"
+          },
+          "command": "setSetting"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "price-refresh",
+      "before_calls": [
+        {
+          "command": "refreshPrices"
+        }
+      ],
+      "after_calls": [
+        {
+          "command": "refreshPrices"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "update-check",
+      "before_calls": [
+        {
+          "command": "checkForUpdates"
+        }
+      ],
+      "after_calls": [
+        {
+          "command": "checkForUpdates"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "coverage-export",
+      "before_calls": [
+        {
+          "args": {
+            "relative": "data/assets/data/acquisition_overrides.json"
+          },
+          "command": "read_file_bytes"
+        },
+        {
+          "args": null,
+          "command": "get_data_root_path"
+        },
+        {
+          "args": {
+            "data": {
+              "0": 115,
+              "13": 101,
+              "18": 32,
+              "4": 104,
+              "14": 114,
+              "5": 101,
+              "2": 110,
+              "6": 116,
+              "7": 105,
+              "19": 114,
+              "3": 116,
+              "10": 99,
+              "23": 114,
+              "24": 116,
+              "17": 101,
+              "15": 97,
+              "1": 121,
+              "20": 101,
+              "12": 118,
+              "21": 112,
+              "8": 99,
+              "16": 103,
+              "22": 111,
+              "9": 32,
+              "11": 111
+            },
+            "path": "/synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+          },
+          "command": "write_file"
+        },
+        {
+          "args": {
+            "title": "Create Missing Acquisition Report",
+            "position": "bottom-right",
+            "message": "2 items missing acquisition info. Report saved to /synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+          },
+          "command": "show_notification"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "relative": "data/assets/data/acquisition_overrides.json"
+          },
+          "command": "read_file_bytes"
+        },
+        {
+          "args": null,
+          "command": "get_data_root_path"
+        },
+        {
+          "args": {
+            "data": {
+              "0": 115,
+              "13": 101,
+              "18": 32,
+              "4": 104,
+              "14": 114,
+              "5": 101,
+              "2": 110,
+              "6": 116,
+              "7": 105,
+              "19": 114,
+              "3": 116,
+              "10": 99,
+              "23": 114,
+              "24": 116,
+              "17": 101,
+              "15": 97,
+              "1": 121,
+              "20": 101,
+              "12": 118,
+              "21": 112,
+              "8": 99,
+              "16": 103,
+              "22": 111,
+              "9": 32,
+              "11": 111
+            },
+            "path": "/synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+          },
+          "command": "write_file"
+        },
+        {
+          "args": {
+            "title": "Create Missing Acquisition Report",
+            "position": "bottom-right",
+            "message": "2 items missing acquisition info. Report saved to /synthetic/preview-root/data/user/acquisition_coverage_report.txt"
+          },
+          "command": "show_notification"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    },
+    {
+      "interaction": "locale-change",
+      "before_calls": [
+        {
+          "args": {
+            "value": "de",
+            "key": "gameLocale"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "locale": "de",
+            "force": true
+          },
+          "command": "check_exports"
+        }
+      ],
+      "after_calls": [
+        {
+          "args": {
+            "value": "de",
+            "key": "gameLocale"
+          },
+          "command": "setSetting"
+        },
+        {
+          "args": {
+            "locale": "de",
+            "force": true
+          },
+          "command": "check_exports"
+        }
+      ],
+      "settings_equal": true,
+      "pass": true
+    }
+  ],
+  "preview_unavailable_invocations": [],
+  "preview_relay_event_invocations": [],
+  "preview_stop_log_scanner_invocations": [],
+  "geometry": [
+    {
+      "cardsWithin": true,
+      "grids": {
+        "maintenance": 2,
+        "notification-tests": 4,
+        "notification-preferences": 2,
+        "themes": 5,
+        "monitoring": 2,
+        "sidebar-width": 4
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "viewport": [
+        1200,
+        800
+      ],
+      "rail": {
+        "client": 922,
+        "scroll": 1176
+      },
+      "shell": {
+        "left": 32,
+        "right": 956
+      },
+      "disabled": true,
+      "requested": [
+        1200,
+        800
+      ]
+    },
+    {
+      "cardsWithin": true,
+      "grids": {
+        "maintenance": 1,
+        "notification-tests": 2,
+        "notification-preferences": 1,
+        "themes": 3,
+        "monitoring": 1,
+        "sidebar-width": 2
+      },
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "viewport": [
+        900,
+        500
+      ],
+      "rail": {
+        "client": 622,
+        "scroll": 1176
+      },
+      "shell": {
+        "left": 32,
+        "right": 656
+      },
+      "disabled": true,
+      "requested": [
+        900,
+        500
+      ]
+    }
+  ],
+  "summary": {
+    "total": 62,
+    "passed": 62,
+    "stable_exact_markup": 20,
+    "stable_interaction_parity": 19,
+    "preview_unavailable_invocation_count": 0,
+    "preview_relay_event_invocation_count": 0,
+    "preview_stop_log_scanner_invocation_count": 0
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "Equinox": {
+    "reason": "no Market cost, no Blueprint drop match, no part drop matches found"
+  },
+  "Excalibur Umbra Prime": {
+    "reason": "'Excalibur Umbra Prime' not in PrimeData or Blueprints/data Suits - likely Founders-exclusive or otherwise non-standard acquisition, needs manual check"
+  },
+  "Stalker": {
+    "reason": "'Stalker' not found in Blueprints/data Suits table"
+  },
+  "Sirius & Orion": {
+    "reason": "no InternalName in Warframes/data"
+  },
+  "Sirius": {
+    "reason": "'Sirius' not found in Blueprints/data Suits table"
+  },
+  "Sevagoth's Shadow": {
+    "reason": "'Sevagoth's Shadow' not found in Blueprints/data Suits table"
+  },
+  "Sevagoth Prime's Shadow": {
+    "reason": "'Sevagoth Prime's Shadow' not found in Blueprints/data Suits table"
+  },
+  "Excalibur Umbra": {
+    "reason": "no Market cost, no Blueprint drop match, no part drop matches found"
+  },
+  "Narin": {
+    "reason": "no InternalName in Warframes/data"
+  },
+  "Brysko": {
+    "reason": "no InternalName in Warframes/data"
+  },
+  "Orion": {
+    "reason": "'Orion' not found in Blueprints/data Suits table"
+  },
+  "Excalibur Prime": {
+    "reason": "'Excalibur Prime' not in PrimeData or Blueprints/data Suits - likely Founders-exclusive or otherwise non-standard acquisition, needs manual check"
+  },
+  "Amesha": {
+    "reason": "'Amesha' not found in Blueprints/data Suits table"
+  },
+  "Odonata": {
+    "reason": "'Odonata' not found in Blueprints/data Suits table"
+  },
+  "Itzal": {
+    "reason": "'Itzal' not found in Blueprints/data Suits table"
+  },
+  "Elytron": {
+    "reason": "'Elytron' not found in Blueprints/data Suits table"
+  },
+  "Voidrig": {
+    "reason": "'Voidrig' not found in Blueprints/data Suits table"
+  },
+  "Bonewidow": {
+    "reason": "'Bonewidow' not found in Blueprints/data Suits table"
+  },
+  "Operator": {
+    "reason": "no InternalName in Warframes/data"
+  },
+  "Drifter": {
+    "reason": "no InternalName in Warframes/data"
+  }
+}

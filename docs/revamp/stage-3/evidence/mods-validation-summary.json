@@ -1,0 +1,446 @@
+{
+  "timestamp": "2026-09-06T04:44:31.524013+00:00",
+  "component_checks": 119,
+  "component_passed": 119,
+  "stable_exact_markup_comparison_count": 9,
+  "stable_exact_markup_states": [
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 309743,
+      "after_length": 309743
+    },
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 11074,
+      "after_length": 11074
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 12007,
+      "after_length": 12007
+    },
+    {
+      "state": "frames-pending",
+      "equal": true,
+      "before_length": 11077,
+      "after_length": 11077
+    },
+    {
+      "state": "fix-checking",
+      "equal": true,
+      "before_length": 11077,
+      "after_length": 11077
+    },
+    {
+      "state": "fix-fixing",
+      "equal": true,
+      "before_length": 11908,
+      "after_length": 11908
+    },
+    {
+      "state": "price-loading",
+      "equal": true,
+      "before_length": 317309,
+      "after_length": 317309
+    },
+    {
+      "state": "price-progress",
+      "equal": true,
+      "before_length": 310207,
+      "after_length": 310207
+    }
+  ],
+  "stable_pointer_drawer_exact_markup": {
+    "name": "stable-pointer-drawer-exact-markup",
+    "pass": true,
+    "detail": {
+      "before_length": 311780,
+      "after_length": 311780
+    }
+  },
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 40,
+      "passed": 40,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5
+      },
+      "binary_sha256": "aaada4fb3872e5115bc35bbfdeb97a034f330b5c17f5e8b407c069e0157a03ab",
+      "mods_state_injection": {
+        "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock",
+        "result": {
+          "previousInventory": {
+            "account": {
+              "mastery_rank": 0
+            },
+            "warframes": [
+              {
+                "mastered": true,
+                "name": "Synthetic Mastered",
+                "unique_name": "/Synthetic/Mastered",
+                "mastery_xp": 3000,
+                "rank": 30
+              }
+            ],
+            "intrinsics": [],
+            "starchart": {
+              "total": 0,
+              "steel_path": 0,
+              "origin": 0,
+              "nodes": [],
+              "origin_xp": 0,
+              "steel_path_xp": 0
+            }
+          },
+          "ok": true,
+          "stateHooks": 24
+        }
+      },
+      "mods_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-and-categories",
+          "state": {
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "toolbarColumns": 2,
+            "cardCount": 17,
+            "firstTabIndex": 0,
+            "categoriesState": {
+              "wrap": "nowrap",
+              "client": 926,
+              "scroll": 1843,
+              "overflow": "auto"
+            },
+            "present": true,
+            "noZeroPrice": true,
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Sentinels",
+              "Robotic",
+              "Beasts",
+              "Stance",
+              "Aura",
+              "Exilus",
+              "Railjack",
+              "Archgun",
+              "Archmelee",
+              "Parazon",
+              "Augment",
+              "Antique",
+              "Tome",
+              "Vehicles"
+            ],
+            "cardWidths": [
+              200,
+              200,
+              200
+            ],
+            "firstRole": "button",
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-drawer",
+          "enter": true,
+          "space": true,
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-and-categories",
+          "state": {
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "toolbarColumns": 1,
+            "cardCount": 17,
+            "firstTabIndex": 0,
+            "categoriesState": {
+              "wrap": "nowrap",
+              "client": 626,
+              "scroll": 1843,
+              "overflow": "auto"
+            },
+            "present": true,
+            "noZeroPrice": true,
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Sentinels",
+              "Robotic",
+              "Beasts",
+              "Stance",
+              "Aura",
+              "Exilus",
+              "Railjack",
+              "Archgun",
+              "Archmelee",
+              "Parazon",
+              "Augment",
+              "Antique",
+              "Tome",
+              "Vehicles"
+            ],
+            "cardWidths": [
+              200,
+              200,
+              200
+            ],
+            "firstRole": "button",
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-drawer",
+          "enter": true,
+          "space": true,
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "pass": true,
+          "no_zero_price": true,
+          "no_sell": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 40,
+      "passed": 40,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5
+      },
+      "binary_sha256": "b218746352ff719fbf0901daae6e1c5cfb516c3afb215e062e4291dcfe2e002a",
+      "mods_state_injection": {
+        "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock",
+        "result": {
+          "previousInventory": {
+            "account": {
+              "mastery_rank": 0
+            },
+            "warframes": [
+              {
+                "mastered": true,
+                "name": "Synthetic Mastered",
+                "unique_name": "/Synthetic/Mastered",
+                "mastery_xp": 3000,
+                "rank": 30
+              }
+            ],
+            "intrinsics": [],
+            "starchart": {
+              "total": 0,
+              "steel_path": 0,
+              "origin": 0,
+              "nodes": [],
+              "origin_xp": 0,
+              "steel_path_xp": 0
+            }
+          },
+          "ok": true,
+          "stateHooks": 24
+        }
+      },
+      "mods_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-and-categories",
+          "state": {
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "toolbarColumns": 2,
+            "cardCount": 17,
+            "firstTabIndex": 0,
+            "categoriesState": {
+              "wrap": "nowrap",
+              "client": 926,
+              "scroll": 1843,
+              "overflow": "auto"
+            },
+            "present": true,
+            "noZeroPrice": true,
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Sentinels",
+              "Robotic",
+              "Beasts",
+              "Stance",
+              "Aura",
+              "Exilus",
+              "Railjack",
+              "Archgun",
+              "Archmelee",
+              "Parazon",
+              "Augment",
+              "Antique",
+              "Tome",
+              "Vehicles"
+            ],
+            "cardWidths": [
+              200,
+              200,
+              200
+            ],
+            "firstRole": "button",
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-drawer",
+          "enter": true,
+          "space": true,
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-and-categories",
+          "state": {
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "toolbarColumns": 1,
+            "cardCount": 17,
+            "firstTabIndex": 0,
+            "categoriesState": {
+              "wrap": "nowrap",
+              "client": 626,
+              "scroll": 1843,
+              "overflow": "auto"
+            },
+            "present": true,
+            "noZeroPrice": true,
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Sentinels",
+              "Robotic",
+              "Beasts",
+              "Stance",
+              "Aura",
+              "Exilus",
+              "Railjack",
+              "Archgun",
+              "Archmelee",
+              "Parazon",
+              "Augment",
+              "Antique",
+              "Tome",
+              "Vehicles"
+            ],
+            "cardWidths": [
+              200,
+              200,
+              200
+            ],
+            "firstRole": "button",
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-drawer",
+          "enter": true,
+          "space": true,
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "pass": true,
+          "no_zero_price": true,
+          "no_sell": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3D implemented and validated; awaiting user acceptance"
+}

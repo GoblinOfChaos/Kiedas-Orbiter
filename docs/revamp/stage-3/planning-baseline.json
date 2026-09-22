@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-09-05T22:31:22.887957+00:00",
+  "stage2_scope": "accepted-linux-only",
+  "dashboard_source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/screens/Dashboard.jsx",
+  "dashboard_sha256": "b200860d216d39e699fb693e1a31db249efca5c2650e9ced7770b0e8892a0bb6",
+  "stage3_app_source_changed": false
+}

@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-09-06T17:11:37.142318+00:00",
+  "stage3e_cumulative_patch_sha256": "aaaaa8bac2d19ae8cb61ebc576c87744caced8595e95483cabc71fd61602f431",
+  "rivens_incremental_patch_sha256": "340fdfdc26820e7be21967bc28c24ed479d0bebc203df7e333556bc6fbff2e59",
+  "cumulative_patch_sha256": "87241d18ad98ba63ec9a3d49d402599ae568d80dcab495fbbc4a3aef6313411f",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "03e9a3d05f99c2a04373430dcf1be2a330f928e8bf47c64e553b673e14a6af4c",
+    "after_sha256": "3e78cd09f1d73cea7d54a8bf047c6eabcf5cf644a1bf0d763c1f1bb3b5244dc7",
+    "preview_layout_sha256": "49428c41caf076e243340979dad42bd59b863c5c7a2db4e1224c19af7a944c44",
+    "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+    "filter_sort_pricing_grading_card_drawer_and_backend_behavior_unchanged": true,
+    "dormant_marketplace_mutation_commands_present": false,
+    "approved_regions": [
+      "Preview imports",
+      "Preview-only layout data attributes and classes",
+      "Preview-only card keyboard attributes and handler",
+      "Preview pass-through wrapper"
+    ],
+    "source_files_changed": [
+      "src/screens/Rivens.jsx",
+      "src/components/PreviewRivensLayout.jsx"
+    ]
+  },
+  "artifact_count": 4,
+  "component_checks": 65,
+  "stable_exact_markup_comparisons": 7,
+  "packaged_checks_per_artifact": 50,
+  "gate": "Stage 3F implemented and validated; awaiting user acceptance"
+}

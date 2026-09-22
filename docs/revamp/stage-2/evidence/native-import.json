@@ -1,0 +1,190 @@
+{
+  "binary_sha256": "1f5ef559aa30fa5d479e33c5b96d1ae4871a7c0df0bae3bb57ae244c66639f41",
+  "private_network_namespace": true,
+  "synthetic_profile": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-4n74jkp2",
+  "checks": [
+    {
+      "name": "legacy_source_unchanged",
+      "pass": true
+    },
+    {
+      "name": "legacy_sentinel_not_imported",
+      "pass": true
+    },
+    {
+      "name": "stable_os_profile_not_created",
+      "pass": true
+    },
+    {
+      "name": "legacy_credentials_not_imported",
+      "pass": true
+    },
+    {
+      "name": "legacy_auto_monitoring_not_imported",
+      "pass": true
+    },
+    {
+      "name": "preview_document_title",
+      "pass": true
+    },
+    {
+      "name": "preview_title_after_reload",
+      "pass": true
+    },
+    {
+      "name": "preview_navigation_after_reload",
+      "pass": true
+    }
+  ],
+  "session_response": {
+    "value": {
+      "sessionId": "936530d1-d244-4123-8a85-48744677b645",
+      "capabilities": {
+        "browserName": "wry",
+        "browserVersion": "0.55.1",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "url": {
+    "value": "tauri://localhost"
+  },
+  "title": {
+    "value": "Kieda's Orbiter Preview"
+  },
+  "body": {
+    "value": "WELCOME TO KIEDA'S ORBITER\nLet's get you set up. Pick your language below; the paths are optional and can be configured later in Settings.\n\nGAME LANGUAGE\n\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nThe app reloads to apply your language choice. You can change it anytime in Settings.\nGAME ASSETS(optional)\n\nBROWSE\nPoint to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.\nDISCLAIMER\nThis app reads session tokens from game memory. Digital Extremes has not approved this application.\nI understand and accept the risks described above.\nCONTINUE\n\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nDASHBOARD\n\nLoading worldstate..."
+  },
+  "preview_files": [
+    "xdgdata/com.jacob.kiedasorbiter.preview/hsts-storage.sqlite",
+    "xdgdata/com.jacob.kiedasorbiter.preview/storage/salt",
+    "xdgdata/com.jacob.kiedasorbiter.preview/CacheStorage/salt",
+    "xdgdata/com.jacob.kiedasorbiter.preview/localstorage/tauri_localhost_0.localstorage",
+    "xdgdata/com.jacob.kiedasorbiter.preview/localstorage/tauri_localhost_0.localstorage-wal",
+    "xdgdata/com.jacob.kiedasorbiter.preview/localstorage/tauri_localhost_0.localstorage-shm",
+    "xdgdata/com.jacob.kiedasorbiter.preview/WebKitCache/Version 17/salt",
+    "xdgdata/com.jacob.kiedasorbiter.preview/mediakeys/v1/salt",
+    "xdgdata/kiedas-orbiter-preview/data/user/settings.json",
+    "xdgdata/kiedas-orbiter-preview/data/user/logs/app-2026-09-04.log"
+  ],
+  "market_guards": [
+    {
+      "command": "post_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "delete_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "update_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    },
+    {
+      "command": "close_market_order",
+      "result": {
+        "resolved": false,
+        "error": "Live integrations and market mutations are disabled in this Preview milestone"
+      },
+      "pass": true
+    }
+  ],
+  "import_checks": [
+    {
+      "name": "explicit_import_succeeds",
+      "pass": true,
+      "response": {
+        "resolved": true,
+        "value": "Imported 2 files. Preview backup: /var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-4n74jkp2/xdgdata/kiedas-orbiter-preview/data/user/preview-import-backup-1788581492083720497. Reload Preview to use the copy."
+      }
+    },
+    {
+      "name": "note_content_copied",
+      "pass": true,
+      "response": null
+    },
+    {
+      "name": "nested_map_secret_scrubbed",
+      "pass": true,
+      "response": null
+    },
+    {
+      "name": "import_source_unchanged",
+      "pass": true,
+      "response": null
+    },
+    {
+      "name": "replacement_requires_opt_in",
+      "pass": true,
+      "response": {
+        "resolved": false,
+        "error": "Selected Preview files already exist. Enable replacement to retain a backup and replace them."
+      }
+    },
+    {
+      "name": "explicit_replacement_succeeds",
+      "pass": true,
+      "response": {
+        "resolved": true,
+        "value": "Imported 1 files. Preview backup: /var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-4n74jkp2/xdgdata/kiedas-orbiter-preview/data/user/preview-import-backup-1788581492102010050. Reload Preview to use the copy."
+      }
+    },
+    {
+      "name": "replacement_content_applied",
+      "pass": true,
+      "response": null
+    },
+    {
+      "name": "original_note_backup_retained",
+      "pass": true,
+      "response": null
+    },
+    {
+      "name": "malformed_batch_rejected_before_changes",
+      "pass": true,
+      "response": {
+        "resolved": false,
+        "error": "key must be a string at line 1 column 2"
+      }
+    },
+    {
+      "name": "overlapping_source_rejected",
+      "pass": true,
+      "response": {
+        "resolved": false,
+        "error": "Source and Preview profile must not overlap"
+      }
+    },
+    {
+      "name": "symlink_source_rejected",
+      "pass": true,
+      "response": {
+        "resolved": false,
+        "error": "Import accepts only regular files up to 32 MiB"
+      }
+    }
+  ]
+}

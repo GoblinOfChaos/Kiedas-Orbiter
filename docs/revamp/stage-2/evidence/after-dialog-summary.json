@@ -1,0 +1,32 @@
+[
+  {
+    "artifact": "after-dialog-deb",
+    "runner_exit": 0,
+    "error": null,
+    "check_count": 23,
+    "failed_checks": [],
+    "resource": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    },
+    "removal": {
+      "exit": 0,
+      "executable_absent": true,
+      "synthetic_profile_retained": true
+    }
+  },
+  {
+    "artifact": "after-dialog-appimage",
+    "runner_exit": 0,
+    "error": null,
+    "check_count": 23,
+    "failed_checks": [],
+    "resource": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    },
+    "removal": null
+  }
+]

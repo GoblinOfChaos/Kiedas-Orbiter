@@ -1,0 +1,1139 @@
+{
+  "Galvanized Reflex": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Panzer Devolution": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Panzer Vulpaphyla"
+  },
+  "Flawed Parry": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Stormbringer": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Heavy Trauma": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Point Strike": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Anabolic Pollination": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pharaoh Predasite"
+  },
+  "Divebomb Vortex": {
+    "reason": "no InternalName"
+  },
+  "Electrical Resistance": {
+    "reason": "no InternalName"
+  },
+  "Ancient Fusion Core (Uncommon)": {
+    "reason": "no InternalName"
+  },
+  "Flawed Diamond Skin": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Pathogen Rounds": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Primed Streamline": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Evasive Denial": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Dreadful Killshot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Basmu"
+  },
+  "Amanata Pressure": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Amanata"
+  },
+  "Primed Sure Footed": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Ravage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Ancient Fusion Core (Rare)": {
+    "reason": "no InternalName"
+  },
+  "Flawed Streamline": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Flechette": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Amalgam Barrel Diffusion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Clip Delegation": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Sobek"
+  },
+  "Ancient Fusion Core (Common)": {
+    "reason": "no InternalName"
+  },
+  "Health Conversion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Intensify": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Fass": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Diversified Denial": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Endurance Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Galvanized Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Cryo Rounds": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Primed Shred": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Crescent Charge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Crescent Vulpaphyla"
+  },
+  "Flawed Melee Prowess": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Seeking Force": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Cleanse Infested": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Shotgun Savvy": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Calculated Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Diriga"
+  },
+  "Flawed Provoked": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Burning Hate": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hate"
+  },
+  "Hysteria": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Valkyr Talons"
+  },
+  "Iron Vault": {
+    "reason": "no InternalName"
+  },
+  "Endoparasitic Vector": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pharaoh Predasite"
+  },
+  "Cautious Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Reawaken": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Djinn"
+  },
+  "Metamorphic Magazine": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Gorgon"
+  },
+  "Flawed Rupture": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Lightning Rod": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Target Cracker": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Wild Frenzy": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Grakata"
+  },
+  "Synergized Prospectus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Dreamer's Bond": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Aura"
+  },
+  "Flawed Heavy Impact": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Tactical Pump": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Auto Omni": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Nautilus"
+  },
+  "Flawed Contagious Spread": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Tractor Beam": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Flawed True Steel": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Truth's Flame": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Survival Instinct": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Sly Vulpaphyla"
+  },
+  "Flawed Cleanse Corpus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Counterbalance": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Ravenous Wraith": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shadow Claws"
+  },
+  "Flawed Fury": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Equilibrium Audit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Sly Devolution": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Sly Vulpaphyla"
+  },
+  "Flawed Enemy Sense": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Smite Infested": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Crescent Devolution": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Crescent Vulpaphyla"
+  },
+  "Khra": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Flawed Whirlwind": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Thrown Melee"
+  },
+  "Necrophagic Vigor": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hema"
+  },
+  "Flawed Speed Trigger": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Power Throw": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Thrown Melee"
+  },
+  "Ris": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Afterburner": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Elytron"
+  },
+  "Vile Discharge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Embolist"
+  },
+  "Cordon": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Nautilus"
+  },
+  "Mending Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle (No AoE)"
+  },
+  "Trample": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Helminth Charger"
+  },
+  "Flawed Sawtooth Clip": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Fusion Core": {
+    "reason": "no InternalName"
+  },
+  "Blast Shield": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Flawed Smite Corpus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Molecular Conversion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Taxon"
+  },
+  "Iatric Mycelium": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Vizier Predasite"
+  },
+  "Galvanized Steel": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Trick Mag": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Sentient Surge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Ocucor"
+  },
+  "Flawed Reflex Coil": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Aerial Prospectus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Mountain's Edge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Dual Nikanas"
+  },
+  "Electro Pulse": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Diriga"
+  },
+  "Flawed Razor Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Magazine Warp": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Shield Transference": {
+    "reason": "no InternalName"
+  },
+  "Archgun Riven Mod": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Archgun"
+  },
+  "Flawed Disruptor": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Ambush": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shade"
+  },
+  "Flawed Fast Deflection": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Concussion Rounds": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Deep Freeze": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Retarget": {
+    "reason": "no InternalName"
+  },
+  "Laser Deflection": {
+    "reason": "no InternalName"
+  },
+  "Flawed Quickdraw": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Heated Charge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Detect Vulnerability": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Helios"
+  },
+  "Meticulous Aim": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Vulkar"
+  },
+  "Preparation": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Null Audit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Affinity Amp": {
+    "reason": "no InternalName"
+  },
+  "Flawed Vital Sense": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Blade Storm": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shadow Clones"
+  },
+  "Xata": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Flawed Cleanse Grineer": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Convulsion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Whipclaw": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Whipclaw"
+  },
+  "Flawed Equilibrium": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Galvanized Aptitude": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Warrior": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Wyrm"
+  },
+  "Whiplash Mine": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Harrowing Spire": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Bayonet"
+  },
+  "Vome": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Flawed Split Chamber": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Volatile Variant": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Sporothrix"
+  },
+  "Viral Quills": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Panzer Vulpaphyla"
+  },
+  "Flawed Serration": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Vigorous Swap": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Dead Eye": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Aura"
+  },
+  "Critical Mutation": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Catabolyst"
+  },
+  "Flawed Sundering Strike": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Galvanized Acceleration": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Sentient Barrage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Battacor"
+  },
+  "Magnetic Might": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Primed Vigor": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Gunslinger": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Infected Clip": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Velox Conclusion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Velox"
+  },
+  "Flawed Bane of Corpus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Unseen Dread": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Dread"
+  },
+  "Bursting Mass": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Mutalist Quanta"
+  },
+  "Focused Prospectus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Resilient Focus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Charged Shell": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Transfusion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Vasca Kavat"
+  },
+  "Flawed Steel Fiber": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Power Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Amalgam Organ Shatter": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Insulation": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Targeting Receptor": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Helios"
+  },
+  "Flawed Smite Grineer": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Serene Storm": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Desert Wind"
+  },
+  "Neutralize": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Chesa Kubrow"
+  },
+  "Swift Deth": {
+    "reason": "no InternalName"
+  },
+  "Deadly Maneuvers": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Magnus"
+  },
+  "Amalgam Shotgun Barrage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Amalgam Serration": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Stretch": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Berserker Fury": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Stealth Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Stasis Field": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Higasa Serration": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Higasa"
+  },
+  "Flawed Sure Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "{Pistol}"
+  },
+  "Flawed Piercing Hit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Point Blank": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Range Advantage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Akjagara"
+  },
+  "Speed Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Reflection": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Agility Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Maglev": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Primed Electrified Barrel": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Archgun"
+  },
+  "Flawed Shell Compression": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Spontaneous Singularity": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Simulor"
+  },
+  "Curative Undertow": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hydroid"
+  },
+  "Energy Conversion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Pressure Point": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Shield Disruption": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Aura"
+  },
+  "Flawed Continuity": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Shattered Lash": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shattered Lash"
+  },
+  "Flawed Jagged Edge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Pain Points": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Athodai"
+  },
+  "Energizing Shot": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol (No AoE)"
+  },
+  "Cannonade": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Expel Grineer": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Security Override": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Flawed Expel Corpus": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Scan Aquatic Lifeforms": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Oxylus"
+  },
+  "Flawed Rush": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Prototype Shock Coils": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "EFV-8 Mars"
+  },
+  "Flawed Pistol Gambit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Rolling Guard": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Overpressured Rounds": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "EFV-5 Jupiter"
+  },
+  "Flawed Hell's Chamber": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Molten Impact": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Antitoxin": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Hellfire": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Retrieve": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Chesa Kubrow"
+  },
+  "Exposing Harpoon": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Harpak"
+  },
+  "Repo Audit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Repair Kit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Sentinel"
+  },
+  "Scan Matter": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Oxylus"
+  },
+  "Flawed No Return": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Leaded Gas": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Vesper 77"
+  },
+  "Flawed Vitality": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Arc Coil": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Diriga"
+  },
+  "Flawed Bane of Infested": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Sharpshooter": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Sniper"
+  },
+  "Primed Fury": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Striker": {
+    "reason": "no InternalName"
+  },
+  "Hard Engage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Sentient Incision": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Venato"
+  },
+  "Acidic Spittle": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Vizier Predasite"
+  },
+  "Flawed Thief's Wit": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Precision Strike": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Tonkor"
+  },
+  "Power Donation": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Aura"
+  },
+  "Flawed Barrel Diffusion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Pinnacle Pack Equilibrium": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Galvanized Scope": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Chilling Grasp": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Dizzying Rounds": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Bronco"
+  },
+  "Oull": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Coaction Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Paralytic Spores": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Medjay Predasite"
+  },
+  "Flawed Metal Auger": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Flame Repellent": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Galvanized Chamber": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Intruder": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Vacuum": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Robotic"
+  },
+  "Netra": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Negation Swarm": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Inaros"
+  },
+  "Negate": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Wyrm"
+  },
+  "Napalm Grenades": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Penta"
+  },
+  "Mentor's Legacy": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Photon Overcharge": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Glaxion"
+  },
+  "Fire Resistance": {
+    "reason": "no InternalName"
+  },
+  "Proboscis": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Helminth Charger"
+  },
+  "Lohk": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Combat Reload": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Tigris"
+  },
+  "Critical Precision": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Tiberon"
+  },
+  "Galvanized Diffusion": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Landslide": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Landslide Fists"
+  },
+  "Investigator": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Helios"
+  },
+  "Infectious Bite": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Medjay Predasite"
+  },
+  "Flawed Ammo Stock": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Primal Fury": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Iron Staff"
+  },
+  "Draining Bite": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Vasca Kavat"
+  },
+  "Flawed Expel Infested": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Fever Strike": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Cunning Drift": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Ammo Drum": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Galvanized Savvy": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Bane of Grineer": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Galvanized Elementalist": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Galvanized Crosshairs": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Frost Insulation": {
+    "reason": "no InternalName"
+  },
+  "Flawed Rifle Aptitude": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed Slip Magazine": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Shotgun Barrage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Shocking Touch": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Corroding Barrage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hydroid"
+  },
+  "Flawed Shredder": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Cold Snap": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Itzal"
+  },
+  "Flawed Seeker": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Redirection": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Quick Thinking": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Fast Hands": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Flawed North Wind": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  },
+  "Flawed Incendiary Coat": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Flawed Hornet Strike": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Pistol"
+  },
+  "Flawed Flow": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Warframe"
+  },
+  "Flawed Blunderbuss": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Fatal Teleport": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Ash"
+  },
+  "Razorwing": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Diwata"
+  },
+  "Jahu": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Parazon"
+  },
+  "Eximus Advantage": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Zylok"
+  },
+  "Anti-Grav Grenade": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Shockwave Actuators": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "MOA"
+  },
+  "Energy Field": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Odonata"
+  },
+  "Energy Generator": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Dethcube"
+  },
+  "Looter": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Carrier"
+  },
+  "Efficient Beams": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Convectrix"
+  },
+  "Aerial Ace": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Rifle"
+  },
+  "Exalted Blade": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Exalted Blade"
+  },
+  "Galvanized Hell": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Shotgun"
+  },
+  "Reflex Denial": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Hound"
+  },
+  "Botanist": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Oxylus"
+  },
+  "Biotic Rounds": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "AX-52"
+  },
+  "Flawed Organ Shatter": {
+    "reason": "no drop-index, Baro, or Vendor match found",
+    "type": "Melee"
+  }
+}

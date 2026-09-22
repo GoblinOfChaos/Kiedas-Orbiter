@@ -1,0 +1,78 @@
+{
+  "status": "pass",
+  "checks": {
+    "stage3j_accepted_linux": true,
+    "source_plan_check_passed": true,
+    "maps_source_frozen_and_unchanged": true,
+    "main_source_frozen_and_unchanged": true,
+    "accepted_cumulative_patch_frozen": true,
+    "preview_maps_layout_absent": true,
+    "open_folder_defect_recorded": true,
+    "atomic_write_defect_recorded": true,
+    "custom_marker_runtime_honestly_blocked": true,
+    "exact_navigation_label_recorded": true,
+    "four_tabs_and_seven_assets_recorded": true,
+    "three_file_boundary_explicit": true,
+    "package_target_96_from_82": true,
+    "linux_only_boundary_named": true,
+    "screen_redesign_stopping_point_named": true,
+    "no_ai_art_boundary": true,
+    "stage3j_artifacts_unchanged": true,
+    "tracked_baseline_850_of_850": true,
+    "cargo_lock_unchanged": true,
+    "maps_not_in_checkout_status": true,
+    "main_diff_check": true,
+    "checkout_diff_check": true,
+    "docs_await_explicit_approval": true
+  },
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "records": [
+    {
+      "path": "docs/revamp/stage-3/MAPS-IMPLEMENTATION-PLAN.md",
+      "bytes": 14004,
+      "sha256": "972a365270a7508eb9b4cd438d62f183653b8fe0b327cd0d8b60eee6641d0803"
+    },
+    {
+      "path": "docs/revamp/stage-3/MAPS-PRESERVATION.md",
+      "bytes": 4767,
+      "sha256": "993ef3c5055097f7f6684812d54cca0b7c1fdaade28a33122c789a81a27f979e"
+    },
+    {
+      "path": "docs/revamp/stage-3/maps-source-register.json",
+      "bytes": 4607,
+      "sha256": "902c9bd45f901d63e0ffeb4638492a723b17b157d113ca7220b4af9fc9b7f4b5"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-nav-source-fact.json",
+      "bytes": 672,
+      "sha256": "60ab3b31e6853f4fb2e1c655570e31090739824722488dd8616d0fee8606d749"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-source-defects.json",
+      "bytes": 901,
+      "sha256": "068ddbefeba62aeaec242e9daf9e59c1e3d7066378499ed721966c0da0103bf4"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-custom-marker-source-fact.json",
+      "bytes": 505,
+      "sha256": "756a74d29e377d85ba6bec6d5aadfd0359583af3b644d8a4a16a9334b347a61b"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-plan-check.json",
+      "bytes": 1432,
+      "sha256": "545e1cc13bea3982025d3ac76273e7f4f69c443786a2ebadd878fa8ea0ed6923"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/settings-acceptance.json",
+      "bytes": 1386,
+      "sha256": "3f8249c4061cceb0af95385c1104d2e223b1e33b69dc1326c0f1102939ef6d97"
+    },
+    {
+      "path": "docs/revamp/stage-3/evidence/maps-plan-tooling-note.md",
+      "bytes": 622,
+      "sha256": "d7be814073d8c67b5ddf91f8cb486cc207af936768b342c0b2eb82d203b9e3ca"
+    }
+  ],
+  "gate": "Stage 3K Maps plan ready; explicit app-source approval required"
+}

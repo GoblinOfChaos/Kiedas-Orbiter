@@ -1,0 +1,11 @@
+--- a/src/components/PreviewImport.jsx
++++ b/src/components/PreviewImport.jsx
+@@ -42,7 +42,7 @@
+   return <div className="p-2 border-t border-white/10">
+     <button ref={opener} onClick={() => setVisible(true)} className="w-full rounded border border-kronos-accent/40 text-kronos-accent text-sm py-2">Import a profile copy</button>
+     {visible && <div className="fixed inset-0 z-[200] bg-black/70 flex items-center justify-center p-4">
+-      <section ref={dialog} role="dialog" aria-modal="true" aria-labelledby="preview-import-title" className="bg-kronos-panel border border-white/20 rounded-xl p-5 max-w-lg w-full text-kronos-text">
++      <section ref={dialog} role="dialog" aria-modal="true" aria-labelledby="preview-import-title" className="bg-kronos-panel border border-white/20 rounded-xl p-5 max-w-lg w-full max-h-[calc(100dvh-2rem)] overflow-y-auto text-kronos-text">
+         <h2 id="preview-import-title" className="font-semibold text-lg">Import into Preview</h2>
+         <p className="text-sm text-kronos-dim my-3">Copies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.</p>
+         <button autoFocus disabled={busy || done} onClick={browse} className="border rounded p-2 text-sm">Choose source folder</button>

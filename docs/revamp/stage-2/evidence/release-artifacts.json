@@ -1,0 +1,17 @@
+[
+  {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-work/stage2-packages/kiedas-orbiter",
+    "sha256": "30e4791f112c36b27bb8635da960f506acc2be991bd5274f394c2795ca509ce1",
+    "bytes": 71733432
+  },
+  {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-work/stage2-packages/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "sha256": "ea9a71f92538d4dac104627d000e0985c31aa81f66dee0a803777d45f740339b",
+    "bytes": 116347366
+  },
+  {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-work/stage2-packages/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "sha256": "bebda9598b302551767e6ab5b8a5d664814e791b9a04a94cdb777643da4b1d50",
+    "bytes": 190089720
+  }
+]

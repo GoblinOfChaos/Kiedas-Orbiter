@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "checks": {
+    "component_18_of_18": true,
+    "rust_reliability_7_of_7": true,
+    "debian_96_of_96": true,
+    "appimage_96_of_96": true,
+    "tracked_baseline_850_of_850": true,
+    "lockfile_unchanged": true,
+    "incremental_patch_native_git": true,
+    "reverse_restoration_exact": true,
+    "cumulative_patch_applies": true,
+    "stage3j_artifacts_preserved": true,
+    "docs_await_acceptance": true,
+    "custom_marker_import_blocked": true,
+    "stable_state_markup_16_of_16": true,
+    "stable_interaction_parity_16_of_16": true
+  }
+}

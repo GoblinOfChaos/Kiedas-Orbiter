@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "component_62_of_62": true,
+    "stable_markup_8_of_8": true,
+    "debian_and_appimage_60_of_60": true,
+    "five_relic_planner_checks_each": true,
+    "four_artifacts_match_current_files": true,
+    "cumulative_patch_applies": true,
+    "tracked_baseline_850_of_850": true,
+    "cargo_lock_unchanged": true,
+    "stage3g_artifacts_preserved": true,
+    "approved_css_values_present": true,
+    "stage3i_source_untouched": true,
+    "main_diff_check_passes": true,
+    "checkout_diff_check_passes": true,
+    "register_is_awaiting_acceptance": true
+  },
+  "artifact_sha256": {
+    "kiedas-orbiter": "05357f08d9463fdd4c2485df7f64875b9cd492af2e2ce6c078ded37c20204d65",
+    "kiedas-orbiter-preview": "05357f08d9463fdd4c2485df7f64875b9cd492af2e2ce6c078ded37c20204d65",
+    "Kieda's Orbiter Preview_1.3.3_amd64.deb": "60ca8201b03b1551c6e2940306441b48e16f68dec07083340f12c40ddfe512a8",
+    "Kieda's Orbiter Preview_1.3.3_amd64.AppImage": "3a6283970784234036c72f5fc65b8d3b966548172318099732c3cffef69889a6"
+  },
+  "incremental_patch_sha256": "eee5219575f5280ef2dca6089dd4d2211e690c06ffe5a38a0db192b7dfa9583a",
+  "cumulative_patch_sha256": "52fc11d28c8241cd707dd73ea0168b9e0d7c6bbf7332f64d81bd156f37e07419",
+  "main_repo_status": [
+    "?? .preview-work/",
+    "?? docs/revamp/"
+  ],
+  "isolated_checkout_status": [
+    " M src-tauri/src/main.rs",
+    " M src-tauri/src/preview_import.rs",
+    " A src-tauri/src/preview_import_tests.rs",
+    " M src/components/PreviewImport.jsx",
+    "M  src/main.jsx",
+    " M src/screens/Cosmetics.jsx",
+    " M src/screens/Dashboard.jsx",
+    " M src/screens/Inventory.jsx",
+    " M src/screens/Mastery.jsx",
+    " M src/screens/Mods.jsx",
+    " M src/screens/RelicPlanner.jsx",
+    " M src/screens/Relics.jsx",
+    " M src/screens/Rivens.jsx",
+    " M src/screens/Settings.jsx",
+    "?? src/components/PreviewCosmeticsLayout.jsx",
+    "?? src/components/PreviewDashboardLayout.jsx",
+    "?? src/components/PreviewInventoryLayout.jsx",
+    "?? src/components/PreviewMasteryLayout.jsx",
+    "?? src/components/PreviewModsLayout.jsx",
+    "?? src/components/PreviewRelicPlannerLayout.jsx",
+    "?? src/components/PreviewRelicsLayout.jsx",
+    "?? src/components/PreviewRivensLayout.jsx"
+  ],
+  "stage3i_app_source_started": false
+}

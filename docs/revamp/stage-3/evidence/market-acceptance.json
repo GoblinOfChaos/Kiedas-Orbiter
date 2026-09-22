@@ -1,0 +1,24 @@
+{
+  "accepted_on": "2026-09-06",
+  "stage": "Stage 3I Market",
+  "status": "accepted_linux",
+  "basis": "User explicitly accepted after independently verifying mutation-safety evidence and the exact diff.",
+  "frozen_records": {
+    "docs/revamp/stage-3/market-source-register.json": "d817ca6d65e40c2709802b251c151f491cff9ed99c81165fef5d72fa8c5a427a",
+    "docs/revamp/stage-3/market-implementation.json": "c76b12331bc4b3ad552b7cacda6b20e316bddc756f1fb4aeadbb131f20d2a60a",
+    "docs/revamp/stage-3/market-implementation.patch": "4f1522eba8daf3f71d025198dcb47ee8ffb615f30f2f7053824029b30bf6b75e",
+    "docs/revamp/stage-3/cumulative-implementation.patch": "0c0757698e55b8824f38a1d5d126c6edcf515ec359df76ab99ee28e2a6a29cf4",
+    "docs/revamp/stage-3/evidence/market-postflight.json": "602c93bd857215221865f9dfe0ebecd8f179d8a7c9cd6129be4f9eae1235c89e",
+    "docs/revamp/stage-3/evidence/market-validation-summary.json": "617ae68fcaacda284968eaa7acf8d23c8bb9ad04f6cc1411a6b5b0767a6df6a6",
+    "docs/revamp/stage-3/evidence/market-evidence-integrity.json": "c9f9fe74eee806f73ae1e86e308f0241eed5870f8d148904baa3ab49e34f428f"
+  },
+  "safety": {
+    "preview_frontend_mutation_invocations": 0,
+    "directly_rejected_commands": [
+      "post_market_order",
+      "delete_market_order",
+      "update_market_order",
+      "close_market_order"
+    ]
+  }
+}

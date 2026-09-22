@@ -1,0 +1,17 @@
+{
+  "baseline": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "commit": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "branch": "revamp/preview-shell",
+  "checkout": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2",
+  "patch_sha256": "9e2d0e9835c69fec783c8feacf55edc0d9d9c9da0422ab0ed5b43aa7ae7c77bf",
+  "gate": "ACCEPTED: Linux-only Stage 2 by explicit user decision; platform items persist in ../ACCEPTANCE-LEDGER.md",
+  "app_installed": false,
+  "uncommitted_changes": [
+    "src-tauri/src/main.rs",
+    "src-tauri/src/preview_import.rs",
+    "src-tauri/src/preview_import_tests.rs",
+    "src/components/PreviewImport.jsx",
+    "src/main.jsx",
+    "src/screens/Settings.jsx"
+  ]
+}

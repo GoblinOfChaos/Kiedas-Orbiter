@@ -1,0 +1,1 @@
+export async function open(options){window.fixture.calls.push({kind:'open',options});return window.fixture.path;} export async function invoke(command,args){window.fixture.calls.push({kind:'invoke',command,args});if(window.fixture.mode==='error')throw new Error(window.fixture.message);return window.fixture.message;}

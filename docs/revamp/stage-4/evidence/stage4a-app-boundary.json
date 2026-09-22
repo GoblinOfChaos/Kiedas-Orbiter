@@ -1,0 +1,836 @@
+{
+  "tier": "module-boundary full App.jsx render with deterministic import-boundary transform; real App route state and Preview shell; inert screen bodies",
+  "source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/src/App.jsx",
+  "source_sha256": "5470d3ef26175059637019a3f587ff825d038c23e6e46ff6c704036d37d4ae52",
+  "config": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-validation/app-fixture/vite.config.mjs",
+  "config_sha256": "e414f4dc73782c8fd4f12c6bf1a4779423cc0f6d4bbee3de801eaaf63608967b",
+  "checks": [
+    {
+      "name": "real-preview-shell-mounted",
+      "pass": true
+    },
+    {
+      "name": "no-shell-scanner-poll-after-interval",
+      "pass": true,
+      "detail": [
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes"
+      ]
+    },
+    {
+      "name": "scanner-hooked-listener-not-registered",
+      "pass": true,
+      "detail": [
+        "sidebar-mode-changed",
+        "sidebar-prepare"
+      ]
+    },
+    {
+      "name": "expected-shell-listeners-only",
+      "pass": true,
+      "detail": [
+        "sidebar-mode-changed",
+        "sidebar-prepare"
+      ]
+    },
+    {
+      "name": "only-icon-file-invocations-on-initial-load",
+      "pass": true,
+      "detail": [
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes",
+        "read_file_bytes"
+      ]
+    },
+    {
+      "name": "20-unique-real-route-controls",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "inventory",
+        "mastery",
+        "mods",
+        "cosmetics",
+        "collectibles",
+        "foundry",
+        "relics",
+        "relic-planner",
+        "prime-resurgence",
+        "market",
+        "rivens",
+        "history",
+        "adversaries",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "all-20-routes-activate",
+      "pass": true,
+      "detail": [
+        {
+          "route": "dashboard",
+          "clicked": true,
+          "active": "dashboard"
+        },
+        {
+          "route": "inventory",
+          "clicked": true,
+          "active": "inventory"
+        },
+        {
+          "route": "mastery",
+          "clicked": true,
+          "active": "mastery"
+        },
+        {
+          "route": "mods",
+          "clicked": true,
+          "active": "mods"
+        },
+        {
+          "route": "cosmetics",
+          "clicked": true,
+          "active": "cosmetics"
+        },
+        {
+          "route": "collectibles",
+          "clicked": true,
+          "active": "collectibles"
+        },
+        {
+          "route": "foundry",
+          "clicked": true,
+          "active": "foundry"
+        },
+        {
+          "route": "relics",
+          "clicked": true,
+          "active": "relics"
+        },
+        {
+          "route": "relic-planner",
+          "clicked": true,
+          "active": "relic-planner"
+        },
+        {
+          "route": "prime-resurgence",
+          "clicked": true,
+          "active": "prime-resurgence"
+        },
+        {
+          "route": "market",
+          "clicked": true,
+          "active": "market"
+        },
+        {
+          "route": "rivens",
+          "clicked": true,
+          "active": "rivens"
+        },
+        {
+          "route": "history",
+          "clicked": true,
+          "active": "history"
+        },
+        {
+          "route": "adversaries",
+          "clicked": true,
+          "active": "adversaries"
+        },
+        {
+          "route": "maps",
+          "clicked": true,
+          "active": "maps"
+        },
+        {
+          "route": "wiki",
+          "clicked": true,
+          "active": "wiki"
+        },
+        {
+          "route": "notes",
+          "clicked": true,
+          "active": "notes"
+        },
+        {
+          "route": "checklist",
+          "clicked": true,
+          "active": "checklist"
+        },
+        {
+          "route": "settings",
+          "clicked": true,
+          "active": "settings"
+        },
+        {
+          "route": "about",
+          "clicked": true,
+          "active": "about"
+        }
+      ]
+    },
+    {
+      "name": "route-search-uses-real-labels",
+      "pass": true,
+      "detail": [
+        "RelicsPlanning",
+        "Relic PlannerPlanning"
+      ]
+    },
+    {
+      "name": "compact-drawer-has-20-routes",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "inventory",
+        "mastery",
+        "mods",
+        "cosmetics",
+        "collectibles",
+        "foundry",
+        "relics",
+        "relic-planner",
+        "prime-resurgence",
+        "market",
+        "rivens",
+        "history",
+        "adversaries",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "compact-drawer-escape-closes",
+      "pass": true
+    },
+    {
+      "name": "preview-shell-survives-reload",
+      "pass": true
+    },
+    {
+      "name": "20-routes-survive-reload",
+      "pass": true
+    },
+    {
+      "name": "zero-preview-get_scanner_status-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-show_notification-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-relay_event-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-stop_log_scanner-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-post_market_order-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-delete_market_order-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-update_market_order-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "zero-preview-close_market_order-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no-browser-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "initial_capture": {
+    "errors": [],
+    "listenerRegistrations": [
+      "sidebar-mode-changed",
+      "sidebar-prepare"
+    ],
+    "emittedEvents": [
+      {
+        "event": "frontend-ready",
+        "payload": {}
+      }
+    ],
+    "listenerNames": [
+      "sidebar-mode-changed",
+      "sidebar-prepare"
+    ],
+    "invocations": [
+      {
+        "args": {
+          "relative": "data/assets/ui/IconDashboard.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/BaroKiTeerFlat.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMarket.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconInventory.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconFoundry.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Mods.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconRiven.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconRelic.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/VoidSymbol.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/GrimoireMarker.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Appearance.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Adversaries.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMastery.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMap.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Wiki.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconNotes.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconChecklist.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconSettings.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconInfo.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconKieda.png"
+        },
+        "command": "read_file_bytes"
+      }
+    ]
+  },
+  "route_activation": [
+    {
+      "route": "dashboard",
+      "clicked": true,
+      "active": "dashboard"
+    },
+    {
+      "route": "inventory",
+      "clicked": true,
+      "active": "inventory"
+    },
+    {
+      "route": "mastery",
+      "clicked": true,
+      "active": "mastery"
+    },
+    {
+      "route": "mods",
+      "clicked": true,
+      "active": "mods"
+    },
+    {
+      "route": "cosmetics",
+      "clicked": true,
+      "active": "cosmetics"
+    },
+    {
+      "route": "collectibles",
+      "clicked": true,
+      "active": "collectibles"
+    },
+    {
+      "route": "foundry",
+      "clicked": true,
+      "active": "foundry"
+    },
+    {
+      "route": "relics",
+      "clicked": true,
+      "active": "relics"
+    },
+    {
+      "route": "relic-planner",
+      "clicked": true,
+      "active": "relic-planner"
+    },
+    {
+      "route": "prime-resurgence",
+      "clicked": true,
+      "active": "prime-resurgence"
+    },
+    {
+      "route": "market",
+      "clicked": true,
+      "active": "market"
+    },
+    {
+      "route": "rivens",
+      "clicked": true,
+      "active": "rivens"
+    },
+    {
+      "route": "history",
+      "clicked": true,
+      "active": "history"
+    },
+    {
+      "route": "adversaries",
+      "clicked": true,
+      "active": "adversaries"
+    },
+    {
+      "route": "maps",
+      "clicked": true,
+      "active": "maps"
+    },
+    {
+      "route": "wiki",
+      "clicked": true,
+      "active": "wiki"
+    },
+    {
+      "route": "notes",
+      "clicked": true,
+      "active": "notes"
+    },
+    {
+      "route": "checklist",
+      "clicked": true,
+      "active": "checklist"
+    },
+    {
+      "route": "settings",
+      "clicked": true,
+      "active": "settings"
+    },
+    {
+      "route": "about",
+      "clicked": true,
+      "active": "about"
+    }
+  ],
+  "before_reload_capture": {
+    "errors": [],
+    "listenerRegistrations": [
+      "sidebar-mode-changed",
+      "sidebar-prepare"
+    ],
+    "emittedEvents": [
+      {
+        "event": "frontend-ready",
+        "payload": {}
+      }
+    ],
+    "listenerNames": [
+      "sidebar-mode-changed",
+      "sidebar-prepare"
+    ],
+    "invocations": [
+      {
+        "args": {
+          "relative": "data/assets/ui/IconDashboard.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/BaroKiTeerFlat.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMarket.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconInventory.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconFoundry.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Mods.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconRiven.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconRelic.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/VoidSymbol.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/GrimoireMarker.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Appearance.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Adversaries.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMastery.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMap.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Wiki.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconNotes.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconChecklist.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconSettings.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconInfo.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconKieda.png"
+        },
+        "command": "read_file_bytes"
+      }
+    ]
+  },
+  "final_capture": {
+    "errors": [],
+    "listenerRegistrations": [
+      "sidebar-mode-changed",
+      "sidebar-prepare"
+    ],
+    "emittedEvents": [
+      {
+        "event": "frontend-ready",
+        "payload": {}
+      }
+    ],
+    "listenerNames": [
+      "sidebar-mode-changed",
+      "sidebar-prepare"
+    ],
+    "invocations": [
+      {
+        "args": {
+          "relative": "data/assets/ui/IconDashboard.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/BaroKiTeerFlat.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMarket.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconInventory.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconFoundry.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Mods.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconRiven.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconRelic.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/VoidSymbol.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/GrimoireMarker.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Appearance.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Adversaries.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMastery.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconMap.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/Wiki.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconNotes.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconChecklist.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconSettings.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconInfo.png"
+        },
+        "command": "read_file_bytes"
+      },
+      {
+        "args": {
+          "relative": "data/assets/ui/IconKieda.png"
+        },
+        "command": "read_file_bytes"
+      }
+    ]
+  },
+  "forbidden_commands": [
+    "get_scanner_status",
+    "show_notification",
+    "relay_event",
+    "stop_log_scanner",
+    "post_market_order",
+    "delete_market_order",
+    "update_market_order",
+    "close_market_order"
+  ],
+  "forbidden_invocations": [],
+  "passed": 21,
+  "total": 21
+}

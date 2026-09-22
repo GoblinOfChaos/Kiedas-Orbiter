@@ -1,0 +1,28 @@
+{
+  "checks": [
+    {
+      "name": "preflight-removes-stale-build-and-bundle-outputs",
+      "pass": true
+    },
+    {
+      "name": "navigation-label-derived-from-current-source",
+      "pass": true,
+      "value": "Rivens"
+    },
+    {
+      "name": "inline-shell-command-rejected",
+      "pass": true,
+      "returncode": 1
+    },
+    {
+      "name": "bounded-container-waits-for-real-completion",
+      "pass": true,
+      "returncode": 0,
+      "sentinel": "bounded-container-complete",
+      "terminal_state": "exited",
+      "waited": true
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

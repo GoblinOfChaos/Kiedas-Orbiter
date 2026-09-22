@@ -1,0 +1,58 @@
+{
+  "status": "pass",
+  "checks": {
+    "stage3j_acceptance_recorded": true,
+    "maps_source_frozen": true,
+    "main_source_frozen": true,
+    "accepted_cumulative_patch_frozen": true,
+    "navigation_label_verified": true,
+    "four_map_tabs_verified": true,
+    "seven_distinct_assets_verified": true,
+    "five_tauri_commands_verified": true,
+    "open_folder_defect_source_verified": true,
+    "atomic_write_defect_source_verified": true,
+    "preview_layout_absent": true,
+    "maps_source_unchanged": true,
+    "lockfile_unchanged": true
+  },
+  "facts": {
+    "use_state_calls": 21,
+    "use_effect_calls": 4,
+    "use_callback_calls": 24,
+    "button_elements": 17,
+    "input_elements": 5,
+    "textarea_elements": 1,
+    "modal_elements": 2,
+    "invoke_calls": 5,
+    "distinct_tauri_commands": [
+      "get_maps_path",
+      "list_map_configs",
+      "open_map_configs_folder",
+      "read_map_config",
+      "write_map_config"
+    ],
+    "map_tabs": [
+      "Plains of Eidolon",
+      "Orb Vallis",
+      "Cambion Drift",
+      "Duviri"
+    ],
+    "distinct_map_files": [
+      "CambianDrift4kMap.png",
+      "Duviri_map_with_caves.png",
+      "OrbVallis4kMap-min.png",
+      "PlainsofEidolon_4k_Map.png",
+      "deimos_full.png",
+      "poe_full.png",
+      "venus_full.png"
+    ],
+    "marker_colors": 8,
+    "marker_icons": [
+      "MapPin",
+      "Skull",
+      "Shield",
+      "Star",
+      "Diamond"
+    ]
+  }
+}

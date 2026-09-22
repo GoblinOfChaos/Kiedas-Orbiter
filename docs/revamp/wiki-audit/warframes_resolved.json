@@ -1,0 +1,1400 @@
+{
+  "/Lotus/Powersuits/Ninja/AshPrime": {
+    "uniqueName": "/Lotus/Powersuits/Ninja/AshPrime",
+    "wikiName": "Ash Prime",
+    "description": "Distraction and subterfuge become lethal weapons with Ash Prime. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith V8 (Common); Axi B1 (Common); Vanguard M1 (Common); Neo N4 (Common); Meso V2 (Common); Axi K12 (Common) [15 Ducats]; Blueprint - Lith V7 (Uncommon); Meso S3 (Uncommon); Vanguard E1 (Uncommon); Meso C1 (Uncommon); Axi I3 (Uncommon); Lith S3 (Uncommon) [45 Ducats]; Systems Blueprint - Neo N5 (Uncommon); Axi N1 (Rare); Axi A7 (Rare); Neo A10 (Rare); Vanguard C1 (Uncommon) [65 Ducats]; Neuroptics Blueprint - Meso N2 (Uncommon); Meso V4 (Uncommon); Neo V4 (Uncommon); Neo A4 (Uncommon); Neo N3 (Uncommon); Axi N2 (Uncommon); Meso P12 (Uncommon); Vanguard P1 (Common) [25 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Ash Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Trapper/TrapperPrime": {
+    "uniqueName": "/Lotus/Powersuits/Trapper/TrapperPrime",
+    "wikiName": "Vauban Prime",
+    "description": "Transform the battlefield into a weapon with this gilded tactician. Features unique mod polarities for extended customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith V4 (Rare); Meso V4 (Rare); Neo A4 (Common); Axi V1 (Rare); Meso T6 (Uncommon); Neo V6 (Rare) [25 Ducats]; Blueprint - Axi F1 (Uncommon); Neo V2 (Rare); Meso V6 (Uncommon); Lith F2 (Rare) [65 Ducats]; Systems Blueprint - Lith V8 (Rare); Neo N2 (Rare); Lith V2 (Rare); Lith V9 (Rare) [100 Ducats]; Neuroptics Blueprint - Meso N2 (Rare); Lith V7 (Rare); Meso V8 (Rare); Neo V3 (Rare); Neo V5 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Vauban Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/IronFrame/IronFramePrime": {
+    "uniqueName": "/Lotus/Powersuits/IronFrame/IronFramePrime",
+    "wikiName": "Hildryn Prime",
+    "description": "Hildryn Prime proves that power is discipline’s reward.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo Q1 (Uncommon); Meso G10 (Uncommon); Meso P11 (Uncommon); Axi A18 (Uncommon); Axi L6 (Uncommon); Neo G7 (Uncommon) [45 Ducats]; Blueprint - Meso H7 (Rare); Meso H5 (Rare); Axi H8 (Rare); Axi H6 (Rare); Neo H4 (Rare) [100 Ducats]; Systems Blueprint - Axi S19 (Common); Neo S18 (Common); Lith H8 (Common); Lith W3 (Common); Axi S17 (Common); Lith A6 (Common); Axi T12 (Common); Lith P9 (Common); Axi P6 (Common); Meso C9 (Common) [15 Ducats]; Neuroptics Blueprint - Neo C4 (Uncommon); Neo P7 (Uncommon); Lith M9 (Uncommon); Lith G10 (Uncommon); Meso P14 (Uncommon); Neo S17 (Uncommon); Axi W4 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Hildryn Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Tengu/ZephyrPrime": {
+    "uniqueName": "/Lotus/Powersuits/Tengu/ZephyrPrime",
+    "wikiName": "Zephyr Prime",
+    "description": "Take to the skies with this golden bird of destruction.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso A2 (Uncommon); Axi L3 (Uncommon); Meso W1 (Uncommon); Neo K1 (Uncommon); Meso R4 (Common); Neo A2 (Uncommon); Axi O3 (Uncommon) [25 Ducats]; Systems Blueprint - Lith Z1 (Rare); Neo Z8 (Rare); Lith Z2 (Rare); Meso Z2 (Rare); Meso Z3 (Rare) [100 Ducats]; Blueprint - Neo Z4 (Rare); Neo Z2 (Rare); Meso Z1 (Rare); Axi G5 (Uncommon); Neo Z1 (Rare) [65 Ducats]; Neuroptics Blueprint - Neo N10 (Common); Neo Z3 (Common); Lith H2 (Common); Axi A4 (Common); Lith K2 (Common); Axi O4 (Common); Lith C8 (Common); Axi R3 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Zephyr Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Hoplite/StyanaxPrime": {
+    "uniqueName": "/Lotus/Powersuits/Hoplite/StyanaxPrime",
+    "wikiName": "Styanax Prime",
+    "description": "Shield of the innocent. Spear of justice. Styanax Prime holds the line in defiance of tyranny.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Meso Y2 (Uncommon) [45 Ducats]; Systems Blueprint - Neo Y1 (Uncommon) [45 Ducats]; Blueprint - Axi A21 (Common) [15 Ducats]; Neuroptics Blueprint - Lith S18 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Styanax Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Yareli/YareliPrime": {
+    "uniqueName": "/Lotus/Powersuits/Yareli/YareliPrime",
+    "wikiName": "Yareli Prime",
+    "description": "The Waverider arises, reborn from the ocean foam. In her original Orokin-era splendor she embodies the undying vigor of youth.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Neo V12 (Common); Neo V11 (Common); Lith A10 (Common); Meso X1 (Common); Neo A16 (Common); Lith Z4 (Common) [15 Ducats]; Systems Blueprint - Axi Y1 (Rare); Neo Y1 (Rare) [100 Ducats]; Blueprint - Neo T11 (Uncommon); Meso D8 (Uncommon); Neo A14 (Uncommon); Meso P17 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi Y3 (Rare); Lith Y1 (Rare); Meso Y2 (Rare); Meso Y1 (Rare); Axi Y2 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Yareli Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Sentient/CalibanPrime": {
+    "uniqueName": "/Lotus/Powersuits/Sentient/CalibanPrime",
+    "wikiName": "Caliban Prime",
+    "description": "Forged in celebration of the all-too-brief peace between the Orokin and Sentients, Caliban Prime is a true collaborative masterpiece. The heir of twin kingdoms arises in royal gold.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Meso Y1 (Common); Axi P10 (Common); Lith K12 (Common); Meso V15 (Common); Vanguard P1 (Common) [15 Ducats]; Blueprint - Meso V11 (Uncommon); Lith V11 (Uncommon); Meso V13 (Uncommon); Meso V15 (Uncommon); Vanguard M1 (Common) [25 Ducats]; Systems Blueprint - Axi C10 (Rare); Vanguard C1 (Rare); Neo C8 (Rare); Axi C11 (Rare) [100 Ducats]; Neuroptics Blueprint - Vanguard E1 (Uncommon); Neo C7 (Rare); Lith C13 (Rare) [65 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Caliban Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Tengu/Tengu": {
+    "uniqueName": "/Lotus/Powersuits/Tengu/Tengu",
+    "wikiName": "Zephyr",
+    "description": "Command the power of the wind. Zephyr’s cyclonic abilities protect her, deal high damage, and provide crowd control. She swoops in from above and leaves a path of destruction.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum or Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Detonite Injector, 1x Fieldron, 200x Oxium. Components - Neuroptics: Researched in Clan Dojo (Tenno Lab) using 1x Detonite Injector, 1x Neural Sensors, 1000x Nano Spores, 20x Oxium; Chassis: Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Control Module, 1000x Ferrite, 20x Oxium; Systems: Researched in Clan Dojo (Tenno Lab) using 1x Fieldron, 1x Morphics, 1000x Salvage, 20x Oxium.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Research/data['Zephyr Neuroptics']",
+      "Module:Research/data['Zephyr Chassis']",
+      "Module:Research/data['Zephyr Systems']"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Yareli/Yareli": {
+    "uniqueName": "/Lotus/Powersuits/Yareli/Yareli",
+    "wikiName": "Yareli",
+    "description": "The waverider can unleash a flood of destruction on the battlefield. Yareli’s aqueous attacks deal high damage. Surf’s up. Enemies down.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Cephalon Simaris (Rank The Waverider+) for 50,000 Standing. Components - Neuroptics: Researched in Clan Dojo (Bash Lab) using 1x Detonite Injector, 1x Neurodes, 500x Rubedo, 1000x Alloy Plate; Chassis: Researched in Clan Dojo (Bash Lab) using 1x Mutagen Mass, 1x Morphics, 500x Polymer Bundle, 1000x Salvage; Systems: Researched in Clan Dojo (Bash Lab) using 1x Fieldron, 1x Gallium, 500x Circuits, 1000x Nano Spores.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Research/data['Yareli Neuroptics']",
+      "Module:Research/data['Yareli Chassis']",
+      "Module:Research/data['Yareli Systems']"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Runner/Runner": {
+    "uniqueName": "/Lotus/Powersuits/Runner/Runner",
+    "wikiName": "Gauss",
+    "description": "Take charge with the Saint of Altra. Gauss is fast, deals high damage, and has strong survivability. Movement charges his powerful battery, so never stop moving.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Sedna Disruption (7.84%); Chassis: Sedna Disruption (7.84%); Systems: Sedna Disruption (7.84%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Gauss Neuroptics Blueprint",
+      "Gauss Chassis Blueprint",
+      "Gauss Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Magician/Magician": {
+    "uniqueName": "/Lotus/Powersuits/Magician/Magician",
+    "wikiName": "Limbo",
+    "description": "Master the rift between shadow and substance. Limbo disrupts time-space to provide crowd control. He is at home where others struggle with what is real.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 200 Platinum. Components - Neuroptics: Purchased from Cephalon Simaris (Rank The Limbo Theorem+) for 25,000 Standing; Chassis: Purchased from Cephalon Simaris (Rank The Limbo Theorem+) for 25,000 Standing; Systems: Purchased from Cephalon Simaris (Rank The Limbo Theorem+) for 25,000 Standing.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Limbo Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Limbo Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Limbo Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/BrokenFrame/XakuPrime": {
+    "uniqueName": "/Lotus/Powersuits/BrokenFrame/XakuPrime",
+    "wikiName": "Xaku Prime",
+    "description": "The child of war and void is reborn in gold. That which was once shattered may rise stronger than that which was never broken.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Neo C9 (Uncommon); Axi V12 (Uncommon); Neo V11 (Uncommon); Neo V12 (Uncommon); Neo G8 (Uncommon); Lith O4 (Uncommon); Neo K9 (Uncommon) [45 Ducats]; Blueprint - Lith X1 (Rare); Neo X1 (Rare); Meso X1 (Rare) [100 Ducats]; Systems Blueprint - Axi S20 (Uncommon); Lith A12 (Uncommon); Lith A10 (Uncommon); Axi M6 (Uncommon); Neo O3 (Uncommon); Axi A19 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Meso T8 (Common); Lith N17 (Common); Meso E6 (Common); Lith S16 (Common); Meso V11 (Common); Axi T13 (Common); Meso A10 (Common); Meso K8 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Xaku Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/AntiMatter/NovaPrime": {
+    "uniqueName": "/Lotus/Powersuits/AntiMatter/NovaPrime",
+    "wikiName": "Nova Prime",
+    "description": "Nova Prime wreaks devastation on her enemies using volatile antimatter. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo V1 (Rare); Neo N12 (Rare); Lith N1 (Rare); Neo N9 (Rare) [100 Ducats]; Blueprint - Neo N2 (Uncommon); Meso D5 (Uncommon); Axi S4 (Uncommon) [45 Ducats]; Systems Blueprint - Axi S7 (Common); Meso S1 (Common); Neo S2 (Common); Lith C1 (Common); Meso B3 (Common) [15 Ducats]; Neuroptics Blueprint - Lith M2 (Common); Lith C1 (Common); Meso C1 (Common); Lith K4 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Nova Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Dragon/ChromaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Dragon/ChromaPrime",
+    "wikiName": "Chroma Prime",
+    "description": "Bind the elements and unleash untold destruction with Chroma Prime. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso T3 (Uncommon); Neo Z8 (Common); Meso K2 (Uncommon); Meso C5 (Uncommon); Meso D4 (Uncommon); Meso L1 (Uncommon); Axi R2 (Uncommon) [25 Ducats]; Blueprint - Meso B4 (Common); Meso P1 (Common); Axi A6 (Common); Meso Z3 (Common); Axi G5 (Common); Axi D1 (Common); Axi T5 (Common); Neo K2 (Common) [15 Ducats]; Systems Blueprint - Axi C4 (Rare); Meso R4 (Uncommon); Neo C1 (Rare); Axi C3 (Rare); Meso C4 (Rare) [65 Ducats]; Neuroptics Blueprint - Lith C8 (Rare); Lith C3 (Rare); Lith C4 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Chroma Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/MonkeyKing/WukongPrime": {
+    "uniqueName": "/Lotus/Powersuits/MonkeyKing/WukongPrime",
+    "wikiName": "Wukong Prime",
+    "description": "The trickster-warrior ascends to his ultimate incarnation. ",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith N13 (Uncommon); Meso K3 (Uncommon); Neo S12 (Uncommon); Axi T6 (Uncommon); Axi A10 (Uncommon); Neo N13 (Uncommon); Lith K3 (Uncommon); Meso B4 (Uncommon) [45 Ducats]; Blueprint - Meso W2 (Rare); Axi W1 (Rare); Lith W1 (Rare); Axi W2 (Rare); Lith W2 (Rare); Meso W1 (Rare) [100 Ducats]; Systems Blueprint - Axi R3 (Uncommon); Neo I2 (Uncommon); Meso K2 (Uncommon); Axi P3 (Uncommon); Neo Z9 (Uncommon); Meso T4 (Uncommon); Axi A11 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi G2 (Common); Axi T4 (Common); Neo Z7 (Common); Lith S13 (Common); Axi Z1 (Common); Lith D2 (Common); Neo T2 (Common); Neo I1 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Wukong Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Brawler/Brawler": {
+    "uniqueName": "/Lotus/Powersuits/Brawler/Brawler",
+    "wikiName": "Atlas",
+    "description": "Enemies tremble before the brawler with fists as hard as stone. Atlas deals high damage. Command terrestrial elements that form the foundation of any battlefield.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum or Purchased from Cephalon Simaris (Rank The Jordas Precept+) for 50,000 Standing. Components - Neuroptics: Jordas Golem Assassination (38.72%); Chassis: Jordas Golem Assassination (38.72%); Systems: Jordas Golem Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Atlas Neuroptics Blueprint",
+      "Atlas Chassis Blueprint",
+      "Atlas Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Ember/EmberPrime": {
+    "uniqueName": "/Lotus/Powersuits/Ember/EmberPrime",
+    "wikiName": "Ember Prime",
+    "description": "Ember Prime offers the same potential for wanton destruction as Ember but provides unique mod polarities, allowing for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo F1 (Common); Vanguard C1 (Common); Meso F2 (Common); Meso B10 (Common) [15 Ducats]; Systems Blueprint - Axi S2 (Uncommon); Lith G1 (Uncommon); Axi R4 (Uncommon); Vanguard P1 (Uncommon) [45 Ducats]; Blueprint - Meso E1 (Rare); Vanguard E1 (Rare); Lith E1 (Rare); Axi E1 (Rare); Neo E1 (Rare) [100 Ducats]; Neuroptics Blueprint - Meso F3 (Common); Neo S5 (Common); Meso S14 (Uncommon); Vanguard M1 (Common) [25 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Ember Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/MonkeyKing/MonkeyKing": {
+    "uniqueName": "/Lotus/Powersuits/MonkeyKing/MonkeyKing",
+    "wikiName": "Wukong",
+    "description": "The simian warrior is a mountain of strength. Wukong deals heavy damage and has high survivability. His quick trickster tactics are unforgettable.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum or Researched in Clan Dojo (Tenno Lab) using 5x Nitain Extract, 25000x Ferrite, 9900x Plastids, 1x Orokin Cell. Components - Neuroptics: Researched in Clan Dojo (Tenno Lab) using 1x Nitain Extract, 1x Neural Sensors, 1000x Nano Spores, 500x Polymer Bundle; Chassis: Researched in Clan Dojo (Tenno Lab) using 3x Nitain Extract, 1x Control Module, 1000x Ferrite, 500x Rubedo; Systems: Researched in Clan Dojo (Tenno Lab) using 2x Nitain Extract, 1x Morphics, 1000x Salvage, 500x Plastids.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Research/data['Wukong Neuroptics']",
+      "Module:Research/data['Wukong Chassis']",
+      "Module:Research/data['Wukong Systems']"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pirate/Pirate": {
+    "uniqueName": "/Lotus/Powersuits/Pirate/Pirate",
+    "wikiName": "Hydroid",
+    "description": "Hydroid summons the power of the ocean depths. He provides crowd control with aqueous attacks. His enemies will meet a watery demise.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 300 Platinum. Components - Neuroptics: Councilor Vay Hek Assassination (38.72%); Chassis: Councilor Vay Hek Assassination (38.72%); Systems: Councilor Vay Hek Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Hydroid Neuroptics Blueprint",
+      "Hydroid Chassis Blueprint",
+      "Hydroid Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Wisp/WispPrime": {
+    "uniqueName": "/Lotus/Powersuits/Wisp/WispPrime",
+    "wikiName": "Wisp Prime",
+    "description": "Wisp Prime’s gilded splendor haunts the battlefield. Allies welcome her interdimensional beauty.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo W1 (Rare); Lith W4 (Rare); Meso W5 (Rare); Lith W3 (Rare); Neo H4 (Uncommon) [65 Ducats]; Blueprint - Meso W4 (Rare); Axi W4 (Rare); Neo W2 (Rare); Meso W3 (Rare); Axi W3 (Rare) [100 Ducats]; Systems Blueprint - Neo D7 (Common); Meso T7 (Common); Lith N15 (Common); Meso G7 (Common); Axi A17 (Common); Axi B7 (Common); Meso G10 (Common); Lith Q1 (Common) [15 Ducats]; Neuroptics Blueprint - Lith L6 (Uncommon); Lith A7 (Uncommon); Meso K6 (Uncommon); Lith G13 (Uncommon); Neo K6 (Uncommon); Axi F2 (Uncommon); Neo A13 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Wisp Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Wisp/Wisp": {
+    "uniqueName": "/Lotus/Powersuits/Wisp/Wisp",
+    "wikiName": "Wisp",
+    "description": "Wisp floats between the material and the ethereal. She accesses multiple dimensions to support her allies. Her countenance is mysterious and enigmatic.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or as a drop from Ropalolyst Assassination Wisp Component (22.56%). Components - Neuroptics: Ropalolyst Assassination Wisp Component (25.81%); Chassis: Ropalolyst Assassination Wisp Component (25.81%); Systems: Ropalolyst Assassination Wisp Component (25.81%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Wisp Neuroptics Blueprint",
+      "Wisp Chassis Blueprint",
+      "Wisp Systems Blueprint",
+      "drop reverse index: 'Wisp Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Fairy/TitaniaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Fairy/TitaniaPrime",
+    "wikiName": "Titania Prime",
+    "description": "Tempting and terrifying, this is Titania in her ultimate form.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo M3 (Common); Axi S9 (Common); Lith G11 (Common); Axi M2 (Common); Neo N14 (Common); Meso Z4 (Common); Meso I1 (Common); Lith P4 (Common) [15 Ducats]; Systems Blueprint - Lith T7 (Rare); Lith T11 (Rare); Lith T4 (Rare); Lith T8 (Rare); Axi T5 (Rare); Neo T3 (Rare) [100 Ducats]; Blueprint - Neo D2 (Uncommon); Neo P2 (Uncommon); Lith H3 (Uncommon); Axi V11 (Uncommon); Meso S10 (Uncommon); Lith M5 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Lith N10 (Uncommon); Lith T5 (Uncommon); Meso A6 (Uncommon); Meso P4 (Uncommon); Meso E4 (Uncommon); Neo Z6 (Uncommon); Lith N8 (Uncommon); Lith G4 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Titania Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Dragon/Dragon": {
+    "uniqueName": "/Lotus/Powersuits/Dragon/Dragon",
+    "wikiName": "Chroma",
+    "description": "Unleash the draconic. Chroma employs Heat, Electricity, Toxin, and Cold to deal high damage while maintaining survivability. Soar with winged fury.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 375 Platinum or Purchased from Cephalon Simaris (Rank The New Strange+) for 50,000 Standing. Components - Neuroptics: Purchased from Cephalon Simaris (Rank Uranus Junction+) for 25,000 Standing; Chassis: Purchased from Cephalon Simaris (Rank Neptune Junction+) for 25,000 Standing; Systems: Purchased from Cephalon Simaris (Rank Pluto Junction+) for 25,000 Standing.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Chroma Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Chroma Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Chroma Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Excalibur/Excalibur": {
+    "uniqueName": "/Lotus/Powersuits/Excalibur/Excalibur",
+    "wikiName": "Excalibur",
+    "description": "Excalibur epitomizes the warrior spirit. His master swordsmanship deals high damage. He is the embodiment of martial excellence.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 75 Platinum or Purchased from Conclave (Rank 5+) for 60,000 Standing. Components - Neuroptics: Lieutenant Lech Kril Assassination (38.72%); Chassis: Lieutenant Lech Kril Assassination (38.72%); Systems: Lieutenant Lech Kril Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Excalibur Neuroptics Blueprint",
+      "Excalibur Chassis Blueprint",
+      "Excalibur Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Banshee/BansheePrime": {
+    "uniqueName": "/Lotus/Powersuits/Banshee/BansheePrime",
+    "wikiName": "Banshee Prime",
+    "description": "Banshee Prime assails her foes by manipulating sonic forces to deadly effect. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso B2 (Rare); Neo B1 (Rare); Neo B6 (Rare); Neo B2 (Rare) [100 Ducats]; Blueprint - Axi A12 (Uncommon); Neo N7 (Uncommon); Neo H1 (Uncommon); Neo V7 (Uncommon); Meso T2 (Uncommon); Neo T1 (Uncommon); Axi C3 (Uncommon); Axi K3 (Uncommon); Meso E5 (Uncommon) [45 Ducats]; Systems Blueprint - Axi B1 (Rare); Lith K5 (Uncommon); Neo B5 (Rare); Axi B2 (Rare); Neo B4 (Rare) [65 Ducats]; Neuroptics Blueprint - Neo K2 (Common); Lith B5 (Common); Meso S4 (Common); Neo S7 (Common); Lith V5 (Common); Axi H5 (Common); Lith M7 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Banshee Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Fairy/Fairy": {
+    "uniqueName": "/Lotus/Powersuits/Fairy/Fairy",
+    "wikiName": "Titania",
+    "description": "Titania’s fairy-like appearance belies her formidable regal power. The enchantress deals high damage and provides crowd control. She forces opponents to pay homage or perish.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum or Purchased from Cephalon Simaris (Rank The Silver Grove+) for 50,000 Standing. Components - Neuroptics: Purchased from Cephalon Simaris (Rank The Silver Grove+) for 25,000 Standing; Chassis: Purchased from Cephalon Simaris (Rank The Silver Grove+) for 25,000 Standing; Systems: Purchased from Cephalon Simaris (Rank The Silver Grove+) for 25,000 Standing.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Titania Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Titania Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Titania Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/IronFrame/IronFrame": {
+    "uniqueName": "/Lotus/Powersuits/IronFrame/IronFrame",
+    "wikiName": "Hildryn",
+    "description": "Strength is Hildryn’s virtue. Her unique high-damage abilities are powered by her Shields, which can be recharged with Energy. Hildryn proves that a strong offense is a good defense.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Vox Solaris (Rank 2+) for 5,000 Standing. Components - Neuroptics: Exploiter Orb (38.72%); Chassis: Exploiter Orb (38.72%); Systems: Exploiter Orb (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Hildryn Neuroptics Blueprint",
+      "Hildryn Chassis Blueprint",
+      "Hildryn Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Werewolf/Werewolf": {
+    "uniqueName": "/Lotus/Powersuits/Werewolf/Werewolf",
+    "wikiName": "Voruna",
+    "description": "Four beasts, one heart. Voruna's loyal wolf pack makes for a deadly combination of strength and stealth. Beware the monstrous howl that heralds fangs of vengeance.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or as a drop from: Tier 2 Conjunction Survival (12.24%); Tier 1 Conjunction Survival (6.82%). Components - Neuroptics: Tier 2 Conjunction Survival (8.16%); Tier 1 Conjunction Survival (4.55%); Chassis: Tier 2 Conjunction Survival (8.16%); Tier 1 Conjunction Survival (4.55%); Systems: Tier 2 Conjunction Survival (8.16%); Tier 1 Conjunction Survival (4.55%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Voruna Neuroptics Blueprint",
+      "Voruna Chassis Blueprint",
+      "Voruna Systems Blueprint",
+      "drop reverse index: 'Voruna Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Alchemist/Alchemist": {
+    "uniqueName": "/Lotus/Powersuits/Alchemist/Alchemist",
+    "wikiName": "Lavos",
+    "description": "The serpents of Lavos encourage him as he transmutes the battlefield. He uses Toxin, Cold, Electricity, and Heat to deal elemental damage. Harness the power of the dark alchemist.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or as a drop from: Operation: Orphix Venom Endurance (11.11%); Operation: Orphix Venom Advanced (5.77%); Operation: Orphix Venom Normal (5.56%) or Purchased from Father (Rank 2+) for 5,000 Standing. Components - Neuroptics: Operation: Orphix Venom Endurance (11.11%); Operation: Orphix Venom Advanced (5.77%); Operation: Orphix Venom Normal (5.56%); Chassis: Operation: Orphix Venom Endurance (11.11%); Operation: Orphix Venom Advanced (5.77%); Operation: Orphix Venom Normal (5.56%); Systems: Operation: Orphix Venom Endurance (11.11%); Operation: Orphix Venom Advanced (5.77%); Operation: Orphix Venom Normal (5.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Lavos Neuroptics Blueprint",
+      "Lavos Chassis Blueprint",
+      "Lavos Systems Blueprint",
+      "drop reverse index: 'Lavos Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Volt/Volt": {
+    "uniqueName": "/Lotus/Powersuits/Volt/Volt",
+    "wikiName": "Volt",
+    "description": "Electricity flows through Volt. His attacks deal high damage. Enemies will be shocked.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 75 Platinum or Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Detonite Injector, 1x Fieldron, 1x Orokin Cell or Purchased from Conclave (Rank 5+) for 60,000 Standing. Components - Neuroptics: Researched in Clan Dojo (Tenno Lab) using 1x Detonite Injector, 1x Neural Sensors, 1000x Nano Spores, 500x Polymer Bundle; Chassis: Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Control Module, 1000x Ferrite, 500x Rubedo; Systems: Researched in Clan Dojo (Tenno Lab) using 1x Fieldron, 1x Morphics, 1000x Salvage, 500x Plastids.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Research/data['Volt Neuroptics']",
+      "Module:Research/data['Volt Chassis']",
+      "Module:Research/data['Volt Systems']"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Saryn/SarynPrime": {
+    "uniqueName": "/Lotus/Powersuits/Saryn/SarynPrime",
+    "wikiName": "Saryn Prime",
+    "description": "A golden blossom conceals deadly nectar. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo S10 (Rare); Meso S2 (Rare); Neo S2 (Rare); Lith S17 (Rare); Neo S13 (Rare) [100 Ducats]; Blueprint - Axi N6 (Uncommon); Meso C3 (Uncommon); Lith V6 (Uncommon); Lith S4 (Rare); Neo S1 (Rare); Meso S4 (Rare); Axi N12 (Uncommon) [65 Ducats]; Systems Blueprint - Neo S10 (Common); Axi T1 (Common); Meso M5 (Common); Axi G1 (Common); Neo S13 (Common); Meso F1 (Common); Neo N5 (Common); Meso C1 (Common); Axi S5 (Common); Lith H1 (Common); Meso N4 (Common) [15 Ducats]; Neuroptics Blueprint - Meso S5 (Uncommon); Neo V4 (Uncommon); Neo S19 (Uncommon); Lith A1 (Uncommon); Meso S9 (Uncommon); Axi V9 (Common); Lith C5 (Common) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Saryn Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Odalisk/Odalisk": {
+    "uniqueName": "/Lotus/Powersuits/Odalisk/Odalisk",
+    "wikiName": "Protea",
+    "description": "Protea knows all about protection. Her vast arsenal inflicts damage and provides ally support. She can even manipulate time itself.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Cephalon Simaris (Rank The Deadlock Protocol+) for 50,000 Standing. Components - Neuroptics: Granum Void (11.11%); Chassis: Extended Granum Void (11.11%); Systems: Nightmare Granum Void (11.11%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Protea Neuroptics Blueprint",
+      "Protea Chassis Blueprint",
+      "Protea Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Berserker/Berserker": {
+    "uniqueName": "/Lotus/Powersuits/Berserker/Berserker",
+    "wikiName": "Valkyr",
+    "description": "Valkyr was modified into a highly motivated and fearsome killer. She is adept at dealing damage and surviving. Her battle cry strikes terror into all who hear it.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 300 Platinum. Components - Neuroptics: Alad V Assassination (38.72%); Chassis: Alad V Assassination (38.72%); Systems: Alad V Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Valkyr Neuroptics Blueprint",
+      "Valkyr Chassis Blueprint",
+      "Valkyr Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/DemonFrame/DemonFrame": {
+    "uniqueName": "/Lotus/Powersuits/DemonFrame/DemonFrame",
+    "wikiName": "Uriel",
+    "description": "To fight as the Heretic of Xata is to have demons at your back. Uriel incinerates foes with searing brimstone, and commands three fiendish summons to do his devil’s work.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum. Components - Neuroptics: Roathe (Descendia, Infernum 21) (12.5%); Chassis: Roathe (Descendia, Infernum 21) (12.5%); Systems: Roathe (Descendia, Infernum 21) (12.5%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Uriel Neuroptics Blueprint",
+      "Uriel Chassis Blueprint",
+      "Uriel Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/ConcreteFrame/ConcreteFrame": {
+    "uniqueName": "/Lotus/Powersuits/ConcreteFrame/ConcreteFrame",
+    "wikiName": "Qorvex",
+    "description": "Albrecht Entrati designed Qorvex to protect a Chosen Operator from the unique hazards of his lab. A Crucible Core gives Qorvex high survivability as he provides crowd control.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Bird 3 (Rank 4+) for 50,000 Standing. Components - Neuroptics: Sanctum Anatomica Bounty 55-60 (13.04%); Chassis: Sanctum Anatomica Bounty 65-70 (13.56%); Systems: Sanctum Anatomica Bounty 75-80 (12.4%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Qorvex Neuroptics Blueprint",
+      "Qorvex Chassis Blueprint",
+      "Qorvex Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Frumentarius/Frumentarius": {
+    "uniqueName": "/Lotus/Powersuits/Frumentarius/Frumentarius",
+    "wikiName": "Cyte-09",
+    "description": "Move like a shadow, strike with force. The Orokin created a Warframe that marries damage and stealth to eliminate sensitive problems, but he disappeared in the chaos of their demise. All that remains is a batch name: Cyte-09.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum or Purchased from Amir (Rank 4+) for 50,000 Standing. Components - Neuroptics: Höllvania Central Mall Bounty Lvl 75-80 (11.63%); Chassis: Höllvania Central Mall Bounty Lvl 65-70 (12.2%); Systems: Höllvania Central Mall Bounty Lvl 85-90 (13.33%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Cyte-09 Neuroptics Blueprint",
+      "Cyte-09 Chassis Blueprint",
+      "Cyte-09 Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Frost/Frost": {
+    "uniqueName": "/Lotus/Powersuits/Frost/Frost",
+    "wikiName": "Frost",
+    "description": "When Frost steps onto the battlefield, enemies experience a chill. Frost’s attacks control crowds, protect objectives, and increase survivability. Wield the biting cold.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 375 Platinum. Components - Neuroptics: Lech Kril and Vor Assassination Frost Component (38.72%); Chassis: Lech Kril and Vor Assassination Frost Component (38.72%); Systems: Lech Kril and Vor Assassination Frost Component (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Frost Neuroptics Blueprint",
+      "Frost Chassis Blueprint",
+      "Frost Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Trinity/TrinityPrime": {
+    "uniqueName": "/Lotus/Powersuits/Trinity/TrinityPrime",
+    "wikiName": "Trinity Prime",
+    "description": "Become the bastion that defends allies using powerful healing abilities with Trinity Prime. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi S7 (Uncommon); Axi H1 (Uncommon); Lith S4 (Uncommon); Axi H2 (Uncommon); Neo S1 (Uncommon); Lith L3 (Uncommon) [45 Ducats]; Blueprint - Lith K1 (Uncommon); Axi S1 (Uncommon); Neo N6 (Uncommon); Meso P6 (Uncommon); Meso S4 (Uncommon); Lith K4 (Uncommon) [45 Ducats]; Systems Blueprint - Axi A1 (Common); Axi V3 (Common); Axi C2 (Common); Axi V2 (Common); Neo N12 (Common); Neo D4 (Common); Axi V4 (Common); Neo B1 (Common) [15 Ducats]; Neuroptics Blueprint - Axi V3 (Common); Meso D5 (Common); Neo S6 (Common); Axi C1 (Common); Lith K8 (Uncommon); Neo N7 (Common); Neo D1 (Uncommon) [25 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Trinity Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Trinity/Trinity": {
+    "uniqueName": "/Lotus/Powersuits/Trinity/Trinity",
+    "wikiName": "Trinity",
+    "description": "Trinity embodies redemption and health. Her extraordinary healing powers support allies. Where others destroy, she restores.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum. Components - Neuroptics: Ambulas Assassination (38.72%); Chassis: Ambulas Assassination (38.72%); Systems: Ambulas Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Trinity Neuroptics Blueprint",
+      "Trinity Chassis Blueprint",
+      "Trinity Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Sentient/Sentient": {
+    "uniqueName": "/Lotus/Powersuits/Sentient/Sentient",
+    "wikiName": "Caliban",
+    "description": "The heir of twin kingdoms ascends. Biological and Sentient life meet in Caliban. An adept monarch, he offers crowd control and survivability. His creator had more than one world in mind.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Narmer Fortuna Bounty Lvl 50-70 Stages 2 & 3 (8.11%); Narmer Cetus Bounty Lvl 50-70 Stages 2 & 3 (8.11%); Narmer Fortuna Bounty Lvl 50-70 Stage 4 (5.45%); Narmer Cetus Bounty Lvl 50-70 Stage 5 (7.5%); Narmer Fortuna Bounty Lvl 50-70 Stage 5 (7.5%); Narmer Cetus Bounty Lvl 50-70 Stage 4 (5.45%); Chassis: Narmer Fortuna Bounty Lvl 50-70 Stages 2 & 3 (8.11%); Narmer Cetus Bounty Lvl 50-70 Stages 2 & 3 (8.11%); Narmer Fortuna Bounty Lvl 50-70 Stage 4 (5.45%); Narmer Cetus Bounty Lvl 50-70 Stage 5 (7.5%); Narmer Fortuna Bounty Lvl 50-70 Stage 5 (7.5%); Narmer Cetus Bounty Lvl 50-70 Stage 4 (5.45%); Systems: Narmer Fortuna Bounty Lvl 50-70 Stages 2 & 3 (8.11%); Narmer Cetus Bounty Lvl 50-70 Stages 2 & 3 (8.11%); Narmer Fortuna Bounty Lvl 50-70 Stage 4 (5.45%); Narmer Cetus Bounty Lvl 50-70 Stage 5 (7.5%); Narmer Fortuna Bounty Lvl 50-70 Stage 5 (7.5%); Narmer Cetus Bounty Lvl 50-70 Stage 4 (5.45%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Caliban Neuroptics Blueprint",
+      "Caliban Chassis Blueprint",
+      "Caliban Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Werewolf/VorunaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Werewolf/VorunaPrime",
+    "wikiName": "Voruna Prime",
+    "description": "Splendor and ferocity reach their savage apex in Voruna Prime. Though exalted by Orokin gold, she is more feral than ever.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Axi A21 (Uncommon); Lith N19 (Uncommon) [45 Ducats]; Systems Blueprint - Neo V12 (Rare); Neo V11 (Rare); Lith V11 (Rare) [100 Ducats]; Blueprint - Axi V14 (Rare) [100 Ducats]; Neuroptics Blueprint - Meso A12 (Uncommon); Meso D8 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Voruna Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Jade/NyxPrime": {
+    "uniqueName": "/Lotus/Powersuits/Jade/NyxPrime",
+    "wikiName": "Nyx Prime",
+    "description": "Infiltrate the minds of your enemies with Nyx Prime. Featuring altered mod polarities for greater customization.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Neo R1 (Uncommon); Neo N1 (Rare); Axi S8 (Uncommon) [65 Ducats]; Systems Blueprint - Axi S3 (Uncommon); Lith C7 (Uncommon); Neo S2 (Uncommon) [45 Ducats]; Blueprint - Neo V1 (Common); Lith S2 (Common); Neo V9 (Common); Lith B4 (Common) [15 Ducats]; Neuroptics Blueprint - Meso N1 (Rare); Meso N11 (Rare); Meso N6 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Nyx Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Gyre/Gyre": {
+    "uniqueName": "/Lotus/Powersuits/Gyre/Gyre",
+    "wikiName": "Gyre",
+    "description": "Annihilate enemies with the conductivity of coils and transmitters. Gyre’s electric attacks provide crowd control. She is the embodiment of elegant theory.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or as a drop from: Zariman Bounty Lvl 110-115 (12.99%); Zariman Bounty Lvl 90-95 (12.99%). Components - Neuroptics: Zariman Bounty Lvl 50-55 (13.04%); Chassis: Zariman Bounty Lvl 60-65 (13.56%); Systems: Zariman Bounty Lvl 70-75 (11.9%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Gyre Neuroptics Blueprint",
+      "Gyre Chassis Blueprint",
+      "Gyre Systems Blueprint",
+      "drop reverse index: 'Gyre Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Banshee/Banshee": {
+    "uniqueName": "/Lotus/Powersuits/Banshee/Banshee",
+    "wikiName": "Banshee",
+    "description": "Banshee’s call heralds death. She maintains crowd control and identifies enemy weak points with sonic attacks. Few can hold their position when struck by her force.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum or Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Detonite Injector, 1x Fieldron, 1x Orokin Cell. Components - Neuroptics: Researched in Clan Dojo (Tenno Lab) using 1x Detonite Injector, 1x Neural Sensors, 1000x Nano Spores, 500x Polymer Bundle; Chassis: Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Control Module, 1000x Ferrite, 500x Rubedo; Systems: Researched in Clan Dojo (Tenno Lab) using 1x Fieldron, 1x Morphics, 1000x Salvage, 500x Plastids.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Research/data['Banshee Neuroptics']",
+      "Module:Research/data['Banshee Chassis']",
+      "Module:Research/data['Banshee Systems']"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Khora/Khora": {
+    "uniqueName": "/Lotus/Powersuits/Khora/Khora",
+    "wikiName": "Khora",
+    "description": "Khora is red in whip and claw. She works together with her Kavat companion, Venari, to deal high damage and provide crowd control. Two bodies, one will.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Normal Sanctuary Onslaught (7.14%); Normal Sanctuary Onslaught (9.09%); Normal Sanctuary Onslaught (7.14%); Chassis: Normal Sanctuary Onslaught (7.14%); Normal Sanctuary Onslaught (9.09%); Normal Sanctuary Onslaught (7.14%); Systems: Normal Sanctuary Onslaught (7.14%); Normal Sanctuary Onslaught (9.09%); Normal Sanctuary Onslaught (7.14%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Khora Neuroptics Blueprint",
+      "Khora Chassis Blueprint",
+      "Khora Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Ranger/IvaraPrime": {
+    "uniqueName": "/Lotus/Powersuits/Ranger/IvaraPrime",
+    "wikiName": "Ivara Prime",
+    "description": "As regal and lethal as a nighttime wood, this is the queen of the hunt in her ultimate form.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith I1 (Rare); Neo I3 (Rare); Neo I1 (Rare); Neo I2 (Rare) [100 Ducats]; Blueprint - Lith N5 (Uncommon); Meso N9 (Uncommon); Axi B4 (Uncommon); Axi S13 (Uncommon); Lith B8 (Uncommon); Lith N4 (Uncommon); Lith N7 (Uncommon) [45 Ducats]; Systems Blueprint - Lith T7 (Uncommon); Lith A4 (Uncommon); Axi C6 (Uncommon); Axi A9 (Uncommon); Meso P2 (Uncommon); Axi A15 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Meso B5 (Common); Meso O6 (Common); Lith D3 (Common); Meso N10 (Common); Meso D6 (Common); Neo M3 (Common); Meso C4 (Common); Neo T4 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Ivara Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pagemaster/Pagemaster": {
+    "uniqueName": "/Lotus/Powersuits/Pagemaster/Pagemaster",
+    "wikiName": "Dante",
+    "description": "Seeker of knowledge. Keeper of history. Daring researcher of Leverian lore. Dante composes arcane tales to support allies and devastate enemies.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 350 Platinum or as a drop from Deimos Entrati Disruption (7.5%). Components - Neuroptics: Deimos Entrati Disruption (5%); Chassis: Deimos Entrati Disruption (5%); Systems: Deimos Entrati Disruption (5%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Dante Neuroptics Blueprint",
+      "Dante Chassis Blueprint",
+      "Dante Systems Blueprint",
+      "drop reverse index: 'Dante Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Sandman/InarosPrime": {
+    "uniqueName": "/Lotus/Powersuits/Sandman/InarosPrime",
+    "wikiName": "Inaros Prime",
+    "description": "Rise, eternal, to cast the fear of Inaros into them. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith N6 (Uncommon); Axi O5 (Uncommon); Neo V10 (Uncommon); Lith H4 (Uncommon); Axi K6 (Uncommon); Neo P3 (Uncommon); Neo A10 (Uncommon); Neo T3 (Uncommon) [45 Ducats]; Systems Blueprint - Neo N13 (Common); Neo T5 (Common); Neo K4 (Common); Axi A13 (Common); Axi T7 (Common); Meso C7 (Common); Axi G7 (Common); Lith M6 (Common) [15 Ducats]; Blueprint - Axi W2 (Uncommon); Lith N10 (Uncommon); Axi W1 (Uncommon); Axi K12 (Uncommon); Lith G4 (Uncommon); Meso N12 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi I2 (Rare); Axi I1 (Rare); Meso I1 (Rare); Axi I3 (Rare); Meso I2 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Inaros Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Bard/OctaviaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Bard/OctaviaPrime",
+    "wikiName": "Octavia Prime",
+    "description": "Strike up a symphony of destruction with the mistress of music, Octavia, in her grandest and most spectacular form. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo A5 (Uncommon); Axi K8 (Uncommon); Meso S11 (Uncommon); Axi S11 (Uncommon); Meso N15 (Uncommon); Neo Z7 (Uncommon); Lith K7 (Uncommon) [45 Ducats]; Blueprint - Meso O5 (Rare); Axi O5 (Rare); Lith O3 (Rare) [100 Ducats]; Systems Blueprint - Lith N7 (Common); Meso H3 (Common); Lith R2 (Common); Meso D6 (Common); Neo T8 (Common); Lith C9 (Common); Axi N7 (Common); Meso G4 (Common) [15 Ducats]; Neuroptics Blueprint - Neo S15 (Common); Axi P5 (Common); Meso B6 (Common); Axi K6 (Common); Lith G3 (Common); Lith G5 (Common); Lith G4 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Octavia Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Inkblot/Inkblot": {
+    "uniqueName": "/Lotus/Powersuits/Inkblot/Inkblot",
+    "wikiName": "Follie",
+    "description": "Follie, the merry, macabre Shadowgrapher, brings ink to life. Support her squad and control enemy crowds with a myriad of versatile sketches and tricks.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum or as a drop from: Follie's Hunt (Steel Path) (6%); Follie's Hunt (5%). Components - Neuroptics: Follie's Hunt (Steel Path) (6%); Follie's Hunt (5%); Chassis: Follie's Hunt (Steel Path) (6%); Follie's Hunt (5%); Systems: Follie's Hunt (Steel Path) (6%); Follie's Hunt (5%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Follie Neuroptics Blueprint",
+      "Follie Chassis Blueprint",
+      "Follie Systems Blueprint",
+      "drop reverse index: 'Follie Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Geode/Geode": {
+    "uniqueName": "/Lotus/Powersuits/Geode/Geode",
+    "wikiName": "Citrine",
+    "description": "Gaze upon the Crystal Bastion. Citrine's crystalline might supports allies on the battlefield. Combat only enhances her fractal beauty.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or as a drop from Mirror Defense (9.3%). Components - Neuroptics: Mirror Defense (6.1%); Chassis: Mirror Defense (6.1%); Systems: Mirror Defense (6.1%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Citrine Neuroptics Blueprint",
+      "Citrine Chassis Blueprint",
+      "Citrine Systems Blueprint",
+      "drop reverse index: 'Citrine Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Infestation/InfestationPrime": {
+    "uniqueName": "/Lotus/Powersuits/Infestation/InfestationPrime",
+    "wikiName": "Nidus Prime",
+    "description": "Mutation is endless. The ravening plague-bearer returns in a long-unseen form, seething with a primal strain of the Infestation.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi N12 (Rare); Neo N18 (Rare); Meso N14 (Rare); Lith N7 (Rare); Meso N13 (Rare); Lith N12 (Rare) [100 Ducats]; Systems Blueprint - Meso A3 (Common); Neo C2 (Common); Meso P9 (Common); Meso D7 (Common); Neo A8 (Common); Meso B5 (Common); Neo N19 (Common); Meso H2 (Common) [15 Ducats]; Blueprint - Lith K10 (Uncommon); Lith T9 (Uncommon); Meso P8 (Uncommon); Lith R2 (Uncommon); Meso R5 (Uncommon); Axi A14 (Uncommon); Lith S17 (Uncommon); Meso N12 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Neo N16 (Rare); Axi N9 (Rare); Neo S19 (Uncommon); Axi N10 (Rare) [65 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Nidus Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Loki/LokiPrime": {
+    "uniqueName": "/Lotus/Powersuits/Loki/LokiPrime",
+    "wikiName": "Loki Prime",
+    "description": "Confuse, deceive and destroy with Loki Prime. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith O2 (Uncommon); Lith G2 (Uncommon) [45 Ducats]; Blueprint - Axi S2 (Common); Neo V8 (Common); Meso F3 (Common) [15 Ducats]; Systems Blueprint - Axi L4 (Rare); Axi L1 (Rare) [100 Ducats]; Neuroptics Blueprint - Meso O3 (Common); Neo E1 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Loki Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Garuda/GarudaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Garuda/GarudaPrime",
+    "wikiName": "Garuda Prime",
+    "description": "White, gold and deepest scarlet, the queen of gore in full regalia.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo N22 (Uncommon); Meso N13 (Uncommon); Axi B6 (Uncommon); Neo S15 (Uncommon); Axi G9 (Uncommon); Lith R4 (Uncommon); Meso P7 (Uncommon); Meso P13 (Uncommon); Axi N11 (Uncommon) [45 Ducats]; Systems Blueprint - Neo K8 (Uncommon); Axi G7 (Rare); Axi G8 (Rare); Axi G10 (Rare) [65 Ducats]; Blueprint - Neo A8 (Common); Lith C10 (Common); Lith H9 (Common); Meso S12 (Common); Meso P14 (Common); Neo C5 (Common); Neo N20 (Common); Axi H6 (Common); Meso P8 (Common); Meso K4 (Common) [15 Ducats]; Neuroptics Blueprint - Axi G12 (Rare); Axi G13 (Rare); Lith G5 (Rare); Lith G6 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Garuda Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Ember/Ember": {
+    "uniqueName": "/Lotus/Powersuits/Ember/Ember",
+    "wikiName": "Ember",
+    "description": "Harness the power of fire. Ember’s heat deals high damage. She keeps a cool head when the battle is hot.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum. Components - Neuroptics: General Sargas Ruk Assassination (38.72%); Chassis: General Sargas Ruk Assassination (38.72%); Systems: General Sargas Ruk Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Ember Neuroptics Blueprint",
+      "Ember Chassis Blueprint",
+      "Ember Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Saryn/Saryn": {
+    "uniqueName": "/Lotus/Powersuits/Saryn/Saryn",
+    "wikiName": "Saryn",
+    "description": "Toxicity is Saryn’s strength. Her serpentine powers deal heavy damage. For Saryn, venom is a virtue.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum. Components - Neuroptics: Kela De Thaym Assassination (38.72%); Chassis: Kela De Thaym Assassination (38.72%); Systems: Kela De Thaym Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Saryn Neuroptics Blueprint",
+      "Saryn Chassis Blueprint",
+      "Saryn Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Revenant/Revenant": {
+    "uniqueName": "/Lotus/Powersuits/Revenant/Revenant",
+    "wikiName": "Revenant",
+    "description": "Macabre spectral power has risen. Infused with the essence of the Eidolon, Revenant has strong survivability and deals high damage. Enemies become his thralls.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Cephalon Simaris (Rank Mask of the Revenant+) for 50,000 Standing. Components - Neuroptics: Cetus Bounty Lvl 40-60 Final Stage (10.2%); Cetus Bounty Lvl 40-60 Final Stage (10.2%); Cetus Bounty Lvl 40-60 Final Stage (10.2%); Steel Path Cetus Bounty Lvl 100-100 Stage 4 of 5 (6.76%); Steel Path Cetus Bounty Lvl 100-100 Stage 4 of 5 (6.76%); Steel Path Cetus Bounty Lvl 100-100 Stage 4 of 5 (6.76%); Cetus Bounty Lvl 40-60 Stage 4 (6.76%); Cetus Bounty Lvl 40-60 Stage 4 (6.76%); Cetus Bounty Lvl 40-60 Stage 4 (6.76%); Steel Path Cetus Bounty Lvl 100-100 Final Stage (10.2%); Steel Path Cetus Bounty Lvl 100-100 Final Stage (10.2%); Steel Path Cetus Bounty Lvl 100-100 Final Stage (10.2%); Chassis: Cetus Bounty Lvl 30-50 Stage 4 (8.79%); Cetus Bounty Lvl 30-50 Stage 4 (8.51%); Cetus Bounty Lvl 30-50 Stage 4 (8.79%); Plague Star Bounty Stage 4 of 5 (10.13%); Plague Star Bounty Final Stage (16.11%); Plague Star Bounty Stages 2 & 3 (14.04%); Cetus Bounty Lvl 30-50 Stages 2 & 3 (8.99%); Cetus Bounty Lvl 30-50 Stages 2 & 3 (8.7%); Cetus Bounty Lvl 30-50 Stages 2 & 3 (8.99%); Cetus Bounty Lvl 30-50 Final Stage (21.62%); Cetus Bounty Lvl 30-50 Final Stage (22.22%); Cetus Bounty Lvl 30-50 Final Stage (21.62%); Systems: Cetus Bounty Lvl 20-40 Stage 4 of 5 (8.84%); Cetus Bounty Lvl 20-40 Stage 4 of 5 (9.04%); Cetus Bounty Lvl 20-40 Stage 4 of 5 (10.23%); Cetus Bounty Lvl 20-40 Stages 2 & 3 (9.04%); Cetus Bounty Lvl 20-40 Stages 2 & 3 (9.25%); Cetus Bounty Lvl 20-40 Stages 2 & 3 (10.47%); Cetus Bounty Lvl 20-40 Final Stage (24.62%); Cetus Bounty Lvl 20-40 Final Stage (23.19%); Cetus Bounty Lvl 20-40 Final Stage (26.47%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Revenant Neuroptics Blueprint",
+      "Revenant Chassis Blueprint",
+      "Revenant Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Ranger/Ranger": {
+    "uniqueName": "/Lotus/Powersuits/Ranger/Ranger",
+    "wikiName": "Ivara",
+    "description": "The huntress draws her bow. Ivara is stealth itself. Her enemies live in fear of her sudden attacks.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Tier 3 Spy (22.56%); Pluto Proxima Spy (36%); Chassis: Neptune Proxima Spy (36%); Tier 2 Spy (22.56%); Systems: Tier 1 Spy (22.56%); Venus Proxima Spy (36%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Ivara Neuroptics Blueprint",
+      "Ivara Chassis Blueprint",
+      "Ivara Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Paladin/Paladin": {
+    "uniqueName": "/Lotus/Powersuits/Paladin/Paladin",
+    "wikiName": "Oberon",
+    "description": "Healing and suffering do Oberon’s bidding. His command of the natural world supports allies. Boon to his friends, bane of his foes.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Earth Proxima Point of Interest (10%); Chassis: Saturn Proxima Point of Interest (10%); Systems: Earth Proxima Point of Interest (10%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Oberon Neuroptics Blueprint",
+      "Oberon Chassis Blueprint",
+      "Oberon Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Sandman/Sandman": {
+    "uniqueName": "/Lotus/Powersuits/Sandman/Sandman",
+    "wikiName": "Inaros",
+    "description": "Inaros commands the fearsome desert. He survives like the ever-shifting sands that empower him. Legend recalls Inaros as the Fear-Eater.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum or Purchased from Cephalon Simaris (Rank Sands of Inaros+) for 50,000 Standing. Components - Neuroptics: Purchased from Cephalon Simaris (Rank Sands of Inaros+) for 25,000 Standing; Chassis: Purchased from Cephalon Simaris (Rank Sands of Inaros+) for 25,000 Standing; Systems: Purchased from Cephalon Simaris (Rank Sands of Inaros+) for 25,000 Standing.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Inaros Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Inaros Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Inaros Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pirate/HydroidPrime": {
+    "uniqueName": "/Lotus/Powersuits/Pirate/HydroidPrime",
+    "wikiName": "Hydroid Prime",
+    "description": "Command the ocean’s fury with this king of gold and silver. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi C4 (Common); Meso H1 (Common); Neo S11 (Common); Lith R1 (Common); Neo N8 (Common); Axi C3 (Common); Neo S8 (Common); Neo B4 (Common) [15 Ducats]; Blueprint - Neo A6 (Uncommon); Axi K5 (Uncommon); Meso N5 (Uncommon); Meso Z2 (Uncommon); Meso B2 (Uncommon) [45 Ducats]; Systems Blueprint - Neo H3 (Rare); Neo H1 (Rare); Axi H4 (Rare); Axi H3 (Rare); Neo H2 (Rare) [100 Ducats]; Neuroptics Blueprint - Axi A3 (Uncommon); Axi N4 (Uncommon); Neo G1 (Uncommon); Axi M3 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Hydroid Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Glass/Glass": {
+    "uniqueName": "/Lotus/Powersuits/Glass/Glass",
+    "wikiName": "Gara",
+    "description": "Enemies are made fragile by Gara’s deadly touch. Gara’s vitric abilities provide her and her allies with survivability and deal high damage. Shatter the foe.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum or Purchased from Cephalon Simaris (Rank Saya's Vigil+) for 50,000 Standing. Components - Neuroptics: Cetus Bounty Lvl 20-40 Stage 4 of 5 (8.84%); Cetus Bounty Lvl 20-40 Stage 4 of 5 (10.17%); Cetus Bounty Lvl 20-40 Stage 4 of 5 (9.09%); Cetus Bounty Lvl 20-40 Stages 2 & 3 (9.04%); Cetus Bounty Lvl 20-40 Stages 2 & 3 (10.4%); Cetus Bounty Lvl 20-40 Stages 2 & 3 (9.3%); Cetus Bounty Lvl 20-40 Final Stage (24.62%); Cetus Bounty Lvl 20-40 Final Stage (26.09%); Cetus Bounty Lvl 20-40 Final Stage (23.53%); Chassis: Cetus Bounty Lvl 5-15 Stage 4 of 5 (7.37%); Cetus Bounty Lvl 5-15 Stage 4 of 5 (7.37%); Cetus Bounty Lvl 5-15 Stage 4 of 5 (7.37%); Cetus Bounty Lvl 5-15 Final Stage (30.56%); Cetus Bounty Lvl 5-15 Final Stage (30.56%); Cetus Bounty Lvl 5-15 Final Stage (30.56%); Cetus Bounty Lvl 5-15 Stage 2 (7.52%); Cetus Bounty Lvl 5-15 Stage 2 (7.52%); Cetus Bounty Lvl 5-15 Stage 2 (7.52%); Systems: Cetus Bounty Lvl 10-30 Final Stage (25%); Cetus Bounty Lvl 10-30 Final Stage (25%); Cetus Bounty Lvl 10-30 Final Stage (25%); Cetus Bounty Lvl 10-30 Stage 4 of 5 (9.68%); Cetus Bounty Lvl 10-30 Stage 4 of 5 (9.68%); Cetus Bounty Lvl 10-30 Stage 4 of 5 (9.68%); Cetus Bounty Lvl 10-30 Stage 2 (10.08%); Cetus Bounty Lvl 10-30 Stage 2 (10.08%); Cetus Bounty Lvl 10-30 Stage 2 (10.08%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Gara Neuroptics Blueprint",
+      "Gara Chassis Blueprint",
+      "Gara Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Glass/GaraPrime": {
+    "uniqueName": "/Lotus/Powersuits/Glass/GaraPrime",
+    "wikiName": "Gara Prime",
+    "description": "Continue the legend of the glass-armored warrior Gara. Dominate the battlefield with the power and purity of crystal.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso A4 (Uncommon); Axi K7 (Uncommon); Axi I2 (Uncommon); Lith K6 (Uncommon); Axi S9 (Uncommon); Neo P5 (Uncommon); Axi G8 (Uncommon) [45 Ducats]; Systems Blueprint - Lith T7 (Common); Neo N21 (Common); Neo A5 (Common); Lith T8 (Common); Axi G7 (Common); Axi C8 (Common); Meso K5 (Common); Lith P6 (Common) [15 Ducats]; Blueprint - Lith G11 (Rare); Neo G4 (Rare); Axi G9 (Rare); Meso G3 (Rare); Axi G6 (Rare) [100 Ducats]; Neuroptics Blueprint - Lith S12 (Uncommon); Neo N18 (Uncommon); Axi S14 (Uncommon); Meso C10 (Uncommon); Meso O5 (Uncommon); Meso P5 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Gara Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Necro/Necro": {
+    "uniqueName": "/Lotus/Powersuits/Necro/Necro",
+    "wikiName": "Nekros",
+    "description": "There is a reaper whose name is Nekros. He provides deathly crowd control. Erstwhile enemies become allies when Nekros calls up recruits from the dead.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 375 Platinum. Components - Neuroptics: Lephantis Assassination (33.33%); Chassis: Lephantis Assassination (33.33%); Systems: Lephantis Assassination (33.33%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Nekros Neuroptics Blueprint",
+      "Nekros Chassis Blueprint",
+      "Nekros Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Loki/Loki": {
+    "uniqueName": "/Lotus/Powersuits/Loki/Loki",
+    "wikiName": "Loki",
+    "description": "Loki knows the art of deception. The trickster employs stealth to sabotage enemies. Sow confusion.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 175 Platinum. Components - Neuroptics: Hyena Pack Assassination (38.72%); Chassis: Hyena Pack Assassination (38.72%); Systems: Hyena Pack Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Loki Neuroptics Blueprint",
+      "Loki Chassis Blueprint",
+      "Loki Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Wraith/Wraith": {
+    "uniqueName": "/Lotus/Powersuits/Wraith/Wraith",
+    "wikiName": "Sevagoth",
+    "description": "No longer adrift in the Void, Sevagoth has returned. He and his Shadow deal heavy damage and have high survivability. They are sustained by the reaping of wayward souls.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Cephalon Simaris (Rank Call of the Tempestarii+) for 50,000 Standing. Components - Neuroptics: Veil Proxima Void Storm (10%); Pluto Proxima Void Storm (10%); Neptune Proxima Void Storm (9.52%); Chassis: Veil Proxima Void Storm (10%); Pluto Proxima Void Storm (10%); Neptune Proxima Void Storm (9.52%); Systems: Veil Proxima Void Storm (10%); Pluto Proxima Void Storm (10%); Neptune Proxima Void Storm (9.52%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Sevagoth Neuroptics Blueprint",
+      "Sevagoth Chassis Blueprint",
+      "Sevagoth Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pacifist/Pacifist": {
+    "uniqueName": "/Lotus/Powersuits/Pacifist/Pacifist",
+    "wikiName": "Baruuk",
+    "description": "Beware the fury of the truly patient. Baruuk boasts survivability and crowd control. Pushed beyond his restraint, he unleashes the storm within.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Vox Solaris (Rank 2+) for 5,000 Standing. Components - Neuroptics: Purchased from Vox Solaris (Rank 3+) for 5,000 Standing; Chassis: Purchased from Vox Solaris (Rank 3+) for 5,000 Standing; Systems: Purchased from Vox Solaris (Rank 3+) for 5,000 Standing.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Baruuk Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Baruuk Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Baruuk Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Rhino/RhinoPrime": {
+    "uniqueName": "/Lotus/Powersuits/Rhino/RhinoPrime",
+    "wikiName": "Rhino Prime",
+    "description": "Takes Rhino's ground-shaking abilities to the next level with altered mod polarities that offer greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith E1 (Uncommon); Meso N6 (Uncommon); Meso M1 (Uncommon) [45 Ducats]; Systems Blueprint - Neo B3 (Common); Neo G6 (Common); Axi S3 (Common) [15 Ducats]; Blueprint - Neo R1 (Rare); Axi R4 (Rare); Axi R1 (Rare) [100 Ducats]; Neuroptics Blueprint - Lith B4 (Uncommon); Meso S14 (Uncommon); Lith B1 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Rhino Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/BrokenFrame/BrokenFrame": {
+    "uniqueName": "/Lotus/Powersuits/BrokenFrame/BrokenFrame",
+    "wikiName": "Xaku",
+    "description": "Broken Warframes adrift in the Void converged to create Xaku. Together, they deal high damage. Xaku proves that the sum of the whole is greater than its parts.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Cephalon Simaris (Rank Heart of Deimos+) for 50,000 Standing. Components - Neuroptics: Necralisk Bounty Lvl 15-25 Stage 2 (8.82%); Necralisk Bounty Lvl 15-25 Stage 2 (8.82%); Necralisk Bounty Lvl 15-25 Stage 2 (8.82%); Necralisk Bounty Lvl 15-25 Final Stage (12%); Necralisk Bounty Lvl 15-25 Final Stage (12%); Necralisk Bounty Lvl 15-25 Final Stage (12%); Necralisk Bounty Lvl 15-25 Stage 3 of 5 (6.12%); Necralisk Bounty Lvl 15-25 Stage 3 of 5 (6.12%); Necralisk Bounty Lvl 15-25 Stage 3 of 5 (6.12%); Chassis: Necralisk Bounty Lvl 40-60 Final Stage (13.04%); Necralisk Bounty Lvl 40-60 Final Stage (13.04%); Necralisk Bounty Lvl 40-60 Final Stage (13.04%); Steel Path Necralisk Bounty Lvl 100-100 Final Stage (13.04%); Steel Path Necralisk Bounty Lvl 100-100 Final Stage (13.04%); Steel Path Necralisk Bounty Lvl 100-100 Final Stage (13.04%); Steel Path Necralisk Bounty Lvl 100-100 Stages 2 & 3 (8.57%); Steel Path Necralisk Bounty Lvl 100-100 Stages 2 & 3 (8.57%); Steel Path Necralisk Bounty Lvl 100-100 Stages 2 & 3 (8.57%); Steel Path Necralisk Bounty Lvl 100-100 Stage 4 (6.67%); Steel Path Necralisk Bounty Lvl 100-100 Stage 4 (6.67%); Steel Path Necralisk Bounty Lvl 100-100 Stage 4 (6.67%); Necralisk Bounty Lvl 40-60 Stage 4 (6.67%); Necralisk Bounty Lvl 40-60 Stage 4 (6.67%); Necralisk Bounty Lvl 40-60 Stage 4 (6.67%); Necralisk Bounty Lvl 40-60 Stages 2 & 3 (8.57%); Necralisk Bounty Lvl 40-60 Stages 2 & 3 (8.57%); Necralisk Bounty Lvl 40-60 Stages 2 & 3 (8.57%); Systems: Necralisk Bounty Lvl 30-40 Final Stage (11.32%); Necralisk Bounty Lvl 30-40 Final Stage (11.32%); Necralisk Bounty Lvl 30-40 Stage 4 (6%); Necralisk Bounty Lvl 30-40 Stage 4 (6%); Necralisk Bounty Lvl 30-40 Stage 2 & 3 (8.22%); Necralisk Bounty Lvl 30-40 Stage 2 & 3 (8.22%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Xaku Neuroptics Blueprint",
+      "Xaku Chassis Blueprint",
+      "Xaku Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Revenant/RevenantPrime": {
+    "uniqueName": "/Lotus/Powersuits/Revenant/RevenantPrime",
+    "wikiName": "Revenant Prime",
+    "description": "The lost one rises. Reify the essence of the Eidolon as you wield Revenant Prime’s power.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso N13 (Common); Neo A11 (Common); Axi C9 (Common); Meso H6 (Common); Neo K5 (Common); Axi G12 (Common); Axi F2 (Common); Neo S17 (Common); Neo N23 (Common) [15 Ducats]; Blueprint - Lith R4 (Rare); Meso R6 (Rare); Lith R3 (Rare); Lith R5 (Rare); Meso R5 (Rare); Lith R2 (Rare) [100 Ducats]; Systems Blueprint - Meso H5 (Uncommon); Axi A16 (Uncommon); Neo P8 (Uncommon); Meso C9 (Uncommon); Meso P9 (Uncommon); Axi B8 (Uncommon); Meso K5 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi D5 (Uncommon); Neo Z10 (Uncommon); Neo A12 (Uncommon); Lith S14 (Uncommon); Lith T13 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Revenant Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Odalisk/ProteaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Odalisk/ProteaPrime",
+    "wikiName": "Protea Prime",
+    "description": "Behold the child of two fathers. Protea Prime once fulfilled Parvos Granum's vision of a time-wielding guardian. Now she upholds the Tenno ideal of defending the defenseless.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi P8 (Rare); Neo P7 (Rare); Vanguard M1 (Uncommon); Axi P7 (Rare); Meso P17 (Rare) [65 Ducats]; Blueprint - Meso W4 (Common); Axi N13 (Common); Meso V10 (Common); Meso K7 (Common); Axi V13 (Common); Vanguard C1 (Common); Meso V14 (Common); Lith W4 (Common); Neo C6 (Common) [15 Ducats]; Systems Blueprint - Neo P9 (Rare); Meso P15 (Rare); Axi P9 (Rare); Lith P9 (Rare); Meso P16 (Rare); Vanguard P1 (Rare) [100 Ducats]; Neuroptics Blueprint - Meso T8 (Uncommon); Lith D7 (Uncommon); Vanguard E1 (Common); Axi T12 (Uncommon); Neo P6 (Uncommon); Neo D9 (Uncommon); Lith O4 (Uncommon); Axi S16 (Uncommon) [25 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Protea Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Nezha/Nezha": {
+    "uniqueName": "/Lotus/Powersuits/Nezha/Nezha",
+    "wikiName": "Nezha",
+    "description": "The mercurial firemonger protects the innocent. Nezha’s multifaceted tactics give him high survivability as he inflicts damage and provides crowd control. His fire is the clarion of hope.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum or Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Detonite Injector, 1x Fieldron, 1x Orokin Cell. Components - Neuroptics: Researched in Clan Dojo (Tenno Lab) using 1x Detonite Injector, 1x Neurodes, 1000x Nano Spores, 500x Salvage; Chassis: Researched in Clan Dojo (Tenno Lab) using 1x Mutagen Mass, 1x Neural Sensors, 1000x Alloy Plate, 500x Circuits; Systems: Researched in Clan Dojo (Tenno Lab) using 1x Fieldron, 1x Gallium, 1000x Salvage, 500x Cryotic.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Research/data['Nezha Neuroptics']",
+      "Module:Research/data['Nezha Chassis']",
+      "Module:Research/data['Nezha Systems']"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Gyre/GyrePrime": {
+    "uniqueName": "/Lotus/Powersuits/Gyre/GyrePrime",
+    "wikiName": "Gyre Prime",
+    "description": "Gilded circuits spark and energize frenetic movements that echo through the ages. Dance into eternity with Gyre Prime.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Axi T13 (Uncommon) [45 Ducats]; Systems Blueprint - Meso V14 (Common); Meso E7 (Common); Meso Y2 (Common) [15 Ducats]; Blueprint - Neo T10 (Uncommon); Lith Q3 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Lith G14 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Gyre Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Runner/GaussPrime": {
+    "uniqueName": "/Lotus/Powersuits/Runner/GaussPrime",
+    "wikiName": "Gauss Prime",
+    "description": "Quicksilver takes form. Gauss Prime brooks no talk of defeat.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith M9 (Common); Meso P15 (Common); Neo W1 (Common); Neo P7 (Common); Meso A11 (Common); Neo A14 (Common); Neo O2 (Common); Lith C13 (Common) [15 Ducats]; Blueprint - Neo G9 (Common); Axi B7 (Uncommon); Neo A15 (Common); Neo M5 (Uncommon); Neo T9 (Uncommon); Axi Z2 (Common); Neo G10 (Uncommon); Neo D10 (Uncommon); Lith N16 (Uncommon) [25 Ducats]; Systems Blueprint - Meso G9 (Rare); Lith G12 (Rare); Meso G7 (Rare); Axi G15 (Rare); Lith G9 (Rare); Neo G8 (Rare); Neo G9 (Rare) [100 Ducats]; Neuroptics Blueprint - Meso H5 (Uncommon); Axi V12 (Uncommon); Axi P9 (Uncommon); Meso T7 (Uncommon); Meso Z6 (Uncommon); Axi V13 (Uncommon); Neo E4 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Gauss Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/YinYang/EquinoxPrime": {
+    "uniqueName": "/Lotus/Powersuits/YinYang/EquinoxPrime",
+    "wikiName": "Equinox Prime",
+    "description": "Night and Day in final balance; the graceful perfection of the one that walks the borders.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi A8 (Common); Meso G2 (Common); Axi P1 (Common); Lith D2 (Common); Lith L2 (Common); Lith M4 (Common); Neo Z9 (Common); Lith C6 (Common) [15 Ducats]; Systems Blueprint - Neo E3 (Rare); Meso E4 (Rare); Meso E3 (Rare); Neo E2 (Rare); Meso E2 (Rare) [100 Ducats]; Blueprint - Meso A2 (Uncommon); Axi T4 (Uncommon); Lith S13 (Uncommon); Lith P4 (Uncommon); Axi T3 (Uncommon); Axi K5 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Neo D2 (Uncommon); Neo A3 (Uncommon); Lith L1 (Uncommon); Meso M3 (Uncommon); Axi T9 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Equinox Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Priest/HarrowPrime": {
+    "uniqueName": "/Lotus/Powersuits/Priest/HarrowPrime",
+    "wikiName": "Harrow Prime",
+    "description": "The Inquisitor Eternal arises, hallowed by the Void, preaching a gospel of iron and flame.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso N13 (Common); Neo T7 (Common); Axi S15 (Common); Meso O5 (Common); Meso P11 (Common); Meso G3 (Common); Axi N10 (Common) [15 Ducats]; Systems Blueprint - Meso H2 (Rare); Lith H10 (Rare); Axi H7 (Rare); Lith H5 (Rare); Lith H4 (Rare); Lith H7 (Rare); Lith H3 (Rare); Meso H4 (Rare) [100 Ducats]; Blueprint - Neo N21 (Uncommon); Lith P6 (Uncommon); Neo L3 (Uncommon); Axi K6 (Uncommon); Neo G5 (Uncommon); Lith S15 (Uncommon); Lith B11 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi T11 (Uncommon); Meso P10 (Uncommon); Axi A16 (Uncommon); Axi S12 (Uncommon); Meso C8 (Uncommon); Lith R3 (Uncommon); Lith B10 (Uncommon); Axi T8 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Harrow Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Jade/Jade": {
+    "uniqueName": "/Lotus/Powersuits/Jade/Jade",
+    "wikiName": "Nyx",
+    "description": "Psychic attacks make Nyx a dangerous foe. She reaches into enemy consciousness to provide crowd control and turn their attacks back on them. Such manipulation can turn the tide of battle.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum. Components - Neuroptics: Phorid Manifestation (38.72%); Chassis: Phorid Manifestation (38.72%); Systems: Phorid Manifestation (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Nyx Neuroptics Blueprint",
+      "Nyx Chassis Blueprint",
+      "Nyx Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Berserker/ValkyrPrime": {
+    "uniqueName": "/Lotus/Powersuits/Berserker/ValkyrPrime",
+    "wikiName": "Valkyr Prime",
+    "description": "A proud fighter emerges unscarred by time or malice. Featuring altered mod polarities allow for greater customization.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Axi V5 (Rare); Neo V9 (Rare); Neo V7 (Rare); Lith V6 (Rare); Axi V6 (Rare) [100 Ducats]; Systems Blueprint - Meso V3 (Rare); Lith V3 (Rare); Lith V5 (Rare); Axi V9 (Uncommon); Axi V10 (Uncommon) [65 Ducats]; Blueprint - Meso S3 (Common); Lith N3 (Common); Lith T2 (Common); Lith C7 (Common); Lith A2 (Common); Axi V7 (Common); Meso S6 (Common); Meso N8 (Common); Axi V9 (Common); Neo K1 (Common) [15 Ducats]; Neuroptics Blueprint - Meso N11 (Uncommon); Neo N7 (Uncommon); Lith C5 (Uncommon); Meso D2 (Uncommon); Meso V4 (Uncommon); Lith S6 (Uncommon); Meso N8 (Uncommon); Lith T1 (Uncommon); Meso C2 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Valkyr Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Mag/MagPrime": {
+    "uniqueName": "/Lotus/Powersuits/Mag/MagPrime",
+    "wikiName": "Mag Prime",
+    "description": "The exquisite Mag Prime offers the same abilities as Mag but with unique mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo B3 (Uncommon); Meso F4 (Uncommon); Meso B3 (Uncommon); Meso B1 (Uncommon) [45 Ducats]; Blueprint - Lith M8 (Rare); Lith M2 (Rare); Meso M1 (Rare); Lith M1 (Rare) [100 Ducats]; Systems Blueprint - Axi R1 (Common); Neo D1 (Common); Axi S4 (Common); Lith L4 (Common) [15 Ducats]; Neuroptics Blueprint - Axi D4 (Uncommon); Axi V2 (Common); Neo N9 (Common); Lith B1 (Common) [25 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Mag Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Harlequin/MiragePrime": {
+    "uniqueName": "/Lotus/Powersuits/Harlequin/MiragePrime",
+    "wikiName": "Mirage Prime",
+    "description": "Dazzle the opposition with this golden master of illusion and mayhem. Featuring altered mod polarities allow for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi A12 (Common); Meso K2 (Common); Lith K5 (Common); Lith S7 (Common); Axi H4 (Common); Neo L1 (Common) [15 Ducats]; Blueprint - Axi M1 (Rare); Neo M1 (Rare); Meso M2 (Rare); Meso M3 (Rare); Lith M7 (Rare) [100 Ducats]; Systems Blueprint - Neo S12 (Uncommon); Neo K2 (Uncommon); Neo V6 (Uncommon); Meso O2 (Uncommon); Axi H5 (Uncommon); Axi R2 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Neo B6 (Common); Lith Z1 (Common); Neo S9 (Common); Meso E5 (Common); Axi T2 (Common); Lith W1 (Common); Neo G1 (Common); Meso H1 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Mirage Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Bard/Bard": {
+    "uniqueName": "/Lotus/Powersuits/Bard/Bard",
+    "wikiName": "Octavia",
+    "description": "Octavia turns bass, beat, and melody into a symphony of devastation. The music of her Mandachord gives her high survivability and supports allies. Her composition means the enemy’s destruction.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum or Purchased from Cephalon Simaris (Rank Octavia's Anthem+) for 50,000 Standing. Components - Neuroptics: Orokin Derelict Survival (22.56%); Chassis: Orokin Storage Container (4) (100%); Systems: Lua Exterminate Resource Caches (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Octavia Neuroptics Blueprint",
+      "Octavia Chassis Blueprint",
+      "Octavia Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Paladin/PaladinPrime": {
+    "uniqueName": "/Lotus/Powersuits/Paladin/PaladinPrime",
+    "wikiName": "Oberon Prime",
+    "description": "Protect the balance with this regal forest guardian. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso B2 (Common); Meso P1 (Common); Lith B5 (Common); Axi N5 (Common); Axi H2 (Common); Lith T3 (Common); Lith B9 (Common) [15 Ducats]; Systems Blueprint - Axi O4 (Rare); Neo N11 (Uncommon); Axi O3 (Rare); Axi O1 (Rare); Axi O2 (Rare); Axi A15 (Uncommon) [65 Ducats]; Blueprint - Meso H1 (Uncommon); Neo S16 (Uncommon); Lith H2 (Uncommon); Lith M3 (Uncommon); Neo B5 (Uncommon); Lith S9 (Uncommon); Meso N4 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Lith O1 (Rare); Meso O1 (Rare); Meso O6 (Rare); Meso O4 (Rare); Meso O2 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Oberon Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Devourer/GrendelPrime": {
+    "uniqueName": "/Lotus/Powersuits/Devourer/GrendelPrime",
+    "wikiName": "Grendel Prime",
+    "description": "Primal. Insatiable. Grendel Prime devours all who oppose him.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith C12 (Uncommon); Neo S18 (Uncommon); Lith G13 (Uncommon); Lith A11 (Uncommon); Lith M10 (Uncommon) [45 Ducats]; Systems Blueprint - Axi G14 (Rare); Axi G11 (Rare); Neo M6 (Uncommon) [65 Ducats]; Blueprint - Neo G10 (Rare); Meso G8 (Rare); Lith G8 (Rare); Meso G6 (Rare); Neo G7 (Rare) [100 Ducats]; Neuroptics Blueprint - Neo Q1 (Common); Meso B8 (Common); Axi M6 (Common); Axi G15 (Common); Neo M5 (Common); Meso A5 (Common); Axi S17 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Grendel Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Wraith/SevagothPrime": {
+    "uniqueName": "/Lotus/Powersuits/Wraith/SevagothPrime",
+    "wikiName": "Sevagoth Prime",
+    "description": "The gilded helmsman emerges from the tempest, his shadow a lure for doomed souls.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo S20 (Rare); Lith S16 (Rare); Axi S18 (Rare); Axi S17 (Rare) [100 Ducats]; Blueprint - Axi Y3 (Uncommon); Axi Z2 (Uncommon); Meso V12 (Uncommon); Neo A13 (Uncommon); Lith L7 (Uncommon); Lith Z4 (Uncommon) [45 Ducats]; Systems Blueprint - Lith C12 (Common); Lith E2 (Common); Lith C14 (Common); Meso G8 (Common); Lith D7 (Common); Lith M10 (Common); Lith A7 (Common) [15 Ducats]; Neuroptics Blueprint - Axi G14 (Common); Meso A9 (Common); Meso A7 (Common); Neo T9 (Common); Axi Y1 (Common); Meso L4 (Common); Neo K9 (Common); Meso L3 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Sevagoth Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Hoplite/Hoplite": {
+    "uniqueName": "/Lotus/Powersuits/Hoplite/Hoplite",
+    "wikiName": "Styanax",
+    "description": "Styanax never wonders how many enemies he will face, only where he can find them. The hoplite deals high damage. Enemies tremble before his spear and shield.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 175 Platinum or Purchased from Kahl's Garrison (Rank 5+) for 90 Stock (Kahl). Components - Neuroptics: Purchased from Kahl's Garrison (Rank 3+) for 60 Stock (Kahl); Chassis: Purchased from Kahl's Garrison (Rank 4+) for 60 Stock (Kahl); Systems: Purchased from Kahl's Garrison (Rank 2+) for 60 Stock (Kahl).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Styanax Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Styanax Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Styanax Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Rhino/Rhino": {
+    "uniqueName": "/Lotus/Powersuits/Rhino/Rhino",
+    "wikiName": "Rhino",
+    "description": "Rhino packs a punch. He boasts high survivability and crowd control. The wise would do well to stand clear when he charges.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 375 Platinum. Components - Neuroptics: Jackal Assassination (38.72%); Chassis: Jackal Assassination (38.72%); Systems: Jackal Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Rhino Neuroptics Blueprint",
+      "Rhino Chassis Blueprint",
+      "Rhino Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/AntiMatter/Anti": {
+    "uniqueName": "/Lotus/Powersuits/AntiMatter/Anti",
+    "wikiName": "Nova",
+    "description": "Harness antimatter. Nova uses antiparticles to provide crowd control and amplify damage output. She obliterates enemies by destabilizing matter itself.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 375 Platinum. Components - Neuroptics: Raptors Assassination (38.72%); Chassis: Raptors Assassination (38.72%); Systems: Raptors Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Nova Neuroptics Blueprint",
+      "Nova Chassis Blueprint",
+      "Nova Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Priest/Priest": {
+    "uniqueName": "/Lotus/Powersuits/Priest/Priest",
+    "wikiName": "Harrow",
+    "description": "Achieve redemption through vengeance. The monastic Harrow increases damage to support allies. Defy enemies and ascend.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum or Purchased from Cephalon Simaris (Rank Chains of Harrow+) for 50,000 Standing. Components - Neuroptics: Kuva Fortress Survival (12%); Kuva Fortress Spy (16.67%); Chassis: Void Fissure Corrupted Enemy (100%); Systems: Tier 2 Defection (15%); Tier 2 Defection (5.45%); Tier 3 Defection (15%); Tier 3 Defection (6%); Kuva Fortress Survival (12%); Tier 1 Defection (15%); Tier 1 Defection (6%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Harrow Neuroptics Blueprint",
+      "Harrow Chassis Blueprint",
+      "Harrow Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Infestation/Infestation": {
+    "uniqueName": "/Lotus/Powersuits/Infestation/Infestation",
+    "wikiName": "Nidus",
+    "description": "Nidus draws strength from the Infestation. It bolsters him with survivability as he deals high damage and provides crowd control. Plague your enemies.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 225 Platinum or Purchased from Cephalon Simaris (Rank The Glast Gambit+) for 50,000 Standing. Components - Neuroptics: Infested Salvage (7.69%); Infested Salvage (14.29%); Infested Salvage (7.69%); Chassis: Infested Salvage (7.69%); Infested Salvage (14.29%); Infested Salvage (7.69%); Systems: Infested Salvage (7.69%); Infested Salvage (14.29%); Infested Salvage (7.69%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Nidus Neuroptics Blueprint",
+      "Nidus Chassis Blueprint",
+      "Nidus Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Nezha/NezhaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Nezha/NezhaPrime",
+    "wikiName": "Nezha Prime",
+    "description": "Behold: the Scion of the Burning Wind, now before you in most courtly accoutrement. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo N13 (Rare); Neo N17 (Rare); Lith N11 (Rare); Axi N7 (Rare); Meso N15 (Rare) [100 Ducats]; Systems Blueprint - Neo N16 (Common); Lith N12 (Common); Axi O5 (Common); Meso P7 (Common); Axi S12 (Common); Lith G7 (Common); Neo D2 (Common); Lith H3 (Common); Neo D3 (Common) [15 Ducats]; Blueprint - Meso C6 (Uncommon); Axi S9 (Uncommon); Axi G6 (Uncommon); Axi M2 (Uncommon); Lith H4 (Uncommon); Lith O3 (Uncommon); Meso D6 (Uncommon); Meso H2 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Lith N8 (Rare); Neo N20 (Rare); Neo N15 (Rare); Neo T8 (Uncommon); Lith N10 (Rare); Axi N8 (Rare); Lith N6 (Rare) [65 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Nezha Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Pacifist/BaruukPrime": {
+    "uniqueName": "/Lotus/Powersuits/Pacifist/BaruukPrime",
+    "wikiName": "Baruuk Prime",
+    "description": "Doomed are the fools who attack the peace and exhaust the restraint of this reluctant warrior.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo A8 (Uncommon); Meso V9 (Uncommon); Lith N15 (Uncommon); Lith P8 (Uncommon); Neo K7 (Uncommon); Lith T13 (Uncommon); Neo S17 (Uncommon); Neo N23 (Uncommon) [45 Ducats]; Systems Blueprint - Meso H7 (Common); Axi P7 (Common); Meso P14 (Common); Neo P8 (Common); Meso R5 (Common); Meso H4 (Common); Meso H6 (Common); Axi W3 (Common) [15 Ducats]; Blueprint - Meso B8 (Rare); Lith B10 (Rare); Meso B9 (Rare); Axi B9 (Rare); Lith B11 (Rare) [100 Ducats]; Neuroptics Blueprint - Axi B5 (Rare); Axi B7 (Rare); Neo B9 (Rare); Axi B6 (Rare); Axi B9 (Uncommon); Axi B8 (Rare) [65 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Baruuk Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Necro/NekrosPrime": {
+    "uniqueName": "/Lotus/Powersuits/Necro/NekrosPrime",
+    "wikiName": "Nekros Prime",
+    "description": "Death's new master. Featuring altered mod polarities allow for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Lith V4 (Common); Lith N1 (Common); Axi G1 (Common); Axi S6 (Common); Neo Z1 (Common); Meso S3 (Common); Axi N4 (Common); Neo G5 (Common); Meso K1 (Common) [15 Ducats]; Blueprint - Axi N3 (Rare); Meso N3 (Rare); Lith T3 (Uncommon); Lith N3 (Rare); Lith H10 (Uncommon) [65 Ducats]; Systems Blueprint - Lith N2 (Rare); Meso N16 (Rare); Neo N11 (Rare); Neo N7 (Rare); Neo N3 (Rare); Meso N5 (Rare) [100 Ducats]; Neuroptics Blueprint - Lith K11 (Uncommon); Meso O4 (Uncommon); Meso F1 (Uncommon); Axi N5 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Nekros Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Harlequin/Harlequin": {
+    "uniqueName": "/Lotus/Powersuits/Harlequin/Harlequin",
+    "wikiName": "Mirage",
+    "description": "Mirage’s sleight of hand complements her might. Her dazzled foes take heavy damage. Doppelgangers, lasers, and traps are elements of her stagecraft.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum. Components - Neuroptics: Purchased from Cephalon Simaris (Rank Hidden Messages+) for 25,000 Standing; Chassis: Purchased from Cephalon Simaris (Rank Hidden Messages+) for 25,000 Standing; Systems: Purchased from Cephalon Simaris (Rank Hidden Messages+) for 25,000 Standing.",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Module:Vendors/data (exact match: 'Mirage Neuroptics Blueprint')",
+      "Module:Vendors/data (exact match: 'Mirage Chassis Blueprint')",
+      "Module:Vendors/data (exact match: 'Mirage Systems Blueprint')"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Garuda/Garuda": {
+    "uniqueName": "/Lotus/Powersuits/Garuda/Garuda",
+    "wikiName": "Garuda",
+    "description": "Death’s crimson maiden sharpens her talons. Garuda weaponizes the blood of her foes to deal high damage. Sanguine beauty complements her deadly power.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum or Purchased from Cephalon Simaris (Rank Vox Solaris (Quest)+) for 50,000 Standing. Components - Neuroptics: Fortuna Bounty Lvl 20-40 Stage 4 of 5 (10.59%); Fortuna Bounty Lvl 20-40 Stage 4 of 5 (10.59%); Fortuna Bounty Lvl 20-40 Stage 4 of 5 (10.59%); Fortuna Bounty Lvl 20-40 Stages 2 & 3 (12%); Fortuna Bounty Lvl 20-40 Stages 2 & 3 (12%); Fortuna Bounty Lvl 20-40 Stages 2 & 3 (12%); Fortuna Bounty Lvl 20-40 Final Stage (22.5%); Fortuna Bounty Lvl 20-40 Final Stage (22.5%); Fortuna Bounty Lvl 20-40 Final Stage (22.5%); Chassis: Fortuna Bounty Lvl 5-15 Stage 2 (12%); Fortuna Bounty Lvl 5-15 Stage 2 (12%); Fortuna Bounty Lvl 5-15 Stage 2 (12%); Fortuna Bounty Lvl 5-15 Final Stage (27.6%); Fortuna Bounty Lvl 5-15 Final Stage (27.6%); Fortuna Bounty Lvl 5-15 Final Stage (27.6%); Fortuna Bounty Lvl 5-15 Stage 4 of 5 (11.6%); Fortuna Bounty Lvl 5-15 Stage 4 of 5 (11.6%); Fortuna Bounty Lvl 5-15 Stage 4 of 5 (11.6%); Systems: Fortuna Bounty Lvl 10-30 Final Stage (22.5%); Fortuna Bounty Lvl 10-30 Final Stage (22.5%); Fortuna Bounty Lvl 10-30 Final Stage (22.5%); Fortuna Bounty Lvl 10-30 Stage 2 (12%); Fortuna Bounty Lvl 10-30 Stage 2 (12%); Fortuna Bounty Lvl 10-30 Stage 2 (12%); Fortuna Bounty Lvl 10-30 Stage 4 of 5 (10.59%); Fortuna Bounty Lvl 10-30 Stage 4 of 5 (10.59%); Fortuna Bounty Lvl 10-30 Stage 4 of 5 (10.59%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Garuda Neuroptics Blueprint",
+      "Garuda Chassis Blueprint",
+      "Garuda Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Cowgirl/Cowgirl": {
+    "uniqueName": "/Lotus/Powersuits/Cowgirl/Cowgirl",
+    "wikiName": "Mesa",
+    "description": "The gunslinger has a steady deadly hand. Each shot deals high damage. Mesa is the fastest draw in the realm.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Mutalist Alad V Assassination (38.72%); Chassis: Mutalist Alad V Assassination (38.72%); Systems: Mutalist Alad V Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Mesa Neuroptics Blueprint",
+      "Mesa Chassis Blueprint",
+      "Mesa Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Mag/Mag": {
+    "uniqueName": "/Lotus/Powersuits/Mag/Mag",
+    "wikiName": "Mag",
+    "description": "Take down your enemies with magnetic force. Mag alters magnetic fields to provide crowd control and strip enemy defenses. Few can resist her attraction or her repulsion.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 75 Platinum or Purchased from Conclave (Rank 5+) for 60,000 Standing. Components - Neuroptics: The Sergeant Assassination (38.72%); Chassis: The Sergeant Assassination (38.72%); Systems: The Sergeant Assassination (22.56%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Mag Neuroptics Blueprint",
+      "Mag Chassis Blueprint",
+      "Mag Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Magician/LimboPrime": {
+    "uniqueName": "/Lotus/Powersuits/Magician/LimboPrime",
+    "wikiName": "Limbo Prime",
+    "description": "Dance between realms with this golden rift walker. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi L3 (Rare); Axi L5 (Rare); Lith L3 (Rare); Neo L1 (Rare); Meso L2 (Rare); Meso L1 (Rare) [100 Ducats]; Systems Blueprint - Neo R3 (Common); Neo R5 (Common); Neo A2 (Common); Axi D3 (Common); Meso N7 (Common); Lith B6 (Common); Neo C1 (Common); Lith B3 (Common); Axi T3 (Common) [15 Ducats]; Blueprint - Meso T3 (Uncommon); Neo A9 (Uncommon); Meso Z1 (Uncommon); Neo D4 (Uncommon); Neo I1 (Uncommon); Neo M2 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi L2 (Rare); Lith L1 (Rare); Lith K8 (Uncommon); Axi M4 (Uncommon); Lith L2 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Limbo Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Brawler/AtlasPrime": {
+    "uniqueName": "/Lotus/Powersuits/Brawler/AtlasPrime",
+    "wikiName": "Atlas Prime",
+    "description": "In bygone ages, mountains were said to house warriors. In this age, the mountain has become the warrior.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi B3 (Uncommon); Meso E3 (Uncommon); Neo M3 (Uncommon); Neo A7 (Uncommon); Lith B8 (Uncommon); Neo E2 (Uncommon); Neo T3 (Uncommon) [45 Ducats]; Blueprint - Lith P5 (Common); Lith V9 (Common); Lith D1 (Common); Lith K6 (Common); Lith P3 (Common); Lith M5 (Common); Neo Z7 (Common) [15 Ducats]; Systems Blueprint - Meso G2 (Uncommon); Lith N4 (Uncommon); Neo N15 (Uncommon); Axi F1 (Uncommon); Meso I1 (Uncommon); Meso C4 (Uncommon); Neo A3 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi A11 (Rare); Axi A6 (Rare); Neo A5 (Rare); Axi A9 (Rare); Lith A5 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Atlas Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Volt/VoltPrime": {
+    "uniqueName": "/Lotus/Powersuits/Volt/VoltPrime",
+    "wikiName": "Volt Prime",
+    "description": "A glorious warrior from the past, Volt Prime features the same abilities as Volt but with unique mod polarities for greater customization.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Meso V3 (Uncommon); Axi V8 (Uncommon); Meso V2 (Uncommon); Vanguard E1 (Common); Meso O3 (Uncommon) [25 Ducats]; Blueprint - Axi N3 (Uncommon); Neo O1 (Common); Lith O2 (Common); Vanguard C1 (Common); Neo V1 (Uncommon) [25 Ducats]; Systems Blueprint - Axi L4 (Uncommon); Neo O1 (Uncommon); Lith V1 (Uncommon); Vanguard M1 (Uncommon) [45 Ducats]; Neuroptics Blueprint - Axi V8 (Rare); Axi V1 (Uncommon); Neo V8 (Rare); Vanguard P1 (Uncommon) [65 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Volt Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Frost/FrostPrime": {
+    "uniqueName": "/Lotus/Powersuits/Frost/FrostPrime",
+    "wikiName": "Frost Prime",
+    "description": "Frost Prime has the same chilling abilities as Frost but provides unique mod polarities, allowing for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Meso E1 (Common); Neo B8 (Common); Lith G1 (Common) [15 Ducats]; Systems Blueprint - Lith M8 (Uncommon); Lith G2 (Uncommon); Neo S5 (Uncommon) [45 Ducats]; Blueprint - Neo F1 (Rare); Meso F4 (Rare); Meso F3 (Rare); Meso F2 (Rare) [100 Ducats]; Neuroptics Blueprint - Neo E1 (Common); Axi E1 (Common); Axi D4 (Common) [15 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Frost Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Alchemist/LavosPrime": {
+    "uniqueName": "/Lotus/Powersuits/Alchemist/LavosPrime",
+    "wikiName": "Lavos Prime",
+    "description": "Some Warframes were Prime from the start. Others ascended. Lavos, the master of transmutation, bowed to no one as he forged his own path to valor.",
+    "acquisition": "Obtained from Void Relics: Chassis Blueprint - Axi C10 (Common); Axi D6 (Common); Lith T14 (Common); Neo X1 (Common); Lith G14 (Common) [15 Ducats]; Blueprint - Lith C14 (Uncommon); Neo A16 (Uncommon); Axi Y1 (Uncommon); Axi F3 (Uncommon) [45 Ducats]; Systems Blueprint - Lith L5 (Rare); Meso L5 (Rare); Meso L4 (Rare); Lith L7 (Rare); Meso L3 (Rare) [100 Ducats]; Neuroptics Blueprint - Neo N24 (Uncommon); Axi A20 (Uncommon); Axi P10 (Uncommon); Meso A8 (Uncommon) [45 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Lavos Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Koumei/Koumei": {
+    "uniqueName": "/Lotus/Powersuits/Koumei/Koumei",
+    "wikiName": "Koumei",
+    "description": "Test your luck with the dice-maiden. Koumei weaves fate to unleash damage and ensure her survival. To the virtuous, she is an oracle. To the wicked, a perilous game of chance.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum or as a drop from Shrine Defense (4.09%). Components - Neuroptics: Shrine Defense (4.09%); Chassis: Shrine Defense (4.09%); Systems: Shrine Defense (4.09%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Koumei Neuroptics Blueprint",
+      "Koumei Chassis Blueprint",
+      "Koumei Systems Blueprint",
+      "drop reverse index: 'Koumei Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Khora/KhoraPrime": {
+    "uniqueName": "/Lotus/Powersuits/Khora/KhoraPrime",
+    "wikiName": "Khora Prime",
+    "description": "A harmony of mistress and monster. The gilded huntress and her loyal Kavat, Venari, dominate the battlefield with their will.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Neo D7 (Uncommon); Neo N21 (Uncommon); Lith C10 (Uncommon); Lith G9 (Uncommon); Lith S15 (Uncommon); Axi G13 (Uncommon) [45 Ducats]; Systems Blueprint - Neo F3 (Common); Neo L2 (Common); Axi N11 (Common); Lith H7 (Common); Lith R4 (Common); Meso P9 (Common); Meso P8 (Common); Meso G5 (Common); Meso A5 (Common) [15 Ducats]; Blueprint - Meso K4 (Rare); Lith K9 (Rare); Neo K6 (Rare); Neo C5 (Uncommon) [65 Ducats]; Neuroptics Blueprint - Neo K8 (Rare); Neo K5 (Rare); Axi K8 (Rare); Neo K7 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Khora Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Choir/Choir": {
+    "uniqueName": "/Lotus/Powersuits/Choir/Choir",
+    "wikiName": "Jade",
+    "description": "Become enraptured by the song of devastation. Through her, the Jade Light can be a force of destruction or a source of support.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. Components - Neuroptics: Ascension (4.63%); Chassis: Ascension (4.63%); Systems: Ascension (4.63%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Jade Neuroptics Blueprint",
+      "Jade Chassis Blueprint",
+      "Jade Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Nokko/Nokko": {
+    "uniqueName": "/Lotus/Powersuits/Nokko/Nokko",
+    "wikiName": "Nokko",
+    "description": "Spring into action with Nokko! With his strong roots and an array of tricky fungi this young defender will quickly grow on you",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum or as a drop from: Nokko: Corporate Restructuring Rewards (Steel Path) (8%); Nokko: Critter Liberation Rewards (Steel Path) (8%); Nokko: Weed The Gardens Rewards (5%); Nokko: Critter Liberation Rewards (5%); Nokko: Weed The Gardens Rewards (Steel Path) (8%); Nokko: Corporate Restructuring Rewards (5%) or Purchased from Nightcap (Rank 4+) for 240 Fergolyte. Components - Neuroptics: Nokko: Weed The Gardens Rewards (10%); Nokko: Weed The Gardens Rewards (2.5%); Nokko: Weed The Gardens Rewards (Steel Path) (10%); Nokko: Weed The Gardens Rewards (Steel Path) (5%); Chassis: Nokko: Critter Liberation Rewards (Steel Path) (10%); Nokko: Critter Liberation Rewards (Steel Path) (5%); Nokko: Critter Liberation Rewards (10%); Nokko: Critter Liberation Rewards (2.5%); Systems: Nokko: Corporate Restructuring Rewards (Steel Path) (10%); Nokko: Corporate Restructuring Rewards (Steel Path) (5%); Nokko: Corporate Restructuring Rewards (10%); Nokko: Corporate Restructuring Rewards (2.5%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Nokko Neuroptics Blueprint",
+      "Nokko Chassis Blueprint",
+      "Nokko Systems Blueprint",
+      "drop reverse index: 'Nokko Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Ninja/Ninja": {
+    "uniqueName": "/Lotus/Powersuits/Ninja/Ninja",
+    "wikiName": "Ash",
+    "description": "Behold the patron saint of the Orokin school of political assassination. Ash specializes in stealth. The edge of his blade is sooner felt than seen.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 375 Platinum. Components - Neuroptics: Neptune Proxima Defense (12.5%); Neptune Proxima Survival (12.5%); Neptune Proxima Exterminate (4.71%); Neptune Proxima Volatile (4.71%); Chassis: Pluto Proxima Defense (13.33%); Pluto Proxima Volatile (4.82%); Pluto Proxima Survival (13.33%); Pluto Proxima Exterminate (4.82%); Systems: Venus Proxima Defense (13.33%); Venus Proxima Volatile (4.88%); Venus Proxima Exterminate (4.88%); Venus Proxima Survival (13.33%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Ash Neuroptics Blueprint",
+      "Ash Chassis Blueprint",
+      "Ash Systems Blueprint"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Oraxia/Oraxia": {
+    "uniqueName": "/Lotus/Powersuits/Oraxia/Oraxia",
+    "wikiName": "Oraxia",
+    "description": "Sinister grace interwoven with lethal versatility; the evolution of a perfect predator. Fear's name is Oraxia.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum or as a drop from: Isleweaver (Steel Path) (7.69%); Isleweaver (7.69%). Components - Neuroptics: Isleweaver (Steel Path) (7.69%); Isleweaver (7.69%); Chassis: Isleweaver (Steel Path) (7.69%); Isleweaver (7.69%); Systems: Isleweaver (Steel Path) (7.69%); Isleweaver (7.69%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Oraxia Neuroptics Blueprint",
+      "Oraxia Chassis Blueprint",
+      "Oraxia Systems Blueprint",
+      "drop reverse index: 'Oraxia Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Cowgirl/MesaPrime": {
+    "uniqueName": "/Lotus/Powersuits/Cowgirl/MesaPrime",
+    "wikiName": "Mesa Prime",
+    "description": "Cast a long shadow with this lethal enforcer. Featuring altered mod polarities for greater customization.",
+    "acquisition": "VAULTED - Obtained from Void Relics: Chassis Blueprint - Axi M1 (Common); Lith R1 (Common); Neo R4 (Common); Neo A3 (Common); Neo C1 (Common); Lith S10 (Common); Vanguard E1 (Common); Axi H4 (Common); Meso C4 (Common); Meso L2 (Common) [15 Ducats]; Systems Blueprint - Neo M2 (Rare); Neo H3 (Uncommon); Vanguard C1 (Uncommon); Lith M6 (Rare); Neo M3 (Rare); Lith D5 (Uncommon) [100 Ducats]; Blueprint - Meso R2 (Uncommon); Lith D1 (Uncommon); Lith P7 (Uncommon); Neo Z3 (Uncommon); Neo Z2 (Uncommon); Lith N9 (Uncommon); Meso P3 (Uncommon); Lith C6 (Uncommon); Vanguard P1 (Common) [25 Ducats]; Neuroptics Blueprint - Axi M3 (Rare); Vanguard M1 (Rare); Lith M3 (Rare); Lith M4 (Rare); Lith M5 (Rare); Axi M4 (Rare) [100 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Mesa Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Temple/Temple": {
+    "uniqueName": "/Lotus/Powersuits/Temple/Temple",
+    "wikiName": "Temple",
+    "description": "Blazing with glamor and armed with an Infested guitar, Lizzie, Temple’s power chords light the flames of revolution.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 370 Platinum or as a drop from: Solstice Square (0.97%); Solstice Square (4.58%); Solstice Square (1.98%) or Purchased from Flare (Rank 5+) for 195 Beating Heartstrings. Components - Neuroptics: Solstice Square (0.97%); Solstice Square (4.58%); Solstice Square (1.98%); Chassis: Solstice Square (0.97%); Solstice Square (4.58%); Solstice Square (1.98%); Systems: Solstice Square (0.97%); Solstice Square (4.58%); Solstice Square (1.98%).",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)",
+      "Temple Neuroptics Blueprint",
+      "Temple Chassis Blueprint",
+      "Temple Systems Blueprint",
+      "drop reverse index: 'Temple Blueprint'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/PrimeJetPack/PrimeJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/PrimeJetPack/PrimeJetPack",
+    "wikiName": "Odonata Prime",
+    "description": "This enhanced version of the first Archwing prototype takes the design to its theoretical limits.",
+    "acquisition": "Obtained from Void Relics: Harness Blueprint - Neo O1 (Common); Neo V8 (Common); Lith K1 (Common); Axi K1 (Common); Axi V4 (Common); Axi T1 (Common) [15 Ducats]; Systems Blueprint - Axi V8 (Common); Neo N3 (Common); Axi V1 (Common); Meso O3 (Common); Lith F2 (Common) [15 Ducats]; Blueprint - Meso S1 (Uncommon); Lith F1 (Uncommon); Axi L4 (Uncommon); Axi V8 (Uncommon); Meso C2 (Uncommon) [45 Ducats]; Wings Blueprint - Meso O3 (Rare); Neo O1 (Rare); Lith O2 (Rare); Axi N1 (Uncommon) [65 Ducats].",
+    "sourceRefs": [
+      "Module:Void/data (PrimeData['Odonata Prime'])"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Trapper/Trapper": {
+    "uniqueName": "/Lotus/Powersuits/Trapper/Trapper",
+    "wikiName": "Vauban",
+    "description": "Vauban is the model of innovative technology. He deploys clever inventions to provide crowd control. His tenacity and focus make him formidable.",
+    "acquisition": "Vauban's main blueprint can be purchased from the Market. Vauban's component blueprints can be bought from the Nightwave Offerings for 25 each, for a total of 75.\n\nAlternatively, upon completion of The Duviri Paradox, Vauban's main and component blueprints can be earned from The Circuit. By selecting him on the rotating week he is available, players can earn his blueprints after reaching Tier 2 (Neuroptics), 5 (Chassis), 8 (Systems), and 10 (Main) rewards.",
+    "sourceRefs": [
+      "article page: Vauban/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/YinYang/YinYang": {
+    "uniqueName": "/Lotus/Powersuits/YinYang/YinYang",
+    "wikiName": "Equinox",
+    "description": "Equinox rises from the edge of day and night. Her Day form offers offensive support while her Night form offers defensive support. She thrives between realms.",
+    "acquisition": "Equinox requires a unique method to craft: Tenno must forge both the Equinox Night Aspect and Equinox Day Aspect in the Foundry &ndash; each of which requires its respective Neuroptics, Chassis, and Systems &ndash; before the Warframe itself can be built. Component and Aspect blueprints can be obtained by defeating Tyl Regor on Titania, Uranus; he will drop one Night and one Day Aspect. Equinox's main blueprint can be purchased from the Market.",
+    "sourceRefs": [
+      "article page: Equinox/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Dagath/Dagath": {
+    "uniqueName": "/Lotus/Powersuits/Dagath/Dagath",
+    "wikiName": "Dagath",
+    "description": "Never underestimate the power and wrath of sullen sadness. Dagath's malice deals high damage.",
+    "acquisition": "Dagath's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dagath does not require Research and can be acquired immediately following the room's construction.\n\nComponent blueprints require a total of 102 Vainthorn, obtained from the Abyssal Zone, a unique Exterminate mission on Ceres. Access requires Abyssal Beacons, purchased from Faction Syndicate (Steel Meridian, Arbiters of Hexis, Cephalon Suda, The Perrin Sequence, Red Veil, or New Loka) at Rank 2 and 5,000, consuming only the beacon from the player who started the mission vote upon mission completion. Each clear awards 6, 7, or 8 Vainthorns (8, 11, or 12 on The Steel Path).",
+    "sourceRefs": [
+      "article page: Dagath/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Devourer/Devourer": {
+    "uniqueName": "/Lotus/Powersuits/Devourer/Devourer",
+    "wikiName": "Grendel",
+    "description": "Grendel sees every battlefield as a smorgasbord. His insatiable appetite rewards him with high survivability. Enemies will be eaten. And regurgitated.",
+    "acquisition": "Grendel's main blueprint can be purchased from the Market. Grendel's component blueprints are awarded by completing certain missions on Europa using Locators, which can be purchased from the Arbitration Honors vendor found in any Relay for 25 Vitus Essence each.\n\nPurchasing a Locator unlocks the unique mission associated with it. These missions have level 25-30 enemies, but place heavy restrictions on the player:\n- No Gear\n- No unique weapon traits (Syndicate Weapons keep their Syndicate Radial Effects)\n- Kuva, Tenet, and Coda weapons will not have their elemental damage bonus\n- Incarnon weapons will not transform and evolution bonuses will not apply\n- Operators cannot be used, and any Focus abilities are disabled\n- Mods and Arcanes are disabled, but Augments will still function\n- Helminth Invigorations are disabled.\n- No Archon Shards\n\nEach mission is guaranteed to award the associated Grendel component blueprint if successfully completed, despite the Locator's flavor text stating sites \"likely\" to contain blueprints. The Locators and their associated unlocks are as follows:\n- The Grendel Neuroptics Locator unlocks the Archaeo-freighter, a 20-minute Survival mission.\n- The Grendel Chassis Locator unlocks the Icefields of Riddah, a 6-wave Defense mission.\n- The Grendel Systems Locator unlocks the Mines of Karishh, an Excavation mission where players have to collect 800 Cryotic.\n\nThese missions do not have public matchmaking, requiring players to form pre-made squads.\n\nLocators are only consumed after completing the mission, requiring the purchase of another Locator to unlock once again. However, only the squad host requires a Locator, allowing them to invite other players to participate in the mission, and the component reward will be granted to all players upon completion.",
+    "sourceRefs": [
+      "article page: Grendel/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/PaxDuviricus/PaxDuviricus": {
+    "uniqueName": "/Lotus/Powersuits/PaxDuviricus/PaxDuviricus",
+    "wikiName": "Kullervo",
+    "description": "Kullervo answers for his sins and the sins of others. His daggers and melee prowess deal high damage. Seize the power of treachery to slake his thirst for revenge.",
+    "acquisition": "Kullervo's main and component blueprints are purchased from 30x30pxAcrithis in the Dormizone for Kullervo's Bane; the main blueprint requires 15 Banes, while the parts require 9, to a total of 42 Kullervo's Banes.\n\nBanes are obtained from defeating the Kullervo Boss and completion of the Spiral (defeating the Orowyrm) in Duviri. He will appear on the island Kullervo's Hold, which only spawns during Anger, Sorrow, and Fear Spirals from The Duviri Experience. It can appear as a fourth, fifth, or sixth spiral stage or a side objective; speak with The Warden to engage in gladiatorial combat with the imprisoned Kullervo in the waterlogged arena. (Note that the Warden will not appear if the mission has randomly been selected as a main objective.) Once both tasks have been cleared, the player will earn 4, 5, or 6 Kullervo's Bane (6, 7, or 8 on The Steel Path).\n\nIt is recommended to run The Duviri Experience when specifically aiming at acquiring Kullervo's Bane as, even when he is not a main objective in that mode, he will be available as a side objective as long as Kullervo's Hold is present in the current mood spiral.",
+    "sourceRefs": [
+      "article page: Kullervo/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/SupportJetPack/SupportJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/SupportJetPack/SupportJetPack",
+    "wikiName": "Amesha",
+    "description": "Transform into a winged guardian.",
+    "acquisition": "The Amesha's main and component blueprints can be researched from the Tenno Lab in the dojo. The blueprints can only be purchased after completion of The Archwing quest.",
+    "sourceRefs": [
+      "article page: Amesha/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/StandardJetPack/StandardJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/StandardJetPack/StandardJetPack",
+    "wikiName": "Odonata",
+    "description": "The systems built into this Archwing balance offensive capabilities with defensive countermeasures.",
+    "acquisition": "The Odonata's main and component blueprints are obtainable during The Archwing quest.\n\nAdditional blueprints can be bought from Cephalon Simaris; 50,000 for component blueprints and 100,000 for main blueprint.",
+    "sourceRefs": [
+      "article page: Odonata/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/StealthJetPack/StealthJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/StealthJetPack/StealthJetPack",
+    "wikiName": "Itzal",
+    "description": "Designed for quick clandestine attacks, the Itzal Archwing excels at striking from the darkness of space.",
+    "acquisition": "The Itzal's main and component blueprints can be researched from the Tenno Lab in the dojo. The blueprints can only be purchased after completion of The Archwing quest.",
+    "sourceRefs": [
+      "article page: Itzal/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/DemolitionJetPack/DemolitionJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/DemolitionJetPack/DemolitionJetPack",
+    "wikiName": "Elytron",
+    "description": "This heavy duty Archwing was designed for one purpose, destruction.",
+    "acquisition": "The Elytron's main and component blueprints can be researched from the Tenno Lab in the dojo. The blueprints can only be purchased after completion of The Archwing quest.",
+    "sourceRefs": [
+      "article page: Elytron/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/EntratiMech/NechroTech": {
+    "uniqueName": "/Lotus/Powersuits/EntratiMech/NechroTech",
+    "wikiName": "Voidrig",
+    "description": "Nothing fancy but gets the job done and then some. With its electrified armor, this rough and ready mech can make the battlefield treacherous for the enemy with an arsenal of explosives.",
+    "acquisition": "Completion of Heart of Deimos will reward all main and component blueprints for free. Alternatively, Component blueprints for the Voidrig are available for 2,000 from the Necraloid Syndicate at Rank 1 - Clearance: Agnesis, while the main Voidrig blueprint is available for 5,000 at Rank 2 - Clearance: Modus. When levelling the Syndicate, one Voidrig blueprint is offered for free. \n\nCrafting the components additionally requires Rank 1 - Stranger with the Entrati in order to acquire Purified Heciphron required in its construction.\n\nDamaged Necramech components are dropped by enemy Necramechs that appear in Isolation Vault Bounties or purchased from Father for 2,000 Entrati standing.\n\nDamaged Necramech components, built Voidrig components, Faceted Tiametrite, Purified Heciphron, Purged Dagonic, and fish yielding components used here (Lobotriscid for Parasitic Tethermaw, and Vitreospina and Chondricord for Spinal Core Section) can be traded between players. Trading for gems or fully built components will bypass the Syndicate rank requirements. However, Voidrig component blueprints and the main blueprint cannot be traded.\n\nNote that acquiring the Voidrig requires an open Archwing Weapon slot, as it comes with the Mausolon Archgun.",
+    "sourceRefs": [
+      "article page: Voidrig/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/EntratiMech/ThanoTech": {
+    "uniqueName": "/Lotus/Powersuits/EntratiMech/ThanoTech",
+    "wikiName": "Bonewidow",
+    "description": "This fearsome Necramech, fashioned in honor of the Entrati matriarch, is a robust front-line fighter. Favoring armor and health over shield strength, Bonewidow can grab and hurl enemies, deploy a heavy shield for personal defense, and cleave through opposing ranks with a massive warblade.",
+    "acquisition": "Component blueprints for the Bonewidow are available for 3,500 from the Necraloid Syndicate at Rank 2 - Clearance: Modus, while the main Bonewidow blueprint is available for 10,000 at Rank 3 Clearance - Odima rank.\n\nCrafting the components additionally requires:\n- Rank 1 - Outworlder with Solaris United to acquire Goblite Tears\n- Rank 3 - Trusted with the Ostron to acquire Star Crimzian\n- Rank 2 - Acquaintance with the Entrati to acquire Thaumic Distillate, Adramal Alloy, and Devolved Namalon\n- (Optional) Rank 4 - Friend with the Entrati to be able to buy the Processed Vome Residue bait needed to fish for the Myxostomata for its Cranial Foremount\n- Cranial Foremount can also be randomly dropped from Requiem Obelisks on the Cambion Drift\n\nDamaged Necramech components are dropped by enemy Necramechs that appear in Isolation Vault Bounties or purchased from Father.\n\nDamaged Necramech components, built Bonewidow components, Goblite Tears, and Star Crimzian can be traded between players. Trading for gems or fully built components will bypass the Syndicate rank requirements. However, Bonewidow component blueprints and the main blueprint cannot be traded.\n\nNote that acquiring the Bonewidow requires an open Archwing Weapon slot, as it comes with the Mausolon Archgun.",
+    "sourceRefs": [
+      "article page: Bonewidow/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

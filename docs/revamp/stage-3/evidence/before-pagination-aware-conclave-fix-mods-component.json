@@ -1,0 +1,1570 @@
+{
+  "tier": "styled component browser with module mocks",
+  "fixture": "synthetic display data; no live game, inventory, price or market claims",
+  "checks": [
+    {
+      "name": "stable-populated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-frames-pending-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-fix-checking-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-fix-fixing-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-price-progress-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "stable-pointer-drawer-exact-markup",
+      "pass": true,
+      "detail": {
+        "before_length": 311780,
+        "after_length": 311780
+      }
+    },
+    {
+      "name": "1200-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "1200-19-category-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframe",
+        "Primary",
+        "Secondary",
+        "Melee",
+        "Sentinels",
+        "Robotic",
+        "Beasts",
+        "Stance",
+        "Aura",
+        "Exilus",
+        "Railjack",
+        "Archgun",
+        "Archmelee",
+        "Parazon",
+        "Augment",
+        "Antique",
+        "Tome",
+        "Vehicles"
+      ]
+    },
+    {
+      "name": "1200-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 1200,
+        "scroll": 1200
+      }
+    },
+    {
+      "name": "1200-layout-in-bounds",
+      "pass": true,
+      "detail": {
+        "left": 220,
+        "width": 980,
+        "right": 1200
+      }
+    },
+    {
+      "name": "1200-toolbar-columns",
+      "pass": true,
+      "detail": {
+        "columns": "450px 450px",
+        "client": 912,
+        "scroll": 912
+      }
+    },
+    {
+      "name": "1200-category-scroll-contained",
+      "pass": true,
+      "detail": {
+        "wrap": "nowrap",
+        "client": 910,
+        "scroll": 1843,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "1200-dense-controls-contained",
+      "pass": true,
+      "detail": {
+        "sort": {
+          "client": 448,
+          "scroll": 462,
+          "overflow": "auto"
+        },
+        "filters": {
+          "client": 448,
+          "scroll": 462,
+          "overflow": "auto"
+        }
+      }
+    },
+    {
+      "name": "1200-card-widths-and-bounds",
+      "pass": true,
+      "detail": [
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        }
+      ]
+    },
+    {
+      "name": "1200-grid-columns",
+      "pass": true,
+      "detail": "200px 200px 200px"
+    },
+    {
+      "name": "1200-category-All",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Warframe",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Primary",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Secondary",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Melee",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Sentinels",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Robotic",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Beasts",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Stance",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Aura",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Exilus",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Railjack",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Archgun",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Parazon",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Augment",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Antique",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Tome",
+      "pass": true
+    },
+    {
+      "name": "1200-category-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "1200-card-enter-opens-drawer",
+      "pass": true
+    },
+    {
+      "name": "1200-card-space-opens-drawer",
+      "pass": true
+    },
+    {
+      "name": "900-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "900-19-category-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframe",
+        "Primary",
+        "Secondary",
+        "Melee",
+        "Sentinels",
+        "Robotic",
+        "Beasts",
+        "Stance",
+        "Aura",
+        "Exilus",
+        "Railjack",
+        "Archgun",
+        "Archmelee",
+        "Parazon",
+        "Augment",
+        "Antique",
+        "Tome",
+        "Vehicles"
+      ]
+    },
+    {
+      "name": "900-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 900,
+        "scroll": 900
+      }
+    },
+    {
+      "name": "900-layout-in-bounds",
+      "pass": true,
+      "detail": {
+        "left": 220,
+        "width": 680,
+        "right": 900
+      }
+    },
+    {
+      "name": "900-toolbar-columns",
+      "pass": true,
+      "detail": {
+        "columns": "612px",
+        "client": 612,
+        "scroll": 612
+      }
+    },
+    {
+      "name": "900-category-scroll-contained",
+      "pass": true,
+      "detail": {
+        "wrap": "nowrap",
+        "client": 610,
+        "scroll": 1843,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "900-dense-controls-contained",
+      "pass": true,
+      "detail": {
+        "sort": {
+          "client": 610,
+          "scroll": 624,
+          "overflow": "auto"
+        },
+        "filters": {
+          "client": 610,
+          "scroll": 624,
+          "overflow": "auto"
+        }
+      }
+    },
+    {
+      "name": "900-card-widths-and-bounds",
+      "pass": true,
+      "detail": [
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        }
+      ]
+    },
+    {
+      "name": "900-grid-columns",
+      "pass": true,
+      "detail": "200px 200px"
+    },
+    {
+      "name": "900-category-All",
+      "pass": true
+    },
+    {
+      "name": "900-category-Warframe",
+      "pass": true
+    },
+    {
+      "name": "900-category-Primary",
+      "pass": true
+    },
+    {
+      "name": "900-category-Secondary",
+      "pass": true
+    },
+    {
+      "name": "900-category-Melee",
+      "pass": true
+    },
+    {
+      "name": "900-category-Sentinels",
+      "pass": true
+    },
+    {
+      "name": "900-category-Robotic",
+      "pass": true
+    },
+    {
+      "name": "900-category-Beasts",
+      "pass": true
+    },
+    {
+      "name": "900-category-Stance",
+      "pass": true
+    },
+    {
+      "name": "900-category-Aura",
+      "pass": true
+    },
+    {
+      "name": "900-category-Exilus",
+      "pass": true
+    },
+    {
+      "name": "900-category-Railjack",
+      "pass": true
+    },
+    {
+      "name": "900-category-Archgun",
+      "pass": true
+    },
+    {
+      "name": "900-category-Archmelee",
+      "pass": true
+    },
+    {
+      "name": "900-category-Parazon",
+      "pass": true
+    },
+    {
+      "name": "900-category-Augment",
+      "pass": true
+    },
+    {
+      "name": "900-category-Antique",
+      "pass": true
+    },
+    {
+      "name": "900-category-Tome",
+      "pass": true
+    },
+    {
+      "name": "900-category-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "900-card-enter-opens-drawer",
+      "pass": true
+    },
+    {
+      "name": "900-card-space-opens-drawer",
+      "pass": true
+    },
+    {
+      "name": "initial-page-size-60",
+      "pass": true,
+      "detail": 60
+    },
+    {
+      "name": "sticker-excluded",
+      "pass": true
+    },
+    {
+      "name": "header-statistics",
+      "pass": true,
+      "detail": "MODS\n75 TOTAL \u00b7 75 UNIQUE \u00b7 56 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\n2\nCross Family Exilus\nSynthetic effect 5\n9\nTOME\n\n\n\nShrine Maiden\nSynthetic effect 0\n4\nAUGMENT\n\n2\nSynthetic Mod 001\nSynthetic effect 1\n5\nPRIMARY\n\n3\nSynthetic Mod 002\nSolar trigger description\n6\nSECONDARY\n\n4\nSynthetic Mod 003\nSynthetic "
+    },
+    {
+      "name": "load-more-to-75",
+      "pass": true,
+      "detail": 75
+    },
+    {
+      "name": "max-rank-filter",
+      "pass": true,
+      "detail": [
+        "Cross Family Exilus",
+        "Synthetic Mod 011",
+        "Synthetic Mod 017",
+        "Synthetic Mod 023",
+        "Synthetic Mod 029",
+        "Synthetic Mod 035",
+        "Synthetic Mod 041",
+        "Synthetic Mod 047",
+        "Synthetic Mod 053",
+        "Synthetic Mod 059",
+        "Synthetic Mod 065",
+        "Synthetic Mod 071"
+      ]
+    },
+    {
+      "name": "filter-change-resets-page-to-60",
+      "pass": true,
+      "detail": 60
+    },
+    {
+      "name": "search-input-Synthetic Mod 010",
+      "pass": true
+    },
+    {
+      "name": "search-result-Synthetic Mod 010",
+      "pass": true,
+      "detail": [
+        "Synthetic Mod 010"
+      ]
+    },
+    {
+      "name": "search-input-solar trigger",
+      "pass": true
+    },
+    {
+      "name": "search-result-solar trigger",
+      "pass": true,
+      "detail": [
+        "Synthetic Mod 002"
+      ]
+    },
+    {
+      "name": "search-input-lunar statistic",
+      "pass": true
+    },
+    {
+      "name": "search-result-lunar statistic",
+      "pass": true,
+      "detail": [
+        "Synthetic Mod 003"
+      ]
+    },
+    {
+      "name": "search-input-emerald family",
+      "pass": true
+    },
+    {
+      "name": "search-result-emerald family",
+      "pass": true,
+      "detail": [
+        "Synthetic Mod 004"
+      ]
+    },
+    {
+      "name": "search-input-amanata",
+      "pass": true
+    },
+    {
+      "name": "search-result-amanata",
+      "pass": true,
+      "detail": [
+        "Shrine Maiden"
+      ]
+    },
+    {
+      "name": "search-multi-term-and-no-match",
+      "pass": true
+    },
+    {
+      "name": "exilus-cross-category-trait",
+      "pass": true,
+      "detail": [
+        "Cross Family Exilus"
+      ]
+    },
+    {
+      "name": "tome-exclusive-category",
+      "pass": true,
+      "detail": [
+        "Cross Family Exilus",
+        "Synthetic Mod 015",
+        "Synthetic Mod 032",
+        "Synthetic Mod 049",
+        "Synthetic Mod 066"
+      ]
+    },
+    {
+      "name": "ownership-owned",
+      "pass": true,
+      "detail": [
+        "Cross Family Exilus",
+        "Synthetic Mod 001",
+        "Synthetic Mod 002",
+        "Synthetic Mod 004",
+        "Synthetic Mod 007",
+        "Synthetic Mod 008",
+        "Synthetic Mod 010",
+        "Synthetic Mod 011",
+        "Synthetic Mod 013",
+        "Synthetic Mod 014",
+        "Synthetic Mod 016",
+        "Synthetic Mod 017",
+        "Synthetic Mod 019",
+        "Synthetic Mod 020",
+        "Synthetic Mod 022"
+      ]
+    },
+    {
+      "name": "ownership-unowned",
+      "pass": true,
+      "detail": [
+        "Shrine Maiden",
+        "Synthetic Mod 003",
+        "Synthetic Mod 006",
+        "Synthetic Mod 009",
+        "Synthetic Mod 012",
+        "Synthetic Mod 015",
+        "Synthetic Mod 018",
+        "Synthetic Mod 021",
+        "Synthetic Mod 024",
+        "Synthetic Mod 027",
+        "Synthetic Mod 030",
+        "Synthetic Mod 033",
+        "Synthetic Mod 036",
+        "Synthetic Mod 039",
+        "Synthetic Mod 042"
+      ]
+    },
+    {
+      "name": "ownership-all-active",
+      "pass": true
+    },
+    {
+      "name": "hide-conclave-filter",
+      "pass": false,
+      "detail": {
+        "before": 60,
+        "after": 60
+      }
+    },
+    {
+      "name": "combined-category-owned-max-rank",
+      "pass": true,
+      "detail": [
+        "Cross Family Exilus"
+      ]
+    },
+    {
+      "name": "sort-Name-both-directions",
+      "pass": true,
+      "detail": {
+        "asc": [
+          "Cross Family Exilus",
+          "Shrine Maiden",
+          "Synthetic Mod 001"
+        ],
+        "desc": [
+          "Synthetic Mod 074",
+          "Synthetic Mod 073",
+          "Synthetic Mod 072"
+        ]
+      }
+    },
+    {
+      "name": "sort-Rank-both-directions",
+      "pass": true,
+      "detail": {
+        "asc": [
+          "Shrine Maiden",
+          "Synthetic Mod 006",
+          "Synthetic Mod 012"
+        ],
+        "desc": [
+          "Cross Family Exilus",
+          "Synthetic Mod 011",
+          "Synthetic Mod 017"
+        ]
+      }
+    },
+    {
+      "name": "sort-Count-both-directions",
+      "pass": true,
+      "detail": {
+        "asc": [
+          "Shrine Maiden",
+          "Synthetic Mod 004",
+          "Synthetic Mod 008"
+        ],
+        "desc": [
+          "Synthetic Mod 003",
+          "Synthetic Mod 007",
+          "Synthetic Mod 011"
+        ]
+      }
+    },
+    {
+      "name": "sort-Rarity-both-directions",
+      "pass": true,
+      "detail": {
+        "asc": [
+          "Shrine Maiden",
+          "Synthetic Mod 004",
+          "Synthetic Mod 008"
+        ],
+        "desc": [
+          "Synthetic Mod 003",
+          "Synthetic Mod 007",
+          "Synthetic Mod 011"
+        ]
+      }
+    },
+    {
+      "name": "sort-Value (Maxed)-both-directions",
+      "pass": true,
+      "detail": {
+        "asc": [
+          "Shrine Maiden",
+          "Synthetic Mod 001",
+          "Synthetic Mod 002"
+        ],
+        "desc": [
+          "Synthetic Mod 010",
+          "Synthetic Mod 020",
+          "Shrine Maiden"
+        ]
+      }
+    },
+    {
+      "name": "value-desc-highest-first",
+      "pass": true,
+      "detail": [
+        "Synthetic Mod 010",
+        "Synthetic Mod 020",
+        "Shrine Maiden"
+      ]
+    },
+    {
+      "name": "positive-price-visible",
+      "pass": true
+    },
+    {
+      "name": "no-zero-price-badge",
+      "pass": true
+    },
+    {
+      "name": "no-sell-control",
+      "pass": true
+    },
+    {
+      "name": "price-loading-visible",
+      "pass": true
+    },
+    {
+      "name": "price-loading-card-skeletons",
+      "pass": true
+    },
+    {
+      "name": "price-fetch-progress-visible",
+      "pass": true
+    },
+    {
+      "name": "fix-extracting-state",
+      "pass": true,
+      "detail": "MODS\n75 TOTAL \u00b7 75 UNIQUE \u00b7 56 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nExtracting mod images\u2026\n2 / 5\nSyntheticMod.png"
+    },
+    {
+      "name": "fix-fixing-state",
+      "pass": true,
+      "detail": "MODS\n75 TOTAL \u00b7 75 UNIQUE \u00b7 56 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nProcessing mod images\u2026\n2 / 5\nSyntheticMod.png"
+    },
+    {
+      "name": "fix-compositing-state",
+      "pass": true,
+      "detail": "MODS\n75 TOTAL \u00b7 75 UNIQUE \u00b7 56 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nCompositing mod images\u2026\n2 / 5\nSyntheticMod.png"
+    },
+    {
+      "name": "fix-preparing-state",
+      "pass": true,
+      "detail": "MODS\n75 TOTAL \u00b7 75 UNIQUE \u00b7 56 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nPreparing mod images\u2026\n2 / 5\nSyntheticMod.png"
+    },
+    {
+      "name": "fix-checking-spinner-no-cards",
+      "pass": true
+    },
+    {
+      "name": "loading-spinner-no-cards",
+      "pass": true
+    },
+    {
+      "name": "frames-pending-spinner-no-cards",
+      "pass": true
+    },
+    {
+      "name": "no-inventory-monitor-state",
+      "pass": true,
+      "detail": "MODS\n0 TOTAL \u00b7 0 UNIQUE \u00b7 0 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC"
+    },
+    {
+      "name": "german-labels-with-english-fallback",
+      "pass": true,
+      "detail": [
+        "Alle",
+        "Warframe",
+        "Prim\u00e4r",
+        "Sekund\u00e4r",
+        "Nahkampf",
+        "Sentinels",
+        "Robotic",
+        "Bestien",
+        "Haltung",
+        "Aura",
+        "Exilus",
+        "Railjack",
+        "Archgun",
+        "Archmelee",
+        "Parazon",
+        "Augment",
+        "Antik",
+        "Tome",
+        "Fahrzeuge"
+      ]
+    },
+    {
+      "name": "german-body-no-overflow",
+      "pass": true
+    },
+    {
+      "name": "asset-and-override-commands",
+      "pass": true,
+      "detail": [
+        "get_icons_path",
+        "get_mod_frames_path",
+        "read_file_bytes"
+      ]
+    },
+    {
+      "name": "no-market-mutation-commands",
+      "pass": true,
+      "detail": [
+        "get_icons_path",
+        "get_mod_frames_path",
+        "read_file_bytes"
+      ]
+    },
+    {
+      "name": "no-fixture-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "grid": {
+        "columns": "200px 200px 200px",
+        "left": 252,
+        "right": 1164
+      },
+      "toolbar": {
+        "columns": "450px 450px",
+        "client": 912,
+        "scroll": 912
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "categories": {
+        "wrap": "nowrap",
+        "client": 910,
+        "scroll": 1843,
+        "overflow": "auto"
+      },
+      "viewport": [
+        1200,
+        800
+      ],
+      "layout": {
+        "left": 220,
+        "width": 980,
+        "right": 1200
+      },
+      "filters": {
+        "client": 448,
+        "scroll": 462,
+        "overflow": "auto"
+      },
+      "sort": {
+        "client": 448,
+        "scroll": 462,
+        "overflow": "auto"
+      },
+      "cards": [
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        },
+        {
+          "left": 358,
+          "width": 200,
+          "right": 558
+        },
+        {
+          "left": 608,
+          "width": 200,
+          "right": 808
+        },
+        {
+          "left": 858,
+          "width": 200,
+          "right": 1058
+        }
+      ]
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "grid": {
+        "columns": "200px 200px",
+        "left": 252,
+        "right": 864
+      },
+      "toolbar": {
+        "columns": "612px",
+        "client": 612,
+        "scroll": 612
+      },
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "categories": {
+        "wrap": "nowrap",
+        "client": 610,
+        "scroll": 1843,
+        "overflow": "auto"
+      },
+      "viewport": [
+        900,
+        500
+      ],
+      "layout": {
+        "left": 220,
+        "width": 680,
+        "right": 900
+      },
+      "filters": {
+        "client": 610,
+        "scroll": 624,
+        "overflow": "auto"
+      },
+      "sort": {
+        "client": 610,
+        "scroll": 624,
+        "overflow": "auto"
+      },
+      "cards": [
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        },
+        {
+          "left": 333,
+          "width": 200,
+          "right": 533
+        },
+        {
+          "left": 583,
+          "width": 200,
+          "right": 783
+        }
+      ]
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 309743,
+      "after_length": 309743
+    },
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 11074,
+      "after_length": 11074
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 12007,
+      "after_length": 12007
+    },
+    {
+      "state": "frames-pending",
+      "equal": true,
+      "before_length": 11077,
+      "after_length": 11077
+    },
+    {
+      "state": "fix-checking",
+      "equal": true,
+      "before_length": 11077,
+      "after_length": 11077
+    },
+    {
+      "state": "fix-fixing",
+      "equal": true,
+      "before_length": 11908,
+      "after_length": 11908
+    },
+    {
+      "state": "price-loading",
+      "equal": true,
+      "before_length": 317309,
+      "after_length": 317309
+    },
+    {
+      "state": "price-progress",
+      "equal": true,
+      "before_length": 310207,
+      "after_length": 310207
+    }
+  ]
+}

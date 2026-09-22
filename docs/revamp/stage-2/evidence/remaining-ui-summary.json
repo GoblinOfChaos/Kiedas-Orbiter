@@ -1,0 +1,22 @@
+{
+  "extra_guards": 9,
+  "all_extra_guards_pass": true,
+  "export_checks_pass": true,
+  "extra_import": {
+    "result": {
+      "ok": true,
+      "value": "Imported 4 files. Preview backup: /var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-dhndh_5h/xdgdata/kiedas-orbiter-preview/data/user/preview-import-backup-1788589188814424918. Reload Preview to use the copy."
+    },
+    "inventory_scrubbed": true,
+    "history_scrubbed": true,
+    "preferences_safe": true
+  },
+  "checklist_hydrated": true,
+  "route_size_cases": 40,
+  "all_route_cases_pass": true,
+  "overflow_cases": [],
+  "tab_reaches_pin": true,
+  "enter_pins_dashboard": true,
+  "import_dialog_open": true,
+  "escape_closes_import": true
+}

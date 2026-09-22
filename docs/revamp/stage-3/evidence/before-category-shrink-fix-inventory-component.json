@@ -1,0 +1,467 @@
+{
+  "tier": "component browser with module mocks",
+  "fixture": "synthetic display data; no live game or market claims",
+  "checks": [
+    {
+      "name": "stable-populated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "1200-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "1200-15-tabs-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframes",
+        "Weapons",
+        "Companions",
+        "Companion Weapons",
+        "Archweapons",
+        "Vehicles",
+        "Amps",
+        "Arcanes",
+        "Peely Pix",
+        "Consumables",
+        "Landing Craft",
+        "Resources",
+        "Prime Sets",
+        "Ayatan"
+      ]
+    },
+    {
+      "name": "1200-root-horizontal-bounds",
+      "pass": true
+    },
+    {
+      "name": "1200-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 1200,
+        "scroll": 1200
+      }
+    },
+    {
+      "name": "1200-categories-scroll-contained",
+      "pass": true,
+      "detail": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 980,
+        "scroll": 980,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "1200-toolbar-columns",
+      "pass": true,
+      "detail": {
+        "columns": "484px 484px",
+        "client": 980,
+        "scroll": 980
+      }
+    },
+    {
+      "name": "1200-account-resources-visible",
+      "pass": true,
+      "detail": "Credits123456Platinum321Endo6543Forma5Standard2Aura1Stance1Umbra1Reactors4Catalysts5"
+    },
+    {
+      "name": "1200-tab-All",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Warframes",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Weapons",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Companions",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Companion Weapons",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Archweapons",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Amps",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Arcanes",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Peely Pix",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Consumables",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Landing Craft",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Resources",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Prime Sets",
+      "pass": true
+    },
+    {
+      "name": "1200-tab-Ayatan",
+      "pass": true
+    },
+    {
+      "name": "1200-no-reachable-sell",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-absent-no-0p",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-absent-no-sell",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-positive-42p",
+      "pass": true
+    },
+    {
+      "name": "1200-prime-loading-visible",
+      "pass": true
+    },
+    {
+      "name": "900-preview-layout-present",
+      "pass": true
+    },
+    {
+      "name": "900-15-tabs-order",
+      "pass": true,
+      "detail": [
+        "All",
+        "Warframes",
+        "Weapons",
+        "Companions",
+        "Companion Weapons",
+        "Archweapons",
+        "Vehicles",
+        "Amps",
+        "Arcanes",
+        "Peely Pix",
+        "Consumables",
+        "Landing Craft",
+        "Resources",
+        "Prime Sets",
+        "Ayatan"
+      ]
+    },
+    {
+      "name": "900-root-horizontal-bounds",
+      "pass": true
+    },
+    {
+      "name": "900-body-no-horizontal-overflow",
+      "pass": true,
+      "detail": {
+        "client": 900,
+        "scroll": 900
+      }
+    },
+    {
+      "name": "900-categories-scroll-contained",
+      "pass": true,
+      "detail": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 680,
+        "scroll": 680,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "900-toolbar-columns",
+      "pass": true,
+      "detail": {
+        "columns": "680px",
+        "client": 680,
+        "scroll": 680
+      }
+    },
+    {
+      "name": "900-account-resources-visible",
+      "pass": true,
+      "detail": "Credits123456Platinum321Endo6543Forma5Standard2Aura1Stance1Umbra1Reactors4Catalysts5"
+    },
+    {
+      "name": "900-tab-All",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Warframes",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Weapons",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Companions",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Companion Weapons",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Archweapons",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Vehicles",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Amps",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Arcanes",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Peely Pix",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Consumables",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Landing Craft",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Resources",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Prime Sets",
+      "pass": true
+    },
+    {
+      "name": "900-tab-Ayatan",
+      "pass": true
+    },
+    {
+      "name": "900-no-reachable-sell",
+      "pass": true
+    },
+    {
+      "name": "900-prime-absent-no-0p",
+      "pass": true
+    },
+    {
+      "name": "900-prime-absent-no-sell",
+      "pass": true
+    },
+    {
+      "name": "900-prime-positive-42p",
+      "pass": true
+    },
+    {
+      "name": "900-prime-loading-visible",
+      "pass": true
+    },
+    {
+      "name": "search-all-words",
+      "pass": true,
+      "detail": [
+        "Synthetic Resource 01"
+      ]
+    },
+    {
+      "name": "owned-filter-click",
+      "pass": true
+    },
+    {
+      "name": "owned-filter-active",
+      "pass": true
+    },
+    {
+      "name": "prime-filter-yes",
+      "pass": true
+    },
+    {
+      "name": "prime-filter-no",
+      "pass": true
+    },
+    {
+      "name": "binary-primary-filter",
+      "pass": true
+    },
+    {
+      "name": "sort-direction-toggle",
+      "pass": true
+    },
+    {
+      "name": "category-reset-owned",
+      "pass": true
+    },
+    {
+      "name": "category-reset-name-sort",
+      "pass": true
+    },
+    {
+      "name": "pagination-initial-48",
+      "pass": true,
+      "detail": 48
+    },
+    {
+      "name": "pagination-auto-60",
+      "pass": true,
+      "detail": 60
+    },
+    {
+      "name": "pagination-manual-load",
+      "pass": true,
+      "detail": 60
+    },
+    {
+      "name": "acquisition-drawer-open",
+      "pass": false
+    },
+    {
+      "name": "acquisition-drawer-close",
+      "pass": false
+    },
+    {
+      "name": "no-fixture-errors",
+      "pass": false,
+      "detail": [
+        "TypeError: V.get is not a function. (In 'V.get(Me(e))', 'V.get' is undefined)"
+      ]
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "stats": {
+        "client": 980,
+        "scroll": 980
+      },
+      "toolbar": {
+        "columns": "484px 484px",
+        "client": 980,
+        "scroll": 980
+      },
+      "categories": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 980,
+        "scroll": 980,
+        "overflow": "auto"
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "viewport": [
+        1200,
+        800
+      ],
+      "root": {
+        "left": 220,
+        "width": 980,
+        "right": 1200
+      }
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "stats": {
+        "client": 680,
+        "scroll": 680
+      },
+      "toolbar": {
+        "columns": "680px",
+        "client": 680,
+        "scroll": 680
+      },
+      "categories": {
+        "html": "<div class=\"flex flex-wrap gap-1 p-1 bg-black/20 rounded-xl border border-white/5 \"><button class=\"\n                px-4 py-1.5 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-300 whitespace-nowrap font-sans flex items-center justify-center gap-1.5\n                \n                bg-kronos-accent text-kronos-bg font-black shadow-[0_0_15px_rgba(var(--kronos-accent-rgb),0.4)] scale-[1.02]\n              \">All</button><button class=\"\n                px-4 py-1.5 rounded-lg te",
+        "wrap": "nowrap",
+        "client": 680,
+        "scroll": 680,
+        "overflow": "auto"
+      },
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "viewport": [
+        900,
+        500
+      ],
+      "root": {
+        "left": 220,
+        "width": 680,
+        "right": 900
+      }
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "mode": "populated",
+      "equal": true,
+      "before_length": 96210,
+      "after_length": 96210
+    },
+    {
+      "mode": "loading",
+      "equal": true,
+      "before_length": 9560,
+      "after_length": 9560
+    },
+    {
+      "mode": "empty",
+      "equal": true,
+      "before_length": 9884,
+      "after_length": 9884
+    }
+  ]
+}

@@ -1,0 +1,400 @@
+{
+  "timestamp": "2026-09-06T18:50:06.891980+00:00",
+  "component_checks": 62,
+  "component_passed": 62,
+  "stable_exact_markup_comparison_count": 8,
+  "stable_exact_markup_states": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 1253,
+      "after_length": 1253
+    },
+    {
+      "state": "missing-export",
+      "equal": true,
+      "before_length": 8764,
+      "after_length": 8764
+    },
+    {
+      "state": "missing-inventory",
+      "equal": true,
+      "before_length": 25673,
+      "after_length": 25673
+    },
+    {
+      "state": "empty-selection",
+      "equal": true,
+      "before_length": 25675,
+      "after_length": 25675
+    },
+    {
+      "state": "populated-selection",
+      "equal": true,
+      "before_length": 26808,
+      "after_length": 26808
+    },
+    {
+      "state": "no-matches",
+      "equal": true,
+      "before_length": 25715,
+      "after_length": 25715
+    },
+    {
+      "state": "ownership-filtered",
+      "equal": true,
+      "before_length": 26635,
+      "after_length": 26635
+    },
+    {
+      "state": "post-load-more",
+      "equal": true,
+      "before_length": 42415,
+      "after_length": 42415
+    }
+  ],
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 60,
+      "passed": 60,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5,
+        "relic_planner_checks": 5
+      },
+      "binary_sha256": "eda88292a15eb7c8c0d0c6cd5a266e5430b71552ce828246516ea1af82be3c25",
+      "relic_planner_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "three-panel-layout",
+          "state": {
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "panels": [
+              {
+                "height": 584,
+                "left": 240,
+                "right": 498.28125,
+                "top": 214
+              },
+              {
+                "height": 584,
+                "left": 510.28125,
+                "right": 768.5625,
+                "top": 214
+              },
+              {
+                "height": 584,
+                "left": 780.5625,
+                "right": 1168,
+                "top": 214
+              }
+            ],
+            "columns": 3,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "parts",
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "ownership",
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 240,
+              "right": 1168
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "three-panel-layout",
+          "state": {
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "panels": [
+              {
+                "height": 284,
+                "left": 240,
+                "right": 412.5625,
+                "top": 214
+              },
+              {
+                "height": 284,
+                "left": 424.5625,
+                "right": 597.140625,
+                "top": 214
+              },
+              {
+                "height": 284,
+                "left": 609.140625,
+                "right": 868,
+                "top": 214
+              }
+            ],
+            "columns": 3,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "parts",
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "ownership",
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 240,
+              "right": 868
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "real-catalog-selection-and-matching",
+          "picker": {
+            "name": "Planner Alpha Prime Blueprint",
+            "ok": true
+          },
+          "selected": {
+            "selected": "NEED LIST\n1 selected\nPlanner Alpha Prime Blueprint\n\nClear\nAdd All Missing Parts\nAdd Never Obtained\n",
+            "removeLabel": "Remove Planner Alpha Prime Blueprint",
+            "resultCount": 2
+          },
+          "pass": true
+        },
+        {
+          "kind": "keyboard-removal",
+          "focused": true,
+          "removed": true,
+          "pass": true
+        },
+        {
+          "kind": "controls-and-market-surface",
+          "state": {
+            "noSell": true,
+            "panelKinds": [
+              "picker",
+              "need",
+              "results"
+            ],
+            "partFilters": [
+              "All",
+              "Never Obtained",
+              "Missing"
+            ],
+            "ownershipFilters": [
+              "All",
+              "Owned",
+              "Unowned"
+            ]
+          },
+          "pass": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 60,
+      "passed": 60,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5,
+        "relic_planner_checks": 5
+      },
+      "binary_sha256": "3a6283970784234036c72f5fc65b8d3b966548172318099732c3cffef69889a6",
+      "relic_planner_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "three-panel-layout",
+          "state": {
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "panels": [
+              {
+                "height": 584,
+                "left": 240,
+                "right": 498.28125,
+                "top": 214
+              },
+              {
+                "height": 584,
+                "left": 510.28125,
+                "right": 768.5625,
+                "top": 214
+              },
+              {
+                "height": 584,
+                "left": 780.5625,
+                "right": 1168,
+                "top": 214
+              }
+            ],
+            "columns": 3,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "parts",
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "ownership",
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 240,
+              "right": 1168
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "three-panel-layout",
+          "state": {
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "panels": [
+              {
+                "height": 284,
+                "left": 240,
+                "right": 412.5625,
+                "top": 214
+              },
+              {
+                "height": 284,
+                "left": 424.5625,
+                "right": 597.140625,
+                "top": 214
+              },
+              {
+                "height": 284,
+                "left": 609.140625,
+                "right": 868,
+                "top": 214
+              }
+            ],
+            "columns": 3,
+            "rails": [
+              {
+                "wrap": "nowrap",
+                "kind": "parts",
+                "overflow": "auto"
+              },
+              {
+                "wrap": "nowrap",
+                "kind": "ownership",
+                "overflow": "auto"
+              }
+            ],
+            "noSell": true,
+            "root": {
+              "left": 240,
+              "right": 868
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "kind": "real-catalog-selection-and-matching",
+          "picker": {
+            "name": "Planner Alpha Prime Blueprint",
+            "ok": true
+          },
+          "selected": {
+            "selected": "NEED LIST\n1 selected\nPlanner Alpha Prime Blueprint\n\nClear\nAdd All Missing Parts\nAdd Never Obtained\n",
+            "removeLabel": "Remove Planner Alpha Prime Blueprint",
+            "resultCount": 2
+          },
+          "pass": true
+        },
+        {
+          "kind": "keyboard-removal",
+          "focused": true,
+          "removed": true,
+          "pass": true
+        },
+        {
+          "kind": "controls-and-market-surface",
+          "state": {
+            "noSell": true,
+            "panelKinds": [
+              "picker",
+              "need",
+              "results"
+            ],
+            "partFilters": [
+              "All",
+              "Never Obtained",
+              "Missing"
+            ],
+            "ownershipFilters": [
+              "All",
+              "Owned",
+              "Unowned"
+            ]
+          },
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3H implemented and validated; awaiting user acceptance"
+}

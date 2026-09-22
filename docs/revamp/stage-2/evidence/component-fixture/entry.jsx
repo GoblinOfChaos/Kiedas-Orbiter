@@ -1,0 +1,1 @@
+import React from 'react';import {createRoot} from 'react-dom/client';import PreviewImport from '../stage2/src/components/PreviewImport.jsx';window.fixture={path:'/synthetic/data/user',calls:[],mode:'success',message:'Synthetic import completed.'};createRoot(document.getElementById('root')).render(<PreviewImport/>);

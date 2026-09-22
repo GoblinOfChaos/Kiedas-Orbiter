@@ -1,0 +1,1620 @@
+{
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ReplayLightCritHits": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ReplayLightCritHits",
+    "wikiName": "Melee Duplicate",
+    "description": "On Base Critical Hits: 100% chance for your attack to strike a second time",
+    "acquisition": "Drops from: Netracells (10%); Deep Archimedea (10%); Deep Archimedea (25%); Deep Archimedea (15%).",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Duplicate'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeSpeedOnHit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeSpeedOnHit",
+    "wikiName": "Arcane Strike",
+    "description": "On Hit:\r\n15% chance for +60% Attack Speed to Melee Weapons for 18s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (14.63%); Eidolon Gantulyst Kill (18.25%); Veil Proxima Orphix (5.63%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (6.9%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Strike'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/StatusAndAmmoEfficiencyOnWeakpointHit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/StatusAndAmmoEfficiencyOnWeakpointHit",
+    "wikiName": "Primary Crux",
+    "description": "On Weak Point Hit: Gain +30% Status Chance and +6% Ammo Efficiency for 10s. Stacks up to 10x.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 2+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Crux'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryJamEnemyWeaponsOnMagneticProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryJamEnemyWeaponsOnMagneticProc",
+    "wikiName": "Primary Obstruct",
+    "description": "On Weapon <DT_MAGNETIC_COLOR>Magnetic Status Effect: Enemy weapons jam within 15m of target. Cooldown 10s.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Obstruct'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryExtraDamagePerFreezeStack": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryExtraDamagePerFreezeStack",
+    "wikiName": "Secondary Shiver",
+    "description": "Enemies take +45% damage per <DT_FREEZE_COLOR>Cold Status",
+    "acquisition": "Drops from: Tier 7 The Circuit (Steel Path) (6%); Tier 6 The Circuit (Steel Path) (6%); Tier 2 The Circuit (Steel Path) (33.33%); Tier 8 The Circuit (Steel Path) (33.33%); Purchased from Acrithis for 20 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Shiver'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/TetherMineOnDash": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/TetherMineOnDash",
+    "wikiName": "Magus Lockdown",
+    "description": "On Void Sling:\r\nDrop a mine that tethers up to 10 enemies in 15m for 4s.",
+    "acquisition": "Purchased from Vox Solaris (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcanePistolDamageOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcanePistolDamageOnHeadshot",
+    "wikiName": "Arcane Precision",
+    "description": "On Headshot:\r\n+300% Damage for 18s on Secondary Weapon",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (5.92%); Eidolon Gantulyst Kill (7.02%); Veil Proxima Orphix (2.82%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (3.45%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Precision'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/HealthRegenOnDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/HealthRegenOnDamage",
+    "wikiName": "Arcane Grace",
+    "description": "On Health Damaged:\r\n9% chance for +6% Health Regeneration/s for 9s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Capture (5%); Veil Proxima Orphix (1.41%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Grace'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityStrengthOnSummonAttack": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityStrengthOnSummonAttack",
+    "wikiName": "Arcane Camisado",
+    "description": "Attacks from summoned minions increase Ability Strength by 6% up to 60% on the next Ability Cast. Summons gain 20% Movement Speed.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Camisado'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/PistolDamageOnReload": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/PistolDamageOnReload",
+    "wikiName": "Arcane Awakening",
+    "description": "On Reload:\r\n60% chance for +150% Damage to Pistols for 24s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (14.63%); Eidolon Gantulyst Kill (18.25%); Veil Proxima Orphix (5.63%); Neptune Proxima Orphix (6.9%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Awakening'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityPowerOnFreeze": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityPowerOnFreeze",
+    "wikiName": "Arcane Ice Storm",
+    "description": "On Enemy Frozen: Gain +2% Ability Strength and +2% Ability Duration for 15s. Stacks up to 20x.",
+    "acquisition": "Drops from: Sisters of Parvos (Ascension Hard Mode) (20%); Sisters of Parvos (Ascension Mode) (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Ice Storm'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MaxEnergyForArmor": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MaxEnergyForArmor",
+    "wikiName": "Arcane Battery",
+    "description": "Gain 0.30 maximum Energy per Armor point, up to 1000 Energy.",
+    "acquisition": "Drops from: Sisters of Parvos (Ascension Hard Mode) (20%); Sisters of Parvos (Ascension Mode) (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Battery'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HealCompanionOnSixMeleeKills": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HealCompanionOnSixMeleeKills",
+    "wikiName": "Arcane Bodyguard",
+    "description": "On 6 Melee Kills within 30s:\r\nHeal Companion for 900",
+    "acquisition": "Drops from: Arbitrations (5%); Arbitrations (5%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Bodyguard'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/HealthWhileUsingChanneledAbilities": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/HealthWhileUsingChanneledAbilities",
+    "wikiName": "Arcane Intention",
+    "description": "Gain +250 Max Health per active channeled ability.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Intention'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnNoMelee": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnNoMelee",
+    "wikiName": "Secondary Deadhead",
+    "description": "On Precision Headshot Kill:\r\n+120% Damage for 24s. Stacks up to 3x.\r\n+30% to Headshot Multiplier\r\n-50% Weapon Recoil",
+    "acquisition": "Drops from: Mania (16.67%); Angst (16.67%); Violence (16.67%); Torment (16.67%); Misery (16.67%); Malice (16.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Deadhead'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MultishotForCombo": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MultishotForCombo",
+    "wikiName": "Secondary Outburst",
+    "description": "On swapping to Secondary Weapon, consume all Combo Multipliers to increase Secondary Weapon Critical Chance and Critical Damage by 20% per Combo consumed for 30s.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 7 The Circuit (Steel Path) (6%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 6 The Circuit (Steel Path) (6%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Outburst'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GroundSlamPull": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GroundSlamPull",
+    "wikiName": "Exodia Hunt",
+    "description": "On Ground Slam:\r\n50% chance to pull enemies within 12m into melee range.",
+    "acquisition": "Purchased from Hok (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/EnergyOnGhostDissipate": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/EnergyOnGhostDissipate",
+    "wikiName": "Emergence Dissipate",
+    "description": "While in Void Sling: Press <PRE_ATTACK> to dissipate the endpoint in a 10m radius. Enemies hit create a short lived Void Mote that replenishes 10 Energy on pick up.",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Emergence Dissipate'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/ToxicBloodOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/ToxicBloodOnKill",
+    "wikiName": "Residual Viremia",
+    "description": "On Kitgun Kill:\r\n20% chance to create pool of toxic blood for 12s, dealing 40 <DT_POISON_COLOR>Toxin Damage/s. Standing in the area applies the <DT_POISON_COLOR>Toxin Damage to Theorem Arcanes.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 50-60 Final Stage (30%); Arcana Isolation Vault Bounty Lvl 30-40 Final Stage (30%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (15%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (15%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (15%); Isolation Vault Lvl 30-40 (15%); Arcana Isolation Vault Bounty Lvl 30-40 Stages 2 & 3 (18.75%); Arcana Isolation Vault Bounty Lvl 40-50 Stages 2 & 3 (18.75%); Isolation Vault Lvl 40-50 (15%); Isolation Vault Lvl 50-60 (15%); Arcana Isolation Vault Bounty Lvl 50-60 Stages 2 & 3 (18.75%); Arcana Isolation Vault Bounty Lvl 40-50 Final Stage (30%).",
+    "sourceRefs": [
+      "drop reverse index: 'Residual Viremia'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ArmourOnDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ArmourOnDamage",
+    "wikiName": "Arcane Guardian",
+    "description": "On Damaged:\r\n15% chance for +900 Armor for 20s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (11.92%); Eidolon Gantulyst Kill (15.68%); Veil Proxima Orphix (5.63%); Neptune Proxima Orphix (6.9%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Guardian'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PermaComboOnFinisher": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PermaComboOnFinisher",
+    "wikiName": "Melee Crescendo",
+    "description": "On Finisher Kill: Gain 6 Initial Combo for the rest of your mission",
+    "acquisition": "Drops from: Netracells (10%); Deep Archimedea (10%); Deep Archimedea (25%); Deep Archimedea (15%).",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Crescendo'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/EnergyEfficiencyOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/EnergyEfficiencyOnHeadshot",
+    "wikiName": "Pax Bolt",
+    "description": "On Headshot Kill:\r\n+30% Ability Efficiency and +30% Ability Strength on the next Ability used within 4s.",
+    "acquisition": "Purchased from Rude Zuud (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/OperatorOnOperatorAbilityIncreaseDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/OperatorOnOperatorAbilityIncreaseDamage",
+    "wikiName": "Eternal Eradicate",
+    "description": "On Operator Ability:\r\n+60% Damage to Amps for 8s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 1+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Eternal Eradicate'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityStrengthForMaxHealth": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityStrengthForMaxHealth",
+    "wikiName": "Arcane Bellicose",
+    "description": "Gain 6% Ability Strength for every 250 Max Health up to 72%.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 4+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Bellicose'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneMeleeDamageOnCrit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneMeleeDamageOnCrit",
+    "wikiName": "Arcane Fury",
+    "description": "On Critical Hit:\r\n60% chance for +180% Melee Damage to Melee Weapons for 18s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Kill (13.76%); Eidolon Hydrolyst Capture (11.24%); Veil Proxima Orphix (2.82%); Neptune Proxima Orphix (3.45%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Fury'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/FinisherLifesteal": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/FinisherLifesteal",
+    "wikiName": "Exodia Might",
+    "description": "On Finisher Kill:\r\n50% chance for +30% Life Steal for 8s",
+    "acquisition": "Purchased from Hok (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityStatusProcsGiveAbilityStrengthAndEfficiency": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityStatusProcsGiveAbilityStrengthAndEfficiency",
+    "wikiName": "Arcane Impetus",
+    "description": "Unique Status Effects from Abilities grant +6% Ability Strength and +3% Ability Efficiency for 20s.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Impetus'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/CriticalChanceOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/CriticalChanceOnHeadshot",
+    "wikiName": "Virtuos Shadow",
+    "description": "On Headshot:\r\n40% chance for +60% Critical Chance for 12s",
+    "acquisition": "Purchased from The Quills (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/RadialKnockdownOnEnergyPickup": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/RadialKnockdownOnEnergyPickup",
+    "wikiName": "Arcane Eruption",
+    "description": "On Energy Pickup:\r\n100% chance to Knockdown nearby enemies",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (9.25%); Eidolon Gantulyst Kill (10.2%); Veil Proxima Orphix (5.63%); Pluto Proxima Orphix (6.67%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Eruption'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/ConvergeRadialAttackOnAim": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/ConvergeRadialAttackOnAim",
+    "wikiName": "Primary Compression",
+    "description": "On aim: x0.2 explosion radius, +100% damage and +5.5% ammo efficiency for every 1m radius lost.",
+    "acquisition": "Drops from: Uranus Proxima Completion Bonuses (25%).",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Compression'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/IncreaseMaxHealthOnHealthPickup": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/IncreaseMaxHealthOnHealthPickup",
+    "wikiName": "Arcane Blessing",
+    "description": "On Health Pickup:\r\n+24 Max Health. Stacks up to 50x.",
+    "acquisition": "Drops from: Tier 2 Conjunction Survival (10.2%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Blessing'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Antiques/VoidSlingsOverguardStrip": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Antiques/VoidSlingsOverguardStrip",
+    "wikiName": "Zid-An Osbok",
+    "description": "Void Sling strips 30% of enemy Overguard.\r\nWhen Overguard is stripped: +3.0x Amp Critical Damage for 15s.",
+    "acquisition": "Drops from: Recall: Prime Vanguard (20%); Recall: Dactolyst (20%); Recall: Hunhullus (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Zid-An Osbok'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/RadiationProcResist": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/RadiationProcResist",
+    "wikiName": "Arcane Healing",
+    "description": "+102% chance to resist a <DT_RADIATION_COLOR>Radiation Status effect.",
+    "acquisition": "Drops from: Eidolon Teralyst Capture (6.02%); Veil Proxima Orphix (5.63%); Neptune Proxima Orphix (6.9%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Healing'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeDmgOnRifleKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeDmgOnRifleKill",
+    "wikiName": "Arcane Blade Charger",
+    "description": "On Primary Weapon Kill:\r\n30% chance for +300% Melee Damage for 12s",
+    "acquisition": "Drops from: Arbitrations (5%); Arbitrations (5%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Blade Charger'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PowerStrengthOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PowerStrengthOnKill",
+    "wikiName": "Molt Augmented",
+    "description": "On Kill:\r\n+0.24% Ability Strength. Stacks up to 250x.",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Molt Augmented'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/LongGunSpeedOnCrit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/LongGunSpeedOnCrit",
+    "wikiName": "Arcane Acceleration",
+    "description": "On Critical Hit:\r\n30% chance for +90% Fire Rate to Primary Weapons (Excludes Shotguns) for 9s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (9.25%); Eidolon Gantulyst Kill (10.2%); Veil Proxima Orphix (5.63%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (6.9%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Acceleration'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnKill",
+    "wikiName": "Secondary Merciless",
+    "description": "On Kill:\r\n+30% Damage for 4s. Stacks up to 12x.\r\n+30% Reload Speed",
+    "acquisition": "Drops from: Mania (16.67%); Angst (16.67%); Violence (16.67%); Torment (16.67%); Misery (16.67%); Malice (16.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Merciless'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ArmourOnOperatorMode": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ArmourOnOperatorMode",
+    "wikiName": "Magus Husk",
+    "description": "On Transference Out:\r\n+300 Armor",
+    "acquisition": "Purchased from The Quills (Rank 2+) for 5,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/SpeedOnParry": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/SpeedOnParry",
+    "wikiName": "Arcane Phantasm",
+    "description": "On Block:\r\n45% chance for +60% Speed for 18s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (9.25%); Eidolon Gantulyst Kill (10.2%); Veil Proxima Orphix (5.63%); Pluto Proxima Orphix (6.67%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Phantasm'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HeavyCritOnRegularMelee": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HeavyCritOnRegularMelee",
+    "wikiName": "Melee Animosity",
+    "description": "On Melee Hit: Gain 42% Critical Chance on your next Heavy Attack, up to 420%",
+    "acquisition": "Drops from: The Fragmented One (12.5%); The Fragmented Suzerain (12.5%); The Fragmented Zelator (12.5%); The Fragmented Anchorite (12.5%); The Fragmented (12.5%); Scathing Whisper (12.5%); Mocking Whisper (12.5%); Purchased from Bird 3 (Rank 4+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Animosity'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnTransferenceOut": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnTransferenceOut",
+    "wikiName": "Magus Nourish",
+    "description": "While An Operator:\r\nRestores 35 Health/s to Warframe.",
+    "acquisition": "Purchased from The Quills (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ReverseOnDash": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ReverseOnDash",
+    "wikiName": "Magus Revert",
+    "description": "On Void Sling:\r\nUse again within 3s, to return the Operator to their original position at no energy cost. Restores 60 Health. 3s cooldown.",
+    "acquisition": "Purchased from Vox Solaris (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/DuplicateStatusOnKnock": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/DuplicateStatusOnKnock",
+    "wikiName": "Melee Afflictions",
+    "description": "Enemies affected by Status Effects gain 6 additional stacks when they're knocked down or flung by melee attacks.",
+    "acquisition": "Drops from: Sisters of Parvos (Ascension Hard Mode) (20%); Sisters of Parvos (Ascension Mode) (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Afflictions'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/SpeedOnDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/SpeedOnDamage",
+    "wikiName": "Arcane Agility",
+    "description": "On Damaged:\r\n60% chance for +60% Parkour Velocity for 18s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (9.25%); Eidolon Gantulyst Kill (10.2%); Veil Proxima Orphix (5.63%); Pluto Proxima Orphix (6.67%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Agility'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/OperatorHeavyMeleeDamageOnTransference": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/OperatorHeavyMeleeDamageOnTransference",
+    "wikiName": "Magus Aggress",
+    "description": "On Warframe Melee Transference: Heavy Blades deal +300% Critical Damage for 4 consecutive attacks. Cooldown 20s.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Magus Aggress'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnVoidMode": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnVoidMode",
+    "wikiName": "Magus Repair",
+    "description": "On Void Mode:\r\nHeal Warframes within 30m by 25% Health/s.",
+    "acquisition": "Purchased from Vox Solaris (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/StatusChannelingDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/StatusChannelingDamage",
+    "wikiName": "Exodia Triumph",
+    "description": "+50% Additional Combo Count Chance",
+    "acquisition": "Purchased from Hok (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Antiques/UltimateInvisibilty": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Antiques/UltimateInvisibilty",
+    "wikiName": "Zid-An Sek-Eel",
+    "description": "Gain invisiblity for 30s after activating Tauron Strike\r\n+9% Tauron Strike Charge Rate",
+    "acquisition": "Drops from: Recall: Prime Vanguard (20%); Recall: Dactolyst (20%); Recall: Hunhullus (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Zid-An Sek-Eel'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AmmoEfficiencyOnPistolHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AmmoEfficiencyOnPistolHeadshot",
+    "wikiName": "Arcane Pistoleer",
+    "description": "On Pistol Headshot Kill:\r\n60% chance for +102% Ammo Efficiency for 12s",
+    "acquisition": "Drops from: Arbitrations (5%); Arbitrations (5%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Pistoleer'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ArmorOnHeavyGunEquipped": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ArmorOnHeavyGunEquipped",
+    "wikiName": "Arcane Tanker",
+    "description": "On Archgun Equipped:\r\n+1,200 Armor for 60s",
+    "acquisition": "Drops from: Arbitrations (5%); Arbitrations (5%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Tanker'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/FreezeProcResist": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/FreezeProcResist",
+    "wikiName": "Arcane Warmth",
+    "description": "+102% chance to resist a <DT_FREEZE_COLOR>Cold Status effect.",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (14.95%); Eidolon Teralyst Capture (12.05%); Pluto Proxima Orphix (10%); Neptune Proxima Orphix (10.34%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (10.34%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Warmth'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryHeadshotCritMultOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryHeadshotCritMultOnHeadshot",
+    "wikiName": "Primary Blight",
+    "description": "On <DT_POISON_COLOR>Toxin Status Effect:\r\n+3.6% Critical Damage and +1.8% Multishot for 12s. Stacks up to 40x.",
+    "acquisition": "Drops from: Nokko: Corporate Restructuring Rewards (Steel Path) (10%); Nokko: Corporate Restructuring Rewards (Steel Path) (8%); Tier 1 The Circuit (Steel Path) (4.43%); Nokko: Critter Liberation Rewards (Steel Path) (10%); Nokko: Critter Liberation Rewards (Steel Path) (8%); Nokko: Weed The Gardens Rewards (8%); Nokko: Weed The Gardens Rewards (4%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 7 The Circuit (Steel Path) (6%); Nokko: Critter Liberation Rewards (8%); Nokko: Critter Liberation Rewards (4%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 6 The Circuit (Steel Path) (6%); Tier 4 The Circuit (Steel Path) (4.43%); Nokko: Weed The Gardens Rewards (Steel Path) (10%); Nokko: Weed The Gardens Rewards (Steel Path) (8%); Nokko: Corporate Restructuring Rewards (8%); Nokko: Corporate Restructuring Rewards (4%); Purchased from Acrithis for 10 Pathos Clamp; or Nightcap (Rank 3+) for 10 Fergolyte.",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Blight'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamageOnMeleeKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamageOnMeleeKill",
+    "wikiName": "Primary Dexterity",
+    "description": "On Melee Kill:\r\n+60% Damage for 20s. Stacks up to 6x.\r\n+7.5s Combo Duration",
+    "acquisition": "Drops from: Mania (16.67%); Angst (16.67%); Violence (16.67%); Torment (16.67%); Misery (16.67%); Malice (16.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Dexterity'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Antiques/StatusChanceOnUltimateHit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Antiques/StatusChanceOnUltimateHit",
+    "wikiName": "Zid-An Asheir",
+    "description": "6% Status chance for all Warframe weapons for each enemy hit with Tauron Strike, up to 300%. Buff lasts for 30s\r\n+18% Tauron Strike Initial Charge.",
+    "acquisition": "Drops from: Recall: Prime Vanguard (20%); Recall: Dactolyst (20%); Recall: Hunhullus (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Zid-An Asheir'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/InvisibilityOnFinisher": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/InvisibilityOnFinisher",
+    "wikiName": "Arcane Trickery",
+    "description": "On Finisher Kill:\r\n15% chance to become invisible for 30s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Kill (24.78%); Eidolon Hydrolyst Capture (20.24%); Veil Proxima Orphix (5.63%); Neptune Proxima Orphix (6.9%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Trickery'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamagePerAmmoOnReload": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamagePerAmmoOnReload",
+    "wikiName": "Primary Plated Round",
+    "description": "On Reload: Deal increased damage per round loaded based on max magazine size. Lasts for 10s.",
+    "acquisition": "Drops from: Mirror Defense (5.7%).",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Plated Round'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AmmoEfficiencyOnSliding": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AmmoEfficiencyOnSliding",
+    "wikiName": "Akimbo Slip Shot",
+    "description": "While sliding or aim gliding: Gain 65% ammo efficiency with Dual Pistols.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 7 The Circuit (Steel Path) (6%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 6 The Circuit (Steel Path) (6%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Akimbo Slip Shot'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/SecondaryOnStatusProcBonusDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/SecondaryOnStatusProcBonusDamage",
+    "wikiName": "Cascadia Empowered",
+    "description": "On Status Effect:\r\nDeals +750 Damage matching the Damage Type of the Status Effect",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Cascadia Empowered'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/MagneticProcResist": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/MagneticProcResist",
+    "wikiName": "Arcane Nullifier",
+    "description": "+102% chance to resist a <DT_MAGNETIC_COLOR>Magnetic Status effect.",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (14.95%); Eidolon Teralyst Capture (12.05%); Pluto Proxima Orphix (10%); Neptune Proxima Orphix (10.34%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (10.34%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Nullifier'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDmgOnMeleeKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDmgOnMeleeKill",
+    "wikiName": "Arcane Primary Charger",
+    "description": "On Melee Kill:\r\n30% chance for +300% Primary Weapon Damage for 12s",
+    "acquisition": "Drops from: Arbitrations (5%); Arbitrations (5%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Primary Charger'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/SecondaryOnRollCritChanceOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/SecondaryOnRollCritChanceOnHeadshot",
+    "wikiName": "Cascadia Accuracy",
+    "description": "On Roll:\r\n+300% Critical Chance on Weakpoint Hits for 4s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 1+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Cascadia Accuracy'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/DamageResistanceStacksOverTime": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/DamageResistanceStacksOverTime",
+    "wikiName": "Arcane Double Back",
+    "description": "Gain +25% damage resistance for 4s per Dodge, Double Jump and Bullet Jump. Stacks up to 3x.",
+    "acquisition": "Drops from: Mirror Defense (5.7%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Double Back'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/NoCostCastChanceOnCast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/NoCostCastChanceOnCast",
+    "wikiName": "Arcane Steadfast",
+    "description": "On Ability Cast: 20% chance that the next three Abilities will not cost Energy.",
+    "acquisition": "Drops from: Mirror Defense (5.7%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Steadfast'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeArcaneProjectileOnJump": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeArcaneProjectileOnJump",
+    "wikiName": "Exodia Contagion",
+    "description": "After a Bullet Jump or Double Jump:\r\nMelee while Aim Gliding launches a projectile that explodes on impact",
+    "acquisition": "Purchased from Operational Supply (Rank 2+) for 5000x Standing, 1500x Credits.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CritChannelingDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CritChannelingDamage",
+    "wikiName": "Exodia Valor",
+    "description": "+200% Additional Combo Count Chance on Lifted enemies",
+    "acquisition": "Purchased from Hok (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/OperatorOnEnergyDepletedRegenEnergy": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/OperatorOnEnergyDepletedRegenEnergy",
+    "wikiName": "Emergence Renewed",
+    "description": "On Energy Depleted:\r\nIncrease Energy Regeneration by 300% over 5s. Cooldown: 30s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Emergence Renewed'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/OperatorOnDeathInvulnerability": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/OperatorOnDeathInvulnerability",
+    "wikiName": "Emergence Savior",
+    "description": "On Lethal Damage:\r\nBecome invulnerable for 5s and recover 60% Health. Cooldown: 90s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 1+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Emergence Savior'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/StatusTriggerRadialDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/StatusTriggerRadialDamage",
+    "wikiName": "Exodia Force",
+    "description": "On Status Effect:\r\n50% chance to deal 200% Weapon Damage to enemies within 6m.",
+    "acquisition": "Purchased from Hok (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryCritOnHit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryCritOnHit",
+    "wikiName": "Secondary Enervate",
+    "description": "On Hit: Increase Critical Chance by 10%. Resets after 6 Big Critical Hit.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 5+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Enervate'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/OrbsOnResidualContact": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/OrbsOnResidualContact",
+    "wikiName": "Theorem Contagion",
+    "description": "Standing in a zone created by a Residual Arcane creates a globe that orbits the player every 2s. The globes will strike the nearest enemy within 15m dealing 150 damage increasing their vulnerability to the globe's damage type by 200% for 6s. Globes will persist for 30s upon leaving the zone.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 50-60 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 50-60 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 50-60 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 30-40 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 30-40 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 30-40 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (10%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (10%); Isolation Vault Lvl 30-40 (10%); Isolation Vault Lvl 30-40 (10%); Isolation Vault Lvl 30-40 (10%); Isolation Vault Lvl 40-50 (10%); Isolation Vault Lvl 40-50 (10%); Isolation Vault Lvl 40-50 (10%); Isolation Vault Lvl 50-60 (10%); Isolation Vault Lvl 50-60 (10%); Isolation Vault Lvl 50-60 (10%); Arcana Isolation Vault Bounty Lvl 40-50 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 40-50 Final Stage (20%); Arcana Isolation Vault Bounty Lvl 40-50 Final Stage (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Theorem Contagion'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryCritDmgAndMultishotOnColdProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryCritDmgAndMultishotOnColdProc",
+    "wikiName": "Primary Frostbite",
+    "description": "On <DT_FREEZE_COLOR>Cold Status Effect:\r\n+3% Critical Damage and +2.25% Multishot for 12s. Stacks up to 40x.",
+    "acquisition": "Drops from: Nokko: Corporate Restructuring Rewards (Steel Path) (10%); Nokko: Corporate Restructuring Rewards (Steel Path) (8%); Nokko: Critter Liberation Rewards (Steel Path) (10%); Nokko: Critter Liberation Rewards (Steel Path) (8%); Nokko: Weed The Gardens Rewards (8%); Nokko: Weed The Gardens Rewards (4%); Nokko: Critter Liberation Rewards (8%); Nokko: Critter Liberation Rewards (4%); Tier 2 Conjunction Survival (10.2%); Nokko: Weed The Gardens Rewards (Steel Path) (10%); Nokko: Weed The Gardens Rewards (Steel Path) (8%); Nokko: Corporate Restructuring Rewards (8%); Nokko: Corporate Restructuring Rewards (4%); Purchased from Nightcap (Rank 3+) for 10 Fergolyte.",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Frostbite'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ChannelKillEnergyRate": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ChannelKillEnergyRate",
+    "wikiName": "Exodia Brave",
+    "description": "On Heavy Attack Kill:\r\n+5 Energy Rate for 4s. Stacks up to 3x.",
+    "acquisition": "Purchased from Hok (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HeatDamageOnDash": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HeatDamageOnDash",
+    "wikiName": "Magus Melt",
+    "description": "On Void Sling:\r\nIncrease <DT_FIRE_COLOR>Heat Damage in Operator Mode by 30% for 15s, stacking up to 7x.",
+    "acquisition": "Purchased from Vox Solaris (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/AmpOnVoidSlingAmpAmmoEfficiency": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/AmpOnVoidSlingAmpAmmoEfficiency",
+    "wikiName": "Eternal Logistics",
+    "description": "On Void Sling:\r\n+72% Amp Ammo Efficiency for 8s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 4+) for 8,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Eternal Logistics'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnHeatProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnHeatProc",
+    "wikiName": "Cascadia Flare",
+    "description": "On <DT_FIRE_COLOR>Heat Status Effect:\r\n+12% Damage for 10s. Stacks up to 480%.",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 2+) for 5,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Cascadia Flare'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcanePistolSpeedOnCrit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcanePistolSpeedOnCrit",
+    "wikiName": "Arcane Velocity",
+    "description": "On Critical Hit:\r\n90% chance for +120% Fire Rate to Pistols for 9s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Kill (22.23%); Eidolon Hydrolyst Capture (16.79%); Veil Proxima Orphix (5.63%); Pluto Proxima Orphix (6.67%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Velocity'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneBonusDamageOnWallLatch": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneBonusDamageOnWallLatch",
+    "wikiName": "Arcane Arachne",
+    "description": "On Wall Latch:\r\n+150% Damage to Primary and Secondary weapons for 30s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Kill (13.76%); Eidolon Hydrolyst Capture (12.74%); Veil Proxima Orphix (2.82%); Pluto Proxima Orphix (3.33%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Arachne'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/InvulnerabilityOnDeathOnMercyKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/InvulnerabilityOnDeathOnMercyKill",
+    "wikiName": "Arcane Escapist",
+    "description": "On Mercy Kill: Gain a stack of Escapist, up to 9x. On taking fatal damage, consume 3 stacks to avoid death and become invulnerable for 12s.",
+    "acquisition": "Drops from: Temporal Archimedea (8.76%); Temporal Archimedea (13.66%); Temporal Archimedea (8.51%); Purchased from Kaya (Rank 5+) for 5 Pix Chip.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Escapist'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneSniperSpeedOnCrit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneSniperSpeedOnCrit",
+    "wikiName": "Arcane Momentum",
+    "description": "On Critical Hit:\r\n60% chance for +150% Reload Speed to Sniper Rifles for 12s",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (14.95%); Eidolon Teralyst Capture (12.05%); Pluto Proxima Orphix (10%); Neptune Proxima Orphix (10.34%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (10.34%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Momentum'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/CritChanceOnDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/CritChanceOnDamage",
+    "wikiName": "Arcane Avenger",
+    "description": "On Damaged:\r\n21% chance for +45% Critical Chance for 12s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Kill (11.7%); Eidolon Hydrolyst Capture (11.24%); Veil Proxima Orphix (2.82%); Pluto Proxima Orphix (3.33%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Avenger'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealthRegenAndArmorOnMeleeKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealthRegenAndArmorOnMeleeKill",
+    "wikiName": "Arcane Reaper",
+    "description": "On Melee Kill:\r\n+24 Health Regen/s and +660 Armor for 10s.",
+    "acquisition": "Drops from: Tier 7 The Circuit (Steel Path) (6%); Tier 6 The Circuit (Steel Path) (6%); Tier 2 The Circuit (Steel Path) (33.33%); Tier 8 The Circuit (Steel Path) (33.33%); Purchased from Acrithis for 20 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Reaper'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/OverguardSteal": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/OverguardSteal",
+    "wikiName": "Secondary Fortifier",
+    "description": "Gain 1 Overguard for every 100 Damage dealt to an enemy's Overguard.\r\nDeals x8 Extra Damage to Overguard.",
+    "acquisition": "Drops from: Sisters of Parvos (Ascension Hard Mode) (20%); Sisters of Parvos (Ascension Mode) (20%); Nokko: Corporate Restructuring Rewards (Steel Path) (10%); Nokko: Corporate Restructuring Rewards (Steel Path) (8%); Nokko: Critter Liberation Rewards (Steel Path) (10%); Nokko: Critter Liberation Rewards (Steel Path) (8%); Nokko: Weed The Gardens Rewards (8%); Nokko: Weed The Gardens Rewards (4%); Nokko: Critter Liberation Rewards (8%); Nokko: Critter Liberation Rewards (4%); Nokko: Weed The Gardens Rewards (Steel Path) (10%); Nokko: Weed The Gardens Rewards (Steel Path) (8%); Nokko: Corporate Restructuring Rewards (8%); Nokko: Corporate Restructuring Rewards (4%); Purchased from Nightcap (Rank 3+) for 10 Fergolyte.",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Fortifier'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityRadiationProcsCreateUniversalOrbsOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityRadiationProcsCreateUniversalOrbsOnKill",
+    "wikiName": "Arcane Universal Fallout",
+    "description": "Each <DT_RADIATION_COLOR>Radiation Status Effect inflicted on enemies by Abilities gives a 6% chance to drop a Universal Orb on enemy death.",
+    "acquisition": "Drops from: Temporal Archimedea (8.76%); Temporal Archimedea (13.66%); Temporal Archimedea (8.51%); Purchased from Kaya (Rank 5+) for 5 Pix Chip.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Universal Fallout'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/FireProcResist": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/FireProcResist",
+    "wikiName": "Arcane Ice",
+    "description": "+102% chance to resist a <DT_FIRE_COLOR>Heat Status effect.",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (14.95%); Eidolon Teralyst Capture (12.05%); Pluto Proxima Orphix (10%); Neptune Proxima Orphix (10.34%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (10.34%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Ice'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealthOnOperatorMode": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealthOnOperatorMode",
+    "wikiName": "Magus Vigor",
+    "description": "On Transference Out:\r\n+600 Health",
+    "acquisition": "Purchased from The Quills (Rank 1+) for 2,500 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryEnergyRegenOnImpactProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryEnergyRegenOnImpactProc",
+    "wikiName": "Primary Exhilarate",
+    "description": "On Weapon <DT_IMPACT_COLOR>Impact Status Effect:\r\n+1.2 Energy Regen/s for 10s. Stacks up to 3x.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Exhilarate'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/SpeedOnVoidDash": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/SpeedOnVoidDash",
+    "wikiName": "Magus Cadence",
+    "description": "On Void Sling:\r\n+90% Sprint Speed for 12s",
+    "acquisition": "Purchased from The Quills (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/RadialHealOnHealthPickup": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/RadialHealOnHealthPickup",
+    "wikiName": "Arcane Pulse",
+    "description": "On Health Pickup:\r\n60% chance to restore 500 Health to allies within 25m\r\n15s cooldown",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (5.29%); Veil Proxima Orphix (2.82%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (3.45%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Pulse'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeArcaneShockwaveOnJump": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeArcaneShockwaveOnJump",
+    "wikiName": "Exodia Epidemic",
+    "description": "After a Bullet Jump or Double Jump:\r\nSlam emits a shockwave forwards that suspends enemies in the air for a short period",
+    "acquisition": "Purchased from Operational Supply (Rank 2+) for 5000x Standing, 1500x Credits.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HeatResistOnBlast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HeatResistOnBlast",
+    "wikiName": "Magus Accelerant",
+    "description": "On Void Sling:\r\nReduce Enemy Resistance to <DT_FIRE_COLOR>Heat Damage by 65%.",
+    "acquisition": "Purchased from Vox Solaris (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Antiques/HeatStatusProcOnUltimateKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Antiques/HeatStatusProcOnUltimateKill",
+    "wikiName": "Zid-An Uskos",
+    "description": "On Operator and Tauron Strike Kill: 2.4% <DT_FIRE_COLOR>Heat Damage for Secondary Weapon for duration of mission, max 250%",
+    "acquisition": "Drops from: Recall: Prime Vanguard (20%); Recall: Dactolyst (20%); Recall: Hunhullus (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Zid-An Uskos'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryCritChancePerBuff": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryCritChancePerBuff",
+    "wikiName": "Secondary Kinship",
+    "description": "While Buffing Ally Warframes: +20% Critical Chance per buff",
+    "acquisition": "Drops from: Mirror Defense (5.7%).",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Kinship'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Antiques/AmmoEfficencyDuringUltimate": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Antiques/AmmoEfficencyDuringUltimate",
+    "wikiName": "Zid-An Haras",
+    "description": "48% Warframe Ammo Efficiency for 30s after executing Tauron Strike\r\n+18% Amp Ammo Efficiency",
+    "acquisition": "Drops from: Recall: Prime Vanguard (20%); Recall: Dactolyst (20%); Recall: Hunhullus (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Zid-An Haras'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToViralDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToViralDamage",
+    "wikiName": "Virtuos Trojan",
+    "description": "On Hit:\r\nConverts 98% <DT_RADIANT_COLOR>Void Damage to <DT_VIRAL_COLOR>Viral Damage.",
+    "acquisition": "Purchased from Vox Solaris (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeDamageForActiveShields": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeDamageForActiveShields",
+    "wikiName": "Melee Retaliation",
+    "description": "Gain 30% Melee Damage for every 200 current Shields, up to 420%. Bonus halved for Overshields.",
+    "acquisition": "Drops from: The Fragmented One (25%); The Fragmented Suzerain (25%); The Fragmented Zelator (25%); The Fragmented Anchorite (25%); The Fragmented (25%); Scathing Whisper (25%); Mocking Whisper (25%); Purchased from Bird 3 (Rank 3+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Retaliation'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ArmorOnMeleeKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ArmorOnMeleeKill",
+    "wikiName": "Melee Fortification",
+    "description": "On Melee Kill: +210 Armor for 10s",
+    "acquisition": "Drops from: The Fragmented One (25%); The Fragmented Suzerain (25%); The Fragmented Zelator (25%); The Fragmented Anchorite (25%); The Fragmented (25%); Scathing Whisper (25%); Mocking Whisper (25%); Purchased from Bird 3 (Rank 3+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Fortification'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToElectricDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToElectricDamage",
+    "wikiName": "Virtuos Surge",
+    "description": "On Hit:\r\nConverts 98% <DT_RADIANT_COLOR>Void Damage to <DT_ELECTRICITY_COLOR>Electricity Damage.",
+    "acquisition": "Purchased from Vox Solaris (Rank 2+) for 5,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityStrengthAndCritDamageWhenInvisible": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityStrengthAndCritDamageWhenInvisible",
+    "wikiName": "Arcane Crepuscular",
+    "description": "While invisible, gain +30% Ability Strength and +3x Final Critical Damage.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 5+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Crepuscular'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToPunctureDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToPunctureDamage",
+    "wikiName": "Virtuos Spike",
+    "description": "On Hit:\r\nConverts 98% <DT_RADIANT_COLOR>Void Damage to <DT_PUNCTURE_COLOR>Puncture Damage.",
+    "acquisition": "Purchased from Vox Solaris (Rank 2+) for 5,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/OperatorAmmoRegenOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/OperatorAmmoRegenOnKill",
+    "wikiName": "Virtuos Null",
+    "description": "On Kill:\r\n+20% Amp Energy Regeneration for 4s",
+    "acquisition": "Purchased from The Quills (Rank 1+) for 2,500 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/StatusChanceOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/StatusChanceOnHeadshot",
+    "wikiName": "Virtuos Ghost",
+    "description": "On Headshot:\r\n40% chance for +60% Status Chance for 12s",
+    "acquisition": "Purchased from The Quills (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/RadialViralAttackOnOverguardGain": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/RadialViralAttackOnOverguardGain",
+    "wikiName": "Arcane Truculence",
+    "description": "When gaining 3,000 or more Overguard threshold, release a 30m Radial Attack that applies max <DT_VIRAL_COLOR>Viral Status stacks.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 4+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Truculence'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/PrimaryOnAbilityReloadSpeed": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/PrimaryOnAbilityReloadSpeed",
+    "wikiName": "Fractalized Reset",
+    "description": "On Ability Cast:\r\n+240% Reload Speed for 5s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 1+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Fractalized Reset'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneArmorOnFinisher": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneArmorOnFinisher",
+    "wikiName": "Arcane Ultimatum",
+    "description": "On Finisher Kill:\r\n+1,200 Armor for 45s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (5.29%); Veil Proxima Orphix (2.82%); Neptune Proxima Orphix (3.45%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Ultimatum'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryReloadSpeedAndMultishotOnElectricProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryReloadSpeedAndMultishotOnElectricProc",
+    "wikiName": "Conjunction Voltage",
+    "description": "On <DT_ELECTRICITY_COLOR>Electricity Status Effect:\r\n+1.5% Reload Speed and +3% Multishot for 12s. Stacks up to 40x.",
+    "acquisition": "Drops from: Nokko: Corporate Restructuring Rewards (Steel Path) (10%); Nokko: Corporate Restructuring Rewards (Steel Path) (8%); Nokko: Critter Liberation Rewards (Steel Path) (10%); Nokko: Critter Liberation Rewards (Steel Path) (8%); Nokko: Weed The Gardens Rewards (8%); Nokko: Weed The Gardens Rewards (4%); Nokko: Critter Liberation Rewards (8%); Nokko: Critter Liberation Rewards (4%); Tier 2 Conjunction Survival (7.94%); Nokko: Weed The Gardens Rewards (Steel Path) (10%); Nokko: Weed The Gardens Rewards (Steel Path) (8%); Nokko: Corporate Restructuring Rewards (8%); Nokko: Corporate Restructuring Rewards (4%); Purchased from Nightcap (Rank 3+) for 10 Fergolyte.",
+    "sourceRefs": [
+      "drop reverse index: 'Conjunction Voltage'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CorrosiveMeleePerAbilityCast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CorrosiveMeleePerAbilityCast",
+    "wikiName": "Melee Exposure",
+    "description": "On Ability Cast: Gain 60% Corrosive Damage on Melee strikes for 25s. Stacks up to 240%.",
+    "acquisition": "Drops from: The Fragmented One (12.5%); The Fragmented Suzerain (12.5%); The Fragmented Zelator (12.5%); The Fragmented Anchorite (12.5%); The Fragmented (12.5%); Scathing Whisper (12.5%); Mocking Whisper (12.5%); Purchased from Bird 3 (Rank 4+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Exposure'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToHeatDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/VoidToHeatDamage",
+    "wikiName": "Virtuos Forge",
+    "description": "On Hit:\r\nConverts 98% <DT_RADIANT_COLOR>Void Damage to <DT_FIRE_COLOR>Heat Damage.",
+    "acquisition": "Purchased from Vox Solaris (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/InstantShieldOnDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/InstantShieldOnDamage",
+    "wikiName": "Arcane Barrier",
+    "description": "On Shield Damaged:\r\n6% chance to instantly restore all Shields\r\n6s cooldown",
+    "acquisition": "Drops from: Eidolon Hydrolyst Capture (5%); Veil Proxima Orphix (1.41%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Barrier'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CompanionDamageOnResidualContact": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CompanionDamageOnResidualContact",
+    "wikiName": "Theorem Infection",
+    "description": "Standing in a zone created by a Residual Arcane increases damage of companions and summoned allies within 90m by 24%/s stacking up to 15x. Effect persists for 20s upon leaving the zone.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 50-60 Final Stage (30%); Arcana Isolation Vault Bounty Lvl 30-40 Final Stage (30%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (15%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (15%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (15%); Isolation Vault Lvl 30-40 (15%); Arcana Isolation Vault Bounty Lvl 30-40 Stages 2 & 3 (18.75%); Arcana Isolation Vault Bounty Lvl 40-50 Stages 2 & 3 (18.75%); Isolation Vault Lvl 40-50 (15%); Isolation Vault Lvl 50-60 (15%); Arcana Isolation Vault Bounty Lvl 50-60 Stages 2 & 3 (18.75%); Arcana Isolation Vault Bounty Lvl 40-50 Final Stage (30%).",
+    "sourceRefs": [
+      "drop reverse index: 'Theorem Infection'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/BurningCystOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/BurningCystOnKill",
+    "wikiName": "Residual Boils",
+    "description": "On Kitgun Kill:\r\n20% chance to spawn volatile hives for 12s that explode when enemies approach for 80 <DT_FIRE_COLOR>Heat Damage in 10m. Standing in the area applies <DT_FIRE_COLOR>Heat Damage type to Theorem Arcanes.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 1 (50%); Isolation Vault Lvl 30-40 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 1 (50%); Arcana Isolation Vault Bounty Lvl 30-40 Stages 2 & 3 (31.25%); Arcana Isolation Vault Bounty Lvl 40-50 Stages 2 & 3 (31.25%); Isolation Vault Lvl 40-50 (25%); Isolation Vault Lvl 50-60 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stages 2 & 3 (31.25%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 1 (50%).",
+    "sourceRefs": [
+      "drop reverse index: 'Residual Boils'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/PullOnTransferenceIn": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/PullOnTransferenceIn",
+    "wikiName": "Magus Anomaly",
+    "description": "On Transference In:\r\nEnemies within 30m are pulled towards Warframe. ",
+    "acquisition": "Purchased from Vox Solaris (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ShotgunMultishotAndReloadSpeedOnCloseKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/ShotgunMultishotAndReloadSpeedOnCloseKill",
+    "wikiName": "Shotgun Vendetta",
+    "description": "On shotgun kill within 5m of target:\r\n+180% Multishot and +75% Reload Speed for 15s.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Shotgun Vendetta'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityEfficiencyOnAbilityObjectCreation": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityEfficiencyOnAbilityObjectCreation",
+    "wikiName": "Arcane Sculptor",
+    "description": "On creating an object with abilities: casts have 175% Ability Efficiency for 12 seconds",
+    "acquisition": "Drops from: Uranus Proxima Completion Bonuses (25%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Sculptor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PullEnemiesOnMeleeKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PullEnemiesOnMeleeKill",
+    "wikiName": "Melee Vortex",
+    "description": "Kill an enemy affected by <DT_MAGNETIC_COLOR>Magnetic Status for a 45% chance to pull in enemies within 18m radius",
+    "acquisition": "Drops from: The Fragmented One (12.5%); The Fragmented Suzerain (12.5%); The Fragmented Zelator (12.5%); The Fragmented Anchorite (12.5%); The Fragmented (12.5%); Scathing Whisper (12.5%); Mocking Whisper (12.5%); Purchased from Bird 3 (Rank 4+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Vortex'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/BonusDamageNextShotForCurEnergy": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/BonusDamageNextShotForCurEnergy",
+    "wikiName": "Secondary Surge",
+    "description": "On Ability Cast: Next shot gains a Damage Multiplier for every 200 current Energy, up to x8.",
+    "acquisition": "Drops from: Sisters of Parvos (Ascension Hard Mode) (20%); Sisters of Parvos (Ascension Mode) (20%).",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Surge'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ImmunityFallDamageOnVoidDash": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ImmunityFallDamageOnVoidDash",
+    "wikiName": "Magus Cloud",
+    "description": "On Void Mode:\r\n+300% Void Sling Radius for 6s",
+    "acquisition": "Purchased from The Quills (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamageOnNoMelee": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamageOnNoMelee",
+    "wikiName": "Primary Deadhead",
+    "description": "On Headshot Kill:\r\n+120% Damage for 24s. Stacks up to 3x.\r\n+30% to Headshot Multiplier\r\n-50% Weapon Recoil",
+    "acquisition": "Drops from: Mania (16.67%); Angst (16.67%); Violence (16.67%); Torment (16.67%); Misery (16.67%); Malice (16.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Deadhead'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/AmpOnEnergyDepletedCritChance": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/AmpOnEnergyDepletedCritChance",
+    "wikiName": "Eternal Onslaught",
+    "description": "On Energy Depleted:\r\n180% Critical Chance for 8s",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 2+) for 5,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Eternal Onslaught'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/ExtraProcOnProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/ExtraProcOnProc",
+    "wikiName": "Secondary Encumber",
+    "description": "On Status Effect: +24% chance to trigger a second random Status Effect.",
+    "acquisition": "Drops from: Nokko: Corporate Restructuring Rewards (Steel Path) (10%); Nokko: Corporate Restructuring Rewards (Steel Path) (8%); Nokko: Critter Liberation Rewards (Steel Path) (10%); Nokko: Critter Liberation Rewards (Steel Path) (8%); Nokko: Weed The Gardens Rewards (8%); Nokko: Weed The Gardens Rewards (4%); Nokko: Critter Liberation Rewards (8%); Nokko: Critter Liberation Rewards (4%); Nokko: Weed The Gardens Rewards (Steel Path) (10%); Nokko: Weed The Gardens Rewards (Steel Path) (8%); Mirror Defense (5.7%); Nokko: Corporate Restructuring Rewards (8%); Nokko: Corporate Restructuring Rewards (4%); Purchased from Nightcap (Rank 3+) for 10 Fergolyte.",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Encumber'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneShotgunSpeedOnCrit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/GolemArcaneShotgunSpeedOnCrit",
+    "wikiName": "Arcane Tempo",
+    "description": "On Critical Hit:\r\n15% chance for +90% Fire Rate to Shotguns for 12s",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (18.5%); Eidolon Teralyst Capture (15.68%); Pluto Proxima Orphix (10%); Neptune Proxima Orphix (10.34%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (10.34%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Tempo'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnMeleeKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryDamageOnMeleeKill",
+    "wikiName": "Secondary Dexterity",
+    "description": "On Melee Kill:\r\n+60% Damage for 20s. Stacks up to 6x.\r\n+7.5s Combo Duration\r\n",
+    "acquisition": "Drops from: Mania (16.67%); Angst (16.67%); Violence (16.67%); Torment (16.67%); Misery (16.67%); Malice (16.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Dexterity'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryColdOnPuncture": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SecondaryColdOnPuncture",
+    "wikiName": "Secondary Cryogenic",
+    "description": "On <DT_PUNCTURE_COLOR>Puncture: Apply 3 <DT_FREEZE_COLOR>Cold stacks on targets within 15m.",
+    "acquisition": "Drops from: Uranus Proxima Completion Bonuses (25%).",
+    "sourceRefs": [
+      "drop reverse index: 'Secondary Cryogenic'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ElectricityProcResist": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ElectricityProcResist",
+    "wikiName": "Arcane Resistance",
+    "description": "+102% chance to resist a <DT_POISON_COLOR>Toxin Status effect.",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (6.78%); Eidolon Teralyst Capture (6.02%); Veil Proxima Orphix (5.63%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (6.9%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Resistance'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/LightningStrikeOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/LightningStrikeOnKill",
+    "wikiName": "Residual Shock",
+    "description": "On Kitgun Kill:\r\n20% chance to spawn an electrified spike for 12s, dealing 200 <DT_ELECTRICITY_COLOR>Electricity Damage to enemies within 10m. Standing in the area applies <DT_ELECTRICITY_COLOR>Electricity Damage to Theorem Arcanes.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 50-60 Final Stage (30%); Arcana Isolation Vault Bounty Lvl 30-40 Final Stage (30%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (15%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (15%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (15%); Isolation Vault Lvl 30-40 (15%); Arcana Isolation Vault Bounty Lvl 30-40 Stages 2 & 3 (18.75%); Arcana Isolation Vault Bounty Lvl 40-50 Stages 2 & 3 (18.75%); Isolation Vault Lvl 40-50 (15%); Isolation Vault Lvl 50-60 (15%); Arcana Isolation Vault Bounty Lvl 50-60 Stages 2 & 3 (18.75%); Arcana Isolation Vault Bounty Lvl 40-50 Final Stage (30%).",
+    "sourceRefs": [
+      "drop reverse index: 'Residual Shock'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamageOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/PrimaryDamageOnKill",
+    "wikiName": "Primary Merciless",
+    "description": "On Kill:\r\n+30% Damage for 4s. Stacks up to 12x.\r\n+30% Reload Speed",
+    "acquisition": "Drops from: Mania (16.67%); Angst (16.67%); Violence (16.67%); Torment (16.67%); Misery (16.67%); Malice (16.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Primary Merciless'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/LongGunDamageOnReload": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/LongGunDamageOnReload",
+    "wikiName": "Arcane Rise",
+    "description": "On Reload:\r\n60% chance for +150% Damage to Primary Weapons for 24s",
+    "acquisition": "Drops from: Tier 2 Conjunction Survival (7.94%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Rise'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/EyeInTheSky": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/EyeInTheSky",
+    "wikiName": "Pax Soar",
+    "description": "+50% Accuracy while Airborne\r\n-50% Weapon Recoil while Airborne\r\n+5s Aim Glide/Wall Latch Duration",
+    "acquisition": "Purchased from Rude Zuud (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/WarframeOnShieldUptimePowerDuration": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/WarframeOnShieldUptimePowerDuration",
+    "wikiName": "Molt Efficiency",
+    "description": "While Shields are Active: Gain 6% Ability Duration per second, up to a maximum of 36%   ",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Molt Efficiency'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/LongGunDamageOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/LongGunDamageOnHeadshot",
+    "wikiName": "Arcane Rage",
+    "description": "On Headshot:\r\n15% chance for +180% Damage to Primary Weapons for 24s",
+    "acquisition": "Drops from: Eidolon Hydrolyst Kill (13.76%); Eidolon Hydrolyst Capture (12.74%); Veil Proxima Orphix (2.82%); Neptune Proxima Orphix (3.45%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Rage'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/BulletToBattery": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/BulletToBattery",
+    "wikiName": "Pax Charge",
+    "description": "Battery Recharge Delay is reduced by +50%",
+    "acquisition": "Purchased from Rude Zuud (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnTransferenceIn": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnTransferenceIn",
+    "wikiName": "Magus Elevate",
+    "description": "On Transference In:\r\n95% chance to restore 300 Health to Warframe",
+    "acquisition": "Purchased from The Quills (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/WarframeOnOperatorAbilityPowerStrength": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/WarframeOnOperatorAbilityPowerStrength",
+    "wikiName": "Molt Vigor",
+    "description": "On Operator Ability:\r\n45% Ability Strength on next Warframe Ability Cast",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 1+) for 5,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Molt Vigor'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/HealAlliesOnEnergySpent": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/HealAlliesOnEnergySpent",
+    "wikiName": "Molt Reconstruct",
+    "description": "Heal yourself and allies within Affinity Range 6 Health for each Energy point spent on the initial casting cost of abilities.",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 4+) for 8,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Molt Reconstruct'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/SlashProcResist": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/SlashProcResist",
+    "wikiName": "Arcane Deflection",
+    "description": "+102% chance to resist a <DT_SLASH_COLOR>Slash Status effect.",
+    "acquisition": "Drops from: Eidolon Teralyst Capture (6.02%); Veil Proxima Orphix (5.63%); Pluto Proxima Orphix (6.67%); Tier 1 The Circuit (Normal) (0.67%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Deflection'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SeekerProjOnHeadshotKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SeekerProjOnHeadshotKill",
+    "wikiName": "Pax Seeker",
+    "description": "On Headshot Kill:\r\n4 projectiles burst from the target and seek the heads of nearby enemies.",
+    "acquisition": "Purchased from Rude Zuud (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/AttackSpeedOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/AttackSpeedOnKill",
+    "wikiName": "Virtuos Tempo",
+    "description": "On Kill:\r\n60% chance for +60% Fire Rate for 8s",
+    "acquisition": "Purchased from The Quills (Rank 2+) for 5,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeProcsSpread": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MeleeProcsSpread",
+    "wikiName": "Melee Influence",
+    "description": "On Melee <DT_ELECTRICITY_COLOR>Electricity Status: 20% chance for elemental Melee Status Effects to apply to enemies within 20m for 18s. Cannot refresh while active.",
+    "acquisition": "Drops from: The Fragmented One (12.5%); The Fragmented Suzerain (12.5%); The Fragmented Zelator (12.5%); The Fragmented Anchorite (12.5%); The Fragmented (12.5%); Scathing Whisper (12.5%); Mocking Whisper (12.5%); Purchased from Bird 3 (Rank 4+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Influence'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CritDamageForPunctureStatus": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/CritDamageForPunctureStatus",
+    "wikiName": "Melee Doughty",
+    "description": "Gain 1.0x Critical Damage for every 10% <DT_PUNCTURE_COLOR>Puncture Status chance on your Melee Weapon.",
+    "acquisition": "Drops from: Scaldra Screamer (12.5%); H-09 Efervon Tank (12.5%); 1999 Exterminate Cache (12.5%); Purchased from Eleanor (Rank 2+) for 7,500 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Doughty'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HeavyAttackDamageAndShieldOnShieldBreak": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HeavyAttackDamageAndShieldOnShieldBreak",
+    "wikiName": "Melee Assimilation",
+    "description": "On Shield Break: +150% Melee Damage on Heavy Attack and Heavy Attack kills restore +30% of max Shields for 20s.",
+    "acquisition": "Drops from: Uranus Proxima Completion Bonuses (25%).",
+    "sourceRefs": [
+      "drop reverse index: 'Melee Assimilation'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnVoidDash": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HealOnVoidDash",
+    "wikiName": "Magus Replenish",
+    "description": "On Void Sling:\r\nHeal 30% Health",
+    "acquisition": "Purchased from The Quills (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/RobotStunOnBlast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/RobotStunOnBlast",
+    "wikiName": "Magus Overload",
+    "description": "On Void Sling:\r\nStun robotic enemies for 3s, which then discharge <DT_ELECTRICITY_COLOR>Electricity Damage dealing 80% of their Max Health to anyone within 25m.",
+    "acquisition": "Purchased from Vox Solaris (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Zariman/SecondaryOnOvershieldCritChance": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Zariman/SecondaryOnOvershieldCritChance",
+    "wikiName": "Cascadia Overcharge",
+    "description": "While Overshields Active: +300% Critical Chance",
+    "acquisition": "Drops from: Thrax Centurion (6.67%); Thrax Legatus (6.67%); Void Angel (6.67%); Ravenous Void Angel (6.67%); Purchased from Cavalero (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "drop reverse index: 'Cascadia Overcharge'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityHeatProcsGiveCritChance": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityHeatProcsGiveCritChance",
+    "wikiName": "Arcane Hot Shot",
+    "description": "Gain 6% weapon Critical Chance for 10s, when using abilities to inflict <DT_FIRE_COLOR>Heat Status effect on enemies. Maximum 50x stacks.",
+    "acquisition": "Drops from: Temporal Archimedea (8.76%); Temporal Archimedea (13.66%); Temporal Archimedea (8.51%); Purchased from Kaya (Rank 5+) for 5 Pix Chip.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Hot Shot'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/NoPenaltyOnDeath": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/NoPenaltyOnDeath",
+    "wikiName": "Magus Glitch",
+    "description": "On Transference Static:\r\n102% chance to negate Transference Static.",
+    "acquisition": "Purchased from Vox Solaris (Rank 5+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/WeaponDamageOnResidualContact": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/WeaponDamageOnResidualContact",
+    "wikiName": "Theorem Demulcent",
+    "description": "Standing in a zone created by a Residual Arcane increases weapon damage by 12%/s stacking up to 15x. Effect persists for 20s upon leaving the zone.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 1 (50%); Isolation Vault Lvl 30-40 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 1 (50%); Arcana Isolation Vault Bounty Lvl 30-40 Stages 2 & 3 (31.25%); Arcana Isolation Vault Bounty Lvl 40-50 Stages 2 & 3 (31.25%); Isolation Vault Lvl 40-50 (25%); Isolation Vault Lvl 50-60 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stages 2 & 3 (31.25%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 1 (50%).",
+    "sourceRefs": [
+      "drop reverse index: 'Theorem Demulcent'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityStrengthOnCast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/AbilityStrengthOnCast",
+    "wikiName": "Arcane Power Ramp",
+    "description": "On Ability Cast: Next Ability cast gains +9% Ability Strength, stacking up to 4x. Resets when the same ability is recast consecutively.",
+    "acquisition": "Drops from: Tier 1 The Circuit (Steel Path) (4.43%); The Circuit Repeated Rewards (Steel Path) (9.09%); Tier 7 The Circuit (Steel Path) (6%); Tier 3 The Circuit (Steel Path) (4.43%); Tier 6 The Circuit (Steel Path) (6%); Tier 4 The Circuit (Steel Path) (4.43%); Purchased from Acrithis for 10 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Power Ramp'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/LongbowDamageOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/LongbowDamageOnHeadshot",
+    "wikiName": "Longbow Sharpshot",
+    "description": "On Headshot: Gain +300% damage on your next shot.",
+    "acquisition": "Drops from: Tier 7 The Circuit (Steel Path) (6%); Tier 6 The Circuit (Steel Path) (6%); Tier 2 The Circuit (Steel Path) (33.33%); Tier 8 The Circuit (Steel Path) (33.33%); Purchased from Acrithis for 20 Pathos Clamp.",
+    "sourceRefs": [
+      "drop reverse index: 'Longbow Sharpshot'",
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HoverboardSpeedOnTransferenceIn": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/HoverboardSpeedOnTransferenceIn",
+    "wikiName": "Magus Drive",
+    "description": "On Transference In:\r\nIncrease K-Drive Speed by 150% for 30s.",
+    "acquisition": "Purchased from Vox Solaris (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/GolemArcaneShieldRegenOnDamage": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/GolemArcaneShieldRegenOnDamage",
+    "wikiName": "Arcane Aegis",
+    "description": "On Shield Damaged:\r\n3% chance for +30% Shield Recharge for 12s",
+    "acquisition": "Drops from: Eidolon Gantulyst Capture (5.29%); Veil Proxima Orphix (2.82%); Venus Proxima Orphix (3.45%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Aegis'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/DamageReductionOnVoidMode": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/DamageReductionOnVoidMode",
+    "wikiName": "Magus Firewall",
+    "description": "On Void Mode:\r\nGenerate Void Particles every 1s up to 6 particles, each granting 12.5% Damage Reduction for 60s. Taking damage consumes a particle.",
+    "acquisition": "Purchased from Vox Solaris (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/IncreasedDamageOnStatusProc": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/IncreasedDamageOnStatusProc",
+    "wikiName": "Virtuos Fury",
+    "description": "On Status Effect:\r\n20% chance for +30% Damage for 4s",
+    "acquisition": "Purchased from The Quills (Rank 3+) for 7,500 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HealthRegenOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/HealthRegenOnHeadshot",
+    "wikiName": "Arcane Victory",
+    "description": "On Headshot Kill:\r\n75% chance for +3% Health Regeneration/s for 9s",
+    "acquisition": "Drops from: Eidolon Teralyst Capture (6.02%); Veil Proxima Orphix (5.63%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (6.9%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Victory'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ProcResistOnBlast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorArmour/ProcResistOnBlast",
+    "wikiName": "Magus Destruct",
+    "description": "On Void Sling:\r\nReduce Enemy Resistance to <DT_PUNCTURE_COLOR>Puncture Damage by 65%.",
+    "acquisition": "Purchased from Vox Solaris (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/IceMistOnKill": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/IceMistOnKill",
+    "wikiName": "Residual Malodor",
+    "description": "On Kitgun Kill:\r\n20% chance to create a frigid mist for 12s, dealing 40 <DT_FREEZE_COLOR>Cold Damage/s. Standing in the area applies <DT_FREEZE_COLOR>Cold Damage to Theorem Arcanes.",
+    "acquisition": "Drops from: Arcana Isolation Vault Bounty Lvl 40-50 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 4 of 5 (25%); Arcana Isolation Vault Bounty Lvl 40-50 Stage 1 (50%); Isolation Vault Lvl 30-40 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stage 1 (50%); Arcana Isolation Vault Bounty Lvl 30-40 Stages 2 & 3 (31.25%); Arcana Isolation Vault Bounty Lvl 40-50 Stages 2 & 3 (31.25%); Isolation Vault Lvl 40-50 (25%); Isolation Vault Lvl 50-60 (25%); Arcana Isolation Vault Bounty Lvl 50-60 Stages 2 & 3 (31.25%); Arcana Isolation Vault Bounty Lvl 30-40 Stage 1 (50%).",
+    "sourceRefs": [
+      "drop reverse index: 'Residual Malodor'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneRadialEnergyOnEnergyPickup": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneRadialEnergyOnEnergyPickup",
+    "wikiName": "Arcane Energize",
+    "description": "On Energy Pickup:\r\n60% chance to replenish 150 Energy to self and allies within 15m\r\n15s cooldown",
+    "acquisition": "Drops from: Eidolon Hydrolyst Capture (5%); Veil Proxima Orphix (1.41%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Energize'"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/IncreasedCriticalDamageOnCriticalStrike": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/OperatorAmps/IncreasedCriticalDamageOnCriticalStrike",
+    "wikiName": "Virtuos Strike",
+    "description": "On Critical Hit:\r\n20% chance for +80% Critical Damage for 4s",
+    "acquisition": "Purchased from The Quills (Rank 4+) for 10,000 Standing.",
+    "sourceRefs": [
+      "Module:Vendors/data"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneAimGlideOnHeadshot": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/GolemArcaneAimGlideOnHeadshot",
+    "wikiName": "Arcane Consequence",
+    "description": "On Headshot:\r\n+60% Parkour Velocity for 18s",
+    "acquisition": "Drops from: Eidolon Teralyst Kill (14.95%); Eidolon Teralyst Capture (12.05%); Pluto Proxima Orphix (10%); Neptune Proxima Orphix (10.34%); Tier 1 The Circuit (Normal) (0.67%); Venus Proxima Orphix (10.34%); Tier 9 The Circuit (Normal) (4%); Tier 3 The Circuit (Normal) (0.67%).",
+    "sourceRefs": [
+      "drop reverse index: 'Arcane Consequence'"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

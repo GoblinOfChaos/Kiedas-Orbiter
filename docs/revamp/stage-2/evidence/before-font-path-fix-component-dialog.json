@@ -1,0 +1,1055 @@
+{
+  "tier": "component browser with module mocks",
+  "native_import_test": false,
+  "checks": [
+    {
+      "name": "1200x800-success-initial-focus",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-selected-path",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-import-enabled",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-mock-arguments",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-message",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-controls-state",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-tab-wrap",
+      "pass": true
+    },
+    {
+      "name": "1200x800-success-escape-restores-focus",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-initial-focus",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-selected-path",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-import-enabled",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-mock-arguments",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-message",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-controls-state",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-tab-wrap",
+      "pass": true
+    },
+    {
+      "name": "1200x800-error-escape-restores-focus",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-initial-focus",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-selected-path",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-import-enabled",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-mock-arguments",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-message",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-controls-state",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-tab-wrap",
+      "pass": true
+    },
+    {
+      "name": "900x500-success-escape-restores-focus",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-initial-focus",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-selected-path",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-import-enabled",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-mock-arguments",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-message",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-controls-state",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-tab-wrap",
+      "pass": true
+    },
+    {
+      "name": "900x500-error-escape-restores-focus",
+      "pass": true
+    }
+  ],
+  "states": [
+    {
+      "rect": {
+        "height": 514,
+        "bottom": 657,
+        "top": 143
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": true,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        1200,
+        800
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\nNo folder selected\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "1200x800-success-empty",
+      "within_viewport": true
+    },
+    {
+      "rect": {
+        "height": 546,
+        "bottom": 673,
+        "top": 127
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        1200,
+        800
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "1200x800-success-selected",
+      "within_viewport": true
+    },
+    {
+      "rect": {
+        "height": 598,
+        "bottom": 699,
+        "top": 101
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": true,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Reload Preview",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Reload Preview",
+      "viewport": [
+        1200,
+        800
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nSynthetic success: selected notes and maps were processed. This message is a test response, not a native importer result.\n\nClose\nReload Preview",
+      "name": "1200x800-success-result",
+      "within_viewport": true
+    },
+    {
+      "rect": {
+        "height": 514,
+        "bottom": 657,
+        "top": 143
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": true,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        1200,
+        800
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\nNo folder selected\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "1200x800-error-empty",
+      "within_viewport": true
+    },
+    {
+      "rect": {
+        "height": 546,
+        "bottom": 673,
+        "top": 127
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        1200,
+        800
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "1200x800-error-selected",
+      "within_viewport": true
+    },
+    {
+      "rect": {
+        "height": 598,
+        "bottom": 699,
+        "top": 101
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Import selected",
+      "viewport": [
+        1200,
+        800
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nError: Synthetic error: selected notes and maps were processed. This message is a test response, not a native importer result.\n\nClose\nImport selected",
+      "name": "1200x800-error-result",
+      "within_viewport": true
+    },
+    {
+      "rect": {
+        "height": 514,
+        "bottom": 507,
+        "top": -7
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": true,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        900,
+        500
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\nNo folder selected\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "900x500-success-empty",
+      "within_viewport": false
+    },
+    {
+      "rect": {
+        "height": 546,
+        "bottom": 523,
+        "top": -23
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        900,
+        500
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "900x500-success-selected",
+      "within_viewport": false
+    },
+    {
+      "rect": {
+        "height": 598,
+        "bottom": 549,
+        "top": -49
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": true,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": true,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": true,
+          "checked": true
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Reload Preview",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Reload Preview",
+      "viewport": [
+        900,
+        500
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nSynthetic success: selected notes and maps were processed. This message is a test response, not a native importer result.\n\nClose\nReload Preview",
+      "name": "900x500-success-result",
+      "within_viewport": false
+    },
+    {
+      "rect": {
+        "height": 514,
+        "bottom": 507,
+        "top": -7
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": true,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        900,
+        500
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\nNo folder selected\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "900x500-error-empty",
+      "within_viewport": false
+    },
+    {
+      "rect": {
+        "height": 546,
+        "bottom": 523,
+        "top": -23
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Choose source folder",
+      "viewport": [
+        900,
+        500
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nClose\nImport selected",
+      "name": "900x500-error-selected",
+      "within_viewport": false
+    },
+    {
+      "rect": {
+        "height": 598,
+        "bottom": 549,
+        "top": -49
+      },
+      "controls": [
+        {
+          "label": "Choose source folder",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "inventory",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "notes",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "maps",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "preferences",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "history",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "checklist",
+          "disabled": false,
+          "checked": false
+        },
+        {
+          "label": "Replace selected existing Preview files, retaining a backup",
+          "disabled": false,
+          "checked": true
+        },
+        {
+          "label": "Close",
+          "disabled": false,
+          "checked": null
+        },
+        {
+          "label": "Import selected",
+          "disabled": false,
+          "checked": null
+        }
+      ],
+      "active": "Import selected",
+      "viewport": [
+        900,
+        500
+      ],
+      "text": "Import into Preview\nCopies selected content from a data/user folder. Credentials and live integration settings are excluded. The source is never changed.\n\nChoose source folder\n/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user\n\n\ninventory\nnotes\nmaps\npreferences\nhistory\nchecklist\nReplace selected existing Preview files, retaining a backup\nChecklist requires an explicit checklist-export.json file; browser storage is never read from the stable app.\nError: Synthetic error: selected notes and maps were processed. This message is a test response, not a native importer result.\n\nClose\nImport selected",
+      "name": "900x500-error-result",
+      "within_viewport": false
+    }
+  ],
+  "session_response": {
+    "value": {
+      "sessionId": "6bf4f104-e5d1-488d-b3b9-234234e8a77a",
+      "capabilities": {
+        "browserName": "MiniBrowser",
+        "browserVersion": "2.52.6",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "mock_calls": {
+    "1200x800-success": [
+      {
+        "options": {
+          "title": "Choose the source data/user folder",
+          "directory": true,
+          "multiple": false
+        },
+        "kind": "open"
+      },
+      {
+        "args": {
+          "source": "/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user",
+          "categories": [
+            "inventory",
+            "notes",
+            "maps"
+          ],
+          "replace": true
+        },
+        "kind": "invoke",
+        "command": "import_preview_profile"
+      }
+    ],
+    "1200x800-error": [
+      {
+        "options": {
+          "title": "Choose the source data/user folder",
+          "directory": true,
+          "multiple": false
+        },
+        "kind": "open"
+      },
+      {
+        "args": {
+          "source": "/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user",
+          "categories": [
+            "inventory",
+            "notes",
+            "maps"
+          ],
+          "replace": true
+        },
+        "kind": "invoke",
+        "command": "import_preview_profile"
+      }
+    ],
+    "900x500-success": [
+      {
+        "options": {
+          "title": "Choose the source data/user folder",
+          "directory": true,
+          "multiple": false
+        },
+        "kind": "open"
+      },
+      {
+        "args": {
+          "source": "/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user",
+          "categories": [
+            "inventory",
+            "notes",
+            "maps"
+          ],
+          "replace": true
+        },
+        "kind": "invoke",
+        "command": "import_preview_profile"
+      }
+    ],
+    "900x500-error": [
+      {
+        "options": {
+          "title": "Choose the source data/user folder",
+          "directory": true,
+          "multiple": false
+        },
+        "kind": "open"
+      },
+      {
+        "args": {
+          "source": "/synthetic/profile backups/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/long-folder-name/data/user",
+          "categories": [
+            "inventory",
+            "notes",
+            "maps"
+          ],
+          "replace": true
+        },
+        "kind": "invoke",
+        "command": "import_preview_profile"
+      }
+    ]
+  }
+}

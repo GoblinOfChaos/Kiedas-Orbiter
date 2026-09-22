@@ -1,0 +1,97 @@
+{
+  "status": "failures_and_corrections_preserved",
+  "approved_app_source_defect_corrections": [
+    "Stable stock Sell uses the already displayed verified item.platPrice when no explicit override exists"
+  ],
+  "test_tooling_corrections": 10,
+  "records": [
+    {
+      "name": "plan_guard_anchor",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-guard-anchor-fix-market-plan-check.log",
+      "bytes": 472,
+      "sha256": "1d10d4b75f31ba00da741027a6c3df4f57d941fb7c95132585ee28e4b88ea61f",
+      "note": "plan-only source assertion used a brittle anchor"
+    },
+    {
+      "name": "plan_boolean_state",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-boolean-state-fix-market-plan-check.log",
+      "bytes": 282,
+      "sha256": "78a83980547eaf81b8244e1e768e6e3f85536c3da3ddd42a44fd63e68617c242",
+      "note": "plan-only checker expected the wrong JSON boolean state"
+    },
+    {
+      "name": "component_stock_readiness",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-stock-readiness-fix-market-component.json",
+      "bytes": 24895,
+      "sha256": "9af77d28b1e8b2f0821c210754bd2044f3e4ccc49135c24b72cd7c62a8b19c9d",
+      "note": "fixture queried stock before using a readiness helper"
+    },
+    {
+      "name": "sandbox_podman_bus",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-podman-bus-retry-market-component-container.json",
+      "bytes": 561,
+      "sha256": "8329be8dfda612b9470b7a85dcf73d54eaf38f12ef501778b970f4180407b3ca",
+      "note": "sandboxed Podman could not access the host user bus"
+    },
+    {
+      "name": "stable_preview_hook_selector",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-stable-card-selector-fix-market-component.json",
+      "bytes": 11934,
+      "sha256": "f2ddcae8e878d31b86781ae1ac4a76dced25b320cf8c8820d388a21301fd422a",
+      "note": "stable assertion incorrectly used a Preview-only data hook"
+    },
+    {
+      "name": "approved_price_fallback_defect",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-price-fallback-fix-market-component.json",
+      "bytes": 9560,
+      "sha256": "9facba6b9d7a1db6dae524d79725df8c9c8a78ec846f19895058db9fc9f05fab",
+      "note": "enabled stable Sell control rejected its displayed verified price"
+    },
+    {
+      "name": "alert_sequence",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-alert-sequencing-fix-market-component.json",
+      "bytes": 9920,
+      "sha256": "5817550f9eaf13f9fbffac9a4c65a5d57081918b7fac3b8c96709c45550eb55e",
+      "note": "frozen expected alert blocked WebDriver call inspection"
+    },
+    {
+      "name": "expectation_corrections",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-expectation-corrections-market-component.json",
+      "bytes": 34604,
+      "sha256": "47a7cb1eff1c6ce2e7a919b88f2c6857cbbb1778fce51b0ffc0f9fe23eb3635f",
+      "note": "source-derived valuation, sort, geometry and locale expectations corrected"
+    },
+    {
+      "name": "fixture_real_css",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-fixture-style-fix-market-component.json",
+      "bytes": 34944,
+      "sha256": "ff7628e662decd41085626e003a59000b0c4ac3af6e34fe262e14f153b5ddc9f",
+      "note": "fixture omitted compiled Tailwind utilities needed for physical geometry"
+    },
+    {
+      "name": "production_fiber_name",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-market-fiber-fix-market-deb-packaged-smoke.json",
+      "bytes": 55395,
+      "sha256": "ad4e352b6f39bf2d52e7556f261306beaf043d8938f03b5e10a70b5ff5c84cd4",
+      "note": "minified production fiber did not retain the literal Market function name"
+    },
+    {
+      "name": "native_ipc_recorder",
+      "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/before-ipc-recorder-evidence-fix-market-deb-packaged-smoke.json",
+      "bytes": 61116,
+      "sha256": "990ab61af79421e6dec0f1ace32aa70dd8d98c256657d313b063a9e467adc0a2",
+      "note": "Tauri native IPC transport is nonwritable and nonconfigurable"
+    }
+  ],
+  "final_component": {
+    "path": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/market-component.json",
+    "sha256": "cb55e23784be825ee49d571feb13088b88eeefc373f40bbd35feb05c72ab7398",
+    "checks": "61/61",
+    "preview_mutation_invocations": []
+  },
+  "final_packages": {
+    "debian": "70/70",
+    "appimage": "70/70",
+    "direct_mutation_ipc_rejections": "4/4 each"
+  }
+}

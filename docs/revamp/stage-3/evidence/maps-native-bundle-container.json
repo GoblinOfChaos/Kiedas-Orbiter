@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-maps/bundle.py"
+  ],
+  "container_name": "stage3k-maps-native-bundle-238e3ff10e",
+  "cpus": 4,
+  "duration_seconds": 62.527,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-package",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/maps-native-bundle-container.log",
+  "memory": "8g",
+  "network": "none",
+  "phase": "package",
+  "preflight": {
+    "phase": "package",
+    "preserved": [],
+    "removed": [],
+    "target": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target"
+  },
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

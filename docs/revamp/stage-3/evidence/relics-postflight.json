@@ -1,0 +1,50 @@
+{
+  "checks": {
+    "component_91_of_91": true,
+    "stable_markup_9_of_9": true,
+    "formula_32_of_32": true,
+    "debian_and_appimage_55_of_55": true,
+    "four_artifacts_match_current_files": true,
+    "cumulative_patch_applies": true,
+    "tracked_baseline_850_of_850": true,
+    "cargo_lock_unchanged": true,
+    "stage3f_artifacts_preserved": true,
+    "stage3h_source_absent": true,
+    "only_approved_stage3g_app_files_added_to_cumulative_state": true
+  },
+  "artifact_sha256": {
+    "kiedas-orbiter": "3189dbee0b72dffd8ddd4009848d775723a2efcab889e1b69f5ea09bc3c1ee5b",
+    "kiedas-orbiter-preview": "3189dbee0b72dffd8ddd4009848d775723a2efcab889e1b69f5ea09bc3c1ee5b",
+    "Kieda's Orbiter Preview_1.3.3_amd64.deb": "56beebda725969d05c7daee90c7a9ab4d3e020ac8e3daec07bbae584109c976b",
+    "Kieda's Orbiter Preview_1.3.3_amd64.AppImage": "03bfc80b8a88e5d5926b598746158508eda0bd581e0e877ecc93a122215fbbaa"
+  },
+  "incremental_patch_sha256": "e0c6ec8c28951e1ed133cd852595640007e13dec4938d6a662e9e36ca240e57f",
+  "cumulative_patch_sha256": "acd34333e50711d2c79b902480f5296501fda1464dd0904abe731e40e3cb75c5",
+  "main_repo_status": [
+    "?? .preview-work/",
+    "?? docs/revamp/"
+  ],
+  "isolated_checkout_status": [
+    " M src-tauri/src/main.rs",
+    " M src-tauri/src/preview_import.rs",
+    " A src-tauri/src/preview_import_tests.rs",
+    " M src/components/PreviewImport.jsx",
+    "M  src/main.jsx",
+    " M src/screens/Cosmetics.jsx",
+    " M src/screens/Dashboard.jsx",
+    " M src/screens/Inventory.jsx",
+    " M src/screens/Mastery.jsx",
+    " M src/screens/Mods.jsx",
+    " M src/screens/Relics.jsx",
+    " M src/screens/Rivens.jsx",
+    " M src/screens/Settings.jsx",
+    "?? src/components/PreviewCosmeticsLayout.jsx",
+    "?? src/components/PreviewDashboardLayout.jsx",
+    "?? src/components/PreviewInventoryLayout.jsx",
+    "?? src/components/PreviewMasteryLayout.jsx",
+    "?? src/components/PreviewModsLayout.jsx",
+    "?? src/components/PreviewRelicsLayout.jsx",
+    "?? src/components/PreviewRivensLayout.jsx"
+  ],
+  "stage3h_app_source_started": false
+}

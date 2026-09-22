@@ -1,0 +1,848 @@
+{
+  "Basmu": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Haalvu": {
+    "reason": "'Haalvu' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Dex Sybaris": {
+    "reason": "'Dex Sybaris' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vinquibus (Primary)": {
+    "reason": "'Vinquibus (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Braton": {
+    "reason": "'Braton' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Thornbak": {
+    "reason": "'Thornbak' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Strun": {
+    "reason": "'Strun' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mk1-Braton": {
+    "reason": "'Mk1-Braton' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mk1-Paris": {
+    "reason": "'Mk1-Paris' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mk1-Strun": {
+    "reason": "'Mk1-Strun' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Aklato": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Mk1-Kunai": {
+    "reason": "'Mk1-Kunai' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mk1-Furis": {
+    "reason": "'Mk1-Furis' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lato": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Dex Furis": {
+    "reason": "'Dex Furis' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lex": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Sicarus": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lato Prime": {
+    "reason": "'Lato Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mk1-Bo": {
+    "reason": "'Mk1-Bo' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "War Prime": {
+    "reason": "'War Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vinquibus (Melee)": {
+    "reason": "'Vinquibus (Melee)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Paracesis": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Skiajati": {
+    "reason": "'Skiajati' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Dex Nikana": {
+    "reason": "'Dex Nikana' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Ceramic Dagger": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Dex Dakra": {
+    "reason": "'Dex Dakra' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Dark Sword": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Skana Prime": {
+    "reason": "'Skana Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Thalys": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Dark Split-Sword (Heavy Blade)": {
+    "reason": "'Dark Split-Sword (Heavy Blade)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Ceti Lacera": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Plasma Sword": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Pangolin Sword": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Heat Sword": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Mk1-Furax": {
+    "reason": "'Mk1-Furax' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Machete": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Jaw Sword": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Dark Dagger": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Corvas Prime (Atmosphere)": {
+    "reason": "'Corvas Prime (Atmosphere)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Prisma Dual Decurions (Atmosphere)": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Imperator Vandal (Atmosphere)": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Ironbride": {
+    "reason": "'Ironbride' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mausolon": {
+    "reason": "'Mausolon' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Arbucep (Atmosphere)": {
+    "reason": "'Arbucep (Atmosphere)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Imperator (Atmosphere)": {
+    "reason": "'Imperator (Atmosphere)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mausolon (Atmosphere)": {
+    "reason": "'Mausolon (Atmosphere)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Morgha (Atmosphere)": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Arquebex": {
+    "reason": "'Arquebex' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Larkspur Prime (Atmosphere)": {
+    "reason": "'Larkspur Prime (Atmosphere)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Cortege (Atmosphere)": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Apoc Mk IV": {
+    "reason": "'Vidar Apoc Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lavan Pulsar Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Vort Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Carcinnox Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Vort Mk IV": {
+    "reason": "'Vidar Vort Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lavan Photor Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Cryophon Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Cryophon Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vort": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Pulsar Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Photor Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Milati": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Laith Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Laith Mk IV": {
+    "reason": "'Vidar Laith Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vidar Photor Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Carcinnox Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Photor Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Talyn Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Talyn Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Vort Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Cryophon Mk IV": {
+    "reason": "'Vidar Cryophon Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Apoc": {
+    "reason": "'Apoc' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Glazio Mk IV": {
+    "reason": "'Zetki Glazio Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Carcinnox Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Pulsar Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Photor Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Glazio Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Photor Mk IV": {
+    "reason": "'Vidar Photor Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Pulsar Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Photor Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Carcinnox Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Tycho Seeker Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Glazio Mk IV": {
+    "reason": "'Lavan Glazio Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Glazio Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vort Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Glazio Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Talyn Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Laith Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Talyn Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Carcinnox": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Tycho Seeker": {
+    "reason": "'Tycho Seeker' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Galvarc Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Galvarc": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Apoc Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Laith Mk IV": {
+    "reason": "'Zetki Laith Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lavan Cryophon Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Carcinnox Mk IV": {
+    "reason": "'Vidar Carcinnox Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Talyn Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Photor Mk IV": {
+    "reason": "'Lavan Photor Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vidar Cryophon Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Glazio Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Glazio Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Laith Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Cryophon Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Cryophon Mk IV": {
+    "reason": "'Zetki Cryophon Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lavan Glazio Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Galvarc Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Cryophon": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Pulsar Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Cryophon Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Apoc Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Tunguska Cannon": {
+    "reason": "'Tunguska Cannon' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vidar Pulsar Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Laith Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Milati Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Carcinnox Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Milati Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Cryophon Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Vort Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Talyn Mk IV": {
+    "reason": "'Lavan Talyn Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vidar Apoc Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Vort Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Vort Mk IV": {
+    "reason": "'Zetki Vort Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Laith Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Apoc Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Milati Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Apoc Mk IV": {
+    "reason": "'Lavan Apoc Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Galvarc Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Laith Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Vort Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Talyn Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Glazio Mk IV": {
+    "reason": "'Vidar Glazio Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Talyn Mk IV": {
+    "reason": "'Zetki Talyn Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Talyn Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Laith Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Talyn Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Pulsar Mk IV": {
+    "reason": "'Zetki Pulsar Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Glazio Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Talyn Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Talyn Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Pulsar Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Photor Mk IV": {
+    "reason": "'Zetki Photor Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Apoc Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Photor Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Laith": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Cryophon Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Talyn Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Pulsar Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Glazio Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Cryophon Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Cryophon Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Carcinnox Mk IV": {
+    "reason": "'Zetki Carcinnox Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Carcinnox Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Laith Mk IV": {
+    "reason": "'Lavan Laith Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Zetki Apoc Mk IV": {
+    "reason": "'Zetki Apoc Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Photor": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Vort Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Apoc Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vort Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Carcinnox Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Carcinnox Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Apoc Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vort Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Talyn": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Vort Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Vort Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Talyn Mk IV": {
+    "reason": "'Vidar Talyn Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vidar Talyn Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Laith Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Pulsar Mk IV": {
+    "reason": "'Vidar Pulsar Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vidar Pulsar Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Glazio Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Glazio": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Photor Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Laith Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Vort Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Apoc Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Glazio Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Cryophon Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Tycho Seeker Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Tycho Seeker Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Carcinnox Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Carcinnox Mk IV": {
+    "reason": "'Lavan Carcinnox Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Carcinnox Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Vidar Apoc Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Carcinnox Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Pulsar Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Pulsar Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Cryophon Mk IV": {
+    "reason": "'Lavan Cryophon Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Pulsar": {
+    "reason": "'Pulsar' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Photor Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Photor Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Vort Mk IV": {
+    "reason": "'Lavan Vort Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lavan Pulsar Mk IV": {
+    "reason": "'Lavan Pulsar Mk IV' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lavan Pulsar Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Laith Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Glazio Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Photor Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Carcinnox Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Lavan Laith Mk II": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Glazio Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Zetki Photor Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Cryophon Mk I": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Laith Mk III": {
+    "reason": "no Market cost, no Blueprint drop/research/vendor match, no part matches"
+  },
+  "Sunika Claws": {
+    "reason": "'Sunika Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vulklok": {
+    "reason": "'Vulklok' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Deconstructor": {
+    "reason": "'Deconstructor' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Deconstructor Prime": {
+    "reason": "'Deconstructor Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Helstrum": {
+    "reason": "'Helstrum' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Laser Rifle": {
+    "reason": "'Laser Rifle' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Prime Laser Rifle": {
+    "reason": "'Prime Laser Rifle' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Burst Laser": {
+    "reason": "'Burst Laser' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Verglas Prime": {
+    "reason": "'Verglas Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sly Claws": {
+    "reason": "'Sly Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Burst Laser Prime": {
+    "reason": "'Burst Laser Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Artax": {
+    "reason": "'Artax' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sweeper": {
+    "reason": "'Sweeper' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vasca Claws": {
+    "reason": "'Vasca Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vizier Claws": {
+    "reason": "'Vizier Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Pharaoh Claws": {
+    "reason": "'Pharaoh Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sahasa Claws": {
+    "reason": "'Sahasa Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Stinger": {
+    "reason": "'Stinger' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Venari Claws": {
+    "reason": "'Venari Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Crescent Claws": {
+    "reason": "'Crescent Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Huras Claws": {
+    "reason": "'Huras Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Multron": {
+    "reason": "'Multron' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Raksa Claws": {
+    "reason": "'Raksa Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Adarza Claws": {
+    "reason": "'Adarza Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Verglas": {
+    "reason": "'Verglas' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lacerten": {
+    "reason": "'Lacerten' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Deth Machine Rifle": {
+    "reason": "'Deth Machine Rifle' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Batoten": {
+    "reason": "'Batoten' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Chesa Claws": {
+    "reason": "'Chesa Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Venari Prime Claws": {
+    "reason": "'Venari Prime Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Panzer Claws": {
+    "reason": "'Panzer Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Smeeta Claws": {
+    "reason": "'Smeeta Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Akaten": {
+    "reason": "'Akaten' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Medjay Claws": {
+    "reason": "'Medjay Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Deth Machine Rifle Prime": {
+    "reason": "'Deth Machine Rifle Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sweeper Prime": {
+    "reason": "'Sweeper Prime' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Helminth Claws": {
+    "reason": "'Helminth Claws' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Prisma Burst Laser": {
+    "reason": "'Prisma Burst Laser' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Pencha Scaffold": {
+    "reason": "'Pencha Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Kronsh": {
+    "reason": "'Kronsh' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Dissic Scaffold": {
+    "reason": "'Dissic Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Gaze (Primary)": {
+    "reason": "'Gaze (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Gaze (Secondary)": {
+    "reason": "'Gaze (Secondary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Shraksun Scaffold": {
+    "reason": "'Shraksun Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sporelacer (Primary)": {
+    "reason": "'Sporelacer (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Klebrik Scaffold": {
+    "reason": "'Klebrik Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Rabvee": {
+    "reason": "'Rabvee' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Cantic Prism": {
+    "reason": "'Cantic Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Shwaak Prism": {
+    "reason": "'Shwaak Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Plague Keewar": {
+    "reason": "'Plague Keewar' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Rattleguts (Secondary)": {
+    "reason": "'Rattleguts (Secondary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Granmu Prism": {
+    "reason": "'Granmu Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Tombfinger (Secondary)": {
+    "reason": "'Tombfinger (Secondary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sepfahn": {
+    "reason": "'Sepfahn' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Klamora Prism": {
+    "reason": "'Klamora Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Plague Kripath": {
+    "reason": "'Plague Kripath' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Propa Scaffold": {
+    "reason": "'Propa Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Sporelacer (Secondary)": {
+    "reason": "'Sporelacer (Secondary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Ooltha": {
+    "reason": "'Ooltha' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Mewan": {
+    "reason": "'Mewan' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vermisplicer (Secondary)": {
+    "reason": "'Vermisplicer (Secondary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Dehtat": {
+    "reason": "'Dehtat' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Cyath": {
+    "reason": "'Cyath' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Lega Prism": {
+    "reason": "'Lega Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Balla": {
+    "reason": "'Balla' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Vermisplicer (Primary)": {
+    "reason": "'Vermisplicer (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Dokrahm": {
+    "reason": "'Dokrahm' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Tombfinger (Primary)": {
+    "reason": "'Tombfinger (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Rahn Prism": {
+    "reason": "'Rahn Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Catchmoon (Primary)": {
+    "reason": "'Catchmoon (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Catchmoon (Secondary)": {
+    "reason": "'Catchmoon (Secondary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Phahd Scaffold": {
+    "reason": "'Phahd Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Raplak Prism": {
+    "reason": "'Raplak Prism' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Rattleguts (Primary)": {
+    "reason": "'Rattleguts (Primary)' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Exard Scaffold": {
+    "reason": "'Exard Scaffold' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Thermian RPG": {
+    "reason": "'Thermian RPG' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Parazon": {
+    "reason": "'Parazon' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  },
+  "Hand Grenade": {
+    "reason": "'Hand Grenade' not in Blueprints/data, no direct drop/Baro/Vendor match"
+  }
+}

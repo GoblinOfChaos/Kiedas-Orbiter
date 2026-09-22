@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-09-06T04:44:31.524013+00:00",
+  "stage3c_cumulative_patch_sha256": "4eb0ddbe003e991c2277d74bc2862497013191bf2ca08a5e9c1ead4420348b18",
+  "mods_incremental_patch_sha256": "2811111240a7a2af9adaf41130ccac59f0d4f8f9fc3d2aa6aca0f4148c68045e",
+  "cumulative_patch_sha256": "c310020e92401cd036e1f46dcb8a7c02160d27e813f36a569c93abf1f5f0ec93",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "0a1d5ecc75fda88b121f8533880ffab2a169639f6944c69ed074fab988b7aaeb",
+    "after_sha256": "c3c7b278911a36a100b923f5e404a1edceb5f27e7928961f2ccd09fb4f3c3fb2",
+    "preview_layout_sha256": "7d01ca30b52906a3a91bb3889bc92fd6be9934942ed99264017dd454678c9fda",
+    "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+    "mods_logic_unchanged": true,
+    "approved_regions": [
+      "Preview imports",
+      "Preview-only layout data attributes",
+      "Preview pass-through wrapper",
+      "Preview-only card keyboard semantics"
+    ],
+    "source_files_changed": [
+      "src/screens/Mods.jsx",
+      "src/components/PreviewModsLayout.jsx"
+    ]
+  },
+  "artifact_count": 4,
+  "component_checks": 119,
+  "packaged_checks_per_artifact": 40,
+  "gate": "Stage 3D implemented and validated; awaiting user acceptance"
+}

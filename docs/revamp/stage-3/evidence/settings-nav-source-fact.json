@@ -1,0 +1,19 @@
+{
+  "kind": "preview-navigation-label",
+  "route": "settings",
+  "sources": [
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/App.jsx",
+      "sha256": "f12957ec9b0e402e721bcd31de7e84f67803d6190ba5663b56577ee3c659dca7"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/lib/i18n/en.json",
+      "sha256": "2f252d7afcf6d63b86e08c459108ec0a30fab753b72ce3b78a7fd9604b2c039c"
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/components/PreviewNavigation.jsx",
+      "sha256": "a69f4b2d21bbeeedba087acc4b3b37fd11ae4b2501a69a7d79791abb3d8bb6a4"
+    }
+  ],
+  "value": "Settings"
+}

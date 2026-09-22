@@ -1,0 +1,7 @@
+{
+  "source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src-tauri/target/debug/build/ocr-rs-97228d2bf4e82798/out/prebuilt/mnn-dev-linux-x86_64.tar.gz",
+  "destination": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/debug/build/ocr-rs-97228d2bf4e82798/out/prebuilt/mnn-dev-linux-x86_64.tar.gz",
+  "sha256": "0692b88f2a4caa4c1a3793bf93c84317e1f999e515102c91ddc278aa18b2a4df",
+  "bytes": 4568628,
+  "provenance": "Existing Fedora build archive; not independently authenticated against upstream"
+}

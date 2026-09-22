@@ -1,0 +1,16 @@
+--- a/.preview-work/ubuntu-build/coexistence.py
++++ b/.preview-work/ubuntu-build/coexistence.py
+@@ -1,7 +1,12 @@
+ import pathlib,subprocess,tempfile,json,hashlib,os
+ base=pathlib.Path('/var/home/jedwards/kiedas-orbiter/.preview-work');out=base.parent/'docs/revamp/stage-2/evidence'
+ os.sched_setaffinity(0,sorted(os.sched_getaffinity(0))[:4]);os.nice(19)
+-preview=next((base/'ubuntu-build/target/debug/bundle/deb').glob('*.deb'));stable=next((base/'ubuntu-build/stable-target/debug/bundle/deb').glob('*.deb'))
++def select_package(directory, expected):
++ matches=[p for p in directory.glob('*.deb') if subprocess.check_output(['dpkg-deb','-f',str(p),'Package'],text=True).strip()==expected]
++ if len(matches)!=1:raise RuntimeError(f'Expected exactly one {expected} archive, found {len(matches)}')
++ return matches[0]
++preview=select_package(base/'ubuntu-build/target/debug/bundle/deb','kieda-s-orbiter-preview')
++stable=select_package(base/'ubuntu-build/stable-target/debug/bundle/deb','kieda-s-orbiter')
+ log=open(out/'ubuntu-coexistence.log','w');results={'stable_sha256':hashlib.sha256(stable.read_bytes()).hexdigest(),'preview_sha256':hashlib.sha256(preview.read_bytes()).hexdigest(),'checks':{},'runtime_launch':False}
+ def run(args):subprocess.run(args,stdout=log,stderr=subprocess.STDOUT,check=True)
+ def names(package):return subprocess.check_output(['dpkg-deb','-f',str(package),'Package'],text=True).strip()

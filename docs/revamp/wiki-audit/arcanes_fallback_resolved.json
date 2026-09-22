@@ -1,0 +1,92 @@
+{
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ShieldMaxForAbilityStrength": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/ShieldMaxForAbilityStrength",
+    "wikiName": "Arcane Expertise",
+    "description": "100% of Ability Strength modifiers are also applied to Max Shields.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Arcane Expertise"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/StealDefensiveStatsOnRoll": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/StealDefensiveStatsOnRoll",
+    "wikiName": "Arcane Circumvent",
+    "description": "Roll through enemies to steal 50% of their defenses for yourself. Stolen Armor lasts 15s.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Arcane Circumvent"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityDurationOnCast": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/AbilityDurationOnCast",
+    "wikiName": "Arcane Concentration",
+    "description": "On Ability Cast:\r\n+60% Ability Duration for 3s",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Arcane Concentration"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Utility/FreezeEnemiesOnRoll": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Utility/FreezeEnemiesOnRoll",
+    "wikiName": "Melee Careen",
+    "description": "x2.50 Melee Damage against Frozen enemies. On Roll: <DT_FREEZE_COLOR> Freeze enemies in a 5.5m radius with a 2s Cooldown.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Melee Careen"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Defensive/MaxDPSTakenForArmour": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Defensive/MaxDPSTakenForArmour",
+    "wikiName": "Arcane Persistence",
+    "description": "Remove all Shields. If Armor is above 700: Cannot be hit for more than 500 Damage/s. Magnetic Status and Ability Nullifying Effects disable this protection.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Arcane Persistence"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/RadialDamageOnMaxRadiationStackHit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/RadialDamageOnMaxRadiationStackHit",
+    "wikiName": "Secondary Irradiate",
+    "description": "On hitting enemies afflicted by 10 stacks of <DT_RADIATION_COLOR>Radiation: Deal 180% of the hit damage to enemies within 7m.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Secondary Irradiate"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MultishotForMaxEnergy": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/MultishotForMaxEnergy",
+    "wikiName": "Primary Overcharge",
+    "description": "While at or above 90% Energy: Gain 35% of Max Energy as Multishot, capped at 350%.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Primary Overcharge"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/DamageForBonusArmour": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/DamageForBonusArmour",
+    "wikiName": "Primary Bulwark",
+    "description": "Gain +1% damage for each unit of armor past 1,000, up to a max of +500%.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Primary Bulwark"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SplitStatusProcsOnStackedStatusHit": {
+    "uniqueName": "/Lotus/Upgrades/CosmeticEnhancers/Offensive/SplitStatusProcsOnStackedStatusHit",
+    "wikiName": "Primary Debilitate",
+    "description": "If an enemy has 10 stacks of a combined Status Effect, inflicting the same Status Effect again has a 100% chance to inflict one of the base Status Effects it is composed of.",
+    "acquisition": "- Can be bought from Roathe at La Cathédrale in the Sanctum Anatomica for 5 Maphica.\n- May appear as a Steel Path The Descendia reward on a weekly rotational basis.\n- Infernum 6 and 13 awards 1.\n- Infernum 20 awards 3.",
+    "sourceRefs": [
+      "article page: Primary Debilitate"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

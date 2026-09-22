@@ -1,0 +1,173 @@
+{
+  "captured_on": "2026-09-06",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "accepted_linux",
+  "accepted_stage3j_cumulative_patch_sha256": "00833a5578947073555d2d9fab1b360b989ba73ffe79220bb801ffa8d8d78815",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "sources": {
+    "src/screens/Maps.jsx": {
+      "sha256": "08ec81d260d07e20c85828040df620214af38b982ef9d4eea9549ee09f8f8514",
+      "lines": 1006,
+      "planned_change": true
+    },
+    "src-tauri/src/main.rs": {
+      "sha256": "d801705ea0314ba4af8da12a8a39ac8bd2f7e685595776195401308fdb47e82d",
+      "lines": 4661,
+      "planned_change": true
+    },
+    "src/lib/customMarkers.js": {
+      "sha256": "421a27717ecb8fb2f803133e5bbd862ef9d75548ef8794ab262d32f66cd9aad0",
+      "lines": 176,
+      "planned_change": false
+    },
+    "src/contexts/MonitoringContext.jsx": {
+      "sha256": "033b5f15b1ff475381d5078ca2e5b4fd0e53e845b9393ec11cae9b24ffb0626e",
+      "lines": 1442,
+      "planned_change": false
+    },
+    "src/components/UI.jsx": {
+      "sha256": "92b0ad65ce308144b53f77713f6c9ba577011fd6232d04e39aa67e394bbeed55",
+      "lines": 479,
+      "planned_change": false
+    },
+    "src/lib/i18n/en.json": {
+      "sha256": "2f252d7afcf6d63b86e08c459108ec0a30fab753b72ce3b78a7fd9604b2c039c",
+      "lines": 1096,
+      "planned_change": false
+    },
+    "src/App.jsx": {
+      "sha256": "f12957ec9b0e402e721bcd31de7e84f67803d6190ba5663b56577ee3c659dca7",
+      "lines": 548,
+      "planned_change": false
+    },
+    "src/components/PreviewNavigation.jsx": {
+      "sha256": "a69f4b2d21bbeeedba087acc4b3b37fd11ae4b2501a69a7d79791abb3d8bb6a4",
+      "lines": 68,
+      "planned_change": false
+    }
+  },
+  "navigation_fact": {
+    "path": "docs/revamp/stage-3/evidence/maps-nav-source-fact.json",
+    "value": "Maps",
+    "derived_from_current_source": true
+  },
+  "complexity": {
+    "use_state_calls": 21,
+    "use_effect_calls": 4,
+    "use_callback_calls": 24,
+    "button_elements": 17,
+    "input_elements": 5,
+    "textarea_elements": 1,
+    "modal_elements": 2,
+    "invoke_calls": 5,
+    "distinct_tauri_commands": [
+      "get_maps_path",
+      "list_map_configs",
+      "open_map_configs_folder",
+      "read_map_config",
+      "write_map_config"
+    ],
+    "map_tabs": [
+      "Plains of Eidolon",
+      "Orb Vallis",
+      "Cambion Drift",
+      "Duviri"
+    ],
+    "distinct_map_files": [
+      "CambianDrift4kMap.png",
+      "Duviri_map_with_caves.png",
+      "OrbVallis4kMap-min.png",
+      "PlainsofEidolon_4k_Map.png",
+      "deimos_full.png",
+      "poe_full.png",
+      "venus_full.png"
+    ],
+    "marker_colors": 8,
+    "marker_icons": [
+      "MapPin",
+      "Skull",
+      "Shield",
+      "Star",
+      "Diamond"
+    ]
+  },
+  "bundled_map_assets": [
+    {
+      "name": "CambianDrift4kMap.png",
+      "bytes": 6936933,
+      "sha256": "137afdd5eb3d003f6a70556c404c502789822dd27ef3e6b09702ec72c0ea6362"
+    },
+    {
+      "name": "Duviri_map_with_caves.png",
+      "bytes": 8215412,
+      "sha256": "7f2901234552f9fe8e2a84f7cb19fd1462b80d2e23472dc6ee5115ed53c4c62e"
+    },
+    {
+      "name": "OrbVallis4kMap-min.png",
+      "bytes": 7242224,
+      "sha256": "e8cbdc7eed07f3a0af41f35097fa451ef25230c79a7bd9104a406b0032a6c3c2"
+    },
+    {
+      "name": "PlainsofEidolon_4k_Map.png",
+      "bytes": 5908691,
+      "sha256": "3f5872783b2933580f4fb543e8fc942141c4f17eeaacf162699edabba835fb42"
+    },
+    {
+      "name": "deimos_full.png",
+      "bytes": 4321783,
+      "sha256": "6bcbc684e59f82639a418c375ad433b03c6d946cdf8bd0b699629ab1853c99b8"
+    },
+    {
+      "name": "poe_full.png",
+      "bytes": 3430895,
+      "sha256": "890b4e100ccef2a27dbd6caa12081059d43ff44dbb94abbc7870eedfce3c6ea7"
+    },
+    {
+      "name": "venus_full.png",
+      "bytes": 9103481,
+      "sha256": "d4f35b6c80baddf65f0c16c8e82cb7c0827a6fbc35b381f81ed560ad02879d3d"
+    }
+  ],
+  "persistence": {
+    "directory": "data/user/map-configs",
+    "one_json_file_per_map": true,
+    "safe_relative_join_on_frontend_filename": true,
+    "preview_root_isolated_by_existing_build_profile": true
+  },
+  "approved_if_plan_accepted": {
+    "app_files": [
+      "src/screens/Maps.jsx",
+      "src/components/PreviewMapsLayout.jsx",
+      "src-tauri/src/main.rs"
+    ],
+    "main_rs_scope": [
+      "create map-config directory before opening it",
+      "use existing write_bytes_atomic helper for map-config writes"
+    ]
+  },
+  "stage3k_app_source_started": true,
+  "after_sources": {
+    "src/screens/Maps.jsx": {
+      "sha256": "44c391ba0ca4e10f5aa9a9b6ba63ab777db0c0af06db7ea848ae177fa4ea0ae5"
+    },
+    "src/components/PreviewMapsLayout.jsx": {
+      "sha256": "bd7e003eb3acfd6faa233900e8d2760690d1d49957f6d2a1b1327c3bc9039fff"
+    },
+    "src-tauri/src/main.rs": {
+      "sha256": "0b5a45af2c231e7231dbee8f4cbf39b4d64db0624235f43d3c9eb5ad2202c7a6"
+    }
+  },
+  "validation": {
+    "component": "18/18",
+    "rust_reliability": "7/7",
+    "debian": "96/96",
+    "appimage": "96/96",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true,
+    "custom_marker_runtime_import": "BLOCKED"
+  },
+  "accepted_on": "2026-09-06",
+  "acceptance_scope": "Linux milestone; recommended screen-redesign scope complete"
+}

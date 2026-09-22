@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-06T20:21:57.109023+00:00",
+  "stage3i_cumulative_patch_sha256": "0c0757698e55b8824f38a1d5d126c6edcf515ec359df76ab99ee28e2a6a29cf4",
+  "settings_incremental_patch_sha256": "6b0889684d3c08df8ea837282898f5b7cc79ea6bc5c3696e2d9310750978c2ac",
+  "cumulative_patch_sha256": "00833a5578947073555d2d9fab1b360b989ba73ffe79220bb801ffa8d8d78815",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "de41d7216fcb976c602bc76e2fd4abc894e56dd1631181a7446465571432a2b0",
+    "after_sha256": "567fcaf2c1188ed338889384d9c00891245a0087b0654f89e9025cf7f0cff736",
+    "preview_layout_sha256": "6669cb44b1f90db1cabb470302fbb1888515ba7e4f397052d345c0281f98a479",
+    "native_git_incremental_patch": true,
+    "stable_source_restores_exactly_after_reversing_approved_patch": true,
+    "stable_exact_markup_comparisons": "20/20",
+    "stable_interaction_parity": "19/19",
+    "all_unplanned_registered_sources_unchanged": true,
+    "layout_has_no_tauri_import": true,
+    "layout_has_no_state_or_effect_hooks": true,
+    "layout_has_no_live_commands": true,
+    "source_files_changed": [
+      "src/screens/Settings.jsx",
+      "src/components/PreviewSettingsLayout.jsx"
+    ]
+  },
+  "stage3i_artifacts_preserved_and_matched": true,
+  "artifact_count": 4,
+  "component_checks": 62,
+  "stable_exact_markup_comparisons": 20,
+  "stable_interaction_parity": 19,
+  "packaged_checks_per_artifact": 82,
+  "safety": {
+    "preview_unavailable_frontend_invocations": {
+      "component": [],
+      "deb": [],
+      "appimage": []
+    },
+    "zero_preview_unavailable_frontend_invocations_confirmed": true,
+    "preview_relay_event_invocations": {
+      "component": [],
+      "deb": [],
+      "appimage": []
+    },
+    "zero_preview_relay_event_invocations_confirmed": true,
+    "relay_event_rust_require_live_guard": false,
+    "preview_stop_log_scanner_invocations": {
+      "component": [],
+      "deb": [],
+      "appimage": []
+    },
+    "zero_preview_stop_log_scanner_invocations_confirmed": true,
+    "stop_log_scanner_rust_require_live_guard": false,
+    "direct_preview_ipc_commands_rejected": [
+      "play_notification_sound",
+      "set_hotkeys",
+      "set_monitoring_active",
+      "show_notification",
+      "start_log_scanner"
+    ],
+    "all_five_direct_settings_ipc_commands_rejected": true
+  },
+  "stage3k_app_source_started": false,
+  "gate": "Stage 3J implemented and validated on Linux; awaiting user acceptance"
+}

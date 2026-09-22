@@ -1,0 +1,138 @@
+{
+  "captured_on": "2026-09-05",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "accepted_linux_milestone",
+  "sources": {
+    "src/screens/Cosmetics.jsx": {
+      "sha256": "39e6ac70c275d3e2713fcfcf46463f1f009376ba31c31db4a90d09223ca76f3e",
+      "lines": 326
+    }
+  },
+  "stage3d_cumulative_patch_sha256": "c310020e92401cd036e1f46dcb8a7c02160d27e813f36a569c93abf1f5f0ec93",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "kind_filters": [
+    "all",
+    "warframe",
+    "primary",
+    "secondary",
+    "melee",
+    "archwing",
+    "sentinel",
+    "syandana",
+    "armor",
+    "animation",
+    "glyph",
+    "sigil",
+    "decoration",
+    "emote",
+    "other"
+  ],
+  "ownership_filters": [
+    "all",
+    "owned",
+    "unowned"
+  ],
+  "sorts": [
+    "name"
+  ],
+  "pagination": {
+    "initial": 120,
+    "reset": 120,
+    "increment": 120
+  },
+  "catalog_sources": {
+    "skins_and_sigils": "ExportCustoms",
+    "glyphs": "WI_Glyphs",
+    "decorations": "ExportResources",
+    "emotes": "ExportFlavour"
+  },
+  "owned_buckets": [
+    "WeaponSkins",
+    "FlavourItems",
+    "MiscItems",
+    "ShipDecorations"
+  ],
+  "decoration_parent_count": 8,
+  "skin_types": [
+    "Secondary",
+    "Primary",
+    "Melee",
+    "Archwing",
+    "Sentinel",
+    "Syandana",
+    "Armor",
+    "Animation",
+    "Warframe",
+    "Other"
+  ],
+  "image_resolution": [
+    "PublicExport content hash",
+    "browse.wf path",
+    "verified direct URL",
+    "resolveAnyImage"
+  ],
+  "commands": [
+    "read_file_bytes"
+  ],
+  "market_safety": {
+    "market_mutation_callers": 0,
+    "sell_controls": 0,
+    "price_ui": false
+  },
+  "acquisition": {
+    "outer_card_pointer_shortcut": true,
+    "semantic_button": true,
+    "button_stops_propagation": true,
+    "outer_card_keyboard_semantics_planned": false,
+    "relic_state_index_placeholder": "undefined"
+  },
+  "locale_observation": {
+    "filter_labels_translated": true,
+    "raw_kind_badge_values": [
+      "Skin",
+      "Sigil",
+      "Glyph",
+      "Decoration",
+      "Emote"
+    ],
+    "translation_change_planned": false
+  },
+  "planned_app_files": [
+    "src/screens/Cosmetics.jsx",
+    "src/components/PreviewCosmeticsLayout.jsx"
+  ],
+  "source_boundaries": {
+    "catalog_or_classifier_change": false,
+    "ownership_change": false,
+    "image_resolution_change": false,
+    "filter_sort_or_pagination_change": false,
+    "acquisition_change": false,
+    "market_or_price_change": false,
+    "monitoring_context_change": false,
+    "shared_ui_change": false,
+    "shared_drawer_change": false,
+    "global_css_change": false,
+    "translation_change": false,
+    "backend_change": false,
+    "dependency_change": false
+  },
+  "after_sources": {
+    "src/screens/Cosmetics.jsx": {
+      "sha256": "1dea6a35477e952d2d6ea27e0d48d6616b80d5885706cfbc98cf32e54f1a3b45"
+    },
+    "src/components/PreviewCosmeticsLayout.jsx": {
+      "sha256": "5ca0500805cff9d82d5050049d2f2b16453592bebb8ab372cc011d91a13c2d5a"
+    }
+  },
+  "validation": {
+    "component_checks": "101/101",
+    "stable_exact_markup_comparisons": "6/6",
+    "debian_native_checks": "45/45",
+    "appimage_native_checks": "45/45",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true,
+    "stage3f_started": false
+  }
+}

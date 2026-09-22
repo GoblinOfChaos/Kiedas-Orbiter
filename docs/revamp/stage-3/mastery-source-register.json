@@ -1,0 +1,123 @@
+{
+  "captured_on": "2026-09-05",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "accepted_linux",
+  "sources": {
+    "src/screens/Mastery.jsx": {
+      "sha256": "d0feff3f620e948d6450b03d493bc540ea1d13c25c609db2932de5bd27f3311e",
+      "lines": 607
+    }
+  },
+  "accepted_cumulative_patch_sha256": "d087fe375e2366dfb05e0984d8d1717ccddfab35fdc1a0c63cac0158b3d2062a",
+  "visible_completion_rows": {
+    "item_categories": [
+      "mastery.cat_warframe",
+      "mastery.cat_primary",
+      "mastery.cat_secondary",
+      "mastery.cat_melee",
+      "mastery.cat_kitgun",
+      "mastery.cat_zaw",
+      "mastery.cat_amp",
+      "mastery.cat_sentinel",
+      "mastery.cat_sentinel_weapon",
+      "mastery.cat_moa",
+      "mastery.cat_hound",
+      "mastery.cat_robotics",
+      "mastery.cat_companions",
+      "mastery.cat_archwing",
+      "mastery.cat_archgun",
+      "mastery.cat_archmelee",
+      "mastery.cat_necramech",
+      "mastery.cat_kdrive",
+      "mastery.cat_plexus",
+      "mastery.cat_vehicles"
+    ],
+    "intrinsics": [
+      "mastery.cat_railjack_intrinsic",
+      "mastery.cat_drifter_intrinsic"
+    ],
+    "starchart": [
+      "mastery.cat_starchart",
+      "mastery.cat_steel_path"
+    ],
+    "total": 24
+  },
+  "display_only_summary_rows": [
+    "mastery.cat_kitgun",
+    "mastery.cat_zaw",
+    "mastery.cat_robotics",
+    "mastery.cat_vehicles"
+  ],
+  "state_register": {
+    "loading": [
+      "isInventoryLoading",
+      "inventoryData === undefined"
+    ],
+    "no_inventory": "inventoryData === null",
+    "rank_views": [
+      "progress below 100",
+      "rank-up ready at progress >= 100"
+    ],
+    "rank_ranges": [
+      "unranked",
+      "MR1-29",
+      "MR30 true master",
+      "Legendary rank 31+"
+    ],
+    "detail_types": [
+      "equipment/item",
+      "intrinsic item",
+      "starchart nodes"
+    ],
+    "starchart_views": [
+      "Origin",
+      "Steel Path"
+    ],
+    "starchart_filter": "hideNonMastery",
+    "close_paths": [
+      "backdrop",
+      "close button"
+    ]
+  },
+  "commands": [
+    "get_mastery_icons_path",
+    "get_ui_path"
+  ],
+  "planned_app_files": [
+    "src/screens/Mastery.jsx",
+    "src/components/PreviewMasteryLayout.jsx"
+  ],
+  "source_boundaries": {
+    "mastery_math_change": false,
+    "inventory_parser_change": false,
+    "monitoring_context_change": false,
+    "shared_ui_change": false,
+    "global_css_change": false,
+    "dependency_change": false
+  },
+  "accessibility_finding": {
+    "completion_cards_element": "div",
+    "pointer_click": true,
+    "keyboard_activation": false,
+    "proposed_scope": "Preview-only role, focus and Enter/Space activation; stable output unchanged"
+  },
+  "after_sources": {
+    "src/screens/Mastery.jsx": {
+      "sha256": "be334f79a846628f045e0f11e5a08fd18fe999de3d28f0576df08ea51d2b4bbd"
+    },
+    "src/components/PreviewMasteryLayout.jsx": {
+      "sha256": "8ba7a5420d883d52d58dba0c6f8c4992927fbe7dcd353baf3bf4fe38a9f103f0"
+    }
+  },
+  "validation": {
+    "component_checks": "195/195",
+    "debian_native_checks": "35/35",
+    "appimage_native_checks": "35/35",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true,
+    "stage3d_started": false
+  },
+  "accepted_on": "2026-09-05"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "translations": {
+    "en": {
+      "source": ".preview-work/stage2/src/lib/i18n/en.json",
+      "sha256": "2f252d7afcf6d63b86e08c459108ec0a30fab753b72ce3b78a7fd9604b2c039c",
+      "screen.maps": "Maps",
+      "maps.configurations": "Configurations",
+      "maps.reset_view": "Reset view",
+      "maps.marker_editor": "Marker Editor"
+    },
+    "de": {
+      "source": ".preview-work/stage2/src/lib/i18n/de.json",
+      "sha256": "ac04800845722a9e8036de10b3529312182d2ced307d4969765a69c0eb2b089f",
+      "screen.maps": "Karten",
+      "maps.configurations": "Konfigurationen",
+      "maps.reset_view": "Ansicht zur\u00fccksetzen",
+      "maps.marker_editor": "Marker-Editor"
+    }
+  },
+  "map_labels": [
+    "Plains of Eidolon",
+    "Orb Vallis",
+    "Cambion Drift",
+    "Duviri"
+  ],
+  "map_labels_source": "src/screens/Maps.jsx",
+  "all_four_labels_present": true
+}

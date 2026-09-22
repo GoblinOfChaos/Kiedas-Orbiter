@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-09-05T22:24:55.945880+00:00",
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "patch_matches_current_checkout": true,
+  "patch_sha256": "9e2d0e9835c69fec783c8feacf55edc0d9d9c9da0422ab0ed5b43aa7ae7c77bf",
+  "patch_matches_manifest": true,
+  "patch_apply_check_against_original_baseline_exit": 0,
+  "patch_apply_check_output": "",
+  "artifacts": [
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+      "sha256": "30e4791f112c36b27bb8635da960f506acc2be991bd5274f394c2795ca509ce1",
+      "matches_manifest": true
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+      "sha256": "ea9a71f92538d4dac104627d000e0985c31aa81f66dee0a803777d45f740339b",
+      "matches_manifest": true
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+      "sha256": "bebda9598b302551767e6ab5b8a5d664814e791b9a04a94cdb777643da4b1d50",
+      "matches_manifest": true
+    }
+  ],
+  "app_lockfile_unchanged": true
+}

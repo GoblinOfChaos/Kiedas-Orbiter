@@ -1,0 +1,41 @@
+{
+  "Excalibur Umbra Prime": {
+    "reason": "'Excalibur Umbra Prime/Main' fetch failed or doesn't exist"
+  },
+  "Stalker": {
+    "reason": "'Stalker/Main' fetch failed or doesn't exist"
+  },
+  "Sirius & Orion": {
+    "reason": "no InternalName"
+  },
+  "Sirius": {
+    "reason": "'Sirius/Main' fetch failed or doesn't exist"
+  },
+  "Sevagoth's Shadow": {
+    "reason": "'Sevagoth's Shadow/Main' fetch failed or doesn't exist"
+  },
+  "Sevagoth Prime's Shadow": {
+    "reason": "'Sevagoth Prime's Shadow/Main' fetch failed or doesn't exist"
+  },
+  "Excalibur Umbra": {
+    "reason": "'Excalibur Umbra/Main' fetch failed or doesn't exist"
+  },
+  "Narin": {
+    "reason": "no InternalName"
+  },
+  "Brysko": {
+    "reason": "no InternalName"
+  },
+  "Orion": {
+    "reason": "'Orion/Main' fetch failed or doesn't exist"
+  },
+  "Excalibur Prime": {
+    "reason": "'Excalibur Prime/Main' fetch failed or doesn't exist"
+  },
+  "Operator": {
+    "reason": "no InternalName"
+  },
+  "Drifter": {
+    "reason": "no InternalName"
+  }
+}

@@ -1,0 +1,18 @@
+--- a/src-tauri/src/main.rs
++++ b/src-tauri/src/main.rs
+@@ -4290,13 +4290,12 @@
+                 error_context.config_mut().app.windows.clear();
+                 let _ = tauri::Builder::default().plugin(tauri_plugin_dialog::init())
+                     .setup(move |app| {
+-                        let handle = app.handle().clone();
+                         app.dialog().message(&message).title("Kieda's Orbiter Preview recovery blocked")
+                             .kind(tauri_plugin_dialog::MessageDialogKind::Error)
+-                            .show(move |_| handle.exit(1));
++                            .show(|_| std::process::exit(1));
+                         Ok(())
+                     }).run(error_context);
+-                return;
++                std::process::exit(1);
+             }
+         }
+     } else { None };

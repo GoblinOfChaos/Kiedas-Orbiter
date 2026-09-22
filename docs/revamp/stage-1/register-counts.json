@@ -1,0 +1,11 @@
+{
+  "interaction": 264,
+  "control": 212,
+  "state": 364,
+  "option_or_label": 590,
+  "command_call": 224,
+  "event": 111,
+  "persistence": 147,
+  "backend_command": 103,
+  "platform": 123
+}

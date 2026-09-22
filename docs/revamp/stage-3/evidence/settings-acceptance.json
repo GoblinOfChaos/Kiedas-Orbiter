@@ -1,0 +1,21 @@
+{
+  "accepted_on": "2026-09-06",
+  "stage": "Stage 3J Settings",
+  "status": "accepted_linux",
+  "basis": "User explicitly accepted after reviewing the Settings evidence, including separate relay_event and stop_log_scanner confirmation.",
+  "frozen_records": {
+    "docs/revamp/stage-3/settings-source-register.json": "18e8bdbe4abc566e8980ef5031e085d805c0faa866cf74519ee8aabef493d39a",
+    "docs/revamp/stage-3/settings-implementation.json": "51536f21641609cf6b0b8482c363d357d18aecaa84873ae58c6b3142bd4c32c4",
+    "docs/revamp/stage-3/settings-implementation.patch": "6b0889684d3c08df8ea837282898f5b7cc79ea6bc5c3696e2d9310750978c2ac",
+    "docs/revamp/stage-3/cumulative-implementation.patch": "00833a5578947073555d2d9fab1b360b989ba73ffe79220bb801ffa8d8d78815",
+    "docs/revamp/stage-3/evidence/settings-postflight.json": "039ed27547dd15d9c195426849328a1562e434936e144a43aeaed81c4c188e0b",
+    "docs/revamp/stage-3/evidence/settings-validation-summary.json": "f5ea555980bbd5ee23cb1a00a7c8634b4dc4e70f2acad9788468e5680cbfa3e5",
+    "docs/revamp/stage-3/evidence/settings-evidence-integrity.json": "c8898fe08e2f3fa2151886b0c19e4569c3401e0d01b4637fe066b8e60dee7129"
+  },
+  "safety": {
+    "preview_unavailable_frontend_invocations": 0,
+    "preview_relay_event_invocations": 0,
+    "preview_stop_log_scanner_invocations": 0,
+    "directly_rejected_settings_commands_per_package": 5
+  }
+}

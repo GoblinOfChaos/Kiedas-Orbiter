@@ -1,0 +1,14 @@
+{
+  "accepted_stage3e_primary_json_restored_from_verbatim_log": true,
+  "accepted_stage3e_inner_logs_overwritten_by_first_misnamed_stage3f_debian_run": [
+    "cosmetics-deb-equipped-install.log",
+    "cosmetics-deb-equipped-remove.log",
+    "cosmetics-deb-packaged-dbus.log",
+    "cosmetics-deb-packaged-webdriver.log",
+    "cosmetics-deb-packaged-xvfb.log"
+  ],
+  "original_stage3e_inner_log_bytes_recoverable": false,
+  "misnamed_stage3f_result_preserved": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/misnamed-stage3f-rivens-deb-packaged-smoke.json",
+  "failed_and_incomplete_runs_preserved_with_before_prefix": true,
+  "stage3e_appimage_evidence_overwritten": false
+}

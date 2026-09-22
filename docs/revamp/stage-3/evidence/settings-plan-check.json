@@ -1,0 +1,19 @@
+{
+  "status": "pass_plan_only",
+  "higher_risk_flag_present": true,
+  "explicit_approval_gate_present": true,
+  "settings_source_unchanged_from_frozen_copy": true,
+  "preview_settings_layout_absent": true,
+  "accepted_stage3i_patch_frozen": true,
+  "navigation_label_source_verified": true,
+  "persisted_keys_exactly_registered": true,
+  "command_inventory_exactly_registered": true,
+  "guarded_and_unguarded_live_boundaries_source_verified": true,
+  "accepted_updater_disabled_state_source_verified": true,
+  "planned_files": [
+    "src/screens/Settings.jsx",
+    "src/components/PreviewSettingsLayout.jsx"
+  ],
+  "stage3j_app_source_started": false,
+  "stage3k_app_source_started": false
+}

@@ -1,0 +1,17 @@
+{
+  "stable_sha256": "bef100e864062b64693e5c98ccf85cb984016715f32231144d4417e05465bd2f",
+  "preview_sha256": "3e7502315e0ecf0590a416750920dad30ace477f40e0f474b060cf1150e977b3",
+  "checks": {
+    "distinct_names": true,
+    "no_file_collisions": true,
+    "stable_files_unchanged_after_preview_purge": true,
+    "preview_files_unchanged_after_stable_purge": true,
+    "both_executables_removed": true
+  },
+  "runtime_launch": false,
+  "package_names": [
+    "kieda-s-orbiter",
+    "kieda-s-orbiter-preview"
+  ],
+  "overlapping_files": []
+}

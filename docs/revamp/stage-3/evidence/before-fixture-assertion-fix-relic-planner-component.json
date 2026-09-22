@@ -1,0 +1,952 @@
+{
+  "tier": "styled component browser with module-boundary context/Tauri mocks and real relicParser helpers",
+  "fixture": "synthetic parsed-inventory shape and DE-export shape; no live account, network, or market claims",
+  "checks": [
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-missing-export-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-missing-inventory-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-empty-selection-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-selection-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-matches-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-ownership-filtered-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-post-load-more-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "helper-prime-plus-forma-count",
+      "pass": true,
+      "detail": {
+        "status": {
+          "/Lotus/Types/Recipes/Weapons/TestPrimePart004": {
+            "currentStock": 0,
+            "everObtained": true,
+            "hasEnough": true,
+            "directOwned": false,
+            "need": 1
+          },
+          "/Lotus/Types/Recipes/Weapons/TestPrimePart005": {
+            "currentStock": 0,
+            "everObtained": false,
+            "hasEnough": false,
+            "directOwned": false,
+            "need": 1
+          },
+          "/Lotus/Types/Recipes/Weapons/TestPrimePart002": {
+            "currentStock": 1,
+            "everObtained": true,
+            "hasEnough": true,
+            "directOwned": true,
+            "need": 2
+          },
+          "/Lotus/Types/Recipes/Weapons/TestPrimePart001": {
+            "currentStock": 1,
+            "everObtained": true,
+            "hasEnough": true,
+            "directOwned": true,
+            "need": 1
+          },
+          "/Lotus/Types/Recipes/Weapons/TestPrimePart003": {
+            "currentStock": 0,
+            "everObtained": true,
+            "hasEnough": false,
+            "directOwned": false,
+            "need": 1
+          }
+        },
+        "formaCount": 1,
+        "last": "Test Prime Part 132",
+        "containsNonPrime": false,
+        "catalogCount": 22,
+        "first": "Forma Blueprint",
+        "partCount": 133,
+        "catalogKeys": [
+          "Lith T01",
+          "Meso T02",
+          "Neo T03"
+        ]
+      }
+    },
+    {
+      "name": "helper-non-prime-excluded",
+      "pass": true
+    },
+    {
+      "name": "helper-forma-included-once",
+      "pass": true
+    },
+    {
+      "name": "helper-catalog-count",
+      "pass": true
+    },
+    {
+      "name": "helper-catalog-order",
+      "pass": true
+    },
+    {
+      "name": "helper-status-case-1",
+      "pass": false,
+      "detail": {
+        "currentStock": 0,
+        "everObtained": true,
+        "hasEnough": true,
+        "directOwned": false,
+        "need": 1
+      }
+    },
+    {
+      "name": "helper-status-case-2",
+      "pass": false,
+      "detail": {
+        "currentStock": 0,
+        "everObtained": false,
+        "hasEnough": false,
+        "directOwned": false,
+        "need": 1
+      }
+    },
+    {
+      "name": "helper-status-case-3",
+      "pass": false,
+      "detail": {
+        "currentStock": 1,
+        "everObtained": true,
+        "hasEnough": true,
+        "directOwned": true,
+        "need": 2
+      }
+    },
+    {
+      "name": "helper-status-case-4",
+      "pass": false,
+      "detail": {
+        "currentStock": 1,
+        "everObtained": true,
+        "hasEnough": true,
+        "directOwned": true,
+        "need": 1
+      }
+    },
+    {
+      "name": "helper-status-case-5",
+      "pass": false,
+      "detail": {
+        "currentStock": 0,
+        "everObtained": true,
+        "hasEnough": false,
+        "directOwned": false,
+        "need": 1
+      }
+    },
+    {
+      "name": "initial-display-limit-60",
+      "pass": true,
+      "detail": 61
+    },
+    {
+      "name": "load-more-present",
+      "pass": true
+    },
+    {
+      "name": "load-more-adds-60",
+      "pass": true,
+      "detail": 121
+    },
+    {
+      "name": "second-load-more-present",
+      "pass": true
+    },
+    {
+      "name": "second-load-more-reaches-full-catalog",
+      "pass": true,
+      "detail": 133
+    },
+    {
+      "name": "search-input-present",
+      "pass": true
+    },
+    {
+      "name": "search-is-debounced",
+      "pass": true,
+      "detail": {
+        "immediate": 61,
+        "delayed": [
+          "Test Prime Part 129"
+        ]
+      }
+    },
+    {
+      "name": "search-reset-restores-60-limit",
+      "pass": true,
+      "detail": 61
+    },
+    {
+      "name": "never-obtained-filter-count",
+      "pass": true,
+      "detail": 129
+    },
+    {
+      "name": "missing-filter-count",
+      "pass": false,
+      "detail": 130
+    },
+    {
+      "name": "add-first-part",
+      "pass": true
+    },
+    {
+      "name": "duplicate-prevention-disables-selected-part",
+      "pass": true
+    },
+    {
+      "name": "selected-part-appears-once",
+      "pass": true,
+      "detail": "NEED LIST\n1 selected\nTest Prime Part 001\n\nClear\nAdd All Missing Parts\nAdd Never Obtained\n"
+    },
+    {
+      "name": "preview-remove-label-includes-item",
+      "pass": true,
+      "detail": "Remove Test Prime Part 001"
+    },
+    {
+      "name": "pointer-remove-part",
+      "pass": true
+    },
+    {
+      "name": "pointer-remove-clears-selection",
+      "pass": true
+    },
+    {
+      "name": "keyboard-remove-part",
+      "pass": true
+    },
+    {
+      "name": "exact-reward-matching-count",
+      "pass": true,
+      "detail": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "owned-count-then-match-count-order",
+      "pass": false,
+      "detail": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "name": "owned-result-filter",
+      "pass": true
+    },
+    {
+      "name": "unowned-result-filter",
+      "pass": true
+    },
+    {
+      "name": "clear-removes-entire-selection",
+      "pass": true
+    },
+    {
+      "name": "add-all-missing-uses-full-catalog",
+      "pass": false,
+      "detail": "NEED LIST\n130 selected\nForma Blueprint\n\nTest Prime Part 003\n\nTest Prime Part 005\n\nTest Prime Part 00"
+    },
+    {
+      "name": "add-all-missing-distinguishes-partial-stock",
+      "pass": false
+    },
+    {
+      "name": "add-all-missing-excludes-enough-parent-evidence",
+      "pass": true
+    },
+    {
+      "name": "add-never-obtained-uses-full-catalog",
+      "pass": true,
+      "detail": "NEED LIST\n129 selected\nForma Blueprint\n\nTest Prime Part 005\n\nTest Prime Part 006\n\nTest Prime Part 00"
+    },
+    {
+      "name": "add-never-excludes-partial-stock-history",
+      "pass": true
+    },
+    {
+      "name": "add-never-excludes-foundry-history",
+      "pass": true
+    },
+    {
+      "name": "1200-three-panel-workspace",
+      "pass": true,
+      "detail": {
+        "lists": [
+          {
+            "client": 441,
+            "scroll": 1947,
+            "overflow": "auto"
+          },
+          {
+            "client": 384,
+            "scroll": 4416,
+            "overflow": "auto"
+          },
+          {
+            "client": 447,
+            "scroll": 4300,
+            "overflow": "auto"
+          }
+        ],
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "rects": [
+          {
+            "height": 600,
+            "left": 32,
+            "bottom": 800,
+            "right": 289.140625,
+            "top": 200
+          },
+          {
+            "height": 600,
+            "left": 301.140625,
+            "bottom": 800,
+            "right": 558.28125,
+            "top": 200
+          },
+          {
+            "height": 600,
+            "left": 570.28125,
+            "bottom": 800,
+            "right": 956,
+            "top": 200
+          }
+        ],
+        "columns": 3,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "parts",
+            "client": 205,
+            "scroll": 209,
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "ownership",
+            "client": 334,
+            "scroll": 334,
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "present": true
+      }
+    },
+    {
+      "name": "1200-horizontal-containment",
+      "pass": true,
+      "detail": {
+        "lists": [
+          {
+            "client": 441,
+            "scroll": 1947,
+            "overflow": "auto"
+          },
+          {
+            "client": 384,
+            "scroll": 4416,
+            "overflow": "auto"
+          },
+          {
+            "client": 447,
+            "scroll": 4300,
+            "overflow": "auto"
+          }
+        ],
+        "body": {
+          "client": 1200,
+          "scroll": 1200
+        },
+        "rects": [
+          {
+            "height": 600,
+            "left": 32,
+            "bottom": 800,
+            "right": 289.140625,
+            "top": 200
+          },
+          {
+            "height": 600,
+            "left": 301.140625,
+            "bottom": 800,
+            "right": 558.28125,
+            "top": 200
+          },
+          {
+            "height": 600,
+            "left": 570.28125,
+            "bottom": 800,
+            "right": 956,
+            "top": 200
+          }
+        ],
+        "columns": 3,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "parts",
+            "client": 205,
+            "scroll": 209,
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "ownership",
+            "client": 334,
+            "scroll": 334,
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "present": true
+      }
+    },
+    {
+      "name": "1200-internal-list-scrolling",
+      "pass": true,
+      "detail": [
+        {
+          "client": 441,
+          "scroll": 1947,
+          "overflow": "auto"
+        },
+        {
+          "client": 384,
+          "scroll": 4416,
+          "overflow": "auto"
+        },
+        {
+          "client": 447,
+          "scroll": 4300,
+          "overflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "1200-contained-nowrap-filter-rails",
+      "pass": true,
+      "detail": [
+        {
+          "wrap": "nowrap",
+          "kind": "parts",
+          "client": 205,
+          "scroll": 209,
+          "overflow": "auto"
+        },
+        {
+          "wrap": "nowrap",
+          "kind": "ownership",
+          "client": 334,
+          "scroll": 334,
+          "overflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "1200-market-controls-absent",
+      "pass": true
+    },
+    {
+      "name": "900-three-panel-workspace",
+      "pass": true,
+      "detail": {
+        "lists": [
+          {
+            "client": 118,
+            "scroll": 1962,
+            "overflow": "auto"
+          },
+          {
+            "client": 29,
+            "scroll": 4416,
+            "overflow": "auto"
+          },
+          {
+            "client": 147,
+            "scroll": 6038,
+            "overflow": "auto"
+          }
+        ],
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "rects": [
+          {
+            "height": 300,
+            "left": 32,
+            "bottom": 500,
+            "right": 203.421875,
+            "top": 200
+          },
+          {
+            "height": 300,
+            "left": 215.421875,
+            "bottom": 500,
+            "right": 386.84375,
+            "top": 200
+          },
+          {
+            "height": 300,
+            "left": 398.84375,
+            "bottom": 500,
+            "right": 655.984375,
+            "top": 200
+          }
+        ],
+        "columns": 3,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "parts",
+            "client": 119,
+            "scroll": 209,
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "ownership",
+            "client": 205,
+            "scroll": 206,
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "present": true
+      }
+    },
+    {
+      "name": "900-horizontal-containment",
+      "pass": true,
+      "detail": {
+        "lists": [
+          {
+            "client": 118,
+            "scroll": 1962,
+            "overflow": "auto"
+          },
+          {
+            "client": 29,
+            "scroll": 4416,
+            "overflow": "auto"
+          },
+          {
+            "client": 147,
+            "scroll": 6038,
+            "overflow": "auto"
+          }
+        ],
+        "body": {
+          "client": 900,
+          "scroll": 900
+        },
+        "rects": [
+          {
+            "height": 300,
+            "left": 32,
+            "bottom": 500,
+            "right": 203.421875,
+            "top": 200
+          },
+          {
+            "height": 300,
+            "left": 215.421875,
+            "bottom": 500,
+            "right": 386.84375,
+            "top": 200
+          },
+          {
+            "height": 300,
+            "left": 398.84375,
+            "bottom": 500,
+            "right": 655.984375,
+            "top": 200
+          }
+        ],
+        "columns": 3,
+        "rails": [
+          {
+            "wrap": "nowrap",
+            "kind": "parts",
+            "client": 119,
+            "scroll": 209,
+            "overflow": "auto"
+          },
+          {
+            "wrap": "nowrap",
+            "kind": "ownership",
+            "client": 205,
+            "scroll": 206,
+            "overflow": "auto"
+          }
+        ],
+        "noSell": true,
+        "present": true
+      }
+    },
+    {
+      "name": "900-internal-list-scrolling",
+      "pass": true,
+      "detail": [
+        {
+          "client": 118,
+          "scroll": 1962,
+          "overflow": "auto"
+        },
+        {
+          "client": 29,
+          "scroll": 4416,
+          "overflow": "auto"
+        },
+        {
+          "client": 147,
+          "scroll": 6038,
+          "overflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "900-contained-nowrap-filter-rails",
+      "pass": true,
+      "detail": [
+        {
+          "wrap": "nowrap",
+          "kind": "parts",
+          "client": 119,
+          "scroll": 209,
+          "overflow": "auto"
+        },
+        {
+          "wrap": "nowrap",
+          "kind": "ownership",
+          "client": 205,
+          "scroll": 206,
+          "overflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "900-market-controls-absent",
+      "pass": true
+    },
+    {
+      "name": "german-labels-from-real-locale",
+      "pass": false,
+      "detail": {
+        "title": false,
+        "search": "Teile durchsuchen...",
+        "filters": [
+          "Alle",
+          "Nie erhalten",
+          "Fehlt"
+        ],
+        "ownership": [
+          "Alle",
+          "Im Besitz",
+          "Nicht im Besitz"
+        ]
+      }
+    },
+    {
+      "name": "literal-english-boundaries-preserved",
+      "pass": true
+    },
+    {
+      "name": "only-icons-path-command",
+      "pass": true,
+      "detail": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        }
+      ]
+    },
+    {
+      "name": "no-market-mutation-command",
+      "pass": true
+    },
+    {
+      "name": "no-browser-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 1253,
+      "after_length": 1253
+    },
+    {
+      "state": "missing-export",
+      "equal": true,
+      "before_length": 8764,
+      "after_length": 8764
+    },
+    {
+      "state": "missing-inventory",
+      "equal": true,
+      "before_length": 25673,
+      "after_length": 25673
+    },
+    {
+      "state": "empty-selection",
+      "equal": true,
+      "before_length": 25675,
+      "after_length": 25675
+    },
+    {
+      "state": "populated-selection",
+      "equal": true,
+      "before_length": 26808,
+      "after_length": 26808
+    },
+    {
+      "state": "no-matches",
+      "equal": true,
+      "before_length": 25715,
+      "after_length": 25715
+    },
+    {
+      "state": "ownership-filtered",
+      "equal": true,
+      "before_length": 26635,
+      "after_length": 26635
+    },
+    {
+      "state": "post-load-more",
+      "equal": true,
+      "before_length": 42415,
+      "after_length": 42415
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "lists": [
+        {
+          "client": 441,
+          "scroll": 1947,
+          "overflow": "auto"
+        },
+        {
+          "client": 384,
+          "scroll": 4416,
+          "overflow": "auto"
+        },
+        {
+          "client": 447,
+          "scroll": 4300,
+          "overflow": "auto"
+        }
+      ],
+      "body": {
+        "client": 1200,
+        "scroll": 1200
+      },
+      "rects": [
+        {
+          "height": 600,
+          "left": 32,
+          "bottom": 800,
+          "right": 289.140625,
+          "top": 200
+        },
+        {
+          "height": 600,
+          "left": 301.140625,
+          "bottom": 800,
+          "right": 558.28125,
+          "top": 200
+        },
+        {
+          "height": 600,
+          "left": 570.28125,
+          "bottom": 800,
+          "right": 956,
+          "top": 200
+        }
+      ],
+      "columns": 3,
+      "rails": [
+        {
+          "wrap": "nowrap",
+          "kind": "parts",
+          "client": 205,
+          "scroll": 209,
+          "overflow": "auto"
+        },
+        {
+          "wrap": "nowrap",
+          "kind": "ownership",
+          "client": 334,
+          "scroll": 334,
+          "overflow": "auto"
+        }
+      ],
+      "noSell": true,
+      "present": true
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "lists": [
+        {
+          "client": 118,
+          "scroll": 1962,
+          "overflow": "auto"
+        },
+        {
+          "client": 29,
+          "scroll": 4416,
+          "overflow": "auto"
+        },
+        {
+          "client": 147,
+          "scroll": 6038,
+          "overflow": "auto"
+        }
+      ],
+      "body": {
+        "client": 900,
+        "scroll": 900
+      },
+      "rects": [
+        {
+          "height": 300,
+          "left": 32,
+          "bottom": 500,
+          "right": 203.421875,
+          "top": 200
+        },
+        {
+          "height": 300,
+          "left": 215.421875,
+          "bottom": 500,
+          "right": 386.84375,
+          "top": 200
+        },
+        {
+          "height": 300,
+          "left": 398.84375,
+          "bottom": 500,
+          "right": 655.984375,
+          "top": 200
+        }
+      ],
+      "columns": 3,
+      "rails": [
+        {
+          "wrap": "nowrap",
+          "kind": "parts",
+          "client": 119,
+          "scroll": 209,
+          "overflow": "auto"
+        },
+        {
+          "wrap": "nowrap",
+          "kind": "ownership",
+          "client": 205,
+          "scroll": 206,
+          "overflow": "auto"
+        }
+      ],
+      "noSell": true,
+      "present": true
+    }
+  ],
+  "helper_snapshot": {
+    "status": {
+      "/Lotus/Types/Recipes/Weapons/TestPrimePart004": {
+        "currentStock": 0,
+        "everObtained": true,
+        "hasEnough": true,
+        "directOwned": false,
+        "need": 1
+      },
+      "/Lotus/Types/Recipes/Weapons/TestPrimePart005": {
+        "currentStock": 0,
+        "everObtained": false,
+        "hasEnough": false,
+        "directOwned": false,
+        "need": 1
+      },
+      "/Lotus/Types/Recipes/Weapons/TestPrimePart002": {
+        "currentStock": 1,
+        "everObtained": true,
+        "hasEnough": true,
+        "directOwned": true,
+        "need": 2
+      },
+      "/Lotus/Types/Recipes/Weapons/TestPrimePart001": {
+        "currentStock": 1,
+        "everObtained": true,
+        "hasEnough": true,
+        "directOwned": true,
+        "need": 1
+      },
+      "/Lotus/Types/Recipes/Weapons/TestPrimePart003": {
+        "currentStock": 0,
+        "everObtained": true,
+        "hasEnough": false,
+        "directOwned": false,
+        "need": 1
+      }
+    },
+    "formaCount": 1,
+    "last": "Test Prime Part 132",
+    "containsNonPrime": false,
+    "catalogCount": 22,
+    "first": "Forma Blueprint",
+    "partCount": 133,
+    "catalogKeys": [
+      "Lith T01",
+      "Meso T02",
+      "Neo T03"
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "timestamp": "2026-09-06T21:16:41.674128+00:00",
+  "risk": "higher",
+  "component": {
+    "checks": "18/18",
+    "stable_markup": "4/4"
+  },
+  "rust_reliability": "7/7",
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 96,
+      "passed": 96,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5,
+        "relic_planner_checks": 5,
+        "market_checks": 10,
+        "settings_checks": 12,
+        "maps_checks": 14
+      },
+      "binary_sha256": "bbdfdc03047fb3416cbd191dc58c3e03354ea3ea8523c2f91c195e433bb1bd52"
+    },
+    {
+      "kind": "appimage",
+      "checks": 96,
+      "passed": 96,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5,
+        "relics_checks": 5,
+        "relic_planner_checks": 5,
+        "market_checks": 10,
+        "settings_checks": 12,
+        "maps_checks": 14
+      },
+      "binary_sha256": "fc268fcc4a6a99de712814144bbce72439fbc0d1ff409a93f30608dac875980f"
+    }
+  ],
+  "harness_corrections": [
+    {
+      "issue": "host component runner lacked the container WebKit path",
+      "preserved_prefix": "before-container-"
+    },
+    {
+      "issue": "host rootless Podman bus unavailable inside sandbox",
+      "preserved_prefix": "before-host-escalation-"
+    },
+    {
+      "issue": "Reset was queried by a nonexistent title",
+      "preserved_prefix": "before-reset-selector-fix-"
+    },
+    {
+      "issue": "persistence was asserted without triggering a state change",
+      "preserved_prefix": "before-config-write-trigger-fix-"
+    },
+    {
+      "issue": "native animation and React state were sampled in the same turn and Reset was assumed to mean scale 1",
+      "preserved_prefix": "before-maps-native-timing-fix-"
+    },
+    {
+      "issue": "Modal has no role=dialog and context coordinates were not derived from the image bounds",
+      "preserved_prefix": "before-maps-modal-selector-fix-"
+    },
+    {
+      "issue": "AppImage map assets were checked at the Debian installation path",
+      "preserved_prefix": "before-appimage-resource-path-fix-"
+    },
+    {
+      "issue": "first 96/96 records did not actively exercise every named marker/path/modal behavior",
+      "preserved_prefix": "before-coverage-hardening-"
+    },
+    {
+      "issue": "post-delete pre-reload marker count was still expected to be two",
+      "preserved_prefix": "before-post-delete-reload-fix-"
+    },
+    {
+      "issue": "pan was first attempted at minimum fit scale, where clamping correctly prevents movement; the check now zooms before panning",
+      "preserved_prefix": "before-pan-order-fix-"
+    },
+    {
+      "issue": "stable selectors initially referenced Preview-only data attributes",
+      "preserved_prefixes": [
+        "before-stable-panel-selector-fix-",
+        "before-stable-viewport-selector-fix-"
+      ]
+    },
+    {
+      "issue": "synthetic marker activation used click instead of the source-defined pointer sequence",
+      "preserved_prefix": "before-stable-marker-activation-fix-"
+    },
+    {
+      "issue": "interaction calls were sampled before the 400ms persistence debounce settled",
+      "preserved_prefix": "before-stable-debounce-settle-fix-"
+    }
+  ],
+  "blocked_and_independent": {
+    "custom_marker_runtime_import": {
+      "status": "BLOCKED",
+      "reason": "Ground-truth player inventory contains zero customMarkers; no game record was invented"
+    },
+    "windows_runtime": "OPEN / BLOCKED",
+    "macos_runtime": "OPEN / UNAVAILABLE",
+    "published_version_upgrade": "PENDING",
+    "exhaustive_runtime_tracing": "PENDING"
+  },
+  "failures": [],
+  "gate": "Stage 3K implemented and validated on Linux; awaiting user acceptance",
+  "screen_redesign_stopping_point": true,
+  "language_source_checks": "English and German exact labels verified",
+  "package_transform_coverage": "pan, zoom, reset and minimum-scale clamp directly exercised",
+  "stable_state_matrix": {
+    "markup": "16/16",
+    "interaction_parity": "16/16",
+    "record": "docs/revamp/stage-3/evidence/maps-stable-matrix.json"
+  }
+}

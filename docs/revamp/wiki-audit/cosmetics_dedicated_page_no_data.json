@@ -1,0 +1,694 @@
+{
+  "Aegrae Eye-Guard": {
+    "wikiName": "Aegrae Eye-Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Apis Syandana": {
+    "wikiName": "Apis Syandana",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Arid Fear Emblem": {
+    "wikiName": "Arid Fear Emblem",
+    "reason": "redirects to 'Arid Fear Badge' but that page never mentions 'Arid Fear Emblem' - not confirmed as the right target"
+  },
+  "Aridkref Chest Armor": {
+    "wikiName": "Aridkref Chest Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Aridkref Helmet": {
+    "wikiName": "Aridkref Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Aridkref Shoulder Plates": {
+    "wikiName": "Aridkref Shoulder Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Arktuk Back Armor": {
+    "wikiName": "Arktuk Back Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Arktuk Shoulder Guard": {
+    "wikiName": "Arktuk Shoulder Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Aseron Sekhara": {
+    "wikiName": "Aseron Sekhara",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Atlas Blade of the Lotus Skin": {
+    "wikiName": "Atlas Blade of the Lotus Skin",
+    "reason": "redirects to 'Atlas Blade Of The Lotus Skin' but that page never mentions 'Atlas Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Banshee Blade of the Lotus Skin": {
+    "wikiName": "Banshee Blade of the Lotus Skin",
+    "reason": "redirects to 'Banshee Blade Of The Lotus Skin' but that page never mentions 'Banshee Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Banshee Soprana Shoulder Armor (Left)": {
+    "wikiName": "Banshee Soprana Shoulder Armor (Left)",
+    "reason": "redirects to 'Banshee Soprana Skin' but that page never mentions 'Banshee Soprana Shoulder Armor (Left)' - not confirmed as the right target"
+  },
+  "Banshee Voidshell Armor (Left)": {
+    "wikiName": "Banshee Voidshell Armor (Left)",
+    "reason": "redirects to 'Banshee Voidshell Skin' but that page never mentions 'Banshee Voidshell Armor (Left)' - not confirmed as the right target"
+  },
+  "Baruuk Blade of the Lotus Skin": {
+    "wikiName": "Baruuk Blade of the Lotus Skin",
+    "reason": "redirects to 'Baruuk Blade Of The Lotus Skin' but that page never mentions 'Baruuk Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Brauld Gaiters": {
+    "wikiName": "Brauld Gaiters",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Capit XIII Sporoi": {
+    "wikiName": "Capit XIII Sporoi",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Capit XIV Kalika": {
+    "wikiName": "Capit XIV Kalika",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Capit XV Phloios": {
+    "wikiName": "Capit XV Phloios",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Capit XVI Perigone": {
+    "wikiName": "Capit XVI Perigone",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Clan Emblem": {
+    "wikiName": "Clan Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Comorre Helmet": {
+    "wikiName": "Comorre Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Conquera Uplift Syandana": {
+    "wikiName": "Conquera Uplift Syandana",
+    "reason": "redirects to 'Conquera' but that page never mentions 'Conquera Uplift Syandana' - not confirmed as the right target"
+  },
+  "Emissary Emblem": {
+    "wikiName": "Emissary Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Excalibur Blade of the Lotus Skin": {
+    "wikiName": "Excalibur Blade of the Lotus Skin",
+    "reason": "redirects to 'Excalibur Blade Of The Lotus Skin' but that page never mentions 'Excalibur Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Excalibur Umbra Sunder Helmet": {
+    "wikiName": "Excalibur Umbra Sunder Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Excalibur Umbra Therion Helmet": {
+    "wikiName": "Excalibur Umbra Therion Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Eyes of Blight Emblem": {
+    "wikiName": "Eyes of Blight Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "False Profit Emblem": {
+    "wikiName": "False Profit Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Frost Heirloom Armor": {
+    "wikiName": "Frost Heirloom Armor",
+    "reason": "redirects to 'Frost Heirloom Skin' but that page never mentions 'Frost Heirloom Armor' - not confirmed as the right target"
+  },
+  "Gauss Prime Blazargaze Helmet": {
+    "wikiName": "Gauss Prime Blazargaze Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Glassmaker Emblem": {
+    "wikiName": "Glassmaker Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Gradivus: Loyalty Emblem": {
+    "wikiName": "Gradivus: Loyalty Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Gradivus: Sacrifice Emblem": {
+    "wikiName": "Gradivus: Sacrifice Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grandis XIX Phloios": {
+    "wikiName": "Grandis XIX Phloios",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grandis XVII Sporoi": {
+    "wikiName": "Grandis XVII Sporoi",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grandis XVIII Kalika": {
+    "wikiName": "Grandis XVIII Kalika",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grandis XX Perigone": {
+    "wikiName": "Grandis XX Perigone",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grearlance Back Armor": {
+    "wikiName": "Grearlance Back Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grearlance Chest Armor": {
+    "wikiName": "Grearlance Chest Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grearlance Helmet": {
+    "wikiName": "Grearlance Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grearlance Leg Guard": {
+    "wikiName": "Grearlance Leg Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Grearlance Shoulder Plates": {
+    "wikiName": "Grearlance Shoulder Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "H-09 Apex Turret Sumdali": {
+    "wikiName": "H-09 Apex Turret Sumdali",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Ictus Sentinel Mask": {
+    "wikiName": "Ictus Sentinel Mask",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Ictus Sentinel Tail": {
+    "wikiName": "Ictus Sentinel Tail",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Ictus Sentinel Wings": {
+    "wikiName": "Ictus Sentinel Wings",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Inaros Osiris Helmet": {
+    "wikiName": "Inaros Osiris Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Insign I Sporoi": {
+    "wikiName": "Insign I Sporoi",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Insign II Kalika": {
+    "wikiName": "Insign II Kalika",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Insign III Phloios": {
+    "wikiName": "Insign III Phloios",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Insign IV Perigone": {
+    "wikiName": "Insign IV Perigone",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Invati Sekhara": {
+    "wikiName": "Invati Sekhara",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Jordas Sekhara": {
+    "wikiName": "Jordas Sekhara",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Khora Prime Larqum Helmet": {
+    "wikiName": "Khora Prime Larqum Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Krunan Eye-Guard": {
+    "wikiName": "Krunan Eye-Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Arang Chest Plate": {
+    "wikiName": "Kuva Arang Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Kredd Chest Plate": {
+    "wikiName": "Kuva Kredd Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Kubrow Armor": {
+    "wikiName": "Kuva Kubrow Armor",
+    "reason": "redirects to 'Kubrow Cosmetics' but that page never mentions 'Kuva Kubrow Armor' - not confirmed as the right target"
+  },
+  "Kuva Mivek Chest Plate": {
+    "wikiName": "Kuva Mivek Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Stragh Leg Plates": {
+    "wikiName": "Kuva Stragh Leg Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Tireg Chest Plate": {
+    "wikiName": "Kuva Tireg Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Tireg Shoulder Plates": {
+    "wikiName": "Kuva Tireg Shoulder Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Tolon Chest Plate": {
+    "wikiName": "Kuva Tolon Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Zevokk Chest Plate": {
+    "wikiName": "Kuva Zevokk Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Kuva Zevokk Shoulder Plates": {
+    "wikiName": "Kuva Zevokk Shoulder Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Liset Hellkite Skin": {
+    "wikiName": "Liset Hellkite Skin",
+    "reason": "redirects to 'Liset' but that page never mentions 'Liset Hellkite Skin' - not confirmed as the right target"
+  },
+  "Liset Mithra Skin": {
+    "wikiName": "Liset Mithra Skin",
+    "reason": "redirects to 'Liset' but that page never mentions 'Liset Mithra Skin' - not confirmed as the right target"
+  },
+  "Liset Protege Skin": {
+    "wikiName": "Liset Protege Skin",
+    "reason": "redirects to 'Liset' but that page never mentions 'Liset Protege Skin' - not confirmed as the right target"
+  },
+  "Loki Prime Helmet": {
+    "wikiName": "Loki Prime Helmet",
+    "reason": "redirects to 'Loki/Prime' but that page never mentions 'Loki Prime Helmet' - not confirmed as the right target"
+  },
+  "Loki Verv Skin": {
+    "wikiName": "Loki Verv Skin",
+    "reason": "redirects to 'Loki/Cosmetics' but that page never mentions 'Loki Verv Skin' - not confirmed as the right target"
+  },
+  "Lotus": {
+    "wikiName": "Lotus",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Madurai": {
+    "wikiName": "Madurai",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Margulis": {
+    "wikiName": "Margulis",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Mask of the Lost One": {
+    "wikiName": "Mask of the Lost One",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Massehtt Mask": {
+    "wikiName": "Massehtt Mask",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Mentor Ayatan Sumdali": {
+    "wikiName": "Mentor Ayatan Sumdali",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Merulina": {
+    "wikiName": "Merulina",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Mesa Prime Montesa Helmet": {
+    "wikiName": "Mesa Prime Montesa Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Minerva's Shades (Down)": {
+    "wikiName": "Minerva's Shades (Down)",
+    "reason": "redirects to 'Minerva Gemini Skin' but that page never mentions 'Minerva's Shades (Down)' - not confirmed as the right target"
+  },
+  "Minerva's Shades (Up)": {
+    "wikiName": "Minerva's Shades (Up)",
+    "reason": "redirects to 'minerva Gemini Skin' but that page never mentions 'Minerva's Shades (Up)' - not confirmed as the right target"
+  },
+  "Naramon": {
+    "wikiName": "Naramon",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Natah": {
+    "wikiName": "Natah",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Nightwave Emblem": {
+    "wikiName": "Nightwave Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Nova Prime Helmet": {
+    "wikiName": "Nova Prime Helmet",
+    "reason": "redirects to 'Nova/Prime' but that page never mentions 'Nova Prime Helmet' - not confirmed as the right target"
+  },
+  "Nvidia Braton": {
+    "wikiName": "Nvidia Braton",
+    "reason": "redirects to 'Braton' but that page never mentions 'Nvidia Braton' - not confirmed as the right target"
+  },
+  "Nyx Prime Helmet": {
+    "wikiName": "Nyx Prime Helmet",
+    "reason": "redirects to 'Nyx/Prime' but that page never mentions 'Nyx Prime Helmet' - not confirmed as the right target"
+  },
+  "Oberon Blade of the Lotus Skin": {
+    "wikiName": "Oberon Blade of the Lotus Skin",
+    "reason": "redirects to 'Oberon Blade Of The Lotus Skin' but that page never mentions 'Oberon Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Okt Mask": {
+    "wikiName": "Okt Mask",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Pakal Chest Plate": {
+    "wikiName": "Pakal Chest Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Pakal Leg Guard": {
+    "wikiName": "Pakal Leg Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Pakal Shoulder Plates": {
+    "wikiName": "Pakal Shoulder Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Protea Prime Chronorum Helmet": {
+    "wikiName": "Protea Prime Chronorum Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rafellion Helmet": {
+    "wikiName": "Rafellion Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Railjack Skin": {
+    "wikiName": "Railjack Skin",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Regrevis Helmet": {
+    "wikiName": "Regrevis Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rekk Back Armor": {
+    "wikiName": "Rekk Back Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rekk Helmet": {
+    "wikiName": "Rekk Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rekk Leg Guard": {
+    "wikiName": "Rekk Leg Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rekk Shoulder Plates": {
+    "wikiName": "Rekk Shoulder Plates",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rekk Visor Helmet": {
+    "wikiName": "Rekk Visor Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Resalv Eye-Guard": {
+    "wikiName": "Resalv Eye-Guard",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Revenant Vania Helmet": {
+    "wikiName": "Revenant Vania Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rhino Blade of the Lotus Skin": {
+    "wikiName": "Rhino Blade of the Lotus Skin",
+    "reason": "redirects to 'Rhino Blade Of The Lotus Skin' but that page never mentions 'Rhino Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Rhino Thrak Helmet": {
+    "wikiName": "Rhino Thrak Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rhino Vanguard Helmet": {
+    "wikiName": "Rhino Vanguard Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rhunr Back Armor": {
+    "wikiName": "Rhunr Back Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Rhunr Shoulder Plate": {
+    "wikiName": "Rhunr Shoulder Plate",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Saryn Blade of the Lotus Skin": {
+    "wikiName": "Saryn Blade of the Lotus Skin",
+    "reason": "redirects to 'Saryn Blade Of The Lotus Skin' but that page never mentions 'Saryn Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Saryn Chlora Helmet": {
+    "wikiName": "Saryn Chlora Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Saryn Hemlock Helmet": {
+    "wikiName": "Saryn Hemlock Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Saturn Six Emblem": {
+    "wikiName": "Saturn Six Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Servio V Sporoi": {
+    "wikiName": "Servio V Sporoi",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Servio VI Kalika": {
+    "wikiName": "Servio VI Kalika",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Servio VII Phloios": {
+    "wikiName": "Servio VII Phloios",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Servio VIII Perigone": {
+    "wikiName": "Servio VIII Perigone",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Sevagoth Glaukus Shoulder Armor": {
+    "wikiName": "Sevagoth Glaukus Shoulder Armor",
+    "reason": "redirects to 'Sevagoth Glaukus Skin' but that page never mentions 'Sevagoth Glaukus Shoulder Armor' - not confirmed as the right target"
+  },
+  "Sevagoth Lucifuge Helmet": {
+    "wikiName": "Sevagoth Lucifuge Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Sevati Sekhara": {
+    "wikiName": "Sevati Sekhara",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Sling Stone Emblem": {
+    "wikiName": "Sling Stone Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Asa-03": {
+    "wikiName": "Somatics Asa-03",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Asa-23": {
+    "wikiName": "Somatics Asa-23",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics D11": {
+    "wikiName": "Somatics D11",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Dev-64": {
+    "wikiName": "Somatics Dev-64",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Fa-13": {
+    "wikiName": "Somatics Fa-13",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics J-02": {
+    "wikiName": "Somatics J-02",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics K5": {
+    "wikiName": "Somatics K5",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Ln2": {
+    "wikiName": "Somatics Ln2",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Rev-16": {
+    "wikiName": "Somatics Rev-16",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Tt-11": {
+    "wikiName": "Somatics Tt-11",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Somatics Zz-70": {
+    "wikiName": "Somatics Zz-70",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Sorex Back Armor": {
+    "wikiName": "Sorex Back Armor",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Sorex Helmet": {
+    "wikiName": "Sorex Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Stratos Emblem": {
+    "wikiName": "Stratos Emblem",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Styanax Tonatiuh Embellishments": {
+    "wikiName": "Styanax Tonatiuh Embellishments",
+    "reason": "redirects to 'Styanax Tonatiuh Skin' but that page never mentions 'Styanax Tonatiuh Embellishments' - not confirmed as the right target"
+  },
+  "Survival Emblem": {
+    "wikiName": "Survival Emblem",
+    "reason": "redirects to 'Survival Badge' but that page never mentions 'Survival Emblem' - not confirmed as the right target"
+  },
+  "Tchertu Mask": {
+    "wikiName": "Tchertu Mask",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Tenens IX Sporoi": {
+    "wikiName": "Tenens IX Sporoi",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Tenens X Kalika": {
+    "wikiName": "Tenens X Kalika",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Tenens XI Phloios": {
+    "wikiName": "Tenens XI Phloios",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Tenens XII Perigone": {
+    "wikiName": "Tenens XII Perigone",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Titania Aurai Helmet": {
+    "wikiName": "Titania Aurai Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Titania Mab Helmet": {
+    "wikiName": "Titania Mab Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Trinity Aura Helmet": {
+    "wikiName": "Trinity Aura Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Trinity Blade of the Lotus Skin": {
+    "wikiName": "Trinity Blade of the Lotus Skin",
+    "reason": "redirects to 'Trinity Blade Of The Lotus Skin' but that page never mentions 'Trinity Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Trinity Meridian Helmet": {
+    "wikiName": "Trinity Meridian Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Ukstru Helmet": {
+    "wikiName": "Ukstru Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Unairu": {
+    "wikiName": "Unairu",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Valkyr Bastet Helmet": {
+    "wikiName": "Valkyr Bastet Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Valkyr Kara Helmet": {
+    "wikiName": "Valkyr Kara Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Vasero Sekhara": {
+    "wikiName": "Vasero Sekhara",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Vauban Armistice Helmet": {
+    "wikiName": "Vauban Armistice Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Vauban Esprit Helmet": {
+    "wikiName": "Vauban Esprit Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Vauban Gambit Helmet": {
+    "wikiName": "Vauban Gambit Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Vauban Heirloom Overcoat": {
+    "wikiName": "Vauban Heirloom Overcoat",
+    "reason": "redirects to 'Vauban Heirloom Skin' but that page never mentions 'Vauban Heirloom Overcoat' - not confirmed as the right target"
+  },
+  "Vauban Heirloom Sleeveless Overcoat": {
+    "wikiName": "Vauban Heirloom Sleeveless Overcoat",
+    "reason": "redirects to 'vauban Heirloom Skin' but that page never mentions 'Vauban Heirloom Sleeveless Overcoat' - not confirmed as the right target"
+  },
+  "Vazarin": {
+    "wikiName": "Vazarin",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Volt Prime Helmet": {
+    "wikiName": "Volt Prime Helmet",
+    "reason": "redirects to 'Volt/Prime' but that page never mentions 'Volt Prime Helmet' - not confirmed as the right target"
+  },
+  "Volt Pulse Helmet": {
+    "wikiName": "Volt Pulse Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Volt Raijin Sleeves": {
+    "wikiName": "Volt Raijin Sleeves",
+    "reason": "redirects to 'Volt Raijin Skin' but that page never mentions 'Volt Raijin Sleeves' - not confirmed as the right target"
+  },
+  "Volt Storm Helmet": {
+    "wikiName": "Volt Storm Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Voruna Medeina Armor": {
+    "wikiName": "Voruna Medeina Armor",
+    "reason": "redirects to 'Voruna Medeina Skin' but that page never mentions 'Voruna Medeina Armor' - not confirmed as the right target"
+  },
+  "Wisp Gaoth Helmet": {
+    "wikiName": "Wisp Gaoth Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Wolf Hood": {
+    "wikiName": "Wolf Hood",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Wukong Dasheng Helmet": {
+    "wikiName": "Wukong Dasheng Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Wukong Macak Helmet": {
+    "wikiName": "Wukong Macak Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Xaku Kintsu Helmet": {
+    "wikiName": "Xaku Kintsu Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Xiel Helmet": {
+    "wikiName": "Xiel Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Yareli Physalia Helmet": {
+    "wikiName": "Yareli Physalia Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Zato Shoulder Plate": {
+    "wikiName": "Zato Shoulder Plate",
+    "reason": "redirects to 'Excalibur Zato Skin' but that page never mentions 'Zato Shoulder Plate' - not confirmed as the right target"
+  },
+  "Zenurik": {
+    "wikiName": "Zenurik",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Zephyr Blade of the Lotus Skin": {
+    "wikiName": "Zephyr Blade of the Lotus Skin",
+    "reason": "redirects to 'Zephyr Blade Of The Lotus Skin' but that page never mentions 'Zephyr Blade of the Lotus Skin' - not confirmed as the right target"
+  },
+  "Zephyr Cierzo Helmet": {
+    "wikiName": "Zephyr Cierzo Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  },
+  "Zephyr Tengu Helmet": {
+    "wikiName": "Zephyr Tengu Helmet",
+    "reason": "no Acquisition heading and no {{Acquisition|...}} template with prose found"
+  }
+}

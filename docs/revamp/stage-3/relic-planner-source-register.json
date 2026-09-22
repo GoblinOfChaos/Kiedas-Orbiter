@@ -1,0 +1,114 @@
+{
+  "captured_on": "2026-09-06",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "implemented_awaiting_acceptance",
+  "accepted_stage3g_cumulative_patch_sha256": "acd34333e50711d2c79b902480f5296501fda1464dd0904abe731e40e3cb75c5",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "sources": {
+    "src/screens/RelicPlanner.jsx": {
+      "sha256": "d9640721b7b89829615a3ce5aabf6dd7799c16d672e7e9b83a24966c6290a7ce",
+      "lines": 311
+    },
+    "src/lib/relicParser.js": {
+      "sha256": "037b9587830715002cecf7ec625da029b98e22eb180e986bef1e2cb6c3f6d0fc",
+      "lines": 869,
+      "planned_change": false
+    }
+  },
+  "navigation_fact": {
+    "path": "docs/revamp/stage-3/evidence/relic-planner-nav-source-fact.json",
+    "value": "Relic Planner",
+    "derived_from_current_source": true
+  },
+  "controls": {
+    "search_fields": 1,
+    "search_debounce_ms": 120,
+    "part_filters": [
+      "all",
+      "never-obtained",
+      "missing"
+    ],
+    "display_limit_initial": 60,
+    "display_limit_increment": 60,
+    "need_actions": [
+      "remove_one",
+      "clear",
+      "add_all_missing",
+      "add_never_obtained"
+    ],
+    "result_ownership": [
+      "all",
+      "owned",
+      "unowned"
+    ]
+  },
+  "behavior": {
+    "part_source": "getAllRelicRewards",
+    "relic_source": "getRelicCatalog",
+    "status_source": "getPartObtainedStatus",
+    "need_identity": "reward uniqueName",
+    "need_persistence": false,
+    "bulk_actions_ignore_current_visible_filter": true,
+    "result_sort": [
+      "ownedCount desc",
+      "matches.length desc"
+    ],
+    "market_mutation_callers": 0,
+    "sell_controls": 0
+  },
+  "layout": {
+    "statistics_cards": 3,
+    "workflow_panels": [
+      "part_picker",
+      "need_list",
+      "matching_relics"
+    ],
+    "current_panel_max_height_px": 640,
+    "current_wide_breakpoint": "Tailwind lg viewport",
+    "proposed_breakpoint": "Preview container width"
+  },
+  "commands": [
+    "get_icons_path"
+  ],
+  "planned_app_files": [
+    "src/screens/RelicPlanner.jsx",
+    "src/components/PreviewRelicPlannerLayout.jsx"
+  ],
+  "source_boundaries": {
+    "part_or_relic_catalog_change": false,
+    "inventory_interpretation_change": false,
+    "status_formula_change": false,
+    "search_filter_selection_change": false,
+    "matching_or_sort_change": false,
+    "persistence_change": false,
+    "translation_change": false,
+    "shared_ui_or_global_css_change": false,
+    "backend_change": false,
+    "dependency_or_lockfile_change": false,
+    "market_change": false
+  },
+  "stage3h_app_source_started": true,
+  "stage3i_app_source_started": false,
+  "after_sources": {
+    "src/screens/RelicPlanner.jsx": {
+      "sha256": "ef34ebf63d9a46be39dbaa67c6f91a7070a21fa9faa09f2209b56d646c513e76"
+    },
+    "src/components/PreviewRelicPlannerLayout.jsx": {
+      "sha256": "b8cb04856a8c3cd4cdf94399c2ed1648b6d95328a7eea7c7eb014885d847e938"
+    }
+  },
+  "approved_css_correction": {
+    "container_breakpoint": "620px to 600px",
+    "panel_height": "clamp(18rem, calc(100dvh - 12.5rem), 40rem) to clamp(17.5rem, calc(100dvh - 13.5rem), 40rem)"
+  },
+  "validation": {
+    "component_checks": "62/62",
+    "stable_exact_markup_comparisons": "8/8",
+    "debian_native_checks": "60/60",
+    "appimage_native_checks": "60/60",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true
+  }
+}

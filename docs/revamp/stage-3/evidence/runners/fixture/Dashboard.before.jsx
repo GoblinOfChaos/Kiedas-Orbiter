@@ -1,0 +1,2137 @@
+/**
+ * Dashboard.jsx
+ *
+ * The primary landing screen. Displays live worldstate data including fissures,
+ * open-world cycles, sorties, events, and the 1999 calendar.
+ *
+ * DATA SOURCES
+ * ─────────────────────────────────────────
+ * 1. MonitoringContext (useMonitoring):
+ *    - dict/suppDict: Localisation
+ *    - ERg/EC: Static game data (Regions, Challenges)
+ *    - spIncursions/arbys: Fetched by backend from browse.wf
+ * 2. Oracle API (fetch):
+ *    - worldState.json: Raw live game state
+ *    - location-bounties: Open-world bounty rotations
+ *    - bounty-cycle: Zariman/1999 faction state
+ *
+ * PROCESSING
+ * ─────────────────────────────────────────
+ * Raw worldstate JSON is passed to parseWorldstate() from worldstateParser.js.
+ * Cycle timers are computed locally in worldstateParser.js.
+ * Arbitration and Incursion logic (epoch-based rotation) is handled by local
+ * helpers in this file.
+ */
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useUi } from '/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/contexts/UiContext'
+import { PageLayout, Card, Button, CardHeader, Tabs, Modal, Tooltip } from '/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/components/UI';
+import ModCard from '/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/components/ModCard';
+import ItemImage from '/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/components/ItemImage';
+import {
+  Package, DollarSign, RefreshCw,
+  ShoppingBag,
+  Calendar, ChevronDown, ChevronUp, X,
+  Settings, Check } from
+'lucide-react';
+import { useMonitoring } from '/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/contexts/MonitoringContext';
+import { getPrice } from '/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/lib/marketEngine';
+import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import {
+  resolveNode,
+  resolveMissionType,
+  resolveRewardText,
+  resolveAnyImage,
+  resolveChallenge,
+  cleanBountyName,
+  resolveChallengeDesc,
+  resolveChallengeFlavour,
+  resolveBountyTitle,
+  resolveItemName,
+  timeRemaining,
+  timeSince } from
+'/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/lib/warframeUtils';
+
+
+// ── arbys.txt helpers ──────────────────────────────────────────────────────────
+const ARBY_GRACE_PERIOD = 300000; // 5 minutes
+
+function parseArbyLine(line, ERg, dict) {
+  const parts = line.split(',');
+  if (parts.length < 2) return null;
+  const tsSec = parseInt(parts[0], 10);
+  const nodeKey = parts[1].trim();
+  const entry = ERg[nodeKey];
+
+  return {
+    ts: tsSec * 1000,
+    node: nodeKey,
+    type: entry?.missionName || entry?.missionType || 'Unknown Mission'
+  };
+}
+
+function getCurrentArby(arbys, ERg, dict) {
+  if (!arbys) return null;
+  const now = Date.now();
+  const lines = arbys.split('\n').map((l) => l.trim()).filter(Boolean);
+  let best = null;
+  for (const line of lines) {
+    const entry = parseArbyLine(line, ERg, dict);
+    if (!entry || isNaN(entry.ts)) continue;
+    if (entry.ts <= now + ARBY_GRACE_PERIOD) best = entry;else
+    break;
+  }
+  return best;
+}
+
+// entry.ts can be up to ARBY_GRACE_PERIOD in the future and still be picked
+// as the current arby (see getCurrentArby), so upcoming entries must start
+// strictly after that same grace window or the imminent arby would show up
+// as both "Current" and the first "Upcoming" row.
+function getUpcomingArbies(arbys, ERg, dict, arbyTiers, count = 5) {
+  if (!arbys) return [];
+  const now = Date.now();
+  const lines = arbys.split('\n').map((l) => l.trim()).filter(Boolean);
+  const results = [];
+  for (const line of lines) {
+    const entry = parseArbyLine(line, ERg, dict);
+    if (entry && !isNaN(entry.ts) && entry.ts > now + ARBY_GRACE_PERIOD) {
+      entry.grade = arbyTiers?.[entry.node] || 'F';
+      results.push(entry);
+      if (results.length >= count) break;
+    }
+  }
+  return results;
+}
+
+// ── sp-incursions.txt helpers ──────────────────────────────────────────────────
+function getSpIncursionNodes(spIncursions) {
+  if (!spIncursions) return [];
+
+  const lines = spIncursions.split('\n').map((l) => l.trim()).filter(Boolean);
+  if (lines.length === 0) return [];
+
+  // browse.wf logic:
+  // today = Math.trunc(Date.now() / 86400000) * 86400
+  // index = (today - epochDay) / 86400
+  const todaySec = Math.floor(Date.now() / 86400000) * 86400;
+  const firstLineParts = lines[0].split(';');
+  const epochDay = parseInt(firstLineParts[0], 10);
+
+  const index = Math.floor((todaySec - epochDay) / 86400);
+
+  if (index >= 0 && index < lines.length) {
+    const match = lines[index];
+    const nodesPart = match.includes(';') ? match.split(';')[1] : match.split(',').slice(1).join(',');
+    return nodesPart.split(',').map((n) => n.trim()).filter(Boolean);
+  }
+
+  return [];
+}
+
+
+function GradeBadge({ grade, className = "" }) {
+  const colors = {
+    S: 'bg-yellow-400 text-black',
+    A: 'bg-green-500 text-white',
+    B: 'bg-blue-500 text-white',
+    C: 'bg-zinc-500 text-white',
+    D: 'bg-red-500 text-white',
+    F: 'bg-red-900 text-white'
+  };
+  return (
+    <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${colors[grade] || colors.F} ${className}`}>
+      {grade}
+    </span>);
+
+}
+
+// ── Main component ─────────────────────────────────────────────────────────────
+function resolveHoldfastsGiver(challenge, name, desc, obj) {
+  const text = `${challenge || ''} ${name || ''} ${desc || ''} ${obj || ''}`.toLowerCase();
+  if (text.includes('melica') || text.includes('accolade')) return 'BountyMelica';
+  if (text.includes('cascade') || text.includes('flood') || text.includes('yonta') || text.includes('voidplume')) return 'BountyYonta';
+  if (text.includes('armament') || text.includes('lohk') || text.includes('exolizer') || text.includes('weapon') || text.includes('cavalero')) return 'BountyCavalero';
+  if (text.includes('angel') || text.includes('armageddon') || text.includes('dormant') || text.includes('quinn') || text.includes('banish')) return 'BountyQuinn';
+  return 'BountyQuinn';
+}
+
+function resolveCaviaGiver(challenge, name, desc, obj) {
+  const text = `${challenge || ''} ${name || ''} ${desc || ''} ${obj || ''}`.toLowerCase();
+  if (text.includes('tagfer') || text.includes('cervulite') || text.includes('grimoire') || text.includes('tome') || text.includes('fragment')) return 'BountyTagfer';
+  if (text.includes('bird') || text.includes('shiny') || text.includes('beak') || text.includes('cache')) return 'BountyBird3';
+  if (text.includes('loid') || text.includes('albrecht') || text.includes('voca')) return 'BountyLoid';
+  return 'BountyFibonacci';
+}
+
+export default function Dashboard() {
+  const { t } = useUi()
+  const {
+    exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
+    dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
+    rawInventory, inventoryData, ES, ENWRawRewards, ExportImages, ExportTextIcons,
+    cardImagesPath, allPrices,
+    manualRefresh, lastUpdate
+  } = useMonitoring();
+  const [worldstate, setWorldstate] = useState(null);
+  const [bountyCycle, setBountyCycle] = useState(null);
+    const [loading, setLoading] = useState(true);
+  const [fissureTab, setFissureTab] = useState('normal');
+  const [archimedeaTab, setArchimedeaTab] = useState('deep');
+  const [bountyTab, setBountyTab] = useState('cetus');
+  const [showBaroModal, setShowBaroModal] = useState(false);
+  const [showWishlistModal, setShowWishlistModal] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [iconsPath, setIconsPath] = useState('');
+  const [framesPath, setFramesPath] = useState('');
+  const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)); // Default to Dec 1999
+  const [selected1999Month, setSelected1999Month] = useState(0);
+  const [selected1999Day, setSelected1999Day] = useState(-1);
+  const [initialized1999, setInitialized1999] = useState(false);
+  const [hiddenCards, setHiddenCards] = useState(() => {
+    try {
+      const saved = localStorage.getItem('dashboard_hidden_cards');
+      return saved ? JSON.parse(saved) : [];
+    } catch {return [];}
+  });
+  // Neither DE field for Nightwave challenge state is reliable for repeating
+  // daily/weekly challenge types: SeasonChallengeHistory can contain a
+  // currently-active challenge's own instance id while its live progress is
+  // still 0 (not actually completed), and ChallengeProgress persists from a
+  // past occurrence of the same challenge type instead of resetting when it
+  // reappears - so a challenge can show maxed-out progress the moment it
+  // becomes active again, before the player has done anything this rotation.
+  // The only trustworthy signal is one we build ourselves: has THIS specific
+  // challenge instance (keyed by its own _id, unique per rotation) ever been
+  // observed below its goal during a live poll? If so, later reaching the
+  // goal is real progress made this rotation. If a challenge is already
+  // maxed the very first time we see its id, that's a stale carryover, not
+  // a fresh completion, until proven otherwise by an actual observed change.
+  const [nwSeenBelowGoal, setNwSeenBelowGoal] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nightwave_seen_below_goal');
+      return saved ? JSON.parse(saved) : {};
+    } catch {return {};}
+  });
+
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
+
+  useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
+  useEffect(() => {invoke('get_mod_frames_path').then((p) => setFramesPath(p)).catch(() => {});}, []);
+
+  useEffect(() => {
+    localStorage.setItem('dashboard_hidden_cards', JSON.stringify(hiddenCards));
+  }, [hiddenCards]);
+
+  // Records, per live poll, which currently-active Nightwave challenge
+  // instances are genuinely below their completion goal - the only reliable
+  // basis for treating a later "goal reached" reading as a real completion
+  // rather than a stale leftover value from a past occurrence. See the
+  // nwSeenBelowGoal declaration above for why this can't just be read from
+  // DE's data directly.
+  useEffect(() => {
+    const challenges = worldstate?.nightwave?.challenges;
+    if (!Array.isArray(challenges) || challenges.length === 0) return;
+    if (!rawInventory || typeof rawInventory !== 'object') return;
+    const cpMap = new Map();
+    if (Array.isArray(rawInventory.ChallengeProgress)) {
+      rawInventory.ChallengeProgress.forEach((cp) => {
+        if (cp.Name && typeof cp.Progress === "number") cpMap.set(cp.Name, cp.Progress);
+      });
+    }
+    setNwSeenBelowGoal((prev) => {
+      const next = {};
+      let changed = false;
+      const activeIds = new Set();
+      for (const c of challenges) {
+        if (!c.id) continue;
+        activeIds.add(c.id);
+        const rawKey = c.challengeKey || (c.rawChallenge || "").split("/").pop() || "";
+        const goalCount = c.requiredCount || 1;
+        const progressVal = cpMap.get(rawKey) ?? 0;
+        if (prev[c.id]) {
+          next[c.id] = true;
+        } else if (progressVal < goalCount) {
+          next[c.id] = true;
+          changed = true;
+        }
+      }
+      // Any id in prev but no longer in activeIds has rotated out and is
+      // naturally dropped from next (not re-added above) - mark changed so
+      // the pruned result gets persisted.
+      if (!changed) changed = Object.keys(prev).some((id) => !activeIds.has(id));
+      if (!changed) return prev;
+      localStorage.setItem('nightwave_seen_below_goal', JSON.stringify(next));
+      return next;
+    });
+  }, [worldstate?.nightwave?.challenges, rawInventory]);
+
+  useEffect(() => {
+    if (!initialized1999 && worldstate?.calendar1999?.length > 0) {
+      const cal = worldstate.calendar1999.find((s) => {
+        const now = Date.now();
+        const start = s.activation instanceof Date ? s.activation.getTime() : new Date(s.activation).getTime();
+        const end = s.expiry instanceof Date ? s.expiry.getTime() : new Date(s.expiry).getTime();
+        return now >= start && now < end;
+      }) || worldstate.calendar1999[0];
+
+      const year = new Date().getFullYear();
+      const jan1 = new Date(year, 0, 1);
+      const allDays = (cal.days || []).map((d) => {
+        const dDate = new Date(jan1);
+        dDate.setDate(d.day);
+        const mName = dDate.toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+        return { ...d, date: dDate, monthName: mName };
+      }).sort((a, b) => a.day - b.day);
+
+      const seasonMonths = [...new Set(allDays.map((d) => d.monthName))];
+
+      const firstEventIdx = allDays.findIndex((d) => d.events?.length > 0);
+      if (firstEventIdx !== -1) {
+        setSelected1999Day(firstEventIdx);
+        const eventMonth = allDays[firstEventIdx].monthName;
+        const mIdx = seasonMonths.indexOf(eventMonth);
+        if (mIdx !== -1) {
+          setSelected1999Month(mIdx);
+        }
+      } else {
+        // Fallback to current month if no events found at all
+        const currentMonthName = new Date().toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+        const mIdx = seasonMonths.indexOf(currentMonthName);
+        if (mIdx !== -1) {
+          setSelected1999Month(mIdx);
+        } else if (seasonMonths.length > 0) {
+          setSelected1999Month(0);
+        }
+      }
+
+      setInitialized1999(true);
+    }
+  }, [worldstate, initialized1999]);
+
+  const toggleCard = (id) => {
+    setHiddenCards((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
+  };
+
+  const isVisible = (id) => !hiddenCards.includes(id);
+
+
+
+
+  // Use pre-parsed worldState from monitoring context
+  useEffect(() => {
+    if (worldState) {
+      setWorldstate(worldState);
+      setLoading(false);
+    }
+  }, [worldState]);
+
+  // Cetus/Vallis/Deimos bounties come directly from official DE WorldState
+  // (worldstate.bounties). DE's own API never sends live Jobs for Zariman,
+  // Cavia, or Hex - only a PRNG Seed - so those three still need a real
+  // rotation source. oracle.browse.wf (Calamity Inc., open-source,
+  // github.com/calamity-inc/browse.wf) computes the actual DE rotation
+  // algorithm from that seed, including which companion (b.ally) joins each
+  // Hex bounty.
+  const fetchBountyCycle = useCallback(async () => {
+    try {
+      const cycleStr = await invoke('fetch_url', { url: 'https://oracle.browse.wf/bounty-cycle' }).catch(() => null);
+      if (cycleStr) setBountyCycle(JSON.parse(cycleStr));
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    fetchBountyCycle();
+    const iv = setInterval(fetchBountyCycle, 120_000);
+    return () => clearInterval(iv);
+  }, [fetchBountyCycle]);
+
+  // `loading` only ever flips false once on the initial worldState load, so
+  // the refresh button's disabled/spinner state needs its own tracking of a
+  // manualRefresh() call in flight, success or failure, to actually reflect it.
+  const handleRefresh = useCallback(async () => {
+    setLoading(true);
+    try {
+      await manualRefresh();
+    } finally {
+      setLoading(false);
+    }
+  }, [manualRefresh]);
+
+  // ── Derived data ─────────────────────────────────────────────────────────────
+  const currentArbyRaw = useMemo(() => getCurrentArby(arbys, ERg, dict), [arbys, ERg, dict]);
+  const currentArby = useMemo(() => currentArbyRaw ? { ...currentArbyRaw, grade: arbyTiers?.[currentArbyRaw.node] || 'F' } : null, [currentArbyRaw, arbyTiers]);
+  const upcomingArbies = useMemo(() => getUpcomingArbies(arbys, ERg, dict, arbyTiers, 5), [arbys, ERg, dict, arbyTiers]);
+
+  const ownedNamesAndTypes = useMemo(() => {
+    const set = new Set(inventoryData?.allOwnedItemTypes ?? []);
+    for (const item of (inventoryData?.all ?? [])) {
+      if (item.name) set.add(item.name.toLowerCase());
+      if (item.unique_name) set.add(item.unique_name);
+      if (item.uniqueName) set.add(item.uniqueName);
+    }
+    return set;
+  }, [inventoryData]);
+
+  const isSaleItemOwned = useCallback((sale) => {
+    if (!sale) return false;
+    const name = (sale.item || '').toLowerCase();
+    const type = sale.itemType || sale.uniqueName || '';
+    if (name && (ownedNamesAndTypes.has(name) || ownedNamesAndTypes.has(`${name} blueprint`))) return true;
+    if (type && (ownedNamesAndTypes.has(type) || ownedNamesAndTypes.has(type.replace('/Lotus/StoreItems/', '/Lotus/')) || ownedNamesAndTypes.has(type.replace('StoreItems/Types/', 'Types/')))) return true;
+    return false;
+  }, [ownedNamesAndTypes]);
+
+  const timers = [
+  { label: 'Cetus', data: worldstate?.cetusCycle, getState: (d) => d.state },
+  { label: 'Orb Vallis', data: worldstate?.vallisCycle, getState: (d) => d.state },
+  {
+    label: 'Cambion Drift', data: worldstate?.cambionCycle, getState: (d) =>
+    typeof d.active === 'boolean' ? d.active ? 'Fass' : 'Vome' : d.active || d.state || '?'
+  },
+  { label: 'Zariman', data: worldstate?.zarimanCycle, getState: (d) => d.state },
+  { label: 'Duviri', data: worldstate?.duviriCycle, getState: (d) => d.state },
+  { label: t('dashboard.daily_reset'), data: { expiry: new Date(new Date().setUTCHours(24, 0, 0, 0)) }, getState: () => 'Reset' }].
+  filter((t) => t.data);
+
+  const spIncursionNodes = useMemo(() => {
+    return getSpIncursionNodes(spIncursions);
+  }, [spIncursions]);
+
+  const fissureTabs = [
+  { id: 'normal', label: 'Normal' },
+  { id: 'steel', label: 'Steel Path' },
+  { id: 'storm', label: 'Void Storm' }];
+
+
+  const visibleFissures = useMemo(() => {
+    if (!worldstate?.fissures && !worldstate?.voidStorms) return [];
+    const now = new Date();
+    const all = [...(worldstate?.fissures || []), ...(worldstate?.voidStorms || [])];
+    return all.
+    filter((f) => {
+      const exp = f.expiry?.$date?.$numberLong ?
+      new Date(parseInt(f.expiry.$date.$numberLong, 10)) :
+      new Date(f.expiry);
+      if (exp <= now) return false;
+      if (fissureTab === 'normal') return !f.isStorm && !f.isHard;
+      if (fissureTab === 'steel') return f.isHard && !f.isStorm;
+      if (fissureTab === 'storm') return f.isStorm;
+      return false;
+    }).
+    sort((a, b) => a.tierNum - b.tierNum);
+  }, [worldstate, fissureTab]);
+
+  const archimedeaTabs = [
+  { id: 'deep', label: 'Deep' },
+  { id: 'temporal', label: 'Temporal' }];
+
+
+  const bountyTabs = useMemo(() => [
+  { id: 'holdfasts', label: 'Holdfasts', icon: iconSrc('MiniMapZariman') },
+  { id: 'cavia', label: 'Cavia', icon: iconSrc('MiniMapCaviaHubSyndicate') },
+  { id: 'hex', label: 'Hex', icon: iconSrc('MiniMapMarkersJobBoard') },
+  { id: 'cetus', label: 'Cetus', icon: iconSrc('MiniMapEidolonCetusElder') },
+  { id: 'deimos', label: 'Deimos', icon: iconSrc('MiniMapDeimosGrandmother') },
+  { id: 'vallis', label: 'Vallis', icon: iconSrc('MiniMapHubFortuna') }],
+  [iconsPath]);
+
+  const renderBounties = () => {
+    let items;
+    if (bountyTab === 'holdfasts' || bountyTab === 'cavia' || bountyTab === 'hex') {
+      // DE's own WorldState never sends live Jobs for these three - only a
+      // PRNG Seed - so they come from oracle.browse.wf's bounty-cycle
+      // endpoint instead, which reproduces DE's actual seeded rotation
+      // (including which companion joins each Hex bounty via `ally`).
+      const key = bountyTab === 'holdfasts' ? 'ZarimanSyndicate' : bountyTab === 'cavia' ? 'EntratiLabSyndicate' : 'HexSyndicate';
+      const data = bountyCycle?.bounties?.[key] || [];
+      const tier = bountyCycle?.rot ? `Rotation ${bountyCycle.rot}` : '';
+      items = data.map((b) => {
+        const bName = b.challenge ? resolveChallenge(b.challenge, dict, EC) : 'Unknown Bounty';
+        const bDesc = b.challenge ? resolveChallengeFlavour(b.challenge, dict, EC, ERg, b.ally) : '';
+        const bObj = b.challenge ? resolveChallengeDesc(b.challenge, dict, EC, ERg, b.ally) : '';
+        let img;
+        if (bountyTab === 'holdfasts') img = resolveHoldfastsGiver(b.challenge, bName, bDesc, bObj);
+        else if (bountyTab === 'cavia') img = resolveCaviaGiver(b.challenge, bName, bDesc, bObj);
+        else {
+          const allyLeaf = b.ally ? b.ally.split('/').pop().replace(/AllyAgent$/, '') : '';
+          img = allyLeaf ? `Bounty${allyLeaf}` : 'BountyTechrot';
+        }
+        return { name: bName, desc: bDesc, obj: bObj, tier, img };
+      });
+      if (items.length === 0) {
+        return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">{t('ui.dashboard.loading_bounties')}</p></div>;
+      }
+    } else {
+      items = worldstate?.bounties?.[bountyTab] || [];
+      if (items.length === 0) {
+        return <div className="min-h-[80px] flex items-center justify-center"><p className="text-xs text-kronos-dim italic">{t('ui.dashboard.no_bounties')}</p></div>;
+      }
+    }
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full">
+        {items.map((it, idx) =>
+        <div
+          key={`${it.name}-${idx}`}
+          className="relative rounded-lg border border-transparent hover:border-kronos-accent/30 transition-all group overflow-hidden min-h-[140px]">
+          
+            {/* Bounty art — character portrait sits on the right; the left ~40% is transparent whitespace */}
+            {it.img && iconsPath &&
+          <img
+            src={convertFileSrc(`${iconsPath}/${it.img}.png`)}
+            alt={it.name}
+            className="absolute inset-0 w-full h-full object-contain"
+            style={{ objectPosition: 'right top' }}
+             />
+
+          }
+            {/* Darken the left transparent zone so overlaid text stays legible; the portrait is right/top anchored */}
+            <div className="absolute inset-0 left-0 right-[10%] bg-gradient-to-r from-black/65 via-black/40 to-transparent" />
+            {/* Text spans the transparent-left width; stops short of the portrait */}
+            <div className="absolute inset-0 left-0 right-[15%] flex flex-col justify-between p-3 z-10">
+              <div>
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <p className="text-sm font-black text-white uppercase leading-tight flex-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">{it.name}</p>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    {it.levelRange && (
+                      <span className="text-[9px] font-bold text-kronos-dim uppercase bg-black/50 px-1.5 py-0.5 rounded">
+                        {it.levelRange}
+                      </span>
+                    )}
+                    {it.tier && (
+                      <span className="text-[10px] font-bold text-kronos-accent uppercase bg-kronos-panel/70 px-1.5 py-0.5 rounded">
+                        {it.tier}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {it.desc && <p className="text-xs text-kronos-text/90 leading-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] mb-1">{it.desc}</p>}
+              </div>
+              {it.obj && (
+                <p className="text-xs font-medium text-kronos-accent mt-auto leading-tight break-words drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
+                  {t('dashboard.challenge')}{it.obj}
+                </p>
+              )}
+              {it.finalReward && (
+                <div className="mt-1 pt-1 border-t border-white/10 flex items-center gap-1">
+                  <span className="text-[9px] font-bold text-amber-300 uppercase">{t('dashboard.guaranteed_label')}</span>
+                  <span className="text-[9px] text-white/90 truncate">{it.finalReward}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>);
+
+  };
+
+  const renderArchimedea = () => {
+    if (!worldstate?.archimedeas) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_archimedea')}</p>;
+    const typeKey = archimedeaTab === 'deep' ? 'CT_LAB' : 'CT_HEX';
+    const data = worldstate.archimedeas.find((a) => a.type === typeKey);
+    if (!data) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_data_for_type')}</p>;
+
+    return (
+      <div className="space-y-4 mt-2">
+        <div className="space-y-1.5">
+          {data.missions.map((m, idx) =>
+          <div key={idx} className="bg-kronos-panel/40 p-3 rounded-lg text-center w-full">
+              {/* Mission type + deviation single line */}
+              <p className="text-[12px] font-black uppercase mb-2 leading-tight tracking-wide">
+                <span className="text-kronos-accent">
+                  {m.missionType}
+                </span>
+                {m.deviation &&
+              <>
+                    <span className="text-kronos-dim/50 font-normal mx-2">-</span>
+                    <span className="relative group/devtip font-bold normal-case text-kronos-text cursor-help">
+                      {m.deviation.name}
+                      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-kronos-panel rounded-lg text-[12px] opacity-0 group-hover/devtip:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none block font-normal text-left">
+                        <span className="font-bold text-kronos-accent uppercase block mb-1.5 border-b border-white/5 pb-1">{m.deviation.name}</span>
+                        <span className="text-kronos-text leading-relaxed block">{m.deviation.description}</span>
+                      </span>
+                    </span>
+                  </>
+              }
+              </p>
+              {/* Risks - 2-column grid for better space usage */}
+              <div className="grid grid-cols-2 gap-1.5">
+                {m.risks?.map((r, ri) =>
+              <div
+                key={ri}
+                className={`relative group/risktip text-[12px] text-kronos-dim bg-black/30 px-3 py-1.5 rounded-md cursor-help border border-white/5 hover:border-kronos-accent/30 transition-colors ${m.risks.length === 3 && ri === 2 ? 'col-span-2' : ''}`}>
+                
+                    <span className="font-bold text-kronos-text/90 uppercase tracking-tight">{r.name}</span>
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-kronos-panel rounded-lg text-[12px] opacity-0 group-hover/risktip:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none block text-left">
+                      <span className="font-bold text-kronos-accent uppercase block mb-1.5 border-b border-white/5 pb-1">{r.name}</span>
+                      <span className="text-kronos-text leading-relaxed block">{r.description}</span>
+                    </span>
+                  </div>
+              )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Personal Modifiers - 2-column grid */}
+        {data.personalModifiers?.length > 0 &&
+        <div className="pt-2 border-t border-white/5">
+            <p className="text-[10px] text-kronos-dim uppercase font-bold mb-3 tracking-widest text-center">{t('ui.dashboard.personal_modifiers')}</p>
+            <div className="grid grid-cols-2 gap-1.5">
+              {data.personalModifiers.map((pm, pi) =>
+            <div key={pi} className="relative group/pmtip text-[11px] text-kronos-text text-center p-2.5 cursor-help block bg-black/20 rounded-lg border border-white/5 hover:border-kronos-accent/30 transition-colors">
+                  <span className="font-bold uppercase tracking-wide">{pm.name}</span>
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-kronos-panel rounded-lg text-[12px] opacity-0 group-hover/pmtip:opacity-100 transition-opacity z-50 shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/5 pointer-events-none block text-left font-normal">
+                    <span className="font-bold text-kronos-accent uppercase block mb-1.5 border-b border-white/5 pb-1">{pm.name}</span>
+                    <span className="text-kronos-text leading-relaxed block">{pm.description}</span>
+                  </span>
+                </div>
+            )}
+            </div>
+          </div>
+        }
+      </div>);
+
+  };
+
+  const renderNightwave = () => {
+    const nw = worldstate?.nightwave;
+    if (!nw) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.nightwave_inactive')}</p>;
+
+    const affiliationTag = nw.affiliationTag || '';
+    const hasInventory = rawInventory !== null && Object.keys(rawInventory || {}).length > 0;
+    const affiliations = hasInventory ? rawInventory?.Affiliations || [] : [];
+    const normTag = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const nwAffiliation = affiliations.find((a) => normTag(a.Tag) === normTag(affiliationTag)) ||
+      affiliations.find((a) => normTag(a.Tag).includes('intermission16') || normTag(a.Tag).includes('radiolegion')) ||
+      affiliations[affiliations.length - 1];
+    const nwStandingTotal = nwAffiliation?.Standing ?? 0;
+    const currentRank = nwAffiliation?.Title ?? nw.phase ?? 0;
+    const miscItems = hasInventory ? rawInventory?.MiscItems || [] : [];
+    const credCount = hasInventory ? miscItems.find((i) => i.ItemType === nw.credType)?.ItemCount ?? 0 : 0;
+    const STANDING_PER_LEVEL = 10000;
+    const standingInLevelRaw = hasInventory ? Math.max(0, nwStandingTotal - currentRank * STANDING_PER_LEVEL) : 0;
+    // Handle overflow - if standing exceeds per-level max, flip to next rank
+    const effectiveRank = currentRank + Math.floor(standingInLevelRaw / STANDING_PER_LEVEL);
+    const standingInLevel = standingInLevelRaw % STANDING_PER_LEVEL;
+    const normTok = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cpMap = new Map();
+    if (Array.isArray(rawInventory?.ChallengeProgress)) {
+      rawInventory.ChallengeProgress.forEach((cp) => {
+        if (cp.Name && typeof cp.Progress === "number") {
+          cpMap.set(cp.Name, cp.Progress);
+        }
+      });
+    }
+    const categories = ['Daily', 'Weekly', 'Elite Weekly'];
+    const grouped = (nw.challenges || []).reduce((acc, c) => {
+      let cat = 'Daily';
+      if (c.isElite || c.xp >= 7000) cat = 'Elite Weekly';
+      else if (c.xp >= 4500) cat = 'Weekly';
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(c);
+      return acc;
+    }, {});
+
+    const rewardTiers = nw.rewards || [];
+    const progressPercent = Math.min(100, standingInLevel / STANDING_PER_LEVEL * 100);
+    const rankToDisplay = hasInventory ? effectiveRank : -1;
+
+    return (
+      <div className="space-y-3">
+        {/* Top section: Status + Rewards in 2 columns */}
+        <div className="flex gap-3">
+          {/* Left: Status info */}
+          <div className="w-1/4 bg-kronos-panel/40 p-3 rounded-lg border border-white/5 flex flex-col">
+            <p className="text-sm font-bold text-kronos-accent uppercase tracking-tight text-center mb-3">{nw.name}</p>
+            <div className="flex-1 flex flex-col justify-between">
+              {hasInventory ?
+              <>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[12px] text-kronos-dim uppercase">{t('ui.comp.rank')}</span>
+                    <span className="text-[14px] font-black text-kronos-accent">{currentRank}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[12px] text-kronos-dim uppercase">{t('ui.dashboard.ends')}</span>
+                    <span className="text-[14px] text-kronos-text">{timeRemaining(nw.expiry)}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[12px] text-kronos-dim uppercase">{t('ui.dashboard.creds')}</span>
+                    <span className="text-[14px] font-bold text-kronos-text">{credCount}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[12px] text-kronos-dim uppercase">{t('ui.dashboard.standing')}</span>
+                    <span className="text-[14px] font-black text-kronos-accent">{standingInLevel.toLocaleString()} / {STANDING_PER_LEVEL.toLocaleString()}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-black text-kronos-text">{currentRank}</span>
+                    <div className="relative flex-1 h-3 bg-black/40 rounded overflow-hidden">
+                      <div
+                      className="absolute top-0 left-0 bottom-0 bg-kronos-accent"
+                      style={{ width: `${progressPercent}%` }} />
+                    
+                    </div>
+                    <span className="text-[11px] font-black text-kronos-dim">{currentRank + 1}</span>
+                  </div>
+                </> :
+
+              <div className="flex flex-col items-center justify-center flex-1">
+                  <p className="text-[12px] text-kronos-dim uppercase mb-1">{t('ui.dashboard.ends_in')}</p>
+                  <p className="text-lg font-black text-kronos-text">{timeRemaining(nw.expiry)}</p>
+                </div>
+              }
+            </div>
+          </div>
+
+          {/* Right: Rewards scrollable */}
+          {rewardTiers.length > 0 &&
+          <div className="flex-1 bg-kronos-panel/20 p-3 rounded-lg border border-white/5 overflow-hidden">
+              <div
+              className="h-[220px] overflow-x-auto custom-scrollbar"
+              onWheel={(e) => {
+                e.stopPropagation();
+                e.currentTarget.scrollLeft += e.deltaY;
+              }}>
+              
+                <div className="flex gap-6 items-stretch pb-2 h-full">
+                  {rewardTiers.map((r, ri) => {
+                  const isUnlocked = ri < rankToDisplay;
+                  const isCurrent = ri === rankToDisplay;
+                  return (
+                    <div
+                      key={ri}
+                      className={`relative flex-shrink-0 transition-all flex flex-col items-center ${isCurrent ? 'ring-2 ring-kronos-accent rounded p-1 m-1' : ''}`}>
+                      
+                        <span className={`text-[9px] font-black uppercase mb-1 ${isCurrent ? 'text-kronos-accent' : 'text-kronos-dim/60'}`}>{t('ui.comp.rank')}{ri + 1}</span>
+                        <div className={`w-36 h-full flex items-center justify-center ${isUnlocked ? 'grayscale opacity-60' : ''}`}>
+                          {r.modFrame ?
+                        <ModCard
+                          mod={{
+                            name: r.name,
+                            modFrame: r.modFrame,
+                            icon: r.iconPath,
+                            image: r.image
+                          }}
+                          framesPath={framesPath}
+                          cardImagesPath={cardImagesPath}
+                          iconsPath={iconsPath}
+                          exportTextIcons={ExportTextIcons}
+                          width={136}
+                          hideCategory /> :
+
+
+                        <ItemImage
+                          src={r.image}
+                          alt={r.name}
+                          className="max-w-full max-h-full object-contain"
+                          placeholderClassName="w-full h-full" />
+
+                        }
+                        </div>
+                        {!r.modFrame &&
+                      <p className="text-[9px] font-bold text-kronos-text uppercase leading-tight text-center mt-2 max-w-[120px] whitespace-normal break-words">{r.name}</p>
+                      }
+                      </div>);
+
+                })}
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        {/* Challenges Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+          {categories.flatMap((cat) =>
+          (grouped[cat] || []).map((c, idx) => {
+            const rawKey = c.challengeKey || (c.rawChallenge || "").split("/").pop() || "";
+            const goalCount = c.requiredCount || 1;
+            const progressVal = hasInventory ? (cpMap.get(rawKey) ?? 0) : 0;
+            // Neither raw DE field is trustworthy here (see nwSeenBelowGoal above) - only
+            // count this instance as done if we've actually watched it sit below goal on a
+            // live poll during this rotation, and it has since reached/passed the goal.
+            const isDone = Boolean(c.isCompleted || (hasInventory && progressVal >= goalCount && c.id && nwSeenBelowGoal[c.id]));
+            const isRecovered = c.isRecovered || c.recovered;
+            const showProgress = hasInventory && !isDone && (goalCount > 1 || progressVal > 0);
+            return (
+              <div
+                key={`${cat}-${idx}`}
+                className={`bg-kronos-panel/40 p-2.5 rounded border border-white/5 hover:border-kronos-accent/20 transition-all flex flex-col justify-between ${isDone ? 'opacity-50' : ''}`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-1.5 mb-2">
+                    <div className="flex items-center gap-1 flex-wrap">
+                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${cat === 'Elite Weekly' ? 'bg-yellow-500/20 text-yellow-400' : cat === 'Weekly' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'}`}>
+                        {cat === 'Elite Weekly' ? t('dashboard.category_elite_weekly') : cat === 'Weekly' ? t('dashboard.category_weekly') : t('dashboard.category_daily')}
+                      </span>
+                      {isRecovered && (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">
+                          {t('dashboard.recovered_badge')}
+                        </span>
+                      )}
+                      {isDone ? (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center gap-0.5">
+                          <Check size={10} /> {t('dashboard.done_badge')}
+                        </span>
+                      ) : showProgress ? (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-white/10 text-kronos-dim">
+                          {progressVal} / {goalCount}
+                        </span>
+                      ) : null}
+                    </div>
+                    <span className="text-[10px] text-kronos-accent font-black">{c.xp ? c.xp.toLocaleString() : ''}{t('ui.inventory.sort_xp')}</span>
+                  </div>
+                  <p className={`text-sm font-bold text-kronos-text leading-tight mb-1 ${isDone ? 'line-through text-kronos-dim' : ''}`}>{c.name}</p>
+                  <p className="text-xs text-kronos-dim/80 leading-relaxed">{c.desc}</p>
+                </div>
+              </div>
+            );
+          })
+          )}
+        </div>
+      </div>);
+
+  };
+
+  const renderCircuit = () => {
+    if (!worldstate?.circuit?.length) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_circuit')}</p>;
+
+    const groups = worldstate.circuit.reduce((acc, c) => {
+      if (!acc[c.category]) acc[c.category] = [];
+      acc[c.category].push(...c.choices);
+      return acc;
+    }, {});
+
+    const getCircuitImage = (ch) => {
+      // 1. Try resolveAnyImage (checks EI by uniqueName + nameToImage by lowered uniqueName from warframe-items)
+      const byUnique = resolveAnyImage(ch.uniqueName, EI, nameToImage);
+      if (byUnique) return byUnique;
+      // 2. Try by display name (locale-dependent fallback — both nameToImage and ch.name are in same locale)
+      const byName = nameToImage[ch.name.toLowerCase()];
+      if (byName) return byName;
+      const normalize = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
+      const partialMatch = Object.entries(nameToImage).find(([k]) => normalize(k).includes(normalize(ch.name)));
+      return partialMatch ? partialMatch[1] : null;
+    };
+
+    const isRewardOwned = (ch, cat) => {
+      if (!inventoryData) return false;
+
+      const choiceName = ch.name.replace(/ Incarnon Genesis$/, '').trim();
+
+      const isSameFamily = (itemName, familyName) => {
+        if (!itemName || !familyName) return false;
+        const lowerItem = itemName.toLowerCase();
+        const lowerFamily = familyName.toLowerCase();
+        const isComponent = lowerItem.includes(' barrel') || lowerItem.includes(' receiver') || lowerItem.includes(' stock') || lowerItem.includes(' blueprint') || lowerItem.includes(' link') || lowerItem.includes(' lower limb') || lowerItem.includes(' upper limb') || lowerItem.includes(' string') || lowerItem.includes(' grip') || lowerItem.includes(' handle') || lowerItem.includes(' hilt') || lowerItem.includes(' blade');
+        if (isComponent) return false;
+        return lowerItem === lowerFamily || lowerItem.startsWith(lowerFamily + ' ');
+      };
+
+      if (cat === 'Normal') {
+        return (inventoryData.warframes || []).some((wf) =>
+        wf.owned && isSameFamily(wf.name, choiceName)
+        );
+      }
+
+      if (cat === 'Steel Path') {
+        // 1. Installed Incarnon weapon in inventory
+        const hasInstalled = (inventoryData.all || []).some((item) =>
+          item.is_incarnon && item.owned && isSameFamily(item.name, choiceName)
+        );
+        if (hasInstalled) return true;
+
+        // 2. Evolution progress in raw inventory
+        const evoList = rawInventory?.EvolutionProgress || [];
+        const hasEvo = evoList.some((e) => {
+          const type = (e.ItemType || '').toLowerCase();
+          return isSameFamily(type, choiceName) || type.includes(choiceName.toLowerCase());
+        });
+        if (hasEvo) return true;
+
+        // 3. Uninstalled Genesis adapter in inventory / misc items
+        const rawMisc = rawInventory?.MiscItems || [];
+        const hasLooseAdapter = rawMisc.some((m) => {
+          const type = (m.ItemType || '').toLowerCase();
+          return type.includes('incarnon') && (isSameFamily(type, choiceName) || type.includes(choiceName.toLowerCase()));
+        }) || (inventoryData.all || []).some((i) => {
+          const n = (i.name || i.unique_name || '').toLowerCase();
+          return n.includes('incarnon') && (isSameFamily(n, choiceName) || n.includes(choiceName.toLowerCase())) && (i.owned || (i.quantity ?? 0) > 0);
+        });
+
+        return hasLooseAdapter;
+      }
+      return false;
+    };
+
+    return (
+      <div className="space-y-4 mt-2">
+        {Object.entries(groups).map(([cat, choices], idx) =>
+        <div key={idx} className="bg-kronos-panel/40 p-2.5 rounded border border-transparent hover:border-kronos-accent/20 transition-all">
+            <p className="text-[11px] font-black text-kronos-accent uppercase mb-2 tracking-widest text-center">{cat}</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {choices.map((ch, ci) => {
+              const img = getCircuitImage(ch);
+              const owned = isRewardOwned(ch, cat);
+              return (
+                <div key={ci} className="bg-black/20 p-3 rounded flex flex-col items-center gap-2 text-center min-h-[90px] w-full sm:w-[calc(50%-8px)] md:w-[calc(33.333%-11px)] relative overflow-hidden group">
+                    {owned &&
+                  <div className="absolute top-1 right-1 z-20 bg-blue-500 text-kronos-bg rounded-full p-0.5 shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                        <Check size={10} strokeWidth={4} />
+                      </div>
+                  }
+                    <div className="w-14 h-14 flex items-center justify-center">
+                      {img ?
+                    <ItemImage
+                      src={img}
+                      alt=""
+                      className="max-w-full max-h-full object-contain"
+                      placeholderClassName="w-full h-full"
+                       /> :
+
+
+                    <div className="w-full h-full bg-kronos-panel/40 rounded flex items-center justify-center">
+                          <Package size={20} className="text-kronos-dim/30" />
+                        </div>
+                    }
+                    </div>
+                    <span className="text-xs text-kronos-text font-medium leading-tight">{ch.name}</span>
+                  </div>);
+
+            })}
+            </div>
+          </div>
+        )}
+      </div>);
+
+  };
+
+  const render1999 = () => {
+    const seasonsArr = worldstate?.calendar1999 || [];
+    const now = Date.now();
+    const cal = seasonsArr.find((s) => {
+      const start = s.activation instanceof Date ? s.activation.getTime() : new Date(s.activation).getTime();
+      const end = s.expiry instanceof Date ? s.expiry.getTime() : new Date(s.expiry).getTime();
+      return now >= start && now < end;
+    }) || seasonsArr[0];
+
+    if (!cal) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_1999')}</p>;
+
+    const seasonMap = {
+      'CST_WINTER': { name: 'Winter', color: 'text-blue-300' },
+      'CST_SPRING': { name: 'Spring', color: 'text-green-300' },
+      'CST_SUMMER': { name: 'Summer', color: 'text-yellow-300' },
+      'CST_FALL': { name: 'Autumn', color: 'text-orange-300' }
+    };
+    const seasonInfo = seasonMap[cal.season] || { name: cal.season, color: 'text-kronos-accent' };
+
+    const year = new Date().getFullYear();
+    const jan1 = new Date(year, 0, 1);
+
+    const allDays = (cal.days || []).map((d) => {
+      const dDate = new Date(jan1);
+      dDate.setDate(d.day);
+      const mName = dDate.toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+      return { ...d, date: dDate, monthName: mName };
+    }).sort((a, b) => a.day - b.day);
+
+    // Dynamically derive months from the days in this season
+    const seasonMonths = [...new Set(allDays.map((d) => d.monthName))];
+
+    const nextExpiry = cal.expiry instanceof Date ? cal.expiry : new Date(cal.expiry);
+
+    const typeColors = {
+      'CET_CHALLENGE': 'bg-orange-400',
+      'CET_REWARD': 'bg-green-400',
+      'CET_UPGRADE': 'bg-blue-400',
+      'CET_BIRTHDAY': 'bg-pink-400'
+    };
+    const borderColors = {
+      'CET_CHALLENGE': 'border-orange-400 text-orange-300',
+      'CET_REWARD': 'border-green-400  text-green-300',
+      'CET_UPGRADE': 'border-blue-400   text-blue-300',
+      'CET_BIRTHDAY': 'border-pink-400   text-pink-300'
+    };
+    const fillColors = {
+      'CET_CHALLENGE': 'bg-orange-400 border-orange-400 text-kronos-bg',
+      'CET_REWARD': 'bg-green-400  border-green-400  text-kronos-bg',
+      'CET_UPGRADE': 'bg-blue-400   border-blue-400   text-kronos-bg',
+      'CET_BIRTHDAY': 'bg-pink-400   border-pink-400   text-kronos-bg'
+    };
+    const typeLabels = {
+      'CET_CHALLENGE': 'Challenge',
+      'CET_REWARD': 'Reward',
+      'CET_UPGRADE': 'Upgrade',
+      'CET_BIRTHDAY': 'Birthday'
+    };
+    const goToMonth = (idx) => {
+      setSelected1999Month(idx);
+      const targetMonth = seasonMonths[idx];
+      const targetIdx = allDays.findIndex((d) => d.monthName === targetMonth);
+      setSelected1999Day(targetIdx !== -1 ? targetIdx : -1);
+    };
+
+    const displayMonth = seasonMonths[selected1999Month] || '';
+    const monthDays = allDays.filter((d) => d.monthName === displayMonth);
+    const selectedDay = selected1999Day >= 0 ? allDays[selected1999Day] : null;
+
+    const MONTH_NAMES = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+    const monthIndex = MONTH_NAMES.indexOf(displayMonth);
+    const firstOfMonth = monthIndex >= 0 ? new Date(year, monthIndex, 1) : null;
+    const startOffset = firstOfMonth ? (firstOfMonth.getDay() + 6) % 7 : 0;
+    const daysInMonth = firstOfMonth ? new Date(year, monthIndex + 1, 0).getDate() : 0;
+
+    const dayByDom = {};
+    for (const d of monthDays) dayByDom[d.date.getDate()] = d;
+
+    const todayDom = new Date().getMonth() === monthIndex ? new Date().getDate() : -1;
+
+    return (
+      <div className="space-y-3 mt-1">
+        {/* Season header */}
+        <div className="flex items-center justify-between px-1">
+          <p className={`text-sm font-black uppercase tracking-widest ${seasonInfo.color}`}>{seasonInfo.name} {t('dashboard.season')}</p>
+          <p className="text-[10px] text-kronos-dim font-mono">{timeRemaining(nextExpiry)} {t('dashboard.remaining')}</p>
+        </div>
+
+        {/* Month tabs */}
+        <div className="flex gap-1.5">
+          {seasonMonths.map((m, idx) =>
+          <button
+            key={m}
+            onClick={() => goToMonth(idx)}
+            className={`flex-1 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${selected1999Month === idx ?
+            'bg-kronos-accent text-kronos-bg' :
+            'text-kronos-dim hover:text-kronos-text bg-kronos-panel/40 hover:bg-kronos-panel/70'}`
+            }>
+            
+              {m}
+            </button>
+          )}
+        </div>
+
+        {/* Grid + Detail side-by-side */}
+        <div className="flex gap-3">
+          {/* Calendar grid */}
+          <div className="flex-1 min-w-0">
+            <div className="grid grid-cols-7 mb-2 bg-zinc-800/50 rounded px-1 py-2">
+              {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) =>
+              <div key={i} className="text-center text-[9px] font-black uppercase text-kronos-dim/50 py-1">{d}</div>
+              )}
+            </div>
+            <div className="grid grid-cols-7 gap-1">
+              {Array.from({ length: startOffset }).map((_, i) =>
+              <div key={`blank-${i}`} />
+              )}
+              {Array.from({ length: daysInMonth }).map((_, i) => {
+                const dom = i + 1;
+                const dayData = dayByDom[dom];
+                const isToday = dom === todayDom;
+                const isSelected = selectedDay && selectedDay.date.getDate() === dom && selectedDay.monthName === displayMonth;
+                const hasEvents = !!dayData?.events?.length;
+
+                const eventType = dayData?.events?.[0]?.type;
+                const bc = borderColors[eventType] || 'border-kronos-dim/40 text-kronos-text';
+                const fc = fillColors[eventType] || 'bg-kronos-accent border-kronos-accent text-kronos-bg';
+                return hasEvents ?
+                <button
+                  key={dom}
+                  onClick={() => setSelected1999Day(allDays.indexOf(dayData))}
+                  className="aspect-square flex items-center justify-center cursor-pointer">
+                  
+                    <div className={`w-4 h-4 flex items-center justify-center rounded text-[11px] font-bold transition-all border ${isSelected ? fc : bc} ${isToday ? 'ring-1 ring-kronos-accent ring-offset-1 ring-offset-kronos-bg' : ''}`}>
+                      {dom}
+                    </div>
+                  </button> :
+
+                <div key={dom} className={`aspect-square flex items-center justify-center text-[11px] font-bold ${isToday ? 'text-kronos-accent font-black' : 'text-kronos-dim/30'}`}>{dom}</div>;
+
+              })}
+            </div>
+          </div>
+
+          {/* Detail panel */}
+          <div className="w-44 flex-shrink-0">
+            {selectedDay && selectedDay.monthName === displayMonth ? (() => {
+              const grouped = selectedDay.events.reduce((acc, ev) => {
+                const type = ev.type;
+                if (!acc[type]) acc[type] = [];
+                acc[type].push(ev);
+                return acc;
+              }, {});
+
+              return (
+                <div className="space-y-2">
+                  <div className="bg-kronos-panel/40 rounded-lg p-2.5 border border-white/5 flex items-center gap-2">
+                    <p className="text-xl font-black text-kronos-accent leading-none">
+                      {selectedDay.date.getDate()}
+                    </p>
+                    <p className="text-[9px] text-kronos-dim uppercase tracking-widest leading-none pt-0.5">
+                      {selectedDay.date.toLocaleDateString('en-US', { weekday: 'long' })}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    {Object.entries(grouped).map(([type, events]) =>
+                    <div key={type} className="bg-kronos-panel/40 rounded-lg p-2 border border-white/5">
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${typeColors[type] || 'bg-kronos-accent'}`} />
+                          <span className="text-[9px] font-black uppercase tracking-wider text-kronos-dim">{typeLabels[type] || type}</span>
+                        </div>
+                        <div className="space-y-1 pl-1">
+                          {events.map((ev, ei) =>
+                        <div key={ei} className="min-w-0">
+                              <p className="text-[12px] font-bold text-kronos-text leading-tight">{ev.name}</p>
+                              {ev.description &&
+                          <p className="text-[12px] text-kronos-dim/70 leading-tight mt-0.5">{ev.description}</p>
+                          }
+                            </div>
+                        )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>);
+
+            })() :
+            <div className="h-full flex items-center justify-center">
+                <p className="text-[10px] text-kronos-dim/40 italic text-center">{t('ui.dashboard.select_a')}<br />{t('ui.dashboard.day')}</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="flex flex-wrap gap-3 px-1 pt-1 border-t border-white/5">
+          {Object.entries(typeLabels).map(([k, label]) =>
+          <div key={k} className="flex items-center gap-1">
+              <div className={`w-1.5 h-1.5 rounded-full ${typeColors[k]}`} />
+              <span className="text-[9px] text-kronos-dim uppercase tracking-wider">{label}</span>
+            </div>
+          )}
+        </div>
+      </div>);
+
+  };
+
+  const [showDescendiaModal, setShowDescendiaModal] = useState(false);
+  const [expandedWeek, setExpandedWeek] = useState(0);
+
+  const renderDescendia = () => {
+    if (!worldstate?.descendia?.length) return <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_descendia')}</p>;
+    const current = worldstate.descendia[0];
+
+    return (
+      <div className="mt-2">
+        <div className="space-y-1 max-h-[280px] overflow-y-auto custom-scrollbar pr-1">
+          {current.stages.map((s) => {
+            const isSpecial = s.isMarie || s.isLyon || s.isBoss;
+
+            if (s.isMarie) {
+              return (
+                <div key={s.index} className="p-2 rounded bg-kronos-accent/15 border border-kronos-accent/25 flex items-center gap-2">
+                  <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-kronos-accent uppercase">{t('ui.dashboard.marie_sanctuary')}</p>
+                    <Tooltip content={s.penanceDesc || s.penance} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    </Tooltip>
+                  </div>
+                </div>);
+
+            }
+            if (s.isLyon) {
+              return (
+                <div key={s.index} className="p-2 rounded bg-kronos-accent/15 border border-kronos-accent/25 flex items-center gap-2">
+                  <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-kronos-accent uppercase">{t('ui.dashboard.lyon_sanctuary')}</p>
+                    <Tooltip content={s.penanceDesc || s.penance} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    </Tooltip>
+                  </div>
+                </div>);
+
+            }
+            if (s.isBoss) {
+              return (
+                <div key={s.index} className="p-2 rounded bg-kronos-accent/15 border border-kronos-accent/25 flex items-center gap-2">
+                  <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-kronos-accent uppercase">{t('ui.dashboard.roathe_oblivion')}</p>
+                    <Tooltip content={s.penanceDesc || s.penance} position="top">
+                      <p className="text-[9px] text-kronos-dim uppercase truncate">{s.penance}</p>
+                    </Tooltip>
+                  </div>
+                </div>);
+
+            }
+
+            return (
+              <div key={s.index} className="p-1.5 rounded bg-kronos-panel/30 flex items-center gap-1.5">
+                <span className="text-[9px] font-black text-kronos-dim bg-kronos-panel/60 px-1.5 py-0.5 rounded w-6 text-center flex-shrink-0">{s.index}</span>
+                <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/40">
+                  <Tooltip content={s.missionTypeDesc || s.missionType} position="top">
+                    <p className="text-[10px] font-bold text-kronos-text uppercase">{s.missionType}</p>
+                  </Tooltip>
+                </div>
+                <div className="flex-1 min-w-0 p-1 rounded bg-kronos-panel/20">
+                  <Tooltip content={s.penanceDesc || s.penance} position="top">
+                    <p className="text-[10px] text-kronos-dim uppercase">{s.penance}</p>
+                  </Tooltip>
+                </div>
+              </div>);
+
+          })}
+        </div>
+        <p className="text-[10px] text-kronos-dim font-mono mt-2 text-right">{timeRemaining(current.expiry)} {t('dashboard.remaining_caps')}</p>
+      </div>);
+
+  };
+
+  const DescendiaModal = () => {
+    if (!worldstate?.descendia?.length) return null;
+    const upcoming = worldstate.descendia.slice(1, 5);
+
+    return (
+      <Modal
+        isOpen={showDescendiaModal}
+        onClose={() => { setShowDescendiaModal(false); setExpandedWeek(0); }}
+        title={t('ui.dashboard.upcoming_rotations')}
+        maxWidth="max-w-md">
+        
+        <div className="space-y-2">
+          {upcoming.map((set, setIdx) => {
+            const isExpanded = expandedWeek === setIdx;
+            const label = setIdx === 0 ? t('dashboard.next_week') : t('dashboard.in_n_weeks', { n: setIdx + 1 });
+
+            return (
+              <div key={setIdx} className="bg-kronos-panel/20 rounded-lg border border-transparent hover:border-kronos-accent/10 transition-all overflow-hidden">
+                <button
+                  onClick={() => setExpandedWeek(isExpanded ? -1 : setIdx)}
+                  className="w-full flex items-center justify-between p-3 transition-colors hover:bg-kronos-accent/5">
+                  
+                  <div className="text-left">
+                    <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest">{label}</p>
+                  </div>
+                  {isExpanded ? <ChevronUp size={16} className="text-kronos-dim" /> : <ChevronDown size={16} className="text-kronos-dim" />}
+                </button>
+
+                {isExpanded &&
+                <div className="px-3 pb-3 space-y-1.5 animate-in slide-in-from-top-2 duration-200">
+                    {set.stages.map((s) =>
+                  <div key={s.index} className={`p-2 rounded flex justify-between items-center gap-2 ${s.isCheckpoint ? 'bg-kronos-accent/10 border border-kronos-accent/20' : 'bg-black/20'}`}>
+                        <div className="min-w-0">
+                          <Tooltip content={s.missionTypeDesc || s.missionType} position="top">
+                            <p className="text-[10px] font-bold text-kronos-text uppercase truncate">{s.missionType}{s.isBoss ? ' - Roathe' : ''}</p>
+                          </Tooltip>
+                          <Tooltip content={s.penanceDesc || s.penance} position="bottom">
+                            <p className="text-[9px] text-kronos-dim truncate uppercase">{s.penance}</p>
+                          </Tooltip>
+                        </div>
+                        <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded flex-shrink-0 ${s.isCheckpoint ? 'text-kronos-accent bg-kronos-accent/20' : 'text-kronos-dim bg-kronos-panel/40'}`}>
+                          {s.isCheckpoint ? t('dashboard.checkpoint_n', { n: s.index }) : t('dashboard.inf_n', { n: s.index })}
+                        </span>
+                      </div>
+                  )}
+                  </div>
+                }
+              </div>);
+
+          })}
+        </div>
+        <div className="p-3 mt-4 bg-kronos-panel/10 text-center rounded border border-white/5">
+          <p className="text-[9px] text-kronos-dim uppercase font-bold tracking-widest">{t('ui.dashboard.rotations_update_weekly')}</p>
+        </div>
+      </Modal>);
+
+  };
+
+  const renderAlerts = () => {
+    if (!worldstate?.alerts?.length) return (
+      <Card glow className="p-3">
+        <CardHeader imageSrc={iconSrc('Alert')} title={t('ui.dashboard.alerts')} />
+        <p className="text-xs text-kronos-dim italic text-center py-4">{t('ui.dashboard.no_active_alerts')}</p>
+      </Card>);
+
+    return (
+      <Card glow className="p-3">
+        <CardHeader imageSrc={iconSrc('Alert')} title={t('ui.dashboard.alerts')} />
+        <div className="space-y-1.5">
+          {worldstate.alerts.map((a, idx) =>
+          <div key={idx} className="bg-kronos-panel/40 rounded p-2 border border-transparent hover:border-kronos-accent/20 transition-all">
+              <div className="flex justify-between items-start mb-1">
+                <span className="text-[10px] font-black text-kronos-accent uppercase tracking-wider">{a.missionType}</span>
+                <span className="text-[10px] text-kronos-dim font-mono">{timeRemaining(a.expiry)}</span>
+              </div>
+              <p className="text-[11px] font-bold text-kronos-text uppercase leading-none mb-1">{a.node}</p>
+              <div className="flex justify-between items-end">
+                <span className="text-[9px] text-kronos-dim uppercase font-bold">{a.faction} (Lv {a.minLevel}-{a.maxLevel})</span>
+                <span className="text-[10px] text-blue-400 font-bold uppercase">{a.rewardText}</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </Card>);
+
+  };
+
+  const renderBaro = () => {
+    const vt = worldstate?.voidTrader;
+    if (!vt) return null;
+    const baroIcon = iconsPath ? convertFileSrc(`${iconsPath}/BaroKiTeerFlat.png`) : null;
+
+    return (
+      <Card glow className="p-3">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            {baroIcon ? <img src={baroIcon} className="w-5 h-5 object-contain" alt="" /> : <ShoppingBag size={16} className="text-kronos-accent flex-shrink-0" />}
+            <p className="font-bold text-sm uppercase">{t('ui.dashboard.baro_kiteer')}</p>
+          </div>
+          {vt.active && vt.inventory?.length > 0 ?
+          <button
+            onClick={() => setShowBaroModal(true)}
+            className="text-[10px] bg-kronos-accent/20 text-kronos-accent font-bold px-2 py-0.5 rounded uppercase hover:bg-kronos-accent/30 transition-colors">{t('nav.inventory')}
+
+
+          </button> :
+          null}
+        </div>
+        <div className="bg-kronos-panel/40 rounded p-2">
+          <p className="text-sm font-bold text-kronos-text uppercase">{vt.node}</p>
+          <p className="text-xs text-kronos-dim mt-0.5 font-mono">
+            {vt.active ? t('dashboard.departing_in', { time: timeRemaining(vt.expiry) }) : t('dashboard.arriving_in', { time: timeRemaining(vt.activation) })}
+          </p>
+        </div>
+      </Card>);
+
+  };
+
+  const BaroModal = () => {
+    const vt = worldstate?.voidTrader;
+    const inventory = vt?.inventory;
+
+    const ownedUniqueNames = useMemo(
+      () => new Set(inventoryData?.allOwnedItemTypes ?? []),
+      [inventoryData]
+    );
+
+    // Baro's manifest uses the purchasable "/Lotus/StoreItems/..." variant of
+    // an item's path, while owned inventory is keyed by the actual item path
+    // ("/Lotus/Upgrades/..." etc, no "StoreItems" segment) - strip it before
+    // matching, or every Baro item would show as unowned regardless of
+    // actual ownership.
+    const isBaroItemOwned = (uniqueName) => {
+      if (!uniqueName) return false;
+      if (ownedUniqueNames.has(uniqueName)) return true;
+      const normalized = uniqueName.replace('/Lotus/StoreItems/', '/Lotus/');
+      return ownedUniqueNames.has(normalized);
+    };
+
+    return (
+      <Modal
+        isOpen={showBaroModal}
+        onClose={() => setShowBaroModal(false)}
+        title={t('ui.dashboard.baro_inventory')}>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {inventory?.map((item, idx) => {
+            const owned = isBaroItemOwned(item.uniqueName);
+            return (
+          <div key={idx} className="bg-kronos-panel/40 p-2 rounded flex items-center gap-3 border border-transparent hover:border-kronos-accent/20 transition-all">
+              <div className="w-12 h-12 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
+                <ItemImage src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                {owned &&
+                <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                    <Check size={10} className="text-black" />
+                  </div>
+                }
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[11px] font-bold text-kronos-text uppercase truncate" title={item.item}>{item.item}</p>
+                <div className="flex items-center gap-3 mt-1">
+                  <span className="text-[10px] flex items-center gap-1 font-bold text-yellow-400">
+                    {iconSrc('Ducats') && <img src={iconSrc('Ducats')} className="w-3.5 h-3.5 object-contain" alt="" />}
+                    {item.ducats} <span className="text-kronos-dim text-[8px] uppercase">{t('ui.dashboard.ducats')}</span>
+                  </span>
+                  <span className="text-[10px] flex items-center gap-1 font-bold text-blue-400">
+                    {iconSrc('Credits') && <img src={iconSrc('Credits')} className="w-3.5 h-3.5 object-contain" alt="" />}
+                    {item.credits.toLocaleString()} <span className="text-kronos-dim text-[8px] uppercase">{t('ui.dashboard.credits')}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            );
+          })}
+        </div>
+      </Modal>);
+
+  };
+
+  const WishlistModal = () => {
+    const wishlist = inventoryData?.wishlist ?? [];
+    const [wishlistPrices, setWishlistPrices] = useState({});
+    const bundles = exportData?.ExportBundles || {};
+    const resources = exportData?.ExportResources || {};
+    const customs = exportData?.ExportCustoms || {};
+    const gear = exportData?.ExportGear || {};
+    // Combined lookup for bundle-component price resolution: bundle component
+    // typeNames use /Lotus/StoreItems/... but export entries use /Lotus/..., so
+    // both the raw and normalized path are indexed.
+    const itemLookup = useMemo(() => {
+      const map = {};
+      for (const src of [resources, customs, bundles, gear]) {
+        for (const [k, v] of Object.entries(src)) {
+          if (v?.platinumCost) {
+            map[k] = v;
+            const norm = k.replace('/Lotus/StoreItems/', '/Lotus/');
+            if (norm !== k) map[norm] = v;
+          }
+        }
+      }
+      return map;
+    }, [resources, customs, bundles, gear]);
+    const normalizePath = (path) => path ? path.replace('/Lotus/StoreItems/', '/Lotus/') : path;
+    useEffect(() => {
+      if (!showWishlistModal || wishlist.length === 0) return;
+      const fetchPrices = async () => {
+        const prices = {};
+        for (const item of wishlist) {
+          let price = await getPrice(item.unique_name, item.name);
+          if (!price) {
+            const bundle = bundles[item.unique_name];
+            price = bundle?.platinumCost;
+            if (!price && bundle?.components) {
+              let componentTotal = 0;
+              let allResolved = true;
+              for (const comp of bundle.components) {
+                const typeName = comp.typeName;
+                const resolved = itemLookup[typeName] || itemLookup[normalizePath(typeName)];
+                const compPrice = resolved?.platinumCost;
+                if (compPrice != null) componentTotal += compPrice * (comp.purchaseQuantity || 1);
+                else allResolved = false;
+              }
+              if (allResolved && componentTotal > 0) {
+                const discount = bundle.packageDiscount || 0;
+                price = Math.ceil(componentTotal * (1 - discount));
+              }
+            }
+          }
+          if (!price) price = resources[item.unique_name]?.platinumCost;
+          if (!price) price = customs[item.unique_name]?.platinumCost;
+          // DE's static export has no platinumCost for individual booster
+          // items; fall back to the standard store prices (per DE).
+          if (!price && item.unique_name?.includes('Booster') && item.unique_name?.includes('StoreItem')) {
+            if (/3Day/.test(item.unique_name)) price = 40;
+            else if (/7Day/.test(item.unique_name)) price = 80;
+            else if (/30Day/.test(item.unique_name)) price = 200;
+          }
+          prices[item.unique_name] = price ?? 0;
+        }
+        setWishlistPrices(prices);
+      };
+      fetchPrices();
+    }, [showWishlistModal, wishlist, bundles, resources, customs, itemLookup]);
+    const prices = { ...allPrices, ...wishlistPrices };
+    const totalPlat = wishlist.reduce((sum, item) => sum + (prices[item.unique_name] ?? 0), 0);
+    return (
+      <Modal
+        isOpen={showWishlistModal}
+        onClose={() => setShowWishlistModal(false)}
+        title={t('ui.dashboard.wishlist')}>
+
+        {wishlist.length > 0 &&
+        <div className="flex items-center justify-end gap-1 text-xs text-kronos-accent font-bold mb-3">
+            <span>{t('ui.dashboard.total_cost')}:</span>
+            {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+            {totalPlat}
+          </div>
+        }
+        {wishlist.length === 0 ?
+        <p className="text-xs text-kronos-dim italic text-center py-8">{t('ui.dashboard.no_wishlist_items')}</p> :
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {wishlist.map((item, idx) =>
+          <div key={idx} className="bg-kronos-panel/40 p-3 rounded flex items-center gap-4 border border-transparent hover:border-kronos-accent/20 transition-all">
+                <div className="w-16 h-16 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0">
+                  <ItemImage src={resolveAnyImage(item, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-kronos-text uppercase" title={item.name}>{item.name}</p>
+                </div>
+                <div className="flex-shrink-0">
+                  {prices[item.unique_name] > 0 ?
+                  <span className="flex items-center justify-end gap-1 px-2 py-1 bg-kronos-panel/60 rounded text-xs text-kronos-accent font-bold">
+                      <img src={iconSrc('Platinum')} className="w-3 h-3 object-contain" alt="" />
+                      {prices[item.unique_name]}
+                    </span> :
+
+                  <span className="text-xs text-kronos-dim">-</span>
+                  }
+                </div>
+              </div>
+          )}
+          </div>
+        }
+      </Modal>);
+
+  };
+
+  const renderEvents = () => {
+    if (!worldstate?.events?.length && !worldstate?.globalBoosters?.length) return null;
+    return (
+      <Card glow className="p-3 border-kronos-accent/30">
+        <CardHeader imageSrc={iconSrc('EventNotificationIcon')} title={t('ui.dashboard.events')} />
+        <div className="space-y-2.5">
+          {/* Global Boosters */}
+          {worldstate?.globalBoosters?.map((b, idx) =>
+          <div key={`booster-${idx}`} className="space-y-1 pb-2 border-kronos-panel/40 last:border-0">
+              <div className="flex justify-between items-start">
+                <p className="text-xs font-black text-kronos-accent uppercase tracking-widest">{b.name}</p>
+                <span className="text-[10px] text-kronos-dim font-mono">{timeRemaining(b.expiry)}{t('dashboard.left')}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Regular Events */}
+          {worldstate.events.map((e, idx) =>
+          <div key={idx} className="space-y-1 pb-2 border-b border-kronos-panel/40 last:border-0">
+              <div className="flex justify-between items-start">
+                <p className="text-xs font-black text-kronos-accent uppercase tracking-widest">{e.name}</p>
+                <span className="text-[10px] text-kronos-dim font-mono">{timeRemaining(e.expiry)}{t('dashboard.left')}</span>
+              </div>
+
+              {(e.rewards?.length > 0 || e.mainReward) &&
+            <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
+                  {e.rewards?.map((r, ri) =>
+              <span key={ri} className="text-[9px] text-kronos-accent font-bold uppercase">{r}</span>
+              )}
+                  {e.mainReward &&
+              <span className="text-[9px] text-blue-400 font-bold uppercase">{e.mainReward}</span>
+              }
+                </div>
+            }
+            </div>
+          )}
+        </div>
+      </Card>);
+
+  };
+
+  const renderSPIncursions = () => {
+    const incursions = worldstate?.incursions || worldstate?.steelPath?.incursions;
+    // Fallback expiry: Next day 00:00 UTC
+    const todaySec = Math.floor(Date.now() / 86400000) * 86400;
+    const nextReset = (todaySec + 86400) * 1000;
+    const expiry = incursions?.expiry || nextReset;
+
+    if (spIncursionNodes.length === 0) {
+      return <p className="text-xs text-kronos-dim italic">{t('ui.dashboard.no_incursions_today')}</p>;
+    }
+    return (
+      <div className="space-y-1.5">
+        {spIncursionNodes.map((n, idx) => {
+          const entry = ERg[n];
+          const nodeName = resolveNode(n, dict, ERg);
+          const mType = entry ? resolveMissionType(entry.missionName || entry.missionType, dict, ERg) : 'Unknown Mission';
+          const faction = entry ? resolveNode(entry.faction, dict, ERg) : 'Unknown Faction';
+          const planet = entry ? resolveNode(entry.regionName || entry.systemName, dict, ERg) : '';
+          const planetStr = planet && planet !== 'Unknown Node' ? `, ${planet}` : '';
+
+          return (
+            <div key={idx} className="bg-kronos-panel/40 rounded p-2 flex justify-between items-center group border border-transparent hover:border-kronos-accent/20 transition-all">
+              <div className="flex flex-col min-w-0">
+                <div className="flex items-center gap-0.5 flex-wrap">
+                  <span className="text-[11px] font-black text-kronos-accent uppercase tracking-wider leading-none">
+                    {mType}
+                  </span>
+                  <span className="text-[11px] text-kronos-dim font-bold uppercase leading-none">
+                    - {faction}
+                  </span>
+                </div>
+                <div className="text-[10px] text-kronos-text uppercase mt-1 opacity-80 flex items-center gap-1">
+                  <span className="text-kronos-accent/60">@</span>
+                  <span className="truncate">{nodeName}{planetStr}</span>
+                </div>
+              </div>
+              <div className="flex flex-col items-end flex-shrink-0 ml-2">
+                <span className="text-[10px] text-kronos-accent font-black px-2 py-0.5 bg-kronos-accent/10 rounded-full">
+                  {t('dashboard.essence_reward', { n: 5 })}
+                </span>
+              </div>
+            </div>);
+
+        })}
+        {expiry &&
+        <p className="text-[10px] text-kronos-dim mt-2 text-right font-mono tracking-tighter">{t('ui.dashboard.rotates_in').replace('{time}', timeRemaining(expiry).toUpperCase())}
+          </p>
+        }
+      </div>);
+
+  };
+
+  if (loading && !worldstate) {
+    return (
+      <PageLayout
+        titleKey="screen.dashboard"
+        extra={
+        <Button variant="ghost" onClick={handleRefresh} disabled={loading} className="h-12 w-12 !p-0 !px-0 !py-0">
+            <RefreshCw size={28} strokeWidth={3} className="animate-spin text-kronos-accent" />
+          </Button>
+        }>
+        
+        <div className="flex flex-col items-center justify-center h-64 gap-4">
+          <RefreshCw size={64} strokeWidth={2} className="text-kronos-accent animate-spin" />
+          <p className="text-kronos-dim font-medium">{t('ui.dashboard.loading_worldstate')}</p>
+        </div>
+      </PageLayout>);
+
+  }
+
+  return (
+    <PageLayout
+      titleKey="screen.dashboard"
+      extra={
+      <div className="flex items-center gap-3 relative">
+          <button
+          onClick={() => setShowSettings(!showSettings)}
+          className={`p-2 rounded-full transition-all border ${showSettings ?
+          'bg-kronos-accent/20 border-kronos-accent text-kronos-accent shadow-[0_0_10px_rgba(var(--kronos-accent-rgb),0.3)]' :
+          'bg-kronos-panel/40 border-white/5 text-kronos-text hover:border-kronos-accent/30'}`
+          }
+          title={t('ui.dashboard.settings_title')}>
+          
+            <Settings size={18} className={showSettings ? 'animate-spin-slow' : ''} />
+          </button>
+
+          {showSettings &&
+        <div className="absolute top-full right-0 mt-2 w-64 glass-panel border border-kronos-accent/20 rounded-lg p-4 z-[110] shadow-2xl">
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-kronos-accent/10">
+                <span className="text-xs font-bold uppercase tracking-wider text-kronos-accent">{t('ui.dashboard.visible_cards')}</span>
+                <button onClick={() => setShowSettings(false)} className="text-kronos-dim hover:text-white"><X size={14} /></button>
+              </div>
+              <div className="space-y-2 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                {[
+            { id: 'bounty', label: t('ui.dashboard.bounties') },
+            { id: 'news', label: t('ui.dashboard.latest_news') },
+            { id: 'timers', label: t('ui.dashboard.world_timers') },
+            { id: 'arb', label: t('ui.dashboard.arbitration') },
+            { id: 'nightwave', label: t('ui.dashboard.nightwave') },
+            { id: 'inv', label: t('ui.dashboard.invasions') },
+            { id: 'fiss', label: t('dashboard.fissures') },
+            { id: 'baro', label: t('ui.dashboard.baro_kiteer') },
+            { id: 'arch', label: t('ui.dashboard.archimedea') },
+            { id: '1999', label: t('checklist.task_calendar') },
+            { id: 'inf', label: t('ui.dashboard.sp_incursions') },
+            { id: 'desc', label: t('ui.dashboard.descendia') },
+            { id: 'sortie', label: t('dashboard.sorties') },
+            { id: 'hunt', label: t('dashboard.archon_hunts') },
+            { id: 'circuit', label: t('ui.dashboard.the_circuit') },
+            { id: 'deal', label: t('dashboard.daily_deals') },
+            { id: 'sales', label: t('ui.dashboard.market_sales') },
+            { id: 'alerts', label: t('ui.dashboard.alerts') },
+            { id: 'event', label: t('ui.dashboard.events') }].
+            map((card) =>
+            <label key={card.id} className="flex items-center justify-between group cursor-pointer">
+                    <span className="text-xs text-kronos-dim group-hover:text-kronos-text transition-colors">{card.label}</span>
+                    <input
+                type="checkbox"
+                checked={isVisible(card.id)}
+                onChange={() => toggleCard(card.id)}
+                className="accent-kronos-accent w-3 h-3 cursor-pointer" />
+              
+                  </label>
+            )}
+              </div>
+            </div>
+        }
+
+          {lastUpdate &&
+        <span className="text-[10px] text-kronos-dim uppercase font-bold tracking-tighter">{t('dashboard.synced')}
+          {new Date(Number(lastUpdate)).toLocaleTimeString()}
+            </span>
+        }
+          <Button
+          variant="ghost"
+          onClick={handleRefresh}
+          disabled={loading}
+          className="h-9 w-9 !p-0 hover:bg-kronos-accent/10 transition-colors">
+          
+            <RefreshCw
+            size={18}
+            strokeWidth={3}
+            className={`${loading ? 'animate-spin' : ''} text-kronos-accent`} />
+          
+          </Button>
+        </div>
+      }>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-4">
+        {/* Bounties - Full Width */}
+        {isVisible('bounty') &&
+        <div className="lg:col-span-3">
+            <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('MiniMapBountySource')} title={t('ui.dashboard.bounties')} />
+              <Tabs tabs={bountyTabs} activeTab={bountyTab} onChange={setBountyTab} className="mb-2" fullWidth />
+              {renderBounties()}
+            </Card>
+          </div>
+        }
+
+        {/* Nightwave - Spans Full Width */}
+        {isVisible('nightwave') &&
+        <div className="lg:col-span-3">
+            <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('NightwaveIconSimple')} title={t('ui.dashboard.nightwave')} />
+              {renderNightwave()}
+            </Card>
+          </div>
+        }
+
+        {/* ── Col 1 ── */}
+        <div className="space-y-4">
+          {isVisible('alerts') && renderAlerts()}
+
+          {/* World Timers */}
+          {isVisible('timers') && timers.length > 0 &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('DailyTimerIcon')} title={t('ui.dashboard.world_timers')} />
+              <div className="grid grid-cols-2 gap-2">
+                {timers.map(({ label, data, getState }) =>
+              <div key={label} className="bg-kronos-panel/40 rounded p-2 flex flex-col gap-0.5">
+                    <p className="text-[10px] text-kronos-dim uppercase tracking-wider leading-none">{label}</p>
+                    <p className="text-sm font-bold uppercase text-kronos-accent leading-tight">{getState(data)}</p>
+                    <p className="text-xs text-kronos-dim font-mono">{timeRemaining(data.expiry)}</p>
+                  </div>
+              )}
+              </div>
+            </Card>
+          }
+
+          {isVisible('baro') && renderBaro()}
+
+          {/* Arbitration */}
+          {isVisible('arb') &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('EliteAlertIconSimple')} title={t('ui.dashboard.arbitration')} />
+              {currentArby ?
+            <div className="space-y-2">
+                  <div className="bg-kronos-panel/40 rounded p-2 flex justify-between items-start gap-4">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs text-kronos-dim uppercase mb-0.5">{t('ui.dashboard.current')}</p>
+                      <p className="text-sm font-bold text-kronos-accent truncate">{resolveMissionType(currentArby.type, dict, ERg)}</p>
+                      <p className="text-sm font-bold truncate">{resolveNode(currentArby.node, dict, ERg)}</p>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0 mt-1">
+                      <span className="text-[12px] text-kronos-dim font-mono">
+                        {timeRemaining(currentArby.ts + 3600000)}
+                      </span>
+                      <GradeBadge grade={currentArby.grade} />
+                    </div>
+                  </div>
+                  {upcomingArbies.length > 0 &&
+              <div>
+                      <p className="text-[10px] text-kronos-dim uppercase font-bold mb-1">{t('ui.dashboard.upcoming')}</p>
+                      <div className="space-y-1">
+                        {upcomingArbies.map((a, i) =>
+                  <div key={i} className="bg-kronos-panel/40 rounded p-1.5 flex justify-between items-center text-xs uppercase">
+                            <span className="font-bold truncate">{resolveMissionType(a.type, dict, ERg)} - {resolveNode(a.node, dict, ERg)}</span>
+                            <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                              <span className="text-kronos-dim font-mono">
+                                {new Date(a.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                              <GradeBadge grade={a.grade} />
+                            </div>
+                          </div>
+                  )}
+                      </div>
+                    </div>
+              }
+                  {arbitrationModifiers &&
+              <div className="pt-2 border-t border-kronos-divider/30">
+                      <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">{t('ui.dashboard.personal_bonuses')}</p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                          <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                            <ItemImage src={resolveAnyImage(arbitrationModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                          </div>
+                          <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(arbitrationModifiers.suitType, dict, uniqueNameToName)}</span>
+                        </div>
+                        {(arbitrationModifiers.wepTypes || []).map((w, i) =>
+                  <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                            <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                              <ItemImage src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                            </div>
+                            <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
+                          </div>
+                  )}
+                      </div>
+                    </div>
+              }
+                </div> :
+            <p className="text-xs text-kronos-dim italic">{t('ui.dashboard.loading_data')}</p>}
+            </Card>
+          }
+
+          {isVisible('deal') && worldstate?.dailyDeals?.[0] && (() => {
+            const deal = worldstate.dailyDeals[0];
+            const left = Math.max(0, deal.total - deal.sold);
+            const isSoldOut = left === 0;
+            const darvoIcon = iconsPath ? convertFileSrc(`${iconsPath}/DarvoIcon.png`) : null;
+            const isOwned = isSaleItemOwned(deal);
+            return (
+              <Card glow className="p-3">
+                <div className="flex items-center gap-2 mb-2">
+                  {darvoIcon ? <img src={darvoIcon} className="w-5 h-5 object-contain" alt="" /> : <DollarSign size={16} className="text-kronos-accent flex-shrink-0" />}
+                  <p className="font-bold text-sm uppercase">{t('ui.dashboard.darvo_deal')}</p>
+                </div>
+                <div className={`flex gap-4 items-start transition-all ${isOwned ? 'opacity-70' : ''}`}>
+                  <div className="w-14 h-14 bg-kronos-panel/40 rounded flex items-center justify-center p-1 border border-kronos-panel flex-shrink-0 relative">
+                    <ItemImage
+                      src={resolveAnyImage(deal, EI, nameToImage)}
+                      alt=""
+                      className="max-w-full max-h-full object-contain"
+                      placeholderClassName="w-full h-full"
+                       />
+                    {isOwned && (
+                      <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                        <Check size={10} className="text-black" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <p className="font-bold leading-tight text-sm text-kronos-text truncate" title={deal.item}>
+                        {deal.item}
+                      </p>
+                      {isOwned && (
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-kronos-accent px-1.5 py-0.2 rounded bg-kronos-accent/15 flex-shrink-0">
+                          {t('ui.dashboard.owned')}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{deal.originalPrice}</span>
+                      <span className="text-sm text-kronos-accent font-black">{deal.salePrice}</span>
+                      <span className="flex items-center gap-1 text-sm font-bold text-kronos-text">
+                        {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}{t('ui.dashboard.platinum')}
+
+                      </span>
+                      <span className="text-sm text-kronos-dim">(-{deal.discount}%)</span>
+                    </div>
+
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-[10px] text-kronos-dim font-bold uppercase tracking-wider">
+                        {left}/{deal.total}{t('dashboard.in_stock')}{isSoldOut && <span className="text-red-500 font-black ml-1">(SOLD OUT)</span>}
+                      </span>
+                      <span className="text-[10px] text-kronos-dim font-mono uppercase">{timeRemaining(deal.expiry)}{t('dashboard.left')}</span>
+                    </div>
+                  </div>
+                </div>
+              </Card>);
+
+          })()}
+
+          {/* Market Sales */}
+          {isVisible('sales') && worldstate?.flashSales?.length > 0 &&
+          <Card glow className="p-3">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <DollarSign size={16} className="text-kronos-accent flex-shrink-0" />
+                  <p className="font-bold text-sm uppercase">{t('ui.dashboard.market_sales')}</p>
+                </div>
+                <button
+                onClick={() => setShowWishlistModal(true)}
+                className="text-[10px] bg-kronos-accent/20 text-kronos-accent font-bold px-2 py-0.5 rounded uppercase hover:bg-kronos-accent/30 transition-colors">{t('ui.dashboard.wishlist')}
+
+
+              </button>
+              </div>
+              <div className="space-y-1.5">
+                {worldstate.flashSales.map((sale, idx) => {
+                  const isOwned = isSaleItemOwned(sale);
+                  return (
+                    <div key={idx} className={`flex items-center gap-3 bg-kronos-panel/40 rounded p-2.5 transition-all ${isOwned ? 'opacity-60' : ''}`}>
+                      <div className="w-14 h-14 bg-black/40 rounded flex items-center justify-center p-1 flex-shrink-0 relative">
+                        <ItemImage src={resolveAnyImage(sale, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                        {isOwned && (
+                          <div className="absolute -top-1 -right-1 bg-kronos-accent rounded-full p-0.5" title={t('ui.dashboard.owned')}>
+                            <Check size={10} className="text-black" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-sm font-bold text-kronos-text uppercase truncate" title={sale.item}>{sale.item}</p>
+                          {isOwned && (
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-kronos-accent px-1.5 py-0.2 rounded bg-kronos-accent/15 flex-shrink-0">
+                              {t('ui.dashboard.owned')}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-sm text-kronos-dim line-through decoration-red-500/50">{sale.originalPrice}</span>
+                          <span className="flex items-center gap-1 text-sm text-kronos-accent font-black">
+                            {iconSrc('Platinum') && <img src={iconSrc('Platinum')} className="w-4 h-4 object-contain" alt="" />}
+                            {sale.salePrice}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+          }
+        </div>
+
+        {/* ── Col 2 ── */}
+        <div className="space-y-4">
+          {isVisible('event') && renderEvents()}
+          {/* SP Incursions */}
+          {isVisible('inf') &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('Difficulty2')} title={t('ui.dashboard.sp_incursions')} />
+              {isVisible('inf') && renderSPIncursions()}
+            </Card>
+          }
+
+          {/* Sortie */}
+          {isVisible('sortie') && worldstate?.sortie &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('Sortie')} title={t('ui.dashboard.sortie')} />
+              <p className="text-sm font-bold text-kronos-accent mb-2 uppercase">{worldstate.sortie.boss}</p>
+              <div className="space-y-1.5">
+                {worldstate.sortie.variants.map((v, idx) =>
+              <div key={idx} className="bg-kronos-panel/40 rounded p-2">
+                    <p className="text-sm font-bold text-kronos-text uppercase">{v.node}</p>
+                    <p className="text-xs text-kronos-dim mt-0.5">{v.missionType} - {v.modifier}</p>
+                  </div>
+              )}
+              </div>
+              <p className="text-xs text-kronos-dim mt-2 text-right">{timeRemaining(worldstate.sortie.expiry)}</p>
+            </Card>
+          }
+
+          {/* Archon Hunt */}
+          {isVisible('hunt') && worldstate?.archonHunt &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('FactionNarmer')} title={t('ui.dashboard.archon_hunt')} />
+              <div className="flex items-center gap-2 mb-2">
+                {iconSrc(`Archon${worldstate.archonHunt.boss.replace(/[^a-zA-Z0-9]/g, '')}Icon`) &&
+              <img src={iconSrc(`Archon${worldstate.archonHunt.boss.replace(/[^a-zA-Z0-9]/g, '')}Icon`)} className="w-5 h-5 object-contain" alt="" />
+              }
+                <p className="text-sm font-bold text-red-400 uppercase">{worldstate.archonHunt.boss}</p>
+              </div>
+              <div className="space-y-1.5">
+                {worldstate.archonHunt.missions.map((m, idx) =>
+              <div key={idx} className="bg-kronos-panel/40 rounded p-2">
+                    <p className="text-sm font-bold text-kronos-text uppercase">{m.node}</p>
+                    <p className="text-xs text-kronos-dim mt-0.5">{m.type}</p>
+                  </div>
+              )}
+              </div>
+              {archonModifiers &&
+            <div className="mt-2 pt-2 border-t border-kronos-divider/30">
+                  <p className="text-xs font-bold text-kronos-accent mb-1 uppercase tracking-wide">{t('ui.dashboard.personal_bonuses')}</p>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <div className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                      <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                        <ItemImage src={resolveAnyImage(archonModifiers.suitType, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                      </div>
+                      <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(archonModifiers.suitType, dict, uniqueNameToName)}</span>
+                    </div>
+                    {(archonModifiers.wepTypes || []).map((w, i) =>
+                <div key={i} className="flex items-center gap-2 bg-kronos-panel/40 rounded px-2 py-1.5">
+                        <div className="w-14 h-14 flex items-center justify-center flex-shrink-0">
+                          <ItemImage src={resolveAnyImage(w, EI, nameToImage)} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-full h-full" />
+                        </div>
+                        <span className="text-xs text-kronos-text leading-tight ">{resolveItemName(w, dict, uniqueNameToName)}</span>
+                      </div>
+                )}
+                  </div>
+                </div>
+            }
+              <p className="text-xs text-kronos-dim mt-2 text-right">{timeRemaining(worldstate.archonHunt.expiry)}</p>
+            </Card>
+          }
+
+          {/* Archimedea */}
+          {isVisible('arch') &&
+          <Card glow className="p-3 border-kronos-accent/30">
+              <CardHeader imageSrc={iconSrc('ConquestHardModeIcon')} title={t('ui.dashboard.archimedea')} />
+              <Tabs tabs={archimedeaTabs} activeTab={archimedeaTab} onChange={setArchimedeaTab} className="mb-2" fullWidth />
+              {renderArchimedea()}
+            </Card>
+          }
+
+          {/* Descendia */}
+          {isVisible('desc') &&
+          <Card glow className="p-3">
+              <CardHeader
+              imageSrc={iconSrc('MiniMapRoathe')}
+              title={t('ui.dashboard.descendia')}
+              action={
+              <button
+                onClick={() => setShowDescendiaModal(true)}
+                className="p-1 hover:bg-kronos-accent/10 rounded transition-colors text-kronos-dim hover:text-kronos-accent"
+                title={t('ui.dashboard.preview_upcoming_rotations')}>
+                
+                    <Calendar size={16} />
+                  </button>
+              } />
+            
+              {renderDescendia()}
+            </Card>
+          }
+        </div>
+
+        {/* ── Col 3 ── */}
+        <div className="space-y-4">
+          {/* Duviri Circuit */}
+          {isVisible('circuit') &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title={t('ui.dashboard.the_circuit')} />
+              {renderCircuit()}
+            </Card>
+          }
+
+          {/* 1999 Calendar */}
+          {isVisible('1999') &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('RetroTaskbarCalendarLg')} title={t('checklist.task_calendar')} />
+              {render1999()}
+            </Card>
+          }
+
+          {/* Void Fissures */}
+          {isVisible('fiss') &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('VoidTearIcon')} title={t('ui.dashboard.void_fissures')} />
+              <Tabs tabs={fissureTabs} activeTab={fissureTab} onChange={setFissureTab} className="mb-2" fullWidth />
+              <div className="space-y-1">
+                {visibleFissures.map((f, idx) =>
+              <div key={idx} className="bg-kronos-panel/40 rounded p-1.5 flex justify-between items-center uppercase">
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold">{f.tier} - {f.missionType}</span>
+                      <span className="text-[10px] text-kronos-dim leading-none mt-0.5">{f.node}</span>
+                    </div>
+                    <span className="text-xs text-kronos-dim font-mono">{timeRemaining(f.expiry)}</span>
+                  </div>
+              )}
+              </div>
+            </Card>
+          }
+
+          {/* Invasions */}
+          {isVisible('inv') && worldstate?.invasions?.length > 0 &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('Invasion')} title={t('ui.dashboard.invasions')} />
+              <div className="space-y-4 mt-4">
+                {worldstate.invasions.filter((i) => !i.completed).slice(0, 5).map((inv, idx) => {
+                const completionPercentage = Math.max(0, Math.min(100, inv.completion));
+
+                return (
+                  <div key={idx} className="relative group/inv">
+
+                      {/* Line 1: Factions & Node */}
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-[10px] font-bold text-blue-400 uppercase w-[30%] text-left truncate tracking-wider">
+                          {inv.attacker.faction}
+                        </span>
+                        <div className="w-[40%] text-center truncate">
+                          <span className="text-[10px] font-bold text-white/90 tracking-wide">{inv.node}</span>
+                          {inv.planet && <span className="text-[10px] text-white/50 ml-1 uppercase">• {inv.planet}</span>}
+                        </div>
+                        <span className="text-[10px] font-bold text-red-400 uppercase w-[30%] text-right truncate tracking-wider">
+                          {inv.defender.faction}
+                        </span>
+                      </div>
+
+                      {/* Line 2: Reward Titles */}
+                      <div className="flex justify-between mb-1">
+                        <span className="text-[12px] text-white/80 w-1/2 text-left pr-2" title={inv.attacker.rewardText}>
+                          {inv.attacker.rewardText || '\u00A0'}
+                        </span>
+                        <span className="text-[12px] text-white/80 w-1/2 text-right pl-2" title={inv.defender.rewardText}>
+                          {inv.defender.rewardText || '\u00A0'}
+                        </span>
+                      </div>
+
+                      {/* Line 3: Icons & Progress Bar */}
+                      <div className="flex items-center gap-3">
+                        {/* Attacker Icon */}
+                        <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center">
+                          {inv.attacker.reward &&
+                        <ItemImage
+                          src={resolveAnyImage(inv.attacker.reward, EI, nameToImage)}
+                          alt=""
+                          placeholderClassName="w-full h-full" />
+
+                        }
+                        </div>
+
+                        {/* Progress Bar */}
+                        <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden flex border border-white/10 shadow-inner">
+                          <div
+                          className="h-full bg-blue-500 transition-all duration-500"
+                          style={{ width: `${completionPercentage}%` }} />
+                        
+                          <div
+                          className="h-full bg-red-500 transition-all duration-500"
+                          style={{ width: `${100 - completionPercentage}%` }} />
+                        
+                        </div>
+
+                        {/* Defender Icon */}
+                        <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center">
+                          {inv.defender.reward &&
+                        <ItemImage
+                          src={resolveAnyImage(inv.defender.reward, EI, nameToImage)}
+                          alt=""
+                          placeholderClassName="w-full h-full" />
+
+                        }
+                        </div>
+                      </div>
+
+                      {/* Divider */}
+                      {idx < 4 && <div className="mt-3 h-px bg-white/5 w-full" />}
+                    </div>);
+
+              })}
+              </div>
+            </Card>
+          }
+
+          {/* Latest News */}
+          {isVisible('news') && worldstate?.news &&
+          <Card glow className="p-3">
+              <CardHeader imageSrc={iconSrc('News')} title={t('ui.dashboard.latest_news')} />
+              <div className="space-y-2">
+                {worldstate.news.slice(0, 3).map((item, idx) =>
+              <div key={idx} className="text-xs">
+                    {item.link ?
+                <button
+                  onClick={() => {invoke('open_url', { url: item.link }).catch(console.error);}}
+                  className="font-bold hover:text-kronos-accent transition-colors block leading-tight text-left w-full cursor-pointer">
+                  
+                        {item.message}
+                      </button> :
+
+                <p className="font-bold leading-tight">{item.message}</p>
+                }
+                    <p className="text-[10px] text-kronos-dim mt-0.5 font-mono">{timeSince(item.date)}</p>
+                  </div>
+              )}
+              </div>
+            </Card>
+          }
+        </div>
+      </div>
+      <DescendiaModal />
+      <BaroModal />
+      <WishlistModal />
+    </PageLayout>);
+
+}

@@ -1,0 +1,152 @@
+{
+  "controls": [
+    {
+      "name": "Menu",
+      "height": 42,
+      "width": 42
+    },
+    {
+      "name": "Dashboard",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Inventory",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Mastery",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Mods",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Cosmetics, Decorations, Emotes",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Collectibles",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Foundry",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Relics",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Relic Planner",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Prime Resurgence",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Market",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Rivens",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "History",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Adversaries",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Maps",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Wiki",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Notes",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Checklist",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Settings",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "About",
+      "height": 42,
+      "width": 44
+    },
+    {
+      "name": "Search screens\u2026",
+      "height": 36,
+      "width": 340
+    },
+    {
+      "name": "More actions",
+      "height": 36,
+      "width": 36
+    },
+    {
+      "name": "Add a farming target",
+      "height": 38,
+      "width": 178
+    },
+    {
+      "name": "View history",
+      "height": 38,
+      "width": 117.796875
+    },
+    {
+      "name": "View all live activities",
+      "height": 38,
+      "width": 792
+    },
+    {
+      "name": "View in Foundry",
+      "height": 38,
+      "width": 143.3125
+    },
+    {
+      "name": "View in Foundry",
+      "height": 38,
+      "width": 143.3125
+    }
+  ],
+  "check_names": [
+    "route-search-keyboard-navigation",
+    "header-menu-closes-with-escape",
+    "drawer-opens-focus-inside",
+    "drawer-closes-with-escape",
+    "drawer-restores-opener-focus",
+    "compact-controls-have-visible-focusable-area"
+  ]
+}

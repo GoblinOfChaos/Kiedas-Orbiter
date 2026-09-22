@@ -1,0 +1,9 @@
+{
+  "facts": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relic-planner-nav-source-fact.json",
+  "facts_sha256": "78006626b30b3daf2eada78b00b38be92369bfbf6cd0ad62a7802ca2ae70b53f",
+  "harness": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relic-planner/appimage-smoke.py",
+  "harness_sha256": "f423c2a047fb433aa8745406bd8c8c0cb87fcc3f2b3649f26feb0f99f3dd1de3",
+  "occurrences": 4,
+  "pass": true,
+  "value": "Relic Planner"
+}

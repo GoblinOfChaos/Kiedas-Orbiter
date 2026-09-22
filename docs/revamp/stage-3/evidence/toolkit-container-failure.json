@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/usr/bin/false"
+  ],
+  "container_name": "toolkit-failure-evidence-8bbb1c4c23",
+  "cpus": 1,
+  "duration_seconds": 0.432,
+  "exit_code": 1,
+  "image": "localhost/kiedas-preview-ubuntu24-test",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/toolkit-container-failure.log",
+  "memory": "512m",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

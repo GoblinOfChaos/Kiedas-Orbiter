@@ -1,0 +1,950 @@
+{
+  "data-upgrade": {
+    "error": null,
+    "upgrade_checks": [
+      {
+        "name": "old_import_has_no_journal",
+        "pass": true
+      },
+      {
+        "name": "different_app_payload",
+        "pass": true
+      },
+      {
+        "name": "new_native_process",
+        "pass": true
+      },
+      {
+        "name": "upgraded_preview_launches",
+        "pass": true
+      },
+      {
+        "name": "old_import_content_retained",
+        "pass": true
+      },
+      {
+        "name": "old_backup_bytes_unchanged",
+        "pass": true
+      },
+      {
+        "name": "old_backup_not_rewritten_as_journal",
+        "pass": true
+      },
+      {
+        "name": "new_import_succeeds",
+        "pass": true
+      },
+      {
+        "name": "new_import_writes_version_one_journal",
+        "pass": true
+      },
+      {
+        "name": "new_import_committed",
+        "pass": true
+      },
+      {
+        "name": "pre_upgrade_content_backed_up",
+        "pass": true
+      },
+      {
+        "name": "committed_import_survives_restart",
+        "pass": true
+      },
+      {
+        "name": "old_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "new_source_unchanged",
+        "pass": true
+      }
+    ],
+    "old_package": {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/before-recovery-packages/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+      "sha256": "8d6ae782a4f8ace8ca38e66c54c667917df51721f6d9b64073817f34ce4e191b",
+      "version": "1.3.3",
+      "installed_binary_sha256": "faf159d93a05c8172a4f05de157e6340a8d75dae1056f69749a062d33ca7dc17"
+    },
+    "new_package": {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+      "sha256": "5c61fcfb4426e94d681f3b408b6d3c08ac29798cc4cf4a55b9c856c5ac00d646",
+      "version": "1.3.3",
+      "installed_binary_sha256": "5e255dc07b33f0b8656cab75f121b184bacd8290ebd636686a2302159fb853d1"
+    }
+  },
+  "interrupted-upgrade": {
+    "error": null,
+    "upgrade_checks": {
+      "old_crash_left_partial_profile": true,
+      "different_installed_payload": true,
+      "legacy_partial_upgrade_blocked": true,
+      "no_normal_window": true,
+      "partial_profile_not_guessed_at": true,
+      "legacy_backup_remains_unjournaled": true,
+      "original_backups_retained": true,
+      "source_unchanged": true
+    },
+    "old_package_sha256": "8d6ae782a4f8ace8ca38e66c54c667917df51721f6d9b64073817f34ce4e191b",
+    "new_package_sha256": "5c61fcfb4426e94d681f3b408b6d3c08ac29798cc4cf4a55b9c856c5ac00d646",
+    "new_app_exit": 1
+  },
+  "keyboard-routes": {
+    "error": null,
+    "keyboard_route_checks": [
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Dashboard",
+        "state": {
+          "top": 158,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Dashboard"
+          ],
+          "bottom": 194,
+          "focused": "Dashboard"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Inventory",
+        "state": {
+          "top": 234,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Inventory"
+          ],
+          "bottom": 270,
+          "focused": "Inventory"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Mastery",
+        "state": {
+          "top": 270,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Mastery"
+          ],
+          "bottom": 306,
+          "focused": "Mastery"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Mods",
+        "state": {
+          "top": 306,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Mods"
+          ],
+          "bottom": 342,
+          "focused": "Mods"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Cosmetics, Decorations, Emotes",
+        "state": {
+          "top": 342,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Cosmetics, Decorations, Emotes"
+          ],
+          "bottom": 418,
+          "focused": "Cosmetics, Decorations, Emotes"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Collectibles",
+        "state": {
+          "top": 418,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Collectibles"
+          ],
+          "bottom": 454,
+          "focused": "Collectibles"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Foundry",
+        "state": {
+          "top": 494,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Foundry"
+          ],
+          "bottom": 530,
+          "focused": "Foundry"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Relics",
+        "state": {
+          "top": 530,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Relics"
+          ],
+          "bottom": 566,
+          "focused": "Relics"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Relic Planner",
+        "state": {
+          "top": 566,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Relic Planner"
+          ],
+          "bottom": 602,
+          "focused": "Relic Planner"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Prime Resurgence",
+        "state": {
+          "top": 602,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Prime Resurgence"
+          ],
+          "bottom": 638,
+          "focused": "Prime Resurgence"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Market",
+        "state": {
+          "top": 678,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Market"
+          ],
+          "bottom": 714,
+          "focused": "Market"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Rivens",
+        "state": {
+          "top": 709,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Rivens"
+          ],
+          "bottom": 745,
+          "focused": "Rivens"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "History",
+        "state": {
+          "top": 447,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "History"
+          ],
+          "bottom": 483,
+          "focused": "History"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Adversaries",
+        "state": {
+          "top": 483,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Adversaries"
+          ],
+          "bottom": 519,
+          "focused": "Adversaries"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Maps",
+        "state": {
+          "top": 519,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Maps"
+          ],
+          "bottom": 555,
+          "focused": "Maps"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Wiki",
+        "state": {
+          "top": 555,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Wiki"
+          ],
+          "bottom": 591,
+          "focused": "Wiki"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Notes",
+        "state": {
+          "top": 591,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Notes"
+          ],
+          "bottom": 627,
+          "focused": "Notes"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Checklist",
+        "state": {
+          "top": 627,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Checklist"
+          ],
+          "bottom": 663,
+          "focused": "Checklist"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "Settings",
+        "state": {
+          "top": 703,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "Settings"
+          ],
+          "bottom": 739,
+          "focused": "Settings"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "route": "About",
+        "state": {
+          "top": 709,
+          "viewport": [
+            1200,
+            800
+          ],
+          "active": [
+            "About"
+          ],
+          "bottom": 745,
+          "focused": "About"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Dashboard",
+        "state": {
+          "top": 158,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Dashboard"
+          ],
+          "bottom": 194,
+          "focused": "Dashboard"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Inventory",
+        "state": {
+          "top": 234,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Inventory"
+          ],
+          "bottom": 270,
+          "focused": "Inventory"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Mastery",
+        "state": {
+          "top": 270,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Mastery"
+          ],
+          "bottom": 306,
+          "focused": "Mastery"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Mods",
+        "state": {
+          "top": 306,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Mods"
+          ],
+          "bottom": 342,
+          "focused": "Mods"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Cosmetics, Decorations, Emotes",
+        "state": {
+          "top": 342,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Cosmetics, Decorations, Emotes"
+          ],
+          "bottom": 418,
+          "focused": "Cosmetics, Decorations, Emotes"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Collectibles",
+        "state": {
+          "top": 409,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Collectibles"
+          ],
+          "bottom": 445,
+          "focused": "Collectibles"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Foundry",
+        "state": {
+          "top": 297,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Foundry"
+          ],
+          "bottom": 333,
+          "focused": "Foundry"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Relics",
+        "state": {
+          "top": 333,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Relics"
+          ],
+          "bottom": 369,
+          "focused": "Relics"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Relic Planner",
+        "state": {
+          "top": 369,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Relic Planner"
+          ],
+          "bottom": 405,
+          "focused": "Relic Planner"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Prime Resurgence",
+        "state": {
+          "top": 405,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Prime Resurgence"
+          ],
+          "bottom": 441,
+          "focused": "Prime Resurgence"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Market",
+        "state": {
+          "top": 297,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Market"
+          ],
+          "bottom": 333,
+          "focused": "Market"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Rivens",
+        "state": {
+          "top": 333,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Rivens"
+          ],
+          "bottom": 369,
+          "focused": "Rivens"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "History",
+        "state": {
+          "top": 409,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "History"
+          ],
+          "bottom": 445,
+          "focused": "History"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Adversaries",
+        "state": {
+          "top": 263,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Adversaries"
+          ],
+          "bottom": 299,
+          "focused": "Adversaries"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Maps",
+        "state": {
+          "top": 299,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Maps"
+          ],
+          "bottom": 335,
+          "focused": "Maps"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Wiki",
+        "state": {
+          "top": 335,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Wiki"
+          ],
+          "bottom": 371,
+          "focused": "Wiki"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Notes",
+        "state": {
+          "top": 371,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Notes"
+          ],
+          "bottom": 407,
+          "focused": "Notes"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Checklist",
+        "state": {
+          "top": 407,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Checklist"
+          ],
+          "bottom": 443,
+          "focused": "Checklist"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "Settings",
+        "state": {
+          "top": 357,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "Settings"
+          ],
+          "bottom": 393,
+          "focused": "Settings"
+        },
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "route": "About",
+        "state": {
+          "top": 393,
+          "viewport": [
+            900,
+            500
+          ],
+          "active": [
+            "About"
+          ],
+          "bottom": 429,
+          "focused": "About"
+        },
+        "pass": true
+      }
+    ],
+    "tab_steps": {
+      "1200x800": {
+        "steps": 44,
+        "visited": [
+          "About",
+          "Adversaries",
+          "Checklist",
+          "Collectibles",
+          "Cosmetics, Decorations, Emotes",
+          "Dashboard",
+          "Foundry",
+          "History",
+          "Inventory",
+          "Maps",
+          "Market",
+          "Mastery",
+          "Mods",
+          "Notes",
+          "Prime Resurgence",
+          "Relic Planner",
+          "Relics",
+          "Rivens",
+          "Settings",
+          "Wiki"
+        ],
+        "missing": []
+      },
+      "900x500": {
+        "steps": 44,
+        "visited": [
+          "About",
+          "Adversaries",
+          "Checklist",
+          "Collectibles",
+          "Cosmetics, Decorations, Emotes",
+          "Dashboard",
+          "Foundry",
+          "History",
+          "Inventory",
+          "Maps",
+          "Market",
+          "Mastery",
+          "Mods",
+          "Notes",
+          "Prime Resurgence",
+          "Relic Planner",
+          "Relics",
+          "Rivens",
+          "Settings",
+          "Wiki"
+        ],
+        "missing": []
+      }
+    }
+  }
+}

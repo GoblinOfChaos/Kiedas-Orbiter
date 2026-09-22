@@ -1,0 +1,87 @@
+{
+  "tier": "component browser with module mocks",
+  "native_import_test": false,
+  "checks": [
+    {
+      "name": "stable-loadingFalse",
+      "pass": true
+    },
+    {
+      "name": "stable-emptyFalse",
+      "pass": true
+    },
+    {
+      "name": "stable-populatedFalse",
+      "pass": true
+    },
+    {
+      "name": "stable-populatedTrue",
+      "pass": true
+    },
+    {
+      "name": "1200-19-card-order",
+      "pass": false
+    },
+    {
+      "name": "1200-card-bounds",
+      "pass": true
+    }
+  ],
+  "states": [],
+  "session_response": {
+    "value": {
+      "sessionId": "524611e9-bdca-4ffb-bfde-4b62f0ef0bc1",
+      "capabilities": {
+        "browserName": "MiniBrowser",
+        "browserVersion": "2.52.6",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "stable_comparisons": [
+    {
+      "mode": "loading",
+      "all_hidden": false,
+      "equal": true
+    },
+    {
+      "mode": "empty",
+      "all_hidden": false,
+      "equal": true
+    },
+    {
+      "mode": "populated",
+      "all_hidden": false,
+      "equal": true
+    },
+    {
+      "mode": "populated",
+      "all_hidden": true,
+      "equal": true
+    }
+  ],
+  "card_orders": [
+    {
+      "width": 1200,
+      "ids": []
+    }
+  ],
+  "geometry": [
+    {
+      "width": 1200,
+      "cards": []
+    }
+  ],
+  "error": "{\"value\":{\"error\":\"javascript error\",\"message\":\"Argument 1 ('element') to Window.getComputedStyle must be an instance of Element\",\"stacktrace\":\"\"}}"
+}

@@ -1,0 +1,31 @@
+{
+  "binary_sha256": "5e255dc07b33f0b8656cab75f121b184bacd8290ebd636686a2302159fb853d1",
+  "private_container_network": true,
+  "installed_package": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+  "legacy_adjacency_test": false,
+  "synthetic_profile": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-3j1lvocc",
+  "checks": [],
+  "native_dialog_windows": [
+    {
+      "id": 4194308,
+      "title": "Kieda's Orbiter Preview recovery blocked"
+    }
+  ],
+  "dialog_checks": {
+    "native_error_title_found": true,
+    "dismissal_exits_nonzero": true,
+    "normal_main_window_absent": true
+  },
+  "native_process_exit": 1,
+  "failure_evidence": {
+    "settings_not_loaded_or_created": true,
+    "invalid_journal_retained": true,
+    "error_log_names_backup": true,
+    "error_log_reports_recovery_failure": true
+  },
+  "removal": {
+    "exit": 0,
+    "executable_absent": true,
+    "synthetic_profile_retained": true
+  }
+}

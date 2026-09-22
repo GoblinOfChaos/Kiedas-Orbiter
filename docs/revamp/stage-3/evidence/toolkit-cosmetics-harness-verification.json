@@ -1,0 +1,9 @@
+{
+  "facts": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/toolkit-cosmetics-nav-source-fact.json",
+  "facts_sha256": "2ba052704337c9df1883ca6f54757e60144f5820aa8bd3a814c388550b8c6e36",
+  "harness": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/runners/cosmetics-deb-smoke.py",
+  "harness_sha256": "2cbc6c0bbe152f48d0273c94f89c69650b48769e963412d59b0ed62939baa47b",
+  "occurrences": 1,
+  "pass": true,
+  "value": "Cosmetics, Decorations, Emotes"
+}

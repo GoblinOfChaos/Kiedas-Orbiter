@@ -1,0 +1,14 @@
+{
+  "before_sha256": "d9640721b7b89829615a3ce5aabf6dd7799c16d672e7e9b83a24966c6290a7ce",
+  "after_sha256": "ef34ebf63d9a46be39dbaa67c6f91a7070a21fa9faa09f2209b56d646c513e76",
+  "preview_layout_sha256": "f353ccda47426a5378efb5ef82972a49eb5008286cc829469d0c29bf38bf329f",
+  "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+  "catalog_inventory_status_search_selection_matching_sorting_and_persistence_logic_unchanged": true,
+  "layout_has_no_tauri_import": true,
+  "layout_has_no_state_or_effect_hooks": true,
+  "layout_has_no_market_terms": true,
+  "source_files_changed": [
+    "src/screens/RelicPlanner.jsx",
+    "src/components/PreviewRelicPlannerLayout.jsx"
+  ]
+}

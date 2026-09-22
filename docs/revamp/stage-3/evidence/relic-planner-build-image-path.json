@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/usr/bin/env"
+  ],
+  "container_name": "stage3h-build-image-path-5dcd2d1f5b",
+  "cpus": 1,
+  "duration_seconds": 0.417,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-stage2",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relic-planner-build-image-path.log",
+  "memory": "1g",
+  "network": "none",
+  "phase": "smoke",
+  "preflight": null,
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

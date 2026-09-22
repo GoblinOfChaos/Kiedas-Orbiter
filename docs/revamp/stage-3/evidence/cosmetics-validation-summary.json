@@ -1,0 +1,380 @@
+{
+  "timestamp": "2026-09-06T05:42:37.256935+00:00",
+  "component_checks": 101,
+  "component_passed": 101,
+  "stable_exact_markup_comparison_count": 6,
+  "stable_exact_markup_states": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 562,
+      "after_length": 562
+    },
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 120550,
+      "after_length": 120550
+    },
+    {
+      "state": "empty",
+      "equal": true,
+      "before_length": 120560,
+      "after_length": 120560
+    },
+    {
+      "state": "no-match",
+      "equal": true,
+      "before_length": 8822,
+      "after_length": 8822
+    },
+    {
+      "state": "paginated",
+      "equal": true,
+      "before_length": 146922,
+      "after_length": 146922
+    },
+    {
+      "state": "drawer-open",
+      "equal": true,
+      "before_length": 122584,
+      "after_length": 122584
+    }
+  ],
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 45,
+      "passed": 45,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5
+      },
+      "binary_sha256": "1dc3adedb943ddb67d63822634742286dd60d9ccd93ad233fc5f5d208204b79b",
+      "cosmetics_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-categories-and-buttons",
+          "state": {
+            "ownership": [
+              "All",
+              "Owned",
+              "Unowned"
+            ],
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "toolbarColumns": 2,
+            "cardCount": 120,
+            "buttonCount": 120,
+            "kinds": {
+              "wrap": "nowrap",
+              "client": 926,
+              "scroll": 1304,
+              "overflow": "auto"
+            },
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "noZeroPrice": true,
+            "present": true,
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Archwing",
+              "Sentinel",
+              "Syandana",
+              "Armor",
+              "Animation",
+              "Glyph",
+              "Sigil",
+              "Decoration",
+              "Emote",
+              "Other"
+            ],
+            "cardWidths": [
+              223,
+              223,
+              223
+            ],
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "native-acquisition-button",
+          "focused": true,
+          "drawer": {
+            "title": "-Chroma- Prime Partner Glyph",
+            "count": 1
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-categories-and-buttons",
+          "state": {
+            "ownership": [
+              "All",
+              "Owned",
+              "Unowned"
+            ],
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "toolbarColumns": 2,
+            "cardCount": 120,
+            "buttonCount": 120,
+            "kinds": {
+              "wrap": "nowrap",
+              "client": 626,
+              "scroll": 1304,
+              "overflow": "auto"
+            },
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "noZeroPrice": true,
+            "present": true,
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Archwing",
+              "Sentinel",
+              "Syandana",
+              "Armor",
+              "Animation",
+              "Glyph",
+              "Sigil",
+              "Decoration",
+              "Emote",
+              "Other"
+            ],
+            "cardWidths": [
+              308,
+              308,
+              308
+            ],
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "native-acquisition-button",
+          "focused": true,
+          "drawer": {
+            "title": "-Chroma- Prime Partner Glyph",
+            "count": 1
+          },
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "pass": true,
+          "no_zero_price": true,
+          "no_sell": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 45,
+      "passed": 45,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5
+      },
+      "binary_sha256": "07457b3d18fd17640d550002ea34b5eb7eca7e670597b22d3f537f2805ca3130",
+      "cosmetics_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-categories-and-buttons",
+          "state": {
+            "ownership": [
+              "All",
+              "Owned",
+              "Unowned"
+            ],
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "toolbarColumns": 2,
+            "cardCount": 120,
+            "buttonCount": 120,
+            "kinds": {
+              "wrap": "nowrap",
+              "client": 926,
+              "scroll": 1304,
+              "overflow": "auto"
+            },
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "noZeroPrice": true,
+            "present": true,
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Archwing",
+              "Sentinel",
+              "Syandana",
+              "Armor",
+              "Animation",
+              "Glyph",
+              "Sigil",
+              "Decoration",
+              "Emote",
+              "Other"
+            ],
+            "cardWidths": [
+              223,
+              223,
+              223
+            ],
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "native-acquisition-button",
+          "focused": true,
+          "drawer": {
+            "title": "-Chroma- Prime Partner Glyph",
+            "count": 1
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-categories-and-buttons",
+          "state": {
+            "ownership": [
+              "All",
+              "Owned",
+              "Unowned"
+            ],
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "toolbarColumns": 2,
+            "cardCount": 120,
+            "buttonCount": 120,
+            "kinds": {
+              "wrap": "nowrap",
+              "client": 626,
+              "scroll": 1304,
+              "overflow": "auto"
+            },
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "noZeroPrice": true,
+            "present": true,
+            "categories": [
+              "All",
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Archwing",
+              "Sentinel",
+              "Syandana",
+              "Armor",
+              "Animation",
+              "Glyph",
+              "Sigil",
+              "Decoration",
+              "Emote",
+              "Other"
+            ],
+            "cardWidths": [
+              308,
+              308,
+              308
+            ],
+            "noSell": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "native-acquisition-button",
+          "focused": true,
+          "drawer": {
+            "title": "-Chroma- Prime Partner Glyph",
+            "count": 1
+          },
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "pass": true,
+          "no_zero_price": true,
+          "no_sell": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3E implemented and validated; awaiting user acceptance"
+}

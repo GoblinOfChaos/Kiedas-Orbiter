@@ -1,0 +1,223 @@
+[
+  {
+    "script": "recovery-regression",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 8,
+      "failures": []
+    },
+    "guard_checks": {
+      "count": 5,
+      "failures": []
+    },
+    "market_guards": {
+      "count": 4,
+      "failures": []
+    },
+    "import_checks": {
+      "count": 11,
+      "failures": []
+    },
+    "rollback_checks": {
+      "apply_failure_reported": true,
+      "rollback_no_errors": true,
+      "earlier_replacement_restored": true,
+      "earlier_new_file_removed": true,
+      "failing_file_restored": true,
+      "source_unchanged": true,
+      "backup_retained": true
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-kill-first",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 8,
+      "failures": []
+    },
+    "recovery_acceptance": {
+      "originals_restored": true,
+      "new_file_removed": true,
+      "original_files_present": true
+    },
+    "source_unchanged": true,
+    "after_relaunch": {
+      "a.md": "Original a.md",
+      "aa.md": null,
+      "b.md": "Original b.md"
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-kill-new",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 8,
+      "failures": []
+    },
+    "recovery_acceptance": {
+      "originals_restored": true,
+      "new_file_removed": true,
+      "original_files_present": true
+    },
+    "source_unchanged": true,
+    "after_relaunch": {
+      "a.md": "Original a.md",
+      "aa.md": null,
+      "b.md": "Original b.md"
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-kill-last",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 8,
+      "failures": []
+    },
+    "recovery_acceptance": {
+      "originals_restored": true,
+      "new_file_removed": true,
+      "original_files_present": true
+    },
+    "source_unchanged": true,
+    "after_relaunch": {
+      "a.md": "Original a.md",
+      "aa.md": null,
+      "b.md": "Original b.md"
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-kill-recovery",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 8,
+      "failures": []
+    },
+    "recovery_acceptance": {
+      "originals_restored": true,
+      "new_file_removed": true,
+      "original_files_present": true
+    },
+    "recovery_kill_marker": true,
+    "source_unchanged": true,
+    "after_relaunch": {
+      "a.md": "Original a.md",
+      "aa.md": null,
+      "b.md": "Original b.md"
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-blocked",
+    "runner_exit": 0,
+    "error": "timed out",
+    "checks": {
+      "count": 0,
+      "failures": []
+    },
+    "failure_evidence": {
+      "settings_not_loaded_or_created": true,
+      "invalid_journal_retained": true,
+      "error_log_names_backup": true,
+      "error_log_reports_recovery_failure": true
+    }
+  },
+  {
+    "script": "recovery-deb-smoke",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 10,
+      "failures": []
+    },
+    "guard_checks": {
+      "count": 5,
+      "failures": []
+    },
+    "market_guards": {
+      "count": 4,
+      "failures": []
+    },
+    "dialog_checks": {
+      "count": 4,
+      "failures": []
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-appimage-smoke",
+    "runner_exit": 0,
+    "error": null,
+    "checks": {
+      "count": 10,
+      "failures": []
+    },
+    "guard_checks": {
+      "count": 5,
+      "failures": []
+    },
+    "market_guards": {
+      "count": 4,
+      "failures": []
+    },
+    "dialog_checks": {
+      "count": 4,
+      "failures": []
+    },
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "recovery-kill-committed",
+    "error": null,
+    "recovery_acceptance": {
+      "committed_files_retained": true
+    },
+    "source_unchanged": true
+  },
+  {
+    "script": "recovery-concurrent",
+    "error": null,
+    "concurrent_checks": {
+      "both_submissions_completed": true,
+      "complete_final_content": true,
+      "two_committed_transactions": true,
+      "sources_unchanged": true
+    }
+  }
+]

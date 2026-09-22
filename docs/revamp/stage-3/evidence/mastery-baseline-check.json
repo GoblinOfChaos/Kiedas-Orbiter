@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-09-06T01:41:27.384415+00:00",
+  "stage3b_cumulative_patch_sha256": "d087fe375e2366dfb05e0984d8d1717ccddfab35fdc1a0c63cac0158b3d2062a",
+  "mastery_incremental_patch_sha256": "2f1a0faafc384e71591ed0a0ed9eb0ef48e742aa2211c2d1670045b927828e6b",
+  "cumulative_patch_sha256": "4eb0ddbe003e991c2277d74bc2862497013191bf2ca08a5e9c1ead4420348b18",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "d0feff3f620e948d6450b03d493bc540ea1d13c25c609db2932de5bd27f3311e",
+    "after_sha256": "be334f79a846628f045e0f11e5a08fd18fe999de3d28f0576df08ea51d2b4bbd",
+    "preview_layout_sha256": "8ba7a5420d883d52d58dba0c6f8c4992927fbe7dcd353baf3bf4fe38a9f103f0",
+    "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+    "mastery_logic_unchanged": true,
+    "approved_regions": [
+      "Preview imports",
+      "Preview-only Section attributes and keyboard handler",
+      "Preview wrapper and responsive data attributes",
+      "Preview-only dialog semantics"
+    ],
+    "source_files_changed": [
+      "src/screens/Mastery.jsx",
+      "src/components/PreviewMasteryLayout.jsx"
+    ]
+  },
+  "artifact_count": 4,
+  "component_checks": 195,
+  "packaged_checks_per_artifact": 35,
+  "gate": "Stage 3C accepted by user on 2026-09-05; no Stage 3D app source started"
+}

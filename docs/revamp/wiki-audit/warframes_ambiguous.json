@@ -1,0 +1,46 @@
+{
+  "Vauban": {
+    "uniqueName": "/Lotus/Powersuits/Trapper/Trapper",
+    "wikiName": "Vauban",
+    "description": "Vauban is the model of innovative technology. He deploys clever inventions to provide crowd control. His tenacity and focus make him formidable.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 300 Platinum. (No confirmed drop source found for: Neuroptics, Chassis, Systems - needs manual check.)",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)"
+    ],
+    "verifiedDate": "2026-09-09",
+    "reason": "parts with no confirmed drop source: ['Neuroptics', 'Chassis', 'Systems']"
+  },
+  "Dagath": {
+    "uniqueName": "/Lotus/Powersuits/Dagath/Dagath",
+    "wikiName": "Dagath",
+    "description": "Never underestimate the power and wrath of sullen sadness. Dagath's malice deals high damage.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 275 Platinum. (No confirmed drop source found for: Neuroptics, Chassis, Systems - needs manual check.)",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)"
+    ],
+    "verifiedDate": "2026-09-09",
+    "reason": "parts with no confirmed drop source: ['Neuroptics', 'Chassis', 'Systems']"
+  },
+  "Grendel": {
+    "uniqueName": "/Lotus/Powersuits/Devourer/Devourer",
+    "wikiName": "Grendel",
+    "description": "Grendel sees every battlefield as a smorgasbord. His insatiable appetite rewards him with high survivability. Enemies will be eaten. And regurgitated.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. (No confirmed drop source found for: Neuroptics, Chassis, Systems - needs manual check.)",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)"
+    ],
+    "verifiedDate": "2026-09-09",
+    "reason": "parts with no confirmed drop source: ['Neuroptics', 'Chassis', 'Systems']"
+  },
+  "Kullervo": {
+    "uniqueName": "/Lotus/Powersuits/PaxDuviricus/PaxDuviricus",
+    "wikiName": "Kullervo",
+    "description": "Kullervo answers for his sins and the sins of others. His daggers and melee prowess deal high damage. Seize the power of treachery to slake his thirst for revenge.",
+    "acquisition": "Blueprint: Blueprint purchasable from Market for 325 Platinum. (No confirmed drop source found for: Neuroptics, Chassis, Systems - needs manual check.)",
+    "sourceRefs": [
+      "Module:Blueprints/data (Suits table)"
+    ],
+    "verifiedDate": "2026-09-09",
+    "reason": "parts with no confirmed drop source: ['Neuroptics', 'Chassis', 'Systems']"
+  }
+}

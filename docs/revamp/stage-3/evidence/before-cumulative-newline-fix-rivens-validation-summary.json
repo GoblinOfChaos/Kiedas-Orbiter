@@ -1,0 +1,494 @@
+{
+  "timestamp": "2026-09-06T17:03:56.295943+00:00",
+  "component_checks": 65,
+  "component_passed": 65,
+  "stable_exact_markup_comparison_count": 7,
+  "stable_exact_markup_states": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 8305,
+      "after_length": 8305
+    },
+    {
+      "state": "no-inventory",
+      "equal": true,
+      "before_length": 8629,
+      "after_length": 8629
+    },
+    {
+      "state": "frames-loading",
+      "equal": true,
+      "before_length": 8308,
+      "after_length": 8308
+    },
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 70520,
+      "after_length": 70520
+    },
+    {
+      "state": "no-match",
+      "equal": true,
+      "before_length": 7724,
+      "after_length": 7724
+    },
+    {
+      "state": "drawer-Alpha Critatis",
+      "equal": true,
+      "before_length": 72131,
+      "after_length": 72131
+    },
+    {
+      "state": "drawer-Unprofiled Riven",
+      "equal": true,
+      "before_length": 71857,
+      "after_length": 71857
+    }
+  ],
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 50,
+      "passed": 50,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5
+      },
+      "binary_sha256": "7ac35890a31ac65442ebdaea5b0917b00966b19a41f5988de60577e3e99a8025",
+      "rivens_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-filters-and-cards",
+          "state": {
+            "cards": [
+              {
+                "left": 358.328125,
+                "width": 200,
+                "right": 558.328125,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 598,
+                "width": 200,
+                "right": 798,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 837.671875,
+                "width": 200,
+                "right": 1037.671875,
+                "role": "button",
+                "label": "Shotgun Riven Challenge",
+                "tabIndex": 0
+              },
+              {
+                "left": 358.328125,
+                "width": 200,
+                "right": 558.328125,
+                "role": "button",
+                "label": "Melee Riven Mod",
+                "tabIndex": 0
+              }
+            ],
+            "grid": {
+              "left": 240,
+              "right": 1156
+            },
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "primaryColumns": 3,
+            "noSell": true,
+            "typeRail": {
+              "wrap": "nowrap",
+              "client": 914,
+              "scroll": 918,
+              "overflow": "auto"
+            },
+            "types": [
+              "All",
+              "Rifle",
+              "Pistol",
+              "Melee",
+              "Shotgun",
+              "Sniper",
+              "Kitgun",
+              "Zaw",
+              "Archgun"
+            ],
+            "states": [
+              "All States",
+              "Unveiled",
+              "Challenge",
+              "Veiled"
+            ],
+            "sort": [
+              "Name",
+              "Plat",
+              "Grade"
+            ],
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-filters-and-cards",
+          "state": {
+            "cards": [
+              {
+                "left": 334.15625,
+                "width": 200,
+                "right": 534.15625,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 561.828125,
+                "width": 200,
+                "right": 761.828125,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 334.15625,
+                "width": 200,
+                "right": 534.15625,
+                "role": "button",
+                "label": "Shotgun Riven Challenge",
+                "tabIndex": 0
+              },
+              {
+                "left": 561.828125,
+                "width": 200,
+                "right": 761.828125,
+                "role": "button",
+                "label": "Melee Riven Mod",
+                "tabIndex": 0
+              }
+            ],
+            "grid": {
+              "left": 240,
+              "right": 856
+            },
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "primaryColumns": 1,
+            "noSell": true,
+            "typeRail": {
+              "wrap": "nowrap",
+              "client": 614,
+              "scroll": 918,
+              "overflow": "auto"
+            },
+            "types": [
+              "All",
+              "Rifle",
+              "Pistol",
+              "Melee",
+              "Shotgun",
+              "Sniper",
+              "Kitgun",
+              "Zaw",
+              "Archgun"
+            ],
+            "states": [
+              "All States",
+              "Unveiled",
+              "Challenge",
+              "Veiled"
+            ],
+            "sort": [
+              "Name",
+              "Plat",
+              "Grade"
+            ],
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "pass": true,
+          "no_sell": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 50,
+      "passed": 50,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5,
+        "mods_checks": 5,
+        "cosmetics_checks": 5,
+        "rivens_checks": 5
+      },
+      "binary_sha256": "7ce521117c48e81f18919888efa3c0bdf4eff9814fe52d35d2e7f0bda298175b",
+      "rivens_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout-filters-and-cards",
+          "state": {
+            "cards": [
+              {
+                "left": 358.328125,
+                "width": 200,
+                "right": 558.328125,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 598,
+                "width": 200,
+                "right": 798,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 837.671875,
+                "width": 200,
+                "right": 1037.671875,
+                "role": "button",
+                "label": "Shotgun Riven Challenge",
+                "tabIndex": 0
+              },
+              {
+                "left": 358.328125,
+                "width": 200,
+                "right": 558.328125,
+                "role": "button",
+                "label": "Melee Riven Mod",
+                "tabIndex": 0
+              }
+            ],
+            "grid": {
+              "left": 240,
+              "right": 1156
+            },
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "primaryColumns": 3,
+            "noSell": true,
+            "typeRail": {
+              "wrap": "nowrap",
+              "client": 914,
+              "scroll": 918,
+              "overflow": "auto"
+            },
+            "types": [
+              "All",
+              "Rifle",
+              "Pistol",
+              "Melee",
+              "Shotgun",
+              "Sniper",
+              "Kitgun",
+              "Zaw",
+              "Archgun"
+            ],
+            "states": [
+              "All States",
+              "Unveiled",
+              "Challenge",
+              "Veiled"
+            ],
+            "sort": [
+              "Name",
+              "Plat",
+              "Grade"
+            ],
+            "root": {
+              "left": 208,
+              "right": 1200
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout-filters-and-cards",
+          "state": {
+            "cards": [
+              {
+                "left": 334.15625,
+                "width": 200,
+                "right": 534.15625,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 561.828125,
+                "width": 200,
+                "right": 761.828125,
+                "role": "button",
+                "label": "Alpha Critatis",
+                "tabIndex": 0
+              },
+              {
+                "left": 334.15625,
+                "width": 200,
+                "right": 534.15625,
+                "role": "button",
+                "label": "Shotgun Riven Challenge",
+                "tabIndex": 0
+              },
+              {
+                "left": 561.828125,
+                "width": 200,
+                "right": 761.828125,
+                "role": "button",
+                "label": "Melee Riven Mod",
+                "tabIndex": 0
+              }
+            ],
+            "grid": {
+              "left": 240,
+              "right": 856
+            },
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "primaryColumns": 1,
+            "noSell": true,
+            "typeRail": {
+              "wrap": "nowrap",
+              "client": 614,
+              "scroll": 918,
+              "overflow": "auto"
+            },
+            "types": [
+              "All",
+              "Rifle",
+              "Pistol",
+              "Melee",
+              "Shotgun",
+              "Sniper",
+              "Kitgun",
+              "Zaw",
+              "Archgun"
+            ],
+            "states": [
+              "All States",
+              "Unveiled",
+              "Challenge",
+              "Veiled"
+            ],
+            "sort": [
+              "Name",
+              "Plat",
+              "Grade"
+            ],
+            "root": {
+              "left": 208,
+              "right": 900
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-drawer",
+          "focused": true,
+          "opened": true,
+          "pass": true
+        },
+        {
+          "kind": "price-and-market-surface",
+          "pass": true,
+          "no_sell": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3F implemented and validated; awaiting user acceptance"
+}

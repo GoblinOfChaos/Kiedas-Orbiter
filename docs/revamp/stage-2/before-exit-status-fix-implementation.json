@@ -1,0 +1,16 @@
+{
+  "baseline": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "commit": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "branch": "revamp/preview-shell",
+  "checkout": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2",
+  "patch_sha256": "fcf69f499b7c06f8458eefff89df581b7a3ed3c329a767d06d02362068e811b5",
+  "gate": "HELD: journal/startup recovery implemented and tested; remaining native chooser, platform and upgrade acceptance in CURRENT-ACCEPTANCE.md",
+  "app_installed": false,
+  "uncommitted_changes": [
+    "src/main.jsx",
+    "src/components/PreviewImport.jsx",
+    "src-tauri/src/main.rs",
+    "src-tauri/src/preview_import.rs",
+    "src-tauri/src/preview_import_tests.rs"
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "timestamp": "2026-09-07T01:49:09.884633+00:00",
+  "checks": [
+    {
+      "name": "summary-status-awaiting-acceptance",
+      "pass": true
+    },
+    {
+      "name": "all-summary-counts-pass",
+      "pass": true
+    },
+    {
+      "name": "deb-141-checks",
+      "pass": true
+    },
+    {
+      "name": "deb-40-native-route-cases",
+      "pass": true
+    },
+    {
+      "name": "deb-all-routes-at-both-sizes",
+      "pass": true
+    },
+    {
+      "name": "appimage-141-checks",
+      "pass": true
+    },
+    {
+      "name": "appimage-40-native-route-cases",
+      "pass": true
+    },
+    {
+      "name": "appimage-all-routes-at-both-sizes",
+      "pass": true
+    },
+    {
+      "name": "full-app-boundary-21-checks",
+      "pass": true
+    },
+    {
+      "name": "all-forbidden-invocation-lists-empty",
+      "pass": true
+    },
+    {
+      "name": "accepted-lockfile-exact",
+      "pass": true
+    },
+    {
+      "name": "artifact-hashes-current",
+      "pass": true,
+      "detail": [
+        {
+          "name": "release_binary",
+          "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+          "sha256": "80d30cf8b4abce11c05074636b7b9395b6d3b8bc412dee374c248115f756f344",
+          "pass": true
+        },
+        {
+          "name": "bundle_input_copy",
+          "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+          "sha256": "80d30cf8b4abce11c05074636b7b9395b6d3b8bc412dee374c248115f756f344",
+          "pass": true
+        },
+        {
+          "name": "debian_package",
+          "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+          "sha256": "00edfa36c7fced5f9e187d372ecc3950cc68a999c531d119fc4f214378824d6b",
+          "pass": true
+        },
+        {
+          "name": "appimage",
+          "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+          "sha256": "15cfc5e9584a69bab43048fb361026524d849fb49116a4dd957448491e3e7a52",
+          "pass": true
+        },
+        {
+          "name": "accepted_lockfile",
+          "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/src-tauri/Cargo.lock",
+          "sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "original-850-tracked-files-unchanged",
+      "pass": true
+    },
+    {
+      "name": "incremental-patch-applies-to-stage3k",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "cumulative-patch-applies-to-original",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "working-diff-has-no-whitespace-errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "visual-evidence-files-present",
+      "pass": true
+    },
+    {
+      "name": "report-reflects-141-package-matrices",
+      "pass": true
+    }
+  ],
+  "passed": 18,
+  "total": 18,
+  "failures": []
+}

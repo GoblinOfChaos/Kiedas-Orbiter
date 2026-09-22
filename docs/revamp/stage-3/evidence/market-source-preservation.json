@@ -1,0 +1,17 @@
+{
+  "before_sha256": "ed12f0eece72212d655ed1e56e9283d653c49f184d60a8d1dc9d51d42048b0be",
+  "after_sha256": "285321b5438f8e2efb3d71ee652bf7d345a5f896079cc88fcd60b18124dabb87",
+  "preview_layout_sha256": "d1d942abdf67052c42ab7bc6eeb66a59c551f631a92bc215436764ef71a0066d",
+  "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+  "stable_source_restores_exactly_after_removing_approved_preview_regions_and_price_fallback": true,
+  "catalog_token_filter_sort_valuation_and_mutation_payload_shape_unchanged": true,
+  "approved_stable_price_fallback_only": true,
+  "preview_frontend_guards_present": true,
+  "layout_has_no_tauri_import": true,
+  "layout_has_no_state_or_effect_hooks": true,
+  "layout_has_no_market_data_or_mutation_commands": true,
+  "source_files_changed": [
+    "src/screens/Market.jsx",
+    "src/components/PreviewMarketLayout.jsx"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-09-06T00:45:16.487692+00:00",
+  "before_sha256": "694967729a5e7edb74e2c8b331ea5618d889a3a1dd9b264864ced144bc398d4b",
+  "after_sha256": "867553ce86dcef88d3d105e31351a277bf782e5187c59d26d67a1de167fd8880",
+  "preview_layout_sha256": "7824d1c744ccbded5b539db0cb19f34d84d97672a523f777ca8c7d8beedcf9d9",
+  "stable_source_restores_exactly_after_removing_approved_preview_boundary": true,
+  "unchanged_inventory_business_logic": true,
+  "approved_changed_regions": [
+    "two Preview imports",
+    "header slot memoization",
+    "IS_PREVIEW PageLayout composition"
+  ],
+  "dormant_sale_callers": 2,
+  "reachable_sale_callers": 0
+}

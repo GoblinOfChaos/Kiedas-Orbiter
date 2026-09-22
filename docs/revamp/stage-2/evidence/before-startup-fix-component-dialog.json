@@ -1,0 +1,7 @@
+{
+  "tier": "component browser with module mocks",
+  "native_import_test": false,
+  "checks": [],
+  "states": [],
+  "error": "timed out"
+}

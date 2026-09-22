@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-rivens/native-build.py"
+  ],
+  "container_name": "stage3f-native-build-fixed-7cfe8defaf",
+  "cpus": 4,
+  "duration_seconds": 59.925,
+  "exit_code": 0,
+  "image": "localhost/kiedas-preview-ubuntu24-stage2",
+  "log": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/rivens-native-build-container.log",
+  "memory": "8g",
+  "network": "none",
+  "phase": "build",
+  "preflight": {
+    "phase": "build",
+    "preserved": [],
+    "removed": [],
+    "target": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target"
+  },
+  "terminal_state": "exited",
+  "waited_for_terminal_state": true
+}

@@ -1,0 +1,16 @@
+{
+  "baseline": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "commit": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "branch": "revamp/preview-shell",
+  "checkout": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2",
+  "patch_sha256": "852ce34fa0ba2eec830b9ec0491298df3593f644c8af222611b317675933fc53",
+  "gate": "HELD: fatal-recovery exit status fixed and native-tested; current UI/upgrade/platform acceptance in CURRENT-ACCEPTANCE.md",
+  "app_installed": false,
+  "uncommitted_changes": [
+    "src/main.jsx",
+    "src/components/PreviewImport.jsx",
+    "src-tauri/src/main.rs",
+    "src-tauri/src/preview_import.rs",
+    "src-tauri/src/preview_import_tests.rs"
+  ]
+}

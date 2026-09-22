@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-09-05T22:06:12.276714+00:00",
+  "packages": [
+    {
+      "package": "deb",
+      "binary_sha256": "d4a96f51575a2d26833ba5e3028838087b915922ca528d4a62aa0f913c809cab",
+      "checks": 26,
+      "passed": 26,
+      "group_counts": {
+        "checks": 10,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "dialog_checks": 4,
+        "updater_ui_checks": 3
+      },
+      "bundle_fallback": {
+        "profile_copy_absent": true,
+        "resolved": true,
+        "matches_installed_bytes": true
+      },
+      "hash_subject": "installed Debian executable"
+    },
+    {
+      "package": "appimage",
+      "binary_sha256": "bebda9598b302551767e6ab5b8a5d664814e791b9a04a94cdb777643da4b1d50",
+      "checks": 26,
+      "passed": 26,
+      "group_counts": {
+        "checks": 10,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "dialog_checks": 4,
+        "updater_ui_checks": 3
+      },
+      "bundle_fallback": {
+        "profile_copy_absent": true,
+        "resolved": true,
+        "matches_installed_bytes": true
+      },
+      "hash_subject": "AppImage archive used for extraction-mode launch"
+    }
+  ],
+  "render_checks": 16
+}

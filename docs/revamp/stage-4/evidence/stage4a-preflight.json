@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-09-07T00:42:18.944103+00:00",
+  "baseline_commit": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "accepted_stage2_commit": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "reconstruction": "main baseline plus stage-3 cumulative patch, which already contains Stage 2",
+  "cumulative_patch_sha256": "daa070f8b321c5f59c04f88a63952588fbe5d72c2917b223ce55f51682e08b0b",
+  "application_files_compared": 744,
+  "mismatches": [],
+  "excluded_generated_paths": [
+    ".git",
+    "node_modules",
+    "target",
+    "src-tauri/gen",
+    "src-tauri/Cargo.lock"
+  ],
+  "preserved_preflight_failures": [
+    {
+      "attempt": "main git worktree at accepted Stage 2 commit",
+      "result": "failed before path creation",
+      "reason": "accepted commit belongs to standalone .preview-work/stage2 clone and is absent from main object database"
+    },
+    {
+      "attempt": "apply Stage 2 patch then Stage 3 cumulative patch",
+      "result": "second apply --check rejected duplicate hunks; no Stage 3 content applied",
+      "reason": "Stage 3 cumulative patch already contains Stage 2"
+    }
+  ],
+  "gate": "PASS"
+}

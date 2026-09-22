@@ -1,0 +1,47 @@
+{
+  "Drifter Agile Animation Set": {
+    "reason": "page 'Drifter Animation Set' fetch failed or doesn't exist"
+  },
+  "Drifter Noble Animation Set": {
+    "reason": "page 'Drifter Animation Set' fetch failed or doesn't exist"
+  },
+  "Equinox Agile Animation Set": {
+    "reason": "page 'Equinox Animation Set' exists but doesn't contain the confirmed sentence pattern for 'Equinox Agile Animation Set'"
+  },
+  "Equinox Day Agile Animation Set": {
+    "reason": "page 'Equinox Day Animation Set' fetch failed or doesn't exist"
+  },
+  "Equinox Day Noble Animation Set": {
+    "reason": "page 'Equinox Day Animation Set' fetch failed or doesn't exist"
+  },
+  "Equinox Night Agile Animation Set": {
+    "reason": "page 'Equinox Night Animation Set' fetch failed or doesn't exist"
+  },
+  "Equinox Night Noble Animation Set": {
+    "reason": "page 'Equinox Night Animation Set' fetch failed or doesn't exist"
+  },
+  "Equinox Noble Animation Set": {
+    "reason": "page 'Equinox Animation Set' exists but doesn't contain the confirmed sentence pattern for 'Equinox Noble Animation Set'"
+  },
+  "Excalibur Umbra Agile Animation Set": {
+    "reason": "page 'Excalibur Umbra Animation Set' exists but doesn't contain the confirmed sentence pattern for 'Excalibur Umbra Agile Animation Set'"
+  },
+  "Excalibur Umbra Noble Animation Set": {
+    "reason": "page 'Excalibur Umbra Animation Set' exists but doesn't contain the confirmed sentence pattern for 'Excalibur Umbra Noble Animation Set'"
+  },
+  "Madurai Animation Set": {
+    "reason": "name doesn't match '{Warframe} Agile/Noble Animation Set' pattern"
+  },
+  "Naramon Animation Set": {
+    "reason": "name doesn't match '{Warframe} Agile/Noble Animation Set' pattern"
+  },
+  "Unairu Animation Set": {
+    "reason": "name doesn't match '{Warframe} Agile/Noble Animation Set' pattern"
+  },
+  "Vazarin Animation Set": {
+    "reason": "name doesn't match '{Warframe} Agile/Noble Animation Set' pattern"
+  },
+  "Zenurik Animation Set": {
+    "reason": "name doesn't match '{Warframe} Agile/Noble Animation Set' pattern"
+  }
+}

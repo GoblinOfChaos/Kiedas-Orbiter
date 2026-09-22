@@ -1,0 +1,407 @@
+{
+  "checkout": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center",
+  "checks": [
+    {
+      "name": "route-registry-has-20-unique-current-ids",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "prime-resurgence",
+        "market",
+        "inventory",
+        "foundry",
+        "mods",
+        "rivens",
+        "relics",
+        "relic-planner",
+        "collectibles",
+        "cosmetics",
+        "adversaries",
+        "mastery",
+        "history",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "stable-route-order-preserved",
+      "pass": true,
+      "detail": [
+        "dashboard",
+        "prime-resurgence",
+        "market",
+        "inventory",
+        "foundry",
+        "mods",
+        "rivens",
+        "relics",
+        "relic-planner",
+        "collectibles",
+        "cosmetics",
+        "adversaries",
+        "mastery",
+        "history",
+        "maps",
+        "wiki",
+        "notes",
+        "checklist",
+        "settings",
+        "about"
+      ]
+    },
+    {
+      "name": "six-groups-registered",
+      "pass": true,
+      "detail": {
+        "today": [
+          "dashboard"
+        ],
+        "collection": [
+          "inventory",
+          "mastery",
+          "mods",
+          "cosmetics",
+          "collectibles"
+        ],
+        "planning": [
+          "foundry",
+          "relics",
+          "relic-planner",
+          "prime-resurgence"
+        ],
+        "trading": [
+          "market",
+          "rivens"
+        ],
+        "journal-tools": [
+          "history",
+          "adversaries",
+          "maps",
+          "wiki",
+          "notes",
+          "checklist"
+        ],
+        "application": [
+          "settings",
+          "about"
+        ]
+      }
+    },
+    {
+      "name": "screen-map-bidirectional-with-registry",
+      "pass": false,
+      "detail": [
+        "relic-planner",
+        "prime-resurgence"
+      ]
+    },
+    {
+      "name": "registered-raster-icons-exist-in-accepted-assets",
+      "pass": true,
+      "detail": [
+        {
+          "name": "IconDashboard.png",
+          "exists": true
+        },
+        {
+          "name": "BaroKiTeerFlat.png",
+          "exists": true
+        },
+        {
+          "name": "IconMarket.png",
+          "exists": true
+        },
+        {
+          "name": "IconInventory.png",
+          "exists": true
+        },
+        {
+          "name": "IconFoundry.png",
+          "exists": true
+        },
+        {
+          "name": "Mods.png",
+          "exists": true
+        },
+        {
+          "name": "IconRiven.png",
+          "exists": true
+        },
+        {
+          "name": "IconRelic.png",
+          "exists": true
+        },
+        {
+          "name": "VoidSymbol.png",
+          "exists": true
+        },
+        {
+          "name": "GrimoireMarker.png",
+          "exists": true
+        },
+        {
+          "name": "Appearance.png",
+          "exists": true
+        },
+        {
+          "name": "Adversaries.png",
+          "exists": true
+        },
+        {
+          "name": "IconMastery.png",
+          "exists": true
+        },
+        {
+          "name": "IconMap.png",
+          "exists": true
+        },
+        {
+          "name": "Wiki.png",
+          "exists": true
+        },
+        {
+          "name": "IconNotes.png",
+          "exists": true
+        },
+        {
+          "name": "IconChecklist.png",
+          "exists": true
+        },
+        {
+          "name": "IconSettings.png",
+          "exists": true
+        },
+        {
+          "name": "IconInfo.png",
+          "exists": true
+        },
+        {
+          "name": "IconKieda.png",
+          "exists": true
+        }
+      ]
+    },
+    {
+      "name": "registered-lucide-import-is-explicit",
+      "pass": true,
+      "detail": [
+        "BarChart3"
+      ]
+    },
+    {
+      "name": "preview-layer-has-no-tauri-imports-or-invocations",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no-new-or-modified-raster-assets",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "dependencies-and-lockfiles-unchanged-from-accepted-state",
+      "pass": true,
+      "detail": [
+        {
+          "file": "package.json",
+          "accepted": "38d907ebd28487ff2f81b77733ce9b4bb2460d2a552400a3fe1ad0442124229e",
+          "current": "38d907ebd28487ff2f81b77733ce9b4bb2460d2a552400a3fe1ad0442124229e",
+          "equal": true
+        },
+        {
+          "file": "pnpm-lock.yaml",
+          "accepted": "94173e2fba1a1f011d05e5af9e104978020e1922d0cb587dca977ee3361cf1d5",
+          "current": "94173e2fba1a1f011d05e5af9e104978020e1922d0cb587dca977ee3361cf1d5",
+          "equal": true
+        },
+        {
+          "file": "src-tauri/Cargo.toml",
+          "accepted": "9c5be029da33292c0fe1b8096ffd0bd83fbf059b24ec1b15fba6d03caa9f4f37",
+          "current": "9c5be029da33292c0fe1b8096ffd0bd83fbf059b24ec1b15fba6d03caa9f4f37",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "name": "preview-skips-scanner-poll",
+      "pass": true
+    },
+    {
+      "name": "preview-skips-scanner-hook-listener",
+      "pass": true
+    },
+    {
+      "name": "stable-navigation-source-now-uses-shared-registry",
+      "pass": true
+    },
+    {
+      "name": "old-inline-stable-order-source-was-registered",
+      "pass": true,
+      "detail": {
+        "accepted_app_sha256": "f12957ec9b0e402e721bcd31de7e84f67803d6190ba5663b56577ee3c659dca7"
+      }
+    },
+    {
+      "name": "ready-state-consumes-existing-boolean-only",
+      "pass": true
+    },
+    {
+      "name": "targets-remain-fixed-pre-capability-zero",
+      "pass": true
+    },
+    {
+      "name": "high-stakes-calculation-standard-not-applicable",
+      "pass": true,
+      "detail": "No calculation introduced or changed; existing readyToCraft boolean is consumed directly."
+    },
+    {
+      "name": "transitional-preview-wrappers-removed",
+      "pass": true,
+      "detail": [
+        "src/components/PreviewNavigation.jsx",
+        "src/components/PreviewDashboardLayout.jsx"
+      ]
+    },
+    {
+      "name": "application-source-changes-stay-within-approved-section-7",
+      "pass": false,
+      "detail": [
+        " M src/contexts/MonitoringContext.jsx",
+        " M src/contexts/UpdateContext.jsx",
+        " M src/main.jsx",
+        " M src/screens/Cosmetics.jsx",
+        " M src/screens/Inventory.jsx",
+        " M src/screens/Maps.jsx",
+        " M src/screens/Market.jsx",
+        " M src/screens/Mastery.jsx",
+        " M src/screens/Mods.jsx",
+        " M src/screens/RelicPlanner.jsx",
+        " M src/screens/Relics.jsx",
+        " M src/screens/Rivens.jsx",
+        " M src/screens/Settings.jsx",
+        "?? src/components/PreviewCosmeticsLayout.jsx",
+        "?? src/components/PreviewImport.jsx",
+        "?? src/components/PreviewInventoryLayout.jsx",
+        "?? src/components/PreviewMapsLayout.jsx",
+        "?? src/components/PreviewMarketLayout.jsx",
+        "?? src/components/PreviewMasteryLayout.jsx",
+        "?? src/components/PreviewModsLayout.jsx",
+        "?? src/components/PreviewRelicPlannerLayout.jsx",
+        "?? src/components/PreviewRelicsLayout.jsx",
+        "?? src/components/PreviewRivensLayout.jsx",
+        "?? src/components/PreviewSettingsLayout.jsx",
+        "?? src/lib/buildProfile.js"
+      ]
+    }
+  ],
+  "passed": 16,
+  "total": 18,
+  "failures": [
+    {
+      "name": "screen-map-bidirectional-with-registry",
+      "pass": false,
+      "detail": [
+        "relic-planner",
+        "prime-resurgence"
+      ]
+    },
+    {
+      "name": "application-source-changes-stay-within-approved-section-7",
+      "pass": false,
+      "detail": [
+        " M src/contexts/MonitoringContext.jsx",
+        " M src/contexts/UpdateContext.jsx",
+        " M src/main.jsx",
+        " M src/screens/Cosmetics.jsx",
+        " M src/screens/Inventory.jsx",
+        " M src/screens/Maps.jsx",
+        " M src/screens/Market.jsx",
+        " M src/screens/Mastery.jsx",
+        " M src/screens/Mods.jsx",
+        " M src/screens/RelicPlanner.jsx",
+        " M src/screens/Relics.jsx",
+        " M src/screens/Rivens.jsx",
+        " M src/screens/Settings.jsx",
+        "?? src/components/PreviewCosmeticsLayout.jsx",
+        "?? src/components/PreviewImport.jsx",
+        "?? src/components/PreviewInventoryLayout.jsx",
+        "?? src/components/PreviewMapsLayout.jsx",
+        "?? src/components/PreviewMarketLayout.jsx",
+        "?? src/components/PreviewMasteryLayout.jsx",
+        "?? src/components/PreviewModsLayout.jsx",
+        "?? src/components/PreviewRelicPlannerLayout.jsx",
+        "?? src/components/PreviewRelicsLayout.jsx",
+        "?? src/components/PreviewRivensLayout.jsx",
+        "?? src/components/PreviewSettingsLayout.jsx",
+        "?? src/lib/buildProfile.js"
+      ]
+    }
+  ],
+  "preview_source_files": [
+    "src/preview/components/PreviewButton.jsx",
+    "src/preview/components/PreviewDataState.jsx",
+    "src/preview/components/PreviewPanel.jsx",
+    "src/preview/components/PreviewStatusBadge.jsx",
+    "src/preview/dashboard/PreviewDashboardView.jsx",
+    "src/preview/navigation.js",
+    "src/preview/shell/PreviewAppShell.jsx",
+    "src/preview/shell/PreviewGlobalHeader.jsx",
+    "src/preview/shell/PreviewNavigation.jsx",
+    "src/preview/shell/PreviewPage.jsx",
+    "src/preview/shell/PreviewRouteSearch.jsx",
+    "src/preview/shell/PreviewStatusSummary.jsx",
+    "src/preview/styles/preview-components.css",
+    "src/preview/styles/preview-dashboard.css",
+    "src/preview/styles/preview-responsive.css",
+    "src/preview/styles/preview-shell.css",
+    "src/preview/styles/preview-tokens.css",
+    "src/preview/view-models/dashboardViewModel.js"
+  ],
+  "git_status": [
+    " M package.json",
+    " M src-tauri/Cargo.toml",
+    " M src-tauri/src/main.rs",
+    " M src-tauri/src/ocr.rs",
+    " M src-tauri/src/overlay_utils.rs",
+    " M src/App.jsx",
+    " M src/contexts/MonitoringContext.jsx",
+    " M src/contexts/UpdateContext.jsx",
+    " M src/lib/i18n/en.json",
+    " M src/main.jsx",
+    " M src/screens/Cosmetics.jsx",
+    " M src/screens/Dashboard.jsx",
+    " M src/screens/Inventory.jsx",
+    " M src/screens/Maps.jsx",
+    " M src/screens/Market.jsx",
+    " M src/screens/Mastery.jsx",
+    " M src/screens/Mods.jsx",
+    " M src/screens/RelicPlanner.jsx",
+    " M src/screens/Relics.jsx",
+    " M src/screens/Rivens.jsx",
+    " M src/screens/Settings.jsx",
+    "?? scripts/preview-checks/",
+    "?? scripts/run-preview.mjs",
+    "?? src-tauri/icons/preview/",
+    "?? src-tauri/src/build_profile.rs",
+    "?? src-tauri/src/preview_import.rs",
+    "?? src-tauri/src/preview_import_tests.rs",
+    "?? src-tauri/tauri.preview.conf.json",
+    "?? src/components/PreviewCosmeticsLayout.jsx",
+    "?? src/components/PreviewImport.jsx",
+    "?? src/components/PreviewInventoryLayout.jsx",
+    "?? src/components/PreviewMapsLayout.jsx",
+    "?? src/components/PreviewMarketLayout.jsx",
+    "?? src/components/PreviewMasteryLayout.jsx",
+    "?? src/components/PreviewModsLayout.jsx",
+    "?? src/components/PreviewRelicPlannerLayout.jsx",
+    "?? src/components/PreviewRelicsLayout.jsx",
+    "?? src/components/PreviewRivensLayout.jsx",
+    "?? src/components/PreviewSettingsLayout.jsx",
+    "?? src/lib/buildProfile.js",
+    "?? src/preview/"
+  ]
+}

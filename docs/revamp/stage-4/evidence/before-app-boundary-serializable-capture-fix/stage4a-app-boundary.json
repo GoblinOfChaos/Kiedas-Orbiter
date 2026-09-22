@@ -1,0 +1,16 @@
+{
+  "tier": "module-boundary full App.jsx render with deterministic import-boundary transform; real App route state and Preview shell; inert screen bodies",
+  "source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/src/App.jsx",
+  "source_sha256": "5470d3ef26175059637019a3f587ff825d038c23e6e46ff6c704036d37d4ae52",
+  "config": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-validation/app-fixture/vite.config.mjs",
+  "config_sha256": "e414f4dc73782c8fd4f12c6bf1a4779423cc0f6d4bbee3de801eaaf63608967b",
+  "checks": [
+    {
+      "name": "real-preview-shell-mounted",
+      "pass": true
+    }
+  ],
+  "error": "RuntimeError('{\"value\":{\"error\":\"javascript error\",\"message\":\"The object can not be cloned.\",\"stacktrace\":\"\"}}')",
+  "passed": 1,
+  "total": 1
+}

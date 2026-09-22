@@ -1,0 +1,237 @@
+{
+  "timestamp": "2026-09-06T00:45:16.487692+00:00",
+  "component_checks": 177,
+  "component_passed": 177,
+  "control_matrix_checks": 96,
+  "control_matrix_passed": 96,
+  "stable_exact_markup_states": [
+    {
+      "mode": "populated",
+      "equal": true,
+      "before_length": 96210,
+      "after_length": 96210
+    },
+    {
+      "mode": "loading",
+      "equal": true,
+      "before_length": 9560,
+      "after_length": 9560
+    },
+    {
+      "mode": "empty",
+      "equal": true,
+      "before_length": 9884,
+      "after_length": 9884
+    }
+  ],
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 30,
+      "passed": 30,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2
+      },
+      "binary_sha256": "d4fe91f44dfea5dad5ced5de505a6bfb8053b9f5558c1d60e7a70a13fc039623",
+      "inventory_geometry": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "state": {
+            "sellVisible": false,
+            "categories": {
+              "wrap": "nowrap",
+              "client": 914,
+              "scroll": 1943,
+              "overflow": "auto"
+            },
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "toolbarColumns": 2,
+            "tabs": [
+              "All",
+              "Warframes",
+              "Weapons",
+              "Companions",
+              "Companion Weapons",
+              "Archweapons",
+              "Vehicles",
+              "Amps",
+              "Arcanes",
+              "Peely Pix",
+              "Consumables",
+              "Landing Craft",
+              "Resources",
+              "Prime Sets",
+              "Ayatan"
+            ],
+            "root": {
+              "left": 240,
+              "right": 1156
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "state": {
+            "sellVisible": false,
+            "categories": {
+              "wrap": "nowrap",
+              "client": 614,
+              "scroll": 1943,
+              "overflow": "auto"
+            },
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "toolbarColumns": 1,
+            "tabs": [
+              "All",
+              "Warframes",
+              "Weapons",
+              "Companions",
+              "Companion Weapons",
+              "Archweapons",
+              "Vehicles",
+              "Amps",
+              "Arcanes",
+              "Peely Pix",
+              "Consumables",
+              "Landing Craft",
+              "Resources",
+              "Prime Sets",
+              "Ayatan"
+            ],
+            "root": {
+              "left": 240,
+              "right": 856
+            },
+            "present": true
+          },
+          "pass": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 30,
+      "passed": 30,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2
+      },
+      "binary_sha256": "0836ef870d7e514122f5c9d1f6630cbe734e4ff374fcd458847255f2c73d7957",
+      "inventory_geometry": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "state": {
+            "sellVisible": false,
+            "categories": {
+              "wrap": "nowrap",
+              "client": 914,
+              "scroll": 1943,
+              "overflow": "auto"
+            },
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "toolbarColumns": 2,
+            "tabs": [
+              "All",
+              "Warframes",
+              "Weapons",
+              "Companions",
+              "Companion Weapons",
+              "Archweapons",
+              "Vehicles",
+              "Amps",
+              "Arcanes",
+              "Peely Pix",
+              "Consumables",
+              "Landing Craft",
+              "Resources",
+              "Prime Sets",
+              "Ayatan"
+            ],
+            "root": {
+              "left": 240,
+              "right": 1156
+            },
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "state": {
+            "sellVisible": false,
+            "categories": {
+              "wrap": "nowrap",
+              "client": 614,
+              "scroll": 1943,
+              "overflow": "auto"
+            },
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "toolbarColumns": 1,
+            "tabs": [
+              "All",
+              "Warframes",
+              "Weapons",
+              "Companions",
+              "Companion Weapons",
+              "Archweapons",
+              "Vehicles",
+              "Amps",
+              "Arcanes",
+              "Peely Pix",
+              "Consumables",
+              "Landing Craft",
+              "Resources",
+              "Prime Sets",
+              "Ayatan"
+            ],
+            "root": {
+              "left": 240,
+              "right": 856
+            },
+            "present": true
+          },
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3B accepted by user on 2026-09-05; no Stage 3C app source started"
+}

@@ -1,0 +1,35 @@
+ opened_rivens=js("const b=[...document.querySelectorAll('nav button')].find(e=>e.textContent.trim()==='Rivens');if(!b)return false;b.click();return true")
+ if not opened_rivens: raise RuntimeError('Rivens navigation button unavailable')
+ time.sleep(1)
+ synthetic_rivens={
+  'account':{'riven_capacity':18},
+  'rivens':[
+   {'item_id':'native-alpha-1','name':'Alpha Critatis','weapon_name':'Alpha','weapon_name_en':'Alpha','weapon_type':'Rifle','stats':[{'tag':'Critical Chance','statKey':'Critical Chance','value':'55','positive':True,'isPercent':True},{'tag':'Zoom','statKey':'Zoom','value':'20','positive':False,'isPercent':True}],'rank':8,'mr':12,'rerolls':3,'polarity':'AP_ATTACK','_grade':'S'},
+   {'item_id':'native-alpha-2','name':'Alpha Critatis','weapon_name':'Alpha','weapon_name_en':'Alpha','weapon_type':'Rifle','stats':[{'tag':'Critical Chance','statKey':'Critical Chance','value':'35','positive':True,'isPercent':True},{'tag':'Zoom','statKey':'Zoom','value':'20','positive':False,'isPercent':True}],'rank':4,'mr':10,'rerolls':1,'polarity':'AP_DEFENSE','_grade':'A'},
+   {'item_id':'native-challenge-1','name':'Shotgun Riven Challenge','weapon_name':'Shotgun','weapon_type':'Shotgun','challenge':'Complete a synthetic challenge','rerolls':2,'quantity':1,'_grade':'B'},
+   {'name':'Melee Riven Mod','weapon_name':'Melee','weapon_type':'Melee','veiled':True,'quantity':3,'rerolls':0,'_grade':'B'}
+  ]
+ }
+ rivens_injection=js(inject_script,[synthetic_rivens])
+ results['rivens_state_injection']={'tier':'synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; real packaged estimator IPC remains active and may return no estimate for synthetic weapons','result':rivens_injection}
+ if not rivens_injection.get('ok'): raise RuntimeError('MonitoringContext Rivens test-state injection unavailable: '+str(rivens_injection))
+ time.sleep(1)
+ results['rivens_checks']=[]
+ expected_riven_types=['All','Rifle','Pistol','Melee','Shotgun','Sniper','Kitgun','Zaw','Archgun']
+ expected_riven_states=['All States','Unveiled','Challenge','Veiled']
+ def press_riven_key(value):
+  api('POST',prefix+'/actions',{'actions':[{'type':'key','id':'rivens-keyboard','actions':[{'type':'keyDown','value':value},{'type':'keyUp','value':value}]}]})
+  time.sleep(.2)
+  try:api('DELETE',prefix+'/actions')
+  except Exception:pass
+ for width,height in [(1200,800),(900,500)]:
+  api('POST',prefix+'/window/rect',{'width':width,'height':height});time.sleep(.4)
+  state=js("""const root=document.querySelector('[data-preview-rivens-layout]');if(!root)return {present:false};const primary=root.querySelector('[data-preview-rivens-primary-controls]'),types=root.querySelector('.preview-rivens-types'),states=root.querySelector('[data-preview-rivens-state]'),sort=root.querySelector('[data-preview-rivens-sort]'),grid=root.querySelector('[data-preview-rivens-grid]'),cards=[...root.querySelectorAll('[data-preview-riven-card]')],rr=root.getBoundingClientRect(),gr=grid.getBoundingClientRect();return {present:true,types:[...types.querySelectorAll('button')].map(e=>e.textContent.trim()),states:[...states.querySelectorAll('button')].map(e=>e.textContent.trim()),sort:[...sort.querySelectorAll('button')].map(e=>e.textContent.trim()),body:{client:document.body.clientWidth,scroll:document.body.scrollWidth},root:{left:rr.left,right:rr.right},primaryColumns:getComputedStyle(primary).gridTemplateColumns.split(' ').length,typeRail:{client:types.clientWidth,scroll:types.scrollWidth,overflow:getComputedStyle(types).overflowX,wrap:getComputedStyle(types).flexWrap},grid:{left:gr.left,right:gr.right},cards:cards.map(e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width,role:e.getAttribute('role'),tabIndex:e.tabIndex,label:e.getAttribute('aria-label')}}),noSell:![...root.querySelectorAll('button')].some(e=>/sell/i.test(e.textContent))};""")
+  layout_pass=state.get('present') and state.get('types')==expected_riven_types and state.get('states')==expected_riven_states and state.get('sort')==['Name','Plat','Grade'] and state['body']['scroll']<=state['body']['client']+1 and state['root']['left']>=0 and state['root']['right']<=width+1 and state['primaryColumns']==(3 if width==1200 else 1) and state['typeRail']['overflow']=='auto' and state['typeRail']['wrap']=='nowrap' and len(state['cards'])==4 and all(abs(card['width']-200)<1 and card['left']>=state['grid']['left']-1 and card['right']<=state['grid']['right']+1 and card['role']=='button' and card['tabIndex']==0 for card in state['cards'])
+  results['rivens_checks'].append({'size':[width,height],'kind':'layout-filters-and-cards','state':state,'pass':layout_pass})
+  focused=js("const e=document.querySelector('[data-preview-riven-card]');if(!e)return false;e.focus();return document.activeElement===e")
+  press_riven_key(chr(0xE007))
+  enter_open=js("return document.querySelectorAll('.fixed.bottom-0').length===1")
+  js("document.querySelector('.fixed.bottom-0 button')?.click()");time.sleep(.15)
+  results['rivens_checks'].append({'size':[width,height],'kind':'keyboard-drawer','focused':focused,'opened':enter_open,'pass':focused and enter_open})
+ results['rivens_checks'].append({'kind':'price-and-market-surface','pass':state['noSell'] and not js("return document.querySelector('[data-preview-rivens-layout]').innerText.includes('0p')"),'no_sell':state['noSell']})

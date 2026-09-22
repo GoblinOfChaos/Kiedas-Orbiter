@@ -1,0 +1,432 @@
+{
+  "/Lotus/Weapons/Sentients/Shedu/SheduHeavyWeapon": {
+    "uniqueName": "/Lotus/Weapons/Sentients/Shedu/SheduHeavyWeapon",
+    "wikiName": "Shedu",
+    "description": null,
+    "acquisition": "The weapon blueprint is given to the player at the end of the Erra quest. Additional blueprints can be bought from Cephalon Simaris for 100,000. \n\nThe Shedu's components are rare drops from Symbilysts found in Sentient Anomalies that appear in the Veil Proxima during Empyrean missions. The ship occupies one random node for 30 minutes, indicated by a red flashing Sentient symbol, then rotates to a different node. Symbilysts were also found in Operation: Scarlet Spear and Operation: Orphix Venom. The parts can be traded between players.\n\nSymbilysts also spawn in Archon Hunts in higher numbers per mission, especially in Defense and Interception missions.",
+    "sourceRefs": [
+      "article page: Shedu (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/LongGuns/GrineerSawbladeGun/SawBladeGun": {
+    "uniqueName": "/Lotus/Weapons/Grineer/LongGuns/GrineerSawbladeGun/SawBladeGun",
+    "wikiName": "Miter",
+    "description": null,
+    "acquisition": "Miter's main blueprint and components can be obtained from the dual boss team Lech Kril and Captain Vor on Exta, Ceres.",
+    "sourceRefs": [
+      "article page: Miter (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/ClanTech/Energy/DeraVandal": {
+    "uniqueName": "/Lotus/Weapons/ClanTech/Energy/DeraVandal",
+    "wikiName": "Dera Vandal",
+    "description": null,
+    "acquisition": "Blueprints and components are a potential Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Dera Vandal (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/LongGuns/GrineerM16Homage/KarakWraith": {
+    "uniqueName": "/Lotus/Weapons/Grineer/LongGuns/GrineerM16Homage/KarakWraith",
+    "wikiName": "Karak Wraith",
+    "description": null,
+    "acquisition": "Karak Wraith was introduced during the Operation: Tubemen of Regor event, where players would need to complete a minimum of four regional battles in favor of one side more than the other, and Alad V was the victor of the conflict. Alad V had won the conflict in the PC and XB1 versions of the game, but not in the PS4. The weapon was fully built and came with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThe blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Karak Wraith (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Corpus/LongGuns/GrenadeLauncher/CarminePenta": {
+    "uniqueName": "/Lotus/Weapons/Corpus/LongGuns/GrenadeLauncher/CarminePenta",
+    "wikiName": "Carmine Penta",
+    "description": null,
+    "acquisition": "This weapon's blueprints and components can be obtained from Pluto Proxima or Veil Proxima Corpus-controlled Abandoned Derelict Caches in Empyrean missions. All parts can be traded between players.",
+    "sourceRefs": [
+      "article page: Carmine Penta (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Shotgun/ShotgunVandal": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Shotgun/ShotgunVandal",
+    "wikiName": "Strun Wraith",
+    "description": null,
+    "acquisition": "This weapon was first introduced from the Survival Weekend Event, awarded for completing the event's Survival for 20 minutes, complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThe Strun Wraith was awarded again from acquiring 100 points in the Den of Kubrow Tactical Alert, also complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThe blueprint and parts were formerly a reward from the Fourth Season of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 10 to acquire the blueprint.\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Strun Wraith (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/LongGuns/TnoLotusPodShotgun/TnoLotusPodShotgun": {
+    "uniqueName": "/Lotus/Weapons/Tenno/LongGuns/TnoLotusPodShotgun/TnoLotusPodShotgun",
+    "wikiName": "Steflos",
+    "description": null,
+    "acquisition": "Steflos's blueprint and components can be obtained from Mirror Defense Tyana Pass on Mars, whose access requires completion of Heart of Deimos; the blueprint comes from Rotation A, while the Barrel, Receiver, and Stock come from Rotation B.\n\nAlternatively they can be purchased from Otak in the Necralisk, Deimos with Belric Crystal Fragment and Rania Crystal Fragment, awarded from Mirror Defense in quantities of 5 (7 on The Steel Path) cycling between the two from collecting Citrine's Remnants, and in quantities of 10 (15 on The Steel Path) per rotation; each component requires 250 Belric and 150 Rania, while the blueprint requires 500 Belric and 300 Rania, totaling to 1,250 Belric and 750 Rania Crystal Fragments.\n\nAll components can be traded between players, but not the blueprint.",
+    "sourceRefs": [
+      "article page: Steflos (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Corpus/LongGuns/CrpRubanRifle/CrpRubanRifle": {
+    "uniqueName": "/Lotus/Weapons/Corpus/LongGuns/CrpRubanRifle/CrpRubanRifle",
+    "wikiName": "Stahlta",
+    "description": null,
+    "acquisition": "The Stahlta's main blueprint is a possible reward from defeating the Jackal. Components are acquired from within the Granum Void: the Receiver from Rotation C of the Normal Granum Void, the Stock from Rotation C of the Exemplar Granum Void, and the Barrel from Rotation C of the Zenith Granum Void. All components can be traded between players, but not the main blueprint.",
+    "sourceRefs": [
+      "article page: Stahlta (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Rifle/VandalSniperRifle": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Rifle/VandalSniperRifle",
+    "wikiName": "Snipetron Vandal",
+    "description": null,
+    "acquisition": "This weapon's blueprint and parts can currently be found as Invasion rewards.\n\nPreviously, this weapon was awarded as a special-edition reward for killing 20 Informers in the Informant Event, complete with a free weapon slot and a pre-installed Orokin Catalyst. The blueprint and parts were also formerly a reward from the Sixth Season of Sorties.\n\nAll components can be traded, although players must have a Mastery Rank of at least 5 to acquire the blueprint.\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Snipetron Vandal (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/LongGuns/PaxDuviricusShotgun/PaxDuviricusShotgun": {
+    "uniqueName": "/Lotus/Weapons/Tenno/LongGuns/PaxDuviricusShotgun/PaxDuviricusShotgun",
+    "wikiName": "Rauta",
+    "description": null,
+    "acquisition": "===Limited Time Event===\nIn the first two weeks after The Seven Crimes of Kullervo launched (June 21st, 2023 @ 12 PM ET until July 5th, 2023 @ 12 PM ET), entering Duviri via the Star Chart banner and Dormizone door would present all players with an event mission called Kullervo's Hold, which was based on The Lone Story's spiral-focused gameplay and always included the dungeon island in the Duviri Landscape regardless of the current Mood Spiral. This limited-time access required 5 Pathos Clamp.\n\n===Normal Progression===\nKullervo's Hold only appears in Duviri during Anger, Sorrow, and Fear Spirals from The Duviri Experience and The Lone Story game modes. It can appear as a fourth, fifth, or sixth spiral stage or a side objective; speak with The Warden to engage in gladiatorial combat with the imprisoned Kullervo in the waterlogged arena.\n\nCompletion of the Spiral (defeating the Orowyrm) and defeating Kullervo awards 4, 5, or 6 Kullervo's Bane (6, 7, or 8 on The Steel Path), which can be traded to 30x30pxAcrithis for Rauta's main blueprint and components: the main blueprint requires 12 Banes, while the Barrel, Receiver, and Stock components each require 6 Banes, for a total of 30 Kullervo's Banes.",
+    "sourceRefs": [
+      "article page: Rauta (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/LongGuns/TnQuadSniper/TnQuadSniper": {
+    "uniqueName": "/Lotus/Weapons/Tenno/LongGuns/TnQuadSniper/TnQuadSniper",
+    "wikiName": "Perigale",
+    "description": null,
+    "acquisition": "Perigale's blueprint and components can be obtained from Conjunction Survival Yuvarium and Circulus on Lua, whose access requires completion of The War Within; the blueprint comes from Rotation A, while the Barrel, Receiver, and Stock come from Rotation B.\n\nAlternatively they can be purchased from Archimedean Yonta on the Chrysalith, Zariman Ten Zero (requires completion of Angels of the Zariman to access) with Lua Thrax Plasm, awarded from Conjunction Survival in quantities of 3 (Yuvarium), 5 (Circulus or Yuvarium Steel Path), or 6 (Circulus Steel Path) per rotation or dropped by Hollow Thrax Centurion and Hollow Thrax Legatus that appears at the end of every Conjunction Survival rotation at a 30% drop rate; each component requires 50, while the blueprint requires 100, totaling to 250 Lua Thrax Plasm.\n\nAll components can be traded between players, but not the blueprint.",
+    "sourceRefs": [
+      "article page: Perigale (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/LongGuns/WraithLatron/WraithLatron": {
+    "uniqueName": "/Lotus/Weapons/Tenno/LongGuns/WraithLatron/WraithLatron",
+    "wikiName": "Latron Wraith",
+    "description": null,
+    "acquisition": "This weapon was awarded during the Operation: Cryotic Front event to players who extracted 3000 Cryotic in a single mission, complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThe blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.\n\ntype=Weapon\nThis weapon can be sold for 7,500.",
+    "sourceRefs": [
+      "article page: Latron Wraith (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/LongGuns/WraithGorgon/WraithGorgon": {
+    "uniqueName": "/Lotus/Weapons/Grineer/LongGuns/WraithGorgon/WraithGorgon",
+    "wikiName": "Gorgon Wraith",
+    "description": null,
+    "acquisition": "The blueprint and parts drop from the Razorback Assassination Alert. All parts can be traded, although players must have attained Mastery Rank 7 to acquire the blueprint.",
+    "sourceRefs": [
+      "article page: Gorgon Wraith (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/GrineerPistol/GrnScopedPistolPlayer": {
+    "uniqueName": "/Lotus/Weapons/Grineer/GrineerPistol/GrnScopedPistolPlayer",
+    "wikiName": "Seer",
+    "description": null,
+    "acquisition": "Seer's main blueprint and components can be obtained from defeating Captain Vor on Tolstoj, Mercury.",
+    "sourceRefs": [
+      "article page: Seer (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/Pistols/GrnOrokinPistol/GrnOrokinPistol": {
+    "uniqueName": "/Lotus/Weapons/Grineer/Pistols/GrnOrokinPistol/GrnOrokinPistol",
+    "wikiName": "Sagek Prime",
+    "description": null,
+    "acquisition": "Sagek Prime's main and component blueprints are obtained from Rotation A of The Perita Rebellion, available after completing The Old Peace quest.\n\nAlternatively Sagek Prime's blueprints can be purchased from Roathe in La Cathėdrale, Sanctum Anatomica for Maphica obtained in The Descendia. Each component blueprint requires 25 and the main blueprint requires 35, totaling 85 Maphica for the whole set.",
+    "sourceRefs": [
+      "article page: Sagek Prime (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Pistols/TnJetTurbine/TnJetTurbinePistolWeapon": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/TnJetTurbine/TnJetTurbinePistolWeapon",
+    "wikiName": "Athodai",
+    "description": null,
+    "acquisition": "Athodai was acquired by watching TennoCon 2020 on [https://twitch.tv/warframe WARFRAME's Twitch] with a [https://www.warframe.com/twitch/link Twitch-linked account] for 30 consecutive minutes, between 12:30 p.m. and 5:00 p.m. ET, on August 1st, 2020. It comes with a free weapon slot and pre-installed Orokin Catalyst.\n- Due to thousands of players reporting missing Twitch drops, on August 6th, 2020 Athodai was distributed to all players if they were logged in to WARFRAME during TennoCon 2020, regardless if they watched the streams or not.<ref>https://forums.warframe.com/topic/1211630-an-update-on-tennocon-2020-twitch-drops/</ref> This resulted in some players receiving two Athodai.\n\nAthodai's blueprint and components are now available in Venus Proxima Abandoned Derelict Caches in Empyrean missions. All parts can be traded between players.",
+    "sourceRefs": [
+      "article page: Athodai (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/Pistols/GrineerHandShotgun/GrineerHandCannon": {
+    "uniqueName": "/Lotus/Weapons/Grineer/Pistols/GrineerHandShotgun/GrineerHandCannon",
+    "wikiName": "Brakk",
+    "description": null,
+    "acquisition": "Brakk was initially an award for completing at least 100 missions supporting the Grineer invasions during The Gradivus Dilemma. After the event, a blueprint was handed out to players who supported the Corpus by running at least 100 invasions on their side, as compensation.\n\nSince then, its blueprint and components have been made a reward for defeating The Grustrag Three (not including during A Man of Few Words or The Pyrus Project).",
+    "sourceRefs": [
+      "article page: Brakk (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Pistols/TnOdaliskSmg/TnOdaliskSmgPistol": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/TnOdaliskSmg/TnOdaliskSmgPistol",
+    "wikiName": "Velox",
+    "description": null,
+    "acquisition": "The Velox's component parts can be acquired from within the Granum Void; the Barrel from Rotation C, the Receiver from Rotation C of Extended Granum Void. The main blueprint can be purchased from the Market. All components, except for the blueprint, can be traded between players.",
+    "sourceRefs": [
+      "article page: Velox (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Corpus/Pistols/CorpusHandShotgun/CorpusHandCannon": {
+    "uniqueName": "/Lotus/Weapons/Corpus/Pistols/CorpusHandShotgun/CorpusHandCannon",
+    "wikiName": "Detron",
+    "description": null,
+    "acquisition": "Blueprint and components are dropped by the Zanuka Hunter (can be summoned with Zanuka Hunter Beacon). Note that neither the components nor the crafted weapon are tradeable, and the weapon is not offered in the Market.\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Detron (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/Pistols/WraithTwinVipers/WraithTwinVipers": {
+    "uniqueName": "/Lotus/Weapons/Grineer/Pistols/WraithTwinVipers/WraithTwinVipers",
+    "wikiName": "Twin Vipers Wraith",
+    "description": null,
+    "acquisition": "Blueprints and components are a potential Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Twin Vipers Wraith (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Corpus/Pistols/CorpusModularPistol/Vandal/CrpLaserPistolVandal": {
+    "uniqueName": "/Lotus/Weapons/Corpus/Pistols/CorpusModularPistol/Vandal/CrpLaserPistolVandal",
+    "wikiName": "Spectra Vandal",
+    "description": null,
+    "acquisition": "This weapon was awarded for earning 1,000 points in a single Endurance Disruption Mission in Operation: Hostile Mergers, complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThis weapon's blueprint and components are now obtained from Veil Proxima Grineer-controlled territory Abandoned Derelicts in Empyrean missions. All parts can be traded between players.",
+    "sourceRefs": [
+      "article page: Spectra Vandal (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Pistol/LatoVandal": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistol/LatoVandal",
+    "wikiName": "Lato Vandal",
+    "description": null,
+    "acquisition": "This weapon was available to anyone who logged in during the Closed Beta (Excluding the Open Beta Weekend) upon the game transitioning into Open Beta (7). It originally had no rank restriction, so anyone who logged in during the Closed Beta could acquire it, regardless of time spent playing the game.\n\nAfter the game entered Open Beta, Lato Vandal was unobtainable until 22.18, in which it was added as a reward in Elite Sanctuary Onslaught, a game mode introduced in that update. All the parts can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.",
+    "sourceRefs": [
+      "article page: Lato Vandal (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Pistols/TnWraitheSidearm/TnWraitheSidearmWeapon": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Pistols/TnWraitheSidearm/TnWraitheSidearmWeapon",
+    "wikiName": "Epitaph",
+    "description": null,
+    "acquisition": "This weapon's blueprint and components can be acquired from Void Storm missions in Earth Proxima, Venus Proxima, and Saturn Proxima. All parts can be traded between players.\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Epitaph (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Swords/TnDagathBladeWhip/TnDagathBladeWhip": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/TnDagathBladeWhip/TnDagathBladeWhip",
+    "wikiName": "Dorrclave",
+    "description": null,
+    "acquisition": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's construction.\n\nComponent blueprints require a total of 80 Vainthorn, obtained from the Abyssal Zone, a unique Exterminate mission on Ceres. Access requires Abyssal Beacons, purchased from Faction Syndicate (Steel Meridian, Arbiters of Hexis, Cephalon Suda, The Perrin Sequence, Red Veil, or New Loka) at Rank 2 and 5,000, consuming only the host's beacon upon mission completion. Each clear awards 6, 7, or 8 Vainthorns (8, 11, or 12 on The Steel Path).",
+    "sourceRefs": [
+      "article page: Dorrclave (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Hammer/ThrowingHammer": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Hammer/ThrowingHammer",
+    "wikiName": "Wolf Sledge",
+    "description": null,
+    "acquisition": "Wolf Sledge's main blueprint and components can be acquired as random drops after defeating the Wolf of Saturn Six. All parts are tradeable between players.",
+    "sourceRefs": [
+      "article page: Wolf Sledge (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Axe/WolfFrameAxeWeapon": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Axe/WolfFrameAxeWeapon",
+    "wikiName": "Sarofang",
+    "description": null,
+    "acquisition": "Sarofang's blueprint and components can be obtained from Conjunction Survival Yuvarium and Circulus on Lua, whose access requires completion of The War Within; the blueprint comes from Rotation A, while the Blade and Handle come from Rotation B.\n\nAlternatively they can be purchased from Archimedean Yonta on the Chrysalith, Zariman Ten Zero (requires completion of Angels of the Zariman to access) with Lua Thrax Plasm, awarded from Conjunction Survival in quantities of 3 (Yuvarium), 5 (Circulus or Yuvarium Steel Path), or 6 (Circulus Steel Path) per rotation or dropped by Hollow Thrax Centurion and Hollow Thrax Legatus that appears at the end of every Conjunction Survival rotation at a 30% drop rate; each component requires 50, while the blueprint requires 100, totaling to 200 Lua Thrax Plasm.\n\nAll components can be traded between players, but not the blueprint.",
+    "sourceRefs": [
+      "article page: Sarofang (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Corpus/Melee/Gunblade/CrpGunBlade/CrpGunbladeWeapon": {
+    "uniqueName": "/Lotus/Weapons/Corpus/Melee/Gunblade/CrpGunBlade/CrpGunbladeWeapon",
+    "wikiName": "Stropha",
+    "description": null,
+    "acquisition": "The Stropha's main blueprint is a possible reward from defeating the Jackal. Component blueprints can be acquired from within the Granum Void; the Barrel and Blade from Rotation C, the Receiver from Rotation C of Exemplar Granum Void, and the Stock from Rotation C of the Zenith Granum Void. All components can be traded between players, but not the main blueprint.",
+    "sourceRefs": [
+      "article page: Stropha (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/Melee/Tonfa/GrnChainSawTonfa/GrnChainSawTonfaWeapon": {
+    "uniqueName": "/Lotus/Weapons/Grineer/Melee/Tonfa/GrnChainSawTonfa/GrnChainSawTonfaWeapon",
+    "wikiName": "Tonkkatt",
+    "description": null,
+    "acquisition": "Tonkkatt's blueprint and components are dropped by Ghoul Expired and Ghoul Rictus that appear in the Plains of Eidolon, Ghoul Purge Bounties, and Disruption Olympus on Mars.",
+    "sourceRefs": [
+      "article page: Tonkkatt (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/MortiforShieldAndSword/MortiforShieldAndSword": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/MortiforShieldAndSword/MortiforShieldAndSword",
+    "wikiName": "Tak & Lug",
+    "description": null,
+    "acquisition": "Tak & Lug's blueprint and components are dropped by Ghoul Auger and Ghoul Devourer that appear in the Plains of Eidolon, Ghoul Purge Bounties, and Disruption Olympus on Mars.",
+    "sourceRefs": [
+      "article page: Tak & Lug (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Grineer/Melee/GrineerCombatKnife/GrineerCombatKnife": {
+    "uniqueName": "/Lotus/Weapons/Grineer/Melee/GrineerCombatKnife/GrineerCombatKnife",
+    "wikiName": "Sheev",
+    "description": null,
+    "acquisition": "The blueprint and parts were formerly a reward from the Fifth Season of Sorties; they can now be found as an Invasion reward.\n\nAll components are tradeable.\n\ntype=Weapon\n\n===History===\nThis weapon was awarded from the Operation: Gate Crash event for completing the event node 15 times, complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nAfter the Operation: Gate Crash event, Sheev's blueprint and components were seasonal offerings exclusive to the October Nights of Naberus event, during which they could be purchased from Daughter for Mother Token; the blueprint cost 125 tokens while the components cost 25, totaling 200 tokens.",
+    "sourceRefs": [
+      "article page: Sheev (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Melee/ExaltedArchScythe/ExaltedAWScytheWeapon": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Melee/ExaltedArchScythe/ExaltedAWScytheWeapon",
+    "wikiName": "Corufell",
+    "description": null,
+    "acquisition": "Corufell's blueprint and components can be obtained from Mirror Defense Tyana Pass on Mars, whose access requires completion of Heart of Deimos; the blueprint comes from Rotation A, while the Barrel, Receiver, and Handle come from Rotation B.\n\nAlternatively they can be purchased from Otak in the Necralisk, Deimos with Belric Crystal Fragment and Rania Crystal Fragment, awarded from Mirror Defense in quantities of 5 (7 on The Steel Path) cycling between the two from collecting Citrine's Remnants, and in quantities of 10 (15 on The Steel Path) per rotation; each component requires 150 Belric and 250 Rania, while the blueprint requires 300 Belric and 500 Rania, totaling to 750 Belric and 1,250 Rania Crystal Fragments.\n\nAll components can be traded between players, but not the blueprint.",
+    "sourceRefs": [
+      "article page: Corufell (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Fist/FuraxWraith": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Fist/FuraxWraith",
+    "wikiName": "Furax Wraith",
+    "description": null,
+    "acquisition": "This weapon was first awarded from the Operation: Rathuum event for achieving 100 Judgement points, complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThe blueprint and component can be obtained from Tier 5 Cetus Bounties. All components can be traded, provided the trading recipient has a Mastery Rank of at least 9.\n\nThe blueprint and components are available from Nakak in Cetus during the Dog Days event. Each part costs 120 Nakak Pearls, for a total of 360.",
+    "sourceRefs": [
+      "article page: Furax Wraith (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Infested/Melee/InfBoomerang/InfBoomerangWeapon": {
+    "uniqueName": "/Lotus/Weapons/Infested/Melee/InfBoomerang/InfBoomerangWeapon",
+    "wikiName": "Pathocyst",
+    "description": null,
+    "acquisition": "Pathocyst's main blueprint and components can be obtained from defeating Zealoid Prelate on Exequias, Deimos. All parts are tradeable between players.",
+    "sourceRefs": [
+      "article page: Pathocyst (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Glaives/TeshinGlaive/TnTeshinGlaiveWep": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Glaives/TeshinGlaive/TnTeshinGlaiveWep",
+    "wikiName": "Orvius",
+    "description": null,
+    "acquisition": "The blueprint is rewarded on completion of The War Within. Additional blueprints can be bought from Cephalon Simaris for 100,000.\n\nThe Blade drops from Kuva Guardians, while the Disc drops from Kuva Jesters. These can be encountered in various locations.\n- Kuva Siphons will always spawn many pairs of Guardians and Jesters\n- Kuva Survival occasionally spawns individual or paired Guardians and Jesters\n- Void Flood can spawn pairs of Guardians and Jesters situationally\n- Requires the \"Kuva Guardians\" contamination effect to be active\n- Spawns Guardians and Jesters infinitely, and at an extreme rate\n\nAll components, except for the blueprint, can be traded between players.",
+    "sourceRefs": [
+      "article page: Orvius (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Melee/Swords/StalkerTwo/StalkerTwoSmallSword": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/Swords/StalkerTwo/StalkerTwoSmallSword",
+    "wikiName": "Broken War",
+    "description": null,
+    "acquisition": "This weapon is granted as a reward for completing the The Second Dream quest with a free weapon slot and a pre-installed Orokin Catalyst.\n\nAdditional copies can be built afterward; the blueprint drops from the Shadow Stalker and Protector Stalker, while its Hilt and Blades drop from Conculysts, Ortholysts, Summulysts, and Aerolysts. The Hilt and Blades can also be bought from Cephalon Simaris for 50,000. All components, except for the blueprint, can be traded between players.",
+    "sourceRefs": [
+      "article page: Broken War (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/RocketArtillery/ArchRocketCrossbow": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/RocketArtillery/ArchRocketCrossbow",
+    "wikiName": "Fluctus",
+    "description": null,
+    "acquisition": "The Fluctus's blueprint can be researched from the Tenno Lab in the dojo. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable.\n\n{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item !! Location\n|-\n| Blueprint || Tenno Lab\n|-\n| 40px Barrel || Cephalon Suda Offering<br />3 - Intelligent 20,000\n|-\n| 40px Stock || Steel Meridian Offering<br />3 - Defender 20,000\n|-\n| 40px Limbs || Red Veil Offering<br />3 - Esteemed 20,000\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Fluctus (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/ArchwingHeavyPistols/ArchHeavyPistols": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/ArchwingHeavyPistols/ArchHeavyPistols",
+    "wikiName": "Dual Decurion",
+    "description": null,
+    "acquisition": "The Dual Decurion's blueprint can be purchased from the Market. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable.\n\n{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item || Location\n|-\n| Blueprint || Market\n|-\n| 40px Barrel || Arbiters of Hexis Offering<br/>2 - Authentic 20,000\n|-\n| 40px Receiver || Cephalon Suda Offering<br/>2 - Intriguing 20,000\n|-\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Dual Decurion (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/FoldingMachineGun/ArchMachineGunVandal": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/FoldingMachineGun/ArchMachineGunVandal",
+    "wikiName": "Imperator Vandal",
+    "description": null,
+    "acquisition": "The Imperator Vandal was awarded during the Operation: Eyes of Blight event for obtaining 15 (PC)/10 (PS4/XB1) Battle Points, complete with a free weapon slot and a pre-installed Orokin Catalyst.\n\nThe blueprint and parts are now obtainable from the Balor Fomorian Invasion via Fomorian Sabotage. All components can be traded.",
+    "sourceRefs": [
+      "article page: Imperator Vandal (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/LaunchGrenade/ArchCannon": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/LaunchGrenade/ArchCannon",
+    "wikiName": "Corvas (Atmosphere)",
+    "description": null,
+    "acquisition": "The Corvas's blueprint can be purchased from the Market. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable.\n\n{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item || Location\n|-\n| Blueprint || Market\n|-\n| 40px Barrel || Arbiters of Hexis Offering<br/>2 - Authentic 20,000\n|-\n| 40px Receiver || Cephalon Suda Offering<br/>2 - Intriguing 20,000\n|-\n| 40px Stock || Steel Meridian Offering<br/>2 - Valiant 20,000\n|-\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Corvas (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Melee/ArchHammer/ArchHammer": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Melee/ArchHammer/ArchHammer",
+    "wikiName": "Rathbone",
+    "description": null,
+    "acquisition": "The Rathbone's blueprint can be purchased from the Market. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable.\n\n{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item || Location\n|-\n| Blueprint || Market\n|-\n| 40px Head || New Loka Offering<br/>2 - Bountiful 20,000\n|-\n| 40px Handle || Red Veil Offering<br/>2 - Honored 20,000\n|-\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Rathbone (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/Railgun/ArchRailgun": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/Railgun/ArchRailgun",
+    "wikiName": "Velocitus (Atmosphere)",
+    "description": null,
+    "acquisition": "The Velocitus's blueprint can be researched from the Tenno Lab in the dojo. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable.\n\n{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item !! Location\n|-\n| Blueprint || Tenno Lab\n|-\n| 40px Barrel || Cephalon Suda Offering<br />2 - Intriguing 20,000\n|-\n| 40px Receiver || Steel Meridian Offering<br />2 - Valiant 20,000\n|-\n| 40px Stock || Red Veil Offering<br />2 - Honored 20,000\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Velocitus (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/ArchLongRifle/ArchLongRifle": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/ArchLongRifle/ArchLongRifle",
+    "wikiName": "Phaedra (Atmosphere)",
+    "description": null,
+    "acquisition": "{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item || Location\n|-\n| Blueprint || Market\n|-\n| 40px Barrel || Arbiters of Hexis Offering<br/>2 - Authentic 20,000\n|-\n| 40px Receiver || Archwing Exterminate (5.64%)<br /><br />The Perrin Sequence Offering<br/>2 - Senior Associate 20,000\n|-\n| 40px Stock || New Loka Offering<br/>2 - Bountiful 20,000\n|-\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Phaedra (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Weapons/Tenno/Archwing/Primary/ArchBurstGun/ArchBurstGun": {
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Primary/ArchBurstGun/ArchBurstGun",
+    "wikiName": "Cyngas (Atmosphere)",
+    "description": null,
+    "acquisition": "The Cyngas's blueprint can be purchased from the Market. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable.\n\n{| class=\"wikitable\" style=\"text-align:center;\"\n|-\n! Item || Location\n|-\n| Blueprint || Market\n|-\n| 40px Barrel || Arbiters of Hexis Offering<br/>3 - Lawful 20,000\n|-\n| 40px Receiver || Cephalon Suda Offering<br/>3 - Intelligent 20,000\n|-\n| 40px Stock || The Perrin Sequence Offering<br/>3 - Executive 25,000\n|-\n|}\n\ntype=Weapon",
+    "sourceRefs": [
+      "article page: Cyngas (##Acquisition section, supersedes partial join result)"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "captured_on": "2026-09-06",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "implemented_awaiting_acceptance",
+  "accepted_stage3h_cumulative_patch_sha256": "52fc11d28c8241cd707dd73ea0168b9e0d7c6bbf7332f64d81bd156f37e07419",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "sources": {
+    "src/screens/Market.jsx": {
+      "sha256": "ed12f0eece72212d655ed1e56e9283d653c49f184d60a8d1dc9d51d42048b0be",
+      "lines": 1142
+    },
+    "src/lib/wfmCache.js": {
+      "sha256": "8729b16df40b50b440e6e9d06aac2534286d1897ac90008865786c45959c69b2",
+      "planned_change": false
+    },
+    "src-tauri/src/main.rs": {
+      "sha256": "d801705ea0314ba4af8da12a8a39ac8bd2f7e685595776195401308fdb47e82d",
+      "planned_change": false
+    },
+    "src-tauri/src/build_profile.rs": {
+      "sha256": "7279088e3030a9627be15229aefaa73a300b571bacdc06cea890efa0e5da3b93",
+      "planned_change": false
+    }
+  },
+  "navigation_fact": {
+    "path": "docs/revamp/stage-3/evidence/market-nav-source-fact.json",
+    "value": "Market",
+    "derived_from_current_source": true
+  },
+  "complexity": {
+    "use_state_hooks": 24,
+    "use_effect_hooks": 3,
+    "use_memo_hooks": 6,
+    "use_callback_hooks": 3,
+    "summary_cards": 4,
+    "tabs": [
+      "active_orders",
+      "tradeable_stock"
+    ],
+    "order_filters": [
+      "all",
+      "sell",
+      "buy",
+      "hidden"
+    ],
+    "reachable_stock_filters": [
+      "all",
+      "sell_plat",
+      "ducats",
+      "duplicates",
+      "mastered"
+    ],
+    "dormant_stock_filter": "unmastered",
+    "sort_modes": [
+      "plat_ratio",
+      "ducat_ratio",
+      "plat_desc",
+      "owned_desc",
+      "ducats_desc",
+      "name_asc"
+    ],
+    "order_table_columns": [
+      "item",
+      "type",
+      "quantity",
+      "price",
+      "status",
+      "actions"
+    ]
+  },
+  "read_only_paths": {
+    "commands": [
+      "get_my_market_orders"
+    ],
+    "frontend_fetches": [
+      "WFM v2 items catalog",
+      "WFM v2 top sell orders through getPriceState"
+    ],
+    "preview_contract": "permitted within configured limits"
+  },
+  "mutation_paths": {
+    "frontend_interactions": [
+      "sell_stock",
+      "delete_order",
+      "mark_sold",
+      "toggle_visibility",
+      "save_price"
+    ],
+    "backend_commands": [
+      "post_market_order",
+      "delete_market_order",
+      "close_market_order",
+      "update_market_order"
+    ],
+    "rust_require_live_guards_verified": true,
+    "preview_ui_currently_exposes_controls": true,
+    "proposed_preview_behavior": "visibly disabled; zero frontend mutation invokes; backend guards retained"
+  },
+  "price_safety": {
+    "catalog_identity": "verified WFM item id via lookupWfmItem",
+    "tradability_required": true,
+    "positive_quantity_required": true,
+    "statuses": [
+      "loading",
+      "ready",
+      "no_orders",
+      "error"
+    ],
+    "unresolved_platinum": null,
+    "minimum_entered_listing_price": 1,
+    "fake_zero_or_default_price": false
+  },
+  "planned_app_files": [
+    "src/screens/Market.jsx",
+    "src/components/PreviewMarketLayout.jsx"
+  ],
+  "source_boundaries": {
+    "valuation_or_ratio_change": false,
+    "catalog_or_price_cache_change": false,
+    "token_or_settings_change": false,
+    "mutation_payload_change": false,
+    "rust_guard_or_capability_change": false,
+    "translation_change": false,
+    "shared_ui_or_global_css_change": false,
+    "dependency_or_lockfile_change": false,
+    "other_screen_change": false
+  },
+  "stage3i_app_source_started": true,
+  "stage3j_app_source_started": false,
+  "approved_stable_defect_correction": {
+    "issue": "displayed verified stock price was not used unless manually edited",
+    "behavior": "explicit user price remains preferred; otherwise verified item.platPrice is used; missing or nonpositive prices remain rejected",
+    "preview_guard_remains_first": true
+  },
+  "after_sources": {
+    "src/screens/Market.jsx": {
+      "sha256": "285321b5438f8e2efb3d71ee652bf7d345a5f896079cc88fcd60b18124dabb87"
+    },
+    "src/components/PreviewMarketLayout.jsx": {
+      "sha256": "d1d942abdf67052c42ab7bc6eeb66a59c551f631a92bc215436764ef71a0066d"
+    }
+  },
+  "validation": {
+    "component_checks": "61/61",
+    "stable_exact_markup_comparisons": "15/15",
+    "debian_native_checks": "70/70",
+    "appimage_native_checks": "70/70",
+    "preview_frontend_mutation_invocations": 0,
+    "direct_mutation_ipc_rejections": "4/4 per package",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true
+  }
+}

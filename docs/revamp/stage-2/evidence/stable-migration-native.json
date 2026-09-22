@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-09-05T22:14:02.566060+00:00",
+  "binary_sha256": "c0045a7ad51146ea9ef66b52cebe9175ea39b5bd74a3aa4a144d703a18c941eb",
+  "build_kind": "stable baseline dev profile, main crate compiled with -C debug-assertions=no to exercise release-only root branch",
+  "historical_release_reconstruction": false,
+  "normal_gui_launch": false,
+  "cases": [
+    {
+      "mode": "absent",
+      "process_exit": 101,
+      "before": {
+        "legacy": {
+          "settings.json": "5e624747ce810ae3a0ba72365ac625d8f9f426c1fd7292299f37326f1ad84586",
+          "sentinel.txt": "8e8f4891f538ce741549ae6470fc4cb865f0fd13a61dd9c1a891a94d2a063bd7"
+        },
+        "preview": {
+          "settings.json": "b57a783ce37c768db2c9417f46053f26b46345ce7e32a7583e689d65628734fe"
+        }
+      },
+      "stable_after": {
+        "settings.json": "5e624747ce810ae3a0ba72365ac625d8f9f426c1fd7292299f37326f1ad84586",
+        "sentinel.txt": "8e8f4891f538ce741549ae6470fc4cb865f0fd13a61dd9c1a891a94d2a063bd7"
+      },
+      "checks": {
+        "settings_copied_or_preserved": true,
+        "sentinel_copied_only_when_missing_settings": true,
+        "copied_sentinel_content": true,
+        "migration_log_matches_condition": true,
+        "legacy_source_unchanged": true,
+        "preview_profile_unchanged": true
+      }
+    },
+    {
+      "mode": "missing-settings",
+      "process_exit": 101,
+      "before": {
+        "legacy": {
+          "settings.json": "5e624747ce810ae3a0ba72365ac625d8f9f426c1fd7292299f37326f1ad84586",
+          "sentinel.txt": "8e8f4891f538ce741549ae6470fc4cb865f0fd13a61dd9c1a891a94d2a063bd7"
+        },
+        "preview": {
+          "settings.json": "b57a783ce37c768db2c9417f46053f26b46345ce7e32a7583e689d65628734fe"
+        }
+      },
+      "stable_after": {
+        "settings.json": "5e624747ce810ae3a0ba72365ac625d8f9f426c1fd7292299f37326f1ad84586",
+        "sentinel.txt": "8e8f4891f538ce741549ae6470fc4cb865f0fd13a61dd9c1a891a94d2a063bd7"
+      },
+      "checks": {
+        "settings_copied_or_preserved": true,
+        "sentinel_copied_only_when_missing_settings": true,
+        "copied_sentinel_content": true,
+        "migration_log_matches_condition": true,
+        "legacy_source_unchanged": true,
+        "preview_profile_unchanged": true
+      }
+    },
+    {
+      "mode": "existing-settings",
+      "process_exit": 101,
+      "before": {
+        "legacy": {
+          "settings.json": "5e624747ce810ae3a0ba72365ac625d8f9f426c1fd7292299f37326f1ad84586",
+          "sentinel.txt": "8e8f4891f538ce741549ae6470fc4cb865f0fd13a61dd9c1a891a94d2a063bd7"
+        },
+        "preview": {
+          "settings.json": "b57a783ce37c768db2c9417f46053f26b46345ce7e32a7583e689d65628734fe"
+        }
+      },
+      "stable_after": {
+        "settings.json": "e2443426a34a3af7e91bfdd81819ae94dda1d090d04ca8e069df9196c0e0fe0a"
+      },
+      "checks": {
+        "settings_copied_or_preserved": true,
+        "sentinel_copied_only_when_missing_settings": true,
+        "copied_sentinel_content": true,
+        "migration_log_matches_condition": true,
+        "legacy_source_unchanged": true,
+        "preview_profile_unchanged": true
+      }
+    }
+  ]
+}

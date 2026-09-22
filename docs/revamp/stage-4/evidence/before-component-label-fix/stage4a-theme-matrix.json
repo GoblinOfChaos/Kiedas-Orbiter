@@ -1,0 +1,118 @@
+{
+  "themes": [
+    {
+      "accent": "#5590ab",
+      "theme": "vitruvian",
+      "width": 1200,
+      "canvas": "#04060b",
+      "surface": "#0c101a",
+      "pass": true
+    },
+    {
+      "accent": "#c09e62",
+      "theme": "baruuk",
+      "width": 1200,
+      "canvas": "#1d1b18",
+      "surface": "#2b2822",
+      "pass": true
+    },
+    {
+      "accent": "#ff85e0",
+      "theme": "conquera",
+      "width": 1200,
+      "canvas": "#1a0822",
+      "surface": "#421954",
+      "pass": true
+    },
+    {
+      "accent": "#29b6f6",
+      "theme": "corpus",
+      "width": 1200,
+      "canvas": "#020e1a",
+      "surface": "#0e2e52",
+      "pass": true
+    },
+    {
+      "accent": "#a066ff",
+      "theme": "darklotus",
+      "width": 1200,
+      "canvas": "#13032d",
+      "surface": "#2d0e58",
+      "pass": true
+    },
+    {
+      "accent": "#b99354",
+      "theme": "deadlock",
+      "width": 1200,
+      "canvas": "#060a13",
+      "surface": "#162138",
+      "pass": true
+    },
+    {
+      "accent": "#ffffff",
+      "theme": "equinox",
+      "width": 1200,
+      "canvas": "#06070a",
+      "surface": "#1e2129",
+      "pass": true
+    },
+    {
+      "accent": "#37d7ff",
+      "theme": "fortuna",
+      "width": 1200,
+      "canvas": "#0c021a",
+      "surface": "#240a3f",
+      "pass": true
+    },
+    {
+      "accent": "#e1ad3a",
+      "theme": "grineer",
+      "width": 1200,
+      "canvas": "#0a0b04",
+      "surface": "#262612",
+      "pass": true
+    },
+    {
+      "accent": "#78a9a9",
+      "theme": "legacy",
+      "width": 1200,
+      "canvas": "#0d1a1d",
+      "surface": "#1a3034",
+      "pass": true
+    },
+    {
+      "accent": "#e53232",
+      "theme": "lunar",
+      "width": 1200,
+      "canvas": "#110202",
+      "surface": "#360a0a",
+      "pass": true
+    },
+    {
+      "accent": "#4ade80",
+      "theme": "pom2",
+      "width": 1200,
+      "canvas": "#020b08",
+      "surface": "#0e2e21",
+      "pass": true
+    },
+    {
+      "accent": "#ff0000",
+      "theme": "stalker",
+      "width": 1200,
+      "canvas": "#0a0000",
+      "surface": "#280000",
+      "pass": true
+    },
+    {
+      "accent": "#f26d1d",
+      "theme": "harrier",
+      "width": 1200,
+      "canvas": "#0a111a",
+      "surface": "#18283a",
+      "pass": true
+    }
+  ],
+  "passed": 14,
+  "total": 14
+}

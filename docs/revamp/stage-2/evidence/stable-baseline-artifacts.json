@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/stable-target/debug/kiedas-orbiter",
+    "sha256": "b24587c9df61905ba3be521c191085acc3e918c49f77349fedeccd9780a02c85",
+    "bytes": 186242416
+  },
+  {
+    "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/stable-target/debug/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "sha256": "3e7502315e0ecf0590a416750920dad30ace477f40e0f474b060cf1150e977b3",
+    "bytes": 137916684
+  }
+]

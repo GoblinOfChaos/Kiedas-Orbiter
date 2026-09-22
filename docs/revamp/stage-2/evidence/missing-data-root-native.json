@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-09-05T22:12:29.547559+00:00",
+  "tier": "native release binary with libc directory-discovery fault injection",
+  "binary_sha256": "30e4791f112c36b27bb8635da960f506acc2be991bd5274f394c2795ca509ce1",
+  "shim_source_sha256": "3eaf97f46a5028fe1cdd75be968d626353cf6ba0207d2ccb8c9c9be39bc7231c",
+  "private_network_container": true,
+  "native_process_exit": 1,
+  "scratch": "/var/home/jedwards/kiedas-orbiter/.preview-work/missing-root-o2x5eh5q",
+  "before": {
+    "legacy": {
+      "settings.json": "d5ec9dcf64cc1247e5269bb19e3d283649f029c42d4bd5aa0f8b413979b4cd1b",
+      "sentinel.txt": "e2499c40d2712f17c9cd2809e78c392678e0567f7116c8d4aaeb929a4ba27e4b"
+    },
+    "stable": {
+      "settings.json": "d4126123a970a1c68320e1899e201e634599266e0bf4c5bec7835f725a66641d"
+    }
+  },
+  "after": {
+    "legacy": {
+      "settings.json": "d5ec9dcf64cc1247e5269bb19e3d283649f029c42d4bd5aa0f8b413979b4cd1b",
+      "sentinel.txt": "e2499c40d2712f17c9cd2809e78c392678e0567f7116c8d4aaeb929a4ba27e4b"
+    },
+    "stable": {
+      "settings.json": "d4126123a970a1c68320e1899e201e634599266e0bf4c5bec7835f725a66641d"
+    }
+  },
+  "checks": {
+    "xdg_lookup_fault_exercised": true,
+    "home_lookup_fault_exercised": true,
+    "os_user_fallback_fault_exercised": true,
+    "nonzero_exit": true,
+    "explicit_no_fallback_error": true,
+    "legacy_unchanged": true,
+    "stable_unchanged": true,
+    "preview_root_absent": true,
+    "no_cwd_profile_fallback": true
+  },
+  "normal_gui_launch_claimed": false
+}

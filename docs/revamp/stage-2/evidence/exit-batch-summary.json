@@ -1,0 +1,806 @@
+[
+  {
+    "script": "exit-recovery-dialog",
+    "runner_exit": 0,
+    "error": null,
+    "checks": [],
+    "dialog_checks": {
+      "native_error_title_found": true,
+      "dismissal_exits_nonzero": true,
+      "normal_main_window_absent": true
+    },
+    "failure_evidence": {
+      "settings_not_loaded_or_created": true,
+      "invalid_journal_retained": true,
+      "error_log_names_backup": true,
+      "error_log_reports_recovery_failure": true
+    },
+    "native_process_exit": 1
+  },
+  {
+    "script": "exit-native-picker",
+    "runner_exit": 0,
+    "error": "Native folder selection has not reached the component",
+    "checks": [
+      {
+        "name": "legacy_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "legacy_sentinel_not_imported",
+        "pass": true
+      },
+      {
+        "name": "stable_os_profile_not_created",
+        "pass": true
+      },
+      {
+        "name": "legacy_credentials_not_imported",
+        "pass": true
+      },
+      {
+        "name": "legacy_auto_monitoring_not_imported",
+        "pass": true
+      },
+      {
+        "name": "preview_document_title",
+        "pass": true
+      },
+      {
+        "name": "preview_title_after_reload",
+        "pass": true
+      },
+      {
+        "name": "preview_navigation_after_reload",
+        "pass": true
+      }
+    ],
+    "picker_checks": [
+      {
+        "name": "native_cancel_leaves_no_selection",
+        "pass": true
+      },
+      {
+        "name": "native_selected_path_reaches_component",
+        "pass": false
+      }
+    ],
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "exit-deb-smoke",
+    "runner_exit": 0,
+    "error": null,
+    "checks": [
+      {
+        "name": "legacy_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "legacy_sentinel_not_imported",
+        "pass": true
+      },
+      {
+        "name": "stable_os_profile_not_created",
+        "pass": true
+      },
+      {
+        "name": "legacy_credentials_not_imported",
+        "pass": true
+      },
+      {
+        "name": "legacy_auto_monitoring_not_imported",
+        "pass": true
+      },
+      {
+        "name": "preview_document_title",
+        "pass": true
+      },
+      {
+        "name": "preview_title_after_reload",
+        "pass": true
+      },
+      {
+        "name": "preview_navigation_after_reload",
+        "pass": true
+      },
+      {
+        "name": "1200-dialog-escape-focus",
+        "pass": true
+      },
+      {
+        "name": "900-dialog-escape-focus",
+        "pass": true
+      }
+    ],
+    "guard_checks": [
+      {
+        "command": "start_log_scanner",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "set_hotkeys",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "show_overlay_window",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "show_notification",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "download_appimage_update",
+        "result": {
+          "resolved": false,
+          "error": "Application updates are disabled in Preview"
+        },
+        "pass": true
+      }
+    ],
+    "market_guards": [
+      {
+        "command": "post_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "delete_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "update_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "close_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      }
+    ],
+    "dialog_checks": [
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "mode": "empty",
+        "state": {
+          "scrollHeight": 492,
+          "viewport": [
+            1200,
+            800
+          ],
+          "top": 153,
+          "clientHeight": 492,
+          "height": 494,
+          "overflowY": "auto",
+          "maxHeight": "768px",
+          "bottom": 647
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "mode": "synthetic-dom-content",
+        "state": {
+          "scrollHeight": 580,
+          "viewport": [
+            1200,
+            800
+          ],
+          "top": 109,
+          "clientHeight": 580,
+          "height": 582,
+          "overflowY": "auto",
+          "maxHeight": "768px",
+          "bottom": 691
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "mode": "empty",
+        "state": {
+          "scrollHeight": 492,
+          "viewport": [
+            900,
+            500
+          ],
+          "top": 16,
+          "clientHeight": 466,
+          "height": 468,
+          "overflowY": "auto",
+          "maxHeight": "468px",
+          "bottom": 484
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "mode": "synthetic-dom-content",
+        "state": {
+          "scrollHeight": 580,
+          "viewport": [
+            900,
+            500
+          ],
+          "top": 16,
+          "clientHeight": 466,
+          "height": 468,
+          "overflowY": "auto",
+          "maxHeight": "468px",
+          "bottom": 484
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      }
+    ],
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  },
+  {
+    "script": "exit-appimage-smoke",
+    "runner_exit": 0,
+    "error": null,
+    "checks": [
+      {
+        "name": "legacy_source_unchanged",
+        "pass": true
+      },
+      {
+        "name": "legacy_sentinel_not_imported",
+        "pass": true
+      },
+      {
+        "name": "stable_os_profile_not_created",
+        "pass": true
+      },
+      {
+        "name": "legacy_credentials_not_imported",
+        "pass": true
+      },
+      {
+        "name": "legacy_auto_monitoring_not_imported",
+        "pass": true
+      },
+      {
+        "name": "preview_document_title",
+        "pass": true
+      },
+      {
+        "name": "preview_title_after_reload",
+        "pass": true
+      },
+      {
+        "name": "preview_navigation_after_reload",
+        "pass": true
+      },
+      {
+        "name": "1200-dialog-escape-focus",
+        "pass": true
+      },
+      {
+        "name": "900-dialog-escape-focus",
+        "pass": true
+      }
+    ],
+    "guard_checks": [
+      {
+        "command": "start_log_scanner",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "set_hotkeys",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "show_overlay_window",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "show_notification",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "download_appimage_update",
+        "result": {
+          "resolved": false,
+          "error": "Application updates are disabled in Preview"
+        },
+        "pass": true
+      }
+    ],
+    "market_guards": [
+      {
+        "command": "post_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "delete_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "update_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      },
+      {
+        "command": "close_market_order",
+        "result": {
+          "resolved": false,
+          "error": "Live integrations and market mutations are disabled in this Preview milestone"
+        },
+        "pass": true
+      }
+    ],
+    "dialog_checks": [
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "mode": "empty",
+        "state": {
+          "scrollHeight": 492,
+          "viewport": [
+            1200,
+            800
+          ],
+          "top": 153,
+          "clientHeight": 492,
+          "height": 494,
+          "overflowY": "auto",
+          "maxHeight": "768px",
+          "bottom": 647
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "size": [
+          1200,
+          800
+        ],
+        "mode": "synthetic-dom-content",
+        "state": {
+          "scrollHeight": 580,
+          "viewport": [
+            1200,
+            800
+          ],
+          "top": 109,
+          "clientHeight": 580,
+          "height": 582,
+          "overflowY": "auto",
+          "maxHeight": "768px",
+          "bottom": 691
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "mode": "empty",
+        "state": {
+          "scrollHeight": 492,
+          "viewport": [
+            900,
+            500
+          ],
+          "top": 16,
+          "clientHeight": 466,
+          "height": 468,
+          "overflowY": "auto",
+          "maxHeight": "468px",
+          "bottom": 484
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      },
+      {
+        "size": [
+          900,
+          500
+        ],
+        "mode": "synthetic-dom-content",
+        "state": {
+          "scrollHeight": 580,
+          "viewport": [
+            900,
+            500
+          ],
+          "top": 16,
+          "clientHeight": 466,
+          "height": 468,
+          "overflowY": "auto",
+          "maxHeight": "468px",
+          "bottom": 484
+        },
+        "controls": [
+          {
+            "label": "Choose source folder",
+            "visible": true
+          },
+          {
+            "label": "inventory",
+            "visible": true
+          },
+          {
+            "label": "notes",
+            "visible": true
+          },
+          {
+            "label": "maps",
+            "visible": true
+          },
+          {
+            "label": "preferences",
+            "visible": true
+          },
+          {
+            "label": "history",
+            "visible": true
+          },
+          {
+            "label": "checklist",
+            "visible": true
+          },
+          {
+            "label": "Replace selected existing Preview files, retaining a backup",
+            "visible": true
+          },
+          {
+            "label": "Close",
+            "visible": true
+          }
+        ],
+        "pass": true
+      }
+    ],
+    "bundle_fallback_check": {
+      "profile_copy_absent": true,
+      "resolved": true,
+      "matches_installed_bytes": true
+    }
+  }
+]

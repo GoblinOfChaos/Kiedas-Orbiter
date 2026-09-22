@@ -1,0 +1,15 @@
+{
+  "Wyrm / Wyrm Prime": {
+    "reason": "Wiki data bug: both 'Wyrm' and 'Wyrm Prime' share the identical InternalName '/Lotus/Types/Sentinels/SentinelPowersuits/WyrmPowerSuit' in Module:Companions/data (every other Sentinel Prime, e.g. Carrier Prime, has its own distinct path). Cannot safely assign acquisition data to either without knowing the real internal paths - needs a human check against the live wiki page or DE's own export.",
+    "whicheverResolvedFirst": {
+      "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/WyrmPowerSuit",
+      "wikiName": "Wyrm Prime",
+      "description": "Both bodyguard and status symbol, the Wyrm Prime Sentinel was the last line of defense for high ranking Tenno in the Orokin Era.",
+      "acquisition": "Built in Foundry for: 15,000 Credits, 1x Carapace, 1x Cerebrum, 6x Orokin Cell, 1x Systems. Blueprint from: Axi S2 (Intact) (25.33%); Axi S2 (Exceptional) (23.33%); Axi S2 (Flawless) (20%); Axi S2 (Radiant) (16.67%).",
+      "sourceRefs": [
+        "Module:Companions/data['Wyrm Prime'] (Components/BuildPrice)"
+      ],
+      "verifiedDate": "2026-09-09"
+    }
+  }
+}

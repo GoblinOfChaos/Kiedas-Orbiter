@@ -1,0 +1,9 @@
+{
+  "facts": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/market-nav-source-fact.json",
+  "facts_sha256": "0173f420c71d9288ddb17f4dd7e2da2e59f95f375074befdb87fb3a2b091cc1f",
+  "harness": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-market/deb-smoke.py",
+  "harness_sha256": "ad5e3c459610f45b7dba26eeaf2550edc8fd374532ba3181be80c492718850b2",
+  "occurrences": 40,
+  "pass": true,
+  "value": "Market"
+}

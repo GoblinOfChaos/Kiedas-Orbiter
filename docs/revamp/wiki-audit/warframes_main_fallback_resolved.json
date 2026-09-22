@@ -1,0 +1,112 @@
+{
+  "/Lotus/Powersuits/Trapper/Trapper": {
+    "uniqueName": "/Lotus/Powersuits/Trapper/Trapper",
+    "wikiName": "Vauban",
+    "description": "Vauban is the model of innovative technology. He deploys clever inventions to provide crowd control. His tenacity and focus make him formidable.",
+    "acquisition": "Vauban's main blueprint can be purchased from the Market. Vauban's component blueprints can be bought from the Nightwave Offerings for 25 each, for a total of 75.\n\nAlternatively, upon completion of The Duviri Paradox, Vauban's main and component blueprints can be earned from The Circuit. By selecting him on the rotating week he is available, players can earn his blueprints after reaching Tier 2 (Neuroptics), 5 (Chassis), 8 (Systems), and 10 (Main) rewards.",
+    "sourceRefs": [
+      "article page: Vauban/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/YinYang/YinYang": {
+    "uniqueName": "/Lotus/Powersuits/YinYang/YinYang",
+    "wikiName": "Equinox",
+    "description": "Equinox rises from the edge of day and night. Her Day form offers offensive support while her Night form offers defensive support. She thrives between realms.",
+    "acquisition": "Equinox requires a unique method to craft: Tenno must forge both the Equinox Night Aspect and Equinox Day Aspect in the Foundry &ndash; each of which requires its respective Neuroptics, Chassis, and Systems &ndash; before the Warframe itself can be built. Component and Aspect blueprints can be obtained by defeating Tyl Regor on Titania, Uranus; he will drop one Night and one Day Aspect. Equinox's main blueprint can be purchased from the Market.",
+    "sourceRefs": [
+      "article page: Equinox/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Dagath/Dagath": {
+    "uniqueName": "/Lotus/Powersuits/Dagath/Dagath",
+    "wikiName": "Dagath",
+    "description": "Never underestimate the power and wrath of sullen sadness. Dagath's malice deals high damage.",
+    "acquisition": "Dagath's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dagath does not require Research and can be acquired immediately following the room's construction.\n\nComponent blueprints require a total of 102 Vainthorn, obtained from the Abyssal Zone, a unique Exterminate mission on Ceres. Access requires Abyssal Beacons, purchased from Faction Syndicate (Steel Meridian, Arbiters of Hexis, Cephalon Suda, The Perrin Sequence, Red Veil, or New Loka) at Rank 2 and 5,000, consuming only the beacon from the player who started the mission vote upon mission completion. Each clear awards 6, 7, or 8 Vainthorns (8, 11, or 12 on The Steel Path).",
+    "sourceRefs": [
+      "article page: Dagath/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Devourer/Devourer": {
+    "uniqueName": "/Lotus/Powersuits/Devourer/Devourer",
+    "wikiName": "Grendel",
+    "description": "Grendel sees every battlefield as a smorgasbord. His insatiable appetite rewards him with high survivability. Enemies will be eaten. And regurgitated.",
+    "acquisition": "Grendel's main blueprint can be purchased from the Market. Grendel's component blueprints are awarded by completing certain missions on Europa using Locators, which can be purchased from the Arbitration Honors vendor found in any Relay for 25 Vitus Essence each.\n\nPurchasing a Locator unlocks the unique mission associated with it. These missions have level 25-30 enemies, but place heavy restrictions on the player:\n- No Gear\n- No unique weapon traits (Syndicate Weapons keep their Syndicate Radial Effects)\n- Kuva, Tenet, and Coda weapons will not have their elemental damage bonus\n- Incarnon weapons will not transform and evolution bonuses will not apply\n- Operators cannot be used, and any Focus abilities are disabled\n- Mods and Arcanes are disabled, but Augments will still function\n- Helminth Invigorations are disabled.\n- No Archon Shards\n\nEach mission is guaranteed to award the associated Grendel component blueprint if successfully completed, despite the Locator's flavor text stating sites \"likely\" to contain blueprints. The Locators and their associated unlocks are as follows:\n- The Grendel Neuroptics Locator unlocks the Archaeo-freighter, a 20-minute Survival mission.\n- The Grendel Chassis Locator unlocks the Icefields of Riddah, a 6-wave Defense mission.\n- The Grendel Systems Locator unlocks the Mines of Karishh, an Excavation mission where players have to collect 800 Cryotic.\n\nThese missions do not have public matchmaking, requiring players to form pre-made squads.\n\nLocators are only consumed after completing the mission, requiring the purchase of another Locator to unlock once again. However, only the squad host requires a Locator, allowing them to invite other players to participate in the mission, and the component reward will be granted to all players upon completion.",
+    "sourceRefs": [
+      "article page: Grendel/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/PaxDuviricus/PaxDuviricus": {
+    "uniqueName": "/Lotus/Powersuits/PaxDuviricus/PaxDuviricus",
+    "wikiName": "Kullervo",
+    "description": "Kullervo answers for his sins and the sins of others. His daggers and melee prowess deal high damage. Seize the power of treachery to slake his thirst for revenge.",
+    "acquisition": "Kullervo's main and component blueprints are purchased from 30x30pxAcrithis in the Dormizone for Kullervo's Bane; the main blueprint requires 15 Banes, while the parts require 9, to a total of 42 Kullervo's Banes.\n\nBanes are obtained from defeating the Kullervo Boss and completion of the Spiral (defeating the Orowyrm) in Duviri. He will appear on the island Kullervo's Hold, which only spawns during Anger, Sorrow, and Fear Spirals from The Duviri Experience. It can appear as a fourth, fifth, or sixth spiral stage or a side objective; speak with The Warden to engage in gladiatorial combat with the imprisoned Kullervo in the waterlogged arena. (Note that the Warden will not appear if the mission has randomly been selected as a main objective.) Once both tasks have been cleared, the player will earn 4, 5, or 6 Kullervo's Bane (6, 7, or 8 on The Steel Path).\n\nIt is recommended to run The Duviri Experience when specifically aiming at acquiring Kullervo's Bane as, even when he is not a main objective in that mode, he will be available as a side objective as long as Kullervo's Hold is present in the current mood spiral.",
+    "sourceRefs": [
+      "article page: Kullervo/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/SupportJetPack/SupportJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/SupportJetPack/SupportJetPack",
+    "wikiName": "Amesha",
+    "description": "Transform into a winged guardian.",
+    "acquisition": "The Amesha's main and component blueprints can be researched from the Tenno Lab in the dojo. The blueprints can only be purchased after completion of The Archwing quest.",
+    "sourceRefs": [
+      "article page: Amesha/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/StandardJetPack/StandardJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/StandardJetPack/StandardJetPack",
+    "wikiName": "Odonata",
+    "description": "The systems built into this Archwing balance offensive capabilities with defensive countermeasures.",
+    "acquisition": "The Odonata's main and component blueprints are obtainable during The Archwing quest.\n\nAdditional blueprints can be bought from Cephalon Simaris; 50,000 for component blueprints and 100,000 for main blueprint.",
+    "sourceRefs": [
+      "article page: Odonata/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/StealthJetPack/StealthJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/StealthJetPack/StealthJetPack",
+    "wikiName": "Itzal",
+    "description": "Designed for quick clandestine attacks, the Itzal Archwing excels at striking from the darkness of space.",
+    "acquisition": "The Itzal's main and component blueprints can be researched from the Tenno Lab in the dojo. The blueprints can only be purchased after completion of The Archwing quest.",
+    "sourceRefs": [
+      "article page: Itzal/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/Archwing/DemolitionJetPack/DemolitionJetPack": {
+    "uniqueName": "/Lotus/Powersuits/Archwing/DemolitionJetPack/DemolitionJetPack",
+    "wikiName": "Elytron",
+    "description": "This heavy duty Archwing was designed for one purpose, destruction.",
+    "acquisition": "The Elytron's main and component blueprints can be researched from the Tenno Lab in the dojo. The blueprints can only be purchased after completion of The Archwing quest.",
+    "sourceRefs": [
+      "article page: Elytron/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/EntratiMech/NechroTech": {
+    "uniqueName": "/Lotus/Powersuits/EntratiMech/NechroTech",
+    "wikiName": "Voidrig",
+    "description": "Nothing fancy but gets the job done and then some. With its electrified armor, this rough and ready mech can make the battlefield treacherous for the enemy with an arsenal of explosives.",
+    "acquisition": "Completion of Heart of Deimos will reward all main and component blueprints for free. Alternatively, Component blueprints for the Voidrig are available for 2,000 from the Necraloid Syndicate at Rank 1 - Clearance: Agnesis, while the main Voidrig blueprint is available for 5,000 at Rank 2 - Clearance: Modus. When levelling the Syndicate, one Voidrig blueprint is offered for free. \n\nCrafting the components additionally requires Rank 1 - Stranger with the Entrati in order to acquire Purified Heciphron required in its construction.\n\nDamaged Necramech components are dropped by enemy Necramechs that appear in Isolation Vault Bounties or purchased from Father for 2,000 Entrati standing.\n\nDamaged Necramech components, built Voidrig components, Faceted Tiametrite, Purified Heciphron, Purged Dagonic, and fish yielding components used here (Lobotriscid for Parasitic Tethermaw, and Vitreospina and Chondricord for Spinal Core Section) can be traded between players. Trading for gems or fully built components will bypass the Syndicate rank requirements. However, Voidrig component blueprints and the main blueprint cannot be traded.\n\nNote that acquiring the Voidrig requires an open Archwing Weapon slot, as it comes with the Mausolon Archgun.",
+    "sourceRefs": [
+      "article page: Voidrig/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  },
+  "/Lotus/Powersuits/EntratiMech/ThanoTech": {
+    "uniqueName": "/Lotus/Powersuits/EntratiMech/ThanoTech",
+    "wikiName": "Bonewidow",
+    "description": "This fearsome Necramech, fashioned in honor of the Entrati matriarch, is a robust front-line fighter. Favoring armor and health over shield strength, Bonewidow can grab and hurl enemies, deploy a heavy shield for personal defense, and cleave through opposing ranks with a massive warblade.",
+    "acquisition": "Component blueprints for the Bonewidow are available for 3,500 from the Necraloid Syndicate at Rank 2 - Clearance: Modus, while the main Bonewidow blueprint is available for 10,000 at Rank 3 Clearance - Odima rank.\n\nCrafting the components additionally requires:\n- Rank 1 - Outworlder with Solaris United to acquire Goblite Tears\n- Rank 3 - Trusted with the Ostron to acquire Star Crimzian\n- Rank 2 - Acquaintance with the Entrati to acquire Thaumic Distillate, Adramal Alloy, and Devolved Namalon\n- (Optional) Rank 4 - Friend with the Entrati to be able to buy the Processed Vome Residue bait needed to fish for the Myxostomata for its Cranial Foremount\n- Cranial Foremount can also be randomly dropped from Requiem Obelisks on the Cambion Drift\n\nDamaged Necramech components are dropped by enemy Necramechs that appear in Isolation Vault Bounties or purchased from Father.\n\nDamaged Necramech components, built Bonewidow components, Goblite Tears, and Star Crimzian can be traded between players. Trading for gems or fully built components will bypass the Syndicate rank requirements. However, Bonewidow component blueprints and the main blueprint cannot be traded.\n\nNote that acquiring the Bonewidow requires an open Archwing Weapon slot, as it comes with the Mausolon Archgun.",
+    "sourceRefs": [
+      "article page: Bonewidow/Main (real ##Acquisition== section)"
+    ],
+    "verifiedDate": "2026-09-09"
+  }
+}

@@ -1,0 +1,480 @@
+{
+  "timestamp": "2026-09-06T01:41:27.384415+00:00",
+  "component_checks": 195,
+  "component_passed": 195,
+  "stable_exact_markup_comparison_count": 8,
+  "stable_exact_markup_states": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 1184,
+      "after_length": 1184
+    },
+    {
+      "state": "no-inventory",
+      "equal": true,
+      "before_length": 1508,
+      "after_length": 1508
+    },
+    {
+      "state": "mr0",
+      "equal": true,
+      "before_length": 16285,
+      "after_length": 16285
+    },
+    {
+      "state": "mr15-progress",
+      "equal": true,
+      "before_length": 16300,
+      "after_length": 16300
+    },
+    {
+      "state": "mr30",
+      "equal": true,
+      "before_length": 16303,
+      "after_length": 16303
+    },
+    {
+      "state": "legendary",
+      "equal": true,
+      "before_length": 16293,
+      "after_length": 16293
+    },
+    {
+      "state": "rank-ready",
+      "equal": true,
+      "before_length": 15186,
+      "after_length": 15186
+    }
+  ],
+  "stable_pointer_modal_exact_markup": {
+    "name": "stable-pointer-modal-exact-markup",
+    "pass": true,
+    "detail": {
+      "before_length": 18675,
+      "after_length": 18675
+    }
+  },
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 35,
+      "passed": 35,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5
+      },
+      "binary_sha256": "2bc00b72e6d4d807f408b0b738b97909cfad604e3948bdb81e588180cac4de3e",
+      "mastery_state_injection": {
+        "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock",
+        "result": {
+          "previousInventory": null,
+          "ok": true,
+          "stateHooks": 24
+        }
+      },
+      "mastery_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout",
+          "state": {
+            "itemColumns": 4,
+            "secondaryColumns": 2,
+            "present": true,
+            "labels": [
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Kitgun",
+              "Zaw",
+              "Amp",
+              "Sentinel",
+              "Sentinel Weapon",
+              "MOA",
+              "Hound",
+              "Robotics",
+              "Companions",
+              "Archwing",
+              "Archgun",
+              "Archmelee",
+              "Necramech",
+              "K-Drive",
+              "Plexus",
+              "Vehicles",
+              "Railjack Intrinsic",
+              "Drifter Intrinsic",
+              "Starchart",
+              "The Steel Path"
+            ],
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "firstRole": "button",
+            "firstTabIndex": 0,
+            "root": {
+              "left": 240,
+              "right": 1156
+            },
+            "rank": {
+              "left": 265,
+              "right": 1131
+            }
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-dialog",
+          "enter": {
+            "modal": "true",
+            "heading": "WarframeDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "space": {
+            "heading": "The Steel PathDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout",
+          "state": {
+            "itemColumns": 3,
+            "secondaryColumns": 1,
+            "present": true,
+            "labels": [
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Kitgun",
+              "Zaw",
+              "Amp",
+              "Sentinel",
+              "Sentinel Weapon",
+              "MOA",
+              "Hound",
+              "Robotics",
+              "Companions",
+              "Archwing",
+              "Archgun",
+              "Archmelee",
+              "Necramech",
+              "K-Drive",
+              "Plexus",
+              "Vehicles",
+              "Railjack Intrinsic",
+              "Drifter Intrinsic",
+              "Starchart",
+              "The Steel Path"
+            ],
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "firstRole": "button",
+            "firstTabIndex": 0,
+            "root": {
+              "left": 240,
+              "right": 856
+            },
+            "rank": {
+              "left": 265,
+              "right": 831
+            }
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-dialog",
+          "enter": {
+            "modal": "true",
+            "heading": "WarframeDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "space": {
+            "heading": "The Steel PathDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "rank-ready",
+          "injection": {
+            "previousInventory": {
+              "account": {
+                "mastery_rank": 15
+              },
+              "intrinsics": [],
+              "starchart": {
+                "total": 0,
+                "steel_path": 0,
+                "origin": 0,
+                "nodes": [],
+                "origin_xp": 0,
+                "steel_path_xp": 0
+              }
+            },
+            "ok": true,
+            "stateHooks": 24
+          },
+          "state": {
+            "bounds": {
+              "left": 265,
+              "right": 831
+            },
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "image": "asset://localhost/%2Fvar%2Fhome%2Fjedwards%2Fkiedas-orbiter%2F.preview-work%2Fnative-smoke-xmcde1ln%2Fxdgdata%2Fkiedas-orbiter-preview%2Fdata%2Fassets%2Fui%2Fteshin.png",
+            "text": "\nCURRENT RANK: 0\nREADY\n\nNEXT:MR1\nMASTERY RANK UP AVAILABLE\nAdvance to Initiate\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+            "present": true
+          },
+          "pass": true
+        }
+      ]
+    },
+    {
+      "kind": "appimage",
+      "checks": 35,
+      "passed": 35,
+      "groups": {
+        "checks": 10,
+        "dialog_checks": 4,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2,
+        "inventory_checks": 2,
+        "mastery_checks": 5
+      },
+      "binary_sha256": "25c1aaa5ae25033209a5fe7820dac1fb101cbe15420f8cc3a6fc32411614ebe7",
+      "mastery_state_injection": {
+        "tier": "synthetic parsed-shape data dispatched into the real MonitoringProvider state hook; no app source or backend mock",
+        "result": {
+          "previousInventory": null,
+          "ok": true,
+          "stateHooks": 24
+        }
+      },
+      "mastery_checks": [
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "layout",
+          "state": {
+            "itemColumns": 4,
+            "secondaryColumns": 2,
+            "present": true,
+            "labels": [
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Kitgun",
+              "Zaw",
+              "Amp",
+              "Sentinel",
+              "Sentinel Weapon",
+              "MOA",
+              "Hound",
+              "Robotics",
+              "Companions",
+              "Archwing",
+              "Archgun",
+              "Archmelee",
+              "Necramech",
+              "K-Drive",
+              "Plexus",
+              "Vehicles",
+              "Railjack Intrinsic",
+              "Drifter Intrinsic",
+              "Starchart",
+              "The Steel Path"
+            ],
+            "body": {
+              "client": 1200,
+              "scroll": 1200
+            },
+            "firstRole": "button",
+            "firstTabIndex": 0,
+            "root": {
+              "left": 240,
+              "right": 1156
+            },
+            "rank": {
+              "left": 265,
+              "right": 1131
+            }
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            1200,
+            800
+          ],
+          "kind": "keyboard-dialog",
+          "enter": {
+            "modal": "true",
+            "heading": "WarframeDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "space": {
+            "heading": "The Steel PathDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "layout",
+          "state": {
+            "itemColumns": 3,
+            "secondaryColumns": 1,
+            "present": true,
+            "labels": [
+              "Warframe",
+              "Primary",
+              "Secondary",
+              "Melee",
+              "Kitgun",
+              "Zaw",
+              "Amp",
+              "Sentinel",
+              "Sentinel Weapon",
+              "MOA",
+              "Hound",
+              "Robotics",
+              "Companions",
+              "Archwing",
+              "Archgun",
+              "Archmelee",
+              "Necramech",
+              "K-Drive",
+              "Plexus",
+              "Vehicles",
+              "Railjack Intrinsic",
+              "Drifter Intrinsic",
+              "Starchart",
+              "The Steel Path"
+            ],
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "firstRole": "button",
+            "firstTabIndex": 0,
+            "root": {
+              "left": 240,
+              "right": 856
+            },
+            "rank": {
+              "left": 265,
+              "right": 831
+            }
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "keyboard-dialog",
+          "enter": {
+            "modal": "true",
+            "heading": "WarframeDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "space": {
+            "heading": "The Steel PathDetails",
+            "role": "dialog",
+            "present": true
+          },
+          "pass": true
+        },
+        {
+          "size": [
+            900,
+            500
+          ],
+          "kind": "rank-ready",
+          "injection": {
+            "previousInventory": {
+              "account": {
+                "mastery_rank": 15
+              },
+              "intrinsics": [],
+              "starchart": {
+                "total": 0,
+                "steel_path": 0,
+                "origin": 0,
+                "nodes": [],
+                "origin_xp": 0,
+                "steel_path_xp": 0
+              }
+            },
+            "ok": true,
+            "stateHooks": 24
+          },
+          "state": {
+            "bounds": {
+              "left": 265,
+              "right": 831
+            },
+            "body": {
+              "client": 900,
+              "scroll": 900
+            },
+            "image": "asset://localhost/%2Fvar%2Fhome%2Fjedwards%2Fkiedas-orbiter%2F.preview-work%2Fnative-smoke-8wkfpw29%2Fxdgdata%2Fkiedas-orbiter-preview%2Fdata%2Fassets%2Fui%2Fteshin.png",
+            "text": "\nCURRENT RANK: 0\nREADY\n\nNEXT:MR1\nMASTERY RANK UP AVAILABLE\nAdvance to Initiate\n\nYou have accumulated enough mastery to qualify for the rank up test. Visit Teshin at any relay to prove your worth.\n\n",
+            "present": true
+          },
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "gate": "Stage 3C accepted by user on 2026-09-05; no Stage 3D app source started"
+}

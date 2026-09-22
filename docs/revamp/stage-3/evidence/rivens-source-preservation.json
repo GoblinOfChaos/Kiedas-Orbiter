@@ -1,0 +1,18 @@
+{
+  "before_sha256": "03e9a3d05f99c2a04373430dcf1be2a330f928e8bf47c64e553b673e14a6af4c",
+  "after_sha256": "3e78cd09f1d73cea7d54a8bf047c6eabcf5cf644a1bf0d763c1f1bb3b5244dc7",
+  "preview_layout_sha256": "49428c41caf076e243340979dad42bd59b863c5c7a2db4e1224c19af7a944c44",
+  "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+  "filter_sort_pricing_grading_card_drawer_and_backend_behavior_unchanged": true,
+  "dormant_marketplace_mutation_commands_present": false,
+  "approved_regions": [
+    "Preview imports",
+    "Preview-only layout data attributes and classes",
+    "Preview-only card keyboard attributes and handler",
+    "Preview pass-through wrapper"
+  ],
+  "source_files_changed": [
+    "src/screens/Rivens.jsx",
+    "src/components/PreviewRivensLayout.jsx"
+  ]
+}

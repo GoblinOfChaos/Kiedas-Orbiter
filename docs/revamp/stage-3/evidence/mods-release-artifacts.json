@@ -1,0 +1,30 @@
+[
+  {
+    "bytes": 71733472,
+    "sha256": "5b41d7408736c9ef4bba0872b14e11720316a96c117a9095631c304ad75b9694",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-cosmetics/before-stage3e-packages/kiedas-orbiter",
+    "current_file_available_at_original_path": false
+  },
+  {
+    "bytes": 71733472,
+    "sha256": "5b41d7408736c9ef4bba0872b14e11720316a96c117a9095631c304ad75b9694",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/kiedas-orbiter-preview",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-cosmetics/before-stage3e-packages/kiedas-orbiter-preview",
+    "current_file_available_at_original_path": false
+  },
+  {
+    "bytes": 116349632,
+    "sha256": "8f149fa90dc62e007533a0c707e63b2193a05ba738265ce1b4c24d8b0519e81d",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-cosmetics/before-stage3e-packages/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+    "current_file_available_at_original_path": false
+  },
+  {
+    "bytes": 190093816,
+    "sha256": "b218746352ff719fbf0901daae6e1c5cfb516c3afb215e062e4291dcfe2e002a",
+    "path_at_validation": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/appimage/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "preserved_copy": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-cosmetics/before-stage3e-packages/Kieda's Orbiter Preview_1.3.3_amd64.AppImage",
+    "current_file_available_at_original_path": false
+  }
+]

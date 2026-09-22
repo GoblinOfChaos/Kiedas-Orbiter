@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-09-05T23:04:42.211117+00:00",
+  "component_checks": 174,
+  "stable_action_comparisons": 21,
+  "component_failures": [],
+  "packages": [
+    {
+      "kind": "deb",
+      "checks": 28,
+      "groups": {
+        "checks": 10,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "dialog_checks": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2
+      },
+      "recorded_sha256": "ec03de50acb97b2c0f3f4ce5516c671b113f2027eee9c92732bc7f7943555c7f",
+      "hash_subject": "installed Debian executable",
+      "dashboard_state_injection": {
+        "tier": "synthetic empty parsed WorldState injected into real React MonitoringContext; no backend mocking",
+        "succeeded": true
+      }
+    },
+    {
+      "kind": "appimage",
+      "checks": 28,
+      "groups": {
+        "checks": 10,
+        "guard_checks": 5,
+        "market_guards": 4,
+        "dialog_checks": 4,
+        "updater_ui_checks": 3,
+        "dashboard_checks": 2
+      },
+      "recorded_sha256": "7342bb1d59ac4623e38903bca0fbc2caadad606f50d4bda43e3c0e1dbdfdbd5a",
+      "hash_subject": "AppImage archive",
+      "dashboard_state_injection": {
+        "tier": "synthetic empty parsed WorldState injected into real React MonitoringContext; no backend mocking",
+        "succeeded": true
+      }
+    }
+  ]
+}

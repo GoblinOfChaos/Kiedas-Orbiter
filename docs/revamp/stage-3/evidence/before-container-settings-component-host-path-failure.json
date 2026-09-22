@@ -1,0 +1,12 @@
+{
+  "status": "test_environment_failure",
+  "command": [
+    "/usr/bin/python3",
+    "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-settings/component.py"
+  ],
+  "exit_code": 1,
+  "error": "FileNotFoundError: /usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/MiniBrowser",
+  "cause": "The native browser harness was initially launched on the Fedora host rather than through the established Ubuntu test image.",
+  "app_defect": false,
+  "correction": "Run the unchanged harness through toolkit/run_bounded_container.py using the Ubuntu test image."
+}

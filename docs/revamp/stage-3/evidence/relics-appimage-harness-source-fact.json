@@ -1,0 +1,9 @@
+{
+  "facts": "/var/home/jedwards/kiedas-orbiter/docs/revamp/stage-3/evidence/relics-nav-source-fact.json",
+  "facts_sha256": "69ca3399b6850ec56be07e652157b57b5589627ae96af10a0da5f2e576511301",
+  "harness": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage3-relics/appimage-smoke.py",
+  "harness_sha256": "f6aa2a0629c6c69629e04b83353ea5e9102328621ac16f7fcdec34fd96eeae48",
+  "occurrences": 7,
+  "pass": true,
+  "value": "Relics"
+}

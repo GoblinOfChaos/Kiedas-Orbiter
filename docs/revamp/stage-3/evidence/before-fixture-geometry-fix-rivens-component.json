@@ -1,0 +1,1136 @@
+{
+  "tier": "styled component browser with module-boundary mocks",
+  "fixture": "synthetic parsed-shape Riven records and synthetic model results; no live inventory, account, network, market, or model-accuracy claims",
+  "checks": [
+    {
+      "name": "stable-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-inventory-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-frames-loading-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-populated-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-no-match-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-drawer-Alpha Critatis-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-drawer-Unprofiled Riven-exact-markup",
+      "pass": true
+    },
+    {
+      "name": "stable-has-no-preview-layout",
+      "pass": true
+    },
+    {
+      "name": "1200-layout-present",
+      "pass": true
+    },
+    {
+      "name": "1200-body-no-horizontal-overflow",
+      "pass": false,
+      "detail": {
+        "client": 1200,
+        "scroll": 1212
+      }
+    },
+    {
+      "name": "1200-layout-in-bounds",
+      "pass": false,
+      "detail": {
+        "left": 220,
+        "width": 992,
+        "right": 1212
+      }
+    },
+    {
+      "name": "1200-primary-columns",
+      "pass": true,
+      "detail": {
+        "columns": "332.046875px 355.59375px 212.359375px"
+      }
+    },
+    {
+      "name": "1200-type-labels",
+      "pass": true,
+      "detail": [
+        "All",
+        "Rifle",
+        "Pistol",
+        "Melee",
+        "Shotgun",
+        "Sniper",
+        "Kitgun",
+        "Zaw",
+        "Archgun"
+      ]
+    },
+    {
+      "name": "1200-state-labels",
+      "pass": true,
+      "detail": [
+        "All States",
+        "Unveiled",
+        "Challenge",
+        "Veiled"
+      ]
+    },
+    {
+      "name": "1200-sort-labels",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Plat",
+        "Grade"
+      ]
+    },
+    {
+      "name": "1200-types-contained",
+      "pass": true,
+      "detail": {
+        "labels": [
+          "All",
+          "Rifle",
+          "Pistol",
+          "Melee",
+          "Shotgun",
+          "Sniper",
+          "Kitgun",
+          "Zaw",
+          "Archgun"
+        ],
+        "wrap": "nowrap",
+        "client": 922,
+        "scroll": 922,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "1200-dense-controls-contained",
+      "pass": true
+    },
+    {
+      "name": "1200-cards-200-and-bounded",
+      "pass": true,
+      "detail": [
+        {
+          "left": 254.484375,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 454.484375,
+          "role": "button"
+        },
+        {
+          "left": 494.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 694.15625,
+          "role": "button"
+        },
+        {
+          "left": 733.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 933.828125,
+          "role": "button"
+        },
+        {
+          "left": 973.5,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 1173.5,
+          "role": "button"
+        }
+      ]
+    },
+    {
+      "name": "1200-enter-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "1200-space-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "900-layout-present",
+      "pass": true
+    },
+    {
+      "name": "900-body-no-horizontal-overflow",
+      "pass": false,
+      "detail": {
+        "client": 900,
+        "scroll": 912
+      }
+    },
+    {
+      "name": "900-layout-in-bounds",
+      "pass": false,
+      "detail": {
+        "left": 220,
+        "width": 692,
+        "right": 912
+      }
+    },
+    {
+      "name": "900-primary-columns",
+      "pass": true,
+      "detail": {
+        "columns": "624px"
+      }
+    },
+    {
+      "name": "900-type-labels",
+      "pass": true,
+      "detail": [
+        "All",
+        "Rifle",
+        "Pistol",
+        "Melee",
+        "Shotgun",
+        "Sniper",
+        "Kitgun",
+        "Zaw",
+        "Archgun"
+      ]
+    },
+    {
+      "name": "900-state-labels",
+      "pass": true,
+      "detail": [
+        "All States",
+        "Unveiled",
+        "Challenge",
+        "Veiled"
+      ]
+    },
+    {
+      "name": "900-sort-labels",
+      "pass": true,
+      "detail": [
+        "Name",
+        "Plat",
+        "Grade"
+      ]
+    },
+    {
+      "name": "900-types-contained",
+      "pass": true,
+      "detail": {
+        "labels": [
+          "All",
+          "Rifle",
+          "Pistol",
+          "Melee",
+          "Shotgun",
+          "Sniper",
+          "Kitgun",
+          "Zaw",
+          "Archgun"
+        ],
+        "wrap": "nowrap",
+        "client": 622,
+        "scroll": 918,
+        "overflow": "auto"
+      }
+    },
+    {
+      "name": "900-dense-controls-contained",
+      "pass": true
+    },
+    {
+      "name": "900-cards-200-and-bounded",
+      "pass": true,
+      "detail": [
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        },
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        }
+      ]
+    },
+    {
+      "name": "900-enter-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "900-space-opens-one-drawer",
+      "pass": true
+    },
+    {
+      "name": "type-All",
+      "pass": true
+    },
+    {
+      "name": "type-Rifle",
+      "pass": true
+    },
+    {
+      "name": "type-Pistol",
+      "pass": true
+    },
+    {
+      "name": "type-Melee",
+      "pass": true
+    },
+    {
+      "name": "type-Shotgun",
+      "pass": true
+    },
+    {
+      "name": "type-Sniper",
+      "pass": true
+    },
+    {
+      "name": "type-Kitgun",
+      "pass": true
+    },
+    {
+      "name": "type-Zaw",
+      "pass": true
+    },
+    {
+      "name": "type-Archgun",
+      "pass": true
+    },
+    {
+      "name": "state-All States",
+      "pass": true,
+      "detail": [
+        "Alpha Critatis",
+        "Alpha Critatis",
+        "Beta Visiata",
+        "Gamma Acriata",
+        "Delta Hexa",
+        "Epsilon Riven",
+        "Kitgun Riven",
+        "Zaw Riven",
+        "Archgun Riven",
+        "Shotgun Riven Challenge",
+        "Melee Riven Mod",
+        "Unprofiled Riven"
+      ]
+    },
+    {
+      "name": "state-Unveiled",
+      "pass": true,
+      "detail": [
+        "Alpha Critatis",
+        "Alpha Critatis",
+        "Beta Visiata",
+        "Gamma Acriata",
+        "Delta Hexa",
+        "Epsilon Riven",
+        "Kitgun Riven",
+        "Zaw Riven",
+        "Archgun Riven",
+        "Unprofiled Riven"
+      ]
+    },
+    {
+      "name": "state-Challenge",
+      "pass": true,
+      "detail": [
+        "Shotgun Riven Challenge"
+      ]
+    },
+    {
+      "name": "state-Veiled",
+      "pass": true,
+      "detail": [
+        "Melee Riven Mod"
+      ]
+    },
+    {
+      "name": "search-set",
+      "pass": true
+    },
+    {
+      "name": "search-two-distinct-owned-instances",
+      "pass": true,
+      "detail": [
+        "Alpha Critatis",
+        "Alpha Critatis"
+      ]
+    },
+    {
+      "name": "search-no-match-state",
+      "pass": true
+    },
+    {
+      "name": "sort-Name-both-directions",
+      "pass": true,
+      "detail": {
+        "first": [
+          "Zaw Riven",
+          "Unprofiled Riven",
+          "Shotgun Riven Challenge"
+        ],
+        "second": [
+          "Alpha Critatis",
+          "Alpha Critatis",
+          "Archgun Riven"
+        ]
+      }
+    },
+    {
+      "name": "sort-Plat-both-directions",
+      "pass": true,
+      "detail": {
+        "first": [
+          "Alpha Critatis",
+          "Alpha Critatis",
+          "Beta Visiata"
+        ],
+        "second": [
+          "Shotgun Riven Challenge",
+          "Melee Riven Mod",
+          "Epsilon Riven"
+        ]
+      }
+    },
+    {
+      "name": "sort-Grade-both-directions",
+      "pass": true,
+      "detail": {
+        "first": [
+          "Unprofiled Riven",
+          "Epsilon Riven",
+          "Delta Hexa"
+        ],
+        "second": [
+          "Alpha Critatis",
+          "Kitgun Riven",
+          "Alpha Critatis"
+        ]
+      }
+    },
+    {
+      "name": "plat-desc-high-price-first",
+      "pass": true,
+      "detail": [
+        "Alpha Critatis",
+        "Alpha Critatis",
+        "Beta Visiata"
+      ]
+    },
+    {
+      "name": "missing-estimate-has-no-price",
+      "pass": true
+    },
+    {
+      "name": "explicit-estimate-price-visible",
+      "pass": true,
+      "detail": "15\n\nBeta Visiata\n+30% Critical Chance -20% Zoom\n\nMR 9\nB\n45p\n"
+    },
+    {
+      "name": "explicit-zero-model-estimate-preserved",
+      "pass": true,
+      "detail": "18\n\nAlpha Critatis\n+55% Critical Chance -20% Zoom\n\n\nMR 12\n\n3\nS\n0p\n"
+    },
+    {
+      "name": "three-command-surface",
+      "pass": true,
+      "detail": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "inputs": [
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Alpha",
+                "re_rolls": 3,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Alpha",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Beta",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Gamma",
+                "re_rolls": 2,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Delta",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Epsilon",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Kitgun",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Zaw",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Archgun",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Unprofiled",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              }
+            ]
+          },
+          "command": "estimate_riven_full_batch"
+        }
+      ]
+    },
+    {
+      "name": "batch-has-ten-unveiled-inputs",
+      "pass": true,
+      "detail": [
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Alpha",
+          "re_rolls": 3,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Alpha",
+          "re_rolls": 1,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Beta",
+          "re_rolls": 0,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Gamma",
+          "re_rolls": 2,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Delta",
+          "re_rolls": 0,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Epsilon",
+          "re_rolls": 0,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Kitgun",
+          "re_rolls": 1,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Zaw",
+          "re_rolls": 1,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Archgun",
+          "re_rolls": 1,
+          "negative": "zoom",
+          "positive3": null
+        },
+        {
+          "positive2": null,
+          "positive1": "critical_chance",
+          "weapon_name": "Unprofiled",
+          "re_rolls": 0,
+          "negative": "zoom",
+          "positive3": null
+        }
+      ]
+    },
+    {
+      "name": "english-weapon-and-stat-mapping",
+      "pass": true,
+      "detail": {
+        "positive2": null,
+        "positive1": "critical_chance",
+        "weapon_name": "Beta",
+        "re_rolls": 0,
+        "negative": "zoom",
+        "positive3": null
+      }
+    },
+    {
+      "name": "no-market-mutation-commands",
+      "pass": true,
+      "detail": [
+        {
+          "args": null,
+          "command": "get_icons_path"
+        },
+        {
+          "args": null,
+          "command": "get_mod_frames_path"
+        },
+        {
+          "args": {
+            "inputs": [
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Alpha",
+                "re_rolls": 3,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Alpha",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Beta",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Gamma",
+                "re_rolls": 2,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Delta",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Epsilon",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Kitgun",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Zaw",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Archgun",
+                "re_rolls": 1,
+                "negative": "zoom",
+                "positive3": null
+              },
+              {
+                "positive2": null,
+                "positive1": "critical_chance",
+                "weapon_name": "Unprofiled",
+                "re_rolls": 0,
+                "negative": "zoom",
+                "positive3": null
+              }
+            ]
+          },
+          "command": "estimate_riven_full_batch"
+        }
+      ]
+    },
+    {
+      "name": "no-sell-controls",
+      "pass": true
+    },
+    {
+      "name": "german-screen-title",
+      "pass": true,
+      "detail": "RIVEN-MODS\n10 UNVEILED \u00b7 1 CHALLENGE \u00b7 1 VEILED \u00b7 11/18 CAPACITY\n\nALL STATES\nUNVEILED\nCHALLENGE\nVEILED\nNAME\nPLAT\nGRADE\nALL\nRIFLE\nPISTOL\nMELEE\nSHOTGUN\nSNIPER\nKITGUN\nZAW\nARCHGUN\n18\n\nAlpha Critatis\n+55% Critical Chance -20% Zoom\n\n\nMR 12\n\n3\nS\n80p\n14\n\nAlpha Critatis\n+35% Critical Chance -20% Zoom\n\nMR 10\n"
+    },
+    {
+      "name": "german-preserves-hardcoded-filters",
+      "pass": false
+    },
+    {
+      "name": "german-no-horizontal-overflow",
+      "pass": false
+    },
+    {
+      "name": "all-null-pricer-retry-capped-at-three",
+      "pass": true,
+      "detail": 4
+    },
+    {
+      "name": "no-fixture-errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "geometry": [
+    {
+      "size": [
+        1200,
+        800
+      ],
+      "cards": [
+        {
+          "left": 254.484375,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 454.484375,
+          "role": "button"
+        },
+        {
+          "left": 494.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 694.15625,
+          "role": "button"
+        },
+        {
+          "left": 733.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 933.828125,
+          "role": "button"
+        },
+        {
+          "left": 973.5,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 1173.5,
+          "role": "button"
+        },
+        {
+          "left": 254.484375,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 454.484375,
+          "role": "button"
+        },
+        {
+          "left": 494.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 694.15625,
+          "role": "button"
+        },
+        {
+          "left": 733.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 933.828125,
+          "role": "button"
+        },
+        {
+          "left": 973.5,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 1173.5,
+          "role": "button"
+        },
+        {
+          "left": 254.484375,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 454.484375,
+          "role": "button"
+        },
+        {
+          "left": 494.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 694.15625,
+          "role": "button"
+        },
+        {
+          "left": 733.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 933.828125,
+          "role": "button"
+        },
+        {
+          "left": 973.5,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 1173.5,
+          "role": "button"
+        }
+      ],
+      "grid": {
+        "columns": "200px 200px 200px 200px",
+        "left": 252,
+        "gap": "39.68px",
+        "right": 1176
+      },
+      "body": {
+        "client": 1200,
+        "scroll": 1212
+      },
+      "types": {
+        "labels": [
+          "All",
+          "Rifle",
+          "Pistol",
+          "Melee",
+          "Shotgun",
+          "Sniper",
+          "Kitgun",
+          "Zaw",
+          "Archgun"
+        ],
+        "wrap": "nowrap",
+        "client": 922,
+        "scroll": 922,
+        "overflow": "auto"
+      },
+      "primary": {
+        "columns": "332.046875px 355.59375px 212.359375px"
+      },
+      "state": {
+        "labels": [
+          "All States",
+          "Unveiled",
+          "Challenge",
+          "Veiled"
+        ],
+        "client": 354,
+        "scroll": 368,
+        "overflow": "auto"
+      },
+      "sort": {
+        "labels": [
+          "Name",
+          "Plat",
+          "Grade"
+        ],
+        "client": 210,
+        "scroll": 224,
+        "overflow": "auto"
+      },
+      "root": {
+        "left": 220,
+        "width": 992,
+        "right": 1212
+      }
+    },
+    {
+      "size": [
+        900,
+        500
+      ],
+      "cards": [
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        },
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        },
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        },
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        },
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        },
+        {
+          "left": 350.15625,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 550.15625,
+          "role": "button"
+        },
+        {
+          "left": 577.828125,
+          "width": 200,
+          "tabIndex": 0,
+          "right": 777.828125,
+          "role": "button"
+        }
+      ],
+      "grid": {
+        "columns": "200px 200px",
+        "left": 252,
+        "gap": "27.68px",
+        "right": 876
+      },
+      "body": {
+        "client": 900,
+        "scroll": 912
+      },
+      "types": {
+        "labels": [
+          "All",
+          "Rifle",
+          "Pistol",
+          "Melee",
+          "Shotgun",
+          "Sniper",
+          "Kitgun",
+          "Zaw",
+          "Archgun"
+        ],
+        "wrap": "nowrap",
+        "client": 622,
+        "scroll": 918,
+        "overflow": "auto"
+      },
+      "primary": {
+        "columns": "624px"
+      },
+      "state": {
+        "labels": [
+          "All States",
+          "Unveiled",
+          "Challenge",
+          "Veiled"
+        ],
+        "client": 622,
+        "scroll": 636,
+        "overflow": "auto"
+      },
+      "sort": {
+        "labels": [
+          "Name",
+          "Plat",
+          "Grade"
+        ],
+        "client": 622,
+        "scroll": 636,
+        "overflow": "auto"
+      },
+      "root": {
+        "left": 220,
+        "width": 692,
+        "right": 912
+      }
+    }
+  ],
+  "stable_comparisons": [
+    {
+      "state": "loading",
+      "equal": true,
+      "before_length": 8305,
+      "after_length": 8305
+    },
+    {
+      "state": "no-inventory",
+      "equal": true,
+      "before_length": 8629,
+      "after_length": 8629
+    },
+    {
+      "state": "frames-loading",
+      "equal": true,
+      "before_length": 8308,
+      "after_length": 8308
+    },
+    {
+      "state": "populated",
+      "equal": true,
+      "before_length": 70520,
+      "after_length": 70520
+    },
+    {
+      "state": "no-match",
+      "equal": true,
+      "before_length": 7724,
+      "after_length": 7724
+    },
+    {
+      "state": "drawer-Alpha Critatis",
+      "equal": true,
+      "before_length": 72131,
+      "after_length": 72131
+    },
+    {
+      "state": "drawer-Unprofiled Riven",
+      "equal": true,
+      "before_length": 71857,
+      "after_length": 71857
+    }
+  ]
+}

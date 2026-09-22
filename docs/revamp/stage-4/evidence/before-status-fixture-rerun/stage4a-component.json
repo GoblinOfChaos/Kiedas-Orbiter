@@ -1,0 +1,8 @@
+{
+  "tier": "styled browser component fixture with module-boundary import mock",
+  "fixture_source": "synthetic-ui-only",
+  "checks": [],
+  "passed": 0,
+  "total": 0,
+  "failures": []
+}

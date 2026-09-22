@@ -1,0 +1,8 @@
+{
+  "tier": "component browser with module mocks",
+  "fixture": "synthetic display data; no live game or market claims",
+  "checks": [],
+  "geometry": [],
+  "stable_comparisons": [],
+  "error": "{\"value\":{\"error\":\"javascript error\",\"message\":\"undefined is not an object (evaluating 'window.fixture.render')\",\"stacktrace\":\"\"}}"
+}

@@ -1,0 +1,206 @@
+{
+  "captured_on": "2026-09-06",
+  "checkout": ".preview-work/stage2",
+  "branch": "revamp/preview-shell",
+  "head": "4b89a5f0c88023b76217021eb99eac9724df423d",
+  "status": "implemented_awaiting_acceptance",
+  "accepted_stage3i_cumulative_patch_sha256": "0c0757698e55b8824f38a1d5d126c6edcf515ec359df76ab99ee28e2a6a29cf4",
+  "cargo_lock_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "sources": {
+    "src/screens/Settings.jsx": {
+      "sha256": "de41d7216fcb976c602bc76e2fd4abc894e56dd1631181a7446465571432a2b0",
+      "lines": 1399,
+      "planned_change": true
+    },
+    "src/contexts/MonitoringContext.jsx": {
+      "sha256": "033b5f15b1ff475381d5078ca2e5b4fd0e53e845b9393ec11cae9b24ffb0626e",
+      "lines": 1442,
+      "planned_change": false
+    },
+    "src/contexts/UpdateContext.jsx": {
+      "sha256": "de5046061b4877d20544b79ecbaf3579fbd30a1b0c8381016df68b51bb2bf0fc",
+      "lines": 129,
+      "planned_change": false
+    },
+    "src/contexts/ThemeContext.jsx": {
+      "sha256": "577d844ea433abc1efaf813ec23cad52ee6f9e4c89b1a47cfa2e8eb93307b190",
+      "lines": 209,
+      "planned_change": false
+    },
+    "src/contexts/UiContext.jsx": {
+      "sha256": "ec3308c981e303a4c247a7084ffa813b31384d62e7513303d808f5050463e5ef",
+      "lines": 72,
+      "planned_change": false
+    },
+    "src/lib/settings.js": {
+      "sha256": "eea466969f7895c7a653fa3f347a67ed2baa1de41e76a21a07e5189c3b710e23",
+      "lines": 104,
+      "planned_change": false
+    },
+    "src/components/NotificationManager.jsx": {
+      "sha256": "bce3f5de9bd6ac01e75041d312112b4be1f0df2eb4cf27e36c044d986b5c3343",
+      "lines": 280,
+      "planned_change": false
+    },
+    "src/components/LanguagePicker.jsx": {
+      "sha256": "d2cd9f611907264d2b0998c8f8379ac140bd76dc9f10b7c2c7bdd5f688f44d8b",
+      "lines": 54,
+      "planned_change": false
+    },
+    "src/components/UI.jsx": {
+      "sha256": "92b0ad65ce308144b53f77713f6c9ba577011fd6232d04e39aa67e394bbeed55",
+      "lines": 479,
+      "planned_change": false
+    },
+    "src-tauri/src/main.rs": {
+      "sha256": "d801705ea0314ba4af8da12a8a39ac8bd2f7e685595776195401308fdb47e82d",
+      "lines": 4661,
+      "planned_change": false
+    },
+    "src-tauri/src/build_profile.rs": {
+      "sha256": "7279088e3030a9627be15229aefaa73a300b571bacdc06cea890efa0e5da3b93",
+      "lines": 20,
+      "planned_change": false
+    }
+  },
+  "navigation_fact": {
+    "path": "docs/revamp/stage-3/evidence/settings-nav-source-fact.json",
+    "value": "Settings",
+    "derived_from_current_source": true
+  },
+  "complexity": {
+    "use_state_calls": 29,
+    "use_effect_calls": 8,
+    "use_ref_calls": 2,
+    "top_level_cards": 10,
+    "button_elements": 21,
+    "toggle_components": 5,
+    "input_elements": 7,
+    "select_elements": 2,
+    "invoke_calls": 37,
+    "distinct_tauri_commands": [
+      "check_exports",
+      "get_available_monitors",
+      "get_data_root_path",
+      "get_scanner_status",
+      "get_ui_path",
+      "open_url",
+      "play_notification_sound",
+      "read_file_bytes",
+      "relay_event",
+      "set_fissure_ui_scale",
+      "set_hotkeys",
+      "set_notification_sound",
+      "set_sidebar_hide_on_focus_loss",
+      "set_sidebar_width",
+      "set_target_monitor",
+      "show_notification",
+      "start_log_scanner",
+      "stop_log_scanner",
+      "write_file"
+    ],
+    "persisted_keys": [
+      "ee_log_path",
+      "fissure_overlay_enabled",
+      "fissure_target_monitor",
+      "fissure_ui_scale",
+      "gameLocale",
+      "hotkeys",
+      "notif_position",
+      "notif_sound",
+      "sidebar_hide_on_focus_loss",
+      "sidebar_side",
+      "sidebar_width",
+      "update_on_startup",
+      "use_ee_log",
+      "warframe_cache_path",
+      "wfm_token"
+    ]
+  },
+  "sections": [
+    "theme",
+    "cursor",
+    "notifications_and_overlays",
+    "game_locale",
+    "feature_guide_and_support",
+    "in_game_sidebar",
+    "global_hotkeys",
+    "safe_mode_tracking",
+    "warframe_market",
+    "updates_and_price_cache"
+  ],
+  "preview_live_boundary": {
+    "rust_guarded": [
+      "start_log_scanner",
+      "set_hotkeys",
+      "play_notification_sound",
+      "show_notification",
+      "set_monitoring_active(active=true)"
+    ],
+    "frontend_must_suppress_because_not_guarded": [
+      "stop_log_scanner",
+      "relay_event"
+    ],
+    "controls_to_disable": [
+      "periodic_inventory_monitoring",
+      "log_scanner",
+      "safe_mode_scanner_settings",
+      "global_hotkey_mutation",
+      "notification_tests",
+      "relic_overlay_test"
+    ],
+    "allowed_profile_or_read_only": [
+      "theme_and_cursor",
+      "notification_and_overlay_preferences",
+      "manual_inventory_refresh",
+      "cache_picker",
+      "monitor_discovery",
+      "game_locale_refresh",
+      "help_and_bug_modals",
+      "coverage_report_export",
+      "sidebar_preferences",
+      "wfm_token_in_isolated_profile",
+      "price_refresh"
+    ],
+    "existing_preview_updater_disabled_state_retained": true
+  },
+  "planned_app_files": [
+    "src/screens/Settings.jsx",
+    "src/components/PreviewSettingsLayout.jsx"
+  ],
+  "source_boundaries": {
+    "setting_key_default_or_type_change": false,
+    "stable_command_or_payload_change": false,
+    "monitoring_cache_or_update_logic_change": false,
+    "locale_or_diagnostics_formula_change": false,
+    "token_handling_change": false,
+    "rust_guard_or_capability_change": false,
+    "translation_change": false,
+    "shared_ui_or_global_css_change": false,
+    "dependency_or_lockfile_change": false,
+    "other_screen_change": false
+  },
+  "stage3j_app_source_started": true,
+  "stage3k_app_source_started": false,
+  "after_sources": {
+    "src/screens/Settings.jsx": {
+      "sha256": "567fcaf2c1188ed338889384d9c00891245a0087b0654f89e9025cf7f0cff736"
+    },
+    "src/components/PreviewSettingsLayout.jsx": {
+      "sha256": "6669cb44b1f90db1cabb470302fbb1888515ba7e4f397052d345c0281f98a479"
+    }
+  },
+  "validation": {
+    "component_checks": "62/62",
+    "stable_exact_markup_comparisons": "20/20",
+    "stable_interaction_parity": "19/19",
+    "debian_native_checks": "82/82",
+    "appimage_native_checks": "82/82",
+    "preview_unavailable_frontend_invocations": 0,
+    "preview_relay_event_invocations": 0,
+    "preview_stop_log_scanner_invocations": 0,
+    "direct_settings_ipc_rejections": "5/5 per package",
+    "tracked_baseline": "850/850",
+    "lockfile_unchanged": true
+  }
+}

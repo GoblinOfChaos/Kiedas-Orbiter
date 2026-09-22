@@ -1,0 +1,113 @@
+--- a/src/screens/Inventory.jsx
++++ b/src/screens/Inventory.jsx
+@@ -19,6 +19,8 @@
+ import { getRelicCatalog } from '../lib/relicParser';
+ import { getSetting } from '../lib/settings';
+ import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
++import { IS_PREVIEW } from '../lib/buildProfile';
++import PreviewInventoryLayout from '../components/PreviewInventoryLayout';
+ 
+ 
+ 
+@@ -673,13 +675,18 @@
+     </div>;
+ 
+ 
++  const headerStats = renderHeaderStats(inventoryData, iconsPath);
++  const headerPanel = renderHeaderPanel();
++
+   return (
+     <>
+     <PageLayout
+       titleKey="screen.inventory"
+       subtitle={t('ui.inventory.displaying_items', { shown: visibleItems.length, total: filteredItems.length })}
+-      extra={renderHeaderStats(inventoryData, iconsPath)}
+-      headerPanel={renderHeaderPanel()}>
++      extra={IS_PREVIEW ? null : headerStats}
++      headerPanel={IS_PREVIEW
++        ? <PreviewInventoryLayout stats={headerStats} controls={headerPanel} />
++        : headerPanel}>
+ 
+       <div className="flex flex-col gap-6 flex-1 min-h-0">
+         {inventoryData === undefined ?
+--- /dev/null
++++ b/src/components/PreviewInventoryLayout.jsx
+@@ -0,0 +1,78 @@
++export default function PreviewInventoryLayout({ stats, controls }) {
++  return (
++    <section
++      data-preview-inventory-layout
++      aria-label="Inventory controls"
++      className="preview-inventory-layout min-w-0"
++      style={{ containerType: 'inline-size', containerName: 'preview-inventory-controls' }}
++    >
++      <style>{`
++        .preview-inventory-layout { min-width: 0; }
++        .preview-inventory-stats {
++          overflow-x: auto;
++          padding-bottom: .25rem;
++          scrollbar-width: thin;
++        }
++        .preview-inventory-stats > div {
++          width: max-content;
++          min-width: 100%;
++          margin-left: 0;
++          padding-right: 0;
++        }
++        .preview-inventory-controls {
++          min-width: 0;
++        }
++        .preview-inventory-controls > div > div:first-child > div:first-child {
++          display: grid;
++          grid-template-columns: minmax(0, 1fr);
++          align-items: stretch;
++          gap: .75rem;
++        }
++        .preview-inventory-controls > div > div:first-child > div:first-child > div {
++          min-width: 0;
++        }
++        .preview-inventory-controls > div > div:first-child > div:first-child > div:not(:first-child) {
++          width: 100%;
++          height: auto;
++          min-height: 42px;
++          overflow-x: auto;
++          scrollbar-width: thin;
++        }
++        .preview-inventory-controls > div > div:first-child > div:first-child > div:not(:first-child) > div {
++          width: max-content;
++          min-width: 100%;
++        }
++        .preview-inventory-controls > div > div:first-child > div:nth-child(2) {
++          width: 100%;
++          min-width: 0;
++          flex-wrap: nowrap;
++          overflow-x: auto;
++          scrollbar-width: thin;
++        }
++        .preview-inventory-controls > div > div:first-child > div:nth-child(2) > button {
++          flex-shrink: 0;
++        }
++        .preview-inventory-category-scroll { min-width: 0; }
++        @container preview-inventory-controls (min-width: 740px) {
++          .preview-inventory-controls > div > div:first-child > div:first-child {
++            grid-template-columns: repeat(2, minmax(0, 1fr));
++          }
++          .preview-inventory-controls > div > div:first-child > div:first-child > div:first-child {
++            grid-column: 1 / -1;
++          }
++        }
++      `}</style>
++
++      {stats && (
++        <div className="preview-inventory-stats mb-3" aria-label="Account resources">
++          {stats}
++        </div>
++      )}
++      <div className="preview-inventory-controls">
++        <div className="preview-inventory-category-scroll">
++          {controls}
++        </div>
++      </div>
++    </section>
++  );
++}

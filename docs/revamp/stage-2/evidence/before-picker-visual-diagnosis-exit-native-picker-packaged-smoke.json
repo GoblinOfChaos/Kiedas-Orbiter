@@ -1,0 +1,225 @@
+{
+  "binary_sha256": "5e255dc07b33f0b8656cab75f121b184bacd8290ebd636686a2302159fb853d1",
+  "private_container_network": true,
+  "installed_package": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/release/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+  "legacy_adjacency_test": false,
+  "synthetic_profile": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-64tdsnvd",
+  "checks": [
+    {
+      "name": "legacy_source_unchanged",
+      "pass": true
+    },
+    {
+      "name": "legacy_sentinel_not_imported",
+      "pass": true
+    },
+    {
+      "name": "stable_os_profile_not_created",
+      "pass": true
+    },
+    {
+      "name": "legacy_credentials_not_imported",
+      "pass": true
+    },
+    {
+      "name": "legacy_auto_monitoring_not_imported",
+      "pass": true
+    },
+    {
+      "name": "preview_document_title",
+      "pass": true
+    },
+    {
+      "name": "preview_title_after_reload",
+      "pass": true
+    },
+    {
+      "name": "preview_navigation_after_reload",
+      "pass": true
+    }
+  ],
+  "session_response": {
+    "value": {
+      "sessionId": "a28e8243-e791-4b00-88b0-190c2844ec6d",
+      "capabilities": {
+        "browserName": "wry",
+        "browserVersion": "0.55.1",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "url": {
+    "value": "tauri://localhost"
+  },
+  "title": {
+    "value": "Kieda's Orbiter Preview"
+  },
+  "body": {
+    "value": "WELCOME TO KIEDA'S ORBITER\nLet's get you set up. Pick your language below; the paths are optional and can be configured later in Settings.\n\nGAME LANGUAGE\n\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nThe app reloads to apply your language choice. You can change it anytime in Settings.\nGAME ASSETS(optional)\n\nBROWSE\nPoint to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.\nDISCLAIMER\nThis app reads session tokens from game memory. Digital Extremes has not approved this application.\nI understand and accept the risks described above.\nCONTINUE\n\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nDASHBOARD\n\nLoading worldstate..."
+  },
+  "preview_files": [
+    "xdgdata/com.jacob.kiedasorbiter.preview/hsts-storage.sqlite",
+    "xdgdata/kiedas-orbiter-preview/data/user/.preview-profile.lock",
+    "xdgdata/kiedas-orbiter-preview/data/user/.preview-import.lock",
+    "xdgdata/kiedas-orbiter-preview/data/user/settings.json",
+    "xdgdata/kiedas-orbiter-preview/data/user/logs/app-2026-09-05.log",
+    "xdgdata/kiedas-orbiter-preview/data/assets/audio/notification1.wav",
+    "xdgdata/kiedas-orbiter-preview/data/assets/audio/notification2.wav",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/ExportAvionics_fixed.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/ExportUpgrades_fixed.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/acquisition_overrides.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/all-recipe-components.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/browse-wf-glyphs.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/card-overlay-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/collectible-locations.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/cosmetic-catalog-additions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/mod-icon-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/peely-pix-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/peely-pix-names.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/riven_good_rolls.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/unmapped-components.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/warframe-items-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-acquisition-status.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-baro-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-blueprints-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-description-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-master-acquisitions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-page-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-prime-relic-drops.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-research-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-resources-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-sigils-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-tennogen-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-vendors-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-verified-all-acquisitions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/CambianDrift4kMap.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/Duviri_map_with_caves.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/OrbVallis4kMap-min.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/PlainsofEidolon_4k_Map.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/deimos_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/poe_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/venus_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank00Unranked.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank01Initiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank02SilverInitiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank03GoldInitiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank04Novice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank05SilverNovice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank06GoldNovice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank07Disciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank08SilverDisciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank09GoldDisciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank10Seeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank11SilverSeeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank12GoldSeeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank13Hunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank14SilverHunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank15GoldHunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank16Eagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank17SilverEagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank18GoldEagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank19Tiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank20SilverTiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank21GoldTiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank22Dragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank23SilverDragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank24GoldDragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank25Sage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank26SilverSage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank27GoldSage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank28Master.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank29MiddleMaster.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank30GrandMaster.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank31.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank32.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank33.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank34.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank35.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank36.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank37.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank38.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank39.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank40.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank41.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank42.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank43.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank44.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank45.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank46.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank47.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank48.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank49.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank50.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank51.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemFass.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemJahu.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemKhra.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemLohk.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemNetra.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemRis.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemVome.png"
+  ],
+  "packaged_resource_check": {
+    "resolved": true,
+    "matches_installed_bytes": true,
+    "profile_copy_absent": false
+  },
+  "bundle_fallback_check": {
+    "profile_copy_absent": true,
+    "resolved": true,
+    "matches_installed_bytes": true
+  },
+  "native_windows_before": [
+    {
+      "id": 2097155,
+      "title": "Kieda's Orbiter Preview"
+    }
+  ],
+  "native_picker_window": [
+    {
+      "id": 2097155,
+      "title": "Kieda's Orbiter Preview"
+    },
+    {
+      "id": 2098224,
+      "title": "Choose the source data/user folder"
+    }
+  ],
+  "picker_checks": [
+    {
+      "name": "native_cancel_leaves_no_selection",
+      "pass": true
+    },
+    {
+      "name": "native_selected_path_reaches_component",
+      "pass": false
+    }
+  ],
+  "windows_after_selection": [
+    {
+      "id": 2097155,
+      "title": "Kieda's Orbiter Preview"
+    },
+    {
+      "id": 2099283,
+      "title": "Choose the source data/user folder"
+    }
+  ],
+  "error": "Native folder selection has not reached the component",
+  "removal": {
+    "exit": 0,
+    "executable_absent": true,
+    "synthetic_profile_retained": true
+  }
+}

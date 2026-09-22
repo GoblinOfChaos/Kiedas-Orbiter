@@ -1,0 +1,993 @@
+{
+  "binary_sha256": "4eb5f936f04533fc739f6a2e0bce460046a83613da927c7ea3e82a6cac52e00d",
+  "private_container_network": true,
+  "installed_package": "/var/home/jedwards/kiedas-orbiter/.preview-work/ubuntu-build/target/debug/bundle/deb/Kieda's Orbiter Preview_1.3.3_amd64.deb",
+  "legacy_adjacency_test": false,
+  "synthetic_profile": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-dhndh_5h",
+  "checks": [
+    {
+      "name": "legacy_source_unchanged",
+      "pass": true
+    },
+    {
+      "name": "legacy_sentinel_not_imported",
+      "pass": true
+    },
+    {
+      "name": "stable_os_profile_not_created",
+      "pass": true
+    },
+    {
+      "name": "legacy_credentials_not_imported",
+      "pass": true
+    },
+    {
+      "name": "legacy_auto_monitoring_not_imported",
+      "pass": true
+    },
+    {
+      "name": "preview_document_title",
+      "pass": true
+    },
+    {
+      "name": "preview_title_after_reload",
+      "pass": true
+    },
+    {
+      "name": "preview_navigation_after_reload",
+      "pass": true
+    }
+  ],
+  "session_response": {
+    "value": {
+      "sessionId": "d8709774-dca2-4247-86b1-fef380f99f5c",
+      "capabilities": {
+        "browserName": "wry",
+        "browserVersion": "0.55.1",
+        "platformName": "linux",
+        "acceptInsecureCerts": false,
+        "strictFileInteractability": false,
+        "setWindowRect": true,
+        "unhandledPromptBehavior": "dismiss and notify",
+        "pageLoadStrategy": "normal",
+        "proxy": {},
+        "timeouts": {
+          "script": 30000,
+          "pageLoad": 300000,
+          "implicit": 0
+        }
+      }
+    }
+  },
+  "url": {
+    "value": "tauri://localhost"
+  },
+  "title": {
+    "value": "Kieda's Orbiter Preview"
+  },
+  "body": {
+    "value": "WELCOME TO KIEDA'S ORBITER\nLet's get you set up. Pick your language below; the paths are optional and can be configured later in Settings.\n\nGAME LANGUAGE\n\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nThe app reloads to apply your language choice. You can change it anytime in Settings.\nGAME ASSETS(optional)\n\nBROWSE\nPoint to your Warframe Cache.Windows folder to use game assets. Skipping this uses a fallback.\nDISCLAIMER\nThis app reads session tokens from game memory. Digital Extremes has not approved this application.\nI understand and accept the risks described above.\nCONTINUE\n\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nDASHBOARD\n\nLoading worldstate..."
+  },
+  "preview_files": [
+    "xdgdata/com.jacob.kiedasorbiter.preview/hsts-storage.sqlite",
+    "xdgdata/kiedas-orbiter-preview/data/user/settings.json",
+    "xdgdata/kiedas-orbiter-preview/data/user/logs/app-2026-09-05.log",
+    "xdgdata/kiedas-orbiter-preview/data/assets/audio/notification1.wav",
+    "xdgdata/kiedas-orbiter-preview/data/assets/audio/notification2.wav",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/ExportAvionics_fixed.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/ExportUpgrades_fixed.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/acquisition_overrides.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/all-recipe-components.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/browse-wf-glyphs.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/card-overlay-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/collectible-locations.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/cosmetic-catalog-additions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/mod-icon-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/peely-pix-map.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/peely-pix-names.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/riven_good_rolls.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/unmapped-components.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/warframe-items-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-acquisition-status.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-baro-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-blueprints-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-description-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-master-acquisitions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-page-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-prime-relic-drops.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-research-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-resources-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-sigils-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-tennogen-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-vendors-acquisition.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/data/wiki-verified-all-acquisitions.json",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/CambianDrift4kMap.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/Duviri_map_with_caves.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/OrbVallis4kMap-min.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/PlainsofEidolon_4k_Map.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/deimos_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/poe_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/maps/venus_full.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank00Unranked.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank01Initiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank02SilverInitiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank03GoldInitiate.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank04Novice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank05SilverNovice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank06GoldNovice.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank07Disciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank08SilverDisciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank09GoldDisciple.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank10Seeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank11SilverSeeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank12GoldSeeker.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank13Hunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank14SilverHunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank15GoldHunter.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank16Eagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank17SilverEagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank18GoldEagle.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank19Tiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank20SilverTiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank21GoldTiger.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank22Dragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank23SilverDragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank24GoldDragon.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank25Sage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank26SilverSage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank27GoldSage.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank28Master.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank29MiddleMaster.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank30GrandMaster.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank31.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank32.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank33.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank34.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank35.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank36.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank37.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank38.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank39.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank40.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank41.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank42.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank43.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank44.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank45.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank46.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank47.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank48.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank49.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank50.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/mastery-icons/Rank51.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemFass.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemJahu.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemKhra.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemLohk.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemNetra.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemRis.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemVome.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/RequiemXata.png",
+    "xdgdata/kiedas-orbiter-preview/data/assets/ocr/rarity_common.png"
+  ],
+  "packaged_resource_check": {
+    "resolved": true,
+    "matches_installed_bytes": true,
+    "profile_copy_absent": false
+  },
+  "bundle_fallback_check": {
+    "profile_copy_absent": true,
+    "resolved": true,
+    "matches_installed_bytes": true
+  },
+  "remaining_guards": [
+    {
+      "command": "save_debug_screenshot",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "trigger_manual_ocr",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "start_debug_ocr_session",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "show_relic_overlay",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "toggle_sidebar",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "play_notification_sound",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "call_api_helper",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "set_monitoring_active",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "command": "resize_overlay_window",
+      "result": {
+        "error": "Live integrations and market mutations are disabled in this Preview milestone",
+        "ok": false
+      },
+      "pass": true
+    }
+  ],
+  "export_checks": [
+    {
+      "path": "relative.txt",
+      "result": {
+        "error": "Preview export requires an absolute path without parent traversal",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-dhndh_5h/x/../escape.txt",
+      "result": {
+        "error": "Preview export requires an absolute path without parent traversal",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-dhndh_5h/xdgdata/kiedas-orbiter/blocked.txt",
+      "result": {
+        "error": "Preview cannot write into the stable profile",
+        "ok": false
+      },
+      "pass": true
+    },
+    {
+      "path": "/var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-dhndh_5h/stable-alias/blocked.txt",
+      "result": {
+        "error": "Preview cannot write into the stable profile",
+        "ok": false
+      },
+      "pass": true
+    }
+  ],
+  "stable_marker_preserved": true,
+  "extra_import": {
+    "result": {
+      "ok": true,
+      "value": "Imported 4 files. Preview backup: /var/home/jedwards/kiedas-orbiter/.preview-work/native-smoke-dhndh_5h/xdgdata/kiedas-orbiter-preview/data/user/preview-import-backup-1788589188814424918. Reload Preview to use the copy."
+    },
+    "inventory_scrubbed": true,
+    "history_scrubbed": true,
+    "preferences_safe": true
+  },
+  "checklist_hydrated": true,
+  "screen_checks": [
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Dashboard",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Dashboard"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nDASHBOARD\n\nLoading worldstate...",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Inventory",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Inventory"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nINVENTORY\nDISPLAYING 0 / 0 ITEMS\n\nALL\nOWNED\nUNOWNED\nMASTERED\nNAME\nXP\nALL\nWARFRAMES\nWEAPONS\nCOMPANIONS\nCOMPANION WEAPONS\nARCHWEAPONS\nVEHICLES\nAMPS\nARCANES\nPEELY PIX\nCONSUMABLES\nLANDING CRAFT\nRESOURCES\nPRIME SETS\nAYATAN\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Mastery",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Mastery"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMASTERY\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Mods",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Mods"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMODS\n0 TOTAL \u00b7 0 UNIQUE \u00b7 0 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Cosmetics, Decorations, Emotes",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Cosmetics, Decorations, Emotes"
+        ],
+        "text": "ISSINGGlyph\nBaruuk Prime Glyph - Bright\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBaruuk Prime Glyph - Dark\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBast 50 Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBear Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBennyfits Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBig Bytes Pizza Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBigjimid Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBikeman Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBlackoni Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBlood Lotus Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBocchan_vt Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBombastine Community Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBombastine Tennobaum Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBoo Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBrazilian Community Discord Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBriannakane Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBricky Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBrickyorchid8 Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBrozime Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGSkin\nBubonico Daybreak Skin\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBuff00n Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBuried Debts Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBurnbxx Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nButterfly Varna Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBwana Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph I\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph Ii\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph Iii\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph Iv\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCaliban Cranion Glyph - Bright\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCaliban Cranion Glyph - Dark\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCaliban Glyph - Bright\nACQUISITION\nLOAD MORE (1135 REMAINING)",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Collectibles",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Collectibles"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nCOLLECTIBLES\n\nKuria\n\nLost Islands of Duviri\n\nIsleweaver Fragments\n\nPlains of Eidolon Caves\nui.collectibles.subtitle_areas\n0 / 12\n\nOrb Vallis Caves\nui.collectibles.subtitle_caves\n0 / 30\n\nFortuna\nui.collectibles.subtitle_areas\n0 / 1\n\nNecralisk\nui.collectibles.subtitle_areas\n0 / 1\n\nSomachord Tunes\n\nFrame Fighter Fragments\n\nCephalon Fragments\n\nLeverian Prex Cards\n\nThousand-Year Fish\n\nEncrypted Journal Fragments\n\nGlass Shard Fragments\n\nFortuna Fragments\n\nAlbrecht's Notes\n\nNakak Memory Fragments\n\nThe Tenets\n\nPartnership Fragments\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Foundry",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Foundry"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nFOUNDRY\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Relics",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Relics"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nVOID RELICS\nSHOWING 0 RELIC TYPES \u00b7 0 TOTAL\n\nALL\nOWNED\nUNOWNED\nSQUAD\n1\n2\n3\n4\nTARGET\nI\nE\nF\nR\nERA:\nALL\nREFINEMENT:\nALL\nINTACT\nREFINED\nEXCEPTIONAL\nFLAWLESS\nRADIANT\nVAULT\nALL\nVAULTED\nUNVAULTED\nSORT:\nNAME\nDUCATS\nPLAT\nREFINE (D)\nREFINE (P)\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Relic Planner",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Relic Planner"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nRELIC PLANNER\nFIND WHICH RELICS GIVE YOU A PART YOU NEED\nPRIME PARTS\n0\nSELECTED\n0\nOWNED MATCHES\n0/0\nPRIME PARTS\n0 owned\n\nALL\nNEVER OBTAINED\nMISSING\nNEED LIST\n0 selected\nAdd parts from the left to search relics for them.\nClear\nAdd All Missing Parts\nAdd Never Obtained\nBEST RELICS\nALL\nOWNED\nUNOWNED\nAdd parts from the left to search relics for them.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Prime Resurgence",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Prime Resurgence"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nPRIME RESURGENCE\nRotation data is not available yet.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Market",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Market"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMarket & Trading Hub\nWarframe.Market v2\nManage live listings, evaluate Ducat vs. Platinum trade-offs, and sell stock directly.\nSync Listings\nOpen Website\nWarframe.Market Token Required\nTo view active listings, update prices, or sell items with 1-click, configure your JWT cookie in Settings.\nGo to Settings\nPotential Earnings\n0\nplat\nActive Orders\n0 listings\nVisibility\n0 visible / 0 hidden\nTradeable Inventory\n0 items\nActive Orders (0)\nTradeable Stock (0)\nAll (0)\nSell (0)\nBuy (0)\nHidden (0)\n\nNo active orders found\nYou have no active orders matching this filter on Warframe.Market.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Rivens",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Rivens"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nRIVEN MODS\n0 UNVEILED \u00b7 0 CHALLENGE \u00b7 0 VEILED \u00b7 0/0 CAPACITY\n\nALL STATES\nUNVEILED\nCHALLENGE\nVEILED\nNAME\nPLAT\nGRADE\nALL\nRIFLE\nPISTOL\nMELEE\nSHOTGUN\nSNIPER\nKITGUN\nZAW\nARCHGUN\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "History",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "History"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nINVENTORY HISTORY\nCREDIT\nPLATINUM\nENDO\nDUCATS\nMODS\nITEMS\n\nJan 1\nSep 5\nSep 5\nLAST 24 HOURS\nLAST WEEK\n1 MONTH\n1 YEAR\nALL TIME\nSUMMARY FOR SELECTED TIMESPAN\n\nNo changes in this period",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Adversaries",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Adversaries"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nADVERSARIES\nPROGENITOR ELEMENTS\n\n\nIMPACT\nBaruuk\nDante\nGauss\nGrendel\nRhino\nSevagoth\nSirius & Orion\nWukong\nZephyr\n\nHEAT\nChroma\nEmber\nInaros\nJade\nKullervo\nNezha\nProtea\nTemple\nUriel\nVauban\nWisp\n\nCOLD\nFrost\nGara\nHildryn\nKoumei\nRevenant\nStyanax\nTitania\nTrinity\n\nELECTRICITY\nBanshee\nCaliban\nExcalibur\nFollie\nGyre\nLimbo\nNova\nValkyr\nVolt\n\nTOXIN\nAtlas\nDagath\nIvara\nKhora\nNekros\nNidus\nNokko\nOberon\nOraxia\nSaryn\n\nMAGNETIC\nCitrine\nCyte-09\nHarrow\nHydroid\nLavos\nMag\nMesa\nXaku\nYareli\n\nRADIATION\nAsh\nEquinox\nGaruda\nLoki\nMirage\nNyx\nOctavia\nQorvex\nVoruna\nNEMESIS HISTORY (0 EVIDENCED CONVERTED)\nShow vanquished\nNo nemeses recorded.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Maps",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Maps"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMAPS\nPLAINS OF EIDOLON\nORB VALLIS\nCAMBION DRIFT\nDUVIRI\n100%\n\n\nReset view\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Wiki",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Wiki"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nWIKI\nNew tab\n\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Notes",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Notes"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nNOTES\nWelcome\n\n\n\nWelcome\nSaved\n\n\n\nBlock type\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome to Kieda's Orbiter\n\nThis is a showcase of the Notes feature. You can use this space to either write your own notes or import guides from elsewhere.\n\nBasic text formatting like bold, italic, underscore\n\nBulletpoint lists\nNumbered lists\nCheckmarks\ninline code\n\n\n\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Checklist",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Checklist"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nCHECKLIST\nTRACK DAILY AND WEEKLY ACTIVITIES\n\nTasks\nAuto-track (WIP)\n0/34\n\nBaro Ki'Teer\nTrader\nNow\n\n\nNightwave Season\nSeason\nNow\n\n\nGrandmother's Tokens\n8h\n1h 40m\n\n\nYonta: Daily Voidplumes\n8h\n1h 40m\n\n\nLoid: Voca\n8h\n1h 40m\n\n\nSortie\nDaily\n17h 40m\n\n\nCheck Foundry\nDaily\n17h 40m\n\n\nSyndicate Standing\nDaily\n17h 40m\n\n\nDaily Focus Cap\nDaily\n17h 40m\n\n\nSP Incursions\nDaily\n17h 40m\n\n\nAcrithis Daily\nDaily\n17h 40m\n\n\nTicker's Railjack Crew\nDaily\n17h 40m\n\n\nMarie's Shop\nDaily\n17h 40m\n\n\nNightwave Weekly Missions\nWeekly\n1d 17h\n\n\nNightwave Cred Offerings\nWeekly\n1d 17h\n\n\nMaroo's Ayatan Hunt\nWeekly\n1d 17h\n\n\nHelp Clem\nWeekly\n1d 17h\n\n\nHelp Kahl: Break Narmer\nWeekly\n1d 17h\n\n\nArchon Hunt\nWeekly\n1d 17h\n\n\nDuviri Circuit\nWeekly\n1d 17h\n\n\nDuviri Circuit SP\nWeekly\n1d 17h\n\n\nPulses: Netracell & Archimedea\nWeekly\n1d 17h\n\n\n1999 Calendar\nWeekly\n1d 17h\n\n\nHelminth Invigoration\nWeekly\n1d 17h\n\n\nDescendia\nWeekly\n1d 17h\n\n\nDescendia SP\nWeekly\n1d 17h\n\n\nPalladino's Shop\nWeekly\n1d 17h\n\n\nYonta: Weekly Shop\nWeekly\n1d 17h\n\n\nAcrithis Weekly\nWeekly\n1d 17h\n\n\nTeshin Shop\nWeekly\n1d 17h\n\n\nBird 3 Shop\nWeekly\n1d 17h\n\n\nNightcap Shop\nWeekly\n1d 17h\n\n\nErgo Glast: Tenet Melee\n11:00 UTC\n3d 17h\n\n\nEleanor's Shop (1999)\n8 Days\n3d 17h\n\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "Settings",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "Settings"
+        ],
+        "text": " 100% FOR DEFAULT)\n%\nNOTIFICATION MONITOR\n\nIn-game overlays always follow Warframe's monitor. This setting only controls notification pop-ups.\n\n\nSPAWN ON ACTIVE MONITOR\nFollows whichever monitor has focus (e.g. Warframe while playing)\n\nSPAWN ON MONITOR:\n\n\nNOTIFICATION TRIGGERS\n\nNo notifications configured. Add one below.\n\nSESSION LOG\nGAME LANGUAGE\nITEM NAMES AND DESCRIPTIONS IN YOUR LANGUAGE (RELOADS EXPORTS)\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nHELP & DIAGNOSTICS\nQUICK REFERENCE FOR SHORTCUTS, FEATURES, AND ONE-CLICK BUG REPORTING\nFEATURE GUIDE\nREPORT ISSUE\nCREATE MISSING ACQUISITION REPORT\nIN-GAME SIDEBAR\nINTERACTIVE OVERLAY FOR MODS, RIVENS, AND INVENTORY\nSLIDE-IN SIDE\n\nLEFT SIDE\nRIGHT SIDE\nSIDEBAR WIDTH\n\n\nCOMPACT\n380PX\n\nDEFAULT\n480PX\n\nWIDE\n640PX\n\nFULL\n800PX\n\nHide sidebar when alt-tabbing\nGLOBAL HOTKEYS\nSYSTEM-WIDE SHORTCUTS - WORKS EVEN WHILE WARFRAME IS FOCUSED. SET A KEY FOR \"TOGGLE INGAME MENU\" BELOW TO OPEN THIS APP'S OVERLAY SIDEBAR ON TOP OF THE GAME.\nACTION\n\n\nSHORTCUT\n\nNone\n\nACTION\n\n\nSHORTCUT\n\nNone\n\n\nADD NEW SHORTCUT\nNOTE: SHORTCUTS ARE GLOBAL AND WILL WORK EVEN WHEN THE APP IS IN THE BACKGROUND. USE COMBINATIONS LIKE CTRL+SHIFT+KEY TO AVOID CONFLICTS.\nSAFE MODE TRACKING\nRead from Warframe's EE.log instead of memory scanning.\n\nCustom EE.log Path (Optional)\nKieda's Orbiter automatically finds EE.log on Windows and Steam Deck (Proton). Set this ONLY if you have a non-standard Wine/Proton setup.\n\n\nWARFRAME.MARKET\nConfigure your API token to enable 1-Click Trading.\nAPI Token (JWT)\nRequired for 1-Click Trading from the Inventory tab. To get your JWT token: open Warframe.Market in your browser, press F12 for Developer Tools, go to Application > Cookies, and copy the value of the JWT cookie.\n\n\nUPDATES\nVERSION1.3.3\n\nCheck on startup\nCHECK FOR UPDATES\nPRICE CACHE\nMARKET PRICES\nPlat values for mods and prime parts are cached locally with a 24-hour TTL.\nNot fetched yet.\nREFRESH PRICES",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        1200,
+        800
+      ],
+      "label": "About",
+      "state": {
+        "height": 800,
+        "width": 1200,
+        "active": [
+          "About"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nABOUT\n\nKieda's Orbiter\nv1.3.3 - Open source Warframe companion\nTrack your inventory, relics, rivens and mastery alongside a live worldstate with timers, fissures, arbitrations and more.\n\nKieda's Orbiter is a fork of Cephalon Kronos by glowseeker, used under the MIT License. See the Credits section below and the project's LICENSE file for full attribution.\n\nGitHub\nCREDITS\n\n\u2022\nRHPestilence- App icon, commissioned artwork (Ko-fi, Etsy shop, X/Twitter)\n\u2022\nglowseeker/cephalon-kronos- Kieda's Orbiter is a fork of Cephalon Kronos, used under the MIT License (see LICENSE)\n\u2022\ncalamity-inc- browse.wf & warframe-public-export-plus\n\u2022\nrelics.run- Daily price history / market engine data\n\u2022\nSainan/warframe-api-helper- Template for session token extraction\n\u2022\nWFCD/warframe-items- warframe-items dataset (names, descriptions, images)\n\u2022\nwarframetools.com- Checklist inspiration\n\u2022\nWarframe Wiki- Game information reference\n\u2022\ncjtho/WarframeRivenPricer- Riven pricing with Neural Network\nImportant Disclaimer\n\nThis app reads Warframe's game memory directly to fetch session tokens and other in-game information.\n\nDigital Extremes has not explicitly approved this application and has no affiliation with it.\nThe app merely reads memory; it never modifies it or game files.\nUse at your own risk.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Dashboard",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Dashboard"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nDASHBOARD\n\nLoading worldstate...",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Inventory",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Inventory"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nINVENTORY\nDISPLAYING 0 / 0 ITEMS\n\nALL\nOWNED\nUNOWNED\nMASTERED\nNAME\nXP\nALL\nWARFRAMES\nWEAPONS\nCOMPANIONS\nCOMPANION WEAPONS\nARCHWEAPONS\nVEHICLES\nAMPS\nARCANES\nPEELY PIX\nCONSUMABLES\nLANDING CRAFT\nRESOURCES\nPRIME SETS\nAYATAN\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Mastery",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Mastery"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMASTERY\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Mods",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Mods"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMODS\n0 TOTAL \u00b7 0 UNIQUE \u00b7 0 DUPLICATE\n\nNAME\nRANK\nCOUNT\nRARITY\nVALUE (MAXED)\nALL\nOWNED\nUNOWNED\nMAX RANK\nHIDE CONCLAVE\nALL\nWARFRAME\nPRIMARY\nSECONDARY\nMELEE\nSENTINELS\nROBOTIC\nBEASTS\nSTANCE\nAURA\nEXILUS\nRAILJACK\nARCHGUN\nARCHMELEE\nPARAZON\nAUGMENT\nANTIQUE\nTOME\nVEHICLES\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Cosmetics, Decorations, Emotes",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Cosmetics, Decorations, Emotes"
+        ],
+        "text": "ISSINGGlyph\nBaruuk Prime Glyph - Bright\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBaruuk Prime Glyph - Dark\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBast 50 Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBear Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBennyfits Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBig Bytes Pizza Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBigjimid Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBikeman Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBlackoni Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBlood Lotus Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBocchan_vt Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBombastine Community Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBombastine Tennobaum Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBoo Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBrazilian Community Discord Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBriannakane Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBricky Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBrickyorchid8 Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBrozime Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGSkin\nBubonico Daybreak Skin\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBuff00n Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBuried Debts Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBurnbxx Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nButterfly Varna Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nBwana Glyph\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph I\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph Ii\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph Iii\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCalavera Glyph Iv\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCaliban Cranion Glyph - Bright\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCaliban Cranion Glyph - Dark\nACQUISITION\nIMAGE UNAVAILABLE\nMISSINGGlyph\nCaliban Glyph - Bright\nACQUISITION\nLOAD MORE (1135 REMAINING)",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Collectibles",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Collectibles"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nCOLLECTIBLES\n\nKuria\n\nLost Islands of Duviri\n\nIsleweaver Fragments\n\nPlains of Eidolon Caves\nui.collectibles.subtitle_areas\n0 / 12\n\nOrb Vallis Caves\nui.collectibles.subtitle_caves\n0 / 30\n\nFortuna\nui.collectibles.subtitle_areas\n0 / 1\n\nNecralisk\nui.collectibles.subtitle_areas\n0 / 1\n\nSomachord Tunes\n\nFrame Fighter Fragments\n\nCephalon Fragments\n\nLeverian Prex Cards\n\nThousand-Year Fish\n\nEncrypted Journal Fragments\n\nGlass Shard Fragments\n\nFortuna Fragments\n\nAlbrecht's Notes\n\nNakak Memory Fragments\n\nThe Tenets\n\nPartnership Fragments\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Foundry",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Foundry"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nFOUNDRY\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Relics",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Relics"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nVOID RELICS\nSHOWING 0 RELIC TYPES \u00b7 0 TOTAL\n\nALL\nOWNED\nUNOWNED\nSQUAD\n1\n2\n3\n4\nTARGET\nI\nE\nF\nR\nERA:\nALL\nREFINEMENT:\nALL\nINTACT\nREFINED\nEXCEPTIONAL\nFLAWLESS\nRADIANT\nVAULT\nALL\nVAULTED\nUNVAULTED\nSORT:\nNAME\nDUCATS\nPLAT\nREFINE (D)\nREFINE (P)\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Relic Planner",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Relic Planner"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nRELIC PLANNER\nFIND WHICH RELICS GIVE YOU A PART YOU NEED\nPRIME PARTS\n0\nSELECTED\n0\nOWNED MATCHES\n0/0\nPRIME PARTS\n0 owned\n\nALL\nNEVER OBTAINED\nMISSING\nNEED LIST\n0 selected\nAdd parts from the left to search relics for them.\nClear\nAdd All Missing Parts\nAdd Never Obtained\nBEST RELICS\nALL\nOWNED\nUNOWNED\nAdd parts from the left to search relics for them.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Prime Resurgence",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Prime Resurgence"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nPRIME RESURGENCE\nRotation data is not available yet.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Market",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Market"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMarket & Trading Hub\nWarframe.Market v2\nManage live listings, evaluate Ducat vs. Platinum trade-offs, and sell stock directly.\nSync Listings\nOpen Website\nWarframe.Market Token Required\nTo view active listings, update prices, or sell items with 1-click, configure your JWT cookie in Settings.\nGo to Settings\nPotential Earnings\n0\nplat\nActive Orders\n0 listings\nVisibility\n0 visible / 0 hidden\nTradeable Inventory\n0 items\nActive Orders (0)\nTradeable Stock (0)\nAll (0)\nSell (0)\nBuy (0)\nHidden (0)\n\nNo active orders found\nYou have no active orders matching this filter on Warframe.Market.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Rivens",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Rivens"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nRIVEN MODS\n0 UNVEILED \u00b7 0 CHALLENGE \u00b7 0 VEILED \u00b7 0/0 CAPACITY\n\nALL STATES\nUNVEILED\nCHALLENGE\nVEILED\nNAME\nPLAT\nGRADE\nALL\nRIFLE\nPISTOL\nMELEE\nSHOTGUN\nSNIPER\nKITGUN\nZAW\nARCHGUN\nNO INVENTORY DATA FOUND.\nSYNC YOUR INVENTORY TO VIEW YOUR COLLECTION AND PROGRESS.\n\nGO TO SETTINGS TO START SYNC",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "History",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "History"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nINVENTORY HISTORY\nCREDIT\nPLATINUM\nENDO\nDUCATS\nMODS\nITEMS\n\nJan 1\nSep 5\nSep 5\nLAST 24 HOURS\nLAST WEEK\n1 MONTH\n1 YEAR\nALL TIME\nSUMMARY FOR SELECTED TIMESPAN\n\nNo changes in this period",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Adversaries",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Adversaries"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nADVERSARIES\nPROGENITOR ELEMENTS\n\n\nIMPACT\nBaruuk\nDante\nGauss\nGrendel\nRhino\nSevagoth\nSirius & Orion\nWukong\nZephyr\n\nHEAT\nChroma\nEmber\nInaros\nJade\nKullervo\nNezha\nProtea\nTemple\nUriel\nVauban\nWisp\n\nCOLD\nFrost\nGara\nHildryn\nKoumei\nRevenant\nStyanax\nTitania\nTrinity\n\nELECTRICITY\nBanshee\nCaliban\nExcalibur\nFollie\nGyre\nLimbo\nNova\nValkyr\nVolt\n\nTOXIN\nAtlas\nDagath\nIvara\nKhora\nNekros\nNidus\nNokko\nOberon\nOraxia\nSaryn\n\nMAGNETIC\nCitrine\nCyte-09\nHarrow\nHydroid\nLavos\nMag\nMesa\nXaku\nYareli\n\nRADIATION\nAsh\nEquinox\nGaruda\nLoki\nMirage\nNyx\nOctavia\nQorvex\nVoruna\nNEMESIS HISTORY (0 EVIDENCED CONVERTED)\nShow vanquished\nNo nemeses recorded.",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Maps",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Maps"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nMAPS\nPLAINS OF EIDOLON\nORB VALLIS\nCAMBION DRIFT\nDUVIRI\n8%\n\n\nReset view\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Wiki",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Wiki"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nWIKI\nNew tab\n\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Notes",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Notes"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nNOTES\nWelcome\n\n\n\nWelcome\nSaved\n\n\n\nParagraph\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome to Kieda's Orbiter\n\nThis is a showcase of the Notes feature. You can use this space to either write your own notes or import guides from elsewhere.\n\nBasic text formatting like bold, italic, underscore\n\nBulletpoint lists\nNumbered lists\nCheckmarks\ninline code\n\n\t\t\t\n\nSupport for tables\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Checklist",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Checklist"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nCHECKLIST\nTRACK DAILY AND WEEKLY ACTIVITIES\n\nTasks\nAuto-track (WIP)\n0/34\n\nBaro Ki'Teer\nTrader\nNow\n\n\nNightwave Season\nSeason\nNow\n\n\nGrandmother's Tokens\n8h\n1h 39m\n\n\nYonta: Daily Voidplumes\n8h\n1h 39m\n\n\nLoid: Voca\n8h\n1h 39m\n\n\nSortie\nDaily\n17h 39m\n\n\nCheck Foundry\nDaily\n17h 39m\n\n\nSyndicate Standing\nDaily\n17h 39m\n\n\nDaily Focus Cap\nDaily\n17h 39m\n\n\nSP Incursions\nDaily\n17h 39m\n\n\nAcrithis Daily\nDaily\n17h 39m\n\n\nTicker's Railjack Crew\nDaily\n17h 39m\n\n\nMarie's Shop\nDaily\n17h 39m\n\n\nNightwave Weekly Missions\nWeekly\n1d 17h\n\n\nNightwave Cred Offerings\nWeekly\n1d 17h\n\n\nMaroo's Ayatan Hunt\nWeekly\n1d 17h\n\n\nHelp Clem\nWeekly\n1d 17h\n\n\nHelp Kahl: Break Narmer\nWeekly\n1d 17h\n\n\nArchon Hunt\nWeekly\n1d 17h\n\n\nDuviri Circuit\nWeekly\n1d 17h\n\n\nDuviri Circuit SP\nWeekly\n1d 17h\n\n\nPulses: Netracell & Archimedea\nWeekly\n1d 17h\n\n\n1999 Calendar\nWeekly\n1d 17h\n\n\nHelminth Invigoration\nWeekly\n1d 17h\n\n\nDescendia\nWeekly\n1d 17h\n\n\nDescendia SP\nWeekly\n1d 17h\n\n\nPalladino's Shop\nWeekly\n1d 17h\n\n\nYonta: Weekly Shop\nWeekly\n1d 17h\n\n\nAcrithis Weekly\nWeekly\n1d 17h\n\n\nTeshin Shop\nWeekly\n1d 17h\n\n\nBird 3 Shop\nWeekly\n1d 17h\n\n\nNightcap Shop\nWeekly\n1d 17h\n\n\nErgo Glast: Tenet Melee\n11:00 UTC\n3d 17h\n\n\nEleanor's Shop (1999)\n8 Days\n3d 17h\n\n",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "Settings",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "Settings"
+        ],
+        "text": " 100% FOR DEFAULT)\n%\nNOTIFICATION MONITOR\n\nIn-game overlays always follow Warframe's monitor. This setting only controls notification pop-ups.\n\n\nSPAWN ON ACTIVE MONITOR\nFollows whichever monitor has focus (e.g. Warframe while playing)\n\nSPAWN ON MONITOR:\n\n\nNOTIFICATION TRIGGERS\n\nNo notifications configured. Add one below.\n\nSESSION LOG\nGAME LANGUAGE\nITEM NAMES AND DESCRIPTIONS IN YOUR LANGUAGE (RELOADS EXPORTS)\n\nENGLISH\n\nDEUTSCH\n\nFRAN\u00c7AIS\n\nESPA\u00d1OL\n\nITALIANO\n\nPORTUGU\u00caS\n\n\u0420\u0423\u0421\u0421\u041a\u0418\u0419\n\nPOLSKI\n\n\u4e2d\u6587\n\n\ud55c\uad6d\uc5b4\n\n\u65e5\u672c\u8a9e\n\n\u7e41\u9ad4\u4e2d\u6587\n\n\u0e44\u0e17\u0e22\n\nT\u00dcRK\u00c7E\n\n\u0423\u041a\u0420\u0410\u0407\u041d\u0421\u042c\u041a\u0410\nHELP & DIAGNOSTICS\nQUICK REFERENCE FOR SHORTCUTS, FEATURES, AND ONE-CLICK BUG REPORTING\nFEATURE GUIDE\nREPORT ISSUE\nCREATE MISSING ACQUISITION REPORT\nIN-GAME SIDEBAR\nINTERACTIVE OVERLAY FOR MODS, RIVENS, AND INVENTORY\nSLIDE-IN SIDE\n\nLEFT SIDE\nRIGHT SIDE\nSIDEBAR WIDTH\n\n\nCOMPACT\n380PX\n\nDEFAULT\n480PX\n\nWIDE\n640PX\n\nFULL\n800PX\n\nHide sidebar when alt-tabbing\nGLOBAL HOTKEYS\nSYSTEM-WIDE SHORTCUTS - WORKS EVEN WHILE WARFRAME IS FOCUSED. SET A KEY FOR \"TOGGLE INGAME MENU\" BELOW TO OPEN THIS APP'S OVERLAY SIDEBAR ON TOP OF THE GAME.\nACTION\n\n\nSHORTCUT\n\nNone\n\nACTION\n\n\nSHORTCUT\n\nNone\n\n\nADD NEW SHORTCUT\nNOTE: SHORTCUTS ARE GLOBAL AND WILL WORK EVEN WHEN THE APP IS IN THE BACKGROUND. USE COMBINATIONS LIKE CTRL+SHIFT+KEY TO AVOID CONFLICTS.\nSAFE MODE TRACKING\nRead from Warframe's EE.log instead of memory scanning.\n\nCustom EE.log Path (Optional)\nKieda's Orbiter automatically finds EE.log on Windows and Steam Deck (Proton). Set this ONLY if you have a non-standard Wine/Proton setup.\n\n\nWARFRAME.MARKET\nConfigure your API token to enable 1-Click Trading.\nAPI Token (JWT)\nRequired for 1-Click Trading from the Inventory tab. To get your JWT token: open Warframe.Market in your browser, press F12 for Developer Tools, go to Application > Cookies, and copy the value of the JWT cookie.\n\n\nUPDATES\nVERSION1.3.3\n\nCheck on startup\nCHECK FOR UPDATES\nPRICE CACHE\nMARKET PRICES\nPlat values for mods and prime parts are cached locally with a 24-hour TTL.\nNot fetched yet.\nREFRESH PRICES",
+        "overflow": false
+      },
+      "pass": true
+    },
+    {
+      "requested_size": [
+        900,
+        500
+      ],
+      "label": "About",
+      "state": {
+        "height": 500,
+        "width": 900,
+        "active": [
+          "About"
+        ],
+        "text": "\nKieda's Orbiter\nPREVIEW\nIsolated profile \u00b7 Live integrations and app updates disabled\nTODAY\n\nDashboard\n\nCOLLECTION\n\nInventory\n\n\nMastery\n\n\nMods\n\n\nCosmetics, Decorations, Emotes\n\n\nCollectibles\n\nPLANNING\n\nFoundry\n\n\nRelics\n\n\nRelic Planner\n\n\nPrime Resurgence\n\nTRADING\n\nMarket\n\n\nRivens\n\nJOURNAL & TOOLS\n\nHistory\n\n\nAdversaries\n\n\nMaps\n\n\nWiki\n\n\nNotes\n\n\nChecklist\n\nAPPLICATION\n\nSettings\n\n\nAbout\n\nImport a profile copy\nABOUT\n\nKieda's Orbiter\nv1.3.3 - Open source Warframe companion\nTrack your inventory, relics, rivens and mastery alongside a live worldstate with timers, fissures, arbitrations and more.\n\nKieda's Orbiter is a fork of Cephalon Kronos by glowseeker, used under the MIT License. See the Credits section below and the project's LICENSE file for full attribution.\n\nGitHub\nCREDITS\n\n\u2022\nRHPestilence- App icon, commissioned artwork (Ko-fi, Etsy shop, X/Twitter)\n\u2022\nglowseeker/cephalon-kronos- Kieda's Orbiter is a fork of Cephalon Kronos, used under the MIT License (see LICENSE)\n\u2022\ncalamity-inc- browse.wf & warframe-public-export-plus\n\u2022\nrelics.run- Daily price history / market engine data\n\u2022\nSainan/warframe-api-helper- Template for session token extraction\n\u2022\nWFCD/warframe-items- warframe-items dataset (names, descriptions, images)\n\u2022\nwarframetools.com- Checklist inspiration\n\u2022\nWarframe Wiki- Game information reference\n\u2022\ncjtho/WarframeRivenPricer- Riven pricing with Neural Network\nImportant Disclaimer\n\nThis app reads Warframe's game memory directly to fetch session tokens and other in-game information.\n\nDigital Extremes has not explicitly approved this application and has no affiliation with it.\nThe app merely reads memory; it never modifies it or game files.\nUse at your own risk.",
+        "overflow": false
+      },
+      "pass": true
+    }
+  ],
+  "tab_reaches_pin": true,
+  "enter_pins_dashboard": true,
+  "import_dialog_open": true,
+  "escape_closes_import": true,
+  "removal": {
+    "exit": 0,
+    "executable_absent": true,
+    "synthetic_profile_retained": true
+  }
+}

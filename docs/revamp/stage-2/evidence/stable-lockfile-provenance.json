@@ -1,0 +1,8 @@
+{
+  "baseline": "f30ea7e9f7fe1f12406257018a2a8cff8c21158d",
+  "lockfile_source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src-tauri/Cargo.lock",
+  "lockfile_destination": "/var/home/jedwards/kiedas-orbiter/.preview-work/stable-baseline/src-tauri/Cargo.lock",
+  "sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "user_approved": true,
+  "historical_release_reconstruction": false
+}

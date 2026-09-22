@@ -1,0 +1,164 @@
+{
+  "timestamp": "2026-09-05T22:33:44.284112+00:00",
+  "source": "/var/home/jedwards/kiedas-orbiter/.preview-work/stage2/src/screens/Dashboard.jsx",
+  "sha256": "b200860d216d39e699fb693e1a31db249efca5c2650e9ced7770b0e8892a0bb6",
+  "tier": "static source occurrences; repeated/dynamic controls are not individual runtime test passes",
+  "entries": [
+    {
+      "line": 1002,
+      "source": "onClick={() => goToMonth(idx)}"
+    },
+    {
+      "line": 1039,
+      "source": "onClick={() => setSelected1999Day(allDays.indexOf(dayData))}"
+    },
+    {
+      "line": 1196,
+      "source": "<Modal"
+    },
+    {
+      "line": 1210,
+      "source": "onClick={() => setExpandedWeek(isExpanded ? -1 : setIdx)}"
+    },
+    {
+      "line": 1292,
+      "source": "onClick={() => setShowBaroModal(true)}"
+    },
+    {
+      "line": 1331,
+      "source": "<Modal"
+    },
+    {
+      "line": 1437,
+      "source": "<Modal"
+    },
+    {
+      "line": 1577,
+      "source": "<Button variant=\"ghost\" onClick={handleRefresh} disabled={loading} className=\"h-12 w-12 !p-0 !px-0 !py-0\">"
+    },
+    {
+      "line": 1596,
+      "source": "onClick={() => setShowSettings(!showSettings)}"
+    },
+    {
+      "line": 1610,
+      "source": "<button onClick={() => setShowSettings(false)} className=\"text-kronos-dim hover:text-white\"><X size={14} /></button>"
+    },
+    {
+      "line": 1638,
+      "source": "checked={isVisible(card.id)}"
+    },
+    {
+      "line": 1639,
+      "source": "onChange={() => toggleCard(card.id)}"
+    },
+    {
+      "line": 1655,
+      "source": "onClick={handleRefresh}"
+    },
+    {
+      "line": 1670,
+      "source": "{isVisible('bounty') &&"
+    },
+    {
+      "line": 1674,
+      "source": "<Tabs tabs={bountyTabs} activeTab={bountyTab} onChange={setBountyTab} className=\"mb-2\" fullWidth />"
+    },
+    {
+      "line": 1681,
+      "source": "{isVisible('nightwave') &&"
+    },
+    {
+      "line": 1692,
+      "source": "{isVisible('alerts') && renderAlerts()}"
+    },
+    {
+      "line": 1695,
+      "source": "{isVisible('timers') && timers.length > 0 &&"
+    },
+    {
+      "line": 1710,
+      "source": "{isVisible('baro') && renderBaro()}"
+    },
+    {
+      "line": 1713,
+      "source": "{isVisible('arb') &&"
+    },
+    {
+      "line": 1775,
+      "source": "{isVisible('deal') && worldstate?.dailyDeals?.[0] && (() => {"
+    },
+    {
+      "line": 1836,
+      "source": "{isVisible('sales') && worldstate?.flashSales?.length > 0 &&"
+    },
+    {
+      "line": 1844,
+      "source": "onClick={() => setShowWishlistModal(true)}"
+    },
+    {
+      "line": 1890,
+      "source": "{isVisible('event') && renderEvents()}"
+    },
+    {
+      "line": 1892,
+      "source": "{isVisible('inf') &&"
+    },
+    {
+      "line": 1895,
+      "source": "{isVisible('inf') && renderSPIncursions()}"
+    },
+    {
+      "line": 1900,
+      "source": "{isVisible('sortie') && worldstate?.sortie &&"
+    },
+    {
+      "line": 1917,
+      "source": "{isVisible('hunt') && worldstate?.archonHunt &&"
+    },
+    {
+      "line": 1960,
+      "source": "{isVisible('arch') &&"
+    },
+    {
+      "line": 1963,
+      "source": "<Tabs tabs={archimedeaTabs} activeTab={archimedeaTab} onChange={setArchimedeaTab} className=\"mb-2\" fullWidth />"
+    },
+    {
+      "line": 1969,
+      "source": "{isVisible('desc') &&"
+    },
+    {
+      "line": 1976,
+      "source": "onClick={() => setShowDescendiaModal(true)}"
+    },
+    {
+      "line": 1992,
+      "source": "{isVisible('circuit') &&"
+    },
+    {
+      "line": 2000,
+      "source": "{isVisible('1999') &&"
+    },
+    {
+      "line": 2008,
+      "source": "{isVisible('fiss') &&"
+    },
+    {
+      "line": 2011,
+      "source": "<Tabs tabs={fissureTabs} activeTab={fissureTab} onChange={setFissureTab} className=\"mb-2\" fullWidth />"
+    },
+    {
+      "line": 2027,
+      "source": "{isVisible('inv') && worldstate?.invasions?.length > 0 &&"
+    },
+    {
+      "line": 2108,
+      "source": "{isVisible('news') && worldstate?.news &&"
+    },
+    {
+      "line": 2116,
+      "source": "onClick={() => {invoke('open_url', { url: item.link }).catch(console.error);}}"
+    }
+  ]
+}

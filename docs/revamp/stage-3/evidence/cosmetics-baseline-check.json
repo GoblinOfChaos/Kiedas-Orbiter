@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-09-06T05:42:37.256935+00:00",
+  "stage3d_cumulative_patch_sha256": "c310020e92401cd036e1f46dcb8a7c02160d27e813f36a569c93abf1f5f0ec93",
+  "cosmetics_incremental_patch_sha256": "31bee63875d3126e7a85676b1876809b25098cacb9e1d9d2b0c2e3fae99e191d",
+  "cumulative_patch_sha256": "aaaaa8bac2d19ae8cb61ebc576c87744caced8595e95483cabc71fd61602f431",
+  "cumulative_apply_check_exit": 0,
+  "tracked_files_checked": 850,
+  "mismatches": [],
+  "app_lockfile_sha256": "e8508bffd0423001766a5e3fe2fe81a814d79795b7cfb13189fc3dfc2a2e31c1",
+  "app_lockfile_unchanged": true,
+  "source_preservation": {
+    "before_sha256": "39e6ac70c275d3e2713fcfcf46463f1f009376ba31c31db4a90d09223ca76f3e",
+    "after_sha256": "1dea6a35477e952d2d6ea27e0d48d6616b80d5885706cfbc98cf32e54f1a3b45",
+    "preview_layout_sha256": "5ca0500805cff9d82d5050049d2f2b16453592bebb8ab372cc011d91a13c2d5a",
+    "stable_source_restores_exactly_after_removing_approved_preview_regions": true,
+    "catalog_ownership_classifier_image_filter_sort_pagination_acquisition_unchanged": true,
+    "approved_regions": [
+      "Preview imports",
+      "Preview-only layout attributes/classes",
+      "Preview pass-through wrapper"
+    ],
+    "source_files_changed": [
+      "src/screens/Cosmetics.jsx",
+      "src/components/PreviewCosmeticsLayout.jsx"
+    ]
+  },
+  "artifact_count": 4,
+  "component_checks": 101,
+  "stable_exact_markup_comparisons": 6,
+  "packaged_checks_per_artifact": 45,
+  "gate": "Stage 3E implemented and validated; awaiting user acceptance"
+}

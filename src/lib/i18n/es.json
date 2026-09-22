@@ -1509,5 +1509,22 @@
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "Mercado"
+  "nav.market": "Mercado",
+  "acquisitionTemplates": {
+    "tpl_0000": "Los glifos de creador especiales de Warframe se crean regularmente para varios creadores de contenido de la comunidad de Warframe. Aunque algunos solo los entregan los creadores personalmente, muchos se implementan con códigos promocionales universales que cualquier jugador puede canjear libremente. Los glifos de creador conocidos se enumeran a continuación - ¡haz clic en el enlace debajo de un glifo para canjearlo! Nota: Esta lista está definitivamente incompleta y puede contener imprecisiones. Los glifos de creador se añaden, actualizan, reemplazan y desactivan con regularidad, y algunos códigos de glifos existentes ni siquiera son conocidos por la comunidad en general. Por favor, actualiza la lista si notas que algo no está bien.",
+    "tpl_0001": "Comprado en el Market por <*> Platinum.",
+    "tpl_0002": "Estos glifos representan Warframes y sus cascos alternativos con un fondo claro/oscuro. Se pueden comprar por <*> Platinum <*> cada uno. Comprar una versión no desbloqueará la otra.",
+    "tpl_0003": "Disponible en el Market por <*> Platinum.",
+    "tpl_0004": "Comprado a Nightcap (Rango <*>+) por <*> Fergolyte.",
+    "tpl_0005": "Comprado a través de Steam Workshop (TennoGen) por <*> en PC, o <*> Platinum en el juego en consola. TennoGen Ronda <*>. Diseñado por led<*>.",
+    "tpl_0006": "Vendido por Baro Ki'Teer por <*> Ducats y <*> Credits (ofrecido en <*> visitas registradas).",
+    "tpl_0007": "Los glifos de aniversario estuvieron disponibles para todos los jugadores durante el evento de aniversario de cada año. Estos glifos están disponibles para su compra durante el Lunar New Year.",
+    "tpl_0008": "Plano adquirible en el Market por <*> Platinum.",
+    "tpl_0009": "Los Noggles son esencialmente muñecos cabezones, pequeñas figuras con cabezas sobredimensionadas. La mayoría de los Noggles cuestan <*> Platinum <*> cada uno en el Market, aunque ciertos Noggles se pueden adquirir por diferentes medios, como a través de aventuras o sindicatos. Los Noggles de Warframe Prime solo se pueden obtener comprando su respectivo paquete de Prime Access o Prime Vault, o comprándolos individualmente a Varzia durante el evento Prime Resurgence. Noggles de Warframe:",
+    "tpl_0010": "Comprado a través de Steam Workshop (TennoGen) por <*> en PC, o <*> Platinum en el juego en consola. TennoGen Ronda <*>. Diseñado por malaya y Cobalt.",
+    "tpl_0011": "Vendido por Hombask en el Chrysalith (Zariman Ten Zero) por un recurso específico de Zariman, bloqueado tras un rango específico (recurso/rango exacto no confirmado para este objeto; los iconos de moneda de la página de origen y la alineación de rango por fila no se conservaron de forma fiable para el catálogo completo).",
+    "tpl_0012": "Comprado en Posters por <*> Standing.",
+    "tpl_0013": "Predeterminado/viene gratis con Ash. Se puede comprar para usar en cualquier otro Warframe por <*> Platinum a través del Market.",
+    "tpl_0014": "Vendido por Baro Ki'Teer por <*> Ducats + <*> Credits."
+  }
 }

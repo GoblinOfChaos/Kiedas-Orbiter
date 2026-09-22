@@ -3,9 +3,11 @@ import { Info, ExternalLink, Flag } from 'lucide-react';
 import { invoke } from '@tauri-apps/api/core';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { getItemDrops } from '../lib/acquisitionData';
+import { getDropSourcesWithFallback } from '../lib/dropsParser';
 import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
 import { useUi } from '../contexts/UiContext';
+import { useMonitoring } from '../contexts/MonitoringContext';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -207,6 +209,7 @@ export function useAcquisitionDrawerData(item) {
 
 export default function AcquisitionDrawer({ item, onClose }) {
   const { t } = useUi();
+  const { dropIndex } = useMonitoring();
   const [showReportModal, setShowReportModal] = useState(false);
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
 
@@ -283,20 +286,28 @@ export default function AcquisitionDrawer({ item, onClose }) {
             </div>
             {recipe.ingredients?.length > 0 &&
               <div className="mt-2 flex flex-wrap gap-1.5">
-            {recipe.ingredients.map((ingredient, i) => (
+            {recipe.ingredients.map((ingredient, i) => {
+              // Prefer the live drops.wf-based index (matches PreviewAcquisitionDrawer's
+              // pattern, see GitHub #114); fall back to the static warframe-items file
+              // only when the live index has no entry, so its isFakeVendorPurchaseDrop
+              // filtering still covers any items dropIndex doesn't.
+              const liveDrops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name);
+              const drops = liveDrops.length > 0 ? liveDrops : getItemDrops(ingredient.itemType);
+              return (
               <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
                 <div className="flex items-start justify-between gap-2">
                   <span className="whitespace-normal break-words">{ingredient.count}x {ingredient.name}</span>
                 </div>
-                {getItemDrops(ingredient.itemType)?.length > 0 && <div className="mt-1 space-y-0.5 border-t border-white/5 pt-1">
+                {drops?.length > 0 && <div className="mt-1 space-y-0.5 border-t border-white/5 pt-1">
                   <p className="text-[11px] uppercase font-black text-kronos-dim">{t('acquisition_drawer.how_to_obtain')}</p>
-                  {getItemDrops(ingredient.itemType).map((drop, dropIndex) => <div key={`${drop.location || 'source'}-${dropIndex}`} className="flex items-start justify-between gap-2 text-[11px] text-kronos-dim">
+                  {drops.map((drop, dropIndex) => <div key={`${drop.location || 'source'}-${dropIndex}`} className="flex items-start justify-between gap-2 text-[11px] text-kronos-dim">
                     <span className="whitespace-normal break-words">{getSourceLabel(drop, t)}</span>
                     {typeof drop.chance === 'number' && <span className="shrink-0 font-black text-kronos-accent">{formatChance(drop.chance)}</span>}
                   </div>)}
                 </div>}
               </div>
-            ))}
+              );
+            })}
               </div>
             }
           </div>

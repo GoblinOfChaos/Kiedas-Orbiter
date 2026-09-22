@@ -151,7 +151,7 @@ export default function Adversaries() {
               const dRaw = n.d?.$date?.$numberLong ? new Date(Number(n.d.$date.$numberLong)) : null;
               const d = dRaw && !Number.isNaN(dRaw.getTime()) ? dRaw : null;
               return (
-                <div key={n.fp || i} className="flex items-center gap-3 py-1.5 px-2 rounded hover:bg-white/5 text-xs">
+                <div key={`${n.fp ?? 'noop'}-${i}`} className="flex items-center gap-3 py-1.5 px-2 rounded hover:bg-white/5 text-xs">
                     {iconsPath && n.element &&
                   <img
                     src={iconSrc(iconsPath, n.element)}

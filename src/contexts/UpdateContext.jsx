@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'
 import { Update, check } from '@tauri-apps/plugin-updater'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from '../lib/logging/tauri'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { getSetting } from '../lib/settings'
 import { IS_PREVIEW } from '../lib/buildProfile'

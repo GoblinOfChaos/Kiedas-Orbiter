@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from 'react'
 import { Search, Sparkles, ArrowUpDown } from 'lucide-react'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from '../lib/logging/tauri'
 import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card, Input, Tabs } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'

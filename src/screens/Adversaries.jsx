@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { resolveItemName } from '../lib/warframeUtils';
 
 // ── Progenitor element → warframes (base only, no primes) ──

@@ -3,7 +3,7 @@ import { useUi } from '../contexts/UiContext'
 import { Search, ArrowUpDown, Filter, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Input, Tabs, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import ModCard from '../components/ModCard';
 import ItemImage from '../components/ItemImage';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';

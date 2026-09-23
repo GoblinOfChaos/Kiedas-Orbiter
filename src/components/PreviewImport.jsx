@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { open } from '@tauri-apps/plugin-dialog';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { useUi } from '../contexts/UiContext';
 export default function PreviewImport() {
   const { t } = useUi();

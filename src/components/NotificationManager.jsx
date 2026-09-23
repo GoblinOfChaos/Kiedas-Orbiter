@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { Trash2, History } from 'lucide-react';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { getSetting, setSetting } from '../lib/settings';
 import { getAllTriggerDefs, getDefaultNotification } from '../lib/notificationManager';
 import { Toggle, Select, Modal } from './UI';

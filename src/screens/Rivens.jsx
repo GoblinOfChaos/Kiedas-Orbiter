@@ -3,7 +3,7 @@ import { useUi } from '../contexts/UiContext'
 import { Search, Filter, ArrowUpDown } from 'lucide-react';
 import { PageLayout, Input, Card, Tabs, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import BackToTop from '../components/BackToTop';
 import RivenCard from '../components/RivenCard';
 import RivenGradeDrawer from '../components/RivenGradeDrawer';

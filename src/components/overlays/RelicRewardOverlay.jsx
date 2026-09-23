@@ -4,7 +4,7 @@ import { Card } from '../UI';
 import ItemImage from '../ItemImage';
 import { Loader2, Check, HelpCircle } from 'lucide-react';
 import { listen } from '@tauri-apps/api/event';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../../lib/logging/tauri';
 import { getPrice } from '../../lib/marketEngine';
 
 const RELIC_TIMEOUT = 14500;

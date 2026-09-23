@@ -8,7 +8,7 @@
  * from the warframe-items npm package at build time and bundled as a Tauri
  * resource.  The result of transformWarframeItems() is cached.
  */
-import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import { invoke, convertFileSrc, loggedFetch } from './logging/tauri'
 import { transformWarframeItems } from './warframeItemsTransform'
 
 let cached = null
@@ -24,7 +24,7 @@ export async function loadWarframeItemsMaps() {
         relative: 'data/assets/wfcd/wfcd-combined.json',
       })
       const url = convertFileSrc(absolutePath)
-      const combined = await fetch(url).then(r => r.json())
+      const combined = await loggedFetch(url).then(r => r.json())
       cached = transformWarframeItems(combined)
     } catch {
       cached = { maps: {}, supplement: { uniqueNameToName: {}, nameToImage: {} } }

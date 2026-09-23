@@ -268,6 +268,12 @@ fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option
 #[tauri::command]
 fn log_terminal(app: tauri::AppHandle, message: String) {
     crate::logger::log_to_disk(&app, &format!("[JS] {}", message));
+    crate::logger::write_legacy_structured(&message);
+}
+
+#[tauri::command]
+fn structured_log_batch(events: Vec<crate::logger::StructuredEvent>) -> Result<(), String> {
+    crate::logger::write_structured_batch(&events)
 }
 
 #[tauri::command]
@@ -4604,6 +4610,7 @@ fn main() {
             close_market_order,
             load_settings,
             log_terminal,
+            structured_log_batch,
             prepare_bug_report,
             set_hotkeys,
             crate::ocr::set_fissure_ui_scale,

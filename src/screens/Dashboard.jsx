@@ -40,7 +40,7 @@ import {
 'lucide-react';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { getPrice } from '../lib/marketEngine';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import {
   resolveNode,
   resolveMissionType,

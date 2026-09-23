@@ -230,7 +230,7 @@ export function PageLayout({ title, titleKey, subtitle, children, extra, headerP
       </div>
 
       {/* Scrollable Content Area */}
-      <div ref={(node) => {
+      <div data-log-scroll-id="page.content" ref={(node) => {
         scrollRef.current = node;
         if (contentRef) contentRef.current = node;
       }} className="flex-1 overflow-y-auto px-8 pb-8 pt-0 min-h-0 flex flex-col custom-scrollbar">

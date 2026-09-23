@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from './logging/tauri'
 import { itemsToMap } from './warframeItemsTransform'
 
 // Fills gaps in our main data sources (ExportWeapons, ExportCustoms - both

@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from './lib/logging/tauri'
 import App from './App'
 import { IS_PREVIEW } from './lib/buildProfile'
 import './index.css'
+import { installFetchLogging } from './lib/logging/logger'
 
 import "@fontsource/outfit/400.css";
 import "@fontsource/outfit/600.css";
@@ -12,6 +13,7 @@ import "@fontsource/jetbrains-mono/400.css";
 
 // Forward frontend errors and warnings to Rust stderr (captured by run logs)
 if (typeof window !== 'undefined') {
+  installFetchLogging();
   const forwardLog = (level, ...args) => {
     try {
       const msg = args.map(a => {
@@ -37,9 +39,34 @@ if (typeof window !== 'undefined') {
     forwardLog('WARN', ...args);
   };
 
+  // Preview-only: forward console.log too, so future debugging never needs a
+  // rebuild just to add visibility. Gated off Stable to avoid an IPC round
+  // trip per log line for users who never open a terminal.
+  if (IS_PREVIEW) {
+    const origLog = console.log;
+    console.log = (...args) => {
+      origLog.apply(console, args);
+      forwardLog('LOG', ...args);
+    };
+  }
+
   window.addEventListener('error', (event) => {
     forwardLog('UNCAUGHT', event.message, `at ${event.filename}:${event.lineno}:${event.colno}`, event.error);
   });
+
+  // Always on, all builds: PerformanceObserver('longtask') reports real
+  // main-thread blocking (>50ms) directly - no devtools Performance tab
+  // needed to see what's actually causing visible stutter/jank.
+  if (typeof PerformanceObserver !== 'undefined') {
+    try {
+      const longTaskObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          forwardLog('WARN', `[LongTask] duration=${entry.duration.toFixed(1)}ms startTime=${entry.startTime.toFixed(1)}ms name=${entry.name}`);
+        }
+      });
+      longTaskObserver.observe({ entryTypes: ['longtask'] });
+    } catch {}
+  }
 
   window.addEventListener('unhandledrejection', (event) => {
     forwardLog('UNHANDLED-PROMISE', event.reason);

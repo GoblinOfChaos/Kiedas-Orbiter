@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { invoke, convertFileSrc } from '@tauri-apps/api/core'
+import { invoke, convertFileSrc, loggedFetch } from '../lib/logging/tauri'
 import * as Comlink from 'comlink'
 import DataProcessingWorker from '../lib/dataProcessing.worker.js?worker'
 import { loadLocale } from '../lib/i18n'
@@ -16,6 +16,7 @@ import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 import { fillDataGaps, logGapFillAudit, fillModGaps, logModGapFillAudit } from '../lib/wfcdGapFill'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
+import { event as logEvent, startSpan } from '../lib/logging/logger'
 
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -603,6 +604,7 @@ export function MonitoringProvider({ children }) {
 
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
+    const parseSpan = startSpan('state.parse', { screen: 'inventory', payload: { type: 'inventory', count: Array.isArray(raw) ? raw.length : undefined } })
     setRawInventory(raw)
     rawInventoryRef.current = raw
     const ed = exports || exportDataRef.current || exportData
@@ -613,8 +615,12 @@ export function MonitoringProvider({ children }) {
     // thread for its full duration once it started).
     getDataWorker().parseInventory(raw, ed, dict, localeRef.current, i18nRef.current).then((parsed) => {
       setInventoryData(parsed || null)
+      parseSpan.complete({ result_type: parsed ? 'inventory_summary' : 'empty' })
+      logEvent('state.update.completed', { state: 'inventory', result_type: parsed ? 'inventory_summary' : 'empty' }, { phase: 'complete', outcome: 'success' })
     }).catch((err) => {
       console.error('parseInventory worker call failed:', err)
+      parseSpan.fail(err, { state: 'inventory' })
+      logEvent('state.parse.failed', { state: 'inventory' }, { phase: 'failed', outcome: 'failure', error: err })
       setInventoryData(null)
     }).finally(() => {
       const tsStr = String(ts ?? Date.now())
@@ -628,6 +634,7 @@ export function MonitoringProvider({ children }) {
     startedRef.current = true
 
     ; (async () => {
+      const loadSpan = startSpan('state.load', { screen: 'app', payload: { source: 'startup' } })
       await loadSettings()
       localeRef.current = getSetting('gameLocale', 'en')
       i18nRef.current = await loadLocale(localeRef.current)
@@ -667,7 +674,7 @@ export function MonitoringProvider({ children }) {
         try {
           const absolutePath = await invoke('resolve_asset_path', { relative: exportsRes.value })
           const url = convertFileSrc(absolutePath)
-          exports = await fetch(url).then((r) => r.json())
+          exports = await loggedFetch(url).then((r) => r.json())
         } catch (err) {
           exportsLoadErrorReason = String(err?.message || err)
         }
@@ -677,6 +684,7 @@ export function MonitoringProvider({ children }) {
       // disk error here used to leave exportData permanently null with no
       // indication to the user why. Surface it explicitly instead.
       if (!exports) {
+        loadSpan.fail(exportsLoadErrorReason || 'empty export result', { source: 'startup' })
         setCriticalLoadError(
           exportsLoadErrorReason
             || (exportsRes.status === 'rejected'
@@ -684,6 +692,7 @@ export function MonitoringProvider({ children }) {
               : 'Game data failed to load (empty result).')
         )
       } else {
+        loadSpan.complete({ source: 'startup', result_type: 'exports' })
         setCriticalLoadError(null)
       }
       const spiText = spiRes.status === 'fulfilled' ? spiRes.value : null

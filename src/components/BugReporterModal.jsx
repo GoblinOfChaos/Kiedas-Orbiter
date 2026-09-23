@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Bug, Loader2 } from 'lucide-react';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { useUi } from '../contexts/UiContext';
 
 export default function BugReporterModal({ isOpen, onClose, initialDescription = '' }) {

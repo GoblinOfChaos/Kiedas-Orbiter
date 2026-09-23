@@ -15,7 +15,7 @@
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Search, Plus, Minus, Trash2, Target as TargetIcon } from 'lucide-react';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { PageLayout, Card, Input, Button, MonitorState } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { useUi } from '../contexts/UiContext';

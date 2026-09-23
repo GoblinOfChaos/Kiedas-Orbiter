@@ -1,5 +1,5 @@
 // High-Performance Acquisition Data Module for Kiedas Orbiter (O(1) Indexed)
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from './logging/tauri';
 
 let itemIndex = null;
 let itemNameIndex = null;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { PageLayout, Card, Input } from "../components/UI";
 import ItemImage from "../components/ItemImage";
 import { useUi } from "../contexts/UiContext";
-import { invoke, convertFileSrc } from "@tauri-apps/api/core";
+import { invoke, convertFileSrc, loggedFetch } from "../lib/logging/tauri";
 import { loadSettings, getSetting } from "../lib/settings";
 import { useMonitoring } from "../contexts/MonitoringContext";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
@@ -87,7 +87,7 @@ export default function Market({ onNavigate }) {
     try {
       try {
         const absolutePath = await invoke("resolve_asset_path", { relative: WFM_ID_CATALOG_ASSET_PATH });
-        const parsed = await fetch(convertFileSrc(absolutePath)).then((r) => r.json());
+        const parsed = await loggedFetch(convertFileSrc(absolutePath)).then((r) => r.json());
         if (parsed && Object.keys(parsed).length > 0) {
           setIdCatalog(parsed);
         }

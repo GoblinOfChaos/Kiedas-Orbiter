@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { X, RefreshCw } from 'lucide-react';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { PageLayout } from '../components/UI';

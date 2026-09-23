@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { AlertTriangle, Github } from 'lucide-react';
 import { PageLayout, Card } from '../components/UI';
-import { invoke, convertFileSrc } from '@tauri-apps/api/core';
+import { invoke, convertFileSrc } from '../lib/logging/tauri';
 import { version } from '../../package.json';
 
 const CREDITS = [

@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from './logging/tauri'
 import { save, open } from '@tauri-apps/plugin-dialog'
 
 const BUNDLE_TYPE = 'kronos-map-markers'

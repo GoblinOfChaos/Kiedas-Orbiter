@@ -12,7 +12,7 @@
  * migration of files already on disk - only `version` ever changes, and
  * `migrateStore` below is the single place that would grow a case for it.
  */
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../logging/tauri';
 
 const RELATIVE_PATH = 'data/user/farming-targets.json';
 const CURRENT_VERSION = 1;

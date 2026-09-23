@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from './logging/tauri';
 
 // Ported from wfinfo-ng's riven_grader_watcher.py (_grade_riven). Data source:
 // src-tauri/data/assets/data/riven_good_rolls.json, translated from wfinfo-ng's

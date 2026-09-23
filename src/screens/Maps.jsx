@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card, Tabs, Modal, Button, Input } from '../components/UI';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { parseCustomMarkers } from '../lib/customMarkers';
 import { MapPin, Plus, Trash, Link2, Crosshair, Eye, EyeOff, Edit3, X, Layers, Check, Navigation, Skull, Shield, Star, Diamond } from 'lucide-react';

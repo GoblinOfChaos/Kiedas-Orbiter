@@ -24,7 +24,7 @@ import { formatNumber } from '../lib/formatNumber';
 import { Check, Circle, Eye, EyeOff } from 'lucide-react';
 import { PageLayout } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { invoke, convertFileSrc } from '@tauri-apps/api/core';
+import { invoke, convertFileSrc } from '../lib/logging/tauri';
 import { listen } from '@tauri-apps/api/event';
 
 const tasks = [

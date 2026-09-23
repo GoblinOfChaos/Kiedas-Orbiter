@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense, useEffect, useRef, useCallback } from 'react'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from '../../lib/logging/tauri'
 import { listen } from '@tauri-apps/api/event'
 import { Tooltip } from '../UI'
 import MirroredMonitoringProvider from '../../contexts/MirroredMonitoringProvider'

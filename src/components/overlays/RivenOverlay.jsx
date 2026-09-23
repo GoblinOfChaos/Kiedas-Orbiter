@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { listen } from '@tauri-apps/api/event';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../../lib/logging/tauri';
 import { useUi } from '../../contexts/UiContext';
 import { loadSettings, getSetting } from '../../lib/settings';
 import {

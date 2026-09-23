@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer, AlignStartVertical, AlignEndVertical, AlignVerticalJustifyStart, VolumeX, Play, PanelLeft, PanelRight, FileSearch } from 'lucide-react';
 
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
-import { invoke } from '@tauri-apps/api/core';
-import { convertFileSrc } from '@tauri-apps/api/core';
+import { invoke, loggedFetch } from '../lib/logging/tauri';
+import { convertFileSrc } from '../lib/logging/tauri';
 import { getVersion } from '@tauri-apps/api/app';
 import { useUpdate } from '../contexts/UpdateContext';
 import { useUi } from '../contexts/UiContext';
@@ -204,7 +204,7 @@ export default function SettingsScreen() {
       for (const name of ['CursorDefault', 'CursorRetro']) {
         try {
           const src = convertFileSrc(`${uiPath}/${name}.png`);
-          const resp = await fetch(src);
+          const resp = await loggedFetch(src);
           const blob = await resp.blob();
           const img = await createImageBitmap(blob);
           const scale = 24 / Math.max(img.width, img.height);

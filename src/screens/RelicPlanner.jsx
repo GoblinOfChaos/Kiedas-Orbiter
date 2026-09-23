@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Search, X, Trash2, Package, Sparkles } from 'lucide-react';
 import { PageLayout, Card, Input, Button, MonitorState } from '../components/UI';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { getAllRelicRewards, getRelicCatalog, getPartObtainedStatus } from '../lib/relicParser';
 import { useUi } from '../contexts/UiContext';

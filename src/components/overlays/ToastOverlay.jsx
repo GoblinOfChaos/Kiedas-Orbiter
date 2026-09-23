@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useUi } from '../../contexts/UiContext'
 import { listen } from '@tauri-apps/api/event';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../../lib/logging/tauri';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Bell } from 'lucide-react';
 

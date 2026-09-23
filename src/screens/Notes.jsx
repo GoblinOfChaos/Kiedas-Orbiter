@@ -19,7 +19,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { FileText, Plus, X, FolderOpen } from 'lucide-react';
 import { PageLayout, Card, Button } from '../components/UI';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { open, save } from '@tauri-apps/plugin-dialog';
 import { MDXEditor } from '@mdxeditor/editor';

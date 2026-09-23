@@ -1,4 +1,4 @@
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from './logging/tauri';
 import { RIVEN_STAT_MAP } from './inventoryParser';
 
 // Reverse of the forward roll->displayed-value formula in inventoryParser.js

@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Info, ExternalLink, Flag } from 'lucide-react';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from '../lib/logging/tauri';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { getItemDrops } from '../lib/acquisitionData';
 import { getDropSourcesWithFallback } from '../lib/dropsParser';

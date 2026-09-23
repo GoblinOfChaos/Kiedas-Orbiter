@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useUi } from '../../contexts/UiContext'
 import { listen } from '@tauri-apps/api/event'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke } from '../../lib/logging/tauri'
 
 const ERA_COLORS = {
   Lith: '#7fbf7f',

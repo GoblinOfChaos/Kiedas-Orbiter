@@ -4,7 +4,7 @@
  * This function is only for the final display string, after the guards have already decided to show it.
  */
 
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from './logging/tauri';
 
 let textIndex = null;
 let loadPromise = null;

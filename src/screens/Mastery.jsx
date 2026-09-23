@@ -22,7 +22,7 @@ import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card, MonitorState } from '../components/UI';
 import { Trophy, X, Check, Circle } from 'lucide-react';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import { formatNumber } from '../lib/formatNumber';
 import PreviewMasteryLayout from '../components/PreviewMasteryLayout';

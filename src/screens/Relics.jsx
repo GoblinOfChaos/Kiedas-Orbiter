@@ -20,7 +20,7 @@ import { useUi } from '../contexts/UiContext'
 import { Search, AlertCircle, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide-react';
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { getRelicEV, getRelicCatalog } from '../lib/relicParser';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';

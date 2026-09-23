@@ -7,7 +7,7 @@ import { UpdateProvider, useUpdate } from './contexts/UpdateContext';
 import { Tooltip } from './components/UI';
 import { UiProvider, useUi } from './contexts/UiContext';
 import { AlertTriangle, FolderOpen } from 'lucide-react';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from './lib/logging/tauri';
 import { listen, emit } from '@tauri-apps/api/event';
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
 import { loadSettings, getSetting, setSetting } from './lib/settings';
@@ -17,6 +17,7 @@ import { IS_PREVIEW } from './lib/buildProfile';
 import PreviewAppShell from './preview/shell/PreviewAppShell';
 import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
 import { ErrorBoundary, CriticalLoadErrorScreen } from './components/ErrorBoundary';
+import { installUiDelegation, screen as logScreen } from './lib/logging/logger';
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({});
@@ -240,6 +241,9 @@ function AppContent() {
   const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
   const { t } = useUi();
 
+  useEffect(() => installUiDelegation(document), []);
+  useEffect(() => { logScreen(activeTab, activeTab); }, [activeTab]);
+
   useEffect(() => {
     // Poll scanner status every 2s so sidebar dot stays in sync
     const checkScanner = () => {
@@ -384,6 +388,8 @@ function AppContent() {
                   }
                   <Tooltip content={t(`nav.${item.id}`) || item.label}>
                     <button
+                      data-log-id={`navigation.${item.id}`}
+                      data-log-role="navigation"
                       id={item.id === 'settings' ? 'nav-settings' : undefined}
                       onClick={() => setActiveTab(item.id)}
                       className={`
@@ -460,7 +466,7 @@ function AppContent() {
       </nav>
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 overflow-hidden bg-kronos-bg">
+      <main className="flex-1 min-w-0 overflow-hidden bg-kronos-bg" data-log-scope="main-content">
         {screenContent}
       </main>
       </div>}

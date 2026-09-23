@@ -1338,11 +1338,20 @@ export default function Inventory() {
                         <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest block whitespace-normal leading-none mb-1">
                           {item.category === 'mods' ? item.rarity || t('inventory.category_mod') : item.weapon_type || item.vehicle_type || (isPrimePart ? t('inventory.category_prime_part') : categoryDisplayLabel(item.category, t))}
                         </span>
-                        <h4 className="font-bold text-sm uppercase line-clamp-2 text-kronos-text leading-tight mt-0.5">
+                        {/* line-clamp-1 (not -2) is load-bearing here, not
+                            cosmetic: this general-grid branch is virtualized
+                            with a single fixed GENERAL_ROW_STRIDE assuming
+                            every card renders the same height. A 1-vs-2-line
+                            title/description made real row height vary,
+                            which drifted out of sync with that fixed stride
+                            the further down the (2000+ item) list you
+                            scrolled - visible as scroll input getting
+                            dropped, then jumping to resync. */}
+                        <h4 className="font-bold text-sm uppercase line-clamp-1 text-kronos-text leading-tight mt-0.5">
                           {item.name}
                         </h4>
                         {item.description &&
-                    <p className="text-[10px] text-kronos-dim/70 mt-0.5 line-clamp-2 leading-relaxed">
+                    <p className="text-[10px] text-kronos-dim/70 mt-0.5 line-clamp-1 leading-relaxed">
                             {item.description}
                           </p>
                     }

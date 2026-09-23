@@ -5,13 +5,13 @@
  * arcanes and resources.  Provides categorised tabs and multi-column
  * filtering (e.g., "Owned + Unmastered").
  */
-import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useState, useCallback, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import ItemImage from '../components/ItemImage';
-import { convertFileSrc, invoke } from '@tauri-apps/api/core';
+import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer, formatChance } from '../components/AcquisitionDrawer';
@@ -24,6 +24,7 @@ import { formatNumber } from '../lib/formatNumber';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewInventoryLayout from '../components/PreviewInventoryLayout';
 import { categoryDisplayLabel } from '../lib/categoryLabels';
+import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 
 
 
@@ -235,6 +236,8 @@ export default function Inventory() {
     viewportHeight: typeof window !== 'undefined' ? window.innerHeight : 800,
     columns: 1,
   });
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollingDebounceRef = useRef(null);
   // Preview-only. Applies to the generic item branch only (12 of 15
   // categories) - Prime Parts and Ayatan keep their existing bespoke
   // layouts regardless of this, and Arcanes keeps rendering via the shared
@@ -590,23 +593,24 @@ export default function Inventory() {
     const container = pageScrollRef.current;
     if (!container || !virtualRoot) return;
 
-    const measure = () => {
-      const rootRect = virtualRoot.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+    let baseOffset = 0;
+
+    const computeColumns = () => {
       const isLg = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true;
       const isMd = typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)').matches : true;
-
-      const columns = isPrimeParts
+      return isPrimeParts
         ? (isLg ? 2 : 1)
         : isAyatan
         ? (isLg ? 4 : isMd ? 3 : 2)
         : isListView
         ? 1
         : Math.max(1, Math.floor((virtualRoot.clientWidth + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
+    };
 
-      const scrollTop = Math.max(0, containerRect.top - rootRect.top);
+    const applyScrollTop = (columns) => {
+      const scrollTop = Math.max(0, container.scrollTop - baseOffset);
       setWindowMetrics((previous) => {
-        const next = { scrollTop, viewportHeight: container.clientHeight, columns };
+        const next = { scrollTop, viewportHeight: container.clientHeight, columns: columns ?? previous.columns };
         return previous.scrollTop === next.scrollTop &&
           previous.viewportHeight === next.viewportHeight &&
           previous.columns === next.columns
@@ -615,16 +619,75 @@ export default function Inventory() {
       });
     };
 
-    measure();
-    const observer = new ResizeObserver(measure);
+    // getBoundingClientRect() forces a synchronous layout reflow. Calling it
+    // on every native scroll event (which fires far more often than once per
+    // frame under real trackpad/mouse momentum, and rAF itself runs at a low,
+    // irregular rate in this WebKitGTK build) let reflows pile up on the main
+    // thread, stalling the windowed content for a beat while the
+    // (compositor-driven) native scroll position kept moving, then jumping
+    // once the backlog cleared. The container/virtualRoot offset only
+    // actually changes on resize (rare), so it's calibrated there; every
+    // scroll tick just reads container.scrollTop, a cheap property that
+    // doesn't force layout.
+    const calibrate = () => {
+      const rootRect = virtualRoot.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      baseOffset = container.scrollTop - (containerRect.top - rootRect.top);
+      applyScrollTop(computeColumns());
+    };
+
+    // Rows aren't memoized, so every accepted state update re-renders every
+    // currently-windowed card (~40-50 of them) from scratch. Native scroll
+    // can fire far more often than that render can keep up with under real
+    // trackpad/mouse momentum, so throttle actual state updates themselves
+    // (not just the read) to keep React's render rate bounded. Plain
+    // setTimeout, not requestAnimationFrame - rAF turned out to run at a low,
+    // irregular rate in this WebKitGTK build and made things worse. A
+    // trailing call guarantees the final scroll position always lands.
+    const THROTTLE_MS = 50;
+    let lastRun = 0;
+    let trailingTimer = null;
+    const onScroll = () => {
+      setIsScrolling(true);
+      if (scrollingDebounceRef.current !== null) clearTimeout(scrollingDebounceRef.current);
+      scrollingDebounceRef.current = setTimeout(() => {
+        scrollingDebounceRef.current = null;
+        setIsScrolling(false);
+      }, 150);
+
+      const now = Date.now();
+      const elapsed = now - lastRun;
+      if (elapsed >= THROTTLE_MS) {
+        lastRun = now;
+        applyScrollTop();
+      } else if (trailingTimer === null) {
+        trailingTimer = setTimeout(() => {
+          trailingTimer = null;
+          lastRun = Date.now();
+          applyScrollTop();
+        }, THROTTLE_MS - elapsed);
+      }
+    };
+
+    calibrate();
+    const observer = new ResizeObserver(calibrate);
     observer.observe(container);
     observer.observe(virtualRoot);
-    container.addEventListener('scroll', measure, { passive: true });
+    container.addEventListener('scroll', onScroll, { passive: true });
     return () => {
+      if (trailingTimer !== null) clearTimeout(trailingTimer);
+      if (scrollingDebounceRef.current !== null) clearTimeout(scrollingDebounceRef.current);
+      scrollingDebounceRef.current = null;
+      setIsScrolling(false);
       observer.disconnect();
-      container.removeEventListener('scroll', measure);
+      container.removeEventListener('scroll', onScroll);
     };
   }, [virtualRoot, activeTab, viewMode, isPrimeParts, isAyatan, isListView]);
+
+  useEffect(() => {
+    const container = pageScrollRef.current;
+    return container ? instrumentScroll(container, 'inventory.page', { interval: 250 }) : undefined;
+  }, [activeTab, viewMode]);
 
   const isLgCurrent = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true;
   const isMdCurrent = typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)').matches : true;
@@ -643,6 +706,29 @@ export default function Inventory() {
   const firstRow = Math.max(0, Math.floor(windowMetrics.scrollTop / rowStride) - WINDOW_OVERSCAN_ROWS);
   const lastRow = Math.min(rowCount, Math.ceil((windowMetrics.scrollTop + windowMetrics.viewportHeight) / rowStride) + WINDOW_OVERSCAN_ROWS);
   const windowedItems = filteredItems.slice(firstRow * currentColumns, lastRow * currentColumns);
+
+  // Diagnostic only (temporary): the browser's Long Tasks API produced zero
+  // entries during a real reported stutter, so it appears unsupported in
+  // this WebKitGTK build. This logs the actual gap between commits at full
+  // resolution instead - useLayoutEffect fires right after the DOM mutates,
+  // before paint, so the gap between consecutive firings is the real commit
+  // cadence during scroll, not a sampled approximation.
+  const renderTimingRef = useRef(null);
+  useLayoutEffect(() => {
+    const now = performance.now();
+    const prev = renderTimingRef.current;
+    renderTimingRef.current = now;
+    if (prev !== null) {
+      const gapMs = now - prev;
+      logEvent('inventory.render.commit', {
+        gap_ms: Math.round(gapMs),
+        visible_items: windowedItems.length,
+        first_row: firstRow,
+        last_row: lastRow,
+        scroll_top: Math.round(windowMetrics.scrollTop),
+      }, { level: gapMs > 100 ? 'warn' : 'trace', screen: 'inventory' });
+    }
+  });
 
   const openItem = useMemo(() => {
     if (!openKey) return null;
@@ -1297,6 +1383,18 @@ export default function Inventory() {
             }
             return (
               <Card key={`${item.unique_name}_${firstRow * currentColumns + idx}`} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+                {isScrolling ?
+                  <>
+                    <div className="w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center bg-kronos-panel/30 p-3">
+                      {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
+                    </div>
+                    <div className="flex-1 px-4 py-3 flex items-center min-w-0 overflow-hidden">
+                      <h4 className="font-bold text-sm uppercase line-clamp-1 text-kronos-text leading-tight">
+                        {item.name}
+                      </h4>
+                    </div>
+                  </> :
+                  <>
 
                     {/* Image column */}
                     <div className={`w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center ${isModFrame(item) ? '' : 'bg-kronos-panel/30 p-3'}`}>
@@ -1570,7 +1668,9 @@ export default function Inventory() {
 
                     })()}
                       </div>
-                    </div>
+                  </div>
+                  </>
+                }
                   </Card>);
 
           })}

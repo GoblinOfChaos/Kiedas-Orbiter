@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Search, X, Trash2, Package, Sparkles } from 'lucide-react';
 import { PageLayout, Card, Input, Button, MonitorState } from '../components/UI';
 import { convertFileSrc, invoke } from '@tauri-apps/api/core';
@@ -17,13 +17,14 @@ export default function RelicPlanner() {
   const [need, setNeed] = useState([]); // array of {uniqueName, name}
   const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [iconsPath, setIconsPath] = useState('');
-  const [displayLimit, setDisplayLimit] = useState(60);
+  const partScrollRef = useRef(null);
+  const partRowRef = useRef(null);
+  const [partWindow, setPartWindow] = useState({ scrollTop: 0, viewportHeight: 0, rowHeight: 0 });
 
   // Debounce search input to eliminate UI freezing while typing
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(partSearch);
-      setDisplayLimit(60);
     }, 120);
     return () => clearTimeout(timer);
   }, [partSearch]);
@@ -81,6 +82,32 @@ export default function RelicPlanner() {
     return parts;
   }, [allParts, debouncedSearch, partFilter, partStatuses]);
 
+  // The picker owns its scroll container, so measure that element directly.
+  // The button's rendered height is observed instead of assuming a row size;
+  // the existing space-y-1 contributes a 4px gap between adjacent rows.
+  useEffect(() => {
+    const container = partScrollRef.current;
+    if (!container) return;
+
+    const measure = () => {
+      const rowHeight = partRowRef.current?.getBoundingClientRect().height || 0;
+      setPartWindow((previous) => {
+        const next = { scrollTop: container.scrollTop, viewportHeight: container.clientHeight, rowHeight };
+        return previous.scrollTop === next.scrollTop && previous.viewportHeight === next.viewportHeight && previous.rowHeight === next.rowHeight ? previous : next;
+      });
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+    if (partRowRef.current) observer.observe(partRowRef.current);
+    container.addEventListener('scroll', measure, { passive: true });
+    return () => {
+      observer.disconnect();
+      container.removeEventListener('scroll', measure);
+    };
+  }, [filteredParts.length]);
+
   const needKeys = useMemo(() => new Set(need.map((n) => n.uniqueName)), [need]);
 
   const addPart = (part) => {
@@ -134,6 +161,18 @@ export default function RelicPlanner() {
 
   const ownedShown = results.filter((r) => r.ownedCount > 0).length;
   const ownedParts = [...partStatuses.values()].filter((status) => status.directOwned).length;
+  const partRowGap = 4;
+  const partRowStride = partWindow.rowHeight > 0 ? partWindow.rowHeight + partRowGap : 1;
+  const firstPartIndex = partWindow.rowHeight > 0
+    ? Math.max(0, Math.floor(partWindow.scrollTop / partRowStride) - 3)
+    : 0;
+  const lastPartIndex = partWindow.rowHeight > 0
+    ? Math.min(filteredParts.length, Math.ceil((partWindow.scrollTop + partWindow.viewportHeight) / partRowStride) + 3)
+    : Math.min(filteredParts.length, 1);
+  const windowedParts = filteredParts.slice(firstPartIndex, lastPartIndex);
+  const partsContentHeight = filteredParts.length > 0
+    ? filteredParts.length * partWindow.rowHeight + Math.max(0, filteredParts.length - 1) * partRowGap
+    : 0;
 
   if (isInventoryLoading) return <PageLayout title={t('nav.relic-planner')}><MonitorState isLoading className="py-20" /></PageLayout>;
 
@@ -195,29 +234,26 @@ export default function RelicPlanner() {
               </button>
             ))}
           </div>
-          <div className="flex-1 overflow-y-auto min-h-0 space-y-1 pr-1 custom-scrollbar">
-            {filteredParts.slice(0, displayLimit).map((p) => {
-              const owned = getPartStatus(p.uniqueName).directOwned;
-              return (
-                <button
-                  key={p.uniqueName}
-                  onClick={() => addPart(p)}
-                  disabled={needKeys.has(p.uniqueName)}
-                  className={`w-full flex items-center gap-2 text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors ${needKeys.has(p.uniqueName) ? 'bg-kronos-accent/10 text-kronos-dim' : 'text-kronos-text hover:bg-white/5'}`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${owned ? 'bg-green-400' : 'bg-white/15'}`} />
-                  <span className="truncate flex-1">{p.name}</span>
-                </button>
-              );
-            })}
-            {filteredParts.length > displayLimit && (
-              <button
-                onClick={() => setDisplayLimit((prev) => prev + 60)}
-                className="w-full py-1.5 text-center text-[10px] font-bold uppercase text-kronos-accent hover:bg-kronos-accent/10 rounded transition"
-              >
-                {t('mods.load_more', { remaining: filteredParts.length - displayLimit })}
-              </button>
-            )}
+          <div ref={partScrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-1 pr-1 custom-scrollbar">
+            <div style={{ height: partsContentHeight }} className="relative">
+              <div className="absolute inset-x-0 top-0 space-y-1" style={{ transform: `translateY(${firstPartIndex * partRowStride}px)` }}>
+                {windowedParts.map((p, index) => {
+                  const owned = getPartStatus(p.uniqueName).directOwned;
+                  return (
+                    <button
+                      ref={index === 0 ? partRowRef : undefined}
+                      key={p.uniqueName}
+                      onClick={() => addPart(p)}
+                      disabled={needKeys.has(p.uniqueName)}
+                      className={`w-full flex items-center gap-2 text-left px-2.5 py-1.5 rounded-lg text-xs transition-colors ${needKeys.has(p.uniqueName) ? 'bg-kronos-accent/10 text-kronos-dim' : 'text-kronos-text hover:bg-white/5'}`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${owned ? 'bg-green-400' : 'bg-white/15'}`} />
+                      <span className="truncate flex-1">{p.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </Card>
 

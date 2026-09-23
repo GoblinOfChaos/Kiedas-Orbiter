@@ -544,11 +544,12 @@ export default function App() {
   const isOverlay = params.get('overlay') === 'true';
 
   if (isOverlay) {
+    // OverlayApp already provides its own ThemeProvider (it needs to be
+    // self-contained since it's mounted with no other context) - wrapping it
+    // in a second one here nested every overlay window's ThemeProvider twice.
     return (
       <ErrorBoundary>
-        <ThemeProvider>
-          <OverlayApp />
-        </ThemeProvider>
+        <OverlayApp />
       </ErrorBoundary>);
 
   }

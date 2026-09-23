@@ -1,0 +1,20 @@
+{
+  "/Lotus/Types/Game/MissionDecks/ImmortalRelicRewards/ImmortalOmni": {
+    "rewardManifest": "/Lotus/Types/Game/MissionDecks/ImmortalRelicRewards/ImmortalOmni",
+    "displayName": "Immortal Omni",
+    "era": "Requiem",
+    "category": "Eterna",
+    "qualityTiersFound": [
+      "VPQ_BRONZE"
+    ],
+    "vaultedAt": null,
+    "uniqueNames": [
+      "/Lotus/Types/Game/Projections/T5VoidProjectionImmortalOmniA"
+    ],
+    "missingQualityTiers": [
+      "VPQ_GOLD",
+      "VPQ_PLATINUM",
+      "VPQ_SILVER"
+    ]
+  }
+}

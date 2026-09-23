@@ -1106,6 +1106,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
             // so we don't show() here - avoids flash at (0,0) before positioning.
 
             let state = app.state::<crate::AppState>();
+            let session_id = state.relic_session_id.fetch_add(1, Ordering::SeqCst) + 1;
             let relics: Vec<crate::log_scanner::RelicInfo> =
                 if let Ok(cached) = state.active_relic_data.lock() {
                     if let Some(ref val) = *cached {
@@ -1123,7 +1124,7 @@ pub fn detect_slot_count_from_icons(app: AppHandle, manual: bool) {
                 void_tier: None,
             };
             app.emit("scanner-relic-phase-start",
-                serde_json::json!({ "squad_size": deduced_size })
+                serde_json::json!({ "squad_size": deduced_size, "session_id": session_id })
             ).unwrap_or_default();
             app.emit("fissure-relic-phase", &event_payload).unwrap_or_default();
 

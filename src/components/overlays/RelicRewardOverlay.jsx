@@ -87,7 +87,7 @@ export default function RelicRewardOverlay() {
 
     // Immediate state reset when scanner triggers
     subs.push(listen('scanner-relic-phase-start', (e) => {
-      sessionIdRef.current += 1;
+      sessionIdRef.current = e.payload.session_id;
       console.log(`[RelicOverlay] received event scanner-relic-phase-start (session=${sessionIdRef.current}): squad_size=${e.payload.squad_size}`);
       if (closeTimerRef.current) {clearTimeout(closeTimerRef.current);closeTimerRef.current = null;}
       setSquadSize(e.payload.squad_size);
@@ -101,6 +101,7 @@ export default function RelicRewardOverlay() {
     }));
 
     subs.push(listen('overlay-update-relics', (e) => {
+      sessionIdRef.current = e.payload.session_id;
       const relicsCount = e.payload.squad_relics?.length || 0;
       console.log(`[RelicOverlay] received event overlay-update-relics (count=${relicsCount})`, e.payload);
       if (closeTimerRef.current) {clearTimeout(closeTimerRef.current);closeTimerRef.current = null;}
@@ -122,6 +123,10 @@ export default function RelicRewardOverlay() {
     }));
 
     subs.push(listen('overlay-update-ocr', (e) => {
+      if (e.payload.session_id !== sessionIdRef.current) {
+        console.log(`[RelicOverlay] Discarding stale OCR event slot=${e.payload.slot} (session=${e.payload.session_id}, current=${sessionIdRef.current})`);
+        return;
+      }
       if (closeTimerRef.current || !dataRef.current) {
         console.log(`[RelicOverlay] Discarding late OCR event slot=${e.payload.slot} (session inactive)`);
         return;

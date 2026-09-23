@@ -1168,9 +1168,9 @@ const hasCachedData = useCallback(async () => {
     const subs = []
 
     subs.push(listen('scanner-relic-phase-start', (e) => {
-      const { squad_size } = e.payload
+      const { squad_size, session_id } = e.payload
       ocrActiveRef.current = true
-      ocrSessionRef.current += 1
+      ocrSessionRef.current = session_id
       relicSoundPlayed.current = false // Reset for new session
       fissureStateRef.current.squad_relics = [] // Drop stale candidates from the previous round
       invoke('show_overlay_window', { label: 'overlay-relic' }).catch(() => { })
@@ -1189,7 +1189,7 @@ const hasCachedData = useCallback(async () => {
         const sound = getSetting('notif_sound', 'notification1.wav')
         invoke('play_notification_sound', { sound }).catch(console.error)
       }
-      invoke('relay_event', { event: 'overlay-update-relics', payload: { squad_relics: resolved, squad_size } }).catch(() => { })
+      invoke('relay_event', { event: 'overlay-update-relics', payload: { squad_relics: resolved, squad_size, session_id: ocrSessionRef.current } }).catch(() => { })
 
     }))
 
@@ -1296,7 +1296,7 @@ const hasCachedData = useCallback(async () => {
         if (result) {
           invoke('relay_event', {
             event: 'overlay-update-ocr',
-            payload: result
+            payload: { ...result, session_id: batchSession }
           }).catch(() => { });
         }
       }

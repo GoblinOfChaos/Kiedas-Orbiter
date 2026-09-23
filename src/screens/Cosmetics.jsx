@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useRef } from 'react'
 import { Search, Sparkles, ArrowUpDown } from 'lucide-react'
 import { invoke } from '@tauri-apps/api/core'
 import { useUi } from '../contexts/UiContext'
@@ -14,7 +14,11 @@ import PreviewCosmeticsLayout from '../components/PreviewCosmeticsLayout'
 
 const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
-const COSMETICS_PAGE_SIZE = 120
+const CARD_WIDTH = 220
+const COL_GAP = 12
+const CARD_HEIGHT = 332
+const GRID_ROW_STRIDE = 344
+const WINDOW_OVERSCAN_ROWS = 3
 
 // DE mostly files a Warframe's skins under /Upgrades/Skins/<FamilyCodename>/,
 // the same internal family segment that appears in that Warframe's own
@@ -194,7 +198,9 @@ export default function Cosmetics() {
   const [animationTierFilter, setAnimationTierFilter] = useState('all')
   const [sortCriteria, setSortCriteria] = useState('name')
   const [sortDirection, setSortDirection] = useState('asc')
-  const [visibleCount, setVisibleCount] = useState(COSMETICS_PAGE_SIZE)
+  const pageScrollRef = useRef(null)
+  const [virtualRoot, setVirtualRoot] = useState(null)
+  const [windowMetrics, setWindowMetrics] = useState({ scrollTop: 0, viewportHeight: 0, columns: 1 })
   const [overrides, setOverrides] = useState(null)
   const { openKey, toggle, close } = useAcquisitionDrawer()
 
@@ -315,15 +321,48 @@ export default function Cosmetics() {
       .sort((a, b) => a.name.localeCompare(b.name) * dir)
   }, [items, search, kindFilter, ownershipFilter, animationTierFilter, sortCriteria, sortDirection])
 
+  // The page scroll area is shared with the header controls, so measure the
+  // virtual content's position inside that owner rather than adding a nested
+  // scrolling region. Cards have fixed geometry, which makes a native row
+  // window sufficient without a virtualizer dependency.
   useEffect(() => {
-    setVisibleCount(COSMETICS_PAGE_SIZE)
-  }, [search, kindFilter, ownershipFilter, animationTierFilter])
+    const container = pageScrollRef.current
+    if (!container || !virtualRoot) return
+
+    const measure = () => {
+      const rootRect = virtualRoot.getBoundingClientRect()
+      const containerRect = container.getBoundingClientRect()
+      const columns = Math.max(1, Math.floor((virtualRoot.clientWidth + COL_GAP) / (CARD_WIDTH + COL_GAP)))
+      const scrollTop = Math.max(0, containerRect.top - rootRect.top)
+      setWindowMetrics((previous) => {
+        const next = { scrollTop, viewportHeight: container.clientHeight, columns }
+        return previous.scrollTop === next.scrollTop && previous.viewportHeight === next.viewportHeight && previous.columns === next.columns ? previous : next
+      })
+    }
+
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(container)
+    observer.observe(virtualRoot)
+    container.addEventListener('scroll', measure, { passive: true })
+    return () => {
+      observer.disconnect()
+      container.removeEventListener('scroll', measure)
+    }
+  }, [virtualRoot])
+
+  useEffect(() => {
+    pageScrollRef.current?.scrollTo({ top: 0 })
+  }, [search, kindFilter, ownershipFilter, animationTierFilter, sortCriteria, sortDirection])
 
   useEffect(() => {
     if (kindFilter !== 'animation') setAnimationTierFilter('all')
   }, [kindFilter])
 
-  const visibleItems = filtered.slice(0, visibleCount)
+  const rowCount = Math.ceil(filtered.length / windowMetrics.columns)
+  const firstRow = Math.max(0, Math.floor(windowMetrics.scrollTop / GRID_ROW_STRIDE) - WINDOW_OVERSCAN_ROWS)
+  const lastRow = Math.min(rowCount, Math.ceil((windowMetrics.scrollTop + windowMetrics.viewportHeight) / GRID_ROW_STRIDE) + WINDOW_OVERSCAN_ROWS)
+  const windowedCosmetics = filtered.slice(firstRow * windowMetrics.columns, lastRow * windowMetrics.columns)
 
   const openItem = useMemo(() => {
     if (!openKey || !overrides) return null
@@ -452,16 +491,40 @@ export default function Cosmetics() {
   )
 
   const mainContent = (
-    filtered.length === 0 ? <Card className="p-8 text-center text-kronos-dim"><Sparkles className="mx-auto mb-2" size={20} />{t('cosmetics.no_match')}</Card> : <>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3 pb-4" data-preview-cosmetics-grid={IS_PREVIEW ? '' : undefined}>{visibleItems.map((item) => <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />)}</div>
-      {visibleCount < filtered.length && <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + COSMETICS_PAGE_SIZE, filtered.length))} className="mx-auto mb-4 rounded-lg border border-kronos-accent/40 px-5 py-2 text-xs font-black uppercase tracking-wider text-kronos-accent hover:bg-kronos-accent/10">{t('cosmetics.load_more', { remaining: filtered.length - visibleCount })}</button>}
-    </>
+    filtered.length === 0 ? (
+      <Card className="p-8 text-center text-kronos-dim">
+        <Sparkles className="mx-auto mb-2" size={20} />
+        {t('cosmetics.no_match')}
+      </Card>
+    ) : (
+      <div
+        ref={setVirtualRoot}
+        className="relative pb-4"
+        data-preview-cosmetics-grid={IS_PREVIEW ? '' : undefined}
+        style={{ height: `${rowCount * GRID_ROW_STRIDE}px` }}
+      >
+        <div
+          className="absolute inset-x-0 grid"
+          style={{
+            top: `${firstRow * GRID_ROW_STRIDE}px`,
+            gridTemplateColumns: `repeat(${windowMetrics.columns}, ${CARD_WIDTH}px)`,
+            gap: `${COL_GAP}px`,
+            justifyContent: 'center',
+          }}
+        >
+          {windowedCosmetics.map((item) => (
+            <CosmeticCard key={item.uniqueName} item={item} onAcquire={toggle} />
+          ))}
+        </div>
+      </div>
+    )
   )
 
   const pageLayoutProps = {
     title: t('cosmetics.page_title'),
     subtitle: t('cosmetics.subtitle', { owned: items.filter((item) => item.owned).length, total: items.length }),
-    headerPanel: renderHeaderPanel()
+    headerPanel: renderHeaderPanel(),
+    contentRef: pageScrollRef,
   }
 
   // The acquisition panel is rendered as a sibling OUTSIDE PageLayout's

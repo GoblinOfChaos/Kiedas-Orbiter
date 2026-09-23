@@ -2,9 +2,9 @@
 // Uses country-flag-icons (ISO 3x2 SVG React components, bundled offline — no CDN,
 // no Windows regional-indicator emoji regression). Replaces hand-rolled inline SVGs.
 import React from 'react'
-import { GB, DE, FR, ES, IT, PT, RU, PL, CN, KR, JP, TW, TH, TR, UA } from 'country-flag-icons/react/3x2'
+import { GB, DE, FR, ES, IT, BR, RU, PL, CN, KR, JP, TW, TH, TR, UA } from 'country-flag-icons/react/3x2'
 
-const FLAG = { gb: GB, de: DE, fr: FR, es: ES, it: IT, pt: PT, ru: RU, pl: PL, zh: CN, ko: KR, ja: JP, tc: TW, th: TH, tr: TR, uk: UA }
+const FLAG = { gb: GB, de: DE, fr: FR, es: ES, it: IT, pt: BR, ru: RU, pl: PL, zh: CN, ko: KR, ja: JP, tc: TW, th: TH, tr: TR, uk: UA }
 
 const LOCALES = [
   { value: 'en', label: 'English', flag: 'gb' },
@@ -12,7 +12,7 @@ const LOCALES = [
   { value: 'fr', label: 'Français', flag: 'fr' },
   { value: 'es', label: 'Español', flag: 'es' },
   { value: 'it', label: 'Italiano', flag: 'it' },
-  { value: 'pt', label: 'Português', flag: 'pt' },
+  { value: 'pt', label: 'Português (BR)', flag: 'pt' },
   { value: 'ru', label: 'Русский', flag: 'ru' },
   { value: 'pl', label: 'Polski', flag: 'pl' },
   { value: 'zh', label: '中文', flag: 'zh' },

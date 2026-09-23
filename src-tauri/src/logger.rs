@@ -3,8 +3,23 @@ use std::io::{Write, Read};
 use tauri::AppHandle;
 use chrono::{Local, NaiveDate};
 use std::path::{Path, PathBuf};
+use std::sync::Mutex;
+use std::time::SystemTime;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+
+/// Per-session JSONL cap. Generous for real diagnostic use (a normal
+/// session writes a small fraction of this), but bounds the damage if a
+/// bug ever causes a write storm again - it happened once already (a
+/// global fetch() patch recursively logging Tauri's own IPC transport,
+/// ~1GB/minute) before this cap existed.
+const SESSION_SIZE_CAP_BYTES: u64 = 25 * 1024 * 1024;
+/// Total logs-directory budget enforced at startup cleanup, independent of
+/// the per-session cap - a defense-in-depth net covering many small
+/// sessions (one per window) or any other future growth path.
+const LOG_DIR_BUDGET_BYTES: u64 = 500 * 1024 * 1024;
+
+static CAPPED_SESSIONS: Mutex<Vec<String>> = Mutex::new(Vec::new());
 
 /// Versioned JSONL envelope shared with src/lib/logging/eventEnvelope.js.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -86,6 +101,23 @@ pub fn write_structured_batch(events: &[StructuredEvent]) -> Result<(), String> 
     if session_id.is_empty() { return Err("structured log session id is empty".into()); }
     let path = get_log_dir().join(format!("session-{session_id}.jsonl"));
     let mut file = OpenOptions::new().create(true).append(true).open(&path).map_err(|e| e.to_string())?;
+
+    let already_capped = CAPPED_SESSIONS.lock().map(|c| c.contains(&session_id)).unwrap_or(false);
+    if already_capped { return Ok(()); }
+    if file.metadata().map(|m| m.len()).unwrap_or(0) >= SESSION_SIZE_CAP_BYTES {
+        if let Ok(mut capped) = CAPPED_SESSIONS.lock() { capped.push(session_id.clone()); }
+        let notice = serde_json::json!({
+            "schema": 1, "event_id": format!("cap-{}", Local::now().timestamp_nanos_opt().unwrap_or_default()),
+            "session_id": session_id, "sequence": 0, "timestamp_utc": Local::now().to_rfc3339(),
+            "monotonic_ms": 0.0, "process": "kiedas-orbiter", "window": "main", "source": "rust",
+            "level": "warn", "event": "logger.session.capped", "phase": "complete", "outcome": "dropped",
+            "payload": { "cap_bytes": SESSION_SIZE_CAP_BYTES },
+            "build": { "app_version": env!("CARGO_PKG_VERSION") },
+        });
+        let _ = writeln!(file, "{notice}");
+        return Ok(());
+    }
+
     for event in events {
         if event.schema != 1 || event.session_id != events[0].session_id { continue; }
         let line = serde_json::to_string(event).map_err(|e| e.to_string())?;
@@ -121,7 +153,7 @@ pub fn write_legacy_structured(message: &str) {
 pub fn cleanup_old_logs() {
     let path = get_log_dir();
     let now = Local::now().naive_local().date();
-    
+
     if let Ok(entries) = fs::read_dir(&path) {
         for entry in entries.flatten() {
             if let Ok(file_type) = entry.file_type() {
@@ -139,6 +171,57 @@ pub fn cleanup_old_logs() {
                 }
             }
         }
+    }
+
+    // session-*.jsonl files have no date in their name (the session id is a
+    // UUID), so age them out by mtime instead - same 48h policy as the
+    // legacy app-*.log files above.
+    let cutoff = SystemTime::now().checked_sub(std::time::Duration::from_secs(48 * 3600));
+    if let (Ok(entries), Some(cutoff)) = (fs::read_dir(&path), cutoff) {
+        for entry in entries.flatten() {
+            let file_name = entry.file_name().to_string_lossy().into_owned();
+            if !file_name.starts_with("session-") || !file_name.ends_with(".jsonl") { continue; }
+            if let Ok(metadata) = entry.metadata() {
+                if metadata.is_file() {
+                    if let Ok(modified) = metadata.modified() {
+                        if modified < cutoff { let _ = fs::remove_file(entry.path()); }
+                    }
+                }
+            }
+        }
+    }
+
+    enforce_log_dir_budget(&path);
+}
+
+/// Defense-in-depth on top of the per-session write cap and the age sweep
+/// above: if the logs directory is still over budget after both of those
+/// (many small sessions, one per window, or a future growth path neither
+/// of the other two anticipated), delete the oldest-by-mtime files until
+/// under budget. Skips anything modified in the last 5 minutes as a
+/// still-likely-active-session heuristic, so this never deletes out from
+/// under a file that's currently being written.
+fn enforce_log_dir_budget(dir: &Path) {
+    let Ok(entries) = fs::read_dir(dir) else { return };
+    let recently_active_cutoff = SystemTime::now().checked_sub(std::time::Duration::from_secs(5 * 60));
+    let mut files: Vec<(PathBuf, u64, SystemTime)> = entries.flatten()
+        .filter_map(|e| {
+            let metadata = e.metadata().ok()?;
+            if !metadata.is_file() { return None; }
+            let modified = metadata.modified().ok()?;
+            if let Some(cutoff) = recently_active_cutoff { if modified >= cutoff { return None; } }
+            Some((e.path(), metadata.len(), modified))
+        })
+        .collect();
+
+    let total: u64 = files.iter().map(|(_, size, _)| size).sum();
+    if total <= LOG_DIR_BUDGET_BYTES { return; }
+
+    files.sort_by_key(|(_, _, modified)| *modified);
+    let mut remaining = total;
+    for (path, size, _) in files {
+        if remaining <= LOG_DIR_BUDGET_BYTES { break; }
+        if fs::remove_file(&path).is_ok() { remaining = remaining.saturating_sub(size); }
     }
 }
 

@@ -62,7 +62,15 @@ def build_template_miner() -> TemplateMiner:
     config.drain_sim_th = 0.7
     config.drain_depth = 4
     config.masking_instructions = [
-        RegexMaskingInstruction(r"\$?\d[\d,]*(?:\.\d+)?", "*"),
+        # (?<![A-Za-z]) blocks matching digits that are glued onto a preceding
+        # letter (e.g. "led2012" -> masking just "2012" left "led<*>", which
+        # is wrong: that whole token is a designer username, not a fixed
+        # "led" prefix + number - confirmed multiple TennoGen-designer
+        # clusters broke this way). A leading digit run (optionally $-
+        # prefixed) is still masked normally; only digits stuck to a
+        # preceding word character are left alone, so Drain3's own
+        # whole-token wildcarding handles those names correctly instead.
+        RegexMaskingInstruction(r"(?<![A-Za-z])\$?\d[\d,]*(?:\.\d+)?", "*"),
     ]
     return TemplateMiner(config=config)
 

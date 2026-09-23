@@ -28,7 +28,30 @@ import { categoryDisplayLabel } from '../lib/categoryLabels';
 
 
 
-const ITEMS_PER_PAGE = 48;
+const COL_GAP = 16;
+const WINDOW_OVERSCAN_ROWS = 3;
+
+// Branch 1: Prime Parts (grouped sets view - 1 col on mobile, 2 col on lg)
+const SETS_ROW_STRIDE = 320;
+
+// Branch 2: Ayatan sculptures (2 col mobile, 3 col md, 4 col lg)
+// Cards have fixed h-32 = 128px + 16px gap
+const AYATAN_CARD_HEIGHT = 128;
+const AYATAN_ROW_STRIDE = AYATAN_CARD_HEIGHT + COL_GAP; // 144
+
+// Branch 3: General items
+// List view row stride (matches Mods.jsx LIST_ROW_STRIDE: 52px card + 6px gap-1.5)
+const LIST_ROW_STRIDE = 58;
+
+// Arcanes in grid view: ModCard with width={200} -> height = 200 / (290 / 409) = 282px + 16px gap = 298px
+const ARCANE_CARD_WIDTH = 200;
+const ARCANE_CARD_HEIGHT = ARCANE_CARD_WIDTH / (290 / 409);
+const ARCANE_ROW_STRIDE = Math.round(ARCANE_CARD_HEIGHT) + COL_GAP; // 298
+
+// General grid cards: min-h-40 (160px) + py-3 + borders ~168px + 16px gap = 184px
+const GENERAL_CARD_MIN_WIDTH = 280;
+const GENERAL_CARD_HEIGHT = 168;
+const GENERAL_ROW_STRIDE = GENERAL_CARD_HEIGHT + COL_GAP; // 184
 
 const modBgMap = {
   'Normal Common': 'BronzeBackground.png',
@@ -205,7 +228,13 @@ export default function Inventory() {
   const [currentFilters, setCurrentFilters] = useState({});
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const pageScrollRef = useRef(null);
+  const [virtualRoot, setVirtualRoot] = useState(null);
+  const [windowMetrics, setWindowMetrics] = useState({
+    scrollTop: 0,
+    viewportHeight: typeof window !== 'undefined' ? window.innerHeight : 800,
+    columns: 1,
+  });
   // Preview-only. Applies to the generic item branch only (12 of 15
   // categories) - Prime Parts and Ayatan keep their existing bespoke
   // layouts regardless of this, and Arcanes keeps rendering via the shared
@@ -218,7 +247,10 @@ export default function Inventory() {
   useEffect(() => {invoke('get_ui_path').then((p) => setUiPath(p)).catch(() => {});}, []);
   useEffect(() => {invoke('get_icons_path').then((p) => setIconsPath(p)).catch(() => {});}, []);
 
-  useEffect(() => {setVisibleCount(ITEMS_PER_PAGE);}, [activeTab, searchQuery, currentFilters]);
+  useEffect(() => {
+    pageScrollRef.current?.scrollTo({ top: 0 });
+    setWindowMetrics((prev) => (prev.scrollTop === 0 ? prev : { ...prev, scrollTop: 0 }));
+  }, [activeTab, searchQuery, currentFilters, sortCriteria, sortDirection, viewMode]);
 
   const handleImgError = useCallback((e) => {
     if (e.target.dataset.wfFallback === 'true') return;
@@ -535,22 +567,82 @@ export default function Inventory() {
     return items;
   }, [tabItems, searchQuery, currentFilters, activeTab, sortCriteria, sortDirection]);
 
-  const visibleItems = useMemo(() => filteredItems.slice(0, visibleCount), [filteredItems, visibleCount]);
+  const isPrimeParts = activeTab === 'prime_parts';
+  const isAyatan = activeTab === 'ayatan';
+  const isListView = IS_PREVIEW && viewMode === 'list' && activeTab !== 'arcanes';
+  const isArcanes = activeTab === 'arcanes';
 
-  // Keep loading more items in the background instead of leaving it entirely
-  // up to the "Load More Items" button - that button sits at the bottom of
-  // the page, the same spot the acquisition-info drawer pins itself to
-  // (fixed bottom-0), so a manual click can be unreachable while the drawer
-  // is open. Auto-loading means the list eventually finishes on its own and
-  // the button just disappears once there's nothing left to load; a manual
-  // click still works too, for anyone who doesn't want to wait.
+  const rowStride = isPrimeParts
+    ? SETS_ROW_STRIDE
+    : isAyatan
+    ? AYATAN_ROW_STRIDE
+    : isListView
+    ? LIST_ROW_STRIDE
+    : isArcanes
+    ? ARCANE_ROW_STRIDE
+    : GENERAL_ROW_STRIDE;
+
+  // The page scroll area is shared with the header controls, so measure the
+  // virtual content's position inside that owner rather than adding a nested
+  // scrolling region. Each branch has known geometry, which makes a native row
+  // window sufficient without a virtualizer dependency.
   useEffect(() => {
-    if (visibleCount >= filteredItems.length) return;
-    const timer = setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + ITEMS_PER_PAGE, filteredItems.length));
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [visibleCount, filteredItems.length]);
+    const container = pageScrollRef.current;
+    if (!container || !virtualRoot) return;
+
+    const measure = () => {
+      const rootRect = virtualRoot.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const isLg = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true;
+      const isMd = typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)').matches : true;
+
+      const columns = isPrimeParts
+        ? (isLg ? 2 : 1)
+        : isAyatan
+        ? (isLg ? 4 : isMd ? 3 : 2)
+        : isListView
+        ? 1
+        : Math.max(1, Math.floor((virtualRoot.clientWidth + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
+
+      const scrollTop = Math.max(0, containerRect.top - rootRect.top);
+      setWindowMetrics((previous) => {
+        const next = { scrollTop, viewportHeight: container.clientHeight, columns };
+        return previous.scrollTop === next.scrollTop &&
+          previous.viewportHeight === next.viewportHeight &&
+          previous.columns === next.columns
+          ? previous
+          : next;
+      });
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(container);
+    observer.observe(virtualRoot);
+    container.addEventListener('scroll', measure, { passive: true });
+    return () => {
+      observer.disconnect();
+      container.removeEventListener('scroll', measure);
+    };
+  }, [virtualRoot, activeTab, viewMode, isPrimeParts, isAyatan, isListView]);
+
+  const isLgCurrent = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : true;
+  const isMdCurrent = typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)').matches : true;
+
+  const currentColumns = isPrimeParts
+    ? (isLgCurrent ? 2 : 1)
+    : isAyatan
+    ? (isLgCurrent ? 4 : isMdCurrent ? 3 : 2)
+    : isListView
+    ? 1
+    : windowMetrics.columns > 1
+    ? windowMetrics.columns
+    : Math.max(1, Math.floor(((virtualRoot?.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200)) + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
+
+  const rowCount = Math.ceil(filteredItems.length / currentColumns);
+  const firstRow = Math.max(0, Math.floor(windowMetrics.scrollTop / rowStride) - WINDOW_OVERSCAN_ROWS);
+  const lastRow = Math.min(rowCount, Math.ceil((windowMetrics.scrollTop + windowMetrics.viewportHeight) / rowStride) + WINDOW_OVERSCAN_ROWS);
+  const windowedItems = filteredItems.slice(firstRow * currentColumns, lastRow * currentColumns);
 
   const openItem = useMemo(() => {
     if (!openKey) return null;
@@ -938,8 +1030,12 @@ export default function Inventory() {
                   <span className="text-[10px] font-black uppercase text-kronos-accent">{t('ui.inventory.fetching_prices')}</span>
                 </div>
           }
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-4">
-                {visibleItems.map((set, idx) => {
+              <div ref={setVirtualRoot} className="relative pb-4" style={{ height: `${rowCount * rowStride}px` }}>
+                <div
+                  className="absolute inset-x-0 grid grid-cols-1 lg:grid-cols-2 gap-4"
+                  style={{ top: `${firstRow * rowStride}px` }}
+                >
+                  {windowedItems.map((set, idx) => {
               const isParentOwned = set.owned;
               const isParentMastered = set.mastered;
 
@@ -964,7 +1060,7 @@ export default function Inventory() {
               const setValue = primePrices?.[set.setPath] ?? set.parts.reduce((sum, p) => sum + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
 
               return (
-                <div key={set.name + idx} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
+                <div key={`${set.name}_${firstRow * currentColumns + idx}`} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
                       {isPriceLoading ?
                   <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/10 rounded animate-pulse" /> :
                   setValue > 0 &&
@@ -1072,11 +1168,16 @@ export default function Inventory() {
                     </div>);
 
             })}
+                </div>
               </div>
             </> :
         activeTab === 'ayatan' ?
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-4">
-              {visibleItems.map((item, idx) => {
+        <div ref={setVirtualRoot} className="relative pb-4" style={{ height: `${rowCount * rowStride}px` }}>
+          <div
+            className="absolute inset-x-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+            style={{ top: `${firstRow * rowStride}px` }}
+          >
+              {windowedItems.map((item, idx) => {
             if (item.isStars) {
               const starImg = (name) => uiPath ? convertFileSrc(`${uiPath}/${name}.png`) : '';
               return (
@@ -1105,7 +1206,7 @@ export default function Inventory() {
 
             }
             return (
-              <div key={item.unique_name + idx} onClick={() => toggle(item.unique_name)} className={`relative rounded-xl border overflow-hidden bg-kronos-panel/20 flex items-stretch h-32 cursor-pointer ${item.quantity > 0 ? 'border-white/5' : 'border-white/5 border-dashed opacity-60'}`}>
+              <div key={`${item.unique_name}_${firstRow * currentColumns + idx}`} onClick={() => toggle(item.unique_name)} className={`relative rounded-xl border overflow-hidden bg-kronos-panel/20 flex items-stretch h-32 cursor-pointer ${item.quantity > 0 ? 'border-white/5' : 'border-white/5 border-dashed opacity-60'}`}>
                     {item.isOptimal &&
                 <div className="absolute top-2 right-2 z-10 px-2 py-0.5 bg-yellow-500 text-black text-[9px] font-black uppercase tracking-wider rounded shadow-lg">{t('ui.inventory.optimal')}
 
@@ -1138,16 +1239,21 @@ export default function Inventory() {
                   </div>);
 
           })}
-            </div> :
+            </div>
+        </div> :
 
-        <div className={IS_PREVIEW && viewMode === 'list' && activeTab !== 'arcanes' ? 'flex flex-col gap-1.5 pb-4' : 'grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 pb-4'}>
-              {visibleItems.map((item, idx) => {
+        <div ref={setVirtualRoot} className="relative pb-4" style={{ height: `${rowCount * rowStride}px` }}>
+          <div
+            className={isListView ? 'absolute inset-x-0 flex flex-col gap-1.5' : 'absolute inset-x-0 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4'}
+            style={{ top: `${firstRow * rowStride}px` }}
+          >
+              {windowedItems.map((item, idx) => {
             const isUnowned = !item.owned;
             const isPrimePart = item.category === 'prime_parts';
             const isModOrResource = ['mods', 'resources', 'components', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
             if (activeTab === 'arcanes') {
               return (
-                <div key={item.unique_name + idx} className={`relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}`} onClick={() => toggle(item.unique_name)}>
+                <div key={`${item.unique_name}_${firstRow * currentColumns + idx}`} className={`relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}`} onClick={() => toggle(item.unique_name)}>
                   <ModCard
                     mod={item}
                     framesPath={framesPath}
@@ -1164,7 +1270,7 @@ export default function Inventory() {
             // comparison (name, rank/mastery/quantity status in one row).
             if (IS_PREVIEW && viewMode === 'list') {
               return (
-                <Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex items-center gap-3 px-3 py-2 cursor-pointer transition-all ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+                <Card key={`${item.unique_name}_${firstRow * currentColumns + idx}`} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex items-center gap-3 px-3 py-2 cursor-pointer transition-all ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
                   <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-kronos-panel/30 rounded">
                     {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-6 h-6" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
                   </div>
@@ -1190,7 +1296,7 @@ export default function Inventory() {
               );
             }
             return (
-              <Card key={item.unique_name + idx} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
+              <Card key={`${item.unique_name}_${firstRow * currentColumns + idx}`} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex min-h-40 group transition-all duration-300 cursor-pointer ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
 
                     {/* Image column */}
                     <div className={`w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center ${isModFrame(item) ? '' : 'bg-kronos-panel/30 p-3'}`}>
@@ -1460,16 +1566,17 @@ export default function Inventory() {
 
           })}
             </div>
-        }
-        {visibleCount < filteredItems.length && <div className="flex justify-center py-8"><Button onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}>{t('ui.inventory.load_more_items')}</Button></div>}
+        </div>
+      }
       </div>
   );
 
   const pageLayoutProps = {
     titleKey: 'screen.inventory',
-    subtitle: t('ui.inventory.displaying_items', { shown: visibleItems.length, total: filteredItems.length }),
+    subtitle: t('ui.inventory.displaying_items', { shown: filteredItems.length, total: tabItems.length }),
     extra: IS_PREVIEW ? null : headerStats,
-    headerPanel: IS_PREVIEW ? <PreviewInventoryLayout stats={headerStats} controls={headerPanel} /> : headerPanel
+    headerPanel: IS_PREVIEW ? <PreviewInventoryLayout stats={headerStats} controls={headerPanel} /> : headerPanel,
+    contentRef: pageScrollRef
   };
 
   return (

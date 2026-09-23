@@ -190,7 +190,22 @@ export default function Rivens() {
     const inputs = toFetch.map((r) => {
       // Pricer model keys are English — localized stat names / weapon names
       // (RU "Урон ближнего боя", "Скиайати") would never match.
-      const statKey = (s) => STAT_TO_PRICER[s.statKey || s.tag] || (s.statKey || s.tag).toLowerCase().replace(/\s+/g, '_');
+      // STAT_TO_PRICER's known keys rarely match a plain lowercase/
+      // underscore version of the raw tag (e.g. "Damage" ->
+      // "base_damage_/_melee_damage", not "damage") - so an unmapped stat's
+      // guessed fallback key almost certainly won't match anything the
+      // ONNX pricer model actually recognizes, and that stat's contribution
+      // to the price estimate silently disappears with no indication why.
+      // Warn loudly instead of guessing silently (GH #109, STAT_TO_PRICER
+      // fallback) so a genuinely new/unmapped stat is diagnosable instead
+      // of just quietly under-pricing every Riven that rolls it.
+      const statKey = (s) => {
+        const raw = s.statKey || s.tag;
+        const known = STAT_TO_PRICER[raw];
+        if (known) return known;
+        console.warn(`[Rivens] STAT_TO_PRICER has no mapping for stat "${raw}" - guessing a pricer key from it, which likely won't match the model and will silently under-price this stat. Add it to STAT_TO_PRICER.`);
+        return raw.toLowerCase().replace(/\s+/g, '_');
+      };
       const pos = (r.stats || []).filter((s) => s.positive).map(statKey);
       const neg = (r.stats || []).filter((s) => !s.positive).map(statKey);
       return {

@@ -693,52 +693,96 @@ export function MonitoringProvider({ children }) {
       // (downloaded as ExportUpgrades_{locale}.json by check_exports).
       if (exports) {
         try {
-          for (const [fname, key] of [
-            ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
-            ['mod-icon-map.json', 'ModIconMap'],
-            ['card-overlay-map.json', 'CardOverlayMap'],
-            ['peely-pix-map.json', 'PeelyPixMap'],
-            ['peely-pix-names.json', 'PeelyPixNames'],
-          ]) {
-            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${fname}` }).catch(() => null)
-            if (bytes) {
-              exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
-            }
+          const [
+            avionicsBytes,
+            modIconBytes,
+            cardOverlayBytes,
+            peelyPixMapBytes,
+            peelyPixNamesBytes,
+            acquisitionBytes,
+            wikiSigilBytes,
+            glyphBytes,
+            resourceBytes,
+            pageAcquisitionBytes,
+            statusBytes,
+            vendorBytes,
+            tennogenBytes,
+            baroBytes,
+            blueprintBytes,
+            researchBytes,
+            cosmeticAdditionsBytes,
+          ] = await Promise.all([
+            invoke('read_file_bytes', { relative: 'data/assets/data/ExportAvionics_fixed.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/mod-icon-map.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/card-overlay-map.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/peely-pix-map.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/peely-pix-names.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-resources-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-page-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-acquisition-status.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-vendors-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-tennogen-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-baro-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-blueprints-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/wiki-research-acquisition.json' }).catch(() => null),
+            invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' }).catch(() => null),
+          ])
+          if (avionicsBytes) {
+            exports.ExportAvionicsFixed = JSON.parse(new TextDecoder().decode(new Uint8Array(avionicsBytes)))
           }
-          const acquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/warframe-items-acquisition.json' }).catch(() => null)
+          if (modIconBytes) {
+            exports.ModIconMap = JSON.parse(new TextDecoder().decode(new Uint8Array(modIconBytes)))
+          }
+          if (cardOverlayBytes) {
+            exports.CardOverlayMap = JSON.parse(new TextDecoder().decode(new Uint8Array(cardOverlayBytes)))
+          }
+          if (peelyPixMapBytes) {
+            exports.PeelyPixMap = JSON.parse(new TextDecoder().decode(new Uint8Array(peelyPixMapBytes)))
+          }
+          if (peelyPixNamesBytes) {
+            exports.PeelyPixNames = JSON.parse(new TextDecoder().decode(new Uint8Array(peelyPixNamesBytes)))
+          }
           if (acquisitionBytes) {
             exports.AcquisitionItems = JSON.parse(new TextDecoder().decode(new Uint8Array(acquisitionBytes)))
           }
-          const wikiSigilBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-sigils-acquisition.json' }).catch(() => null)
           if (wikiSigilBytes) {
             exports.WikiSigilAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(wikiSigilBytes)))
           }
-          const glyphBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/browse-wf-glyphs.json' }).catch(() => null)
           if (glyphBytes) {
             exports.BrowseWfGlyphs = JSON.parse(new TextDecoder().decode(new Uint8Array(glyphBytes)))
           }
-          const resourceBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-resources-acquisition.json' }).catch(() => null)
           if (resourceBytes) {
             exports.WikiResourceAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(resourceBytes)))
           }
-          const pageAcquisitionBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-page-acquisition.json' }).catch(() => null)
           if (pageAcquisitionBytes) {
             exports.WikiPageAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(pageAcquisitionBytes)))
           }
-          const statusBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/wiki-acquisition-status.json' }).catch(() => null)
           if (statusBytes) {
             exports.WikiAcquisitionStatus = JSON.parse(new TextDecoder().decode(new Uint8Array(statusBytes)))
           }
-          for (const [file, key] of [['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'], ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'], ['wiki-baro-acquisition.json', 'WikiBaroAcquisition'], ['wiki-blueprints-acquisition.json', 'WikiBlueprintAcquisition'], ['wiki-research-acquisition.json', 'WikiResearchAcquisition']]) {
-            const bytes = await invoke('read_file_bytes', { relative: `data/assets/data/${file}` }).catch(() => null)
-            if (bytes) exports[key] = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+          if (vendorBytes) {
+            exports.WikiVendorAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(vendorBytes)))
+          }
+          if (tennogenBytes) {
+            exports.WikiTennoGenAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(tennogenBytes)))
+          }
+          if (baroBytes) {
+            exports.WikiBaroAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(baroBytes)))
+          }
+          if (blueprintBytes) {
+            exports.WikiBlueprintAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(blueprintBytes)))
+          }
+          if (researchBytes) {
+            exports.WikiResearchAcquisition = JSON.parse(new TextDecoder().decode(new Uint8Array(researchBytes)))
           }
           // Hand-reviewed additions for real cosmetics missing from
           // export-plus (e.g. Mesa's entire Heirloom set) - see
           // cosmetic-catalog-additions.json's own comment. Unlike
           // wfcdGapFill.js's audit pipeline, every entry here was
           // individually verified, so this merges unconditionally.
-          const cosmeticAdditionsBytes = await invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' }).catch(() => null)
           if (cosmeticAdditionsBytes) {
             const additions = JSON.parse(new TextDecoder().decode(new Uint8Array(cosmeticAdditionsBytes)))
             delete additions._comment

@@ -1510,6 +1510,12 @@
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "Mercado",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "acquisitionTemplates": {
     "tpl_0000": "Special Warframe Creator Glyphs são criados regularmente para vários Content Creators na comunidade de Warframe. Embora alguns sejam distribuídos apenas pelos próprios criadores pessoalmente, muitos são disponibilizados por meio de Promo Codes universais que podem ser resgatados livremente por qualquer jogador. Os Creator Glyphs conhecidos estão listados abaixo - clique no link abaixo de um glifo para resgatá-lo! Nota: Esta lista está definitivamente incompleta e pode conter imprecisões. Creator Glyphs são adicionados, atualizados, substituídos e desativados regularmente, e alguns códigos de Glyph existentes nem sequer são conhecidos pela comunidade em geral. Por favor, atualize a lista se notar algo de errado.",
     "tpl_0001": "Comprado no Market por <*> Platinum.",

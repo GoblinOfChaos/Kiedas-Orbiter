@@ -1510,6 +1510,12 @@
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "Mercado",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "acquisitionTemplates": {
     "tpl_0000": "Se crean regularmente Glifos de creador especiales de Warframe para varios creadores de contenido de la comunidad de Warframe. Aunque algunos solo los entregan los creadores en persona, muchos se implementan con códigos promocionales universales que cualquier jugador puede canjear libremente. Los Glifos de creador conocidos se enumeran a continuación; ¡haz clic en el enlace debajo de un glifo para canjearlo! Nota: Esta lista está definitivamente incompleta y puede contener inexactitudes. Los Glifos de creador se añaden, actualizan, reemplazan y desactivan con regularidad, y algunos códigos de Glifos existentes ni siquiera son conocidos por la comunidad en general. Por favor, actualiza la lista si notas que algo no es correcto.",
     "tpl_0001": "Comprado en el Market por <*> Platinum.",

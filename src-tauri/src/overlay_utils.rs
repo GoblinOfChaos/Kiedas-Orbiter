@@ -192,6 +192,7 @@ fn calculate_position(
             let ry = margin + 75;
             (rx, ry)
         }
+        "overlay-riven-prompt" => ((mon_size.width as i32 - phys_w) / 2, margin + 90),
         "overlay-riven-current" => (margin, (mon_size.height as i32 - (height * scale) as i32) / 2),
         "overlay-riven-new" => (
             mon_size.width as i32 - phys_w - margin,
@@ -818,6 +819,7 @@ fn overlay_size(label: &str) -> (f64, f64) {
         // different fixed sizes per payload shape).
         "overlay-relic-picker" => (620.0, 460.0),
         "overlay-riven-current" | "overlay-riven-new" => (360.0, 300.0),
+        "overlay-riven-prompt" => (1040.0, 220.0),
         _ => (440.0, 1.0),
     }
 }

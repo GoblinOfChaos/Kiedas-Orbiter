@@ -3202,6 +3202,14 @@ async fn dispatch_hotkey_action(app: AppHandle, action: &str) {
         "manual_ocr" => {
             let _ = crate::ocr::trigger_manual_ocr(app, None).await;
         }
+        "grade_rivens" => {
+            if !build_profile::IS_PREVIEW {
+                return;
+            }
+            if crate::log_scanner::RIVEN_SCREEN_ACTIVE.load(Ordering::SeqCst) {
+                let _ = app.emit("riven-grade-activate", ());
+            }
+        }
         pos @ ("ocr_riven_left" | "ocr_riven_middle" | "ocr_riven_right" | "ocr_riven_linked") => {
             let position = match pos {
                 "ocr_riven_left"   => crate::ocr::RivenCardPosition::Left,

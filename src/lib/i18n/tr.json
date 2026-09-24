@@ -598,7 +598,7 @@
     "ui.setup.game_assets": "Oyun Varlıkları",
     "ui.setup.welcome": "Kieda's Orbiter'a hoş geldiniz",
     "wiki.refresh": "Bu sekmesi yenile",
-    "nav.market": "Pazar",
+  "nav.market": "Pazar",
     "settings.theme_accessibility_hint": "Yüksek kontrast ve renk körlüğü profilleri içerir",
     "settings.active_label": "Aktif:",
     "settings.theme_info_label": "Tema Bilgisi:",
@@ -1509,5 +1509,11 @@
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "Pazar"
+  "nav.market": "Pazar",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
 }

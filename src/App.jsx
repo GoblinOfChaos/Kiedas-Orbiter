@@ -126,7 +126,15 @@ function SetupScreen() {
 
 
       const savedHotkeys = getSetting('hotkeys', []);
-      const valid = savedHotkeys.filter((hk) => hk.shortcut && hk.action);
+      // Preview's Riven grading flow is opt-in and gets a safe default that
+      // users can change from Settings before it is registered.
+      if (IS_PREVIEW && !savedHotkeys.some((hk) => hk.action === 'grade_rivens')) {
+        await setSetting('hotkeys', [...savedHotkeys, { action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' }]);
+      }
+      const effectiveHotkeys = IS_PREVIEW && !savedHotkeys.some((hk) => hk.action === 'grade_rivens')
+        ? [...savedHotkeys, { action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' }]
+        : savedHotkeys;
+      const valid = effectiveHotkeys.filter((hk) => hk.shortcut && hk.action);
       if (valid.length > 0) {
         invoke('set_hotkeys', { hotkeys: valid }).
         catch((err) => console.error('Failed to register startup hotkeys:', err));

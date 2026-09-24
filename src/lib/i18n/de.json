@@ -1510,6 +1510,12 @@
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "Markt",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "acquisitionTemplates": {
     "tpl_0000": "Spezielle Warframe-Creator-Glyphen werden regelmäßig für verschiedene Content Creator in der Warframe-Community erstellt. Während einige nur von den Creatorn persönlich vergeben werden, werden viele mit universellen Promo-Codes implementiert, die von jedem Spieler kostenlos eingelöst werden können. Bekannte Creator-Glyphen sind unten aufgeführt – klicke auf den Link unter einer Glyphe, um sie einzulösen! Hinweis: Diese Liste ist definitiv unvollständig und kann Ungenauigkeiten enthalten. Creator-Glyphen werden regelmäßig hinzugefügt, aktualisiert, ersetzt und deaktiviert, und einige bestehende Glyphen-Codes sind der breiten Community nicht einmal bekannt. Bitte aktualisiere die Liste, wenn dir auffällt, dass etwas nicht stimmt.",
     "tpl_0001": "Gekauft im Market für <*> Platinum.",

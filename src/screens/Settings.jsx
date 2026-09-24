@@ -120,7 +120,11 @@ export default function SettingsScreen() {
   }, [isMonitoring]);
 
   const [hotkeys, setHotkeys] = useState(
-    () => getSetting('hotkeys', [{ action: 'manual_ocr', shortcut: '' }, { action: 'toggle_sidebar', shortcut: '' }])
+    () => getSetting('hotkeys', [
+      { action: 'manual_ocr', shortcut: '' },
+      { action: 'toggle_sidebar', shortcut: '' },
+      ...(IS_PREVIEW ? [{ action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' }] : []),
+    ])
   );
   const [sidebarSide, setSidebarSide] = useState(
     () => getSetting('sidebar_side', 'left')
@@ -136,9 +140,16 @@ export default function SettingsScreen() {
   // Ingame Menu" was added - without this it never appears for them since
   // there's no default binding and nothing else surfaces this feature at all.
   useEffect(() => {
-    if (!hotkeys.some((hk) => hk.action === 'toggle_sidebar')) {
-      setHotkeys((prev) => [...prev, { action: 'toggle_sidebar', shortcut: '' }]);
-    }
+    setHotkeys((prev) => {
+      const next = [...prev];
+      if (!next.some((hk) => hk.action === 'toggle_sidebar')) {
+        next.push({ action: 'toggle_sidebar', shortcut: '' });
+      }
+      if (IS_PREVIEW && !next.some((hk) => hk.action === 'grade_rivens')) {
+        next.push({ action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' });
+      }
+      return next;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -156,7 +167,8 @@ export default function SettingsScreen() {
 
   const HOTKEY_ACTIONS = [
   { id: 'manual_ocr', label: t('settings.hotkey_action_manual_ocr') },
-  { id: 'toggle_sidebar', label: t('settings.hotkey_action_toggle_sidebar') }];
+  { id: 'toggle_sidebar', label: t('settings.hotkey_action_toggle_sidebar') },
+  ...(IS_PREVIEW ? [{ id: 'grade_rivens', label: t('settings.hotkey_action_grade_rivens') }] : [])];
 
 
   const [version, setVersion] = useState('');

@@ -6,6 +6,7 @@ import SidebarOverlay from './SidebarOverlay'
 
 const RelicRewardOverlay = lazy(() => import('./RelicRewardOverlay'))
 const RivenOverlay = lazy(() => import('./RivenOverlay'))
+const RivenPromptOverlay = lazy(() => import('./RivenPromptOverlay'))
 const RelicPickerOverlay = lazy(() => import('./RelicPickerOverlay'))
 
 const LABEL_TO_POS = {
@@ -34,6 +35,14 @@ export default function OverlayRouter() {
     return (
       <Suspense fallback={null}>
         <RivenOverlay />
+      </Suspense>
+    )
+  }
+
+  if (label === 'overlay-riven-prompt') {
+    return (
+      <Suspense fallback={null}>
+        <RivenPromptOverlay />
       </Suspense>
     )
   }

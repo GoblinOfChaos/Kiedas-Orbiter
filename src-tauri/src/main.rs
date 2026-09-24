@@ -29,6 +29,7 @@ mod memory_scan;
 mod weapon_i18n;
 mod riven_math;
 mod wiki_store;
+mod ee_log;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -4663,6 +4664,8 @@ fn main() {
             detect_warframe_cache,
             // --- log scanner ---
             crate::log_scanner::get_scanner_status,
+            ee_log::detect_ee_log_paths,
+            ee_log::ee_log_status,
             start_log_scanner,
             stop_log_scanner,
             is_scanning,

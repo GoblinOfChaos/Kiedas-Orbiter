@@ -52,9 +52,9 @@ const RIVEN_STAT_TO_PRICER = {
   'Combo Count': 'chance_to_gain_combo_count', 'Combo Count Chance': 'chance_to_gain_combo_count'
 };
 
-function rivenStockKey(riven) {
+function rivenStockKey(riven, index = 0) {
   if (riven.item_id) return `riven:${riven.item_id}`;
-  return `riven:${riven.name}|${(riven.stats || []).map(s => s.statKey || s.tag).sort().join('|')}`;
+  return `riven:${riven.name || 'unknown'}:${riven.unique_name || 'unknown'}:${(riven.stats || []).map(s => s.statKey || s.tag).sort().join('|')}:${index}`;
 }
 
 function rivenPricerInput(riven) {
@@ -62,7 +62,7 @@ function rivenPricerInput(riven) {
   const positive = (riven.stats || []).filter(s => s.positive).map(statKey);
   const negative = (riven.stats || []).filter(s => !s.positive).map(statKey);
   return {
-    weapon_name: riven.weapon_name_en || riven.weapon_name || riven.name.replace(/ Riven.*$/, ''),
+    weapon_name: riven.weapon_name_en || riven.weapon_name || (riven.name || '').replace(/ Riven.*$/, ''),
     re_rolls: riven.rerolls ?? 0,
     positive1: positive[0] || null,
     positive2: positive[1] || null,
@@ -454,15 +454,17 @@ export default function Market({ onNavigate }) {
   const marketRivens = useMemo(() => inventoryData?.rivens ?? [], [inventoryData]);
 
   useEffect(() => {
-    const pending = marketRivens.filter(riven => !Object.prototype.hasOwnProperty.call(rivenEstimates, rivenStockKey(riven)));
+    const pending = marketRivens
+      .map((riven, index) => ({ riven, index }))
+      .filter(({ riven, index }) => !riven.veiled && !riven.challenge && (riven.stats || []).length > 0 && !Object.prototype.hasOwnProperty.call(rivenEstimates, rivenStockKey(riven, index)));
     if (pending.length === 0) return;
     let cancelled = false;
-    invoke('estimate_riven_full_batch', { inputs: pending.map(rivenPricerInput) })
+    invoke('estimate_riven_full_batch', { inputs: pending.map(({ riven }) => rivenPricerInput(riven)) })
       .then(results => {
         if (cancelled || !Array.isArray(results)) return;
         setRivenEstimates(previous => {
           const next = { ...previous };
-          pending.forEach((riven, index) => { next[rivenStockKey(riven)] = results[index] || null; });
+          pending.forEach(({ riven, index }, resultIndex) => { next[rivenStockKey(riven, index)] = results[resultIndex] || null; });
           return next;
         });
       })
@@ -470,19 +472,19 @@ export default function Market({ onNavigate }) {
     return () => { cancelled = true; };
   }, [marketRivens, rivenEstimates]);
 
-  const rivenStockWithPricing = useMemo(() => marketRivens.map(riven => {
-    const estimate = rivenEstimates[rivenStockKey(riven)];
+  const rivenStockWithPricing = useMemo(() => marketRivens.map((riven, index) => {
+    const estimate = rivenEstimates[rivenStockKey(riven, index)];
     const platPrice = estimate?.price != null ? Math.round(estimate.price) : null;
     const decision = platPrice != null && platPrice >= 15 ? 'sell_plat' : 'unknown';
     return {
       ...riven,
-      unique_name: rivenStockKey(riven),
-      quantity: 1,
+      unique_name: rivenStockKey(riven, index),
+      quantity: riven.quantity ?? 1,
       platPrice,
       priceState: platPrice == null ? { status: 'error' } : { status: 'ready' },
       decision,
       decisionLabel: platPrice == null ? t('market.riven_estimate_unavailable') : t('market.riven_estimated_value'),
-      decisionReason: platPrice == null ? t('market.riven_estimate_unavailable') : t('market.riven_estimate_reason', { plat: platPrice }),
+      decisionReason: platPrice == null ? '' : t('market.riven_estimate_reason', { plat: platPrice }),
       pdRatio: 0,
       dpRatio: 0,
       isDuplicate: false,
@@ -544,8 +546,8 @@ export default function Market({ onNavigate }) {
       if (stockFilter === "sell_plat" && item.decision !== "sell_plat") return false;
       if (stockFilter === "ducats" && item.decision !== "ducats") return false;
       if (stockFilter === "duplicates" && !item.isDuplicate) return false;
-      if (stockFilter === "mastered" && !item.isRiven && !item.isMastered) return false;
-      if (stockFilter === "unmastered" && !item.isRiven && item.isMastered) return false;
+      if (stockFilter === "mastered" && (item.isRiven || !item.isMastered)) return false;
+      if (stockFilter === "unmastered" && (item.isRiven || item.isMastered)) return false;
       if (stockSearch.trim() && !item.name.toLowerCase().includes(stockSearch.toLowerCase())) return false;
       return true;
     });
@@ -563,7 +565,7 @@ export default function Market({ onNavigate }) {
     setStockOrderKeys(filtered.map(item => item.unique_name));
     // Deliberately excludes `marketStockWithPricing`/`priceStates` - see comment above.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [marketStockWithPricing, stockFilter, stockSort, stockSearch, sortRefreshToken]);
+  }, [saleableStock, marketRivens, stockFilter, stockSort, stockSearch, sortRefreshToken]);
 
   const processedStock = useMemo(() => {
     return stockOrderKeys.map(key => stockByKey.get(key)).filter(Boolean);

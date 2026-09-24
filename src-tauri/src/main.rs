@@ -4054,6 +4054,9 @@ fn sync_wiki_tab(webview: tauri::Webview, label: String, url: String) -> Result<
     let actual = wiki_actual(webview.window().label(), &label);
     if let Some(w) = webview.app_handle().get_webview(&actual) {
         let parsed = url.parse().map_err(|e: url::ParseError| e.to_string())?;
+        if is_fandom_url(&parsed) {
+            return Err("Fandom wiki URLs are not allowed".to_string());
+        }
         w.navigate(parsed).map_err(|e| e.to_string())?;
     }
     // No-op if webview doesn't exist (lazy creation preserved).

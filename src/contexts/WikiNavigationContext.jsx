@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useState } from 'react';
-
-const WikiNavigationContext = createContext({ openWiki: () => {}, pendingTarget: null, clearPendingTarget: () => {} });
+import { invoke } from '../lib/logging/tauri';
 
 export function isWikiUrl(value) {
   if (typeof value !== 'string' || !value.trim()) return false;
@@ -11,6 +10,14 @@ export function isWikiUrl(value) {
     return false;
   }
 }
+
+const WikiNavigationContext = createContext({
+  openWiki: (url) => {
+    if (isWikiUrl(url)) invoke('open_url', { url }).catch(() => {});
+  },
+  pendingTarget: null,
+  clearPendingTarget: () => {}
+});
 
 export function WikiNavigationProvider({ onNavigate, children }) {
   const [pendingTarget, setPendingTarget] = useState(null);

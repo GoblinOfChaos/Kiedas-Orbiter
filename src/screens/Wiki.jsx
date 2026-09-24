@@ -21,9 +21,11 @@ export default function Wiki() {
   const lastRectRef = useRef(null);
   const debounceRef = useRef(null);
   const wikiReadyRef = useRef(false);
+  const pendingTargetRef = useRef(pendingTarget);
 
   activeTabRef.current = activeTab;
   tabsRef.current = tabs;
+  pendingTargetRef.current = pendingTarget;
 
   const reportBounds = useCallback((id) => {
     if (!id) return;
@@ -64,15 +66,21 @@ export default function Wiki() {
     // Seed tabs from Rust on mount — re-show the previously active tab if one exists.
     invoke('list_wiki_tabs').then((list) => {
       if (list.length === 0) {
-        showTab('wiki-0', pendingTarget?.url);
-        if (pendingTarget) clearPendingTarget();
+        const latestTarget = pendingTargetRef.current;
+        showTab('wiki-0', latestTarget?.url);
+        if (latestTarget) clearPendingTarget();
       } else {
         // Part A: sync URLs for all existing webviews in this window
-        list.forEach((t) => invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {}));
         setTabs(list);
         const toShow = list.find((t) => t.id === lastActiveId) || list[list.length - 1];
-        showTab(toShow.id, pendingTarget?.url || toShow.url);
-        if (pendingTarget) clearPendingTarget();
+        const latestTarget = pendingTargetRef.current;
+        list.forEach((t) => {
+          if (!latestTarget || t.id !== toShow.id) {
+            invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {});
+          }
+        });
+        showTab(toShow.id, latestTarget?.url || toShow.url);
+        if (latestTarget) clearPendingTarget();
         lastActiveId = null;
       }
       wikiReadyRef.current = true;

@@ -11,6 +11,14 @@ const CATEGORIES = [
   'ExportManifest',
 ]
 
+// The running app consumes the export-plus filenames, which intentionally do
+// not always preserve DE's logical category name.
+const BASELINE_FILES = {
+  ExportRelicArcane: ['ExportRelics.json'],
+  ExportFusionBundles: ['ExportBundles.json'],
+  ExportSortieRewards: ['ExportRewards.json'],
+}
+
 function valueRecords(value, category) {
   if (Array.isArray(value)) return value
   if (!value || typeof value !== 'object') return []
@@ -30,7 +38,7 @@ async function loadCandidate(cacheDir) {
 }
 
 async function loadBaseline(folder, category) {
-  const names = [`${category}.json`, `${category}_en.json`]
+  const names = BASELINE_FILES[category] || [`${category}.json`, `${category}_en.json`]
   for (const name of names) {
     try { return JSON.parse(await readFile(join(folder, name), 'utf8')) } catch { /* try next name */ }
   }

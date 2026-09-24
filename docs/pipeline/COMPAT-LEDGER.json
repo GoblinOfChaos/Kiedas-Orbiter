@@ -1,36 +1,27 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "auditedAt": "2026-09-23",
-  "source": "https://origin.warframe.com/PublicExport/index_en.txt.lzma",
-  "indexSha256": "123ada756ed963508e8dcb11f138a95305abbf96b32f960582d76bb3c60c69e4",
-  "narin": {
-    "uniqueName": "/Lotus/Powersuits/Duelist/Duelist",
-    "inExportWarframes": true,
-    "currentAppCount": null,
-    "appComparison": "unavailable: runtime export-plus copies are not in the worktree and external app data was not inspected"
-  },
-  "comparison": {
-    "appExportSource": "src-tauri/src/main.rs BASE_URL / EXPORT_FILES",
-    "appRuntimeFilesPresentInWorktree": ["src-tauri/data/export/descendia.txt"],
-    "countDiffs": "unavailable",
-    "runtimeReadsPrototype": false
-  },
-  "exports": [
-    {"name":"ExportWarframes","count":127,"classification":"direct","appKey":"ExportWarframes","sha256":"8609a920a3eaf10e63b2170b38e67054e74bb7a9455fdb06bfaec9c4c2b719fd"},
-    {"name":"ExportWeapons","count":841,"classification":"direct","appKey":"ExportWeapons","sha256":"316d13e5c8a1f6940ec0c796d94ed8d23ccf2de198bdb9d216a91cc0ee2cbb40"},
-    {"name":"ExportCustoms","count":4832,"classification":"direct","appKey":"ExportCustoms","sha256":"a8c2a68f67a37af10a8cf5239c4ee19dc10eeedf48a30d4bbd796a557c310e33"},
-    {"name":"ExportUpgrades","count":1603,"classification":"direct","appKey":"ExportUpgrades","sha256":"4b949b53457bebc942aae720073240959d1752f8437e82795a01c27e3cf24bb4"},
-    {"name":"ExportRecipes","count":1885,"classification":"direct","appKey":"ExportRecipes","sha256":"c6259273a2e138d0b10e6133ac425d03cf87f6f0beac197fbe56ee8f29fc8ef3"},
-    {"name":"ExportRelicArcane","count":3369,"classification":"renamed","appKey":"ExportRelics","sha256":"7be6c27eacac835ee05bde17ebae8040c39092be4efc57fe50611b115b66e3b1"},
-    {"name":"ExportResources","count":3545,"classification":"direct","appKey":"ExportResources","sha256":"a5e6b990c49f5773c99f6e0c67cdf86c6e7da22349f7586c5d17b1dac8217b99"},
-    {"name":"ExportFlavour","count":2681,"classification":"direct","appKey":"ExportFlavour","sha256":"1403513fe73419fc9ee2d190c71c5d203a2fbf05f872554d0c9cc08bc3ffaeba"},
-    {"name":"ExportRegions","count":269,"classification":"direct","appKey":"ExportRegions","sha256":"2c88839a179c2037a48913471639a28c0514bad1d5a4b26c015096d074642941"},
-    {"name":"ExportSentinels","count":34,"classification":"direct","appKey":"ExportSentinels","sha256":"f4c6fcc19c4b6e1bb4b8faf8ed0faf849bc31a2e4549b3fbef69b59f4a7926a5"},
-    {"name":"ExportGear","count":180,"classification":"direct","appKey":"ExportGear","sha256":"b394bc7e33088fd32dfbdbba258852677eebadbaf59d7eaa96bed0d8c8f1ce94"},
-    {"name":"ExportKeys","count":49,"classification":"direct","appKey":"ExportKeys","sha256":"2e19eea8674b464e7ca0bd1344d3808215d9f04dcfbd69706957905875a1b1c8"},
-    {"name":"ExportDrones","count":6,"classification":"manual","appKey":null,"sha256":"3c949c8366adb89fce5a7301e1ef43678e0b2b41cf1252852b2be23f08da9b8f3"},
-    {"name":"ExportFusionBundles","count":51,"classification":"renamed","appKey":"ExportBundles","sha256":"425d4e02032bf793ecd100a9fe25921ddc17a7215e31aa86880b0b6d8fef4011"},
-    {"name":"ExportSortieRewards","count":17,"classification":"manual","appKey":null,"sha256":"e2466b27179797ccb17eb403fc896618e2bf4b5a9f6eb6c448422169bfeb988b"},
-    {"name":"ExportManifest","count":20136,"classification":"manual","appKey":null,"sha256":"b355d3c61e0acb255d6cb1327aa010fa28d5b43421e1a0a9cab7c095d0ed03e8"}
-  ]
+  "source": "https://origin.warframe.com/PublicExport/",
+  "comparison": {"baseline": "/home/jedwards/.local/share/kiedas-orbiter-preview/data/export", "baselineKind": "Preview runtime export-plus", "comparator": "scripts/de-export/shadow-compare.mjs", "runtimeReadsPrototype": false},
+  "narin": {"uniqueName": "/Lotus/Powersuits/Duelist/Duelist", "inDE": true, "inApp": false},
+  "wfcd": {"Warframes": 121, "Primary": 195, "Secondary": 148, "Melee": 269, "Arch-Gun": 20, "Arch-Melee": 8, "weaponTotal": 640},
+  "fieldMapping": {"method": "Three first matching uniqueName records per comparable category.", "direct": ["uniqueName", "name", "description", "codexSecret", "masteryReq", "productCategory"], "renamed": {"ExportRelicArcane": "ExportRelics", "ExportFusionBundles": "ExportBundles"}, "derived": [], "manual": ["ExportDrones", "ExportSortieRewards", "ExportManifest"]},
+  "exports": {
+    "ExportWarframes": {"classification":"direct","app":"ExportWarframes.json","de":127,"appCount":125,"deMissing":["/Lotus/Powersuits/Geode/CitrinePrime","/Lotus/Powersuits/Duelist/Duelist"],"appMissing":[],"severity":"warning","samples":"3/3 share identity/combat/display fields; app adds icon,introducedAt,platinumCost,variantType."},
+    "ExportWeapons": {"classification":"direct","app":"ExportWeapons.json","de":841,"appCount":843,"deUnique":839,"appUnique":843,"deMissing":["/Lotus/Weapons/Tenno/Pistols/DuelistPistols/DuelistPistols","/Lotus/Weapons/Tenno/LongGuns/PrimeSteflos/PrimeSteflosShotgun","/Lotus/Weapons/Tenno/Bows/DuelistBow/DuelistBow","/Lotus/Weapons/Tenno/Archwing/Melee/PrimeCorufell/PrimeCorufellScytheWeapon"],"appMissing":["/Lotus/Types/JadeShadowsPart2Mission/Enemies/Ground/Elites/JS2MCorruptedBossMinigun","/Lotus/Types/Friendly/PlayerControllable/Weapons/DuviriDualSwords","/Lotus/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerPlayerWeapon","/Lotus/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmSpearPlayerWeapon","/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaPlayerWeapon","/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaPlayerWeapon","/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon","/Lotus/Weapons/Tenno/Bayonet/TnBayonetMeleeWeapon"],"severity":"warning","samples":"3/3 share identity/damage/mastery; app adds behaviours,compatibilityTags,icon,introducedAt,tradable,variantType."},
+    "ExportCustoms": {"classification":"direct","app":"ExportCustoms.json","de":4832,"appCount":4722,"deMissingCount":113,"appMissing":["/Lotus/Upgrades/Skins/Horse/HorseHelmetDrapery","/Lotus/Upgrades/Skins/Horse/HorseSaddleDrapery","/Lotus/Upgrades/Skins/Horse/HorseTailDrapery"],"deMissingExamples":["/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA","/Lotus/Upgrades/Skins/Choir/SWCovenJadeHelmet","/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin","/Lotus/Upgrades/Skins/Cowgirl/MesaHeirloomSkin","/Lotus/Upgrades/Skins/Duelist/DuelistSkin","/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin","/Lotus/Upgrades/Skins/Scarves/DuelistSyandana","/Lotus/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin"],"severity":"warning","samples":"3/3 share identity/name/description; app adds icon,productCategory,platinumCost,tradable.","note":"Exact diff counts; examples identify new families."},
+    "ExportUpgrades": {"classification":"direct","app":"ExportUpgrades.json","de":1603,"appCount":1601,"deMissing":7,"appMissing":5,"severity":"warning","samples":"3/3 share mod identity/polarity/rarity/fusionLimit; DE adds levelStats, app adds compat/icon/introducedAt/tradable."},
+    "ExportRecipes": {"classification":"direct","app":"ExportRecipes.json","de":1885,"appCount":2000,"deMissing":24,"appMissing":139,"severity":"warning","samples":"3/3 share buildPrice/buildTime/ingredients/resultType; DE adds secretIngredients, app adds creditsCost/tradable."},
+    "ExportRelicArcane": {"classification":"renamed","app":"ExportRelics.json","de":3369,"appCount":3089,"deMissingCount":280,"appMissingCount":0,"deMissingExamples":["/Lotus/Types/Game/Projections/T4VoidProjectionSevagothHydroidVaultBSilver","/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultASilver","/Lotus/Types/Game/Projections/T4VoidProjectionCitrinePrimeASilver","/Lotus/Types/Game/Projections/T1VoidProjectionCitrinePrimeABronze","/Lotus/Upgrades/CosmeticEnhancers/Defensive/ArmourOnDamage"],"severity":"warning","samples":"3/3 share only uniqueName/codexSecret/description; DE relicRewards needs mapping to app rewardManifest/era/quality."},
+    "ExportResources": {"classification":"direct","app":"ExportResources.json","de":3545,"appCount":3467,"deMissing":80,"appMissing":2,"severity":"warning"},
+    "ExportFlavour": {"classification":"direct","app":"ExportFlavour.json","de":2681,"appCount":2579,"deMissing":109,"appMissing":7,"severity":"warning"},
+    "ExportRegions": {"classification":"direct","app":"ExportRegions.json","de":269,"appCount":354,"deMissing":0,"appMissing":85,"severity":"critical","note":"DE has factionIndex/missionIndex; app has mission graph/reward fields. Review semantic mismatch."},
+    "ExportSentinels": {"classification":"direct","app":"ExportSentinels.json","de":34,"appCount":38,"deMissing":0,"appMissing":4,"severity":"warning"},
+    "ExportGear": {"classification":"direct","app":"ExportGear.json","de":180,"appCount":179,"deMissing":1,"appMissing":0,"severity":"warning"},
+    "ExportKeys": {"classification":"direct","app":"ExportKeys.json","de":49,"appCount":574,"deMissing":["/Lotus/Types/Keys/TauPrologue/TauPrologueKeyChainA","/Lotus/Types/Keys/TauPrologue/TauPrologueKeyChainB","/Lotus/Types/Keys/TauPrologue/TauPrologueKeyChainC"],"appMissingCount":528,"severity":"critical","note":"App-only set is dominated by quest key stages; do not delete without semantic review."},
+    "ExportDrones": {"classification":"manual","app":null,"de":6,"deMissing":["/Lotus/Types/Ship/AdvancedResourceDrone","/Lotus/Types/Ship/AdvancedUcResourceDrone","/Lotus/Types/Ship/BasicResourceDrone","/Lotus/Types/Ship/BasicUcResourceDrone","/Lotus/Types/Ship/LandscapeTrapLight","/Lotus/Types/Ship/VoidTraderResourceDrone"],"severity":"info"},
+    "ExportFusionBundles": {"classification":"renamed","app":"ExportBundles.json","de":51,"appCount":1155,"severity":"critical","note":"Not equivalent by count or namespace: DE FusionBundles versus broad app store/reward bundles."},
+    "ExportSortieRewards": {"classification":"manual","app":null,"de":17,"severity":"info"},
+    "ExportManifest": {"classification":"manual","app":null,"de":20136,"severity":"info"}
+  }
 }

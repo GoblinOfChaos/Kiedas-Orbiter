@@ -341,12 +341,21 @@ export default function Cosmetics() {
     }
 
     measure()
-    const observer = new ResizeObserver(measure)
+    let resizeTimer = null
+    const scheduleMeasure = () => {
+      if (resizeTimer !== null) return
+      resizeTimer = setTimeout(() => {
+        resizeTimer = null
+        measure()
+      }, 50)
+    }
+    const observer = new ResizeObserver(scheduleMeasure)
     observer.observe(container)
     observer.observe(virtualRoot)
     container.addEventListener('scroll', measure, { passive: true })
     return () => {
       observer.disconnect()
+      if (resizeTimer !== null) clearTimeout(resizeTimer)
       container.removeEventListener('scroll', measure)
     }
   }, [virtualRoot])

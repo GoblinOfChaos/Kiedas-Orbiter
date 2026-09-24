@@ -98,12 +98,21 @@ export default function RelicPlanner() {
     };
 
     measure();
-    const observer = new ResizeObserver(measure);
+    let resizeTimer = null;
+    const scheduleMeasure = () => {
+      if (resizeTimer !== null) return;
+      resizeTimer = setTimeout(() => {
+        resizeTimer = null;
+        measure();
+      }, 50);
+    };
+    const observer = new ResizeObserver(scheduleMeasure);
     observer.observe(container);
     if (partRowRef.current) observer.observe(partRowRef.current);
     container.addEventListener('scroll', measure, { passive: true });
     return () => {
       observer.disconnect();
+      if (resizeTimer !== null) clearTimeout(resizeTimer);
       container.removeEventListener('scroll', measure);
     };
   }, [filteredParts.length]);

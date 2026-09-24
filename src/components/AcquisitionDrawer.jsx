@@ -4,6 +4,7 @@ import { invoke } from '../lib/logging/tauri';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { getItemDrops } from '../lib/acquisitionData';
 import { getDropSourcesWithFallback } from '../lib/dropsParser';
+import { sortSourcesByChanceInRotations } from '../lib/chanceSort';
 import { localizeOverrideText } from '../lib/acquisitionTemplates';
 import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
@@ -32,22 +33,6 @@ function formatDropLocation(location) {
     return `${region}Endless reward — Tier ${endless[2]}${mode}`;
   }
   return location;
-}
-
-// Keep the most likely acquisition route first. Sources without a quantified
-// chance stay after quantified sources and retain their original order.
-function sortSourcesByChance(sources) {
-  return sources
-    .map((source, index) => ({ source, index }))
-    .sort((a, b) => {
-      const aHasChance = typeof a.source?.chance === 'number' && Number.isFinite(a.source.chance);
-      const bHasChance = typeof b.source?.chance === 'number' && Number.isFinite(b.source.chance);
-      if (aHasChance && bHasChance) return b.source.chance - a.source.chance || a.index - b.index;
-      if (aHasChance) return -1;
-      if (bHasChance) return 1;
-      return a.index - b.index;
-    })
-    .map(({ source }) => source);
 }
 
 // Convention for hand-written overrides: a leading "Unconfirmed — " marks
@@ -206,7 +191,7 @@ export function useAcquisitionDrawerData(item) {
   // Recipe details are rendered in the panel below. Do not repeat the
   // unhelpful generic Foundry sentence as a source card for every craftable
   // item; concrete acquisition rows (such as a blueprint bounty) remain.
-  const sources = sortSourcesByChance((info?.sources || []).filter((source) => !(
+  const sources = sortSourcesByChanceInRotations((info?.sources || []).filter((source) => !(
     recipe && source?.type === 'non-drop' &&
     /^Built in the Foundry from a blueprint(?: and its components)?/.test(source.text || '')
   )));
@@ -299,7 +284,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
               // only when the live index has no entry, so its isFakeVendorPurchaseDrop
               // filtering still covers any items dropIndex doesn't.
               const liveDrops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name);
-              const drops = liveDrops.length > 0 ? liveDrops : getItemDrops(ingredient.itemType);
+              const drops = sortSourcesByChanceInRotations(liveDrops.length > 0 ? liveDrops : getItemDrops(ingredient.itemType));
               return (
               <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
                 <div className="flex items-start justify-between gap-2">

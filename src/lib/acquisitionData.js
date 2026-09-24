@@ -1,5 +1,6 @@
 // High-Performance Acquisition Data Module for Kiedas Orbiter (O(1) Indexed)
 import { invoke } from './logging/tauri';
+import { sortSourcesByChanceInRotations } from './chanceSort';
 
 let itemIndex = null;
 let itemNameIndex = null;
@@ -14789,8 +14790,7 @@ export function getItemDrops(uniqueName) {
   const realDrops = item.drops.filter((d) => !isFakeVendorPurchaseDrop(d));
   if (realDrops.length === 0) return null;
 
-  return [...realDrops]
-    .sort((a, b) => (b.chance ?? 0) - (a.chance ?? 0))
+  return sortSourcesByChanceInRotations(realDrops)
     .map((d) => ({
       type: 'drop',
       location: d.location,

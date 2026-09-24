@@ -676,6 +676,15 @@ const DROP_CHANCES = {
   'Radiant': [0.1667, 0.20, 0.10]
 };
 
+export function getRelicRewardChance(reward, refinement = 'Intact', rewards = []) {
+  if (rewards.length >= 7 && rewards.every((entry) => entry.rarity === 'COMMON')) return 1 / rewards.length;
+  const chances = DROP_CHANCES[refinement] || DROP_CHANCES.Intact;
+  if (reward?.rarity === 'COMMON') return chances[0];
+  if (reward?.rarity === 'UNCOMMON') return chances[1];
+  if (reward?.rarity === 'RARE') return chances[2];
+  return null;
+}
+
 /**
  * Calculates the solo Expected Value (EV) of a single relic crack: each
  * reward's value weighted by its own drop probability.

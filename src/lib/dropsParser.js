@@ -1,4 +1,5 @@
 import { BARO_RELIC_NAMES } from './baroRelics'
+import { sortSourcesByChanceInRotations } from './chanceSort'
 
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
@@ -625,16 +626,15 @@ export function buildDropIndex(exportData) {
 export function getDropSources(uniqueName, dropIndex) {
   if (!uniqueName || !dropIndex) return []
   const norm = uniqueName.replace('/StoreItems/', '/')
-  return dropIndex[norm] || []
+  return sortSourcesByChanceInRotations(dropIndex[norm] || [])
 }
 
 export function getDropSourcesWithFallback(uniqueName, dropIndex, displayName) {
   if (!uniqueName || !dropIndex) return []
   const norm = uniqueName.replace('/StoreItems/', '/')
   const sources = dropIndex[norm] || []
-  if (displayName) {
-    const fallback = dropIndex['display:' + displayName.toLowerCase().trim()]
-    if (fallback) return sources.concat(fallback)
-  }
-  return sources
+  const fallbackSources = displayName
+    ? dropIndex['display:' + displayName.toLowerCase().trim()] || []
+    : []
+  return sortSourcesByChanceInRotations(sources.concat(fallbackSources))
 }

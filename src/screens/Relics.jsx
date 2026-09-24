@@ -21,7 +21,8 @@ import { Search, AlertCircle, Zap, TrendingUp, Coins, ArrowUpDown } from 'lucide
 import { PageLayout, Input, Card, Tabs, MonitorState, Select } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { convertFileSrc, invoke } from '../lib/logging/tauri';
-import { getRelicEV, getRelicCatalog } from '../lib/relicParser';
+import { getRelicEV, getRelicCatalog, getRelicRewardChance } from '../lib/relicParser';
+import { sortByChanceDesc } from '../lib/chanceSort';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer } from '../components/AcquisitionDrawer';
@@ -147,10 +148,19 @@ export default function Relics() {
   const grouped = useMemo(() => {
     // 1. Prepare data with EV for sorting
     const enriched = baseFiltered.map((relic) => {
-      const sortedRewards = [...(relic.rewards || [])].sort((a, b) => a.tier - b.tier).map((r) => ({
+      const sortedRewards = sortByChanceDesc([...(relic.rewards || [])]
+        .map((reward, index) => ({ reward, index }))
+        .sort((a, b) => {
+          const aTier = Number.isFinite(a.reward.tier) ? a.reward.tier : null;
+          const bTier = Number.isFinite(b.reward.tier) ? b.reward.tier : null;
+          if (aTier == null || bTier == null) return a.index - b.index;
+          return aTier - bTier || a.index - b.index;
+        })
+        .map(({ reward }) => reward)
+        .map((r) => ({
         ...r,
         plat: allPrices[r.uniqueName] ?? 0
-      }));
+      })), (reward) => getRelicRewardChance(reward, evRefinementOverride, relic.rewards || []));
 
       const evRefinement = evRefinementOverride;
 

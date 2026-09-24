@@ -24,6 +24,7 @@ import { formatNumber } from '../lib/formatNumber';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewInventoryLayout from '../components/PreviewInventoryLayout';
 import { categoryDisplayLabel } from '../lib/categoryLabels';
+import { sortByChanceDesc, sortSourcesByChanceInRotations } from '../lib/chanceSort';
 import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 
 
@@ -53,6 +54,10 @@ const ARCANE_ROW_STRIDE = Math.round(ARCANE_CARD_HEIGHT) + COL_GAP; // 298
 const GENERAL_CARD_MIN_WIDTH = 280;
 const GENERAL_CARD_HEIGHT = 168;
 const GENERAL_ROW_STRIDE = GENERAL_CARD_HEIGHT + COL_GAP; // 184
+
+function sortMissionRotationGroups(sources) {
+  return sortSourcesByChanceInRotations(sources);
+}
 
 const modBgMap = {
   'Normal Common': 'BronzeBackground.png',
@@ -1209,7 +1214,7 @@ export default function Inventory() {
                             return 'o:' + s.type;
                           };
                           const partSeen = {};
-                          const partSources = partSourcesRaw.filter((s) => {const k = partDedupKey(s);if (partSeen[k]) return false;partSeen[k] = true;return true;});
+                          const partSources = sortSourcesByChanceInRotations(partSourcesRaw).filter((s) => {const k = partDedupKey(s);if (partSeen[k]) return false;partSeen[k] = true;return true;});
                           const hasPartSources = partSources.length > 0;
                           const partCell =
                           <div className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
@@ -1603,11 +1608,11 @@ export default function Inventory() {
                       };
                       const seen = {};
                       const uniq = itemSources.filter((s) => {const k = dedupKey(s);if (seen[k]) return false;seen[k] = true;return true;});
-                      const missionSources = uniq.filter((s) => s.type === 'mission').slice(0, 5);
-                      const relicSources = uniq.filter((s) => s.type === 'relic').slice(0, 5);
-                      const enemySources = uniq.filter((s) => s.type === 'enemy').slice(0, 4);
-                      const bountySources = uniq.filter((s) => s.type === 'bounty').slice(0, 3);
-                      const otherSources = uniq.filter((s) => !['mission', 'relic', 'enemy', 'bounty'].includes(s.type)).slice(0, 3);
+                      const missionSources = sortMissionRotationGroups(uniq.filter((s) => s.type === 'mission')).slice(0, 5);
+                      const relicSources = sortByChanceDesc(uniq.filter((s) => s.type === 'relic')).slice(0, 5);
+                      const enemySources = sortByChanceDesc(uniq.filter((s) => s.type === 'enemy')).slice(0, 4);
+                      const bountySources = sortByChanceDesc(uniq.filter((s) => s.type === 'bounty')).slice(0, 3);
+                      const otherSources = sortByChanceDesc(uniq.filter((s) => !['mission', 'relic', 'enemy', 'bounty'].includes(s.type))).slice(0, 3);
                       if (missionSources.length + relicSources.length + enemySources.length + bountySources.length + otherSources.length === 0) return null;
                       return (
                         <Tooltip

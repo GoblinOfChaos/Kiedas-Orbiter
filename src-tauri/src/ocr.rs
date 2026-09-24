@@ -1319,8 +1319,32 @@ fn strip_prefix_junk(s: &str) -> &str {
     &s[start..]
 }
 
+/// Strip a glued quantity prefix from a token (e.g. "2XForma" -> "Forma",
+/// "3xForma" -> "Forma"). OCR often drops the space after a "2X" multiplier,
+/// and a token containing a digit would otherwise be discarded whole,
+/// leaving only the trailing word (e.g. "Blueprint"). The quantity is not
+/// needed for reward matching. Only strips when the remainder is a word that
+/// starts with an uppercase letter.
+fn strip_quantity_prefix(s: &str) -> &str {
+    let digits = s.chars().take_while(|c| c.is_ascii_digit()).count();
+    if digits == 0 { return s; }
+    let rest = &s[digits..];
+    let mut chars = rest.chars();
+    match chars.next() {
+        Some('x') | Some('X') | Some('\u{00d7}') => {
+            let word = chars.as_str();
+            if word.len() >= 2 && word.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) {
+                word
+            } else {
+                s
+            }
+        }
+        _ => s,
+    }
+}
+
 fn clean_ocr_output(raw: &str) -> String {
-    let tokens: Vec<&str> = raw.split_whitespace().collect();
+    let tokens: Vec<&str> = raw.split_whitespace().map(strip_quantity_prefix).collect();
     if tokens.is_empty() { return String::new(); }
 
     for i in 0..tokens.len() {

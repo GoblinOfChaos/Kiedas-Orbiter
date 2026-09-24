@@ -332,7 +332,13 @@ export default function RivenOverlay() {
       let timer = null;
       unsubs.push(
         listen('riven-reroll', () => {
+          // A new roll was generated: any earlier pending timer or in-flight
+          // read belongs to a stale roll. Cancel the timer and bump the
+          // capture generation so a late OCR/pricing result is discarded.
+          if (timer) {clearTimeout(timer);timer = null;}
+          captureGenRef.current++;
           timer = setTimeout(() => {
+            timer = null;
             show();
             doOcr('Middle');
           }, 4000);
@@ -373,6 +379,11 @@ export default function RivenOverlay() {
           // values that didn't match what was actually on screen.
           if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
           refreshTimer = setTimeout(() => {
+            // The screen is still open here. If the safety-net auto-hide
+            // already fired (an earlier unreadable capture), doOcr would
+            // bail on aliveRef and this overlay would stay dead for the
+            // rest of the session - bring it back first.
+            if (!aliveRef.current) show();
             setRefreshTick((t) => t + 1);
             doOcr('Middle');
           }, 2000);
@@ -480,7 +491,7 @@ export default function RivenOverlay() {
                   const roll = t(statGrade?.grade === 'S' ? 'ui.riven_overlay.roll_perfect' : statGrade?.grade === 'A' ? 'ui.riven_overlay.roll_good' : statGrade?.grade === 'B' ? 'ui.riven_overlay.roll_average' : statGrade?.grade === 'C' ? 'ui.riven_overlay.roll_mediocre' : 'ui.riven_overlay.roll_bad');
                   return (
                     <span className="text-[11px] font-bold text-zinc-200 uppercase tracking-wider">
-                          {tier} {t('ui.riven_card.tier_weapon')} &middot; {roll}{t('ui.riven_card.rolls')}
+                          {tier} {t('riven_card.tier_weapon')} &middot; {roll} {t('riven_card.rolls')}
                     </span>);
 
                 })() :

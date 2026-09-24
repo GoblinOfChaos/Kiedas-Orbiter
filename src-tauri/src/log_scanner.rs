@@ -55,6 +55,14 @@ pub struct LogScanner {
     relic_picker_opened_at: f64,
     void_tier: Option<String>,
     riven_state: RivenState,
+    /// True between a confirmed cycle (a new roll now shown beside the
+    /// current selection) and the follow-up "keep the new roll" confirm.
+    riven_roll_pending: bool,
+    /// What the most recent yes/no prompt asked, when its text is one of the
+    /// known English strings ("...into current selection?" = accept the
+    /// pending roll, "...want to cycle..." = start a cycle). None for other
+    /// languages, where the pending-roll alternation is used instead.
+    riven_prompt_is_accept: Option<bool>,
     squad_channels: HashSet<String>,
     expecting_elite_alert_boosts: bool,
     is_archon_elite_alert: bool,
@@ -97,7 +105,9 @@ impl LogScanner {
             relic_picker_opened_at: 0.0,
             void_tier: None,
             riven_state: RivenState::Idle,
-            squad_channels: HashSet::new(),
+            riven_roll_pending: false,
+            riven_prompt_is_accept: None,
+squad_channels: HashSet::new(),
             expecting_elite_alert_boosts: false,
             is_archon_elite_alert: false,
             min_ts: f64::MAX,
@@ -304,31 +314,59 @@ impl LogScanner {
         // ─── Riven reroll menu state machine ───────────────────────────────
         if s.contains("OmegaRerollSelection.lua: Diorama setup") {
             self.riven_state = RivenState::ScreenOpen;
+            self.riven_roll_pending = false;
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll screen opened (LogTS: {}s)", ts));
             app.emit("riven-screen-open", ()).unwrap_or_default();
             return;
         }
 
-        // Track dialog lifecycle
+        // Track dialog lifecycle. Only real yes/no prompts count: the game
+        // also opens an OkCancel "please wait" dialog (leftItem=nil) right
+        // after every confirm, which must not advance the state machine.
         if s.contains("Dialog.lua: Dialog::CreateOkCancel(description=") {
-            if self.riven_state != RivenState::Idle {
+            if self.riven_state != RivenState::Idle && s.contains("leftItem=/Menu/Confirm_Item_Yes") {
                 self.riven_state = RivenState::AwaitingConfirm1;
+                self.riven_prompt_is_accept = if s.contains("into current selection") {
+                    Some(true)
+                } else if s.contains("want to cycle") {
+                    Some(false)
+                } else {
+                    None
+                };
             }
             return;
         }
 
         if s.contains("Dialog.lua: SendResult_MENU_CANCEL()") || s.contains("Dialog.lua: Dialog::SendResult(5)") {
-            if self.riven_state != RivenState::Idle {
+            if self.riven_state == RivenState::AwaitingConfirm1 {
                 self.riven_state = RivenState::ScreenOpen;
             }
             return;
         }
 
+        // The game writes BOTH "SendResult_MENU_SELECT()" and
+        // "Dialog::SendResult(4)" for a single confirm. Only the first one
+        // arrives while AwaitingConfirm1; it moves the state on, so the
+        // duplicate line is ignored (previously each confirm emitted twice).
         if s.contains("Dialog.lua: SendResult_MENU_SELECT()") || s.contains("Dialog.lua: Dialog::SendResult(4)") {
-            if self.riven_state != RivenState::Idle {
+            if self.riven_state == RivenState::AwaitingConfirm1 {
                 self.riven_state = RivenState::ScreenOpen;
-                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll confirmed (LogTS: {}s)", ts));
-                app.emit("riven-reroll", ()).unwrap_or_default();
+                // Trust the prompt text when it is recognized (self-corrects
+                // if a cancel/close ever left riven_roll_pending stale);
+                // otherwise fall back to cycle/accept alternation.
+                let is_accept = self.riven_prompt_is_accept.take().unwrap_or(self.riven_roll_pending);
+                if !is_accept {
+                    // First confirm: cycle -> a new roll is generated.
+                    self.riven_roll_pending = true;
+                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll confirmed (LogTS: {}s)", ts));
+                    app.emit("riven-reroll", ()).unwrap_or_default();
+                } else {
+                    // Second confirm: "Cycle Riven into current selection?"
+                    // -> the pending roll becomes the current selection.
+                    self.riven_roll_pending = false;
+                    crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven new selection confirmed (LogTS: {}s)", ts));
+                    app.emit("riven-reroll-confirmed", ()).unwrap_or_default();
+                }
             }
             return;
         }
@@ -339,6 +377,7 @@ impl LogScanner {
         if self.riven_state != RivenState::Idle {
             if s.contains("CancelJobs batchcount 0") {
                 self.riven_state = RivenState::Idle;
+                self.riven_roll_pending = false;
                 crate::ocr::RIVEN_CAPTURE_GEN.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();
@@ -346,6 +385,7 @@ impl LogScanner {
             }
             if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
                 self.riven_state = RivenState::Idle;
+                self.riven_roll_pending = false;
                 crate::ocr::RIVEN_CAPTURE_GEN.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();

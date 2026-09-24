@@ -247,7 +247,7 @@ export default function RivenCard({ riven, framesPath, iconsPath, width = 180, e
             const total = estimate.total_weapons ?? 1;
             const tier = t(wr <= total * 0.2 ? 'ui.riven_overlay.tier_meta' : wr <= total * 0.5 ? 'ui.riven_overlay.tier_popular' : wr <= total * 0.7 ? 'ui.riven_overlay.tier_average' : wr <= total * 0.9 ? 'ui.riven_overlay.tier_niche' : 'ui.riven_overlay.tier_unpopular');
             const roll = t(statGrade?.grade === 'S' ? 'ui.riven_overlay.roll_perfect' : statGrade?.grade === 'A' ? 'ui.riven_overlay.roll_good' : statGrade?.grade === 'B' ? 'ui.riven_overlay.roll_average' : statGrade?.grade === 'C' ? 'ui.riven_overlay.roll_mediocre' : 'ui.riven_overlay.roll_bad');
-            return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} {t('ui.riven_card.tier_weapon')}, {roll}{t('ui.riven_card.rolls')}</div>;
+            return <div className="text-center text-[11px] font-bold text-kronos-accent leading-snug">{tier} {t('riven_card.tier_weapon')}, {roll} {t('riven_card.rolls')}</div>;
           })()}
           </div>
         </div>

@@ -1510,6 +1510,12 @@
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "市场",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "acquisitionTemplates": {
     "tpl_0000": "特殊的 Warframe Creator Glyphs 会定期为 Warframe 社区中的各类 Content Creators 制作。虽然有些仅由创作者本人发放，但许多都配备了通用 Promo Codes，任何玩家均可免费兑换。已知的 Creator Glyphs 列于下方 - 点击 glyph 下方的链接即可兑换！注意：此列表绝非完整，可能包含不准确之处。Creator Glyphs 会定期添加、更新、替换和停用，一些现存的 Glyph 代码甚至未被整个社区所知。如果您发现有任何问题，请协助更新列表。",
     "tpl_0001": "可在 Market 花费 <*> Platinum 购买。",

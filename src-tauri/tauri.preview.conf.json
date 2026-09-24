@@ -96,6 +96,21 @@
         "shadow": false
       },
       {
+        "label": "overlay-riven-prompt",
+        "title": "Kieda's Orbiter Preview Overlay",
+        "url": "/?overlay=true",
+        "width": 1040,
+        "height": 220,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": false,
+        "visible": false,
+        "focus": false,
+        "shadow": false
+      },
+      {
         "label": "overlay-relic",
         "title": "Kieda's Orbiter Preview Overlay",
         "url": "/?overlay=true",

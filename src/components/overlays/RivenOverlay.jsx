@@ -23,6 +23,8 @@ export default function RivenOverlay() {
   const [refreshTick, setRefreshTick] = useState(0);
   const aliveRef = useRef(true);
   const showingRef = useRef(false);
+  const armedRef = useRef(false);
+  const newRollSeenRef = useRef(false);
   // Bumped at the start of every capture (doOcr call or a manual OCR-hotkey
   // riven-ocr-result event) so an async pricing result can check it's still
   // the most recent one before writing state - without this, the manual OCR
@@ -331,7 +333,16 @@ export default function RivenOverlay() {
     if (isNew) {
       let timer = null;
       unsubs.push(
+        listen('riven-grade-armed', () => {
+          armedRef.current = true;
+          if (newRollSeenRef.current) {
+            show();
+            doOcr('Middle');
+          }
+        }),
         listen('riven-reroll', () => {
+          newRollSeenRef.current = true;
+          if (!armedRef.current) return;
           // A new roll was generated: any earlier pending timer or in-flight
           // read belongs to a stale roll. Cancel the timer and bump the
           // capture generation so a late OCR/pricing result is discarded.
@@ -349,6 +360,8 @@ export default function RivenOverlay() {
         }),
         listen('riven-screen-closed', () => {
           if (timer) {clearTimeout(timer);timer = null;}
+          armedRef.current = false;
+          newRollSeenRef.current = false;
           hide();
         })
       );
@@ -362,12 +375,18 @@ export default function RivenOverlay() {
       unsubs.push(
         listen('riven-linked-open', () => {show();doOcr('Linked');}),
         listen('riven-screen-open', () => {
+          armedRef.current = false;
+          hide();
+        }),
+        listen('riven-grade-armed', () => {
+          armedRef.current = true;
           show();
           doOcr('Middle');
         }),
         listen('riven-linked-closed', () => hide()),
         listen('riven-screen-closed', () => {
           if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
+          armedRef.current = false;
           hide();
         }),
         listen('riven-reroll-confirmed', () => {
@@ -377,6 +396,7 @@ export default function RivenOverlay() {
           // silently overwrite the other, showing stale or racing results.
           // Confirmed live: rapid re-rolling made price/grade flip between
           // values that didn't match what was actually on screen.
+          if (!armedRef.current) return;
           if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
           refreshTimer = setTimeout(() => {
             // The screen is still open here. If the safety-net auto-hide

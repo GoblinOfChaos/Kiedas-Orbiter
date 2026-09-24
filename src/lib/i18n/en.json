@@ -1525,5 +1525,11 @@
     "category.song_items": "Song",
     "acquisition_drawer.sources_count_one": "{count} source"
   },
-  "nav.market": "Market"
+  "nav.market": "Market",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
 }

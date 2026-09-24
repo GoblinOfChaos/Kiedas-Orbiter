@@ -4,6 +4,10 @@ use std::sync::{Arc, Mutex};
 use tauri::{AppHandle, Emitter, Manager};
 
 pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
+/// True while the Riven reroll screen is open. Global Riven grading hotkeys
+/// must be ignored outside this screen so they cannot trigger an OCR capture
+/// over an unrelated game view.
+pub static RIVEN_SCREEN_ACTIVE: AtomicBool = AtomicBool::new(false);
 // 0 = idle, 1 = waiting for process, 2 = hooked/active
 pub static SCANNER_STATUS: std::sync::atomic::AtomicU8 = std::sync::atomic::AtomicU8::new(0);
 /// Incremented on each stop_scanner call so stale watcher threads can detect
@@ -315,6 +319,10 @@ squad_channels: HashSet::new(),
         if s.contains("OmegaRerollSelection.lua: Diorama setup") {
             self.riven_state = RivenState::ScreenOpen;
             self.riven_roll_pending = false;
+            RIVEN_SCREEN_ACTIVE.store(true, Ordering::SeqCst);
+            if crate::build_profile::IS_PREVIEW {
+                let _ = crate::overlay_utils::show_window_internal(app, "overlay-riven-prompt");
+            }
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll screen opened (LogTS: {}s)", ts));
             app.emit("riven-screen-open", ()).unwrap_or_default();
             return;
@@ -378,6 +386,7 @@ squad_channels: HashSet::new(),
             if s.contains("CancelJobs batchcount 0") {
                 self.riven_state = RivenState::Idle;
                 self.riven_roll_pending = false;
+                RIVEN_SCREEN_ACTIVE.store(false, Ordering::SeqCst);
                 crate::ocr::RIVEN_CAPTURE_GEN.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven reroll menu closed (CancelJobs) (LogTS: {}s)", ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();
@@ -386,6 +395,7 @@ squad_channels: HashSet::new(),
             if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
                 self.riven_state = RivenState::Idle;
                 self.riven_roll_pending = false;
+                RIVEN_SCREEN_ACTIVE.store(false, Ordering::SeqCst);
                 crate::ocr::RIVEN_CAPTURE_GEN.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
                 crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven overlays closed (ClearAgents) (LogTS: {}s)", ts));
                 app.emit("riven-screen-closed", ()).unwrap_or_default();

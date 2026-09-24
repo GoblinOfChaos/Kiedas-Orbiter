@@ -598,7 +598,7 @@
     "ui.setup.game_assets": "Game Assets",
     "ui.setup.welcome": "Welcome to Kieda's Orbiter",
     "wiki.refresh": "刷新此分頁",
-    "nav.market": "市場",
+  "nav.market": "市場",
     "settings.theme_accessibility_hint": "包含專為高對比與色覺調整的主題",
     "settings.active_label": "使用中：",
     "settings.theme_info_label": "佈景主題資訊：",
@@ -1509,5 +1509,11 @@
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "市場"
+  "nav.market": "市場",
+  "settings.hotkey_action_grade_rivens": "Grade Rivens",
+  "ui.riven_prompt.title": "RIVEN GRADING READY",
+  "ui.riven_prompt.press": "Press",
+  "ui.riven_prompt.action": "to grade your Rivens",
+  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
 }

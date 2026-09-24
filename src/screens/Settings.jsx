@@ -20,6 +20,7 @@ import { Bug } from 'lucide-react';
 import { Compass, BookOpen } from 'lucide-react';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewSettingsLayout from '../components/PreviewSettingsLayout';
+import { eeLogDirectory } from '../lib/eeLogPaths';
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const { t } = useUi();
@@ -257,7 +258,22 @@ export default function SettingsScreen() {
   const [eeLogPath, setEeLogPath] = useState(
     () => getSetting('ee_log_path') ?? ''
   );
+  const [eeLogCandidates, setEeLogCandidates] = useState([]);
+  const [eeLogStatus, setEeLogStatus] = useState(null);
+  const [eeLogStatusTick, setEeLogStatusTick] = useState(0);
   const eeLogPathRestartTimerRef = useRef(null);
+  useEffect(() => {
+    let cancelled = false;
+    const refresh = () => invoke('ee_log_status', { path: eeLogPath })
+      .then((status) => { if (!cancelled) setEeLogStatus(status); })
+      .catch(() => { if (!cancelled) setEeLogStatus(null); });
+    refresh();
+    return () => { cancelled = true; };
+  }, [eeLogPath]);
+  useEffect(() => {
+    const interval = setInterval(() => setEeLogStatusTick((value) => value + 1), 1000);
+    return () => clearInterval(interval);
+  }, []);
   const [wfmToken, setWfmToken] = useState(
     () => getSetting('wfm_token') ?? ''
   );
@@ -459,6 +475,31 @@ export default function SettingsScreen() {
           console.error(e);
         }
       }, 800);
+    }
+  };
+
+  const handleBrowseEeLog = async () => {
+    try {
+      const candidates = eeLogCandidates.length > 0 ? eeLogCandidates : await invoke('detect_ee_log_paths');
+      if (eeLogCandidates.length === 0) setEeLogCandidates(candidates);
+      const selected = await openDialog({
+        directory: false,
+        multiple: false,
+        defaultPath: eeLogDirectory(eeLogPath || candidates[0] || '') || undefined,
+        filters: [{ name: 'EE.log', extensions: ['log'] }],
+      });
+      if (selected && typeof selected === 'string') await handleEeLogPathChange(selected);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDetectEeLogs = async () => {
+    try {
+      setEeLogCandidates(await invoke('detect_ee_log_paths'));
+    } catch (err) {
+      console.error(err);
+      setEeLogCandidates([]);
     }
   };
 
@@ -1253,14 +1294,40 @@ export default function SettingsScreen() {
               <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
                 {t('settings.ee_log_path_hint')}
               </p>
-              <input
-                type="text"
-                className="w-full h-10 bg-black/40 border border-white/10 rounded-lg px-3 text-sm font-mono text-kronos-dim focus:outline-none focus:border-kronos-accent/50 transition-colors"
-                placeholder="e.g. /home/user/.steam/steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log"
-                value={eeLogPath}
-                onChange={(e) => handleEeLogPathChange(e.target.value)}
-                disabled={!useEELog}
-              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  className="flex-1 h-10 bg-black/40 border border-white/10 rounded-lg px-3 text-sm font-mono text-kronos-dim focus:outline-none focus:border-kronos-accent/50 transition-colors"
+                  placeholder="e.g. /home/user/.steam/steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log"
+                  value={eeLogPath}
+                  onChange={(e) => handleEeLogPathChange(e.target.value)}
+                />
+                <Button variant="secondary" onClick={handleBrowseEeLog} className="px-3">
+                  <FolderOpen size={16} className="mr-2" />{t('ui.setup.browse')}
+                </Button>
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <Button variant="secondary" onClick={handleDetectEeLogs} className="px-3">
+                  <FileSearch size={16} className="mr-2" />{t('settings.ee_log_auto_detect')}
+                </Button>
+                {eeLogStatus && (
+                  <span className="text-[10px] text-zinc-500 font-bold uppercase">
+                    {!eeLogStatus.exists ? t('settings.ee_log_not_found') : !eeLogStatus.readable ? t('settings.ee_log_not_readable') : t('settings.ee_log_found', {
+                      seconds: Math.max(0, Math.floor((eeLogStatus.modifiedAgoSecs ?? eeLogStatus.modified_ago_secs ?? 0) + eeLogStatusTick)),
+                    })}
+                  </span>
+                )}
+              </div>
+              {eeLogCandidates.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  <p className="text-[10px] text-kronos-dim uppercase font-bold">{t('settings.ee_log_candidates')}</p>
+                  {eeLogCandidates.map((candidate) => (
+                    <button key={candidate} type="button" onClick={() => handleEeLogPathChange(candidate)} className="block w-full text-left text-[10px] font-mono text-kronos-accent hover:text-white truncate">
+                      {candidate}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </Card>

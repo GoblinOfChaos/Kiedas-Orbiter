@@ -38,3 +38,21 @@ Until Warframe.market publishes or confirms the Riven/contract request shape and
 5. What endpoint-specific rate limit, account requirement, and validation rules apply to auction creation?
 
 These questions remain intentionally unresolved rather than inferred from undocumented website traffic, third-party clients, or the legacy v1 API.
+
+## Verification round 2 - official docs supplied by the user (2026-09-23)
+
+Sources read: https://docs.warframe.market/docs/api/overview , /docs/api/manifests , /docs/api/orders , /docs/data-models (docs v0.25.0). Read-only GETs to https://api.warframe.market/v2/riven/attributes and /v2/riven/weapons (public, no auth, 2 requests).
+
+**Verified**
+- The documented HTTP API sections are: Overview, Manifests And Collections, Orders, Groups, Users, Achievements, Authentication, Dashboard (+ WebSockets, OAuth 2.0, Data Models, Rules). There is **no Auctions or Riven-listing section**.
+- Riven data is documented as read-only manifests: `GET /v2/riven/weapons`, `GET /v2/riven/weapon/{slug}`, `GET /v2/riven/attributes` (models `Riven Item`, `Riven Attribute`).
+- `Order` (`POST /v2/order`, `PATCH /v2/order/{id}`, `DELETE`, `POST /v2/order/{id}/close`, `GET /v2/orders/my`) has fields itemId, type, platinum, quantity, visible, perTrade, rank, charges, subtype, amberStars, cyanStars. **No riven stats, polarity, re-rolls, mastery rank, starting/buyout price or auction fields.** The Data Models page has no Auction model.
+- Global rate limit 3 requests/second (429 / 509 on excess). Headers: Language, Platform (default pc), Crossplay (default false). Auth: OAuth 2.0 announced; v1 login flow still grants scope `all`.
+- Live data: 32 riven attributes (each with `slug`, `gameRef`, `prefix`, `suffix`) and 420 riven weapons (each with `slug`, `rivenType`, `disposition`, `reqMasteryRank`).
+
+**Conclusion:** creating a riven auction is NOT documented. Any implementation would be reverse-engineering an undocumented endpoint, which project rule #1 forbids. Riven listing stays unimplemented until warframe.market documents it (issue tracker: https://github.com/42bytes-team/docs/issues).
+
+**Usable now (verified data):** the 32 attribute slugs and 420 weapon slugs are the correct identifiers for any future listing or price lookup. Cross-check of the app's `RIVEN_STAT_TO_PRICER` targets (src/screens/Market.jsx) against the 32 slugs:
+- 31 of 32 match exactly.
+- App targets with no warframe.market attribute: `beam_length`, `explosion_radius` (cannot be listed or priced against market data by slug).
+- warframe.market attribute with no app mapping: `chance_to_gain_extra_combo_count`. The in-game text "Additional Combo Count Chance" appears to correspond to this attribute while the app maps "Combo Count Chance" to `chance_to_gain_combo_count`. **Unverified and worth checking**: a mis-mapped stat would mis-price/mis-grade rivens with that stat (a live Cyath Lacidex riven read "+55% Additional Combo Count Chance" on 2026-09-23).

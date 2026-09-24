@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 
-const WikiNavigationContext = createContext({ openWiki: () => {}, pendingTarget: null });
+const WikiNavigationContext = createContext({ openWiki: () => {}, pendingTarget: null, clearPendingTarget: () => {} });
 
 export function isWikiUrl(value) {
   if (typeof value !== 'string' || !value.trim()) return false;
@@ -19,8 +19,9 @@ export function WikiNavigationProvider({ onNavigate, children }) {
     setPendingTarget({ url: target, sequence: Date.now() + Math.random() });
     onNavigate('wiki');
   }, [onNavigate]);
+  const clearPendingTarget = useCallback(() => setPendingTarget(null), []);
 
-  return <WikiNavigationContext.Provider value={{ openWiki, pendingTarget }}>{children}</WikiNavigationContext.Provider>;
+  return <WikiNavigationContext.Provider value={{ openWiki, pendingTarget, clearPendingTarget }}>{children}</WikiNavigationContext.Provider>;
 }
 
 export function useWikiNavigation() {

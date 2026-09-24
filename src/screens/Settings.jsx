@@ -140,22 +140,27 @@ export default function SettingsScreen() {
   // Ingame Menu" was added - without this it never appears for them since
   // there's no default binding and nothing else surfaces this feature at all.
   useEffect(() => {
+    const seeded = getSetting('grade_rivens_hotkey_seeded', false);
     setHotkeys((prev) => {
       const next = [...prev];
       if (!next.some((hk) => hk.action === 'toggle_sidebar')) {
         next.push({ action: 'toggle_sidebar', shortcut: '' });
       }
-      if (IS_PREVIEW && !next.some((hk) => hk.action === 'grade_rivens')) {
-        next.push({ action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' });
+      if (IS_PREVIEW && !seeded && !next.some((hk) => hk.action === 'grade_rivens')) {
+        next.push({ action: 'grade_rivens', shortcut: next.some((hk) => hk.shortcut === 'Ctrl+Alt+R') ? '' : 'Ctrl+Alt+R' });
       }
       return next;
     });
+    if (IS_PREVIEW && !seeded) setSetting('grade_rivens_hotkey_seeded', true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleUpdateHotkeys = async (newHotkeys) => {
     setHotkeys(newHotkeys);
     await setSetting('hotkeys', newHotkeys);
+    if (IS_PREVIEW && !newHotkeys.some((hk) => hk.action === 'grade_rivens')) {
+      await setSetting('grade_rivens_hotkey_seeded', true);
+    }
 
     // Unregister and re-register all with Rust
     try {

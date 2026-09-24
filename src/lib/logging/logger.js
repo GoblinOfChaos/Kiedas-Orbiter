@@ -11,7 +11,9 @@ const nativeFetch = globalThis.fetch?.bind(globalThis);
 let sequence = 0;
 let queue = [];
 let flushTimer = null;
+let retryTimer = null;
 let retryDelay = 1000;
+let retryUntil = 0;
 let flushing = false;
 let reloading = false;
 const inFlightInvokes = new Set();
@@ -63,29 +65,36 @@ function enqueue(record) {
 
 function trackInvoke(operation) {
   const pending = operation();
-  inFlightInvokes.add(pending);
-  pending.then(
-    () => inFlightInvokes.delete(pending),
-    () => inFlightInvokes.delete(pending)
-  );
-  return pending;
+  let tracked;
+  tracked = pending.finally(() => inFlightInvokes.delete(tracked));
+  inFlightInvokes.add(tracked);
+  return tracked;
+}
+
+function scheduleRetry() {
+  if (retryTimer || !queue.length) return;
+  retryTimer = setTimeout(() => { retryTimer = null; void flush(); }, Math.max(0, retryUntil - Date.now()));
 }
 
 export async function flush() {
   if (flushing || queue.length === 0) return;
+  if (Date.now() < retryUntil) { scheduleRetry(); return; }
+  if (retryTimer) { clearTimeout(retryTimer); retryTimer = null; }
   flushing = true;
   const batch = queue.splice(0, BATCH_SIZE);
   try {
     await trackInvoke(() => rawInvoke('structured_log_batch', { events: batch }));
     retryDelay = 1000;
+    retryUntil = 0;
   } catch {
     queue = batch.concat(queue).slice(-MAX_QUEUE);
-    if (!flushTimer) {
-      const delay = retryDelay;
-      retryDelay = Math.min(retryDelay * 2, 30000);
-      flushTimer = setTimeout(() => { flushTimer = null; void flush(); }, delay);
-    }
-  } finally { flushing = false; if (queue.length && !flushTimer) void flush(); }
+    retryUntil = Date.now() + retryDelay;
+    retryDelay = Math.min(retryDelay * 2, 30000);
+    scheduleRetry();
+  } finally {
+    flushing = false;
+    if (queue.length && Date.now() >= retryUntil && !retryTimer) void flush();
+  }
 }
 
 export function setLogContext(next = {}) { context = { ...context, ...next }; }
@@ -141,7 +150,7 @@ export const network = (request, operation) => action({ id: `network:${request?.
 function safeHost(value) { try { return new URL(value, window.location.href).host; } catch { return 'unknown'; } }
 function safePath(value) { try { return new URL(value, window.location.href).pathname.slice(0, 160); } catch { return '[REDACTED]'; } }
 
-export function invoke(command, args) {
+export async function invoke(command, args) {
   return trackInvoke(() => ipc(command, args, () => rawInvoke(command, args)));
 }
 
@@ -149,6 +158,15 @@ export async function safeReload(timeoutMs = 1500) {
   if (reloading) return;
   reloading = true;
   const deadline = Date.now() + timeoutMs;
+  if (queue.length > 0) {
+    const remaining = deadline - Date.now();
+    if (remaining > 0) {
+      await Promise.race([
+        flush(),
+        new Promise((resolve) => setTimeout(resolve, remaining))
+      ]);
+    }
+  }
   while (inFlightInvokes.size > 0) {
     const remaining = deadline - Date.now();
     if (remaining <= 0) break;
@@ -172,7 +190,7 @@ export async function safeReload(timeoutMs = 1500) {
 const isInternalIpcUrl = (value) => {
   try {
     const url = new URL(value, window.location.href);
-    return url.protocol === 'ipc:' || url.protocol === 'http:' && url.hostname === 'ipc.localhost';
+    return url.protocol === 'ipc:' || url.hostname === 'ipc.localhost';
   } catch { return false; }
 };
 

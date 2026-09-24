@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { listen, emit } from '@tauri-apps/api/event'
+import { listen } from '@tauri-apps/api/event'
 import { invoke } from '../../lib/logging/tauri'
 import { loadSettings, getSetting, onSettingsChanged } from '../../lib/settings'
 import { useUi } from '../../contexts/UiContext'
@@ -10,6 +10,7 @@ export default function RivenPromptOverlay() {
   const label = getCurrentWindow().label
   const [visible, setVisible] = useState(false)
   const [hotkey, setHotkey] = useState('Ctrl+Alt+R')
+  const desiredVisibleRef = useRef(false)
 
   useEffect(() => {
     const refreshHotkey = async () => {
@@ -23,7 +24,6 @@ export default function RivenPromptOverlay() {
       listen('riven-screen-open', () => setVisible(true)),
       listen('riven-grade-activate', () => {
         setVisible(false)
-        emit('riven-grade-armed', {}).catch(() => {})
       }),
       listen('riven-screen-closed', () => setVisible(false)),
     ]
@@ -35,8 +35,12 @@ export default function RivenPromptOverlay() {
   }, [label, t])
 
   useEffect(() => {
-    if (visible) invoke('show_overlay_window', { label }).catch(() => {})
-    else invoke('hide_overlay_window', { label }).catch(() => {})
+    desiredVisibleRef.current = visible
+    if (visible) {
+      invoke('show_overlay_window', { label }).then(() => {
+        if (!desiredVisibleRef.current) invoke('hide_overlay_window', { label }).catch(() => {})
+      }).catch(() => {})
+    } else invoke('hide_overlay_window', { label }).catch(() => {})
   }, [label, visible])
 
   if (!visible) return null

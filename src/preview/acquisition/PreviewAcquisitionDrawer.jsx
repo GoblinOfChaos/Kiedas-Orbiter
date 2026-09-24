@@ -8,7 +8,7 @@ import {
   formatCredits,
   formatDuration,
 } from '../../components/AcquisitionDrawer';
-import { resolveBlueprintOrigin } from '../../lib/acquisitionData';
+import { resolveBlueprintOrigin, getItemDrops } from '../../lib/acquisitionData';
 import { getDropSourcesWithFallback } from '../../lib/dropsParser';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
@@ -233,7 +233,8 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                     </div>
                   }
                   {recipe.ingredients.map((ingredient, i) => {
-                    const drops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name);
+                    const liveDrops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name);
+                    const drops = liveDrops.length > 0 ? liveDrops : getItemDrops(ingredient.itemType);
                     return (
                       <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="preview-acq-ingredient">
                         <div className="preview-acq-ingredient-row">

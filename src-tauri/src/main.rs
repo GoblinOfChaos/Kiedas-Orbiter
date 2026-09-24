@@ -3207,6 +3207,7 @@ async fn dispatch_hotkey_action(app: AppHandle, action: &str) {
                 return;
             }
             if crate::log_scanner::RIVEN_SCREEN_ACTIVE.load(Ordering::SeqCst) {
+                let _ = app.emit("riven-grade-armed", ());
                 let _ = app.emit("riven-grade-activate", ());
             }
         }

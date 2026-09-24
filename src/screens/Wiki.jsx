@@ -12,7 +12,7 @@ let lastActiveId = null;
 
 export default function Wiki() {
   const { t } = useUi()
-  const { pendingTarget } = useWikiNavigation();
+  const { pendingTarget, clearPendingTarget } = useWikiNavigation();
   const containerRef = useRef(null);
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
@@ -65,12 +65,14 @@ export default function Wiki() {
     invoke('list_wiki_tabs').then((list) => {
       if (list.length === 0) {
         showTab('wiki-0', pendingTarget?.url);
+        if (pendingTarget) clearPendingTarget();
       } else {
         // Part A: sync URLs for all existing webviews in this window
         list.forEach((t) => invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {}));
         setTabs(list);
         const toShow = list.find((t) => t.id === lastActiveId) || list[list.length - 1];
         showTab(toShow.id, pendingTarget?.url || toShow.url);
+        if (pendingTarget) clearPendingTarget();
         lastActiveId = null;
       }
       wikiReadyRef.current = true;
@@ -145,7 +147,8 @@ export default function Wiki() {
   useEffect(() => {
     if (!pendingTarget || !wikiReadyRef.current) return;
     showTab(activeTabRef.current || 'wiki-0', pendingTarget.url);
-  }, [pendingTarget, showTab]);
+    clearPendingTarget();
+  }, [pendingTarget, showTab, clearPendingTarget]);
 
   useEffect(() => {
     if (activeTab) reportBounds(activeTab);

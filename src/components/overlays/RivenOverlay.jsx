@@ -14,6 +14,7 @@ import {
 '../../lib/rivenOcrI18n';
 import { getRivenStatGrade, loadRivenGoodRolls } from '../../lib/rivenGrader';
 import { getRivenBaseData, computeRivenPerfectness } from '../../lib/rivenPerfectness';
+import { IS_PREVIEW } from '../../lib/buildProfile';
 
 
 export default function RivenOverlay() {
@@ -342,7 +343,7 @@ export default function RivenOverlay() {
         }),
         listen('riven-reroll', () => {
           newRollSeenRef.current = true;
-          if (!armedRef.current) return;
+          if (IS_PREVIEW && !armedRef.current) return;
           // A new roll was generated: any earlier pending timer or in-flight
           // read belongs to a stale roll. Cancel the timer and bump the
           // capture generation so a late OCR/pricing result is discarded.
@@ -376,10 +377,19 @@ export default function RivenOverlay() {
     } else {
       let refreshTimer = null;
       unsubs.push(
-        listen('riven-linked-open', () => {show();doOcr('Linked');}),
+        listen('riven-linked-open', () => {
+          if (IS_PREVIEW && !armedRef.current) return;
+          show();
+          doOcr('Linked');
+        }),
         listen('riven-screen-open', () => {
-          armedRef.current = false;
-          hide();
+          if (IS_PREVIEW) {
+            armedRef.current = false;
+            hide();
+          } else {
+            show();
+            doOcr('Middle');
+          }
         }),
         listen('riven-grade-armed', () => {
           armedRef.current = true;
@@ -399,7 +409,7 @@ export default function RivenOverlay() {
           // silently overwrite the other, showing stale or racing results.
           // Confirmed live: rapid re-rolling made price/grade flip between
           // values that didn't match what was actually on screen.
-          if (!armedRef.current) return;
+          if (IS_PREVIEW && !armedRef.current) return;
           if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
           refreshTimer = setTimeout(() => {
             // The screen is still open here. If the safety-net auto-hide

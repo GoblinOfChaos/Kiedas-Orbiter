@@ -129,12 +129,19 @@ function SetupScreen() {
       const savedHotkeys = getSetting('hotkeys', []);
       // Preview's Riven grading flow is opt-in and gets a safe default that
       // users can change from Settings before it is registered.
-      if (IS_PREVIEW && !savedHotkeys.some((hk) => hk.action === 'grade_rivens')) {
-        await setSetting('hotkeys', [...savedHotkeys, { action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' }]);
-      }
-      const effectiveHotkeys = IS_PREVIEW && !savedHotkeys.some((hk) => hk.action === 'grade_rivens')
-        ? [...savedHotkeys, { action: 'grade_rivens', shortcut: 'Ctrl+Alt+R' }]
+      const seeded = getSetting('grade_rivens_hotkey_seeded', false);
+      const hasGradeHotkey = savedHotkeys.some((hk) => hk.action === 'grade_rivens');
+      const gradeShortcut = savedHotkeys.some((hk) => hk.shortcut === 'Ctrl+Alt+R') ? '' : 'Ctrl+Alt+R';
+      const shouldSeedGrade = IS_PREVIEW && !seeded && !hasGradeHotkey;
+      const effectiveHotkeys = shouldSeedGrade
+        ? [...savedHotkeys, { action: 'grade_rivens', shortcut: gradeShortcut }]
         : savedHotkeys;
+      if (shouldSeedGrade) {
+        // An empty saved list is Settings' first-run default source; register
+        // the preview shortcut for this session without replacing that list.
+        if (savedHotkeys.length > 0) await setSetting('hotkeys', effectiveHotkeys);
+        await setSetting('grade_rivens_hotkey_seeded', true);
+      }
       const valid = effectiveHotkeys.filter((hk) => hk.shortcut && hk.action);
       if (valid.length > 0) {
         invoke('set_hotkeys', { hotkeys: valid }).

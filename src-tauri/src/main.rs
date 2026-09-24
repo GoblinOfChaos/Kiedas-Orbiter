@@ -383,6 +383,13 @@ const DROPDATA_FILES: &[(&str, &str)] = &[
     ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
 
+// Creator/Partner redemption details are a browse.wf community supplement,
+// not Digital Extremes Public Export data. Keep this file separate from the
+// DE-derived export directory and never merge it over an export record.
+const GLYPH_SUPPLEMENT_FILE: &str = "data/assets/data/browse-wf-glyphs.json";
+const GLYPH_SUPPLEMENT_PROVENANCE: &str = "data/assets/data/browse-wf-glyphs.provenance.json";
+const GLYPH_SUPPLEMENT_URL: &str = "https://browse.wf/supplemental-data/glyphs.json";
+
 /// True if the cached VaultTrader.json's own `expiry` timestamp has already
 /// passed - i.e. Varzia's rotation has definitely changed since this file
 /// was last downloaded, regardless of the file's age. Missing/unreadable/
@@ -407,14 +414,19 @@ fn vault_trader_expired(path: &std::path::Path) -> bool {
 async fn refresh_vault_trader() -> Result<bool, String> {
     let export_dir = resolve_path("data/export");
     let path = export_dir.join("VaultTrader.json");
-    if !vault_trader_expired(&path) {
-        return Ok(false);
-    }
     let client = reqwest::Client::new();
-    download_file(&client, "https://api.warframestat.us/pc/vaultTrader", &path)
-        .await
-        .map_err(|e| e.to_string())?;
-    Ok(true)
+    let mut updated = false;
+    if vault_trader_expired(&path) {
+        download_file(&client, "https://api.warframestat.us/pc/vaultTrader", &path)
+            .await
+            .map_err(|e| e.to_string())?;
+        updated = true;
+    }
+    match refresh_glyph_supplement(&client).await {
+        Ok(was_updated) => updated |= was_updated,
+        Err(e) => eprintln!("Warning: could not refresh glyph supplement: {}", e),
+    }
+    Ok(updated)
 }
 
 // WFCD's warframe-items data, fetched live from GitHub's master branch
@@ -472,6 +484,46 @@ async fn download_file(client: &reqwest::Client, url: &str, dest: &std::path::Pa
     Ok(true)
 }
 
+/// Refresh the non-DE Creator Glyph redemption supplement without risking the
+/// last-known-good copy. The object is validated before an atomic replacement;
+/// a large count collapse is treated as a bad response and retained locally.
+async fn refresh_glyph_supplement(client: &reqwest::Client) -> Result<bool, String> {
+    let path = resolve_path(GLYPH_SUPPLEMENT_FILE);
+    if path.exists() && file_age_secs(&path) <= 86_400 {
+        return Ok(false);
+    }
+    let response = client.get(GLYPH_SUPPLEMENT_URL).send().await.map_err(|e| e.to_string())?;
+    if !response.status().is_success() {
+        return Err(format!("HTTP {} for {}", response.status(), GLYPH_SUPPLEMENT_URL));
+    }
+    let bytes = response.bytes().await.map_err(|e| e.to_string())?;
+    let value: Value = serde_json::from_slice(&bytes)
+        .map_err(|e| format!("Invalid JSON in glyph supplement: {}", e))?;
+    let object = value.as_object().ok_or("glyph supplement must be a JSON object")?;
+    if object.is_empty() || object.len() > 10_000 || object.values().any(|entry| !entry.is_object()) {
+        return Err(format!("glyph supplement has invalid entry shape or count {}", object.len()));
+    }
+    if let Ok(previous_bytes) = fs::read(&path) {
+        if let Ok(previous) = serde_json::from_slice::<Value>(&previous_bytes) {
+            if let Some(previous_count) = previous.as_object().map(|entries| entries.len()) {
+                if object.len() < previous_count / 2 {
+                    return Err(format!("glyph supplement count collapsed from {} to {}", previous_count, object.len()));
+                }
+            }
+        }
+    }
+    write_bytes_atomic(&path, &bytes).map_err(|e| e.to_string())?;
+    let provenance = serde_json::json!({
+        "source": GLYPH_SUPPLEMENT_URL,
+        "fetchedAt": chrono::Utc::now().to_rfc3339(),
+        "entryCount": object.len(),
+        "bytes": bytes.len(),
+        "authority": "community supplement; not Digital Extremes data",
+    });
+    write_json_atomic(&resolve_path(GLYPH_SUPPLEMENT_PROVENANCE), &provenance)?;
+    Ok(true)
+}
+
 /// Return the age in seconds of a file on disk, or `u64::MAX` if the metadata
 /// can't be read (treats unreadable files as needing a refresh).
 fn file_age_secs(path: &std::path::Path) -> u64 {
@@ -519,6 +571,14 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
 
     let client = reqwest::Client::new();
     let mut updated_count = 0u32;
+
+    // Creator Glyph redemption details are a separate browse.wf supplement;
+    // refresh them safely without ever changing DE-derived export files.
+    match refresh_glyph_supplement(&client).await {
+        Ok(true) => updated_count += 1,
+        Ok(false) => {},
+        Err(e) => eprintln!("Warning: could not refresh glyph supplement: {}", e),
+    }
 
     // JSON exports - refresh once per day
     for file_name in EXPORT_FILES {

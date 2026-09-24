@@ -23,6 +23,12 @@ function rotationGroupKey(rotation) {
   return `other:${String(rotation)}`;
 }
 
+export function normalizeRotation(rotation) {
+  if (rotation == null || rotation === '') return null;
+  const value = String(rotation).trim().match(/^(?:Rotation\s+)?([A-D])$/i);
+  return value ? value[1].toUpperCase() : String(rotation);
+}
+
 export function sortByChanceDesc(items, getChance = (item) => item?.chance) {
   if (!Array.isArray(items)) return [];
   return items

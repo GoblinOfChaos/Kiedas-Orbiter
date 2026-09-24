@@ -5,6 +5,7 @@
  */
 export const placeAliases = {
   planet: Object.freeze({}),
+  mission: Object.freeze({}),
   tileset: Object.freeze({}),
 };
 

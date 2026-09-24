@@ -82,11 +82,11 @@ function regionRows(value) {
   return arrays.length === 1 ? arrays[0] : arrays.flat();
 }
 
-function printRanking(result) {
-  console.log('Farm-next ranking (top 15)');
+function printRanking(result, label = 'Farm-next ranking (top 15)', limit = 15) {
+  console.log(label);
   if (!result.ranked.length) console.log('(no verified source rows matched still-needed items)');
-  for (const [index, row] of result.ranked.slice(0, 15).entries()) {
-    const items = row.coveredItems.map((item) => `${item.name} ${(item.chance * 100).toFixed(2)}%${item.rotation ? ` ${item.rotation}` : ''}`).join('; ');
+  for (const [index, row] of result.ranked.slice(0, limit).entries()) {
+    const items = row.coveredItems.map((item) => `${item.name} ${item.chance == null ? 'no verified chance' : `${(item.chance * 100).toFixed(2)}%`}${item.rotation ? ` ${item.rotation}` : ''}`).join('; ');
     const pvp = row.place.pvp ? ' [PvP]' : '';
     console.log(`${index + 1}. ${row.place.name} [${row.place.type}]${pvp} covers ${row.coverage}: ${items}${row.reason ? ` (${row.reason})` : ''}`);
   }
@@ -126,6 +126,7 @@ function main(options) {
   const placeIndex = buildPlaceIndex({ dropTables, wiki, regions });
   const ranking = rankPlaces({ ledger, placeIndex, filters: options['min-chance'] == null ? {} : { minChance: Number(options['min-chance']) } });
   const conclaveRanking = rankPlaces({ ledger, placeIndex, filters: { tab: 'conclave' } });
+  const planetRanking = rankPlaces({ ledger, placeIndex, filters: { tab: 'planets' } });
   const wikiFiles = fs.readdirSync(options['wiki-dir']).filter((name) => name.endsWith('.json')).sort();
   const wikiHashes = wikiFiles.map((name) => `${name}:${sha256(path.join(options['wiki-dir'], name))}`);
   const wikiCombinedHash = sha256Text(wikiHashes.join('\n'));
@@ -161,7 +162,16 @@ function main(options) {
     if (row.usedBy.length) console.log(`Used by ${row.usedBy.map((entry) => `${targetNames.get(String(entry.targetId)) ?? entry.targetId} ${entry.quantity}`).join('; ')}`);
   }
   printRanking({ ...ranking, conclaveRanking });
+  printRanking({ ...planetRanking, conclaveOnlyItems: [] }, 'Planets tab ranking (top 10)', 10);
+  const planetItem = ledger.find((row) => (placeIndex.byItem.get(String(row.name).toLocaleLowerCase()) ?? []).some((source) => placeIndex.places.get(source.placeId)?.type === 'planet'));
+  if (planetItem) {
+    console.log(`Planets: ${planetItem.name}`);
+    for (const source of placeIndex.byItem.get(String(planetItem.name).toLocaleLowerCase()) ?? []) {
+      if (placeIndex.places.get(source.placeId)?.type === 'planet') console.log(`- ${placeIndex.places.get(source.placeId).name}: no verified chance`);
+    }
+  }
   console.log(`Audit: enemies ${placeIndex.audit.enemiesWithLocation}/${placeIndex.audit.enemiesTotal} with location; planets ${placeIndex.audit.planetMatched}/${placeIndex.audit.planetTotal} matched; missions ${placeIndex.audit.missionMatched}/${placeIndex.audit.missionTotal} matched`);
+  console.log(`Audit by-drop: ${JSON.stringify(placeIndex.audit.byDrop)}; display-name collisions: ${placeIndex.audit.displayNameCollisions}`);
 }
 
 export { main };

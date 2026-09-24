@@ -95,7 +95,26 @@ test('conclave tab and minimum chance filter are explicit', () => {
   ]);
   assert.equal(rankPlaces({ ledger, placeIndex }).ranked.some((row) => row.place.name === 'Alpha'), true);
   assert.equal(rankPlaces({ ledger, placeIndex, filters: { minChance: 0.05 } }).ranked.find((row) => row.place.name === 'Alpha'), undefined);
+  assert.equal(rankPlaces({ ledger, placeIndex, filters: { minChance: 0.05 } }).excludedByMinChance, 2);
   assert.equal(rankPlaces({ ledger, placeIndex, filters: { tab: 'conclave' } }).ranked[0].place.type, 'conclave');
+});
+
+test('planet sources count for coverage but are excluded by minimum chance', () => {
+  places.set('planet:earth', { id: 'planet:earth', name: 'Earth', type: 'planet', pvp: false });
+  const result = rankPlaces({
+    ledger: [{ itemType: 'Neurodes', name: 'Neurodes', stillNeeded: 1 }],
+    placeIndex: index([{ item: 'neurodes', placeId: 'planet:earth', chance: null }]),
+    filters: { tab: 'planets' },
+  });
+  assert.equal(result.ranked[0].coverage, 1);
+  assert.equal(result.ranked[0].coveredItems[0].chance, null);
+  const filtered = rankPlaces({
+    ledger: [{ itemType: 'Neurodes', name: 'Neurodes', stillNeeded: 1 }],
+    placeIndex: index([{ item: 'neurodes', placeId: 'planet:earth', chance: null }]),
+    filters: { tab: 'planets', minChance: 0.1 },
+  });
+  assert.equal(filtered.ranked.length, 0);
+  assert.equal(filtered.excludedByMinChance, 1);
 });
 
 test('input source order does not affect result', () => {

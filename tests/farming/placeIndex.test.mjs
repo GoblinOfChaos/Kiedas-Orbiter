@@ -65,7 +65,7 @@ test('keeps chance fractions and reports unmatched wiki locations without forcin
   assert.equal(index.audit.missionMatched, 1);
 });
 
-test('merges enemy sources across by-avatar and by-drop sections', () => {
+test('uses redundant by-drop sections only as an audit cross-check', () => {
   const index = buildPlaceIndex({
     dropTables: { sections: {
       modByAvatar: [{ source: 'Corrupted Vor', item: 'Shared Mod', chance: 0.25 }],
@@ -75,5 +75,41 @@ test('merges enemy sources across by-avatar and by-drop sections', () => {
   assert.equal(index.places.size, 1);
   assert.equal(index.places.has('enemy:corrupted vor'), true);
   assert.equal(index.places.get('enemy:corrupted vor').type, 'enemy');
-  assert.equal(index.byItem.get('shared mod').length, 2);
+  assert.equal(index.byItem.get('shared mod').length, 1);
+  assert.deepEqual(index.audit.byDrop.mod, { byDropOnly: 0, byAvatarOnly: 0 });
+});
+
+test('planet resources create chance-less planet sources from explicit locations', () => {
+  const index = buildPlaceIndex({
+    dropTables: { sections: {} },
+    wiki: { enemies: {}, missions: {}, resources: { Resources: {
+      Neurodes: { Name: 'Neurodes', Description: 'Location: Earth, Lua, Eris, and Deimos' },
+    } } },
+    regions: [],
+  });
+  assert.deepEqual([...index.byItem.get('neurodes')].map((source) => [source.placeId, source.chance]), [
+    ['planet:deimos', null], ['planet:earth', null], ['planet:eris', null], ['planet:lua', null],
+  ]);
+  assert.equal(index.places.get('planet:earth').level, 'planet');
+  assert.equal(index.places.get('planet:earth').badge, 'planet-wide resource (per wiki)');
+});
+
+test('section category wins when a mission shares an enemy name', () => {
+  const index = buildPlaceIndex({
+    dropTables: { sections: { missionRewards: [{ place: 'Shared Name', item: 'Reward', chance: 0.5 }] } },
+    wiki: { enemies: { 'Shared Name': { General: { Planets: ['Earth'] } } }, missions: { 'Shared Name': { Boss: false } }, resources: {} },
+    regions: [],
+  });
+  assert.equal(index.places.get('mission:shared name').type, 'mission');
+});
+
+test('normalizes literal rotation labels and keeps null for base rotation', () => {
+  const index = buildPlaceIndex({ dropTables: { sections: {
+    missionRewards: [
+      { place: 'Node', item: 'A', chance: 0.5, rotation: 'Rotation A' },
+      { place: 'Node', item: 'B', chance: 0.5, rotation: null },
+    ],
+  } }, wiki: {}, regions: [] });
+  assert.equal(index.byItem.get('a')[0].rotation, 'A');
+  assert.equal(index.byItem.get('b')[0].rotation, null);
 });

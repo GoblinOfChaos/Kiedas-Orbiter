@@ -37,6 +37,7 @@ function matchesFilters(place, filters) {
 export function rankPlaces({ ledger = [], placeIndex = { byItem: new Map(), places: new Map() }, filters = {} } = {}) {
   const tab = filters.tab ?? 'all';
   const needed = ledger.filter((row) => Number(row.stillNeeded) > 0).slice().sort((a, b) => textCompare(a.itemType, b.itemType) || textCompare(a.name, b.name));
+  const neededByItem = new Map(needed.map((row) => [row.itemType, row]));
   const sourcesByItem = new Map(needed.map((row) => [row.itemType, sourceRows(placeIndex, row)]));
   const conclaveOnlyItems = needed
     .filter((row) => {
@@ -50,9 +51,15 @@ export function rankPlaces({ ledger = [], placeIndex = { byItem: new Map(), plac
     conclaveOnlyItems.flatMap((itemType) => (sourcesByItem.get(itemType) ?? []).map((source) => source.placeId)),
   );
   const candidates = new Map();
+  let excludedByMinChance = 0;
+  const excludedByPlace = new Map();
   for (const row of needed) {
     for (const source of sourcesByItem.get(row.itemType) ?? []) {
-      if (filters.minChance != null && source.chance < Number(filters.minChance)) continue;
+      if (filters.minChance != null && (source.chance == null || source.chance < Number(filters.minChance))) {
+        excludedByMinChance += 1;
+        excludedByPlace.set(source.placeId, (excludedByPlace.get(source.placeId) ?? 0) + 1);
+        continue;
+      }
       const place = placeIndex.places.get(source.placeId);
       if (!place || !matchesFilters(place, filters)) continue;
       if (tab !== 'conclave' && tab !== 'all' && place.type === 'conclave') continue;
@@ -72,11 +79,12 @@ export function rankPlaces({ ledger = [], placeIndex = { byItem: new Map(), plac
       place,
       coverage: coveredItems.length,
       coveredItems,
-      totalStillNeeded: coveredItems.reduce((sum, item) => sum + Number(needed.find((row) => row.itemType === item.itemType)?.stillNeeded ?? 0), 0),
-      bestChance: Math.max(...coveredItems.map((item) => item.chance)),
+      totalStillNeeded: coveredItems.reduce((sum, item) => sum + Number(neededByItem.get(item.itemType)?.stillNeeded ?? 0), 0),
+      bestChance: Math.max(...coveredItems.map((item) => item.chance ?? -1)),
+      ...(excludedByPlace.has(placeId) ? { excludedByMinChance: excludedByPlace.get(placeId) } : {}),
       ...(reasonItem && place.type === 'conclave' ? { reason: `Conclave-only source for ${reasonItem.name}` } : {}),
     };
   });
   ranked.sort((a, b) => b.coverage - a.coverage || b.totalStillNeeded - a.totalStillNeeded || b.bestChance - a.bestChance || textCompare(a.place.name, b.place.name) || textCompare(a.place.id, b.place.id));
-  return { ranked, conclaveOnlyItems };
+  return { ranked, conclaveOnlyItems, excludedByMinChance };
 }

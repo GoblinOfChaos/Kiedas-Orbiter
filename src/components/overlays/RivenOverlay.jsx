@@ -356,6 +356,9 @@ export default function RivenOverlay() {
         }),
         listen('riven-reroll-confirmed', () => {
           if (timer) {clearTimeout(timer);timer = null;}
+          // The pending roll was accepted: there is no "new" roll on screen
+          // any more, so a later re-scan press must not show one.
+          newRollSeenRef.current = false;
           timer = setTimeout(() => hide(), 2000);
         }),
         listen('riven-screen-closed', () => {

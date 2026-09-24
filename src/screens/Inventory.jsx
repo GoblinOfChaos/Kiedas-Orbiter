@@ -635,6 +635,14 @@ export default function Inventory() {
       baseOffset = container.scrollTop - (containerRect.top - rootRect.top);
       applyScrollTop(computeColumns());
     };
+    let resizeTimer = null;
+    const scheduleCalibration = () => {
+      if (resizeTimer !== null) return;
+      resizeTimer = setTimeout(() => {
+        resizeTimer = null;
+        calibrate();
+      }, 50);
+    };
 
     // Rows aren't memoized, so every accepted state update re-renders every
     // currently-windowed card (~40-50 of them) from scratch. Native scroll
@@ -670,12 +678,13 @@ export default function Inventory() {
     };
 
     calibrate();
-    const observer = new ResizeObserver(calibrate);
+    const observer = new ResizeObserver(scheduleCalibration);
     observer.observe(container);
     observer.observe(virtualRoot);
     container.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       if (trailingTimer !== null) clearTimeout(trailingTimer);
+      if (resizeTimer !== null) clearTimeout(resizeTimer);
       if (scrollingDebounceRef.current !== null) clearTimeout(scrollingDebounceRef.current);
       scrollingDebounceRef.current = null;
       setIsScrolling(false);

@@ -7,7 +7,7 @@ import { UpdateProvider, useUpdate } from './contexts/UpdateContext';
 import { Tooltip } from './components/UI';
 import { UiProvider, useUi } from './contexts/UiContext';
 import { AlertTriangle, FolderOpen } from 'lucide-react';
-import { invoke } from './lib/logging/tauri';
+import { invoke, safeReload } from './lib/logging/tauri';
 import { listen, emit } from '@tauri-apps/api/event';
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
 import { loadSettings, getSetting, setSetting } from './lib/settings';
@@ -160,7 +160,7 @@ function SetupScreen() {
     } catch (err) {
       console.error('Failed to switch game language:', err);
     }
-    window.location.reload();
+    await safeReload();
   };
 
   const finish = async () => {

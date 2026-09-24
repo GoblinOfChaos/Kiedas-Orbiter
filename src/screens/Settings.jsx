@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Palette, Bell, RefreshCw, X, FolderOpen, Keyboard, MousePointer, AlignStartVertical, AlignEndVertical, AlignVerticalJustifyStart, VolumeX, Play, PanelLeft, PanelRight, FileSearch } from 'lucide-react';
 
 import { open as openDialog } from '@tauri-apps/plugin-dialog';
-import { invoke, loggedFetch } from '../lib/logging/tauri';
+import { invoke, loggedFetch, safeReload } from '../lib/logging/tauri';
 import { convertFileSrc } from '../lib/logging/tauri';
 import { getVersion } from '@tauri-apps/api/app';
 import { useUpdate } from '../contexts/UpdateContext';
@@ -110,7 +110,7 @@ export default function SettingsScreen() {
   const [tick, setTick] = useState(0);
   const handleReloadUi = () => {
     if (window.confirm(t('settings.reload_ui_confirm'))) {
-      window.location.reload();
+      safeReload();
     }
   };
   useEffect(() => {
@@ -1021,7 +1021,7 @@ export default function SettingsScreen() {
                 } catch (err) {
                   console.error('Failed to switch game language:', err);
                 }
-                window.location.reload();
+                await safeReload();
               }} />
             
           </div>

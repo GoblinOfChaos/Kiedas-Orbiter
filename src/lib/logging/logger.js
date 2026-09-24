@@ -11,7 +11,10 @@ const nativeFetch = globalThis.fetch?.bind(globalThis);
 let sequence = 0;
 let queue = [];
 let flushTimer = null;
+let retryDelay = 1000;
 let flushing = false;
+let reloading = false;
+const inFlightInvokes = new Set();
 let context = { window: 'main', screen: undefined, route: undefined, component: undefined };
 
 const SENSITIVE_KEYS = /token|authorization|password|account.?id|chat|typed|credential|secret|cookie/i;
@@ -58,13 +61,31 @@ function enqueue(record) {
   }
 }
 
+function trackInvoke(operation) {
+  const pending = operation();
+  inFlightInvokes.add(pending);
+  pending.then(
+    () => inFlightInvokes.delete(pending),
+    () => inFlightInvokes.delete(pending)
+  );
+  return pending;
+}
+
 export async function flush() {
   if (flushing || queue.length === 0) return;
   flushing = true;
   const batch = queue.splice(0, BATCH_SIZE);
-  try { await rawInvoke('structured_log_batch', { events: batch }); }
-  catch { queue = batch.concat(queue).slice(-MAX_QUEUE); }
-  finally { flushing = false; if (queue.length) void flush(); }
+  try {
+    await trackInvoke(() => rawInvoke('structured_log_batch', { events: batch }));
+    retryDelay = 1000;
+  } catch {
+    queue = batch.concat(queue).slice(-MAX_QUEUE);
+    if (!flushTimer) {
+      const delay = retryDelay;
+      retryDelay = Math.min(retryDelay * 2, 30000);
+      flushTimer = setTimeout(() => { flushTimer = null; void flush(); }, delay);
+    }
+  } finally { flushing = false; if (queue.length && !flushTimer) void flush(); }
 }
 
 export function setLogContext(next = {}) { context = { ...context, ...next }; }
@@ -120,7 +141,24 @@ export const network = (request, operation) => action({ id: `network:${request?.
 function safeHost(value) { try { return new URL(value, window.location.href).host; } catch { return 'unknown'; } }
 function safePath(value) { try { return new URL(value, window.location.href).pathname.slice(0, 160); } catch { return '[REDACTED]'; } }
 
-export async function invoke(command, args) { return ipc(command, args, () => rawInvoke(command, args)); }
+export function invoke(command, args) {
+  return trackInvoke(() => ipc(command, args, () => rawInvoke(command, args)));
+}
+
+export async function safeReload(timeoutMs = 1500) {
+  if (reloading) return;
+  reloading = true;
+  const deadline = Date.now() + timeoutMs;
+  while (inFlightInvokes.size > 0) {
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) break;
+    await Promise.race([
+      Promise.allSettled([...inFlightInvokes]),
+      new Promise((resolve) => setTimeout(resolve, remaining))
+    ]);
+  }
+  window.location.reload();
+}
 
 // Tauri's own invoke() transport issues an internal fetch('ipc://localhost/...')
 // call on this platform. Wrapping THAT in network()/event() logging fed back
@@ -132,7 +170,10 @@ export async function invoke(command, args) { return ipc(command, args, () => ra
 // it must always bypass logging entirely (not even a cheap early return -
 // no event, no queue touch) to keep this loop from ever restarting.
 const isInternalIpcUrl = (value) => {
-  try { return new URL(value, window.location.href).protocol === 'ipc:'; } catch { return false; }
+  try {
+    const url = new URL(value, window.location.href);
+    return url.protocol === 'ipc:' || url.protocol === 'http:' && url.hostname === 'ipc.localhost';
+  } catch { return false; }
 };
 
 export async function loggedFetch(input, init) {

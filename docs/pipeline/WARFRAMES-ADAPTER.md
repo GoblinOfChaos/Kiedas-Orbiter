@@ -62,6 +62,25 @@ is represented in the shadow report as DE-only rather than fabricated into a
 baseline sample. The report's mismatch examples preserve the first ten
 values of every differing field.
 
+## Hybrid merge
+
+The Preview cut-over keeps the mirror record as the base. For a record present
+in both sources, `name` and `description` remain the mirror's localization
+keys; DE replaces only the app-consumed factual fields when the adapter
+provides them: `parentName`, `health`, `shield`, `armor`, `stamina`, `power`,
+`codexSecret`, `masteryReq`, `sprintSpeed`, `exalted`, and `productCategory`.
+`sprintSpeed` is rounded to six decimal places. Passive and ability text is not
+merged because the app does not read those Warframe fields at runtime. DE-only
+records are added with DE's literal English text, and mirror-only records are
+always retained. Both Node and Rust use sorted unique-name/field output and
+report every changed field per record.
+
+The Rust refresh is non-fatal and once-per-24-hours: it resolves
+`ExportWarframes_en.json` from DE's compressed manifest index, requires HTTP
+success, valid JSON, at least 100 records, and at least 80% of the mirror
+count, then writes the DE asset and merged runtime file atomically. Any failure
+leaves the validated mirror in place.
+
 ## Shadow result
 
 The real run produced `/tmp/de-shadow/warframes-report.json`:
@@ -76,3 +95,12 @@ The real run produced `/tmp/de-shadow/warframes-report.json`:
 - The app-side change required later is an explicit merge of DE adapter data
   with the existing dictionary/image/commerce layers. This slice changes no
   app runtime or bundled data.
+
+## Remaining category work
+
+This adapter is Warframes-only. Weapons, customs, relics, resources, and
+upgrades each need their own adapter and merge rules before adoption. Literal
+description fallbacks remain absent for resource/relic/gear/song descriptions
+in `src/lib/inventoryParser.js` around lines 2209, 2499, 2518, 2616, and
+2683, and in `src-tauri/src/weapon_i18n.rs` around line 128. They are
+intentionally not patched in this slice.

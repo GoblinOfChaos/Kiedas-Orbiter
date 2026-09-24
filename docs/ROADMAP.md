@@ -91,6 +91,7 @@ Preview code lives only on the user's PC (its git origin is a local path). Needs
 ## Status log
 
 - 2026-09-24: roadmap created; Phase 1A first slice (Warframes adapter, shadow mode) dispatched; GitHub issues created.
+- 2026-09-24: Phase 1A Warframes slice 2 implemented in this worktree: hybrid merge, non-fatal DE refresh wiring, and literal-text fallback patches; coordinator must review and run the Preview build/live gate.
 
 ## Verification of the roadmap itself
 

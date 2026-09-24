@@ -40,7 +40,7 @@ function buildWarframeFamilies(exportData) {
     if (entry?.productCategory !== 'Suits') continue
     const match = /^\/Lotus\/Powersuits\/([^/]+)\//.exec(uniqueName)
     if (match) families.add(match[1].toLowerCase())
-    const displayName = dict[entry?.name] || ''
+    const displayName = dict[entry?.name] || entry?.name || ''
     for (const word of displayName.split(/[^A-Za-z0-9]+/)) {
       if (word && word.toLowerCase() !== 'prime') families.add(word.toLowerCase())
     }
@@ -127,7 +127,7 @@ function buildOwnedWarframeFamilies(rawInventory, exportData) {
     const match = /^\/Lotus\/Powersuits\/([^/]+)\//.exec(uniqueName)
     if (!match || !ownedFolders.has(match[1].toLowerCase())) continue
     families.add(match[1].toLowerCase())
-    const displayName = dict[entry?.name] || ''
+    const displayName = dict[entry?.name] || entry?.name || ''
     for (const word of displayName.split(/[^A-Za-z0-9]+/)) {
       if (word && word.toLowerCase() !== 'prime') families.add(word.toLowerCase())
     }

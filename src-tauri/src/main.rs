@@ -30,6 +30,7 @@ mod weapon_i18n;
 mod riven_math;
 mod wiki_store;
 mod ee_log;
+mod de_warframes;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -597,6 +598,21 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 format!("Failed to download {}: {}", file_name, e)
             })?;
             updated_count += 1;
+        }
+    }
+
+    // The DE Warframes asset is a non-fatal hybrid overlay. If any index,
+    // validation, or merge step fails, the validated mirror remains in place.
+    if !force && export_dir.join("de/ExportWarframes_en.json").exists()
+        && file_age_secs(&export_dir.join("de/ExportWarframes_en.json")) <= 86_400 {
+        // Keep the once-per-day TTL aligned with the other export refreshes.
+    } else {
+        match de_warframes::refresh_de_warframes(&client, &export_dir).await {
+            Ok(summary) => {
+                updated_count += 1;
+                eprintln!("DE Warframes merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only);
+            }
+            Err(e) => eprintln!("Warning: could not refresh DE Warframes; retained mirror: {}", e),
         }
     }
 

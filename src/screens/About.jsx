@@ -15,6 +15,7 @@ import { AlertTriangle, Github } from 'lucide-react';
 import { PageLayout, Card } from '../components/UI';
 import { invoke, convertFileSrc } from '../lib/logging/tauri';
 import { version } from '../../package.json';
+import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext';
 
 const CREDITS = [
 { name: 'RHPestilence', descKey: 'about.credit_icon', links: [{ label: 'Ko-fi', href: 'https://ko-fi.com/rhpestilence' }, { label: 'Etsy shop', href: 'https://rottingtrove.etsy.com' }, { label: 'X/Twitter', href: 'https://x.com/RHPestilence' }] },
@@ -30,10 +31,15 @@ const CREDITS = [
 
 export default function About() {
   const { t } = useUi()
+  const { openWiki } = useWikiNavigation();
   const [uiPath, setUiPath] = useState('');
   useEffect(() => {invoke('get_ui_path').then(setUiPath).catch(() => {});}, []);
 
   const handleOpenLink = async (url) => {
+    if (isWikiUrl(url)) {
+      openWiki(url);
+      return;
+    }
     try {
       await invoke('open_url', { url });
     } catch (err) {

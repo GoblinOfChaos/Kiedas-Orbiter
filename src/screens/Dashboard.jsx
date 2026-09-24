@@ -2,6 +2,7 @@ import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewDashboardView from '../preview/dashboard/PreviewDashboardView';
 import { createDashboardViewModel } from '../preview/view-models/dashboardViewModel';
 import { loadFarmingTargets } from '../lib/farmingTargets/store';
+import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext';
 /**
  * Dashboard.jsx
  *
@@ -177,6 +178,7 @@ function resolveCaviaGiver(challenge, name, desc, obj) {
 
 export default function Dashboard({ onNavigate = () => {} }) {
   const { t, locale } = useUi()
+  const { openWiki } = useWikiNavigation();
   const {
     exportData, worldState, spIncursions, arbys, archonModifiers, arbitrationModifiers,
     dict, suppDict, EC, ERg, EI, nameToImage, uniqueNameToName, arbyTiers,
@@ -2032,7 +2034,10 @@ export default function Dashboard({ onNavigate = () => {} }) {
               <div key={idx} className="text-xs">
                     {item.link ?
                 <button
-                  onClick={() => {invoke('open_url', { url: item.link }).catch(console.error);}}
+                  onClick={() => {
+                    if (isWikiUrl(item.link)) openWiki(item.link);
+                    else invoke('open_url', { url: item.link }).catch(console.error);
+                  }}
                   className="font-bold hover:text-kronos-accent transition-colors block leading-tight text-left w-full cursor-pointer">
                   
                         {item.message}

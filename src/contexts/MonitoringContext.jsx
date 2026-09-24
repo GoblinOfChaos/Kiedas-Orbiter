@@ -373,7 +373,7 @@ export function MonitoringProvider({ children }) {
       uniqueNameToName[un] = nameKey
       const locKey = uniqueNameToName[un]
       if (locKey) {
-        const resolved = (dict[locKey] || dict['/' + locKey] || '').replace(/<[^>]*>/g, '').trim()
+        const resolved = (dict[locKey] || dict['/' + locKey] || locKey || '').replace(/<[^>]*>/g, '').trim()
         if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !isStaleWikiThumbnail)) {
           if (url) nameToImage[resolved.toLowerCase()] = url
         }

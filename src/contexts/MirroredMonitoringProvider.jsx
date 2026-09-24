@@ -461,7 +461,7 @@ export default function MirroredMonitoringProvider({ children }) {
       uniqueNameToName[un] = nameKey
       const locKey = uniqueNameToName[un]
       if (locKey) {
-        const resolved = (d[locKey] || d['/' + locKey] || '').replace(/<[^>]*>/g, '').trim()
+        const resolved = (d[locKey] || d['/' + locKey] || locKey || '').replace(/<[^>]*>/g, '').trim()
         if (resolved && !resolved.startsWith('/')) { if (url) nameToImage[resolved.toLowerCase()] = url }
       }
     }

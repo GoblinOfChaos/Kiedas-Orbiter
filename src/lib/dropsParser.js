@@ -44,7 +44,7 @@ function buildNameToUniqueNameMap(exportData, dict) {
       if (!itemUniqueName) continue
       const locKey = item.name || item.displayName
       if (!locKey) continue
-      const resolved = dict[locKey] || dict['/' + locKey] || ''
+      const resolved = dict[locKey] || dict['/' + locKey] || locKey || ''
       const displayName = resolved.replace(/<[^>]*>/g, '').trim()
       if (displayName && !displayName.startsWith('/')) {
         const key = displayName.toLowerCase()

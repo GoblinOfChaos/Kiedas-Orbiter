@@ -1,0 +1,76 @@
+Farming Targets proof
+Input inventory /home/jedwards/.local/share/kiedas-orbiter-preview/data/user/inventory.json sha256=5c955b1f6202df07fed56cce5f756316ffb585ddd4fc9f5a5e57992bdb0a6145
+Input targets docs/superpowers/evidence/2026-09-24-farm-next-real-targets.json sha256=11651f834f9d607ba583c7aa7e4a679932831cfa3360e2b0c66ba1eda81ba730
+Input drop tables parsed /tmp/de-drop-cache/droptables.parsed.json sha256=a3308a04e1e472641e52ecb377785bfe4bc9901bf4ec8701ef7e12811aafea54
+Input ExportRegions /home/jedwards/.cache/kiedas-de-export/assets/00_457BHCafc9wNaxtGHmvoOw.json sha256=2c88839a179c2037a48913471639a28c0514bad1d5a4b26c015096d074642941
+Input recipes /tmp/farm-next-real-craftable.json sha256=4ba65b6133e5d08fd3f9de5177277489b4e5225c173b29dd559cf83362bd4170
+Input wiki JSON directory 209 files combined-sha256=02b3cdf7fed6a075a24ea968871e6489dbb1e1e484dd6b1ce351a988d20bcf9f
+Snapshot: 2026-08-30T18:56:00.283Z (source: Module_DatastoreManifest.json._attribution.converted_at)
+Targets:
+- atlas-systems: Atlas Prime Systems (/Lotus/Types/Recipes/WarframeRecipes/AtlasPrimeSystemsComponent)
+- ash-chassis: Ash Prime Chassis (/Lotus/Types/Recipes/WarframeRecipes/AshPrimeChassisComponent)
+- blind-shot: Blind Shot (Blind Shot)
+Requirement trees:
+- Argon Crystal: required 2
+- Blind Shot: required 1
+- Alloy Plate: required 3200
+- Gallium: required 7
+- Nanospores: required 1000
+- Polymer Bundle: required 1200
+- Rubedo: required 400
+Recipe edges:
+- Atlas Prime Systems -> Argon Crystal x 2
+- Atlas Prime Systems -> Gallium x 4
+- Atlas Prime Systems -> Polymer Bundle x 1200
+- Atlas Prime Systems -> Alloy Plate x 3200
+- Ash Prime Chassis -> Gallium x 3
+- Ash Prime Chassis -> Nanospores x 1000
+- Ash Prime Chassis -> Rubedo x 400
+Still needed | Item | Required | Owned | Reserved
+2 | Argon Crystal | 2 | 0 | 0
+Used by Atlas Prime Systems 2
+1 | Blind Shot | 1 | 0 | 0
+Used by Blind Shot 1
+0 | Alloy Plate | 3200 | 1330160 | 0
+Used by Atlas Prime Systems 3200
+0 | Gallium | 7 | 1326 | 0
+Used by Ash Prime Chassis 3; Atlas Prime Systems 4
+0 | Nanospores | 1000 | 1983769 | 0
+Used by Ash Prime Chassis 1000
+0 | Polymer Bundle | 1200 | 541074 | 0
+Used by Atlas Prime Systems 1200
+0 | Rubedo | 400 | 918241 | 0
+Used by Ash Prime Chassis 400
+Farm-next ranking (top 15)
+1. Neptune/Cephalon Capture (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+2. Saturn/(Variant) Annihilation (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+3. Saturn/(Variant) Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+4. Saturn/(Variant) Cephalon Capture (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+5. Saturn/(Variant) Cephalon Capture (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+6. Saturn/(Variant) Team Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+7. Saturn/Annihilation (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+8. Saturn/Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+9. Saturn/Cephalon Capture (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+10. Saturn/Cephalon Capture (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+11. Saturn/Lunaro Arena (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+12. Saturn/Lunaro Arena (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+13. Saturn/Team Annihilation (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+14. Saturn/Team Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25% Rotation B; Blind Shot 2.48% Rotation A (Conclave-only source for Blind Shot)
+15. Corrupted Vor [enemy] covers 1: Argon Crystal 50.00%
+Conclave-only items: Blind Shot
+Conclave ranking:
+1. Neptune/Cephalon Capture (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+2. Saturn/(Variant) Annihilation (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+3. Saturn/(Variant) Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+4. Saturn/(Variant) Cephalon Capture (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+5. Saturn/(Variant) Cephalon Capture (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+6. Saturn/(Variant) Team Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+7. Saturn/Annihilation (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+8. Saturn/Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+9. Saturn/Cephalon Capture (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+10. Saturn/Cephalon Capture (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+11. Saturn/Lunaro Arena (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+12. Saturn/Lunaro Arena (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+13. Saturn/Team Annihilation (Conclave) [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+14. Saturn/Team Annihilation (Conclave) Extra [conclave] [PvP] covers 2: Argon Crystal 0.25%; Blind Shot 2.48% (Conclave-only source for Blind Shot)
+Audit: enemies 898/1020 with location; planets 713/1007 matched; missions 55/624 matched

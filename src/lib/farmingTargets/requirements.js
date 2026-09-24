@@ -22,6 +22,7 @@ function makeRecipeLookup(recipes) {
   const entries = recipes instanceof Map ? recipes.entries() : Object.entries(recipes);
   for (const [key, recipe] of entries) {
     if (!recipe || typeof recipe !== 'object') continue;
+    if (recipe.craftable === false) continue;
     lookup.set(recipeKey(key), recipe);
     for (const candidate of [recipe.resultType, recipe.itemType, recipe.uniqueName, recipe.bpName, recipe.baseName]) {
       if (candidate) lookup.set(recipeKey(candidate), recipe);

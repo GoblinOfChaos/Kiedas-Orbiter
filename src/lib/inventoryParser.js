@@ -3536,7 +3536,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           isMastered,
           hasMastery,
           uniqueName: bpKey,
-          resultType: recipe.resultType
+          resultType: recipe.resultType,
+          outputQty: recipe.num === undefined ? 1 : recipe.num
         });
       });
 

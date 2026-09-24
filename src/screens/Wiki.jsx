@@ -5,12 +5,14 @@ import { invoke } from '../lib/logging/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { PageLayout } from '../components/UI';
+import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 
 // Module-level: persists across component unmount/remount within this JS context (per-window).
 let lastActiveId = null;
 
 export default function Wiki() {
   const { t } = useUi()
+  const { pendingTarget } = useWikiNavigation();
   const containerRef = useRef(null);
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
@@ -18,6 +20,7 @@ export default function Wiki() {
   const tabsRef = useRef([]);
   const lastRectRef = useRef(null);
   const debounceRef = useRef(null);
+  const wikiReadyRef = useRef(false);
 
   activeTabRef.current = activeTab;
   tabsRef.current = tabs;
@@ -61,15 +64,16 @@ export default function Wiki() {
     // Seed tabs from Rust on mount — re-show the previously active tab if one exists.
     invoke('list_wiki_tabs').then((list) => {
       if (list.length === 0) {
-        showTab('wiki-0');
+        showTab('wiki-0', pendingTarget?.url);
       } else {
         // Part A: sync URLs for all existing webviews in this window
         list.forEach((t) => invoke('sync_wiki_tab', { label: t.id, url: t.url }).catch(() => {}));
         setTabs(list);
         const toShow = list.find((t) => t.id === lastActiveId) || list[list.length - 1];
-        showTab(toShow.id, toShow.url);
+        showTab(toShow.id, pendingTarget?.url || toShow.url);
         lastActiveId = null;
       }
+      wikiReadyRef.current = true;
     });
 
     // Shared tab list changes — broadcast app-wide, no source_window filter.
@@ -137,6 +141,11 @@ export default function Wiki() {
       }
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!pendingTarget || !wikiReadyRef.current) return;
+    showTab(activeTabRef.current || 'wiki-0', pendingTarget.url);
+  }, [pendingTarget, showTab]);
 
   useEffect(() => {
     if (activeTab) reportBounds(activeTab);

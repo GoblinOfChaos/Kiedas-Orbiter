@@ -9,6 +9,7 @@ import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
 import { useUi } from '../contexts/UiContext';
 import { useMonitoring } from '../contexts/MonitoringContext';
+import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -164,6 +165,7 @@ export function formatDuration(seconds) {
  * each presentation only owns its own layout and interaction chrome.
  */
 export function useAcquisitionDrawerData(item) {
+  const { openWiki } = useWikiNavigation();
   const displayName = item?.displayName;
   const uniqueName = item?.uniqueName;
   const [codexInfo, setCodexInfo] = useState(null);
@@ -197,7 +199,7 @@ export function useAcquisitionDrawerData(item) {
   const wikiLink = info?.wikiLink;
 
   const openWikiLink = () => {
-    if (wikiLink?.url) invoke('open_url', { url: wikiLink.url }).catch(console.error);
+    if (wikiLink?.url) openWiki(wikiLink.url);
   };
 
   const recipe = info?.recipe;

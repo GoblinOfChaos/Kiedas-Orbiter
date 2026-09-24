@@ -4,6 +4,7 @@ import { invoke, convertFileSrc } from '../lib/logging/tauri'
 import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import ItemImage from '../components/ItemImage'
+import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext'
 
 // The newer /SongItems/ Somachord tracks have no entries in
 // collectible-locations.json (that file only covers the classic
@@ -156,8 +157,13 @@ function getSeriesTrackingBits(cs) {
 
 function Subpanel({ cat, items, onClose }) {
   const { t } = useUi()
+  const { openWiki } = useWikiNavigation()
   const panelRef = useRef(null)
   const handleOpenLink = async (url) => {
+    if (isWikiUrl(url)) {
+      openWiki(url)
+      return
+    }
     try { await invoke('open_url', { url }) } catch { /* ignore */ }
   }
 

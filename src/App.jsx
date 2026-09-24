@@ -18,6 +18,7 @@ import PreviewAppShell from './preview/shell/PreviewAppShell';
 import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
 import { ErrorBoundary, CriticalLoadErrorScreen } from './components/ErrorBoundary';
 import { installUiDelegation, screen as logScreen } from './lib/logging/logger';
+import { WikiNavigationProvider } from './contexts/WikiNavigationContext';
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({});
@@ -352,6 +353,7 @@ function AppContent() {
   }
 
   return (
+    <WikiNavigationProvider onNavigate={setActiveTab}>
     <>
       {IS_PREVIEW ? (
         <PreviewAppShell
@@ -539,7 +541,8 @@ function AppContent() {
         <p className="text-xs font-black uppercase tracking-wider text-kronos-text">{t('app.installing_update')}</p>
       </div>
       }
-    </>);
+    </>
+    </WikiNavigationProvider>);
 
 }
 

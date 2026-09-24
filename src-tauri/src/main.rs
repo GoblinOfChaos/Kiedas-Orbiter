@@ -3776,6 +3776,12 @@ fn wiki_actual(window_label: &str, label: &str) -> String {
     }
 }
 
+fn is_fandom_url(url: &url::Url) -> bool {
+    url.host_str()
+        .map(|host| host == "fandom.com" || host.ends_with(".fandom.com"))
+        .unwrap_or(false)
+}
+
 #[tauri::command]
 fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) -> Result<String, String> {
     let app = webview.app_handle();
@@ -3802,6 +3808,9 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
         // If a URL is provided, navigate the existing webview to it.
         if let Some(nav_url) = &url {
             if let Ok(parsed) = nav_url.parse::<url::Url>() {
+                if is_fandom_url(&parsed) {
+                    return Err("Fandom wiki URLs are not allowed".to_string());
+                }
                 let _ = existing.navigate(parsed);
             }
         }
@@ -3816,6 +3825,10 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     }
 
     let target = url.unwrap_or_else(|| "https://wiki.warframe.com".to_string());
+    let target_url = target.parse::<url::Url>().map_err(|e: url::ParseError| e.to_string())?;
+    if is_fandom_url(&target_url) {
+        return Err("Fandom wiki URLs are not allowed".to_string());
+    }
     let ah = app.clone();
     let ah_for_title = ah.clone();
     let ah_for_nav = ah.clone();
@@ -3823,10 +3836,11 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
     let win_label_for_title = win_label.clone();
     let canonical_id2 = canonical_id.clone();
     let target_for_insert = target.clone();
-    let builder = WebviewBuilder::new(&actual, WebviewUrl::External(
-        target.parse().map_err(|e: url::ParseError| e.to_string())?
-    ))
+    let builder = WebviewBuilder::new(&actual, WebviewUrl::External(target_url))
     .on_new_window(move |new_url, _features| {
+        if is_fandom_url(&new_url) {
+            return tauri::webview::NewWindowResponse::Deny;
+        }
         let ts = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
         // Emit canonical (non-window-prefixed) label so any window can open it.
@@ -3859,6 +3873,9 @@ fn show_wiki_tab(webview: tauri::Webview, label: String, url: Option<String>) ->
         let nav_id = canonical_id.clone();
         let ah_nav = ah_for_nav;
         move |url| {
+            if is_fandom_url(&url) {
+                return false;
+            }
             if let Some(state) = ah_nav.try_state::<AppState>() {
                 let mut tabs = state.wiki_tabs.lock();
                 if let Some(tab) = tabs.iter_mut().find(|t| t.id == *nav_id) {

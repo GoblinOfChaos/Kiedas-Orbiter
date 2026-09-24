@@ -55,6 +55,29 @@ test('combines shared leaves with target contributions', () => {
   ]);
 });
 
+test('keeps an owned shared direct resource as one leaf and applies inventory once', () => {
+  const result = expandTargets([
+    { id: 'a', itemType: 'X', name: 'X', quantity: 1 },
+    { id: 'b', itemType: 'Y', name: 'Y', quantity: 1 },
+  ], context([
+    recipe('X', [ingredient('G', 'Gallium', 3)]),
+    recipe('Y', [ingredient('G', 'Gallium', 4)]),
+    { ...recipe('G', [ingredient('RAW', 'Raw', 1)]), craftable: false },
+  ], { G: 1326 }));
+  assert.equal(result.leaves.get('G').required, 7);
+  assert.deepEqual(result.leaves.get('G').contributions, [
+    { targetId: 'a', quantity: 3 }, { targetId: 'b', quantity: 4 },
+  ]);
+  assert.equal(result.leaves.has('RAW'), false);
+});
+
+test('supports an acquisition-only target as a direct leaf', () => {
+  const result = expandTargets([{ id: 'pvp', itemType: 'Blind Shot', name: 'Blind Shot', isAcquirable: true }], context([]));
+  assert.equal(result.errors.length, 0);
+  assert.equal(result.unresolved.length, 0);
+  assert.equal(result.leaves.get('Blind Shot').required, 1);
+});
+
 test('reports cycles without partial leaves for that target', () => {
   const result = expandTargets([{ id: 'cycle', itemType: 'A', name: 'A', quantity: 1 }], context([
     recipe('A', [ingredient('B', 'B', 1)]), recipe('B', [ingredient('A', 'A', 1)]),

@@ -1,0 +1,7 @@
+{
+  "craftable": [
+    {"itemType":"/Items/TargetA","name":"Target A","outputQty":1,"ingredients":[{"itemType":"/Resources/X","name":"Shared X","need":2},{"itemType":"/Resources/Y","name":"Resource Y","need":1}]},
+    {"itemType":"/Items/TargetB","name":"Target B","outputQty":1,"ingredients":[{"itemType":"/Resources/X","name":"Shared X","need":1}]}
+  ],
+  "owned": {"/Resources/X":1,"/Resources/Y":0}
+}

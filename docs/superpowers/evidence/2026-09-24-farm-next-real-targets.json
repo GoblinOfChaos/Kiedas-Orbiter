@@ -1,0 +1,21 @@
+[
+  {
+    "id": "atlas-systems",
+    "itemType": "/Lotus/Types/Recipes/WarframeRecipes/AtlasPrimeSystemsComponent",
+    "name": "Atlas Prime Systems",
+    "quantity": 1
+  },
+  {
+    "id": "ash-chassis",
+    "itemType": "/Lotus/Types/Recipes/WarframeRecipes/AshPrimeChassisComponent",
+    "name": "Ash Prime Chassis",
+    "quantity": 1
+  },
+  {
+    "id": "blind-shot",
+    "itemType": "Blind Shot",
+    "name": "Blind Shot",
+    "quantity": 1,
+    "isAcquirable": true
+  }
+]

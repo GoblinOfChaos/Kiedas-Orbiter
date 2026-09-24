@@ -1,0 +1,1 @@
+{"craftable":[{"itemType":"/Items/CycleA","name":"Cycle A","ingredients":[{"itemType":"/Items/CycleB","need":1}]},{"itemType":"/Items/CycleB","name":"Cycle B","ingredients":[{"itemType":"/Items/CycleA","need":1}]}],"owned":{}}

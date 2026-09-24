@@ -79,16 +79,74 @@ test('target order does not change the result', () => {
   assert.deepEqual(leavesObject(expandTargets(targets, context(recipes)).leaves), leavesObject(expandTargets([...targets].reverse(), context(recipes)).leaves));
 });
 
-test('random acyclic graphs produce non-negative naive-equivalent leaves', () => {
+test('random acyclic graphs match an independent naive recursive reference', () => {
   let seed = 0xC0FFEE;
-  const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 2 ** 32; };
+  const random = () => {
+    seed += 0x6D2B79F5;
+    let value = seed;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 2 ** 32;
+  };
+  const naive = (key, amount, recipes, leaves) => {
+    const current = recipes.get(key);
+    if (!current) {
+      leaves.set(key, (leaves.get(key) ?? 0) + amount);
+      return;
+    }
+    const batches = Math.ceil(amount / current.outputQty);
+    for (const item of current.ingredients) naive(item.itemType, batches * item.need, recipes, leaves);
+  };
   for (let run = 0; run < 200; run += 1) {
     const recipes = [];
-    for (let i = 1; i < 5; i += 1) {
-      recipes.push(recipe(`I${i}`, [ingredient(`L${i}`, `L${i}`, 1 + Math.floor(random() * 3))], 1 + Math.floor(random() * 3)));
+    for (let i = 0; i < 4; i += 1) {
+      const ingredients = [];
+      const ingredientCount = 1 + Math.floor(random() * 2);
+      for (let count = 0; count < ingredientCount; count += 1) {
+        const itemIndex = i + 1 + Math.floor(random() * (4 - i));
+        ingredients.push(ingredient(itemIndex < 4 ? `I${itemIndex}` : `L${run}_${count}`, 'ingredient', 1 + Math.floor(random() * 3)));
+      }
+      recipes.push(recipe(`I${i}`, ingredients, 1 + Math.floor(random() * 3)));
     }
-    const target = { id: `t${run}`, itemType: 'I1', name: 'I1', quantity: 1 + Math.floor(random() * 4) };
+    const target = { id: `t${run}`, itemType: 'I0', name: 'I0', quantity: 1 + Math.floor(random() * 4) };
+    const reference = new Map();
+    naive(target.itemType, target.quantity, new Map(recipes.map((value) => [value.resultType, value])), reference);
     const result = expandTargets([target], context(recipes));
-    for (const leaf of result.leaves.values()) assert.ok(leaf.required >= 0);
+    assert.deepEqual(new Map([...result.leaves].map(([key, value]) => [key, value.required])), reference);
+  }
+});
+
+test('random intermediate inventory never exceeds the no-inventory reference', () => {
+  let seed = 0xC0FFEE;
+  const random = () => {
+    seed += 0x6D2B79F5;
+    let value = seed;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 2 ** 32;
+  };
+  const naive = (key, amount, recipes, leaves) => {
+    const current = recipes.get(key);
+    if (!current) {
+      leaves.set(key, (leaves.get(key) ?? 0) + amount);
+      return;
+    }
+    const batches = Math.ceil(amount / current.outputQty);
+    for (const item of current.ingredients) naive(item.itemType, batches * item.need, recipes, leaves);
+  };
+  for (let run = 0; run < 200; run += 1) {
+    const recipes = [
+      recipe('I0', [ingredient('I1', 'I1', 1 + Math.floor(random() * 3)), ingredient(`L${run}`, 'leaf', 1 + Math.floor(random() * 3))], 1 + Math.floor(random() * 3)),
+      recipe('I1', [ingredient(`L${run + 1}`, 'leaf', 1 + Math.floor(random() * 3))], 1 + Math.floor(random() * 3)),
+    ];
+    const target = { id: `owned-${run}`, itemType: 'I0', name: 'I0', quantity: 1 + Math.floor(random() * 4) };
+    const reference = new Map();
+    naive(target.itemType, target.quantity, new Map(recipes.map((value) => [value.resultType, value])), reference);
+    const owned = { I1: Math.floor(random() * 5) };
+    const result = expandTargets([target], context(recipes, owned));
+    for (const [key, value] of result.leaves) {
+      assert.ok(value.required >= 0);
+      assert.ok(value.required <= (reference.get(key) ?? 0));
+    }
   }
 });

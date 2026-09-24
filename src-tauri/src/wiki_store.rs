@@ -1,9 +1,19 @@
 use serde_json::Value;
+use std::collections::HashMap;
 use std::fs;
 use std::path::{Component, Path, PathBuf};
+use std::sync::{Mutex, OnceLock};
+use std::time::SystemTime;
 
 const STORE_RELATIVE: &str = "data/wiki-store";
 const BUNDLED_STORE_RELATIVE: &str = "data/assets/wiki-store";
+
+struct CachedIndex {
+    modified: SystemTime,
+    value: Value,
+}
+
+static INDEX_CACHE: OnceLock<Mutex<HashMap<PathBuf, CachedIndex>>> = OnceLock::new();
 
 fn live_store_path() -> PathBuf {
     crate::get_data_root().join(STORE_RELATIVE)
@@ -28,6 +38,23 @@ fn read_index(root: &Path) -> Result<Value, String> {
     let bytes =
         fs::read(root.join("index.json")).map_err(|e| format!("read wiki store index: {e}"))?;
     serde_json::from_slice(&bytes).map_err(|e| format!("parse wiki store index: {e}"))
+}
+
+fn read_cached_index(root: &Path) -> Result<Value, String> {
+    let path = root.join("index.json");
+    let modified = fs::metadata(&path)
+        .and_then(|metadata| metadata.modified())
+        .map_err(|e| format!("stat wiki store index: {e}"))?;
+    let cache = INDEX_CACHE.get_or_init(|| Mutex::new(HashMap::new()));
+    let mut entries = cache.lock().map_err(|_| "wiki store index cache is poisoned".to_string())?;
+    if let Some(cached) = entries.get(root) {
+        if cached.modified == modified {
+            return Ok(cached.value.clone());
+        }
+    }
+    let value = read_index(root)?;
+    entries.insert(root.to_path_buf(), CachedIndex { modified, value: value.clone() });
+    Ok(value)
 }
 
 fn safe_store_file(file: &str) -> Result<&str, String> {
@@ -68,7 +95,7 @@ pub async fn wiki_store_index(app: tauri::AppHandle) -> Result<Value, String> {
 pub async fn wiki_store_get_bytes(app: tauri::AppHandle, file: String) -> Result<Vec<u8>, String> {
     let safe_file = safe_store_file(&file)?;
     let root = store_path(&app)?;
-    let index = read_index(&root)?;
+    let index = read_cached_index(&root)?;
     let indexed_file = indexed_file(&index, safe_file)?;
     fs::read(root.join("modules").join(indexed_file))
         .map_err(|e| format!("read wiki module bytes: {e}"))

@@ -12,8 +12,11 @@ export function safeModuleName(title) {
 
 function titleFromFilename(fileName, knownTitles) {
   const stem = fileName.replace(/\.(?:lua|json)$/, '');
-  const exact = knownTitles.find((title) => safeModuleName(title) === stem);
-  if (exact) return exact;
+  const matches = knownTitles.filter((title) => safeModuleName(title) === stem);
+  if (matches.length > 1) {
+    throw new Error(`Wiki module filename collision for ${stem}: ${matches.sort().join(' and ')}`);
+  }
+  if (matches.length === 1) return matches[0];
   const encoded = stem.startsWith('Module_') ? stem.slice('Module_'.length) : stem;
   const parts = encoded.split('_');
   if (parts.length === 1) return `${MODULE_PREFIX}${encoded}`;
@@ -51,6 +54,15 @@ async function sourceFiles(directory) {
 export async function buildWikiStore({ luaDir, jsonDir, revisionsFile, outDir, snapshotDate }) {
   const revisions = JSON.parse(await readFile(revisionsFile, 'utf8'));
   const knownTitles = await readTitles(luaDir, jsonDir, revisions);
+  const titlesByFile = new Map();
+  for (const title of knownTitles) {
+    const fileStem = safeModuleName(title);
+    const previous = titlesByFile.get(fileStem);
+    if (previous && previous !== title) {
+      throw new Error(`Wiki module filename collision: ${previous} and ${title} both map to ${fileStem}`);
+    }
+    titlesByFile.set(fileStem, title);
+  }
   const sources = [...await sourceFiles(luaDir), ...await sourceFiles(jsonDir)];
   const chosen = new Map();
 

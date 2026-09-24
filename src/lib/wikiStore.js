@@ -1,4 +1,4 @@
-const STALE_AFTER_MS = 24 * 60 * 60 * 1000;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 async function defaultGunzip(bytes) {
   const stream = new Response(bytes).body.pipeThrough(new DecompressionStream('gzip'));
@@ -15,13 +15,20 @@ export function createWikiStore({ invoke, gunzip = defaultGunzip, sha256 = defau
   const modulePromises = new Map();
 
   const getIndex = () => {
-    indexPromise ??= Promise.resolve(invoke('wiki_store_index'));
+    if (!indexPromise) {
+      const promise = Promise.resolve().then(() => invoke('wiki_store_index'));
+      const retryable = promise.catch((error) => {
+        if (indexPromise === retryable) indexPromise = undefined;
+        throw error;
+      });
+      indexPromise = retryable;
+    }
     return indexPromise;
   };
 
   const getModule = async (title) => {
     if (!modulePromises.has(title)) {
-      modulePromises.set(title, (async () => {
+      const promise = (async () => {
         const index = await getIndex();
         const record = index.modules?.find((module) => module.title === title);
         if (!record) {
@@ -45,17 +52,23 @@ export function createWikiStore({ invoke, gunzip = defaultGunzip, sha256 = defau
           revid: record.revid ?? null,
           data: record.kind === 'json' ? JSON.parse(text) : text,
         };
-      })());
+      })();
+      const retryable = promise.catch((error) => {
+        if (modulePromises.get(title) === retryable) modulePromises.delete(title);
+        throw error;
+      });
+      modulePromises.set(title, retryable);
     }
     return modulePromises.get(title);
   };
 
-  const stale = async () => {
+  const ageDays = async (now = new Date()) => {
     const index = await getIndex();
-    // A store is stale once its generated snapshot is at least 24 hours old.
-    const checkedAt = Date.parse(index.generatedAt ?? '');
-    return !Number.isFinite(checkedAt) || Date.now() - checkedAt >= STALE_AFTER_MS;
+    const snapshotAt = Date.parse(index.snapshotDate ?? '');
+    const nowAt = now instanceof Date ? now.getTime() : new Date(now).getTime();
+    if (!Number.isFinite(snapshotAt) || !Number.isFinite(nowAt)) return null;
+    return Math.floor(Math.max(0, nowAt - snapshotAt) / DAY_MS);
   };
 
-  return { getIndex, getModule, stale };
+  return { getIndex, getModule, ageDays };
 }

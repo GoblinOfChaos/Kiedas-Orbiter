@@ -33,6 +33,34 @@ function fakeInvoke(fixtureData, calls) {
   };
 }
 
+test('retries a rejected index request and fetches it exactly once more', async () => {
+  const data = fixture();
+  let attempts = 0;
+  const store = createWikiStore({ invoke: async (command) => {
+    assert.equal(command, 'wiki_store_index');
+    attempts += 1;
+    if (attempts === 1) throw new Error('transient index failure');
+    return data.index;
+  } });
+  await assert.rejects(() => store.getIndex(), /transient index failure/);
+  assert.deepEqual(await store.getIndex(), data.index);
+  assert.equal(attempts, 2);
+});
+
+test('evicts a rejected module request so the next call refetches it', async () => {
+  const data = fixture();
+  let byteAttempts = 0;
+  const store = createWikiStore({ invoke: async (command) => {
+    if (command === 'wiki_store_index') return data.index;
+    byteAttempts += 1;
+    if (byteAttempts === 1) throw new Error('transient byte failure');
+    return data.compressed;
+  } });
+  await assert.rejects(() => store.getModule('Module:Test/data'), /transient byte failure/);
+  assert.deepEqual((await store.getModule('Module:Test/data')).data, { ok: true });
+  assert.equal(byteAttempts, 2);
+});
+
 test('getModule memoises and returns JSON data from real gzip bytes', async () => {
   const calls = [];
   const data = fixture();
@@ -80,9 +108,9 @@ test('unknown module rejects clearly before invoking the getter', async () => {
   assert.deepEqual(calls.map(([command]) => command), ['wiki_store_index']);
 });
 
-test('stale is true when generatedAt is older than 24 hours', async () => {
+test('ageDays reports whole days from snapshotDate', async () => {
   const data = fixture();
-  data.index.generatedAt = new Date(Date.now() - 24 * 60 * 60 * 1000 - 1).toISOString();
+  data.index.snapshotDate = '2026-09-22';
   const store = createWikiStore({ invoke: fakeInvoke(data, []) });
-  assert.equal(await store.stale(), true);
+  assert.equal(await store.ageDays(new Date('2026-09-24T12:00:00Z')), 2);
 });

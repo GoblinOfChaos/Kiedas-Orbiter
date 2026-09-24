@@ -44,18 +44,44 @@ test('rejected HTML leaves previous files byte-identical', async () => {
   assert.deepEqual(after, before);
 });
 
-test('follows the DE redirect once and records resolvedUrl', async () => {
+test('follows an approved DE redirect once and records resolvedUrl', async () => {
   const cacheDir = await mkdtemp(join(tmpdir(), 'farm-drop-'));
   const calls = [];
   const fetchImpl = async (url) => {
     calls.push(url);
     return calls.length === 1
-      ? response(302, '', { location: 'https://cdn.example.test/droptables.html' })
+      ? response(302, '', { location: 'https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/droptables.html' })
       : response(200, fixture, { 'last-modified': 'redirected' });
   };
   const result = await refreshDropTables({ cacheDir, fetchImpl });
   assert.equal(result.status, 'updated');
-  assert.deepEqual(calls, ['https://www.warframe.com/droptables', 'https://cdn.example.test/droptables.html']);
+  assert.deepEqual(calls, ['https://www.warframe.com/droptables', 'https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/droptables.html']);
   const parsed = JSON.parse(await readFile(join(cacheDir, 'droptables.parsed.json'), 'utf8'));
-  assert.equal(parsed.resolvedUrl, 'https://cdn.example.test/droptables.html');
+  assert.equal(parsed.resolvedUrl, 'https://warframe-web-assets.nyc3.cdn.digitaloceanspaces.com/droptables.html');
+});
+
+test('rejects HTTP and unrelated redirect hosts', async () => {
+  for (const location of ['http://warframe.com/droptables.html', 'https://example.test/droptables.html']) {
+    const cacheDir = await mkdtemp(join(tmpdir(), 'farm-drop-'));
+    const result = await refreshDropTables({
+      cacheDir,
+      fetchImpl: async () => response(302, '', { location }),
+    });
+    assert.equal(result.status, 'rejected');
+    assert.match(result.errors[0], /approved HTTPS Warframe host/);
+  }
+});
+
+test('forwards If-Modified-Since through a redirect and handles 304', async () => {
+  const cacheDir = await mkdtemp(join(tmpdir(), 'farm-drop-'));
+  await refreshDropTables({ cacheDir, fetchImpl: async () => response(200, fixture, { 'last-modified': 'cached' }) });
+  const calls = [];
+  const result = await refreshDropTables({ cacheDir, fetchImpl: async (url, options) => {
+    calls.push({ url, options });
+    return calls.length === 1
+      ? response(302, '', { location: 'https://cdn.warframe.com/droptables.html' })
+      : response(304);
+  } });
+  assert.equal(result.status, 'not-modified');
+  assert.equal(calls[1].options.headers['If-Modified-Since'], 'cached');
 });

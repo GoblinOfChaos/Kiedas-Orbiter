@@ -19,13 +19,25 @@ function header(response, name) {
   return response.headers?.get?.(name) ?? null;
 }
 
+function isAllowedRedirect(url) {
+  const parsed = new URL(url);
+  return parsed.protocol === 'https:' && (
+    parsed.hostname === 'warframe.com' ||
+    parsed.hostname.endsWith('.warframe.com') ||
+    parsed.hostname === 'warframe-web-assets.nyc3.cdn.digitaloceanspaces.com'
+  );
+}
+
 async function fetchOnce(fetchImpl, url, headers) {
   const response = await fetchImpl(url, { redirect: 'manual', headers });
   if ([301, 302, 303, 307, 308].includes(response.status)) {
     const location = header(response, 'location');
     if (!location) throw new Error(`DE drop-table redirect from ${url} did not include Location`);
     const resolvedUrl = new URL(location, url).href;
-    const redirected = await fetchImpl(resolvedUrl, { redirect: 'manual', headers: {} });
+    if (!isAllowedRedirect(resolvedUrl)) {
+      throw new Error(`DE drop-table redirect target is not an approved HTTPS Warframe host: ${resolvedUrl}`);
+    }
+    const redirected = await fetchImpl(resolvedUrl, { redirect: 'manual', headers });
     if ([301, 302, 303, 307, 308].includes(redirected.status)) throw new Error(`DE drop-table redirect chain exceeds one hop at ${resolvedUrl}`);
     return { response: redirected, resolvedUrl };
   }

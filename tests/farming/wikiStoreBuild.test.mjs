@@ -70,3 +70,14 @@ test('fetchRevisions batches 50 titles, sleeps between requests, and preserves n
   assert.deepEqual(sleeps, [1200]);
   assert.equal(typeof revisions['Module:Test50/data'].revid, 'number');
 });
+
+test('rejects distinct titles that collide after filename sanitization', async () => {
+  const dirs = await fixtureDirs();
+  await writeFile(join(dirs.root, '_all_643_titles.json'), JSON.stringify([
+    'Module:Foo/Bar', 'Module:Foo_Bar',
+  ]));
+  await assert.rejects(
+    () => buildWikiStore({ ...dirs, snapshotDate: '2026-09-24' }),
+    /filename collision.*Module:Foo\/Bar.*Module:Foo_Bar|filename collision.*Module:Foo_Bar.*Module:Foo\/Bar/i,
+  );
+});

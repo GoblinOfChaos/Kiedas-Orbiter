@@ -20,7 +20,38 @@ import { Bug } from 'lucide-react';
 import { Compass, BookOpen } from 'lucide-react';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewSettingsLayout from '../components/PreviewSettingsLayout';
-import { eeLogDirectory } from '../lib/eeLogPaths';
+import { eeLogDirectory, formatEeLogStatus } from '../lib/eeLogPaths';
+
+function EeLogStatusLine({ path }) {
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    let interval;
+    const refresh = () => {
+      if (document.hidden) return;
+      invoke('ee_log_status', { path })
+        .then((nextStatus) => { if (!cancelled) setStatus(nextStatus); })
+        .catch(() => { if (!cancelled) setStatus(null); });
+    };
+    const timeout = setTimeout(() => {
+      refresh();
+      interval = setInterval(refresh, 10000);
+    }, 400);
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
+  }, [path]);
+
+  if (!status) return null;
+  return (
+    <span className="text-[10px] text-zinc-500 font-bold uppercase">
+      {formatEeLogStatus(status)}
+    </span>
+  );
+}
 
 function HotkeyRecorder({ value, onChange, placeholder = 'None' }) {
   const { t } = useUi();
@@ -259,21 +290,7 @@ export default function SettingsScreen() {
     () => getSetting('ee_log_path') ?? ''
   );
   const [eeLogCandidates, setEeLogCandidates] = useState([]);
-  const [eeLogStatus, setEeLogStatus] = useState(null);
-  const [eeLogStatusTick, setEeLogStatusTick] = useState(0);
   const eeLogPathRestartTimerRef = useRef(null);
-  useEffect(() => {
-    let cancelled = false;
-    const refresh = () => invoke('ee_log_status', { path: eeLogPath })
-      .then((status) => { if (!cancelled) setEeLogStatus(status); })
-      .catch(() => { if (!cancelled) setEeLogStatus(null); });
-    refresh();
-    return () => { cancelled = true; };
-  }, [eeLogPath]);
-  useEffect(() => {
-    const interval = setInterval(() => setEeLogStatusTick((value) => value + 1), 1000);
-    return () => clearInterval(interval);
-  }, []);
   const [wfmToken, setWfmToken] = useState(
     () => getSetting('wfm_token') ?? ''
   );
@@ -481,7 +498,6 @@ export default function SettingsScreen() {
   const handleBrowseEeLog = async () => {
     try {
       const candidates = eeLogCandidates.length > 0 ? eeLogCandidates : await invoke('detect_ee_log_paths');
-      if (eeLogCandidates.length === 0) setEeLogCandidates(candidates);
       const selected = await openDialog({
         directory: false,
         multiple: false,
@@ -1310,13 +1326,7 @@ export default function SettingsScreen() {
                 <Button variant="secondary" onClick={handleDetectEeLogs} className="px-3">
                   <FileSearch size={16} className="mr-2" />{t('settings.ee_log_auto_detect')}
                 </Button>
-                {eeLogStatus && (
-                  <span className="text-[10px] text-zinc-500 font-bold uppercase">
-                    {!eeLogStatus.exists ? t('settings.ee_log_not_found') : !eeLogStatus.readable ? t('settings.ee_log_not_readable') : t('settings.ee_log_found', {
-                      seconds: Math.max(0, Math.floor((eeLogStatus.modifiedAgoSecs ?? eeLogStatus.modified_ago_secs ?? 0) + eeLogStatusTick)),
-                    })}
-                  </span>
-                )}
+                <EeLogStatusLine path={eeLogPath} />
               </div>
               {eeLogCandidates.length > 0 && (
                 <div className="mt-2 space-y-1">

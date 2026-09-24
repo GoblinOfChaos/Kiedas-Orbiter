@@ -3096,33 +3096,9 @@ async fn start_log_scanner(app: tauri::AppHandle, state: tauri::State<'_, AppSta
     let use_ee_log = get_setting_bool("use_ee_log", false);
     
     let handle = if use_ee_log {
-        let path = get_setting_string("ee_log_path").unwrap_or_else(|| {
-            #[cfg(target_os = "windows")]
-            {
-                if let Some(local_app_data) = std::env::var_os("LOCALAPPDATA") {
-                    let mut pb = std::path::PathBuf::from(local_app_data);
-                    pb.push("Warframe");
-                    pb.push("EE.log");
-                    pb.to_string_lossy().into_owned()
-                } else {
-                    "EE.log".to_string()
-                }
-            }
-            #[cfg(target_os = "linux")]
-            {
-                if let Some(home) = std::env::var_os("HOME") {
-                    let mut pb = std::path::PathBuf::from(home);
-                    pb.push(".local/share/Steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log");
-                    pb.to_string_lossy().into_owned()
-                } else {
-                    "EE.log".to_string()
-                }
-            }
-            #[cfg(not(any(target_os = "windows", target_os = "linux")))]
-            {
-                "EE.log".to_string()
-            }
-        });
+        let path = get_setting_string("ee_log_path")
+            .or_else(|| ee_log::effective_path("").map(|path| path.to_string_lossy().into_owned()))
+            .unwrap_or_else(|| "EE.log".to_string());
         
         match log_scanner::spawn_file_watcher(app.clone(), path) {
             Ok(h) => h,

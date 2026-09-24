@@ -1,0 +1,96 @@
+name: Data Watch
+
+on:
+  schedule:
+    - cron: '17 6,18 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Do not push state or write GitHub issues
+        required: false
+        default: false
+        type: boolean
+
+concurrency: data-watch
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    if: vars.DATA_WATCH_DISABLED != 'true'
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DATA_WATCH_DISABLED: ${{ vars.DATA_WATCH_DISABLED }}
+      DATA_WATCH_DRY_RUN: ${{ inputs.dry_run || false }}
+    steps:
+      - name: Checkout main scripts
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Checkout or initialize data-updates
+        if: vars.DATA_WATCH_DISABLED != 'true'
+        shell: bash
+        env:
+          REPOSITORY: ${{ github.repository }}
+          TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          AUTH_HEADER="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)"
+          echo "::add-mask::$AUTH_HEADER"
+          REPOSITORY_URL="https://github.com/${REPOSITORY}.git"
+          if git -c http.extraheader="$AUTH_HEADER" ls-remote --exit-code --heads "$REPOSITORY_URL" data-updates >/dev/null 2>&1; then
+            git -c http.extraheader="$AUTH_HEADER" clone --branch data-updates --single-branch "$REPOSITORY_URL" data
+            git -C data config --local http.https://github.com/.extraheader "$AUTH_HEADER"
+          else
+            mkdir data
+            git -C data init -b data-updates
+            printf '{"formatVersion":1,"sources":{}}\n' > data/state.json
+            printf '# Data Watch State\n\nThis branch stores data-watch probe state.\n' > data/README.md
+            git -C data add state.json README.md
+            git -C data -c user.name='data-watch' -c user.email='actions@users.noreply.github.com' commit -m 'Initialize data-watch state'
+            if [ "${DATA_WATCH_DRY_RUN}" != 'true' ]; then
+              git -C data remote add origin "$REPOSITORY_URL"
+              git -C data config --local http.https://github.com/.extraheader "$AUTH_HEADER"
+              git -C data push -u origin data-updates
+            fi
+          fi
+
+      - name: Install xz
+        run: sudo apt-get update && sudo apt-get install -y xz-utils
+
+      - name: Install Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Run data watch
+        working-directory: main
+        shell: bash
+        run: |
+          set +e
+          node scripts/data-watch/cli.mjs --state ../data/state.json ${{ env.DATA_WATCH_DRY_RUN == 'true' && '--dry-run' || '' }}
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ] && [ "$status" -ne 10 ] && [ "$status" -ne 30 ]; then exit "$status"; fi
+
+      - name: Commit state to data-updates
+        if: vars.DATA_WATCH_DISABLED != 'true' && env.DATA_WATCH_DRY_RUN != 'true'
+        working-directory: data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- state.json; then exit 0; fi
+          git config user.name 'data-watch'
+          git config user.email 'actions@users.noreply.github.com'
+          git add state.json
+          git commit -m 'Update data-watch state'
+          git pull --rebase origin data-updates || {
+            git pull --rebase origin data-updates
+          }
+          git push origin data-updates

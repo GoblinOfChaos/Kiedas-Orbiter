@@ -463,6 +463,38 @@
     "it": "Contatore combo",
     "en": "Combo Count"
   },
+  "Additional Combo Count Chance": {
+    "uk": "Additional Combo Count Chance",
+    "fr": "Additional Combo Count Chance",
+    "de": "Additional Combo Count Chance",
+    "es": "Additional Combo Count Chance",
+    "ru": "Additional Combo Count Chance",
+    "zh": "Additional Combo Count Chance",
+    "ja": "Additional Combo Count Chance",
+    "ko": "Additional Combo Count Chance",
+    "pt": "Additional Combo Count Chance",
+    "tr": "Additional Combo Count Chance",
+    "th": "Additional Combo Count Chance",
+    "pl": "Additional Combo Count Chance",
+    "it": "Additional Combo Count Chance",
+    "en": "Additional Combo Count Chance"
+  },
+  "Chance to Gain Combo Count": {
+    "uk": "Chance to Gain Combo Count",
+    "fr": "Chance to Gain Combo Count",
+    "de": "Chance to Gain Combo Count",
+    "es": "Chance to Gain Combo Count",
+    "ru": "Chance to Gain Combo Count",
+    "zh": "Chance to Gain Combo Count",
+    "ja": "Chance to Gain Combo Count",
+    "ko": "Chance to Gain Combo Count",
+    "pt": "Chance to Gain Combo Count",
+    "tr": "Chance to Gain Combo Count",
+    "th": "Chance to Gain Combo Count",
+    "pl": "Chance to Gain Combo Count",
+    "it": "Chance to Gain Combo Count",
+    "en": "Chance to Gain Combo Count"
+  },
   "Combo Efficiency": {
     "uk": "Ефективність комбо",
     "fr": "Efficacité du combo",

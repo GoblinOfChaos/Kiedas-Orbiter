@@ -44,10 +44,8 @@ export const STAT_TO_PRICER = {
   'Critical Chance for Slide Attack': 'critical_chance_on_slide_attack',
   'Combo Efficiency': 'channeling_efficiency',
   'Zoom': 'zoom',
-  'Blast Radius': 'explosion_radius',
-  'Beam Length': 'beam_length',
-  'Combo Count': 'chance_to_gain_combo_count',
-  'Combo Count Chance': 'chance_to_gain_combo_count',
+  'Additional Combo Count Chance': 'chance_to_gain_extra_combo_count',
+  'Chance to Gain Combo Count': 'chance_to_gain_combo_count',
 }
 
 /**
@@ -101,9 +99,7 @@ const GAME_STAT_ALIASES = {
     'Schaden an Befallenen': 'Damage to Infested',
     'Waffenrückstoss': 'Recoil',
     'Kritische Chance für Rutschangriff': 'Slide Crit Chance',
-    'Explosionsradius': 'Blast Radius',
     'Zoom': 'Zoom',
-    'Kombo-Zähler Chance': 'Combo Count Chance',
   },
   fr: {
     'Chance de critique': 'Critical Chance',
@@ -136,9 +132,7 @@ const GAME_STAT_ALIASES = {
     'Dégâts aux Infestés': 'Damage to Infested',
     "Recul de l'Arme": 'Recoil',
     "Chances de Critique pour l'Attaque Glissée": 'Slide Crit Chance',
-    "Rayon d'Explosion": 'Blast Radius',
     'Zoom': 'Zoom',
-    'Chances de Points de Combo': 'Combo Count Chance',
   },
 }
 

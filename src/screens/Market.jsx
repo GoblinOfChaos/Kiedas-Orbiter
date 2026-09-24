@@ -48,8 +48,9 @@ const RIVEN_STAT_TO_PRICER = {
   'Damage to Corpus': 'damage_vs_corpus', 'Damage to Grineer': 'damage_vs_grineer',
   'Damage to Infested': 'damage_vs_infested', 'Recoil': 'recoil',
   'Slide Crit Chance': 'critical_chance_on_slide_attack', 'Combo Efficiency': 'channeling_efficiency',
-  'Zoom': 'zoom', 'Blast Radius': 'explosion_radius', 'Beam Length': 'beam_length',
-  'Combo Count': 'chance_to_gain_combo_count', 'Combo Count Chance': 'chance_to_gain_combo_count'
+  'Zoom': 'zoom',
+  'Additional Combo Count Chance': 'chance_to_gain_extra_combo_count',
+  'Chance to Gain Combo Count': 'chance_to_gain_combo_count'
 };
 
 function rivenStockKey(riven, index = 0) {

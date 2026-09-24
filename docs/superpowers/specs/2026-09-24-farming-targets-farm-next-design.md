@@ -12,7 +12,7 @@ Decisions made:
 - Prime parts: show the **relics**, ranked by how many needed parts each relic holds.
 - Enemies: map to nodes only as far as verified sources allow (section 3).
 - **Conclave is never hidden.** It gets its own place-type tab. It is left out of the *combined* ranking only when every needed item has a non-Conclave source; if any needed item is obtainable only through Conclave, that place appears in the main ranking with a "PvP" badge.
-- A user-controlled **minimum drop chance** filter (default off) instead of any built-in threshold.
+- A user-controlled **minimum drop chance** filter, **off by default (confirmed by the user 2026-09-24)**, instead of any built-in threshold.
 
 Non-goals: efficiency/time estimates; live fissure recommendations (later); marketplace actions; Stable promotion; anything in 9.8 not listed in section 8.
 
@@ -50,6 +50,20 @@ Facts established while designing (all from local copies, 2026-09-24):
 Project rule #1 allows only DE (PublicExport, WorldState, official drop tables) and the official wiki (wiki.warframe.com). The app's *current* drop index is downloaded from `drops.warframestat.us` (a community parse of DE's tables). **Open decision for the plan stage:** either keep it and document it as a community mirror of DE data, or replace item-to-source chances with a parse of DE's own `https://www.warframe.com/droptables` (structurally simple HTML tables: "Missions", "Resource Drops by Source", "Relics"...). Recommendation: parse DE's page directly for chances; use the wiki modules for location metadata (planets, tilesets, mission types, bosses, vendors); keep `warframestat` only as a fallback.
 
 The wiki archive (`wiki_module_archive/`, `wiki_module_json/`, built by `scripts/build_wiki_module_archive.py`, snapshot 2026-09-09) is the wiki input. The plan must add a refresh step and record snapshot date and source hashes in every proof output.
+
+### 4.1 Keeping wiki data current (verified 2026-09-24)
+
+- The MediaWiki API (`api.php?action=query&prop=revisions&rvprop=ids|timestamp&titles=A|B|...`) returns the latest revision id and timestamp for up to 50 modules per request; `list=recentchanges&rcnamespace=828` lists recent module edits. ~500 modules = about 10 requests. The wiki changes daily.
+- The build script (`scripts/build_wiki_module_archive.py`) does not currently record revision ids; the new prep step must store `revid` and timestamp per module in the store index.
+- Updater: at most once per day at launch plus a manual "Check for updates". It asks for revision ids, re-downloads only changed modules (>=1.2 s between requests, identifying User-Agent), converts them, validates, then atomically swaps the store; on any failure it keeps the last known good store. Settings shows "Wiki data as of <date>".
+
+### 4.2 Parsing DE's drop tables (verified 2026-09-24)
+
+- `https://www.warframe.com/droptables` redirects to a static HTML file on a CDN (about 4.4 MB) with a `Last-Modified` header (last change 2026-09-23). Use conditional requests (`If-Modified-Since`) so nothing is downloaded when unchanged.
+- Structure: 20 tables, each preceded by `<h3 id="...">` with stable ids (`missionRewards`, `relicRewards`, `keyRewards`, `transientRewards`, `sortieRewards`, `cetusRewards`, `solarisRewards`, `deimosRewards`, `zarimanRewards`, `entratiLabRewards`, `hexRewards`, `modByAvatar`, `modByDrop`, `blueprintByAvatar`, `blueprintByDrop`, `resourceByAvatar`, `resourceByDrop`, `sigilByAvatar`, `additionalItemByAvatar`, `relicByAvatar`). Place tables use `<th>` place / `<th>Rotation X</th>` / `<td>Item</td><td>Rarity (p%)</td>`; by-source tables use `<th>Source</th><th colspan=2>... Drop Chance: p%</th>` then `<td></td><td>Item</td><td>Rarity (p%)</td>`.
+- Prototype parse (throwaway script): 10,364 mission reward rows over 441 places and 1,846 resource-by-source rows over 890 sources, with **zero unrecognised row shapes**.
+- Validation rules for the real parser: (a) fail on any unknown section id or row shape; (b) for mission rotations (mutually exclusive picks) chances must sum to 100 within rounding tolerance +-0.15 (prototype: 936 of 940 pass; the 4 exceptions are an event with multiple rolls at 300% and two Duviri tiers at 100.5%, which are reported for review, never silently trusted); by-source resource tables are independent chances and are NOT expected to sum to 100; (c) row and place counts may not drop sharply versus the previous snapshot; (d) cross-check against the wiki reverse index and the current app drop index and report differences; (e) keep the raw text alongside parsed numbers; (f) golden tests over a saved snapshot; (g) refuse the update and keep the last known good copy on any failure.
+- Because this page is DE's own, it becomes the source of truth for chances (the earlier open decision is resolved in its favour); wiki modules supply location metadata; the current community-mirror drop index remains only as a cross-check.
 
 ## 5. Ranking rules (precise)
 
@@ -97,6 +111,6 @@ Each stage is built by Codex on its own branch, reviewed by Antigravity, verifie
 - Wiki data is community-maintained and the local archive is a snapshot; labels and a refresh step keep this visible. Enemy areas are never presented as nodes.
 - Name joins (planet, tileset, mission type) are lossy: about one third of wiki mission names do not match DE node names today. The alias table must be built from verified evidence; unmatched names stay unmatched.
 - Steel Path and bounty-level variants inflate source rows; the plan must decide grouping (recommendation: group by base place, show variants as detail).
-- Source-of-truth decision for drop chances (section 4).
-- Default value and units for the minimum-chance filter (recommendation: off by default).
+- Source-of-truth decision for drop chances: resolved in section 4.2 (DE's drop tables page).
+- Minimum-chance filter default: resolved, off.
 - Limited-time detection depends on data that may not mark expiry; unknowns are shown, not hidden.

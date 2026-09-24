@@ -33,6 +33,44 @@ import {
 
 const WFM_ID_CATALOG_ASSET_PATH = "data/user/wfm_id_catalog_cache.json";
 
+const RIVEN_STAT_TO_PRICER = {
+  'Critical Chance': 'critical_chance', 'Critical Damage': 'critical_damage',
+  'Damage': 'base_damage_/_melee_damage', 'Melee Damage': 'base_damage_/_melee_damage',
+  'Multishot': 'multishot', 'Attack Speed': 'fire_rate_/_attack_speed',
+  'Fire Rate': 'fire_rate_/_attack_speed', 'Status Chance': 'status_chance',
+  'Status Duration': 'status_duration', 'Range': 'range', 'Puncture': 'puncture_damage',
+  'Slash': 'slash_damage', 'Impact': 'impact_damage', 'Heat': 'heat_damage',
+  'Cold': 'cold_damage', 'Electricity': 'electric_damage', 'Toxin': 'toxin_damage',
+  'Reload Speed': 'reload_speed', 'Magazine Capacity': 'magazine_capacity',
+  'Ammo Maximum': 'ammo_maximum', 'Punch Through': 'punch_through',
+  'Projectile Speed': 'projectile_speed', 'Initial Combo': 'channeling_damage',
+  'Combo Duration': 'combo_duration', 'Finisher Damage': 'finisher_damage',
+  'Damage to Corpus': 'damage_vs_corpus', 'Damage to Grineer': 'damage_vs_grineer',
+  'Damage to Infested': 'damage_vs_infested', 'Recoil': 'recoil',
+  'Slide Crit Chance': 'critical_chance_on_slide_attack', 'Combo Efficiency': 'channeling_efficiency',
+  'Zoom': 'zoom', 'Blast Radius': 'explosion_radius', 'Beam Length': 'beam_length',
+  'Combo Count': 'chance_to_gain_combo_count', 'Combo Count Chance': 'chance_to_gain_combo_count'
+};
+
+function rivenStockKey(riven) {
+  if (riven.item_id) return `riven:${riven.item_id}`;
+  return `riven:${riven.name}|${(riven.stats || []).map(s => s.statKey || s.tag).sort().join('|')}`;
+}
+
+function rivenPricerInput(riven) {
+  const statKey = (stat) => RIVEN_STAT_TO_PRICER[stat.statKey || stat.tag] || null;
+  const positive = (riven.stats || []).filter(s => s.positive).map(statKey);
+  const negative = (riven.stats || []).filter(s => !s.positive).map(statKey);
+  return {
+    weapon_name: riven.weapon_name_en || riven.weapon_name || riven.name.replace(/ Riven.*$/, ''),
+    re_rolls: riven.rerolls ?? 0,
+    positive1: positive[0] || null,
+    positive2: positive[1] || null,
+    positive3: positive[2] || null,
+    negative: negative[0] || null
+  };
+}
+
 function priceAgeLabel(timestamp) {
   if (!timestamp) return "";
   const ageMs = Date.now() - timestamp;
@@ -80,6 +118,7 @@ export default function Market({ onNavigate }) {
   // explicitly asks for the list to re-sort using currently-known prices.
   const [sortRefreshToken, setSortRefreshToken] = useState(0);
   const [stockOrderKeys, setStockOrderKeys] = useState([]);
+  const [rivenEstimates, setRivenEstimates] = useState({});
 
   // 1. Load WFM items catalog (ID -> name/icon map)
   const ensureCatalog = useCallback(async () => {
@@ -409,6 +448,52 @@ export default function Market({ onNavigate }) {
     });
   }, [saleableStock, priceStates, t]);
 
+  // Riven prices already come from the local bundled pricer used by Rivens.jsx.
+  // This adds no marketplace request and deliberately keeps unknown estimates
+  // visible instead of treating an unavailable model result as zero platinum.
+  const marketRivens = useMemo(() => inventoryData?.rivens ?? [], [inventoryData]);
+
+  useEffect(() => {
+    const pending = marketRivens.filter(riven => !Object.prototype.hasOwnProperty.call(rivenEstimates, rivenStockKey(riven)));
+    if (pending.length === 0) return;
+    let cancelled = false;
+    invoke('estimate_riven_full_batch', { inputs: pending.map(rivenPricerInput) })
+      .then(results => {
+        if (cancelled || !Array.isArray(results)) return;
+        setRivenEstimates(previous => {
+          const next = { ...previous };
+          pending.forEach((riven, index) => { next[rivenStockKey(riven)] = results[index] || null; });
+          return next;
+        });
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [marketRivens, rivenEstimates]);
+
+  const rivenStockWithPricing = useMemo(() => marketRivens.map(riven => {
+    const estimate = rivenEstimates[rivenStockKey(riven)];
+    const platPrice = estimate?.price != null ? Math.round(estimate.price) : null;
+    const decision = platPrice != null && platPrice >= 15 ? 'sell_plat' : 'unknown';
+    return {
+      ...riven,
+      unique_name: rivenStockKey(riven),
+      quantity: 1,
+      platPrice,
+      priceState: platPrice == null ? { status: 'error' } : { status: 'ready' },
+      decision,
+      decisionLabel: platPrice == null ? t('market.riven_estimate_unavailable') : t('market.riven_estimated_value'),
+      decisionReason: platPrice == null ? t('market.riven_estimate_unavailable') : t('market.riven_estimate_reason', { plat: platPrice }),
+      pdRatio: 0,
+      dpRatio: 0,
+      isDuplicate: false,
+      isMastered: false,
+      isRiven: true,
+      rivenEstimate: estimate
+    };
+  }), [marketRivens, rivenEstimates, t]);
+
+  const marketStockWithPricing = useMemo(() => [...stockWithPricing, ...rivenStockWithPricing], [stockWithPricing, rivenStockWithPricing]);
+
   // Step 3: fetch price state for each saleable item, applied as each one
   // resolves (not batched) so results show up progressively.
   const priceStatesRef = useRef(priceStates);
@@ -450,17 +535,17 @@ export default function Market({ onNavigate }) {
   // update, so cards don't reshuffle out from under the user mid-load.
   const stockByKey = useMemo(() => {
     const m = new Map();
-    for (const item of stockWithPricing) m.set(item.unique_name, item);
+    for (const item of marketStockWithPricing) m.set(item.unique_name, item);
     return m;
-  }, [stockWithPricing]);
+  }, [marketStockWithPricing]);
 
   useEffect(() => {
-    const filtered = stockWithPricing.filter(item => {
+    const filtered = marketStockWithPricing.filter(item => {
       if (stockFilter === "sell_plat" && item.decision !== "sell_plat") return false;
       if (stockFilter === "ducats" && item.decision !== "ducats") return false;
       if (stockFilter === "duplicates" && !item.isDuplicate) return false;
-      if (stockFilter === "mastered" && !item.isMastered) return false;
-      if (stockFilter === "unmastered" && item.isMastered) return false;
+      if (stockFilter === "mastered" && !item.isRiven && !item.isMastered) return false;
+      if (stockFilter === "unmastered" && !item.isRiven && item.isMastered) return false;
       if (stockSearch.trim() && !item.name.toLowerCase().includes(stockSearch.toLowerCase())) return false;
       return true;
     });
@@ -476,9 +561,9 @@ export default function Market({ onNavigate }) {
     });
 
     setStockOrderKeys(filtered.map(item => item.unique_name));
-    // Deliberately excludes `stockWithPricing`/`priceStates` - see comment above.
+    // Deliberately excludes `marketStockWithPricing`/`priceStates` - see comment above.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [saleableStock, stockFilter, stockSort, stockSearch, sortRefreshToken]);
+  }, [marketStockWithPricing, stockFilter, stockSort, stockSearch, sortRefreshToken]);
 
   const processedStock = useMemo(() => {
     return stockOrderKeys.map(key => stockByKey.get(key)).filter(Boolean);
@@ -657,7 +742,7 @@ export default function Market({ onNavigate }) {
             </div>
             <div>
               <div className="text-xs text-kronos-dim">{t("market.stat_tradeable_inventory")}</div>
-              <div className="text-lg font-bold text-white">{stockWithPricing.length} items</div>
+              <div className="text-lg font-bold text-white">{marketStockWithPricing.length} items</div>
             </div>
           </div>
         </div>
@@ -684,7 +769,7 @@ export default function Market({ onNavigate }) {
             }`}
           >
             <Sparkles className="w-4 h-4 text-[#fbbf24]" />
-            {t('market.tab_tradeable_stock')} ({stockWithPricing.length})
+            {t('market.tab_tradeable_stock')} ({marketStockWithPricing.length})
           </button>
         </div>
 
@@ -910,7 +995,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "all" ? "bg-kronos-panel/50 text-white" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  All ({stockWithPricing.length})
+                  All ({marketStockWithPricing.length})
                 </button>
                 <button
                   onClick={() => setStockFilter("sell_plat")}
@@ -919,7 +1004,7 @@ export default function Market({ onNavigate }) {
                   }`}
                 >
                   <Tag className="w-3 h-3 text-emerald-400" />
-                  {t("market.filter_sell_plat", { n: stockWithPricing.filter(i => i.decision === "sell_plat").length })}
+                  {t("market.filter_sell_plat", { n: marketStockWithPricing.filter(i => i.decision === "sell_plat").length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("ducats")}
@@ -928,7 +1013,7 @@ export default function Market({ onNavigate }) {
                   }`}
                 >
                   <Coins className="w-3 h-3 text-amber-400" />
-                  {t("market.filter_best_ducats", { n: stockWithPricing.filter(i => i.decision === "ducats").length })}
+                  {t("market.filter_best_ducats", { n: marketStockWithPricing.filter(i => i.decision === "ducats").length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("duplicates")}
@@ -936,7 +1021,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "duplicates" ? "bg-[#a855f7]/20 text-[#c084fc] font-bold" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  {t("market.filter_duplicates", { n: stockWithPricing.filter(i => i.isDuplicate).length })}
+                  {t("market.filter_duplicates", { n: marketStockWithPricing.filter(i => i.isDuplicate).length })}
                 </button>
                 <button
                   onClick={() => setStockFilter("mastered")}
@@ -944,7 +1029,7 @@ export default function Market({ onNavigate }) {
                     stockFilter === "mastered" ? "bg-kronos-accent/20 text-kronos-accent font-bold" : "text-kronos-dim hover:text-white"
                   }`}
                 >
-                  {t("market.filter_mastered", { n: stockWithPricing.filter(i => i.isMastered).length })}
+                  {t("market.filter_mastered", { n: marketStockWithPricing.filter(i => i.isMastered).length })}
                 </button>
               </div>
 
@@ -1093,6 +1178,7 @@ export default function Market({ onNavigate }) {
                           <div className="text-[10px] text-kronos-dim mt-0.5 flex flex-wrap items-center gap-2">
                             <span>{t("market.owned_label")} <b className="text-white">{item.quantity}</b></span>
                             {item.ducats > 0 && <span>{t("market.ducats_label")} <b className="text-amber-400">{item.ducats}d</b></span>}
+                            {item.isRiven && <span className="text-purple-300">{t("market.riven_stock_label")}</span>}
                             {item.isMastered && (
                               <span className="text-[9px] px-1 py-0.2 rounded bg-kronos-accent/10 text-kronos-accent font-bold border border-kronos-accent/20">
                                 Mastered
@@ -1151,7 +1237,9 @@ export default function Market({ onNavigate }) {
                               : "bg-kronos-accent text-black hover:bg-[#0284c7] text-black"
                           } disabled:opacity-50`}
                         >
-                          {isListing ? (
+                          {item.isRiven ? (
+                            <span className="text-[10px] text-kronos-dim text-right">{t("market.riven_listing_unavailable")}</span>
+                          ) : isListing ? (
                             <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                           ) : isListed ? (
                             <>

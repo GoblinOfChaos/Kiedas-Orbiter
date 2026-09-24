@@ -28,6 +28,7 @@ mod mem_reader;
 mod memory_scan;
 mod weapon_i18n;
 mod riven_math;
+mod wiki_store;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -139,7 +140,7 @@ fn get_legacy_data_root() -> PathBuf {
 
 /// Recursively copy a directory tree. Used only for one-time migration from
 /// the legacy app-adjacent data location to the stable OS data directory.
-fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
+pub(crate) fn copy_dir_recursive(src: &Path, dst: &Path) -> std::io::Result<()> {
     fs::create_dir_all(dst)?;
     for entry in fs::read_dir(src)? {
         let entry = entry?;
@@ -215,7 +216,7 @@ fn safe_relative_join(root: &std::path::Path, relative: &str) -> Result<PathBuf,
 /// permanently corrupts the file for every future launch, which no amount
 /// of in-process locking can undo since the damage is already on disk
 /// before the next process starts.
-fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String> {
+pub(crate) fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String> {
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
@@ -246,7 +247,7 @@ fn write_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String
 /// A process killed mid-write with a plain fs::write truncates the file in
 /// place, corrupting it permanently; rename is atomic so readers only ever
 /// see the old complete file or the new complete file, never a partial one.
-fn write_bytes_atomic(path: &std::path::Path, content: impl AsRef<[u8]>) -> std::io::Result<()> {
+pub(crate) fn write_bytes_atomic(path: &std::path::Path, content: impl AsRef<[u8]>) -> std::io::Result<()> {
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent)?;
     }
@@ -260,7 +261,7 @@ fn write_bytes_atomic(path: &std::path::Path, content: impl AsRef<[u8]>) -> std:
 
 /// Build an absolute path from a path relative to the bundled app root.
 /// Used as fallback when writable data root doesn't have the file yet (e.g. AppImage first run).
-fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option<PathBuf> {
+pub(crate) fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option<PathBuf> {
     app_handle.path().resolve(relative, tauri::path::BaseDirectory::Resource).ok()
 }
 
@@ -4654,6 +4655,8 @@ fn main() {
             write_file,
             cache_market_catalog,
             read_file_bytes,
+            wiki_store::wiki_store_index,
+            wiki_store::wiki_store_get_bytes,
             resolve_asset_path,
             count_unfixed_card_images,
             ensure_card_images,

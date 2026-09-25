@@ -174,6 +174,34 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
   const category = subject.category || categoryFor(harness, subject.uniqueName)
   const rule = CATEGORY_RULES[category] || CATEGORY_RULES.resources
+  if (category === 'regions' || category === 'keys') {
+    const resolved = category === 'regions'
+      ? checkRegionCanary({ exportsBundle: harness.exportsBundle, dict: harness.dict, uniqueName: subject.uniqueName })
+      : checkKeyCanary({ exportsBundle: harness.exportsBundle, dict: harness.dict, uniqueName: subject.uniqueName })
+    const checks = {
+      U1_catalog: resolved.present,
+      U2_name: !!resolved.name && !resolved.name.startsWith('/') && resolved.name !== 'Unknown Node',
+      U3_image: true,
+      U4_uniqueName: !!subject.uniqueName,
+      U5_acquisition: true,
+      U6_description: true,
+      recipe: true,
+    }
+    const screens = Object.fromEntries(rule.screens.map((screen) => [screen, Object.values(checks).every(Boolean)]))
+    return {
+      name: resolved.name || subject.name,
+      uniqueName: subject.uniqueName,
+      category,
+      screens,
+      checks,
+      acquisition: { pass: true, cannot: null, sources: [] },
+      ownedState: { pass: true, cannot: null },
+      cannot: [],
+      blockingCannot: null,
+      status: Object.values(checks).every(Boolean) ? 'PASS' : 'FAIL',
+      pass: Object.values(checks).every(Boolean),
+    }
+  }
   const catalogItem = category === 'relics'
     ? (() => {
       const relicEntry = tableEntries(harness, ['ExportRelics']).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]

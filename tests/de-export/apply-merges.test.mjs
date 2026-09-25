@@ -74,7 +74,9 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
     assert.deepEqual(upgrades['/Lotus/Powersuits/Test/NewAugmentCard'].levelStats, [{ stats: ['new'] }])
     assert.equal((await read('ExportCustoms.json'))[custom].icon, '/Lotus/Custom.png')
     assert.equal((await read('ExportFlavour.json'))[emote].icon, undefined)
-    assert.equal((await read('ExportRegions.json')).SolNodeDe, undefined)
+    assert.equal((await read('ExportRegions.json')).SolNodeDe.name, 'DE Node')
+    assert.equal((await read('ExportKeys.json'))['/Lotus/Types/Keys/TauPrologue/TauPrologueKeyChainA'].name, 'Tau A')
+    assert.equal((await read('ExportFusionBundles.json'))['/Lotus/Upgrades/Mods/FusionBundles/TestEndo'], undefined)
 
     const shadowOut = path.join(root, 'shadow-out')
     await applyMerges({ dataDir, out: shadowOut, cacheDir, rkbShadow: true })

@@ -37,6 +37,7 @@ mod de_recipes;
 mod de_relics;
 mod de_upgrades;
 mod de_customs;
+mod de_keys_regions;
 mod de_sentgear;
 mod de_droptables;
 mod de_i18n;
@@ -701,6 +702,14 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     let de_customs_cache = export_dir.join("de/ExportCustoms_en.json");
     let de_flavour_cache = export_dir.join("de/ExportFlavour_en.json");
     let customs_needed = force || !de_customs_cache.exists() || !de_flavour_cache.exists() || file_age_secs(&de_customs_cache) > 86_400 || file_age_secs(&de_flavour_cache) > 86_400 || freshly_downloaded.contains("ExportCustoms.json") || freshly_downloaded.contains("ExportFlavour.json") || freshly_downloaded.contains("ExportImages.json");
+    let de_regions_cache = export_dir.join("de/ExportRegions_en.json");
+    let de_keys_cache = export_dir.join("de/ExportKeys_en.json");
+    let keys_regions_needed = should_refresh(
+        force,
+        (de_regions_cache.exists() && de_keys_cache.exists())
+            .then(|| file_age_secs(&de_regions_cache).max(file_age_secs(&de_keys_cache))),
+        freshly_downloaded.contains("ExportRegions.json") || freshly_downloaded.contains("ExportKeys.json"),
+    );
     let manifest_needed = recipes_needed || upgrades_needed || customs_needed;
     let recipes_merge_images = recipes_needed;
     let upgrades_merge_images = !recipes_needed && upgrades_needed;
@@ -746,6 +755,20 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         match de_customs::refresh_de_customs(&client, &export_dir, customs_merge_images).await {
             Ok(summary) => { if summary.customs_added + summary.flavour_added + summary.images_added > 0 { updated_count += 1; } crate::logger::log_message(&format!("DE customs/flavour merge: {} customs added, {} flavour added, {} mirror-only retained", summary.customs_added, summary.flavour_added, summary.customs_mirror_only + summary.flavour_mirror_only)); }
             Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE customs/flavour; retained mirror: {}", e)),
+        }
+    }
+
+    // Regions and keys are a non-fatal add-only DE overlay. The mirror remains
+    // authoritative for localized text, graph fields, quest stages, rewards,
+    // icons, and replay metadata; FusionBundles intentionally stays separate.
+    if keys_regions_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        match de_keys_regions::refresh_de_keys_regions(&client, &export_dir).await {
+            Ok(summary) => {
+                if summary.regions.changed + summary.regions.added + summary.keys.changed + summary.keys.added > 0 { updated_count += 1; }
+                crate::logger::log_message(&format!("DE regions/keys merge: {} regions changed, {} regions added, {} keys changed, {} keys added, {} mirror-only regions, {} mirror-only keys, {} unresolved region references", summary.regions.changed, summary.regions.added, summary.keys.changed, summary.keys.added, summary.regions.mirror_only, summary.keys.mirror_only, summary.unresolved_region_refs));
+            }
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE regions/keys; retained mirror: {}", e)),
         }
     }
 

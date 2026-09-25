@@ -64,8 +64,8 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     loadDeOptional(cacheDir, provenance, 'ExportSentinels'),
     loadDeOptional(cacheDir, provenance, 'ExportGear'),
     loadDe(cacheDir, provenance, 'ExportManifest'),
-    rkbShadow ? loadDe(cacheDir, provenance, 'ExportRegions') : Promise.resolve(null),
-    rkbShadow ? loadDe(cacheDir, provenance, 'ExportKeys') : Promise.resolve(null),
+    loadDe(cacheDir, provenance, 'ExportRegions'),
+    loadDe(cacheDir, provenance, 'ExportKeys'),
     rkbShadow ? loadDe(cacheDir, provenance, 'ExportFusionBundles') : Promise.resolve(null),
   ])
   const readApp = (name) => readJson(path.join(sourceExport, name)).catch(() => ({}))
@@ -73,8 +73,8 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     readApp('ExportWarframes.json'), readApp('ExportWeapons.json'), readApp('ExportRecipes.json'),
     readApp('ExportResources.json'), readApp('ExportRelics.json'), readApp('ExportArcanes.json'), readApp('ExportUpgrades.json'),
     readApp('ExportCustoms.json'), readApp('ExportFlavour.json'), readApp('ExportSentinels.json'), readApp('ExportGear.json'), readApp('ExportImages.json'), readApp('ExportRewards.json'),
-    rkbShadow ? readApp('ExportRegions.json') : Promise.resolve({}),
-    rkbShadow ? readApp('ExportKeys.json') : Promise.resolve({}),
+    readApp('ExportRegions.json'),
+    readApp('ExportKeys.json'),
     rkbShadow ? readApp('ExportFusionBundles.json') : Promise.resolve({}),
   ])
 
@@ -97,13 +97,11 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
   const upgrades = addUpgradeManifestIcons(upgradesBase, deManifest)
   const { merged: upgradeImages } = mergeUpgradeImages(images, deManifest)
 
-  let rkb = null
-  if (rkbShadow) {
-    const regions = mergeRegions(appRegions, adaptRegions(deRegionsRaw))
-    const keys = mergeKeys(appKeys, adaptKeys(deKeysRaw))
-    const fusionBundles = mergeFusionBundles(appFusionBundles, adaptFusionBundles(deFusionBundlesRaw))
-    rkb = { regions, keys, fusionBundles }
-  }
+  const regions = mergeRegions(appRegions, adaptRegions(deRegionsRaw))
+  const keys = mergeKeys(appKeys, adaptKeys(deKeysRaw))
+  const fusionBundles = rkbShadow
+    ? mergeFusionBundles(appFusionBundles, adaptFusionBundles(deFusionBundlesRaw))
+    : null
 
   await Promise.all([
     writeJson(path.join(outExport, 'ExportWarframes.json'), warframes),
@@ -119,11 +117,9 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'ExportGear.json'), gear),
     writeJson(path.join(outExport, 'ExportRewards.json'), rewards),
     writeJson(path.join(outExport, 'ExportImages.json'), upgradeImages),
-    ...(rkb ? [
-      writeJson(path.join(outExport, 'ExportRegions.json'), rkb.regions.merged),
-      writeJson(path.join(outExport, 'ExportKeys.json'), rkb.keys.merged),
-      writeJson(path.join(outExport, 'ExportFusionBundles.json'), rkb.fusionBundles.merged),
-    ] : []),
+    writeJson(path.join(outExport, 'ExportRegions.json'), regions.merged),
+    writeJson(path.join(outExport, 'ExportKeys.json'), keys.merged),
+    ...(fusionBundles ? [writeJson(path.join(outExport, 'ExportFusionBundles.json'), fusionBundles.merged)] : []),
   ])
   await fs.mkdir(path.join(outExport, 'de'), { recursive: true })
   await Promise.all([
@@ -138,11 +134,9 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'de', 'ExportSentinels_en.json'), deSentinelsRaw),
     writeJson(path.join(outExport, 'de', 'ExportGear_en.json'), deGearRaw),
     writeJson(path.join(outExport, 'de', 'ExportManifest.json'), deManifest),
-    ...(rkb ? [
-      writeJson(path.join(outExport, 'de', 'ExportRegions_en.json'), deRegionsRaw),
-      writeJson(path.join(outExport, 'de', 'ExportKeys_en.json'), deKeysRaw),
-      writeJson(path.join(outExport, 'de', 'ExportFusionBundles_en.json'), deFusionBundlesRaw),
-    ] : []),
+    writeJson(path.join(outExport, 'de', 'ExportRegions_en.json'), deRegionsRaw),
+    writeJson(path.join(outExport, 'de', 'ExportKeys_en.json'), deKeysRaw),
+    ...(fusionBundles ? [writeJson(path.join(outExport, 'de', 'ExportFusionBundles_en.json'), deFusionBundlesRaw)] : []),
   ])
   return { out, exportDir: outExport, counts: {
     warframes: Object.keys(warframes).length, weapons: Object.keys(weapons).length,
@@ -152,12 +146,10 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     customs: Object.keys(customs).length, flavour: Object.keys(flavour).length,
     sentinels: Object.keys(sentinels).length, gear: Object.keys(gear).length,
     rewards: Object.keys(rewards).length,
-    ...(rkb ? {
-      regions: rkb.regions.report.counts.merged,
-      keys: rkb.keys.report.counts.merged,
-      fusionBundles: rkb.fusionBundles.report.counts.merged,
-      rkbReports: { regions: rkb.regions.report, keys: rkb.keys.report, fusionBundles: rkb.fusionBundles.report },
-    } : {}),
+    regions: regions.report.counts.merged,
+    keys: keys.report.counts.merged,
+    ...(fusionBundles ? { fusionBundles: fusionBundles.report.counts.merged } : {}),
+    rkbReports: { regions: regions.report, keys: keys.report, ...(fusionBundles ? { fusionBundles: fusionBundles.report } : {}) },
   } }
 }
 

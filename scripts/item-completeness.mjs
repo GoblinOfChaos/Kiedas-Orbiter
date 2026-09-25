@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
 const { parseInventory } = await import('../src/lib/inventoryParser.js')
 const { getRelicCatalog } = await import('../src/lib/relicParser.js')
-const { resolveAnyImage } = await import('../src/lib/warframeUtils.js')
+const { resolveAnyImage, resolveNode } = await import('../src/lib/warframeUtils.js')
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const canaryFile = path.join(REPO, 'scripts/item-completeness.canaries.json')
@@ -33,6 +33,28 @@ export const CATEGORY_RULES = {
   resources: { tables: ['ExportResources'], buckets: ['resources', 'components'], screens: ['Inventory', 'Drawer'] },
   gear: { tables: ['ExportGear'], buckets: ['consumables_catalog', 'landing_craft_catalog', 'gear'], screens: ['Inventory', 'Drawer'] },
   recipes: { tables: ['ExportRecipes'], buckets: ['craftable'], screens: ['Foundry', 'Drawer'] },
+  regions: { tables: ['ExportRegions'], buckets: ['starchart'], screens: ['Starchart', 'Arbitration', 'Worldstate'] },
+  keys: { tables: ['ExportKeys'], buckets: ['keys'], screens: ['Worldstate', 'Acquisition'] },
+}
+
+export function checkRegionCanary({ exportsBundle, dict = {}, uniqueName }) {
+  const regions = exportsBundle?.ExportRegions || {}
+  const entry = Array.isArray(regions)
+    ? regions.find((candidate) => candidate?.uniqueName === uniqueName)
+    : regions[uniqueName]
+  const name = entry ? resolveNode(uniqueName, dict, { [uniqueName]: entry }) : ''
+  const planet = entry?.systemName ? resolveNode(entry.systemName, dict, { [entry.systemName]: { name: entry.systemName } }) : ''
+  return { uniqueName, present: !!entry, name, planet, pass: !!entry && name !== 'Unknown Node' && planet !== 'Unknown Node' }
+}
+
+export function checkKeyCanary({ exportsBundle, dict = {}, uniqueName }) {
+  const keys = exportsBundle?.ExportKeys || {}
+  const entry = Array.isArray(keys)
+    ? keys.find((candidate) => candidate?.uniqueName === uniqueName)
+    : keys[uniqueName]
+  const nameKey = entry?.name
+  const name = dict[nameKey] || dict['/' + nameKey] || nameKey || ''
+  return { uniqueName, present: !!entry, name, pass: !!entry && !!name && !name.startsWith('/') }
 }
 
 export function primePartsVisible(primeSets, baseName) {

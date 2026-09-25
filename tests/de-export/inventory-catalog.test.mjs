@@ -4,7 +4,9 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { applyMerges } from '../../scripts/de-export/apply-merges.mjs'
-import { isExcludedInventoryResourceEntry, resourceFamilyForParent } from '../../src/lib/inventoryParser.js'
+import '../../scripts/lib/real-data-harness.mjs' // registers the extensionless .js import resolver used by src/
+
+const { isExcludedInventoryResourceEntry, resourceFamilyForParent } = await import('../../src/lib/inventoryParser.js')
 
 const dataDir = '/home/jedwards/.local/share/kiedas-orbiter-preview/data'
 const cacheDir = '/home/jedwards/.cache/kiedas-de-export'

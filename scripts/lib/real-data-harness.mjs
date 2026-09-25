@@ -7,7 +7,17 @@ import { buildImageMaps, buildRuntimeExportBundle } from '../../src/lib/exportBu
 
 registerHooks({
   resolve(spec, ctx, next) {
+    if (spec === './logging/tauri' && ctx.parentURL?.endsWith('/src/lib/acquisitionData.js')) return { url: 'data:text/javascript,export const invoke=async(command)=>command==="read_file_bytes"?new TextEncoder().encode("[]"):null;', shortCircuit: true }
+    if (spec === '@tauri-apps/api/core') return { url: 'data:text/javascript,export const invoke=async(command)=>command==="read_file_bytes"?new TextEncoder().encode("[]"):null;export const convertFileSrc=(value)=>value;', shortCircuit: true }
     try { return next(spec, ctx) } catch { return next(spec + '.js', ctx) }
+  },
+  load(url, context, nextLoad) {
+    if (url.startsWith('file:') && url.endsWith('.json')) {
+      const file = fileURLToPath(url)
+      const source = fs.readFileSync(file, 'utf8')
+      return { format: 'module', source: `export default ${source}\n`, shortCircuit: true }
+    }
+    return nextLoad(url, context)
   },
 })
 

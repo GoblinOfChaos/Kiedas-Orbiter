@@ -116,6 +116,16 @@ const modFrameBotMap = {
   'Tome': null
 };
 
+// Parts show the part name under its parent ("Neuroptics" / "Narin", "Blueprint" / "Grimoire") so the
+// distinguishing word is never cut off by the card's one-line title; the full name stays in the tooltip/drawer.
+function cardTitle(item) {
+  if (item?.category === 'parts' && item.parent_name && typeof item.name === 'string' && item.name.startsWith(item.parent_name)) {
+    const rest = item.name.slice(item.parent_name.length).trim();
+    if (rest) return rest;
+  }
+  return item?.name;
+}
+
 export default function Inventory() {
   const { t, locale } = useUi()
   const INVENTORY_TABS = [
@@ -1454,7 +1464,7 @@ export default function Inventory() {
                   <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest w-24 flex-shrink-0 truncate">
                     {item.category === 'mods' ? item.rarity || t('inventory.category_mod') : item.weapon_type || item.vehicle_type || (isPrimePart ? t('inventory.category_prime_part') : categoryDisplayLabel(item.category, t))}
                   </span>
-                  <h4 className="font-bold text-xs uppercase text-kronos-text truncate flex-1 min-w-0">{item.name}</h4>
+                  <h4 title={item.name} className="font-bold text-xs uppercase text-kronos-text truncate flex-1 min-w-0">{cardTitle(item)}</h4>
                   <div className="flex items-center gap-3 flex-shrink-0">
                     {!isUnowned && item.rank !== undefined && item.max_rank !== undefined && item.max_rank > 0 &&
                       <span className={`text-[10px] font-black uppercase ${item.rank === item.max_rank ? 'text-blue-400' : 'text-kronos-dim'}`}>R{item.rank}/{item.max_rank}</span>
@@ -1537,7 +1547,7 @@ export default function Inventory() {
                             scrolled - visible as scroll input getting
                             dropped, then jumping to resync. */}
                         <h4 title={item.name} className="font-bold text-sm uppercase line-clamp-1 text-kronos-text leading-tight mt-0.5">
-                          {item.name}
+                          {cardTitle(item)}
                         </h4>
                         {item.description &&
                     <p className="text-[10px] text-kronos-dim/70 mt-0.5 line-clamp-1 leading-relaxed">

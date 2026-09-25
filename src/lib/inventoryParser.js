@@ -146,6 +146,9 @@ export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
   if (INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES.has(entry?.productCategory)) return true;
   if (/\/ShipDecos\/|\/Glyphs\/|\/GlyphBoxes\/|\/Emotes\//i.test(`${parentName}${uniqueName}`)) return true;
   if (/VoidProjection/i.test(`${parentName}${uniqueName}`)) return true;
+  // DE's placeholder icon (Graphics/PH.png) marks an unreleased/unfinished record (e.g. the sixth
+  // "Technocyte Coda Token" (Lich): the Coda has five members and this token has no art).
+  if (/\/Graphics\/PH\.png$/i.test(entry?.icon ?? '')) return true;
   return false;
 }
 

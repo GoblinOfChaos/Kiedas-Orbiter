@@ -16,6 +16,7 @@ import BugReporterModal from '../../components/BugReporterModal';
 import { useUi } from '../../contexts/UiContext';
 import { useMonitoring } from '../../contexts/MonitoringContext';
 import './preview-acquisition.css';
+import FarmingTargetAction from '../../components/FarmingTargetAction';
 
 /**
  * Option 01 right-side acquisition drawer (GitHub #110). Presentation only -
@@ -129,6 +130,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 <ItemImage src={item.image} alt="" placeholderClassName="preview-acq-hero-image" />
               </div>
             </div>
+            <FarmingTargetAction item={{ ...item, uniqueName }} className="mt-2" />
             {recipe && <span className="preview-acq-badge">{t('acquisition_drawer.recipe_badge')}</span>}
           </div>
 

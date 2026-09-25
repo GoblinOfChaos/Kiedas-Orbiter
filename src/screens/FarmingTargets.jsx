@@ -6,15 +6,11 @@
  * acquisition data as a target, then shows a combined shopping list of every
  * ingredient still needed across all of them.
  *
- * Scoped as "Option B" (MVP) per the user's explicit decision: no
- * reservations, reminders, or cross-screen wiring yet. The persistence
- * schema (farmingTargets/store.js) and the aggregation engine
- * (farmingTargets/aggregation.js) are both built so an "Option A" build can
- * add those later without a rewrite or a data migration - see the comments
- * in those two files.
+ * Preview adds reservations, target lifecycle metadata, due-date badges, and
+ * shared entry points while keeping Stable on its existing path.
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Search, Plus, Minus, Trash2, Target as TargetIcon, ChevronRight, SlidersHorizontal } from 'lucide-react';
+import { Search, Plus, Minus, Trash2, Target as TargetIcon, ChevronRight, SlidersHorizontal, Archive, CheckCircle2 } from 'lucide-react';
 import { invoke } from '../lib/logging/tauri';
 import { PageLayout, Card, Input, Button, MonitorState, Tabs, Select, Toggle } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
@@ -26,12 +22,13 @@ import { IS_PREVIEW } from '../lib/buildProfile';
 import { getAcquisitionInfo } from '../lib/acquisitionInfo';
 import { categoryDisplayLabel } from '../lib/categoryLabels';
 import {
-  loadFarmingTargets, saveFarmingTargets, createFarmingTarget, addTarget, removeTarget, setTargetQuantity,
+  loadFarmingTargets, saveFarmingTargets, createFarmingTarget, addTarget, removeTarget, setTargetQuantity, setTargetPriority, setTargetDueDate, setTargetStatus, setTargetReservation,
 } from '../lib/farmingTargets/store';
 import { computeFarmingTargetsView } from '../lib/farmingTargets/aggregation';
 import { buildFarmingTargetsScreenModel, buildPreviewPlaceIndex } from '../lib/farmingTargets/screenModel.js';
 import { RELIC_REFINEMENTS } from '../lib/farmingTargets/relicPlaces.js';
 import { event } from '../lib/logging/logger.js';
+import { activeTargets, dueState } from '../lib/farmingTargets/state.js';
 
 function formatCount(n) {
   return Number.isFinite(n) ? n.toLocaleString() : '0';
@@ -61,7 +58,7 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
   </div>;
 }
 
-function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChance, setMinChance, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange }) {
+function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChance, setMinChance, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, compactView, setCompactView, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
@@ -78,6 +75,10 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
         ].map(([label, value]) => <Card key={label} className="p-3"><p className="text-[10px] uppercase text-kronos-dim">{label}</p><p className="mt-1 text-xl font-black text-kronos-accent">{value}</p></Card>)}
       </div>
 
+      <div className="flex gap-1 rounded-xl border border-white/5 bg-black/20 p-1 w-fit" role="tablist" aria-label={t('farming_targets.view_switcher')}>
+        {['compact', 'ledger', 'inspector'].map((view) => <button key={view} type="button" role="tab" aria-selected={compactView === view} onClick={() => setCompactView(view)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase ${compactView === view ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}>{t(`farming_targets.view_${view}`)}</button>)}
+      </div>
+
       <Card className="p-4 space-y-3">
         <div className="flex items-center gap-2"><SlidersHorizontal size={16} className="text-kronos-accent" /><h2 className="text-sm font-black uppercase">{t('farming_targets.filters')}</h2></div>
         <div className="flex flex-wrap items-end gap-3">
@@ -89,7 +90,7 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)] gap-5">
+      {compactView !== 'inspector' && <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)] gap-5">
         <Card className="p-0 overflow-hidden">
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.farm_next')}</h2><p className="text-xs text-kronos-dim mt-1">{t('farming_targets.coverage_explanation')}</p></div>
           <div className="divide-y divide-white/5">
@@ -106,14 +107,14 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.target_inspector')}</h2><Select options={targets.map((item) => ({ id: item.id, label: item.name }))} value={target?.id ?? ''} onChange={setSelectedTarget} className="mt-3" /></div>
           <div className="p-4 space-y-2">{targetRows.length ? targetRows.map((row) => <div key={row.itemType} className="flex justify-between gap-2 text-xs"><span className="truncate">{row.name}</span><span className="font-bold">{formatCount(row.stillNeeded)}</span></div>) : <p className="text-xs text-kronos-dim">{t('farming_targets.inspector_empty')}</p>}</div>
         </Card>
-      </div>
+      </div>}
 
-      <Card className="p-0 overflow-x-auto">
+      {compactView !== 'compact' && <Card className="p-0 overflow-x-auto">
         <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.ledger')}</h2></div>
-        <table className="w-full min-w-[760px] text-left text-xs"><thead className="text-[10px] uppercase text-kronos-dim"><tr>{['item', 'required', 'owned', 'reserved', 'still_needed', 'used_by', 'source'].map((key) => <th key={key} className="px-4 py-3">{t(`farming_targets.column_${key}`)}</th>)}</tr></thead><tbody className="divide-y divide-white/5">{model.ledger.map((row) => <tr key={row.itemType}><td className="px-4 py-3 font-bold">{row.name}</td><td className="px-4 py-3">{formatCount(row.required)}</td><td className="px-4 py-3">{formatCount(row.owned)}</td><td className="px-4 py-3">{formatCount(row.reserved)}</td><td className={`px-4 py-3 font-black ${row.stillNeeded ? 'text-red-300' : 'text-emerald-300'}`}>{formatCount(row.stillNeeded)}</td><td className="px-4 py-3 text-kronos-dim">{row.usedBy.length}</td><td className="px-4 py-3"><button type="button" onClick={() => toggle(row.itemType)} className="text-kronos-accent hover:underline">{t('farming_targets.view_sources')}</button></td></tr>)}</tbody></table>
-      </Card>
+        <table className="w-full min-w-[860px] text-left text-xs"><thead className="text-[10px] uppercase text-kronos-dim"><tr>{['item', 'required', 'owned', 'reserved', 'still_needed', 'used_by', 'source'].map((key) => <th key={key} className="px-4 py-3">{t(`farming_targets.column_${key}`)}</th>)}<th className="px-4 py-3">{t('farming_targets.reserve')}</th></tr></thead><tbody className="divide-y divide-white/5">{model.ledger.map((row) => <tr key={row.itemType} className={row.overcommitted ? 'bg-red-500/10' : ''}><td className="px-4 py-3 font-bold">{row.name}{row.overcommitted && <span className="ml-2 text-[9px] text-red-300">{t('farming_targets.overcommitted')}</span>}</td><td className="px-4 py-3">{formatCount(row.required)}</td><td className="px-4 py-3">{formatCount(row.owned)}</td><td className="px-4 py-3">{formatCount(row.reserved)}</td><td className={`px-4 py-3 font-black ${row.stillNeeded ? 'text-red-300' : 'text-emerald-300'}`}>{formatCount(row.stillNeeded)}</td><td className="px-4 py-3 text-kronos-dim">{row.usedBy.length}</td><td className="px-4 py-3"><button type="button" onClick={() => toggle(row.itemType)} className="text-kronos-accent hover:underline">{t('farming_targets.view_sources')}</button></td><td className="px-4 py-3"><input aria-label={t('farming_targets.reserve_for', { item: row.name })} type="number" min="0" max={row.owned} defaultValue={row.reserved} onBlur={(event) => onReserve(row.itemType, Number(event.target.value), selectedTarget)} className="w-16 rounded bg-black/30 px-1 py-1 text-xs" /></td></tr>)}</tbody></table>
+      </Card>}
 
-      {targets.length > 0 && <div className="grid grid-cols-1 md:grid-cols-2 gap-2">{targets.map((item) => <Card key={item.id} className="p-3 flex items-center gap-3"><ItemImage src={item.image} className="w-9 h-9 object-contain" placeholderClassName="w-9 h-9" /><div className="min-w-0 flex-1"><p className="truncate text-xs font-bold">{item.name}</p><p className="text-[9px] text-kronos-dim">{t('farming_targets.target_quantity', { count: item.quantity })}</p></div><button type="button" onClick={() => onQuantityChange(item.id, -1)} aria-label={t('farming_targets.decrease_quantity')}><Minus size={13} /></button><button type="button" onClick={() => onQuantityChange(item.id, 1)} aria-label={t('farming_targets.increase_quantity')}><Plus size={13} /></button><button type="button" onClick={() => onRemoveTarget(item.id)} aria-label={t('farming_targets.remove_target')}><Trash2 size={13} /></button></Card>)}</div>}
+      {targets.length > 0 && <div className="grid grid-cols-1 md:grid-cols-2 gap-2">{targets.map((item) => <Card key={item.id} className="p-3 flex flex-col gap-2"><div className="flex items-center gap-3"><ItemImage src={item.image} className="w-9 h-9 object-contain" placeholderClassName="w-9 h-9" /><div className="min-w-0 flex-1"><p className="truncate text-xs font-bold">{item.name}</p><p className="text-[9px] text-kronos-dim">{t('farming_targets.target_quantity', { count: item.quantity })}</p></div>{dueState(item) === 'due' && <span className="rounded-full bg-amber-400/15 px-2 py-1 text-[9px] text-amber-300">{t('farming_targets.due')}</span>}<button type="button" onClick={() => onRemoveTarget(item.id)} aria-label={t('farming_targets.remove_target')}><Trash2 size={13} /></button></div><div className="flex items-center gap-2"><button type="button" onClick={() => onQuantityChange(item.id, -1)} aria-label={t('farming_targets.decrease_quantity')}><Minus size={13} /></button><span className="text-xs font-bold w-6 text-center">{item.quantity}</span><button type="button" onClick={() => onQuantityChange(item.id, 1)} aria-label={t('farming_targets.increase_quantity')}><Plus size={13} /></button><label className="ml-auto text-[9px] text-kronos-dim">{t('farming_targets.priority')} <select value={item.priority ?? 0} onChange={(event) => onTargetChange(item.id, setTargetPriority, event.target.value)} className="rounded bg-black/30 px-1 py-1"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label><input type="date" value={item.dueAt ? String(item.dueAt).slice(0, 10) : ''} onChange={(event) => onTargetChange(item.id, setTargetDueDate, event.target.value ? new Date(`${event.target.value}T23:59:59`).toISOString() : null)} aria-label={t('farming_targets.due_date')} className="rounded bg-black/30 px-1 py-1 text-[9px]" /></div><div className="flex gap-2"><button type="button" onClick={() => onTargetChange(item.id, setTargetStatus, 'complete')} className="text-[9px] text-emerald-300"><CheckCircle2 size={12} className="inline mr-1" />{t('farming_targets.complete')}</button><button type="button" onClick={() => onTargetChange(item.id, setTargetStatus, 'archived')} className="text-[9px] text-kronos-dim"><Archive size={12} className="inline mr-1" />{t('farming_targets.archive')}</button></div></Card>)}</div>}
     </div>
   );
 }
@@ -154,9 +155,10 @@ export default function FarmingTargets() {
   const [faction, setFaction] = useState('');
   const [groupPlanet, setGroupPlanet] = useState(false);
   const [selectedTarget, setSelectedTarget] = useState(null);
+  const [compactView, setCompactView] = useState('compact');
   const { openKey, toggle, close } = useAcquisitionDrawer();
 
-  const targets = store?.targets ?? [];
+  const targets = activeTargets(store?.targets ?? []);
 
   const catalog = useMemo(() => {
     const seen = new Set();
@@ -181,14 +183,14 @@ export default function FarmingTargets() {
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
   const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex]);
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
-    targets, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex,
+    targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex,
     placeIndex: previewPlaceIndex,
     filters: { tab: farmTab, minChance: minChance === '' ? undefined : Number(minChance), missionTypes: missionType ? [missionType] : [], factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChance, missionType, faction]);
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChance, missionType, faction]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
-    event('farming.screen.summary', { targets: targets.length, ledger: screenModel.ledger.length, still_needed: screenModel.ledger.filter((row) => row.stillNeeded > 0).length, places: screenModel.ranked.length, conclave_only: screenModel.conclaveOnlyItems.length });
+    event('farming.targets.summary', { targets: targets.length, ledger: screenModel.ledger.length, still_needed: screenModel.ledger.filter((row) => row.stillNeeded > 0).length, places: screenModel.ranked.length, conclave_only: screenModel.conclaveOnlyItems.length, overcommitted: screenModel.ledger.filter((row) => row.overcommitted).length });
     event('farming.relics.summary', { places: screenModel.relicPlaces?.length ?? 0, vaulted: screenModel.relicPlaces?.filter((row) => row.place.vaulted).length ?? 0, owned: screenModel.relicPlaces?.filter((row) => row.place.ownedCount > 0).length ?? 0 });
   }, [isInventoryLoading, Boolean(store), targets.length]);
 
@@ -212,6 +214,16 @@ export default function FarmingTargets() {
     if (!current) return;
     persist(setTargetQuantity(store, id, (current.quantity ?? 1) + delta));
   }, [store, targets, persist]);
+
+  const handleTargetChange = useCallback((id, updater, value) => {
+    if (!store) return;
+    persist(updater(store, id, value));
+  }, [store, persist]);
+
+  const handleReserve = useCallback((itemType, quantity, targetId) => {
+    if (!store || !targetId) return;
+    persist(setTargetReservation(store, { itemType, targetId, quantity }));
+  }, [store, persist]);
 
   // A single key namespace for the shared acquisition drawer - either a
   // target's own uniqueName, or a shopping-list ingredient's itemType.
@@ -286,8 +298,8 @@ export default function FarmingTargets() {
         <PreviewFarmingView
           targets={targets} model={screenModel} t={t} selectedTarget={selectedTarget} setSelectedTarget={setSelectedTarget}
           tab={farmTab} setTab={setFarmTab} minChance={minChance} setMinChance={setMinChance} missionType={missionType} setMissionType={setMissionType}
-          faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} toggle={toggle}
-          onRemoveTarget={handleRemoveTarget} onQuantityChange={handleQuantityChange}
+          faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} compactView={compactView} setCompactView={setCompactView} toggle={toggle}
+          onRemoveTarget={handleRemoveTarget} onQuantityChange={handleQuantityChange} onTargetChange={handleTargetChange} onReserve={handleReserve}
         />
       </PageLayout>
       {openItem && <PreviewAcquisitionDrawer item={openItem} onClose={close} />}

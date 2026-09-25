@@ -6,6 +6,7 @@ import { resolveAnyImage } from '../lib/warframeUtils'
 import { buildPrimeResurgenceModel } from '../lib/primeResurgence'
 import ItemImage from '../components/ItemImage'
 import { useUi } from '../contexts/UiContext'
+import FarmingTargetAction from '../components/FarmingTargetAction'
 
 function CardImage({ uniqueName, name, EI, nameToImage, uniqueNameToName, className = '' }) {
   const src = resolveAnyImage({ uniqueName, name }, EI, nameToImage, uniqueNameToName)
@@ -21,6 +22,7 @@ function PartRow({ part, imageProps, item, t }) {
     <CardImage {...imageProps} uniqueName={displayUniqueName} name={displayName} className="h-8 w-8" />
     <div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold">{displayName}</p><p className={`text-[9px] uppercase tracking-wider ${part.owned ? 'text-emerald-300' : 'text-kronos-dim'}`}>{part.need > 1 ? `${part.have}/${part.need}${part.owned ? ' · ' + t('prime_resurgence.owned') : ''}` : (part.owned ? t('prime_resurgence.owned') : t('prime_resurgence.missing'))}{part.isBlueprint ? ' · ' + t('prime_resurgence.blueprint') : ''}</p></div>
     {part.relics.length > 0 && <span className="text-[9px] text-kronos-dim">{part.relics.join(', ')}</span>}
+    <FarmingTargetAction item={{ uniqueName: displayUniqueName, name: displayName }} />
   </div>
 }
 

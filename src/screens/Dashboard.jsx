@@ -2,6 +2,7 @@ import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewDashboardView from '../preview/dashboard/PreviewDashboardView';
 import { createDashboardViewModel } from '../preview/view-models/dashboardViewModel';
 import { loadFarmingTargets } from '../lib/farmingTargets/store';
+import { activeTargets } from '../lib/farmingTargets/state';
 import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext';
 /**
  * Dashboard.jsx
@@ -235,7 +236,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
   useEffect(() => {
     let cancelled = false;
     loadFarmingTargets().then((store) => {
-      if (!cancelled) setFarmingTargetCount(store.targets.length);
+      if (!cancelled) setFarmingTargetCount(activeTargets(store.targets).length);
     });
     return () => { cancelled = true; };
   }, []);

@@ -46,22 +46,21 @@ fn count(value: &Value, category: &str) -> usize { records(value, category).len(
 
 fn read_json(path: &std::path::Path) -> Result<Value, String> { serde_json::from_slice(&std::fs::read(path).map_err(|e| e.to_string())?).map_err(|e| e.to_string()) }
 
-pub async fn refresh_de_customs(client: &reqwest::Client, export_dir: &Path) -> Result<MergeSummary, String> {
+pub async fn refresh_de_customs(client: &reqwest::Client, export_dir: &Path, merge_images_this_run: bool) -> Result<MergeSummary, String> {
     let customs_path = export_dir.join("ExportCustoms.json"); let flavour_path = export_dir.join("ExportFlavour.json"); let image_path = export_dir.join("ExportImages.json");
     let cache_dir = export_dir.join("de"); std::fs::create_dir_all(&cache_dir).map_err(|e| e.to_string())?;
     let customs_cache = cache_dir.join("ExportCustoms_en.json"); let flavour_cache = cache_dir.join("ExportFlavour_en.json"); let manifest_cache = cache_dir.join("ExportManifest.json");
     let mirror_customs = read_json(&customs_path)?; let mirror_flavour = read_json(&flavour_path)?; let mirror_images = read_json(&image_path)?;
-    let cache_fresh = customs_cache.exists() && flavour_cache.exists() && manifest_cache.exists() && std::fs::metadata(&customs_cache).and_then(|m| m.modified()).map_err(|e| e.to_string())? >= std::fs::metadata(&customs_path).and_then(|m| m.modified()).map_err(|e| e.to_string())? && std::fs::metadata(&flavour_cache).and_then(|m| m.modified()).map_err(|e| e.to_string())? >= std::fs::metadata(&flavour_path).and_then(|m| m.modified()).map_err(|e| e.to_string())?;
-    let (de_customs, de_flavour, manifest) = if cache_fresh { (read_json(&customs_cache)?, read_json(&flavour_cache)?, read_json(&manifest_cache)?) } else {
+    let (de_customs, de_flavour, manifest) = {
         let index_response = client.get(INDEX_URL).header("User-Agent", "KiedasOrbiter/1.3.3").send().await.map_err(|e| e.to_string())?;
         if !index_response.status().is_success() { return Err(format!("DE customs index returned HTTP {}", index_response.status())); }
         let index = crate::decompress_lzma(&index_response.bytes().await.map_err(|e| e.to_string())?)?;
-        let customs = fetch_asset(client, &index, "ExportCustoms_en.json").await?; let flavour = fetch_asset(client, &index, "ExportFlavour_en.json").await?; let manifest = fetch_asset(client, &index, "ExportManifest.json").await?;
+        let customs = fetch_asset(client, &index, "ExportCustoms_en.json").await?; let flavour = fetch_asset(client, &index, "ExportFlavour_en.json").await?; let manifest = read_json(&manifest_cache)?;
         if count(&customs, "ExportCustoms") < 100 || count(&flavour, "ExportFlavour") < 100 || count(&customs, "ExportCustoms") * 100 < count(&mirror_customs, "ExportCustoms") * 80 || count(&flavour, "ExportFlavour") * 100 < count(&mirror_flavour, "ExportFlavour") * 80 { return Err("DE customs/flavour validation failed: fewer than 100 records or below 80% of mirror".into()); }
-        crate::write_bytes_atomic(&customs_cache, serde_json::to_vec(&customs).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?; crate::write_bytes_atomic(&flavour_cache, serde_json::to_vec(&flavour).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?; crate::write_bytes_atomic(&manifest_cache, serde_json::to_vec(&manifest).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
+        crate::write_export_json_atomic(&customs_cache, &customs)?; crate::write_export_json_atomic(&flavour_cache, &flavour)?; crate::write_export_json_atomic(&manifest_cache, &manifest)?;
         (customs, flavour, manifest)
     };
     let mut summary = MergeSummary::default(); let merged_customs = merge_table(&mirror_customs, &de_customs, "ExportCustoms", &manifest, &mut summary.customs_added, &mut summary.customs_mirror_only, &mut summary.images_added); let merged_flavour = merge_table(&mirror_flavour, &de_flavour, "ExportFlavour", &manifest, &mut summary.flavour_added, &mut summary.flavour_mirror_only, &mut summary.images_added);
-    let mut images = mirror_images.as_object().cloned().unwrap_or_default(); if let Some(entries) = manifest.get("Manifest").and_then(Value::as_array) { for entry in entries { if let Some(texture) = entry.get("textureLocation").and_then(Value::as_str).and_then(|value| value.rsplit_once('!')) { if !images.contains_key(texture.0) { images.insert(texture.0.into(), serde_json::json!({"contentHash": texture.1})); } } } }
-    crate::write_json_atomic(&customs_path, &merged_customs)?; crate::write_json_atomic(&flavour_path, &merged_flavour)?; crate::write_json_atomic(&image_path, &Value::Object(ordered(images)))?; Ok(summary)
+    let mut images = mirror_images.as_object().cloned().unwrap_or_default(); if merge_images_this_run { if let Some(entries) = manifest.get("Manifest").and_then(Value::as_array) { for entry in entries { if let Some(texture) = entry.get("textureLocation").and_then(Value::as_str).and_then(|value| value.rsplit_once('!')) { if !images.contains_key(texture.0) { images.insert(texture.0.into(), serde_json::json!({"contentHash": texture.1})); } } } } }
+    crate::write_export_json_atomic(&customs_path, &merged_customs)?; crate::write_export_json_atomic(&flavour_path, &merged_flavour)?; if merge_images_this_run { crate::write_export_json_atomic(&image_path, &Value::Object(ordered(images)))?; } Ok(summary)
 }

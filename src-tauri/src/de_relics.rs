@@ -39,7 +39,7 @@ fn merge_map(mirror: &BTreeMap<String, Map<String, Value>>, de: &BTreeMap<String
 }
 
 fn merge(mirror_relics: &Value, mirror_arcanes: &Value, de: &Value) -> (Value, Value, MergeSummary) {
-    let (de_relics, de_arcanes) = split(de); let mirror_relics = mirror_relics.as_object().cloned().unwrap_or_default(); let mirror_arcanes = mirror_arcanes.as_object().cloned().unwrap_or_default(); let mut summary = MergeSummary::default();
+    let (de_relics, de_arcanes) = split(de); let to_map = |v: &Value| -> BTreeMap<String, Map<String, Value>> { v.as_object().map(|o| o.iter().filter_map(|(k, r)| r.as_object().map(|m| (k.clone(), m.clone()))).collect()).unwrap_or_default() }; let mirror_relics = to_map(mirror_relics); let mirror_arcanes = to_map(mirror_arcanes); let mut summary = MergeSummary::default();
     let relics = merge_map(&mirror_relics, &de_relics, RELIC_FIELDS, &mut summary.relics_added, &mut summary.relics_mirror_only, &mut summary.changed);
     let arcanes = merge_map(&mirror_arcanes, &de_arcanes, ARCANE_FIELDS, &mut summary.arcanes_added, &mut summary.arcanes_mirror_only, &mut summary.changed);
     (relics, arcanes, summary)

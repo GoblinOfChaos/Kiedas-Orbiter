@@ -18,6 +18,9 @@ const weaponFixtures = [
 test('DE weapon bucket uses productCategory/slot without admitting internal weapon definitions', () => {
   assert.deepEqual(weaponFixtures.map((entry) => getWeaponBucket(entry, entry.uniqueName)), ['primary', 'secondary', 'melee', null, null, null]);
   assert.equal(getWeaponBucket({ productCategory: 'Melee', damagePerShot: [1], masteryReq: 4 }, '/Lotus/Weapons/Tenno/Melee/TestBlade'), 'melee');
+  // Vinquibus: a real masterable rifle that lives under /Bayonet/; attachment definitions (masteryReq 0) stay excluded.
+  assert.equal(getWeaponBucket({ productCategory: 'LongGuns', masteryReq: 14, codexSecret: false, noise: 'ALARMING' }, '/Lotus/Weapons/Tenno/Bayonet/TnBayonetRifleWeapon'), 'primary');
+  assert.equal(getWeaponBucket({ productCategory: 'LongGuns', masteryReq: 0, noise: 'ALARMING' }, '/Lotus/Weapons/Tenno/Bayonet/TnBayonetAttachment'), null);
   assert.equal(getWeaponBucket({ slot: 0, masteryReq: 4 }, '/Lotus/Weapons/Tenno/Pistol/TestPistol'), 'secondary');
 });
 

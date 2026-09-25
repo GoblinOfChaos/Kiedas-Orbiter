@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "С чего начать",
     "acquisition_drawer.sources_count": "{count} источников",
     "acquisition_drawer.other_sources": "Другие источники получения",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "Требования для изготовления",
     "acquisition_drawer.available_source": "Доступный источник",
     "acquisition_drawer.report_source_info": "Сообщить об источнике",

@@ -1,5 +1,5 @@
-import { BARO_RELIC_NAMES } from './baroRelics'
-import { sortSourcesByChanceInRotations } from './chanceSort'
+import { BARO_RELIC_NAMES } from './baroRelics.js'
+import { sortSourcesByChanceInRotations } from './chanceSort.js'
 
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
@@ -105,9 +105,31 @@ function buildResultTypeToBlueprintMap(exportData) {
   const map = {}
   const recipes = exportData?.ExportRecipes
   if (!recipes || typeof recipes !== 'object' || Array.isArray(recipes)) return map
-  for (const [blueprintUn, recipe] of Object.entries(recipes)) {
-    if (recipe?.resultType) map[recipe.resultType] = blueprintUn
+  const resources = exportData?.ExportResources || {}
+  const componentMetadata = {}
+  const componentRewardNames = {}
+  const resourceByUniqueName = (uniqueName) => resources[uniqueName]
+    || resources?.ExportResources?.[uniqueName]
+    || (Array.isArray(resources) ? resources.find((resource) => resource?.uniqueName === uniqueName) : null)
+  const partFromResource = (resource) => {
+    const match = String(resource?.description || '').match(/^([^.]*) component of the /i)
+    return match ? `${match[1].trim()} Blueprint` : null
   }
+  for (const [blueprintUn, recipe] of Object.entries(recipes)) {
+    if (!recipe?.resultType) continue
+    map[recipe.resultType] = blueprintUn
+    for (const ingredient of recipe.ingredients || []) {
+      const componentUn = ingredient?.ItemType || ingredient?.itemType
+      const resource = resourceByUniqueName(componentUn)
+      const part = partFromResource(resource)
+      if (!componentUn || !part) continue
+      const metadata = { parentResultType: recipe.resultType, part }
+      componentMetadata[componentUn] = metadata
+      if (resource?.name) componentRewardNames[`${resource.name} blueprint`.toLowerCase()] = metadata
+    }
+  }
+  map.componentMetadata = componentMetadata
+  map.componentRewardNames = componentRewardNames
   return map
 }
 
@@ -128,7 +150,8 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
     const uniqueNames = nameMap[name]
     if (uniqueNames && uniqueNames.length > 0) {
       for (const un of uniqueNames) {
-        addSource(index, un, source)
+        const component = resultTypeToBlueprint?.componentMetadata?.[un]
+        addSource(index, component?.parentResultType || un, component ? { ...source, part: component.part } : source)
       }
       return true
     }
@@ -136,7 +159,14 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
   }
 
   // Try the name as-is
-  let found = tryName(lc)
+  const componentReward = resultTypeToBlueprint?.componentRewardNames?.[lc]
+  let found = false
+  if (componentReward) {
+    addSource(index, componentReward.parentResultType, { ...source, part: componentReward.part })
+    found = true
+  } else {
+    found = tryName(lc)
+  }
 
   // Try without trailing " Blueprint". A reward literally named "X
   // Blueprint" usually means the game's own indexed name for the blueprint
@@ -154,6 +184,11 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
     const uniqueNames = nameMap[without]
     if (uniqueNames && uniqueNames.length > 0) {
       for (const un of uniqueNames) {
+        const component = resultTypeToBlueprint?.componentMetadata?.[un]
+        if (component) {
+          addSource(index, component.parentResultType, { ...source, part: component.part })
+          continue
+        }
         const blueprintUn = resultTypeToBlueprint?.[un];
         addSource(index, blueprintUn || un, source);
       }

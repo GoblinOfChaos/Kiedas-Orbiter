@@ -195,15 +195,17 @@ export function useAcquisitionDrawerData(item) {
     recipe && source?.type === 'non-drop' &&
     /^Built in the Foundry from a blueprint(?: and its components)?/.test(source.text || '')
   )));
+  const componentSources = sortSourcesByChanceInRotations(sources.filter((source) => source?.part));
+  const ownSources = sources.filter((source) => !source?.part);
 
-  return { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading };
+  return { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources: ownSources, componentSources, codexLoading };
 }
 
 export default function AcquisitionDrawer({ item, onClose }) {
   const { t, i18nData } = useUi();
   const { dropIndex } = useMonitoring();
   const [showReportModal, setShowReportModal] = useState(false);
-  const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
+  const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
 
   if (!item) return null;
 
@@ -260,6 +262,25 @@ export default function AcquisitionDrawer({ item, onClose }) {
               <Flag size={11} />
               {t('acquisition_drawer.know_where_found')}
             </button>
+          </div>
+        }
+        {componentSources.length > 0 &&
+          <div className="mt-3">
+            <p className="mb-2 text-[11px] uppercase font-black text-kronos-dim">{t('acquisition_drawer.component_sources')}</p>
+            <div className={sourcesGridClassName}>
+              {componentSources.map((s, i) => {
+                const { text, unconfirmed } = splitUnconfirmed(`${s.part} - ${getSourceLabel(s, t, i18nData)}`);
+                return (
+                  <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
+                    <div className="min-w-0">
+                      {unconfirmed && <span className="inline-block mb-1 px-1.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wide text-amber-400 bg-amber-400/10 border border-amber-400/30">{t('acquisition_drawer.unconfirmed_badge')}</span>}
+                      <span className="block text-xs text-kronos-text whitespace-normal break-words">{text}</span>
+                    </div>
+                    {typeof s.chance === 'number' && <span className="text-[12px] font-bold text-kronos-accent flex-shrink-0 ml-2">{formatChance(s.chance)}</span>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         }
         {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&

@@ -26,7 +26,7 @@ import './preview-acquisition.css';
 export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const { t, i18nData } = useUi();
   const { dropIndex } = useMonitoring();
-  const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, codexLoading } = useAcquisitionDrawerData(item);
+  const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
   const [showReportModal, setShowReportModal] = useState(false);
   const [altsExpanded, setAltsExpanded] = useState(false);
   const drawerRef = useRef(null);
@@ -203,6 +203,29 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                   })}
                 </div>
               }
+            </div>
+          }
+
+          {componentSources.length > 0 &&
+            <div className="preview-acq-alternatives">
+              <div className="preview-acq-section-head">
+                <h3>{t('acquisition_drawer.component_sources')}</h3>
+                <span className="preview-acq-muted">{t(componentSources.length === 1 ? 'acquisition_drawer.sources_count_one' : 'acquisition_drawer.sources_count', { count: componentSources.length })}</span>
+              </div>
+              <div className="preview-acq-alt-rows">
+                {componentSources.map((s, i) => {
+                  const { text, unconfirmed } = splitUnconfirmed(`${s.part} - ${getSourceLabel(s, t, i18nData)}`);
+                  return (
+                    <div key={i} className="preview-acq-alt-row">
+                      <div className="preview-acq-alt-row-text">
+                        {unconfirmed && <span className="preview-acq-unconfirmed-badge">{t('acquisition_drawer.unconfirmed_badge')}</span>}
+                        <span>{text}</span>
+                      </div>
+                      {typeof s.chance === 'number' && <span className="preview-acq-chance-sm">{formatChance(s.chance)}</span>}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           }
 

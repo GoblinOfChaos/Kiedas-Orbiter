@@ -243,6 +243,8 @@ export function buildRecipeResultIndex(exportData) {
         };
       }).filter((ingredient) => ingredient.itemType);
       index.set(canonicalPath(recipe.resultType), {
+        resultType: canonicalPath(recipe.resultType),
+        blueprintUniqueName: canonicalPath(blueprintName),
         blueprintCost: recipe.creditsCost,
         buildCost: recipe.buildPrice,
         buildTime: recipe.buildTime,
@@ -931,7 +933,11 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // Sources can exist under a real quality-specific DE path and under the
   // synthetic display key used by the relic cards. Merge all keys so a
   // partial exact match cannot hide mission sources in the fallback key.
-  const sourceKeys = [norm, dropIndexKey, ...displayKeys].filter(Boolean);
+  // A Foundry result and its blueprint are distinct DE uniqueNames, while
+  // inventory/catalog callers may ask for either one. The drop parser stores
+  // structured component sources on the recipe resultType, so include both
+  // recipe identities here without collapsing their `part` metadata.
+  const sourceKeys = [norm, dropIndexKey, recipe?.resultType, recipe?.blueprintUniqueName, recipe?.uniqueName, ...displayKeys].filter(Boolean);
   const dropSources = [];
   const seenSources = new Set();
   for (const key of sourceKeys) {

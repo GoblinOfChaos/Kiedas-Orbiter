@@ -8,28 +8,34 @@ import { run } from './item-completeness.mjs'
 
 const dataDir = process.env.PREVIEW_DATA_DIR || '/home/jedwards/.local/share/kiedas-orbiter-preview/data'
 const cacheDir = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export'
+const repo = path.resolve(new URL('..', import.meta.url).pathname)
 const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'kiedas-completeness-'))
 
 function printResults(label, results) {
   console.log(`\n${label}`)
-  console.log('| Item | Inventory | Image | Foundry/recipe | Components | Acquisition | Result |')
-  console.log('| --- | --- | --- | --- | --- | --- | --- |')
+  console.log('| Item | Category | Inventory | Image | Foundry | Acquisition | Screens | Result |')
+  console.log('| --- | --- | --- | --- | --- | --- | --- | --- |')
   for (const result of results) {
-    const components = result.recipe.presentInDE ? `${result.recipe.components.filter((component) => component.image).length}/${result.recipe.components.length}` : 'N/A'
-    const acquisition = result.acquisition.pass ? 'PASS' : `FAIL (${result.acquisition.reason})`
-    console.log(`| ${result.name} | ${result.inventory.pass ? 'PASS' : 'FAIL'} | ${result.inventory.image ? 'PASS' : 'FAIL'} | ${result.recipe.presentInDE ? (result.recipe.foundry ? 'PASS' : 'FAIL') : 'N/A'} | ${components} | ${acquisition} | ${result.pass ? 'PASS' : 'FAIL'} |`)
+    const screens = Object.entries(result.screens).map(([screen, pass]) => `${screen}:${pass ? 'PASS' : 'FAIL'}`).join(', ')
+    console.log(`| ${result.name} | ${result.category} | ${result.checks.U1_catalog ? 'PASS' : 'FAIL'} | ${result.checks.U3_image ? 'PASS' : 'FAIL'} | ${result.checks.recipe ? 'PASS' : 'FAIL'} | ${result.acquisition.pass ? 'PASS' : 'CANNOT'} | ${screens} | ${result.pass ? 'PASS' : 'FAIL'} |`)
   }
   return results
 }
 
 try {
-  const raw = await run({ dataDir, deCacheDir: cacheDir, includeDiscovered: false })
   const applied = await applyMerges({ dataDir, out: tempDir, cacheDir })
-  const merged = await run({ dataDir: tempDir, deCacheDir: cacheDir, includeDiscovered: false })
+  const raw = await run({ dataDir, includeDiscovered: false })
+  const merged = await run({ dataDir: tempDir, includeDiscovered: false })
   printResults('Raw app export', raw)
   printResults('Merged app export', merged)
   console.log(`\nMerged data directory: ${tempDir}`)
   console.log(`Merge counts: ${JSON.stringify(applied.counts)}`)
+  const cannot = [...new Set([...raw, ...merged].flatMap((result) => result.cannot.concat(result.acquisition.cannot || [], result.ownedState.cannot || [])))]
+  console.log('\nCannot be checked:')
+  for (const entry of cannot) console.log(`- ${entry}`)
+  const report = ['# Completeness matrix', '', `Generated: ${new Date().toISOString()}`, '', 'The command output below is the real-data run after applying DE merges.', '', '## Merged app export', '', '| Item | Category | Inventory | Image | Foundry | Acquisition | Screens | Result |', '| --- | --- | --- | --- | --- | --- | --- | --- |', ...merged.map((result) => `| ${result.name} | ${result.category} | ${result.checks.U1_catalog ? 'PASS' : 'FAIL'} | ${result.checks.U3_image ? 'PASS' : 'FAIL'} | ${result.checks.recipe ? 'PASS' : 'FAIL'} | ${result.acquisition.pass ? 'PASS' : 'CANNOT'} | ${Object.entries(result.screens).map(([screen, pass]) => `${screen}:${pass ? 'PASS' : 'FAIL'}`).join(', ')} | ${result.pass ? 'PASS' : 'FAIL'} |`), '', '## Cannot be checked', '', ...cannot.map((entry) => `- ${entry}`), '']
+  await fs.mkdir(path.join(repo, 'docs/agent-reports'), { recursive: true })
+  await fs.writeFile(path.join(repo, 'docs/agent-reports/matrix.md'), report.join('\n'))
   process.exitCode = [...raw, ...merged].every((result) => result.pass) ? 0 : 1
 } catch (error) {
   console.error(`check:completeness: ${error.message}`)

@@ -1,5 +1,5 @@
 import { invoke as rawInvoke } from '@tauri-apps/api/core';
-import { LOG_SCHEMA } from './eventEnvelope';
+import { LOG_SCHEMA } from './eventEnvelope.js';
 
 const MAX_QUEUE = 500;
 const BATCH_SIZE = 25;

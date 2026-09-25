@@ -1,5 +1,5 @@
-import { invoke } from './logging/tauri'
-import { itemsToMap } from './warframeItemsTransform'
+import { invoke } from './logging/tauri.js'
+import { itemsToMap } from './warframeItemsTransform.js'
 
 // Fills gaps in our main data sources (ExportWeapons, ExportCustoms - both
 // from warframe-public-export-plus) using WFCD's warframe-items data,

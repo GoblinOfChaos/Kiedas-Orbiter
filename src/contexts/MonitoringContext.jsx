@@ -14,6 +14,7 @@ import { resolveNode, resolveMissionType, resolveChallenge, resolveAnyImage } fr
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 import { fillDataGaps, logGapFillAudit, fillModGaps, logModGapFillAudit } from '../lib/wfcdGapFill'
+import { buildImageMaps, buildRuntimeExportBundle } from '../lib/exportBundle'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
 import { event as logEvent, startSpan } from '../lib/logging/logger'
@@ -305,103 +306,7 @@ export function MonitoringProvider({ children }) {
     return xpNeeded > 0 ? Math.min(100, (xpIntoRank / xpNeeded) * 100) : 100
   }, [inventoryData])
 
-  const { EI, nameToImage, uniqueNameToName } = useMemo(() => {
-    if (!exportData || !dict) return { EI: {}, nameToImage: {}, uniqueNameToName: {} }
-    const tableNames = [
-      'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
-      'ExportResources', 'ExportArcanes', 'ExportUpgrades',
-      'ExportAvionics', 'ExportRelics', 'ExportSyndicates',
-      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportBundles',
-      // warframe-items pre-resolved maps
-      'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
-      'WI_Upgrades', 'WI_Arcanes', 'WI_Resources',
-      'WI_Relics', 'WI_Gear', 'WI_Customs',
-      'WI_Skins', 'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
-    ]
-    const EI = {}
-    const nameToImage = {}
-    const uniqueNameToName = {}
-    const toBrowseWf = (p) => {
-      if (!p) return null
-      if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('asset-cache://') || p.startsWith('asset://') || p.startsWith('data:')) return p
-      const clean = p.startsWith('/') ? p : '/' + p
-      const hash = exportData.ExportImages?.[clean]?.contentHash
-      return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
-    }
-
-    const indexEntry = (e, k, t) => {
-      const un = e.uniqueName || e.ItemType || k
-      if (!un) return
-
-      let iconPath = e.icon ?? e.texture
-      let nameKey = e.name ?? e.displayName
-
-      if (t === 'ExportRecipes' && e.resultType) {
-        // For recipes, resolve the name and icon from the result item
-        nameKey = uniqueNameToName[e.resultType] || e.resultType
-        if (!iconPath) {
-          const resultUn = e.resultType
-          iconPath = exportData.ExportImages?.[resultUn] || EI[resultUn]
-          // Strip asset-cache://browse.wf/ prefix if it was already resolved
-          if (typeof iconPath === 'string' && iconPath.startsWith('asset-cache://browse.wf')) {
-            iconPath = iconPath.replace('asset-cache://browse.wf', '')
-          }
-        }
-      }
-
-      if (t === 'ExportBundles' && e.components?.length && !exportData.ExportImages?.[iconPath]?.contentHash) {
-        // Bundle icons sometimes lack a contentHash (newer bundles aren't
-        // mirrored); fall back to the first component whose icon resolves.
-        const customs = exportData.ExportCustoms || {}
-        for (const c of e.components) {
-          const cType = c.typeName || c.ItemType || ''
-          const entry = customs[cType] || customs[cType.replace('/StoreItems/', '/')]
-          const cIcon = entry?.icon
-          if (cIcon && exportData.ExportImages?.[cIcon]?.contentHash) { iconPath = cIcon; break }
-        }
-      }
-
-      const url = toBrowseWf(iconPath ?? '')
-      // warframe-items supplies wiki.warframe.com thumbnails, but several
-      // recently added items still point at stale thumbnail names (notably
-      // Cyte-09 and Jade). Keep the hashed DE export image indexed earlier
-      // instead of allowing the later WI table to replace it with a 404 URL.
-      const isStaleWikiThumbnail = typeof url === 'string' &&
-        /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
-      if (url && (!EI[un] || !isStaleWikiThumbnail)) EI[un] = url
-
-      uniqueNameToName[un] = nameKey
-      const locKey = uniqueNameToName[un]
-      if (locKey) {
-        const resolved = (dict[locKey] || dict['/' + locKey] || locKey || '').replace(/<[^>]*>/g, '').trim()
-        if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !isStaleWikiThumbnail)) {
-          if (url) nameToImage[resolved.toLowerCase()] = url
-        }
-      }
-    }
-
-    tableNames.forEach(tbl => {
-      const data = exportData[tbl]
-      if (!data) return
-      if (Array.isArray(data)) data.forEach(e => indexEntry(e, null, tbl))
-      else if (typeof data === 'object') {
-        const nested = data[tbl] ?? (Object.keys(data).length === 1 && typeof Object.values(data)[0] === 'object' ? Object.values(data)[0] : null)
-        if (Array.isArray(nested)) nested.forEach(e => indexEntry(e, null, tbl))
-        else Object.entries(data).forEach(([k, v]) => indexEntry(v, k, tbl))
-      }
-    })
-
-    // wfcd supplement fallback: English display-name → image keys, so items
-    // whose localized dict key is missing (e.g. FR Dual Toxocyst/Dual Ichor
-    // base names) still resolve. Localized keys above take priority.
-    const wiSupp = exportData?.WI_Supplement?.nameToImage
-    if (wiSupp) {
-      for (const [k, v] of Object.entries(wiSupp)) {
-        if (nameToImage[k] === undefined) nameToImage[k] = v
-      }
-    }
-    return { EI, nameToImage, uniqueNameToName }
-  }, [exportData, dict])
+  const { EI, nameToImage, uniqueNameToName } = useMemo(() => buildImageMaps(exportData || {}), [exportData])
 
   const globalRewardPool = useMemo(() => getAllRelicRewards(exportData, localeRef.current), [exportData, localeRef.current])
 
@@ -706,6 +611,7 @@ export function MonitoringProvider({ children }) {
       // Retired in v0.8: ExportUpgrades_fixed.json patched file — the DE
       // manifest now ships levelStats for every locale including English
       // (downloaded as ExportUpgrades_{locale}.json by check_exports).
+      let cosmeticAdditions = null
       if (exports) {
         try {
           const [
@@ -798,18 +704,7 @@ export function MonitoringProvider({ children }) {
           // cosmetic-catalog-additions.json's own comment. Unlike
           // wfcdGapFill.js's audit pipeline, every entry here was
           // individually verified, so this merges unconditionally.
-          if (cosmeticAdditionsBytes) {
-            const additions = JSON.parse(new TextDecoder().decode(new Uint8Array(cosmeticAdditionsBytes)))
-            delete additions._comment
-            // Only fill in keys export-plus genuinely lacks - if it catches
-            // up on its own later, its real entry must win, not this static
-            // stand-in.
-            const customs = { ...(exports.ExportCustoms || {}) }
-            for (const [un, entry] of Object.entries(additions)) {
-              if (!customs[un]) customs[un] = entry
-            }
-            exports.ExportCustoms = customs
-          }
+          if (cosmeticAdditionsBytes) cosmeticAdditions = JSON.parse(new TextDecoder().decode(new Uint8Array(cosmeticAdditionsBytes)))
         } catch { }
       }
 
@@ -821,16 +716,7 @@ export function MonitoringProvider({ children }) {
       // genuinely missing. Wrapped defensively: if this throws for any
       // reason, exports itself is untouched and we proceed exactly as
       // before this feature existed.
-      let filledExports = exports
-      if (exports) {
-        try {
-          const { exportData: filled, audit } = fillDataGaps(exports)
-          filledExports = filled
-          logGapFillAudit(audit)
-        } catch (err) {
-          console.error('WFCD gap-fill failed, continuing without it:', err)
-        }
-      }
+      const filledExports = buildRuntimeExportBundle({ exports, cosmeticAdditions, onGapFillAudit: logGapFillAudit })
 
       // Set exports immediately (no wfcd blocking) — defer the wfcd load to
       // the background so the shell UI renders without a 15s hitch.
@@ -839,20 +725,7 @@ export function MonitoringProvider({ children }) {
 
       if (filledExports) {
         loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
-          // Spread from filledExports, not exports - otherwise this silently
-          // reverts ExportWeapons/ExportCustoms back to their pre-gap-fill
-          // state the moment the wfcd name/image supplement lands.
-          const enhanced = { ...filledExports, ...wiMaps }
-          enhanced.uniqueNameToName = { ...enhanced.uniqueNameToName, ...wiSupplement.uniqueNameToName }
-          enhanced.nameToImage = { ...enhanced.nameToImage, ...wiSupplement.nameToImage }
-          enhanced.WI_Supplement = wiSupplement
-          try {
-            const { map: enrichedUpgrades, audit: modAudit } = fillModGaps(enhanced.WI_Upgrades, filledExports.WFCD_Mods)
-            enhanced.WI_Upgrades = enrichedUpgrades
-            logModGapFillAudit(modAudit)
-          } catch (err) {
-            console.error('WFCD mod gap-fill failed, continuing without it:', err)
-          }
+          const enhanced = buildRuntimeExportBundle({ exports: filledExports, wiMaps, wiSupplement, onModGapFillAudit: logModGapFillAudit })
           setExportData(enhanced)
           exportDataRef.current = enhanced
           // wfcd English names (WI_Weapons) attach in the background after

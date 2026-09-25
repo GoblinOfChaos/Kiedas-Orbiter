@@ -13,12 +13,115 @@ export function selectCanaries(harness, previousIndex = []) {
   const previous = new Set(previousIndex.map((entry) => entry.uniqueName || entry))
   const named = new Set(canaries.map((entry) => entry.uniqueName))
   const current = []
-  for (const table of ['ExportWarframes', 'ExportWeapons', 'ExportSentinels', 'ExportResources', 'ExportGear']) {
+  for (const table of ['ExportWarframes', 'ExportWeapons', 'ExportSentinels', 'ExportResources', 'ExportGear', 'ExportUpgrades', 'ExportArcanes', 'ExportRelics', 'ExportCustoms', 'ExportFlavour']) {
     for (const [uniqueName, entry] of Object.entries(harness.exportsBundle[table] || {})) {
       if (entry?.name && uniqueName && !named.has(uniqueName) && !previous.has(uniqueName)) current.push({ name: entry.name, uniqueName })
     }
   }
   return [...canaries, ...current.sort((a, b) => a.uniqueName.localeCompare(b.uniqueName)).slice(0, 5)]
+}
+
+export const CATEGORY_RULES = {
+  warframes: { tables: ['ExportWarframes'], buckets: ['warframes'], screens: ['Inventory', 'Foundry', 'Mastery', 'Drawer'] },
+  weapons: { tables: ['ExportWeapons'], buckets: ['primary', 'secondary', 'melee', 'weapons'], screens: ['Inventory', 'Foundry', 'Mastery', 'Drawer'] },
+  companions: { tables: ['ExportSentinels'], buckets: ['companions', 'sentinels', 'moas', 'hounds', 'beasts'], screens: ['Inventory', 'Mastery', 'Drawer'] },
+  mods: { tables: ['ExportUpgrades', 'WI_Upgrades'], buckets: ['mods', 'mods_catalog'], screens: ['Inventory', 'Mod catalog', 'Drawer'] },
+  arcanes: { tables: ['ExportArcanes', 'WI_Arcanes'], buckets: ['arcanes', 'arcanes_catalog'], screens: ['Inventory', 'Arcane catalog', 'Drawer'] },
+  relics: { tables: ['ExportRelics', 'WI_Relics'], buckets: ['relics'], screens: ['Relics', 'Relic Planner', 'Drawer'] },
+  cosmetics: { tables: ['ExportCustoms', 'ExportFlavour'], buckets: ['appearance_catalog', 'landing_craft_catalog'], screens: ['Cosmetics', 'Drawer'] },
+  resources: { tables: ['ExportResources'], buckets: ['resources', 'components'], screens: ['Inventory', 'Drawer'] },
+  gear: { tables: ['ExportGear'], buckets: ['consumables_catalog', 'landing_craft_catalog', 'gear'], screens: ['Inventory', 'Drawer'] },
+  recipes: { tables: ['ExportRecipes'], buckets: ['craftable'], screens: ['Foundry', 'Drawer'] },
+}
+
+export function primePartsVisible(primeSets, baseName) {
+  const set = primeSets?.[baseName]
+  return !!set && (set.owned || (set.parts || []).some((part) => (part.quantity ?? 0) > 0))
+}
+
+function tableEntries(harness, tableNames) {
+  const result = []
+  for (const table of tableNames) {
+    const data = harness.exportsBundle[table]
+    if (Array.isArray(data)) result.push(...data.map((entry) => [entry?.uniqueName || entry?.ItemType, entry]))
+    else if (data && typeof data === 'object') result.push(...Object.entries(data).map(([key, entry]) => [entry?.uniqueName || entry?.ItemType || key, entry]))
+  }
+  return result.filter(([uniqueName]) => uniqueName)
+}
+
+function categoryFor(harness, uniqueName) {
+  for (const [category, rule] of Object.entries(CATEGORY_RULES)) {
+    if (tableEntries(harness, rule.tables).some(([candidate]) => canonicalPath(candidate) === canonicalPath(uniqueName))) return category
+  }
+  return 'unknown'
+}
+
+function findCatalogItem(parsed, uniqueName) {
+  return Object.values(parsed).flatMap((value) => Array.isArray(value) ? value : []).find((item) => canonicalPath(item?.unique_name) === canonicalPath(uniqueName))
+}
+
+function itemName(harness, uniqueName, entry) {
+  const key = entry?.name || entry?.displayName || harness.uniqueNameToName?.[uniqueName]
+  return cleanName(harness.dict?.[key] || harness.dict?.['/' + key] || key)
+}
+
+async function buildAcquisition(harness, item, name) {
+  try {
+    const { getAcquisitionInfo } = await import('../src/lib/acquisitionInfo.js')
+    const result = getAcquisitionInfo(item?.unique_name || item?.uniqueName, name, null, harness.exportsBundle.AcquisitionItems || {}, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+    return { pass: !!result, result, cannot: result == null ? 'real getAcquisitionInfo returned no route' : null }
+  } catch (error) {
+    return { pass: false, cannot: `getAcquisitionInfo unavailable: ${error.message}` }
+  }
+}
+
+export function discoverSubjects(harness, previousIndex = []) {
+  const previous = new Set(previousIndex.map((entry) => entry.uniqueName || entry))
+  const subjects = new Map(canaries.map((entry) => [entry.uniqueName, entry]))
+  for (const [category, rule] of Object.entries(CATEGORY_RULES)) {
+    for (const [uniqueName, entry] of tableEntries(harness, rule.tables)) {
+      if (!previous.has(uniqueName)) subjects.set(uniqueName, { uniqueName, name: itemName(harness, uniqueName, entry), category })
+    }
+  }
+  return [...subjects.values()]
+}
+
+export async function checkMatrixItem({ harness, subject, parsed = null, syntheticOwned = true }) {
+  const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
+  const category = subject.category || categoryFor(harness, subject.uniqueName)
+  const rule = CATEGORY_RULES[category] || CATEGORY_RULES.resources
+  const catalogItem = findCatalogItem(inventory, subject.uniqueName)
+  const entry = tableEntries(harness, rule.tables).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
+  const name = cleanName(catalogItem?.name || itemName(harness, subject.uniqueName, entry) || subject.name)
+  const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))
+  const recipe = Object.values(harness.exportsBundle.ExportRecipes || {}).find((candidate) => canonicalPath(candidate?.resultType) === canonicalPath(subject.uniqueName))
+  const components = recipe?.ingredients || []
+  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name)
+  const checks = {
+    U1_catalog: !!catalogItem || category === 'recipes',
+    U2_name: !!name && !name.startsWith('/') && !/^MT_/i.test(name),
+    U3_image: image,
+    U4_uniqueName: !!subject.uniqueName,
+    U5_acquisition: acquisition.pass || !!acquisition.cannot,
+    U6_description: !!(catalogItem?.description || entry?.description || category === 'recipes'),
+    recipe: !recipe || (components.length > 0 && components.every((component) => !!component.ItemType)),
+  }
+  const cannot = [
+    'U4 display-name collision requires the rendered override/prex/Somachord stores',
+    'U7 owned-state requires an inventory payload accepted by the current exporter shape',
+  ]
+  let ownedState = { pass: false, cannot: cannot[1] }
+  if (syntheticOwned) {
+    try {
+      const synthetic = parseInventory({ MiscItems: [{ ItemType: subject.uniqueName, ItemCount: 1 }] }, harness.exportsBundle, harness.dict, 'en', null)
+      const owned = findCatalogItem(synthetic, subject.uniqueName)
+      ownedState = { pass: !!owned && (owned.owned || (owned.quantity ?? 0) > 0), cannot: owned && (owned.owned || (owned.quantity ?? 0) > 0) ? null : cannot[1] }
+    } catch (error) { ownedState = { pass: false, cannot: `${cannot[1]} (${error.message})` } }
+  }
+  const primeScreens = /\bPrime$/i.test(name) ? { 'Prime Parts': primePartsVisible(inventory.primeSets, name.replace(/\s+Prime$/i, '')) || 'not owned by design', 'Relic Planner': !!recipe, 'Prime Resurgence': !!recipe } : {}
+  const screens = Object.fromEntries([...rule.screens, ...Object.keys(primeScreens)].map((screen) => [screen, screen === 'Prime Parts' ? primeScreens[screen] !== false : checks.U1_catalog && checks.U2_name && checks.U3_image && (screen !== 'Foundry' || checks.recipe)]))
+  const pass = Object.values(checks).every(Boolean) && (ownedState.pass || ownedState.cannot)
+  return { name, uniqueName: subject.uniqueName, category, screens, checks, acquisition, ownedState, cannot, pass: !!pass }
 }
 
 const imageFor = (item, parsed, harness) => {
@@ -102,28 +205,33 @@ async function loadDeRecipes(cacheDir) {
   return Array.isArray(raw) ? raw : raw.ExportRecipes || raw
 }
 
-export async function run({ dataDir, repo = REPO, harness, acquisition, deCacheDir = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export', previousIndex = [], includeDiscovered = true } = {}) {
+export async function run({ dataDir, repo = REPO, harness, previousIndex = [], includeDiscovered = true } = {}) {
   const loaded = harness || await loadRealHarness({ dataDir, repo })
-  const bundledAcquisition = acquisition || loadAcquisitionFixture(path.join(repo, 'src-tauri/data/assets/data/completeness-acquisition.json')) || loadBundledAcquisition(repo)
-  const deRecipes = await loadDeRecipes(deCacheDir)
-  const selected = includeDiscovered ? selectCanaries(loaded, previousIndex) : canaries
-  return selected.map((canary) => checkItem({ harness: loaded, canary, acquisition: bundledAcquisition, deRecipes }))
+  const subjects = includeDiscovered ? discoverSubjects(loaded, previousIndex) : canaries
+  const parsed = parseInventory({}, loaded.exportsBundle, loaded.dict, 'en', null)
+  return Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const dataArg = process.argv.indexOf('--data-dir')
   const cacheArg = process.argv.indexOf('--de-cache-dir')
   const dataDir = dataArg >= 0 ? process.argv[dataArg + 1] : process.env.PREVIEW_DATA_DIR
-  const deCacheDir = cacheArg >= 0 ? process.argv[cacheArg + 1] : undefined
-  const results = await run({ dataDir, deCacheDir })
-  console.log('| Item | Inventory | Image | Foundry/recipe | Components | Acquisition | Result |')
-  console.log('| --- | --- | --- | --- | --- | --- | --- |')
+  const previousArg = process.argv.indexOf('--previous')
+  const stateFile = previousArg >= 0 ? process.argv[previousArg + 1] : path.join(REPO, 'scripts/.item-completeness-state.json')
+  const previousIndex = fs.existsSync(stateFile) ? JSON.parse(fs.readFileSync(stateFile, 'utf8')) : []
+  const results = await run({ dataDir, previousIndex })
+  console.log('| Item | Category | Inventory | Image | Foundry | Acquisition | Screens | Result |')
+  console.log('| --- | --- | --- | --- | --- | --- | --- | --- |')
   for (const result of results) {
-    const components = result.recipe.presentInDE ? `${result.recipe.components.filter((component) => component.image).length}/${result.recipe.components.length}` : 'N/A (no DE recipe)'
-    const acquisition = result.acquisition.pass ? 'PASS' : `FAIL (${result.acquisition.reason})`
-    console.log(`| ${result.name} | ${result.inventory.pass ? 'PASS' : 'FAIL'} | ${result.inventory.image ? 'PASS' : 'FAIL'} | ${result.recipe.presentInDE ? (result.recipe.foundry ? 'PASS' : 'FAIL') : 'N/A'} | ${components} | ${acquisition} | ${result.pass ? 'PASS' : 'FAIL'} |`)
+    const screens = Object.entries(result.screens).map(([screen, pass]) => `${screen}:${pass ? 'PASS' : 'FAIL'}`).join(', ')
+    console.log(`| ${result.name || result.uniqueName} | ${result.category} | ${result.checks.U1_catalog ? 'PASS' : 'FAIL'} | ${result.checks.U3_image ? 'PASS' : 'FAIL'} | ${result.checks.recipe ? 'PASS' : 'FAIL'} | ${result.acquisition.pass ? 'PASS' : 'CANNOT'} | ${screens} | ${result.pass ? 'PASS' : 'FAIL'} |`)
     console.log(JSON.stringify(result, null, 2))
   }
+  const cannot = [...new Set(results.flatMap((result) => result.cannot.concat(result.acquisition.cannot || [], result.ownedState.cannot || [])))]
+  console.log('\nCannot be checked:')
+  for (const entry of cannot) console.log(`- ${entry}`)
+  fs.mkdirSync(path.dirname(stateFile), { recursive: true })
+  fs.writeFileSync(stateFile, JSON.stringify(results.map(({ uniqueName, name, category }) => ({ uniqueName, name, category })), null, 2) + '\n')
   process.exitCode = results.every((result) => result.pass) ? 0 : 1
 }
 

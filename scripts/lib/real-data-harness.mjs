@@ -3,6 +3,7 @@ import os from 'os'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { registerHooks } from 'node:module'
+import { buildImageMaps, buildRuntimeExportBundle } from '../../src/lib/exportBundle.js'
 
 registerHooks({
   resolve(spec, ctx, next) {
@@ -14,62 +15,6 @@ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const DEFAULT_DATA_DIR = path.join(os.homedir(), '.local/share/kiedas-orbiter-preview/data')
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'))
 const canonicalPath = (value) => value?.replaceAll('/StoreItems/', '/') || value
-
-export function buildImageMaps(exportData) {
-  const tableNames = [
-    'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportResources',
-    'ExportArcanes', 'ExportUpgrades', 'ExportAvionics', 'ExportRelics',
-    'ExportSyndicates', 'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes',
-    'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportBundles',
-    'WI_Warframes', 'WI_Weapons', 'WI_Sentinels', 'WI_Upgrades', 'WI_Arcanes',
-    'WI_Resources', 'WI_Relics', 'WI_Gear', 'WI_Customs', 'WI_Skins',
-    'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
-  ]
-  const EI = {}
-  const nameToImage = {}
-  const uniqueNameToName = {}
-  const dict = exportData.dict ?? exportData['dict.en'] ?? {}
-  const toBrowseWf = (value) => {
-    if (!value) return null
-    if (/^(?:https?:|asset-cache:|asset:|data:)/.test(value)) return value
-    const clean = value.startsWith('/') ? value : '/' + value
-    const hash = exportData.ExportImages?.[clean]?.contentHash
-    return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
-  }
-  const indexEntry = (entry, key, table) => {
-    const un = entry.uniqueName || entry.ItemType || key
-    if (!un) return
-    let iconPath = entry.icon ?? entry.texture
-    let nameKey = entry.name ?? entry.displayName
-    if (table === 'ExportRecipes' && entry.resultType) {
-      nameKey = uniqueNameToName[entry.resultType] || entry.resultType
-      if (!iconPath) {
-        iconPath = exportData.ExportImages?.[entry.resultType] || EI[entry.resultType]
-        if (typeof iconPath === 'string') iconPath = iconPath.replace('asset-cache://browse.wf', '')
-      }
-    }
-    const url = toBrowseWf(iconPath ?? '')
-    const stale = typeof url === 'string' && /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
-    if (url && (!EI[un] || !stale)) EI[un] = url
-    uniqueNameToName[un] = nameKey
-    const resolved = (dict[nameKey] || dict['/' + nameKey] || '').replace(/<[^>]*>/g, '').trim()
-    if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !stale)) nameToImage[resolved.toLowerCase()] = url
-  }
-  for (const table of tableNames) {
-    const data = exportData[table]
-    if (!data) continue
-    if (Array.isArray(data)) data.forEach((entry) => indexEntry(entry, null, table))
-    else if (typeof data === 'object') {
-      const nested = data[table] ?? (Object.keys(data).length === 1 && typeof Object.values(data)[0] === 'object' ? Object.values(data)[0] : null)
-      if (Array.isArray(nested)) nested.forEach((entry) => indexEntry(entry, null, table))
-      else Object.entries(data).forEach(([key, entry]) => indexEntry(entry, key, table))
-    }
-  }
-  for (const [key, value] of Object.entries(exportData.WI_Supplement?.nameToImage || {})) {
-    if (nameToImage[key] === undefined) nameToImage[key] = value
-  }
-  return { EI, nameToImage, uniqueNameToName }
-}
 
 export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exportDir, assetData, wfcd } = {}) {
   const resolvedExportDir = exportDir || path.join(dataDir, 'export')
@@ -94,11 +39,14 @@ export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exp
   }
   const { transformWarframeItems } = await import(path.join(repo, 'src/lib/warframeItemsTransform.js'))
   const { maps, supplement } = transformWarframeItems(readJson(resolvedWfcd))
-  Object.assign(exportsBundle, maps)
-  exportsBundle.WI_Supplement = supplement
-  exportsBundle.uniqueNameToName = { ...supplement.uniqueNameToName }
-  exportsBundle.nameToImage = { ...supplement.nameToImage }
-  return makeHarness(exportsBundle, { dataDir, repo })
+  const additionsFile = path.join(resolvedAssetData, 'cosmetic-catalog-additions.json')
+  const runtimeExports = buildRuntimeExportBundle({
+    exports: exportsBundle,
+    wiMaps: maps,
+    wiSupplement: supplement,
+    cosmeticAdditions: fs.existsSync(additionsFile) ? readJson(additionsFile) : null,
+  })
+  return makeHarness(runtimeExports, { dataDir, repo })
 }
 
 export function makeHarness(exportsBundle, { dataDir = null, repo = REPO } = {}) {

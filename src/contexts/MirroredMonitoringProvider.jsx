@@ -10,6 +10,7 @@ import { listen } from '@tauri-apps/api/event'
 import { MonitoringContext } from './MonitoringContext'
 import { getPricesBatch } from '../lib/marketEngine'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
+import { buildRuntimeExportBundle } from '../lib/exportBundle'
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -167,7 +168,13 @@ export default function MirroredMonitoringProvider({ children }) {
           if (statusBytes) exports.WikiAcquisitionStatus = JSON.parse(new TextDecoder().decode(new Uint8Array(statusBytes)))
         }
 
-        setExportData(exports)
+        let cosmeticAdditions = null
+        try {
+          const bytes = await invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' })
+          cosmeticAdditions = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
+        } catch { /* optional cosmetic supplement */ }
+        const initialExports = buildRuntimeExportBundle({ exports, cosmeticAdditions })
+        setExportData(initialExports)
 
         const [spiRes, arbRes, descRes] = await Promise.allSettled([
           invoke('load_txt_file', { name: 'sp-incursions.txt' }),
@@ -190,14 +197,11 @@ export default function MirroredMonitoringProvider({ children }) {
         }
 
         // Set exports immediately (no wfcd blocking) — load wfcd in background
-        setExportData(exports)
+        setExportData(initialExports)
 
-        if (exports) {
+        if (initialExports) {
           loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
-            const enhanced = { ...exports, ...wiMaps }
-            enhanced.uniqueNameToName = { ...(enhanced.uniqueNameToName || {}), ...wiSupplement.uniqueNameToName }
-            enhanced.nameToImage = { ...(enhanced.nameToImage || {}), ...wiSupplement.nameToImage }
-            enhanced.WI_Supplement = wiSupplement
+            const enhanced = buildRuntimeExportBundle({ exports: initialExports, wiMaps, wiSupplement })
             setExportData(enhanced)
           })
         }

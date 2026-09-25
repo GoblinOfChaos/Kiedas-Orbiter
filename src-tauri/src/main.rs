@@ -33,6 +33,7 @@ mod ee_log;
 mod de_warframes;
 mod de_weapons;
 mod de_recipes;
+mod de_relics;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -539,6 +540,12 @@ fn file_age_secs(path: &std::path::Path) -> u64 {
         .map(|d| d.as_secs())
         .unwrap_or(u64::MAX)
 }
+
+fn mirror_newer_than(mirror: &std::path::Path, cache: &std::path::Path) -> bool {
+    let Ok(mirror_time) = std::fs::metadata(mirror).and_then(|meta| meta.modified()) else { return false };
+    let Ok(cache_time) = std::fs::metadata(cache).and_then(|meta| meta.modified()) else { return false };
+    mirror_time > cache_time
+}
 /// Decompress raw LZMA-compressed bytes (the DE manifest index is .txt.lzma).
 /// Returns the decompressed text.
 fn decompress_lzma(bytes: &[u8]) -> Result<String, String> {
@@ -606,7 +613,8 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     // The DE Warframes asset is a non-fatal hybrid overlay. If any index,
     // validation, or merge step fails, the validated mirror remains in place.
     if !force && export_dir.join("de/ExportWarframes_en.json").exists()
-        && file_age_secs(&export_dir.join("de/ExportWarframes_en.json")) <= 86_400 {
+        && file_age_secs(&export_dir.join("de/ExportWarframes_en.json")) <= 86_400
+        && !mirror_newer_than(&export_dir.join("ExportWarframes.json"), &export_dir.join("de/ExportWarframes_en.json")) {
         // Keep the once-per-day TTL aligned with the other export refreshes.
     } else {
         match de_warframes::refresh_de_warframes(&client, &export_dir).await {
@@ -621,7 +629,8 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     // The DE Weapons asset is a non-fatal hybrid overlay, with the same daily
     // TTL and validation guarantees as the Warframes overlay.
     if !force && export_dir.join("de/ExportWeapons_en.json").exists()
-        && file_age_secs(&export_dir.join("de/ExportWeapons_en.json")) <= 86_400 {
+        && file_age_secs(&export_dir.join("de/ExportWeapons_en.json")) <= 86_400
+        && !mirror_newer_than(&export_dir.join("ExportWeapons.json"), &export_dir.join("de/ExportWeapons_en.json")) {
     } else {
         match de_weapons::refresh_de_weapons(&client, &export_dir).await {
             Ok(summary) => {
@@ -635,13 +644,24 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     // DE recipes/resources/images are a non-fatal hybrid overlay. If any
     // request, shape, or count validation fails, the mirror exports remain.
     let de_recipe_cache = export_dir.join("de/ExportRecipes_en.json");
-    if force || !de_recipe_cache.exists() || file_age_secs(&de_recipe_cache) > 86_400 {
+    if force || !de_recipe_cache.exists() || file_age_secs(&de_recipe_cache) > 86_400
+        || mirror_newer_than(&export_dir.join("ExportRecipes.json"), &de_recipe_cache) {
         match de_recipes::refresh_de_recipes(&client, &export_dir).await {
             Ok(summary) => {
                 updated_count += 1;
                 eprintln!("DE recipes merge: {} recipes added, {} resources added, {} images added", summary.recipes_added, summary.resources_added, summary.images_added);
             }
             Err(e) => eprintln!("Warning: could not refresh DE recipes/resources/images; retained mirror: {}", e),
+        }
+    }
+
+    let de_relic_cache = export_dir.join("de/ExportRelicArcane_en.json");
+    if force || !de_relic_cache.exists() || file_age_secs(&de_relic_cache) > 86_400
+        || mirror_newer_than(&export_dir.join("ExportRelics.json"), &de_relic_cache)
+        || mirror_newer_than(&export_dir.join("ExportArcanes.json"), &de_relic_cache) {
+        match de_relics::refresh_de_relics(&client, &export_dir).await {
+            Ok(summary) => { updated_count += 1; eprintln!("DE relics/arcanes merge: {} relics added, {} arcanes added, {} mirror-only retained", summary.relics_added, summary.arcanes_added, summary.relics_mirror_only + summary.arcanes_mirror_only); }
+            Err(e) => eprintln!("Warning: could not refresh DE relics/arcanes; retained mirror: {}", e),
         }
     }
 

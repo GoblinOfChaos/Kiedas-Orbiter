@@ -10,6 +10,7 @@ import { adaptResources } from './adapters/resources.mjs'
 import { addManifestIcons, mergeImages, mergeRecipes, mergeResources } from './adapters/merge-recipes.mjs'
 import { mergeWarframes } from './adapters/merge-warframes.mjs'
 import { mergeWeapons } from './adapters/merge-weapons.mjs'
+import { adaptRelicsArcanes, mergeRelicsArcanes } from './adapters/relics-arcanes.mjs'
 
 const DEFAULT_CACHE = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export'
 const DEFAULT_DATA = process.env.KIEDAS_PREVIEW_DATA_DIR || path.join(os.homedir(), '.local/share/kiedas-orbiter-preview/data')
@@ -41,17 +42,18 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
   const outExport = path.join(out, 'export')
   await fs.cp(sourceExport, outExport, { recursive: true })
   const provenance = await readJson(path.join(cacheDir, 'provenance.json'))
-  const [deWarframesRaw, deWeaponsRaw, deRecipesRaw, deResourcesRaw, deManifest] = await Promise.all([
+  const [deWarframesRaw, deWeaponsRaw, deRecipesRaw, deResourcesRaw, deRelicArcaneRaw, deManifest] = await Promise.all([
     loadDe(cacheDir, provenance, 'ExportWarframes'),
     loadDe(cacheDir, provenance, 'ExportWeapons'),
     loadDe(cacheDir, provenance, 'ExportRecipes'),
     loadDe(cacheDir, provenance, 'ExportResources'),
+    loadDe(cacheDir, provenance, 'ExportRelicArcane'),
     loadDe(cacheDir, provenance, 'ExportManifest'),
   ])
   const readApp = (name) => readJson(path.join(sourceExport, name))
-  const [appWarframes, appWeapons, appRecipes, appResources, appImages] = await Promise.all([
+  const [appWarframes, appWeapons, appRecipes, appResources, appRelics, appArcanes, appImages] = await Promise.all([
     readApp('ExportWarframes.json'), readApp('ExportWeapons.json'), readApp('ExportRecipes.json'),
-    readApp('ExportResources.json'), readApp('ExportImages.json'),
+    readApp('ExportResources.json'), readApp('ExportRelics.json'), readApp('ExportArcanes.json'), readApp('ExportImages.json'),
   ])
 
   const { merged: warframesBase } = mergeWarframes(appWarframes, adaptWarframes(deWarframesRaw))
@@ -61,12 +63,15 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
   const deResources = addManifestIcons(adaptResources(deResourcesRaw), deManifest)
   const { merged: resources } = mergeResources(appResources, deResources)
   const { merged: images } = mergeImages(appImages, deManifest)
+  const { relics, arcanes } = mergeRelicsArcanes(appRelics, appArcanes, adaptRelicsArcanes(deRelicArcaneRaw))
 
   await Promise.all([
     writeJson(path.join(outExport, 'ExportWarframes.json'), warframes),
     writeJson(path.join(outExport, 'ExportWeapons.json'), weapons),
     writeJson(path.join(outExport, 'ExportRecipes.json'), recipes),
     writeJson(path.join(outExport, 'ExportResources.json'), resources),
+    writeJson(path.join(outExport, 'ExportRelics.json'), relics),
+    writeJson(path.join(outExport, 'ExportArcanes.json'), arcanes),
     writeJson(path.join(outExport, 'ExportImages.json'), images),
   ])
   await fs.mkdir(path.join(outExport, 'de'), { recursive: true })
@@ -75,11 +80,13 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'de', 'ExportWeapons_en.json'), deWeaponsRaw),
     writeJson(path.join(outExport, 'de', 'ExportRecipes_en.json'), deRecipesRaw),
     writeJson(path.join(outExport, 'de', 'ExportResources_en.json'), deResourcesRaw),
+    writeJson(path.join(outExport, 'de', 'ExportRelicArcane_en.json'), deRelicArcaneRaw),
     writeJson(path.join(outExport, 'de', 'ExportManifest.json'), deManifest),
   ])
   return { out, exportDir: outExport, counts: {
     warframes: Object.keys(warframes).length, weapons: Object.keys(weapons).length,
     recipes: Object.keys(recipes).length, resources: Object.keys(resources).length,
+    relics: Object.keys(relics).length, arcanes: Object.keys(arcanes).length,
     images: Object.keys(images).length,
   } }
 }

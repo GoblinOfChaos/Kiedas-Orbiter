@@ -954,7 +954,9 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     const sources = usedBaseRelicFallback
       ? [{ type: 'status', text: `Refined from ${baseRelicDisplay.replace(/\b\w/g, (c) => c.toUpperCase())} using Void Traces - not obtained directly at this quality.`, source: 'Relic refinement mechanic' }, ...dropSources]
       : dropSources;
-    return { sources, wikiLink: getWikiLink(dropIndexKey, displayName) };
+    // recipe must travel with drop sources: both drawers hide the whole Crafting
+    // Requirements section (a Warframe's Neuroptics/Chassis/Systems parts) when it is missing.
+    return { sources, recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   const itemDrops = getItemDrops(dropIndexKey);

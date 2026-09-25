@@ -1524,7 +1524,7 @@ export default function Inventory() {
                             the further down the (2000+ item) list you
                             scrolled - visible as scroll input getting
                             dropped, then jumping to resync. */}
-                        <h4 className="font-bold text-sm uppercase line-clamp-1 text-kronos-text leading-tight mt-0.5">
+                        <h4 title={item.name} className="font-bold text-sm uppercase line-clamp-1 text-kronos-text leading-tight mt-0.5">
                           {item.name}
                         </h4>
                         {item.description &&

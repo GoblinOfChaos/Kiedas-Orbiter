@@ -1,6 +1,7 @@
 import { ChevronDown, ChevronRight, Menu, Star, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { PREVIEW_GROUPED_NAV } from '../navigation';
+import { BUILD_ID } from '../../lib/buildProfile';
 
 const STORAGE_KEY = 'preview.navigation.v1';
 const EMPTY_STATE = { collapsed: {}, favorites: [] };
@@ -148,7 +149,7 @@ export default function PreviewNavigation({ activeRouteId, onNavigate, uiIcon, t
         </div>
         <GroupedNavigation {...common} onNavigate={onNavigate} />
         {storageError && <p className="preview-nav__error" role="alert">{storageError}</p>}
-        <div className="preview-nav__profile"><span><img src={uiIcon('IconKieda.png')} alt="" /></span><p><strong>{t('preview.status.preview')}</strong><small>{t('preview.status.isolated_profile')}</small></p></div>
+        <div className="preview-nav__profile"><span><img src={uiIcon('IconKieda.png')} alt="" /></span><p><strong>{t('preview.status.preview')}</strong><small>{t('preview.status.isolated_profile')}</small><small title="Build id">Build {BUILD_ID}</small></p></div>
       </nav>
 
       <nav aria-label={t('preview.nav.compact_navigation')} className="preview-nav preview-nav--rail">

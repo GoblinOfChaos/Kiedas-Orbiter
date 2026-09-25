@@ -2,10 +2,21 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { execSync } from 'node:child_process'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// Build stamp shown in the Preview sidebar so it is always clear which build is running.
+function buildId() {
+  let commit = 'unknown'
+  try { commit = execSync('git rev-parse --short HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() } catch { /* not a git checkout */ }
+  const d = new Date()
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${commit} ${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
 export default defineConfig({
+  define: { __KIEDA_BUILD_ID__: JSON.stringify(buildId()) },
   plugins: [react()],
   // Allow JSON imports (needed for warframe-public-export-plus/dict.en.json)
   json: { stringify: false },

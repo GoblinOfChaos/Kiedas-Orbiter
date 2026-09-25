@@ -148,7 +148,7 @@ export default function PreviewNavigation({ activeRouteId, onNavigate, uiIcon, t
         </div>
         <GroupedNavigation {...common} onNavigate={onNavigate} />
         {storageError && <p className="preview-nav__error" role="alert">{storageError}</p>}
-        <div className="preview-nav__profile"><span>KO</span><p><strong>{t('preview.status.preview')}</strong><small>{t('preview.status.isolated_profile')}</small></p></div>
+        <div className="preview-nav__profile"><span><img src={uiIcon('IconKieda.png')} alt="" /></span><p><strong>{t('preview.status.preview')}</strong><small>{t('preview.status.isolated_profile')}</small></p></div>
       </nav>
 
       <nav aria-label={t('preview.nav.compact_navigation')} className="preview-nav preview-nav--rail">

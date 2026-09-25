@@ -173,7 +173,7 @@ export default function MirroredMonitoringProvider({ children }) {
           const bytes = await invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' })
           cosmeticAdditions = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
         } catch { /* optional cosmetic supplement */ }
-        const initialExports = buildRuntimeExportBundle({ exports, cosmeticAdditions })
+        const initialExports = buildRuntimeExportBundle({ exports, cosmeticAdditions, locale: localeRef.current })
         setExportData(initialExports)
 
         const [spiRes, arbRes, descRes] = await Promise.allSettled([
@@ -201,7 +201,7 @@ export default function MirroredMonitoringProvider({ children }) {
 
         if (initialExports) {
           loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
-            const enhanced = buildRuntimeExportBundle({ exports: initialExports, wiMaps, wiSupplement })
+            const enhanced = buildRuntimeExportBundle({ exports: initialExports, wiMaps, wiSupplement, locale: localeRef.current })
             setExportData(enhanced)
           })
         }

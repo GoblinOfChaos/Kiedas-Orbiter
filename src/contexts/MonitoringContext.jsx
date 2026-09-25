@@ -716,7 +716,7 @@ export function MonitoringProvider({ children }) {
       // genuinely missing. Wrapped defensively: if this throws for any
       // reason, exports itself is untouched and we proceed exactly as
       // before this feature existed.
-      const filledExports = buildRuntimeExportBundle({ exports, cosmeticAdditions, onGapFillAudit: logGapFillAudit })
+      const filledExports = buildRuntimeExportBundle({ exports, cosmeticAdditions, locale: localeRef.current, onGapFillAudit: logGapFillAudit })
 
       // Set exports immediately (no wfcd blocking) — defer the wfcd load to
       // the background so the shell UI renders without a 15s hitch.
@@ -725,7 +725,7 @@ export function MonitoringProvider({ children }) {
 
       if (filledExports) {
         loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
-          const enhanced = buildRuntimeExportBundle({ exports: filledExports, wiMaps, wiSupplement, onModGapFillAudit: logModGapFillAudit })
+          const enhanced = buildRuntimeExportBundle({ exports: filledExports, wiMaps, wiSupplement, locale: localeRef.current, onModGapFillAudit: logModGapFillAudit })
           setExportData(enhanced)
           exportDataRef.current = enhanced
           // wfcd English names (WI_Weapons) attach in the background after

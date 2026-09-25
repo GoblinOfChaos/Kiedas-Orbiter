@@ -39,6 +39,7 @@ mod de_upgrades;
 mod de_customs;
 mod de_sentgear;
 mod de_droptables;
+mod de_i18n;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -388,7 +389,7 @@ async fn download_locale_upgrades(client: &reqwest::Client, export_dir: &std::pa
     let line = line.trim();
 
     let dest = export_dir.join(&target_file);
-    let file_url = format!("{}/Manifest/{}", DE_MANIFEST_BASE, line);
+    let file_url = format!("{}/Manifest/{}", DE_MANIFEST_BASE, line.replace('!', "%21"));
     download_file(client, &file_url, &dest).await?;
     Ok(())
 }
@@ -769,6 +770,12 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         match download_locale_upgrades(&client, &export_dir, &locale).await {
             Ok(_) => updated_count += 1,
             Err(e) => crate::logger::log_message(&format!("Warning: could not download DE locale upgrades: {}", e)),
+        }
+    }
+    if locale != "en" {
+        match de_i18n::refresh_de_locale(&client, &export_dir, &locale, force).await {
+            Ok(count) => updated_count += count,
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE locale literals for {}: {}", locale, e)),
         }
     }
     // TXT data files - refresh every 6 hours; failures are non-fatal
@@ -1523,6 +1530,21 @@ async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Resul
         });
         let (lk, lv) = locale_handle.await.map_err(|e| e.to_string())??;
         result.insert(lk, lv);
+    }
+
+    if locale != "en" {
+        for category in de_i18n::DE_LOCALE_CATEGORIES {
+            let path = export_dir.join("de").join(format!("{}_{}.json", category, locale));
+            if !path.exists() { continue; }
+            let key = format!("DeLocale_{}", category);
+            match fs::File::open(&path) {
+                Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                    Ok(json) => { result.insert(key, json); }
+                    Err(e) => eprintln!("Warning: failed to parse DE locale {}: {}", path.display(), e),
+                },
+                Err(e) => eprintln!("Warning: failed to open DE locale {}: {}", path.display(), e),
+            }
+        }
     }
 
     let cache_relative = "data/export/combined_export_cache.json".to_string();
@@ -2852,6 +2874,18 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
                     Err(e) => eprintln!("[load_all_exports_inner] failed to parse {}: {}", locale_file, e),
                 },
                 Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", locale_file, e),
+            }
+        }
+        for category in crate::de_i18n::DE_LOCALE_CATEGORIES {
+            let path = export_dir.join("de").join(format!("{}_{}.json", category, locale));
+            if !path.exists() { continue; }
+            let key = format!("DeLocale_{}", category);
+            match std::fs::File::open(&path) {
+                Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                    Ok(json) => { result.insert(key, json); }
+                    Err(e) => eprintln!("[load_all_exports_inner] failed to parse {}: {}", path.display(), e),
+                },
+                Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", path.display(), e),
             }
         }
     }

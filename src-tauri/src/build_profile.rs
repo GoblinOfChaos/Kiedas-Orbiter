@@ -20,7 +20,7 @@ pub fn require_updates() -> Result<(), String> {
     use super::*;
     #[test] fn missing_os_directory_has_no_fallback() { assert!(preview_root(None).is_err()); }
     #[test] fn root_is_isolated() { assert_eq!(preview_root(Some(PathBuf::from("profiles"))).unwrap(), PathBuf::from("profiles/kiedas-orbiter-preview")); }
-    #[test] fn policy_matches_build() { assert_eq!(require_live().is_err(), IS_PREVIEW); assert_eq!(require_updates().is_err(), IS_PREVIEW); }
+    #[test] fn policy_matches_build() { assert!(require_live().is_ok(), "live sync is allowed in Preview (require_live blocks were removed)"); assert_eq!(require_updates().is_err(), IS_PREVIEW); }
 }
 
 pub fn require_preview() -> Result<(), String> { if IS_PREVIEW { Ok(()) } else { Err("Profile copy import is Preview-only".into()) } }

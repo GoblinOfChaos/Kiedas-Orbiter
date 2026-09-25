@@ -636,9 +636,11 @@ fn with_cache(f: impl FnOnce() -> Option<u32>) -> Option<u32> {
     found
 }
 
+/// Linux: also re-checks the process name so a cached PID that was reused by
+/// an unrelated process (or was never the game) is dropped and rediscovered.
 #[cfg(target_os = "linux")]
 fn pid_is_alive(pid: u32) -> bool {
-    std::path::Path::new("/proc").join(pid.to_string()).join("status").exists()
+    warframe_process_name(pid).is_some()
 }
 
 #[cfg(target_os = "windows")]
@@ -666,23 +668,30 @@ fn pid_is_alive(pid: u32) -> bool {
         .unwrap_or(false)
 }
 
-/// On Linux, checks whether the process at `pid` looks like the actual game
-/// binary (Warframe.x64.exe) rather than the launcher.
+/// On Linux, returns the lowercased process name if `pid` is a Warframe
+/// executable, judged by its own name only. The name is taken from
+/// /proc/<pid>/comm (a Wine/Proton game shows "Warframe.x64.ex"), falling back
+/// to the basename of argv[0] (Wine sets it to e.g. `S:\...\Warframe.x64.exe`).
+/// Arguments are deliberately ignored: any unrelated process (an agent, shell
+/// or editor) can mention "Warframe" or "x64" in its arguments or path.
 #[cfg(target_os = "linux")]
-fn is_game_process(pid: u32) -> bool {
-    let comm_path = std::path::Path::new("/proc").join(pid.to_string()).join("comm");
-    if let Ok(comm) = std::fs::read_to_string(&comm_path) {
-        if comm.contains(".x64") || comm.contains("x64") {
-            return true;
+fn warframe_process_name(pid: u32) -> Option<String> {
+    let dir = std::path::Path::new("/proc").join(pid.to_string());
+    if let Ok(comm) = std::fs::read_to_string(dir.join("comm")) {
+        let comm = comm.trim().to_lowercase();
+        if comm.starts_with("warframe") {
+            return Some(comm);
         }
     }
-    let cmd_path = std::path::Path::new("/proc").join(pid.to_string()).join("cmdline");
-    if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
-        if cmd.contains(".x64") || cmd.contains("x64") {
-            return true;
-        }
+    let cmdline = std::fs::read(dir.join("cmdline")).ok()?;
+    let argv0 = cmdline.split(|&b| b == 0).next()?;
+    let argv0 = String::from_utf8_lossy(argv0);
+    let base = argv0.rsplit(|c| c == '/' || c == '\\').next().unwrap_or("").to_lowercase();
+    if base.starts_with("warframe") {
+        Some(base)
+    } else {
+        None
     }
-    false
 }
 
 /// Returns the PID of the first Warframe process found, if any.
@@ -765,47 +774,32 @@ pub fn get_warframe_pid() -> Option<u32> {
         }
         #[cfg(target_os = "linux")]
         {
-            // Collect all matching PIDs, preferring the game binary over the
-            // launcher (the launcher won't have the EE.log ring buffer, but
-            // both contain "Warframe" in the name).  The game process
-            // (Proton/Wine) typically shows "Warframe.x64.exe" in its comm or
-            // cmdline, so we pick that one when it exists.
+            // Collect every process whose own executable name is Warframe,
+            // preferring the game binary (Warframe.x64.exe) over the launcher
+            // (the launcher won't have the EE.log ring buffer, but both start
+            // with "Warframe").  Matching is on the process name only, never
+            // on arguments, so unrelated processes that merely mention
+            // Warframe (agents, shells, editors) can't be selected.
             let mut candidates: Vec<(u32, bool)> = Vec::new();
             if let Ok(pids) = std::fs::read_dir("/proc") {
                 for entry in pids.flatten() {
-                    let pid = entry.file_name();
-                    let pid_str = pid.to_string_lossy();
+                    let pid_str = entry.file_name().to_string_lossy().into_owned();
                     if !pid_str.chars().all(|c| c.is_ascii_digit()) { continue; }
                     let pid_num = match pid_str.parse::<u32>() { Ok(n) => n, Err(_) => continue };
-                    let comm_path = std::path::Path::new("/proc").join(&pid).join("comm");
-                    if let Ok(comm) = std::fs::read_to_string(&comm_path) {
-                        if comm.contains("Warframe") || comm.contains("warframe") {
-                            candidates.push((pid_num, true));
-                            continue;
-                        }
-                    }
-                    let cmd_path = std::path::Path::new("/proc").join(&pid).join("cmdline");
-                    if let Ok(cmd) = std::fs::read_to_string(&cmd_path) {
-                        if cmd.contains("Warframe") || cmd.contains("warframe") {
-                            candidates.push((pid_num, false));
-                        }
+                    if let Some(name) = warframe_process_name(pid_num) {
+                        candidates.push((pid_num, name.contains("x64")));
                     }
                 }
             }
-            // Among candidates: prefer one with ".x64" in its name (the game),
-            // then one with only comm matching (more likely the game), then
-            // any other match.
-            candidates.sort_by(|a, b| {
-                let a_game = is_game_process(a.0);
-                let b_game = is_game_process(b.0);
-                b_game.cmp(&a_game).then(a.1.cmp(&b.1))
-            });
+            // Game binary first; ties resolved by lowest PID for determinism.
+            candidates.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
             candidates.into_iter().next().map(|(pid, _)| pid)
         }
         #[cfg(target_os = "macos")]
         {
+            // No -f: match the process name only, not arguments of unrelated
+            // processes that happen to mention Warframe.
             if let Ok(output) = std::process::Command::new("pgrep")
-                .arg("-f")
                 .arg("Warframe")
                 .output()
             {

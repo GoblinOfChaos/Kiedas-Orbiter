@@ -35,7 +35,8 @@ This log records defects found during the user's hands-on review of the accepted
 
 ## Error 3 — Cosmetics page cannot scroll vertically
 
-- **Status:** OPEN — user reproduced in the native Linux Preview
+- **Status:** RESOLVED — user confirmed vertical scrolling works in the native Linux Preview (2026-09-23)
+- **Originally:** OPEN — user reproduced in the native Linux Preview
 - **Reported:** 2026-09-06
 - **Artifact:** Stage 3K Linux Preview AppImage
 - **Screen:** Cosmetics

@@ -1480,7 +1480,7 @@ export default function Inventory() {
                       {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
                     </div>
                     <div className="flex-1 px-4 py-3 flex items-center min-w-0 overflow-hidden">
-                      <h4 className="font-bold text-sm uppercase line-clamp-1 text-kronos-text leading-tight">
+                      <h4 title={item.name} className={`font-bold text-sm uppercase ${item.category === 'parts' ? 'line-clamp-2' : 'line-clamp-1'} text-kronos-text leading-tight`}>
                         {item.name}
                       </h4>
                     </div>

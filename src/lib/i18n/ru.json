@@ -3954,5 +3954,6 @@
     "tpl_2721": "- Overpressured Rounds может быть получена при достижении ранга <*> в Nightwave во время Amir's Shockwave.",
     "tpl_2722": "- Эту модификацию можно получить, достигнув ранга Maxim у Arbiters of Hexis или ранг Partner у The Perrin Sequence, и потратив <*> на покупку. - Эту модификацию можно периодически получать в The Circuit.",
     "tpl_2723": "- Эту модификацию можно получить, достигнув ранга Maxim under the Arbiters of Hexis, или the rank of Exalted under the Red Veil, и потратив <*> на покупку."
-  }
+  },
+  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

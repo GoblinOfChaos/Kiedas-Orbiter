@@ -283,7 +283,7 @@ export default function RelicPlanner() {
               need.map((n) => (
                 <div key={n.uniqueName} className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded bg-black/20 border border-white/5">
                   <span className="text-xs text-kronos-text truncate">{n.name}</span>
-                  <FarmingTargetAction item={{ uniqueName: n.uniqueName, name: n.name }} />
+                  {IS_PREVIEW && <FarmingTargetAction item={{ uniqueName: n.uniqueName, name: n.name }} />}
                   <button onClick={() => removePart(n.uniqueName)} aria-label={IS_PREVIEW ? t('relic_planner.remove_part', { name: n.name }) : undefined} className="text-kronos-dim hover:text-red-400 flex-shrink-0">
                     <X size={14} />
                   </button>

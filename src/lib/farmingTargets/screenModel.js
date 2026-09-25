@@ -121,14 +121,15 @@ function sourceRowsFor(placeIndex, coveredItems) {
 }
 
 export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex } = {}) {
+  const activeTargetIds = new Set(targets.filter((target) => target?.status !== 'archived' && target?.status !== 'complete').map((target) => target.id));
   const owned = ownedMap(inventoryData);
   const expanded = expandTargets(targets.map((target) => ({ ...target, itemType: target.itemType ?? target.uniqueName, isAcquirable: target.isAcquirable ?? true })), {
     recipes: recipeList(inventoryData),
     owned,
   });
   const ledger = buildLedger({ leaves: expanded.leaves, owned, reservations: [
-    ...reservations,
-    ...targets.flatMap((target) => target.reservations ?? []),
+    ...(reservations ?? []).filter((reservation) => activeTargetIds.has(reservation?.targetId)),
+    ...targets.filter((target) => activeTargetIds.has(target.id)).flatMap((target) => target.reservations ?? []),
   ] });
   const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex });
   const rankingResult = rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters });

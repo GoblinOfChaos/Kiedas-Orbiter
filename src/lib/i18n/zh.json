@@ -3954,5 +3954,6 @@
     "tpl_2721": "- Overpressured Rounds：可在 Nightwave 的 Amir's Shockwave. 期间达到等级 <*> 获得。",
     "tpl_2722": "- 此 Mod 可通过达到 Maxim under the Arbiters of Hexis, 或 the rank of Partner under the The Perrin Sequence, 和 spending <*> to purchase. - This mod 可定期从 The Circuit 中获得。",
     "tpl_2723": "- 此 Mod 可通过在 Red Veil 达到 Maxim under the Arbiters of Hexis, 或 the rank of Exalted 等级并花费 <*> 购买。"
-  }
+  },
+  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

@@ -1,6 +1,6 @@
 # Completeness matrix
 
-Generated: 2026-09-25T12:56:44.846Z
+Generated: 2026-09-25T13:05:44.406Z
 
 Real-data run after applying DE merges. Discovery is the set of DE cache entries absent from the pre-merge mirror export, plus the three canaries.
 
@@ -11,16 +11,14 @@ Real-data run after applying DE merges. Discovery is the set of DE cache entries
 | companions | 1 | 0 | 0 |
 | cosmetics | 70 | 0 | 0 |
 | gear | 1 | 0 | 0 |
-| keys | 0 | 3 | 0 |
+| keys | 3 | 0 | 0 |
 | mods | 4 | 0 | 0 |
 | relics | 108 | 0 | 0 |
 | warframes | 3 | 0 | 0 |
 
 ## Failing rows and rules
 
-- **FAIL** Lua [keys] — rules: U1_catalog, U3_image, U6_description; screens: Worldstate, Acquisition
-- **FAIL** Vessel [keys] — rules: U1_catalog, U3_image, U6_description; screens: Worldstate, Acquisition
-- **FAIL** Eris Mortem [keys] — rules: U1_catalog, U3_image, U6_description; screens: Worldstate, Acquisition
+- None
 
 ## Merged app export
 
@@ -213,9 +211,9 @@ Real-data run after applying DE merges. Discovery is the set of DE cache entries
 | Niveus Dark Dagger Skin | cosmetics | PASS | PASS | PASS | PASS | Cosmetics:PASS, Drawer:PASS | PASS |
 | Niveus Dark Split-Sword Skin | cosmetics | PASS | PASS | PASS | PASS | Cosmetics:PASS, Drawer:PASS | PASS |
 | Niveus Dark Sword Skin | cosmetics | PASS | PASS | PASS | PASS | Cosmetics:PASS, Drawer:PASS | PASS |
-| Lua | keys | FAIL | FAIL | PASS | PASS | Worldstate:FAIL, Acquisition:FAIL | FAIL |
-| Vessel | keys | FAIL | FAIL | PASS | PASS | Worldstate:FAIL, Acquisition:FAIL | FAIL |
-| Eris Mortem | keys | FAIL | FAIL | PASS | PASS | Worldstate:FAIL, Acquisition:FAIL | FAIL |
+| Lua | keys | PASS | PASS | PASS | PASS | Worldstate:PASS, Acquisition:PASS | PASS |
+| Vessel | keys | PASS | PASS | PASS | PASS | Worldstate:PASS, Acquisition:PASS | PASS |
+| Eris Mortem | keys | PASS | PASS | PASS | PASS | Worldstate:PASS, Acquisition:PASS | PASS |
 
 ## Cannot be checked
 

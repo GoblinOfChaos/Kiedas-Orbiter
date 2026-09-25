@@ -3,13 +3,21 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // Build stamp shown in the Preview sidebar so it is always clear which build is running.
 function buildId() {
   let commit = 'unknown'
-  try { commit = execSync('git rev-parse --short HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() } catch { /* not a git checkout */ }
+  try { commit = execSync('git rev-parse --short HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() } catch { /* git missing or refuses this directory (distrobox ownership): read .git directly */ }
+  if (commit === 'unknown') {
+    try {
+      const head = readFileSync(path.join(__dirname, '.git/HEAD'), 'utf8').trim()
+      const ref = head.startsWith('ref: ') ? readFileSync(path.join(__dirname, '.git', head.slice(5)), 'utf8').trim() : head
+      commit = ref.slice(0, 7)
+    } catch { /* leave unknown */ }
+  }
   const d = new Date()
   const pad = (n) => String(n).padStart(2, '0')
   return `${commit} ${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`

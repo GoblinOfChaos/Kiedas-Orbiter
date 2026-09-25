@@ -30,6 +30,7 @@ import {
 } from '../lib/farmingTargets/store';
 import { computeFarmingTargetsView } from '../lib/farmingTargets/aggregation';
 import { buildFarmingTargetsScreenModel, buildPreviewPlaceIndex } from '../lib/farmingTargets/screenModel.js';
+import { RELIC_REFINEMENTS } from '../lib/farmingTargets/relicPlaces.js';
 import { event } from '../lib/logging/logger.js';
 
 function formatCount(n) {
@@ -48,8 +49,16 @@ function chanceLabel(chance) {
 }
 
 function HonestyBadge({ place, t }) {
-  const labels = { node: t('farming_targets.honesty_node'), 'fixed-boss': t('farming_targets.honesty_boss'), 'wiki-area': t('farming_targets.honesty_wiki_area'), planet: t('farming_targets.honesty_planet'), 'source-only': t('farming_targets.honesty_source'), unknown: t('farming_targets.honesty_unknown') };
+  const labels = { node: t('farming_targets.honesty_node'), 'fixed-boss': t('farming_targets.honesty_boss'), 'wiki-area': t('farming_targets.honesty_wiki_area'), planet: t('farming_targets.honesty_planet'), 'source-only': t('farming_targets.honesty_source'), vaulted: t('farming_targets.relic_vaulted'), unknown: t('farming_targets.honesty_unknown') };
   return <span className="rounded-full border border-kronos-accent/30 bg-kronos-accent/10 px-2 py-0.5 text-[9px] text-kronos-accent">{labels[place?.level] ?? labels.unknown}</span>;
+}
+
+function RelicPlaceRow({ row, total, t, onHowToGet }) {
+  return <div className="p-4 space-y-2">
+    <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.place.name}</strong><HonestyBadge place={row.place.vaulted ? { ...row.place, level: 'vaulted' } : row.place} t={t} /><span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
+    <div className="flex flex-wrap gap-2 text-[10px] text-kronos-dim"><span>{t('farming_targets.relic_owned', { count: row.place.ownedCount })}</span>{RELIC_REFINEMENTS.map((refinement) => <span key={refinement}>{refinement}: {row.place.refinements[refinement] ?? 0}</span>)}{!row.place.vaulted && row.place.sources.length > 0 && <button type="button" onClick={() => onHowToGet(row.place.uniqueName)} className="text-kronos-accent hover:underline">{t('farming_targets.relic_how_to_get')}</button>}</div>
+    <div className="flex flex-wrap gap-2">{row.coveredItems.map((item) => <span key={item.itemType} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span>{RELIC_REFINEMENTS.map((refinement) => <span key={refinement} className="ml-2 text-kronos-accent">{refinement[0]} {item.chances[refinement] == null ? '—' : `${(item.chances[refinement] * 100).toFixed(2)}%`}</span>)}</span>)}</div>
+  </div>;
 }
 
 function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChance, setMinChance, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange }) {
@@ -85,7 +94,7 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.farm_next')}</h2><p className="text-xs text-kronos-dim mt-1">{t('farming_targets.coverage_explanation')}</p></div>
           <div className="divide-y divide-white/5">
             {model.ranked.length === 0 && <p className="p-5 text-sm text-kronos-dim">{t('farming_targets.no_sources')}</p>}
-            {model.ranked.map((row) => <div key={row.place.id} className="p-4 space-y-2">
+            {model.ranked.map((row) => tab === 'relics' ? <RelicPlaceRow key={row.place.id} row={row} total={stillNeededCount} t={t} onHowToGet={toggle} /> : <div key={row.place.id} className="p-4 space-y-2">
               <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupPlanet && row.place.planet ? row.place.planet : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
               {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
               <div className="flex flex-wrap gap-2">{row.coveredItems.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>{source.rotation ? <span className="text-kronos-dim"> · {source.rotation}</span> : null}</span>))}</div>
@@ -112,7 +121,7 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
 export default function FarmingTargets() {
   const { t } = useUi();
   const {
-    inventoryData, isInventoryLoading, dropIndex, recipeResultIndex, marketIndex, bundleIndex,
+    inventoryData, isInventoryLoading, exportData, dropIndex, recipeResultIndex, marketIndex, bundleIndex,
     syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
     exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex,
     wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex,
@@ -172,14 +181,15 @@ export default function FarmingTargets() {
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
   const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex]);
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
-    targets, inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex,
+    targets, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex,
     placeIndex: previewPlaceIndex,
     filters: { tab: farmTab, minChance: minChance === '' ? undefined : Number(minChance), missionTypes: missionType ? [missionType] : [], factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], conclaveOnlyItems: [] }, [targets, inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChance, missionType, faction]);
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChance, missionType, faction]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
     event('farming.screen.summary', { targets: targets.length, ledger: screenModel.ledger.length, still_needed: screenModel.ledger.filter((row) => row.stillNeeded > 0).length, places: screenModel.ranked.length, conclave_only: screenModel.conclaveOnlyItems.length });
+    event('farming.relics.summary', { places: screenModel.relicPlaces?.length ?? 0, vaulted: screenModel.relicPlaces?.filter((row) => row.place.vaulted).length ?? 0, owned: screenModel.relicPlaces?.filter((row) => row.place.ownedCount > 0).length ?? 0 });
   }, [isInventoryLoading, Boolean(store), targets.length]);
 
   const handleAddTarget = useCallback((item) => {
@@ -216,6 +226,9 @@ export default function FarmingTargets() {
     if (IS_PREVIEW) {
       for (const entry of screenModel.ledger) {
         if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: null, category: null });
+      }
+      for (const row of screenModel.relicPlaces ?? []) {
+        if (!map.has(row.place.uniqueName)) map.set(row.place.uniqueName, { uniqueName: row.place.uniqueName, name: row.place.name, image: null, category: 'relics' });
       }
     }
     return map;

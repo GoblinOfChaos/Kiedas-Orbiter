@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "入手方法",
     "acquisition_drawer.sources_count": "{count}件の入手先",
     "acquisition_drawer.other_sources": "その他の入手先",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "製作に必要なもの",
     "acquisition_drawer.available_source": "入手可能な情報源",
     "acquisition_drawer.report_source_info": "情報源を報告",

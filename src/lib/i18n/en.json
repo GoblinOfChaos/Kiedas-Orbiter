@@ -1366,6 +1366,7 @@
     "acquisition_drawer.where_to_start": "Where to start",
     "acquisition_drawer.sources_count": "{count} sources",
     "acquisition_drawer.other_sources": "Other acquisition sources",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "Crafting requirements",
     "acquisition_drawer.available_source": "Available source",
     "acquisition_drawer.report_source_info": "Report source information",

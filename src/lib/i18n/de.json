@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "Wo man anfängt",
     "acquisition_drawer.sources_count": "{count} Quellen",
     "acquisition_drawer.other_sources": "Weitere Beschaffungsquellen",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "Herstellungsanforderungen",
     "acquisition_drawer.available_source": "Verfügbare Quelle",
     "acquisition_drawer.report_source_info": "Quelleninformation melden",

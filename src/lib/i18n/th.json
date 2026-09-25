@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "จะเริ่มจากตรงไหน",
     "acquisition_drawer.sources_count": "{count} แหล่งที่มา",
     "acquisition_drawer.other_sources": "แหล่งที่มาอื่นๆ",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "สิ่งที่ต้องใช้ในการสร้าง",
     "acquisition_drawer.available_source": "แหล่งที่มาที่ใช้ได้",
     "acquisition_drawer.report_source_info": "รายงานข้อมูลแหล่งที่มา",

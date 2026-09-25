@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "З чого почати",
     "acquisition_drawer.sources_count": "{count} джерел",
     "acquisition_drawer.other_sources": "Інші джерела отримання",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "Вимоги до виготовлення",
     "acquisition_drawer.available_source": "Доступне джерело",
     "acquisition_drawer.report_source_info": "Повідомити про джерело",

@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "Nereden başlanır",
     "acquisition_drawer.sources_count": "{count} kaynak",
     "acquisition_drawer.other_sources": "Diğer edinim kaynakları",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "Üretim gereksinimleri",
     "acquisition_drawer.available_source": "Mevcut kaynak",
     "acquisition_drawer.report_source_info": "Kaynak bilgisini bildir",

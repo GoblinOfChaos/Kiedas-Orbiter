@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "從哪裡開始",
     "acquisition_drawer.sources_count": "{count} 個來源",
     "acquisition_drawer.other_sources": "其他取得來源",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "製作需求",
     "acquisition_drawer.available_source": "可用來源",
     "acquisition_drawer.report_source_info": "回報來源資訊",

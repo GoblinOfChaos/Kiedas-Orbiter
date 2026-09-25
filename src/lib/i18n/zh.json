@@ -996,6 +996,7 @@
     "acquisition_drawer.where_to_start": "从哪里开始",
     "acquisition_drawer.sources_count": "{count} 个来源",
     "acquisition_drawer.other_sources": "其他获取来源",
+    "acquisition_drawer.component_sources": "Component sources",
     "acquisition_drawer.crafting_requirements": "制造需求",
     "acquisition_drawer.available_source": "可用来源",
     "acquisition_drawer.report_source_info": "报告来源信息",

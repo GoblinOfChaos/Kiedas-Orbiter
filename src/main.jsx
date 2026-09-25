@@ -77,6 +77,17 @@ if (typeof window !== 'undefined') {
     });
 
     if (IS_PREVIEW) {
+      // Input-to-frame latency: one requestAnimationFrame per user input (no polling loop). WebKitGTK has no
+      // longtask support, so this is the only direct measure of "the app feels slow to respond".
+      for (const type of ['pointerdown', 'keydown', 'input']) {
+        document.addEventListener(type, (event) => {
+          const started = event.timeStamp;
+          requestAnimationFrame(() => {
+            const ms = Math.round(performance.now() - started);
+            if (ms > 150) debug('perf.input_to_frame', { ms, type, route: location.hash || location.pathname }, { source: 'frontend' });
+          });
+        }, true);
+      }
       globalThis.__kiedasPreviewHeartbeat = setInterval(() => {
         const memory = performance.memory;
         debug('preview.heartbeat', {

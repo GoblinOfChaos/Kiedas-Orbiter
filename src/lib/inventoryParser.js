@@ -99,6 +99,55 @@ const WEAPON_BUCKET_BY_CATEGORY = { LongGuns: 'primary', Pistols: 'secondary', M
 const WEAPON_BUCKET_BY_SLOT = { 1: 'primary', 0: 'secondary', 5: 'melee' };
 const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
 
+// ExportResources contains both player-held resources and cosmetic/decoration
+// definitions. These parent families are excluded from Inventory > Resources
+// because DE identifies them as ship decorations, glyphs, projections, or
+// other presentation-only items rather than consumable/resource inventory.
+export const INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES = new Set([
+  '/Lotus/Types/Items/ShipDecos/ShipDecoItem',
+  '/Lotus/Types/Items/ShipDecos/BaseFishTrophy',
+  '/Lotus/Types/Items/ShipDecos/ChildDrawingBase',
+  '/Lotus/Types/Items/ShipDecos/LotusShawzinPlayableBase',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseEntrati',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseDuviri',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseCorpus',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseZariman',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseDate',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTile',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseSU',
+  '/Lotus/Types/Items/ShipFeatureItems/ShipFeatureItem',
+  '/Lotus/Types/Items/NavigationFeatureItem',
+  '/Lotus/Types/Game/SongItem',
+  '/Lotus/Types/Game/VoidProjectionItem',
+]);
+
+export const INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES = new Set([
+  'ShipDecorations', 'Glyphs', 'Emotes', 'Flavour', 'ShipFeatures',
+]);
+
+export function resourceFamilyForParent(parentName = '') {
+  const parent = String(parentName).toLowerCase();
+  if (parent.includes('/fish/')) return 'fish';
+  if (parent.includes('/gems/')) return 'gems';
+  if (parent.includes('/plants/')) return 'plants';
+  if (parent.includes('/ayatan') || parent.includes('/fusiontreasures/')) return 'ayatan';
+  if (parent.includes('/railjackmiscitems/')) return 'railjack';
+  if (parent.includes('/incarnonadapters/')) return 'incarnon';
+  if (parent.includes('/duviri/') && parent.includes('resource')) return 'duviri';
+  if (parent.includes('/focuslens')) return 'focus_lens';
+  if (parent.includes('/restoratives/') || parent.includes('/fishbait/')) return 'consumables';
+  if (parent.includes('/keys/') || parent.includes('/quest')) return 'keys_quest';
+  return 'other';
+}
+
+export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
+  const parentName = entry?.parentName ?? '';
+  if (INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES.has(parentName)) return true;
+  if (INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES.has(entry?.productCategory)) return true;
+  if (/\/ShipDecos\/|\/Glyphs\/|\/GlyphBoxes\/|\/Emotes\//i.test(`${parentName}${uniqueName}`)) return true;
+  return false;
+}
+
 /**
  * Resolve a DE weapon definition to the player's primary/secondary/melee
  * bucket. productCategory is authoritative; slot is the verified DE fallback
@@ -270,7 +319,7 @@ const BOOSTER_NAME_MAP = {
 // localized builds), e.g. .../WeaponParts/AfurisPrimeBarrel.  Used to separate
 // prime parts from resources and to build prime-set component lists — matching
 // the localized display name instead (e.g. "Afuris Prime: Lauf") would miss them.
-const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
+export const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
 
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
@@ -2622,6 +2671,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       });
       continue;
     }
+    if (isExcludedInventoryResourceEntry(ER[un], un)) continue;
     // Prime parts are shown in the prime-sets tab, not as resources. Match the
     // ItemType path (always English) — localized names like "Afuris Prime: Lauf"
     // don't contain the English component words.
@@ -2650,7 +2700,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // undefined) so they're correctly excluded from both the Mastered and
       // Unmastered filters, matching the pattern createItem already uses for
       // other no-mastery parts (see its own masterable comment).
-      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', quantity: item.ItemCount ?? 1, owned: true, masterable: false };
+      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', resource_family: resourceFamilyForParent(entry?.parentName), parent_name: entry?.parentName ?? '', quantity: item.ItemCount ?? 1, owned: true, masterable: false };
       (isModularComponent ? components : resources).push(obj);
     }
   }
@@ -2700,36 +2750,23 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     });
   }
 
-  // Several real, findable resource categories only showed up in Resources
-  // when owned - an unowned one was completely absent, with no way to even
-  // discover it exists or where to find it. Unlike the rest of MiscItems
-  // (thousands of entries, many decorative/one-off), DE's own `parentName`
-  // field cleanly identifies these specific real catalogs, so it's safe to
-  // list every item in each one with an owned/unowned status, the same way
-  // Relics.jsx shows the full relic catalog rather than only owned relics.
-  // Deliberately NOT filtering by `excludeFromCodex` - spot-checking it
-  // showed real, legitimate items (Kavat Genetic Code, Höllvania apartment
-  // decorations) carry that flag too, so it's not a safe "hide this" signal.
-  const FULL_CATALOG_RESOURCE_PARENTS = new Set([
-    '/Lotus/Types/Items/Fish/FishItem',
-    '/Lotus/Types/Items/Fish/FishPartItem',
-    '/Lotus/Types/Items/MiscItems/ResourceItem',
-    '/Lotus/Types/Items/Gems/GemItem',
-    '/Lotus/Types/Items/MiscItems/IncarnonAdapters/BaseIncarnonUnlocker',
-    '/Lotus/Types/Gameplay/Duviri/Resource/DuviriBaseResourceItem',
-    '/Lotus/Types/Items/RailjackMiscItems/BaseRailjackItem',
-    '/Lotus/Types/Items/Plants/MiscItems/PlantItem',
-    '/Lotus/Types/Items/MiscItems/FocusLens',
-  ]);
-  const ownedResourceUns = new Set(resources.map((r) => r.unique_name));
+  // Full DE resource catalog: parentName is the authoritative family field.
+  // The explicit exclusions above remove cosmetics/decorations; all other
+  // ExportResources entries are browsable even when quantity is zero.
+  const ownedResourceUns = new Set([...resources, ...components].map((r) => r.unique_name));
   for (const [un, entry] of Object.entries(ER)) {
-    if (!FULL_CATALOG_RESOURCE_PARENTS.has(entry?.parentName)) continue;
+    if (isExcludedInventoryResourceEntry(entry, un)) continue;
+    if (PRIME_PART_PATH_RE.test(un.split('/').pop())) continue;
+    if (un.includes('/WoundedInfested')) continue;
+    const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
+    const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent;
+    if (isModularComponent) continue;
     if (ownedResourceUns.has(un)) continue;
     const name = resolveName(un, dict, locale, ER, ERel, EW, ES);
     const resDescLoctag = entry?.description ?? '';
     const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
     const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
-    resources.push({ unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: 0, owned: false });
+    resources.push({ unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', resource_family: resourceFamilyForParent(entry?.parentName), parent_name: entry?.parentName ?? '', quantity: 0, owned: false });
   }
 
   const resolveRelicRewards = (entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew) => {

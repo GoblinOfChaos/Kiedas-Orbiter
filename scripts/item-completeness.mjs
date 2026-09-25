@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
-const { parseInventory } = await import('../src/lib/inventoryParser.js')
+const { parseInventory, isExcludedInventoryResourceEntry, resourceFamilyForParent, PRIME_PART_PATH_RE } = await import('../src/lib/inventoryParser.js')
 const { getRelicCatalog } = await import('../src/lib/relicParser.js')
 const { resolveAnyImage, resolveNode } = await import('../src/lib/warframeUtils.js')
 const { buildDropIndex } = await import('../src/lib/dropsParser.js')
@@ -36,6 +36,39 @@ export const CATEGORY_RULES = {
   recipes: { tables: ['ExportRecipes'], buckets: ['craftable'], screens: ['Foundry', 'Drawer'] },
   regions: { tables: ['ExportRegions'], buckets: ['starchart'], screens: ['Starchart', 'Arbitration', 'Worldstate'] },
   keys: { tables: ['ExportKeys'], buckets: ['keys'], screens: ['Worldstate', 'Acquisition'] },
+}
+
+export function checkInventoryCatalog({ harness, parsed }) {
+  const resources = parsed?.resources || []
+  const byPath = new Map(resources.map((item) => [canonicalPath(item.unique_name), item]))
+  const expected = []
+  const excluded = []
+  for (const [uniqueName, entry] of Object.entries(harness.exportsBundle.ExportResources || {})) {
+    if (isExcludedInventoryResourceEntry(entry, uniqueName)) {
+      excluded.push(uniqueName)
+      continue
+    }
+    if (PRIME_PART_PATH_RE.test(uniqueName.split('/').pop() || '')) continue
+    const isPetComponent = (uniqueName.includes('/MoaPetParts/') || uniqueName.includes('/ZanukaPetParts/')) && !uniqueName.includes('Head')
+    if (uniqueName.includes('/OperatorAmplifiers/') || uniqueName.includes('/ModularMelee') || uniqueName.includes('ModularSecondary') || isPetComponent) continue
+    expected.push({ uniqueName, family: resourceFamilyForParent(entry.parentName), entry })
+  }
+  const missing = expected.filter(({ uniqueName }) => !byPath.has(canonicalPath(uniqueName)))
+  const unresolved = expected.filter(({ uniqueName }) => {
+    const item = byPath.get(canonicalPath(uniqueName))
+    return item && (!item.name || item.name.startsWith('/') || !item.image)
+  })
+  const familyCounts = {}
+  for (const item of expected) familyCounts[item.family] = (familyCounts[item.family] || 0) + 1
+  return {
+    total: expected.length,
+    owned: resources.filter((item) => item.owned).length,
+    excluded: excluded.length,
+    missing: missing.map(({ uniqueName, family }) => ({ uniqueName, family })),
+    unresolved: unresolved.map(({ uniqueName, family }) => ({ uniqueName, family })),
+    familyCounts,
+    pass: missing.length === 0,
+  }
 }
 
 export function checkRegionCanary({ exportsBundle, dict = {}, uniqueName }) {
@@ -413,10 +446,20 @@ export async function run({ dataDir, repo = REPO, harness, previousIndex = [], i
   const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
   results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
   results.partsCompleteness = await checkPartsCompleteness({ harness: loaded, parsed })
+  results.inventoryCatalog = checkInventoryCatalog({ harness: loaded, parsed })
   const summary = results.partsCompleteness.summary
   try {
     const { event } = await import('../src/lib/logging/logger.js')
     event('inventory.parts.summary', { count: summary.total, owned: summary.owned, type: 'parts' }, { level: 'info', screen: 'inventory' })
+    event('inventory.catalog.summary', {
+      total: results.inventoryCatalog.total,
+      owned: results.inventoryCatalog.owned,
+      excluded: results.inventoryCatalog.excluded,
+      missing: results.inventoryCatalog.missing.length,
+      unresolved: results.inventoryCatalog.unresolved.length,
+      familyCounts: results.inventoryCatalog.familyCounts,
+      pass: results.inventoryCatalog.pass,
+    }, { level: 'info', screen: 'inventory' })
   } catch {
     // CLI/test environments have no Tauri logger; the returned summary remains authoritative.
   }

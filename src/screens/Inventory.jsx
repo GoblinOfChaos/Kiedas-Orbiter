@@ -235,6 +235,7 @@ export default function Inventory() {
   }, [exportData]);
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false);
   const [currentFilters, setCurrentFilters] = useState({});
+  const [resourceFamily, setResourceFamily] = useState('all');
   const [sortCriteria, setSortCriteria] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
   const pageScrollRef = useRef(null);
@@ -261,7 +262,7 @@ export default function Inventory() {
   useEffect(() => {
     pageScrollRef.current?.scrollTo({ top: 0 });
     setWindowMetrics((prev) => (prev.scrollTop === 0 ? prev : { ...prev, scrollTop: 0 }));
-  }, [activeTab, searchQuery, currentFilters, sortCriteria, sortDirection, viewMode]);
+  }, [activeTab, searchQuery, currentFilters, sortCriteria, sortDirection, viewMode, resourceFamily]);
 
   const handleImgError = useCallback((e) => {
     if (e.target.dataset.wfFallback === 'true') return;
@@ -493,9 +494,15 @@ export default function Inventory() {
     if (activeTab === 'consumables') return withImageFallback(inventoryData.consumables_catalog ?? []);
     if (activeTab === 'landing_craft') return withImageFallback(inventoryData.landing_craft_catalog ?? []);
     if (activeTab === 'parts') return withImageFallback(inventoryData.parts ?? []);
+    if (activeTab === 'resources') {
+      const resources = inventoryData.resources ?? [];
+      return withImageFallback(resourceFamily === 'all'
+        ? resources
+        : resources.filter((item) => (item.resource_family ?? 'other') === resourceFamily));
+    }
     if (activeTab === 'all') return withImageFallback((inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes'));
     return withImageFallback(inventoryData[activeTab] ?? []);
-  }, [inventoryData, activeTab, uiPath, primePrices]);
+  }, [inventoryData, activeTab, uiPath, primePrices, resourceFamily]);
 
   const filteredItems = useMemo(() => {
     let items = tabItems;
@@ -842,7 +849,7 @@ export default function Inventory() {
       return (
         <button
           key={tab.id}
-          onClick={() => { setActiveTab(tab.id); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc'); }}
+          onClick={() => { setActiveTab(tab.id); setResourceFamily('all'); setCurrentFilters({}); setSortCriteria('name'); setSortDirection('asc'); }}
           aria-current={isActive ? 'page' : undefined}
           className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-bold uppercase tracking-tight text-left transition-all whitespace-nowrap ${
           isActive ?
@@ -858,6 +865,31 @@ export default function Inventory() {
 
   const renderHeaderPanel = () =>
   <div className="flex flex-col gap-4">
+      {activeTab === 'resources' &&
+      <div className="flex items-center gap-2 overflow-x-auto p-1 bg-black/20 rounded-xl border border-white/5" role="group" aria-label={t('ui.inventory.resource_family_label')}>
+        {[...new Set((inventoryData?.resources ?? []).map((item) => item.resource_family ?? 'other'))]
+          .sort((a, b) => a.localeCompare(b))
+          .map((family) => {
+            const label = family === 'all'
+              ? t('ui.inventory.tab_all')
+              : t(`ui.inventory.resource_family_${family}`) || family.replace(/_/g, ' ');
+            return <button
+              key={family}
+              type="button"
+              aria-pressed={resourceFamily === family}
+              onClick={() => setResourceFamily(family)}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase whitespace-nowrap transition-all ${resourceFamily === family ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+              {label}
+            </button>;
+          })}
+        <button
+          type="button"
+          aria-pressed={resourceFamily === 'all'}
+          onClick={() => setResourceFamily('all')}
+          className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase whitespace-nowrap transition-all ${resourceFamily === 'all' ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white hover:bg-white/5'}`}>
+          {t('ui.inventory.tab_all')}
+        </button>
+      </div>}
       {/* Preview-only: flex-wrap so the search field is never squeezed to
           near-zero width by the filter/sort blocks at narrow content widths -
           they now drop to their own row instead ("clipped search controls"
@@ -1109,7 +1141,7 @@ export default function Inventory() {
               : `asset-cache://browse.wf${peelyPackPath}`
             : iconsPath ? convertFileSrc(`${iconsPath}/Categories/${iconName}.png`) : null;
           return { ...t, icon };
-        })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />
+        })} activeTab={activeTab} onChange={(id) => {setActiveTab(id);setResourceFamily('all');setCurrentFilters({});setSortCriteria('name');setSortDirection('asc');}} />
         );
         // Preview-only: explicit overflow-x plus a visible thin scrollbar (the
         // default browser scrollbar for a plain overflow-x-auto row was

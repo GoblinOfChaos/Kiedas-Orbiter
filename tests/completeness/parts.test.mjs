@@ -50,6 +50,14 @@ test('real merged exports contain Narin parts and do not duplicate Volt Prime pa
     assert.equal(parsed.melee.length, 224)
     assert.equal(parsed.beasts.some((item) => /Adarza Kavat|Sahasa Kubrow/.test(item.name || '')), true)
     assert.equal(parsed.parts.some((item) => /Adarza Kavat|Sahasa Kubrow/.test(item.name || '')), false)
+    // Every Narin part opens its OWN drop table: DE lists Chassis/Neuroptics/Systems Blueprint drops separately,
+    // and the drawer looks parts up by their blueprint key (real_unique_name).
+    const { buildDropIndex } = await import('../../src/lib/dropsParser.js')
+    const dropIndex = buildDropIndex(harness.exportsBundle)
+    for (const part of narin.filter((item) => /Chassis|Neuroptics|Systems/.test(item.name))) {
+      assert.ok((dropIndex[part.real_unique_name] || []).length > 0, `${part.name} has no drop rows under its own key`)
+      assert.ok((dropIndex[part.real_unique_name] || []).every((source) => source.part), `${part.name} drops must carry the part label`)
+    }
   } finally {
     await fs.rm(root, { recursive: true, force: true })
   }

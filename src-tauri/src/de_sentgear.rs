@@ -229,81 +229,53 @@ pub async fn refresh_de_sentgear(
         .ok_or("ExportGear_en.json missing from DE manifest index")?
         .to_owned();
     tokio::time::sleep(Duration::from_secs(1)).await;
-    let sentinel_response = client
-        .get(format!(
+    let sentinel_result = async {
+        let response = client.get(format!(
             "{}/{}",
             MANIFEST_BASE,
             sentinel_line.replace('!', "%21")
-        ))
-        .header("User-Agent", "KiedasOrbiter/1.3.3")
-        .send()
-        .await
-        .map_err(|e| e.to_string())?;
-    if !sentinel_response.status().is_success() {
-        return Err(format!(
-            "DE Sentinels returned HTTP {}",
-            sentinel_response.status()
-        ));
-    }
-    let sentinel_bytes = sentinel_response.bytes().await.map_err(|e| e.to_string())?;
+        )).header("User-Agent", "KiedasOrbiter/1.3.3").send().await.map_err(|e| e.to_string())?;
+        if !response.status().is_success() { return Err(format!("DE Sentinels returned HTTP {}", response.status())); }
+        response.bytes().await.map_err(|e| e.to_string())
+    }.await;
     tokio::time::sleep(Duration::from_secs(1)).await;
-    let gear_response = client
-        .get(format!(
+    let gear_result = async {
+        let response = client.get(format!(
             "{}/{}",
             MANIFEST_BASE,
             gear_line.replace('!', "%21")
-        ))
-        .header("User-Agent", "KiedasOrbiter/1.3.3")
-        .send()
-        .await
-        .map_err(|e| e.to_string())?;
-    if !gear_response.status().is_success() {
-        return Err(format!("DE Gear returned HTTP {}", gear_response.status()));
+        )).header("User-Agent", "KiedasOrbiter/1.3.3").send().await.map_err(|e| e.to_string())?;
+        if !response.status().is_success() { return Err(format!("DE Gear returned HTTP {}", response.status())); }
+        response.bytes().await.map_err(|e| e.to_string())
+    }.await;
+    let sentinel_bytes = sentinel_result;
+    let gear_bytes = gear_result;
+    let mut summary = MergeSummary::default();
+    let mut validated = false;
+    if let Ok(bytes) = sentinel_bytes {
+        let sentinel_de: Value = serde_json::from_slice(&bytes).map_err(|e| format!("parse DE Sentinels: {}", e))?;
+        let sentinel_records = records(&sentinel_de, "ExportSentinels");
+        if sentinel_records.len() >= SENTINEL_MINIMUM && sentinel_records.len() * 100 >= count(&sentinel_mirror, "ExportSentinels") * 80 {
+            validated = true;
+            crate::write_export_json_atomic(&export_dir.join("de/ExportSentinels_en.json"), &sentinel_de)?;
+            let (merged, changed, added, mirror_only) = merge_map(&records(&sentinel_mirror, "ExportSentinels"), &adapted(&sentinel_records, SENTINEL_FIELDS), SENTINEL_MERGE_FIELDS);
+            crate::write_export_json_atomic(&sentinel_path, &merged)?;
+            summary.sentinels_changed = changed; summary.sentinels_added = added; summary.sentinels_mirror_only = mirror_only;
+        }
     }
-    let gear_bytes = gear_response.bytes().await.map_err(|e| e.to_string())?;
-    let sentinel_de: Value = serde_json::from_slice(&sentinel_bytes)
-        .map_err(|e| format!("parse DE Sentinels: {}", e))?;
-    let gear_de: Value =
-        serde_json::from_slice(&gear_bytes).map_err(|e| format!("parse DE Gear: {}", e))?;
-    let sentinel_records = records(&sentinel_de, "ExportSentinels");
-    let gear_records = records(&gear_de, "ExportGear");
-    if sentinel_records.len() < SENTINEL_MINIMUM || gear_records.len() < GEAR_MINIMUM {
-        return Err(format!(
-            "DE Sentinels/Gear minimum failed: {} / {}",
-            sentinel_records.len(),
-            gear_records.len()
-        ));
+    if let Ok(bytes) = gear_bytes {
+        let gear_de: Value = serde_json::from_slice(&bytes).map_err(|e| format!("parse DE Gear: {}", e))?;
+        let gear_records = records(&gear_de, "ExportGear");
+        if gear_records.len() >= GEAR_MINIMUM && gear_records.len() * 100 >= count(&gear_mirror, "ExportGear") * 80 {
+            validated = true;
+            crate::write_export_json_atomic(&export_dir.join("de/ExportGear_en.json"), &gear_de)?;
+            let (merged, changed, added, mirror_only) = merge_map(&records(&gear_mirror, "ExportGear"), &adapted(&gear_records, GEAR_FIELDS), GEAR_MERGE_FIELDS);
+            crate::write_export_json_atomic(&gear_path, &merged)?;
+            summary.gear_changed = changed; summary.gear_added = added; summary.gear_mirror_only = mirror_only;
+        }
     }
-    if sentinel_records.len() * 100 < count(&sentinel_mirror, "ExportSentinels") * 80
-        || gear_records.len() * 100 < count(&gear_mirror, "ExportGear") * 80
-    {
-        return Err("DE Sentinels/Gear count collapsed below 80% of mirror".into());
+    if !validated {
+        return Err("DE Sentinels and Gear refresh both failed validation or download".into());
     }
-    crate::write_bytes_atomic(
-        &export_dir.join("de/ExportSentinels_en.json"),
-        &sentinel_bytes,
-    )
-    .map_err(|e| e.to_string())?;
-    crate::write_bytes_atomic(&export_dir.join("de/ExportGear_en.json"), &gear_bytes)
-        .map_err(|e| e.to_string())?;
-    let (sentinels, sentinels_changed, sentinels_added, sentinels_mirror_only) = merge_map(
-        &records(&sentinel_mirror, "ExportSentinels"),
-        &adapted(&sentinel_records, SENTINEL_FIELDS),
-        SENTINEL_MERGE_FIELDS,
-    );
-    let (gear, gear_changed, gear_added, gear_mirror_only) = merge_map(
-        &records(&gear_mirror, "ExportGear"),
-        &adapted(&gear_records, GEAR_FIELDS),
-        GEAR_MERGE_FIELDS,
-    );
-    crate::write_json_atomic(&sentinel_path, &sentinels)?;
-    crate::write_json_atomic(&gear_path, &gear)?;
-    Ok(MergeSummary {
-        sentinels_changed,
-        sentinels_added,
-        sentinels_mirror_only,
-        gear_changed,
-        gear_added,
-        gear_mirror_only,
-    })
+    Ok(summary)
 }

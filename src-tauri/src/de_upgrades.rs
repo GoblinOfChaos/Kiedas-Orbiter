@@ -219,6 +219,7 @@ async fn fetch_asset(
 pub async fn refresh_de_upgrades(
     client: &reqwest::Client,
     export_dir: &Path,
+    merge_images_this_run: bool,
 ) -> Result<MergeSummary, String> {
     let upgrade_path = export_dir.join("ExportUpgrades.json");
     let image_path = export_dir.join("ExportImages.json");
@@ -244,7 +245,7 @@ pub async fn refresh_de_upgrades(
     }
     let index = crate::decompress_lzma(&index_response.bytes().await.map_err(|e| e.to_string())?)?;
     let upgrades_bytes = fetch_asset(client, &index, "ExportUpgrades_en.json").await?;
-    let manifest_bytes = fetch_asset(client, &index, "ExportManifest.json").await?;
+    let manifest_bytes = std::fs::read(export_dir.join("de/ExportManifest.json")).map_err(|e| format!("read DE manifest cache: {}", e))?;
     let de: Value =
         serde_json::from_slice(&upgrades_bytes).map_err(|e| format!("parse DE upgrades: {}", e))?;
     let manifest: Value =
@@ -265,17 +266,12 @@ pub async fn refresh_de_upgrades(
     }
     let (mut merged, mut summary) = merge_upgrades(&mirror, &de);
     add_manifest_icons(&mut merged, &manifest);
-    let merged_images = merge_images(&mirror_images, &manifest, &mut summary);
+    let merged_images = if merge_images_this_run { merge_images(&mirror_images, &manifest, &mut summary) } else { mirror_images.clone() };
     serde_json::to_vec(&merged).map_err(|e| e.to_string())?;
     serde_json::to_vec(&merged_images).map_err(|e| e.to_string())?;
-    crate::write_json_atomic(&upgrade_path, &merged)?;
-    crate::write_json_atomic(&image_path, &merged_images)?;
-    crate::write_bytes_atomic(
-        &export_dir.join("de/ExportUpgrades_en.json"),
-        &upgrades_bytes,
-    )
-    .map_err(|e| e.to_string())?;
-    crate::write_bytes_atomic(&export_dir.join("de/ExportManifest.json"), &manifest_bytes)
-        .map_err(|e| e.to_string())?;
+    crate::write_export_json_atomic(&upgrade_path, &merged)?;
+    if merge_images_this_run { crate::write_export_json_atomic(&image_path, &merged_images)?; }
+    crate::write_export_json_atomic(&export_dir.join("de/ExportUpgrades_en.json"), &de)?;
+    crate::write_export_json_atomic(&export_dir.join("de/ExportManifest.json"), &manifest)?;
     Ok(summary)
 }

@@ -71,6 +71,10 @@ fn get_log_dir() -> PathBuf {
 }
 
 pub fn log_to_disk(_app: &AppHandle, message: &str) {
+    log_message(message);
+}
+
+pub fn log_message(message: &str) {
     let path = get_log_dir();
     let now = Local::now();
     let date_str = now.format("%Y-%m-%d").to_string();

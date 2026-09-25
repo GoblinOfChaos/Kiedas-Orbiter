@@ -216,6 +216,7 @@ fn count(value: &Value, category: &str) -> usize {
 pub async fn refresh_de_recipes(
     client: &reqwest::Client,
     export_dir: &Path,
+    merge_images_this_run: bool,
 ) -> Result<MergeSummary, String> {
     let recipe_path = export_dir.join("ExportRecipes.json");
     let resource_path = export_dir.join("ExportResources.json");
@@ -252,7 +253,7 @@ pub async fn refresh_de_recipes(
     let index = crate::decompress_lzma(&index_response.bytes().await.map_err(|e| e.to_string())?)?;
     let de_recipes = fetch_asset(client, &index, "ExportRecipes_en.json").await?;
     let de_resources = fetch_asset(client, &index, "ExportResources_en.json").await?;
-    let de_manifest = fetch_asset(client, &index, "ExportManifest.json").await?;
+    let de_manifest: Value = serde_json::from_slice(&std::fs::read(export_dir.join("de/ExportManifest.json")).map_err(|e| format!("read DE manifest cache: {}", e))?).map_err(|e| format!("parse DE manifest cache: {}", e))?;
     let recipe_count = count(&de_recipes, "ExportRecipes");
     let resource_count = count(&de_resources, "ExportResources");
     if recipe_count < 100 || resource_count < 100 {
@@ -272,7 +273,7 @@ pub async fn refresh_de_recipes(
     let merged_recipes = merge_recipes(&mirror_recipes, &de_recipes, &mut summary);
     let merged_resources =
         merge_resources(&mirror_resources, &de_resources, &de_manifest, &mut summary);
-    let merged_images = merge_images(&mirror_images, &de_manifest, &mut summary);
+    let merged_images = if merge_images_this_run { merge_images(&mirror_images, &de_manifest, &mut summary) } else { mirror_images.clone() };
     if let (Some(warframes), Some(entries)) = (
         merged_warframes.as_object_mut(),
         de_manifest.get("Manifest").and_then(Value::as_array),
@@ -297,24 +298,12 @@ pub async fn refresh_de_recipes(
     }
     // Validate every merged value before any atomic replacement occurs.
     serde_json::to_vec(&merged_warframes).map_err(|e| e.to_string())?;
-    crate::write_json_atomic(&recipe_path, &merged_recipes)?;
-    crate::write_json_atomic(&resource_path, &merged_resources)?;
-    crate::write_json_atomic(&image_path, &merged_images)?;
-    crate::write_json_atomic(&warframe_path, &merged_warframes)?;
-    crate::write_bytes_atomic(
-        &export_dir.join("de/ExportRecipes_en.json"),
-        serde_json::to_vec(&de_recipes).map_err(|e| e.to_string())?,
-    )
-    .map_err(|e| e.to_string())?;
-    crate::write_bytes_atomic(
-        &export_dir.join("de/ExportResources_en.json"),
-        serde_json::to_vec(&de_resources).map_err(|e| e.to_string())?,
-    )
-    .map_err(|e| e.to_string())?;
-    crate::write_bytes_atomic(
-        &export_dir.join("de/ExportManifest.json"),
-        serde_json::to_vec(&de_manifest).map_err(|e| e.to_string())?,
-    )
-    .map_err(|e| e.to_string())?;
+    crate::write_export_json_atomic(&recipe_path, &merged_recipes)?;
+    crate::write_export_json_atomic(&resource_path, &merged_resources)?;
+    if merge_images_this_run { crate::write_export_json_atomic(&image_path, &merged_images)?; }
+    crate::write_export_json_atomic(&warframe_path, &merged_warframes)?;
+    crate::write_export_json_atomic(&export_dir.join("de/ExportRecipes_en.json"), &de_recipes)?;
+    crate::write_export_json_atomic(&export_dir.join("de/ExportResources_en.json"), &de_resources)?;
+    crate::write_export_json_atomic(&export_dir.join("de/ExportManifest.json"), &de_manifest)?;
     Ok(summary)
 }

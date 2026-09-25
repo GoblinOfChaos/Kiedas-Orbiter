@@ -3196,15 +3196,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens,
     parts, prime_parts, components, resources,
   });
-  if (typeof window !== 'undefined') {
-    void import('./logging/logger').then(({ event }) => event('inventory.dedupe.summary', {
-      duplicate_unique_names: dedupeSummary.duplicateUniqueNames,
-      duplicate_catalog_records: dedupeSummary.duplicateCatalogRecords,
-      removed: dedupeSummary.removed,
-      resources: resources.length,
-      parts: parts.length,
-    }, { level: 'info', screen: 'inventory' })).catch(() => {});
-  }
+  // (Logged from the UI thread in Inventory.jsx: a dynamic import of the logger here breaks the worker bundle.)
 
   // ── Modular mastery components ──────────────────────────────────────────────
   // ── Owned-item lookup maps for modular components ────────────────────────────
@@ -3524,7 +3516,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, parts, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, parts, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, dedupeSummary, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──

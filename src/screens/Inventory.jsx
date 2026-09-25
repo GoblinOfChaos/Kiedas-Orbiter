@@ -606,6 +606,18 @@ export default function Inventory() {
     }, { level: 'info', screen: 'inventory' });
   }, [searchQuery, activeTab, tabItems, filteredItems]);
 
+  useEffect(() => {
+    const d = inventoryData?.dedupeSummary;
+    if (!d) return;
+    logEvent('inventory.dedupe.summary', {
+      duplicate_unique_names: d.duplicateUniqueNames,
+      duplicate_catalog_records: d.duplicateCatalogRecords,
+      removed: d.removed,
+      resources: inventoryData.resources?.length ?? 0,
+      parts: inventoryData.parts?.length ?? 0,
+    }, { level: 'info', screen: 'inventory' });
+  }, [inventoryData?.dedupeSummary]);
+
   const isPrimeParts = activeTab === 'prime_parts';
   const isAyatan = activeTab === 'ayatan';
   const isListView = IS_PREVIEW && viewMode === 'list' && activeTab !== 'arcanes';

@@ -598,6 +598,14 @@ export default function Inventory() {
     const container = pageScrollRef.current;
     if (!container || !virtualRoot) return;
 
+    // Virtualization removes the previous anchor candidate and moves the
+    // replacement window as firstRow changes. Letting the browser compensate
+    // for that DOM change adjusts scrollTop underneath the window calculation,
+    // which presents as an upward snap-back after a stutter. This is scoped to
+    // Inventory so other scroll containers keep their existing behavior.
+    const previousOverflowAnchor = container.style.overflowAnchor;
+    container.style.overflowAnchor = 'none';
+
     let baseOffset = 0;
 
     const computeColumns = () => {
@@ -695,6 +703,7 @@ export default function Inventory() {
       setIsScrolling(false);
       observer.disconnect();
       container.removeEventListener('scroll', onScroll);
+      container.style.overflowAnchor = previousOverflowAnchor;
     };
   }, [virtualRoot, activeTab, viewMode, isPrimeParts, isAyatan, isListView]);
 

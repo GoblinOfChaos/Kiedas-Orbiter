@@ -2525,9 +2525,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const childParts = [];
     for (const ingredient of parentRecipe.recipe.ingredients ?? []) {
       const child = recipeByResult.get(ingredient.ItemType);
-      const childIsExportedPart = !!(EW[ingredient.ItemType] || EWf[ingredient.ItemType] || ES[ingredient.ItemType]);
+      // A recipe that consumes another WHOLE weapon/frame/companion (e.g. Akbolto needs
+      // Bolto) must not turn that item into a "part": it is already its own inventory item.
+      const isWholeEquipment = (equipmentByUniqueName.has(ingredient.ItemType) || equipmentByUniqueName.has(child?.recipe.resultType)) && !/Component/.test(child?.recipe.resultType || '');
       const childLooksLikePart = /(Component|Barrel|Receiver|Stock|Blade|Handle|Link|Chassis|Helmet|Systems|Wings|Harness|Neuroptics|Cerebrum|Carapace)($|[^a-z])/i.test(child?.recipe.resultType || '');
-      if (!child || (!childIsExportedPart && !childLooksLikePart) || primePartUniqueNames.has(child.recipe.resultType) || /Prime/i.test(child.recipe.resultType || '')) continue;
+      if (!child || isWholeEquipment || !childLooksLikePart || primePartUniqueNames.has(child.recipe.resultType) || /Prime/i.test(child.recipe.resultType || '')) continue;
       childParts.push({ resultType: child.recipe.resultType, blueprintKey: child.key });
     }
     const entries = [{ resultType: parent.unique_name, blueprintKey: parentRecipe.key }, ...childParts];
@@ -2537,7 +2539,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const blueprintQuantity = ownedBlueprintCounts.get(blueprintKey) ?? 0;
       const craftedQuantity = ownedCraftedCounts.get(resultType) ?? 0;
       const itemName = resultType === parent.unique_name
-        ? (resolveName(blueprintKey, dict, locale, ERecipe, EW, EWf, ES, ER) || `${parentName} Blueprint`)
+        ? (resolveName(blueprintKey, dict, locale, ERecipe, EW, EWf, ES, ER) || `${parentName}${BLUEPRINT_SUFFIX[locale] ?? ' Blueprint'}`)
         : resolveName(resultType, dict, locale, EW, EWf, ES, ER, ERecipe);
       const image = resolveImage(resultType, EW, EWf, ES, ER, ERecipe);
       // Keep a verified recipe part even when the current export lacks an
@@ -2553,11 +2555,19 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         parent_unique_name: parent.unique_name,
         parent_name: parentName,
         parent_category: parent.category,
+        // Drops are keyed by the blueprint, so the acquisition drawer must look that up.
+        real_unique_name: blueprintKey,
         blueprint_unique_name: blueprintKey,
         blueprint_quantity: blueprintQuantity,
         quantity: resultType === parent.unique_name ? blueprintQuantity : craftedQuantity,
         crafted_quantity: craftedQuantity,
         owned: blueprintQuantity > 0 || craftedQuantity > 0,
+        description: '',
+        xp: 0,
+        rank: 0,
+        max_rank: 0,
+        mastered: false,
+        is_prime: false,
       });
     }
   }

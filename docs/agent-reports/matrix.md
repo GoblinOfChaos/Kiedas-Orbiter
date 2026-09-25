@@ -1,6 +1,6 @@
 # Completeness matrix
 
-Generated: 2026-09-25T13:05:44.406Z
+Generated: 2026-09-25T16:12:16.536Z
 
 Real-data run after applying DE merges. Discovery is the set of DE cache entries absent from the pre-merge mirror export, plus the three canaries.
 

@@ -829,7 +829,7 @@ export default function Inventory() {
     style={{ scrollbarWidth: 'thin' }}
     aria-label={t('screen.inventory')}>
     {INVENTORY_TABS.map((tab) => {
-      const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
+      const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', parts: 'Resources', ayatan: 'Ayatan' };
       const iconName = iconMap[tab.id] || tab.label;
       const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
       const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
@@ -1422,7 +1422,7 @@ export default function Inventory() {
                     )}
                     {item.subsumed && <span className="text-[10px] font-black uppercase text-purple-400">⚗ {t('ui.comp.subsumed')}</span>}
                     {(isModOrResource || isPrimePart || item.veiled) && item.quantity !== undefined &&
-                      <span className={`text-[10px] font-black uppercase ${item.quantity > 0 ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>{item.quantity > 0 ? `×${item.quantity}` : 'Unowned'}</span>
+                      <span className={`text-[10px] font-black uppercase ${(item.quantity > 0 || item.blueprint_quantity > 0) ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>{item.quantity > 0 ? `×${item.quantity}` : item.blueprint_quantity > 0 ? `BP ×${item.blueprint_quantity}` : 'Unowned'}</span>
                     }
                   </div>
                 </Card>
@@ -1549,7 +1549,7 @@ export default function Inventory() {
 
                         {/* Stock count (mods, resources, arcanes, prime parts, veiled rivens) */}
                         {(isModOrResource || isPrimePart || item.veiled) && item.quantity !== undefined &&
-                    <span className={`text-[10px] font-black uppercase truncate max-w-full ${item.quantity > 0 ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>
+                    <span className={`text-[10px] font-black uppercase truncate max-w-full ${(item.quantity > 0 || item.blueprint_quantity > 0) ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>
                             {item.quantity > 0 ? `×${item.quantity}` : item.blueprint_quantity > 0 ? `BP ×${item.blueprint_quantity}` : 'Unowned'}
                           </span>
                     }

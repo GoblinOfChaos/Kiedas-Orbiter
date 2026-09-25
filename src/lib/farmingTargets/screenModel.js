@@ -3,6 +3,7 @@ import { expandTargets } from './requirements.js';
 import { buildLedger } from './ledger.js';
 import { rankPlaces } from './farmNext.js';
 import { sortSourcesByChanceInRotations } from '../chanceSort.js';
+import { buildRelicPlaces } from './relicPlaces.js';
 
 const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
 
@@ -119,7 +120,7 @@ function sourceRowsFor(placeIndex, coveredItems) {
   }));
 }
 
-export function buildFarmingTargetsScreenModel({ targets = [], inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex } = {}) {
+export function buildFarmingTargetsScreenModel({ targets = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex } = {}) {
   const owned = ownedMap(inventoryData);
   const expanded = expandTargets(targets.map((target) => ({ ...target, itemType: target.itemType ?? target.uniqueName, isAcquirable: target.isAcquirable ?? true })), {
     recipes: recipeList(inventoryData),
@@ -128,13 +129,20 @@ export function buildFarmingTargetsScreenModel({ targets = [], inventoryData, dr
   const ledger = buildLedger({ leaves: expanded.leaves, owned, reservations: targets.flatMap((target) => target.reservations ?? []) });
   const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex });
   const rankingResult = rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters });
-  const ranked = rankingResult.ranked.map((row) => ({
+  const relicPlaces = buildRelicPlaces({ ledger, inventoryData, exportData, dropIndex });
+  const ranked = filters.tab === 'relics' ? relicPlaces : rankingResult.ranked;
+  const rankedRows = ranked.map((row) => ({
     ...row,
     coveredItems: row.coveredItems.map((item) => ({ ...item, placeId: row.place.id })),
   })).map((row) => ({ ...row, coveredItems: sourceRowsFor(resolvedPlaceIndex, row.coveredItems) }));
+  const relicRows = relicPlaces.map((row) => ({
+    ...row,
+    coveredItems: row.coveredItems.map((item) => ({ ...item, placeId: row.place.id })),
+  }));
   return {
     ledger,
-    ranked,
+    ranked: filters.tab === 'relics' ? relicRows : rankedRows,
+    relicPlaces: relicRows,
     conclaveOnlyItems: rankingResult.conclaveOnlyItems,
     excludedByMinChance: rankingResult.excludedByMinChance,
     unresolved: expanded.unresolved,

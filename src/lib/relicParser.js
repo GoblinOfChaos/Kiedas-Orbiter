@@ -1,9 +1,9 @@
 /**
  * Logic for mapping Relic unique names (from logs) to game data and inventory context.
  */
-import { BLUEPRINT_SUFFIX } from './warframeUtils';
-import { BARO_RELIC_NAMES } from './baroRelics';
-import { REQUIEM_MOD_ALIASES } from './requiemModAliases';
+import { BLUEPRINT_SUFFIX } from './warframeUtils.js';
+import { BARO_RELIC_NAMES } from './baroRelics.js';
+import { REQUIEM_MOD_ALIASES } from './requiemModAliases.js';
 
 const allRelicRewardsCache = new WeakMap();
 const relicCatalogCache = new WeakMap();

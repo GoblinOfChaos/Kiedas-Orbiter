@@ -34,6 +34,7 @@ mod de_warframes;
 mod de_weapons;
 mod de_recipes;
 mod de_relics;
+mod de_upgrades;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -662,6 +663,21 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         match de_relics::refresh_de_relics(&client, &export_dir).await {
             Ok(summary) => { updated_count += 1; eprintln!("DE relics/arcanes merge: {} relics added, {} arcanes added, {} mirror-only retained", summary.relics_added, summary.arcanes_added, summary.relics_mirror_only + summary.arcanes_mirror_only); }
             Err(e) => eprintln!("Warning: could not refresh DE relics/arcanes; retained mirror: {}", e),
+        }
+    }
+
+    // DE upgrades are the authoritative source for mod numeric fields and
+    // levelStats. The mirror remains the base so its localization and
+    // mirror-only records survive a failed or incomplete DE refresh.
+    let de_upgrades_cache = export_dir.join("de/ExportUpgrades_en.json");
+    if force || !de_upgrades_cache.exists() || file_age_secs(&de_upgrades_cache) > 86_400
+        || mirror_newer_than(&export_dir.join("ExportUpgrades.json"), &de_upgrades_cache) {
+        match de_upgrades::refresh_de_upgrades(&client, &export_dir).await {
+            Ok(summary) => {
+                updated_count += 1;
+                eprintln!("DE upgrades merge: {} changed, {} added, {} mirror-only retained, {} images added", summary.changed, summary.added, summary.mirror_only, summary.images_added);
+            }
+            Err(e) => eprintln!("Warning: could not refresh DE upgrades; retained mirror: {}", e),
         }
     }
 

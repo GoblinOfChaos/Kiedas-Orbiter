@@ -18,12 +18,12 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
   const exportDir = path.join(dataDir, 'export')
   await fs.mkdir(exportDir, { recursive: true })
   await fs.mkdir(path.join(cacheDir, 'assets'), { recursive: true })
-  const suffixes = { ExportWarframes: 'warframes', ExportWeapons: 'weapons', ExportRecipes: 'recipes', ExportResources: 'resources', ExportRelicArcane: 'relic-arcane', ExportManifest: 'manifest' }
+  const suffixes = { ExportWarframes: 'warframes', ExportWeapons: 'weapons', ExportRecipes: 'recipes', ExportResources: 'resources', ExportRelicArcane: 'relic-arcane', ExportUpgrades: 'upgrades', ExportManifest: 'manifest' }
   await fs.writeFile(path.join(cacheDir, 'provenance.json'), JSON.stringify({ categories: Object.fromEntries(Object.entries(suffixes).map(([category, suffix]) => [category, { suffix }])) }))
   const app = {
     ExportWarframes: { [frame]: { uniqueName: frame, name: '/mirror/name', health: 10 } },
     ExportWeapons: { [weapon]: { uniqueName: weapon, name: '/mirror/weapon', totalDamage: 10 } },
-    ExportRecipes: {}, ExportResources: {}, ExportRelics: {}, ExportArcanes: {}, ExportImages: {},
+    ExportRecipes: {}, ExportResources: {}, ExportRelics: {}, ExportArcanes: {}, ExportUpgrades: {}, ExportImages: {},
   }
   for (const [name, value] of Object.entries(app)) await fs.writeFile(path.join(exportDir, `${name}.json`), JSON.stringify(value))
   const manifest = { Manifest: [{ uniqueName: frame, textureLocation: '/Lotus/Test.png!hash' }, { uniqueName: resource, textureLocation: '/Lotus/Resource.png!resource-hash' }] }
@@ -33,6 +33,7 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
     ExportRecipes: [{ uniqueName: recipe, resultType: frame, ingredients: [] }],
     ExportResources: [{ uniqueName: resource, name: 'Resource' }],
     ExportRelicArcane: [{ uniqueName: '/Lotus/Types/Game/Relics/TestRelic', category: 'Lith' }, { uniqueName: '/Lotus/Types/Items/ArcaneEnhancements/TestArcane', rarity: 'Rare' }],
+    ExportUpgrades: [{ uniqueName: '/Lotus/Powersuits/Test/NewAugmentCard', name: 'New Mod', levelStats: [{ stats: ['new'] }] }],
     ExportManifest: manifest,
     ExportRelics: {}, ExportArcanes: {},
   }
@@ -59,6 +60,9 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
       '/Lotus/Resource.png': { contentHash: 'resource-hash' },
       '/Lotus/Test.png': { contentHash: 'hash' },
     })
+    const upgrades = await read('ExportUpgrades.json')
+    assert.equal(upgrades['/Lotus/Powersuits/Test/NewAugmentCard'].name, 'New Mod')
+    assert.deepEqual(upgrades['/Lotus/Powersuits/Test/NewAugmentCard'].levelStats, [{ stats: ['new'] }])
   } finally {
     await fs.rm(root, { recursive: true, force: true })
   }

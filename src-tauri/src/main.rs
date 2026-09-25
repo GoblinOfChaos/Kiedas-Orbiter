@@ -32,6 +32,7 @@ mod wiki_store;
 mod ee_log;
 mod de_warframes;
 mod de_weapons;
+mod de_recipes;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -628,6 +629,19 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 eprintln!("DE Weapons merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only);
             }
             Err(e) => eprintln!("Warning: could not refresh DE Weapons; retained mirror: {}", e),
+        }
+    }
+
+    // DE recipes/resources/images are a non-fatal hybrid overlay. If any
+    // request, shape, or count validation fails, the mirror exports remain.
+    let de_recipe_cache = export_dir.join("de/ExportRecipes_en.json");
+    if force || !de_recipe_cache.exists() || file_age_secs(&de_recipe_cache) > 86_400 {
+        match de_recipes::refresh_de_recipes(&client, &export_dir).await {
+            Ok(summary) => {
+                updated_count += 1;
+                eprintln!("DE recipes merge: {} recipes added, {} resources added, {} images added", summary.recipes_added, summary.resources_added, summary.images_added);
+            }
+            Err(e) => eprintln!("Warning: could not refresh DE recipes/resources/images; retained mirror: {}", e),
         }
     }
 

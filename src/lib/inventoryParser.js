@@ -3786,6 +3786,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
                 ingredientUsage[subKey] = subAlreadyAllocated + subNeed;
                 return {
                   name: resolveName(subIng.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
+                  itemType: subIng.ItemType,
                   have: subHave,
                   need: subNeed,
                   image: resolveImage(subIng.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe)

@@ -137,12 +137,13 @@ function buildResultTypeToBlueprintMap(exportData) {
 // drawer) and ALSO under the component's own keys (its blueprint recipe key and its
 // resultType), so opening the part itself (e.g. Inventory > Parts > Narin Chassis) finds its own drop table.
 function addComponentSource(index, component, source, resultTypeToBlueprint) {
-  const labelled = { ...source, part: component.part }
-  addSource(index, component.parentResultType, labelled)
+  addSource(index, component.parentResultType, { ...source, part: component.part })
+  // Under the part's OWN keys the rows are its own sources (no part label): a labelled row would be
+  // shown by the drawer as a "component source" of the part, leaving "Where to start" empty.
   if (component.componentUn) {
-    addSource(index, component.componentUn, labelled)
+    addSource(index, component.componentUn, source)
     const blueprintUn = resultTypeToBlueprint?.[component.componentUn]
-    if (blueprintUn && blueprintUn !== component.componentUn) addSource(index, blueprintUn, labelled)
+    if (blueprintUn && blueprintUn !== component.componentUn) addSource(index, blueprintUn, source)
   }
 }
 

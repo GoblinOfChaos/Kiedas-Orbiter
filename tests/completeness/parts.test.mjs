@@ -56,8 +56,17 @@ test('real merged exports contain Narin parts and do not duplicate Volt Prime pa
     const dropIndex = buildDropIndex(harness.exportsBundle)
     for (const part of narin.filter((item) => /Chassis|Neuroptics|Systems/.test(item.name))) {
       assert.ok((dropIndex[part.real_unique_name] || []).length > 0, `${part.name} has no drop rows under its own key`)
-      assert.ok((dropIndex[part.real_unique_name] || []).every((source) => source.part), `${part.name} drops must carry the part label`)
+      assert.ok((dropIndex[part.real_unique_name] || []).every((source) => !source.part), `${part.name} own drops must be unlabelled so the drawer shows them under Where to start`)
     }
+    // Farming Targets with the Narin parts as targets froze the app (13 s in relicSources, then 'unverifiable
+    // ingredient'): the screen model must stay fast and resolve the parts into requirements.
+    const { buildFarmingTargetsScreenModel } = await import('../../src/lib/farmingTargets/screenModel.js')
+    const targets = narin.filter((item) => /Chassis|Neuroptics|Systems/.test(item.name)).map((item, index) => ({ id: `t${index}`, uniqueName: item.unique_name, name: item.name, quantity: 1, status: 'active' }))
+    const started = performance.now()
+    const model = buildFarmingTargetsScreenModel({ targets, reservations: [], inventoryData: parsed, exportData: harness.exportsBundle, dropIndex, filters: { tab: 'all', missionTypes: [], factions: [] } })
+    assert.ok(performance.now() - started < 4000, 'farm screen model must not take seconds')
+    assert.deepEqual(model.unresolved, [])
+    assert.ok(model.ledger.length > 0)
   } finally {
     await fs.rm(root, { recursive: true, force: true })
   }

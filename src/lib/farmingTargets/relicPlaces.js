@@ -32,23 +32,47 @@ function rewardMatches(reward, row) {
   return rewardKey === itemKey || lower(reward.name) === lower(row.name);
 }
 
-function relicSources(relic, dropIndex) {
-  const names = new Set([relic.key, `${relic.era} ${relic.name} Relic`, relic.name].map(lower));
-  const sources = [];
-  for (const [itemKey, entries] of Object.entries(dropIndex ?? {})) {
+// One pass over the whole drop index (52k rows) instead of one pass PER relic (430 relics = 10+ second UI
+// freeze when farming targets were open). Cached per dropIndex object.
+const relicSourceIndexCache = new WeakMap();
+function relicSourceIndex(dropIndex) {
+  if (!dropIndex || typeof dropIndex !== 'object') return new Map();
+  const cached = relicSourceIndexCache.get(dropIndex);
+  if (cached) return cached;
+  const index = new Map();
+  const add = (key, source) => {
+    if (!key) return;
+    let list = index.get(key);
+    if (!list) index.set(key, (list = new Set()));
+    list.add(source);
+  };
+  for (const [itemKey, entries] of Object.entries(dropIndex)) {
     if (!Array.isArray(entries)) continue;
+    const keyLower = lower(itemKey);
     for (const source of entries) {
-      const sourceItem = source.itemName ?? source.item ?? source.displayName ?? source.relicName;
-      if (!names.has(lower(itemKey)) && !names.has(lower(sourceItem))) continue;
-      const name = source.nodeName ?? source.node ?? source.source ?? source.name;
-      if (!name || lower(name) === 'drops.wf' || lower(name) === 'browse.wf') continue;
-      sources.push({
-        name,
-        type: source.type ?? 'mission',
-        chance: source.chance == null ? null : Number(source.chance),
-        rotation: source.rotation ?? null,
-      });
+      add(keyLower, source);
+      add(lower(source.itemName ?? source.item ?? source.displayName ?? source.relicName), source);
     }
+  }
+  relicSourceIndexCache.set(dropIndex, index);
+  return index;
+}
+
+function relicSources(relic, dropIndex) {
+  const index = relicSourceIndex(dropIndex);
+  const names = new Set([relic.key, `${relic.era} ${relic.name} Relic`, relic.name].map(lower));
+  const matched = new Set();
+  for (const name of names) for (const source of index.get(name) ?? []) matched.add(source);
+  const sources = [];
+  for (const source of matched) {
+    const name = source.nodeName ?? source.node ?? source.source ?? source.name;
+    if (!name || lower(name) === 'drops.wf' || lower(name) === 'browse.wf') continue;
+    sources.push({
+      name,
+      type: source.type ?? 'mission',
+      chance: source.chance == null ? null : Number(source.chance),
+      rotation: source.rotation ?? null,
+    });
   }
   return sources.sort((a, b) => textCompare(a.name, b.name) || textCompare(a.rotation, b.rotation));
 }

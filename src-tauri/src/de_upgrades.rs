@@ -171,7 +171,7 @@ fn merge_images(mirror: &Value, manifest: &Value, summary: &mut MergeSummary) ->
         .into_iter()
         .flatten()
     {
-        let Some(texture) = entry.get("textureLocation").and_then(Value::as_str()) else {
+        let Some(texture) = entry.get("textureLocation").and_then(Value::as_str) else {
             continue;
         };
         let Some((path, hash)) = texture.rsplit_once('!') else {

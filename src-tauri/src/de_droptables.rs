@@ -139,7 +139,7 @@ pub async fn refresh_de_drop_tables(client: &reqwest::Client, export_dir: &Path,
         if let Ok(previous) = serde_json::from_slice::<Value>(&previous_bytes) {
             let old = previous.pointer("/stats/rows").and_then(Value::as_u64).unwrap_or(0) as f64;
             let new = normalized.pointer("/stats/rows").and_then(Value::as_u64).unwrap_or(0) as f64;
-            if old > 0 && new < old * MIN_PREVIOUS_RATIO { return Err(format!("DE drop-table row count dropped from {} to {}", old, new)); }
+            if old > 0.0 && new < old * MIN_PREVIOUS_RATIO { return Err(format!("DE drop-table row count dropped from {} to {}", old, new)); }
         }
     }
     normalized["fetchedAt"] = json!(chrono::Utc::now().to_rfc3339());

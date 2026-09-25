@@ -18,6 +18,8 @@ const CATEGORIES = [
   'ExportDrones', 'ExportFusionBundles', 'ExportSortieRewards',
   'ExportManifest',
 ]
+const LOCALE_CATEGORIES = CATEGORIES.filter((category) => category !== 'ExportManifest')
+const FETCH_LOCALES = ['de', 'fr', 'ja']
 
 const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms))
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex')
@@ -27,7 +29,7 @@ function argValue(args, name, fallback) {
   return index >= 0 && args[index + 1] ? args[index + 1] : fallback
 }
 
-function parseIndex(text) {
+function parseIndex(text, locale = 'en') {
   const entries = {}
   for (const rawLine of text.split(/\r?\n/)) {
     const line = rawLine.trim()
@@ -36,7 +38,7 @@ function parseIndex(text) {
     if (separator <= 0) continue
     const logicalName = line.slice(0, separator)
     const suffix = line.slice(separator + 1)
-    const match = logicalName.match(/^(Export[^_]+)_en\.json$/)
+    const match = logicalName.match(new RegExp(`^(Export[^_]+)_${locale}\\.json$`))
     if (match) entries[match[1]] = { logicalName, suffix, line }
     if (logicalName === 'ExportManifest.json') entries.ExportManifest = { logicalName, suffix, line }
   }
@@ -86,6 +88,37 @@ async function fetchIndex() {
   }
 }
 
+async function fetchLocaleExports(locale, previous) {
+  const compressed = await fetchBytes(`https://content.warframe.com/PublicExport/index_${locale}.txt.lzma`)
+  const temporary = join(cacheDir, `index-${locale}-${process.pid}.txt.lzma`)
+  await writeFile(temporary, compressed)
+  let text
+  try {
+    text = (await execFileAsync('/usr/bin/xz', ['--format=lzma', '-dc', temporary], { maxBuffer: 2 * 1024 * 1024 })).stdout
+  } finally { await unlink(temporary).catch(() => {}) }
+  const entries = parseIndex(text, locale)
+  const localeDir = join(cacheDir, 'assets', locale)
+  await mkdir(localeDir, { recursive: true })
+  const categories = {}
+  for (const category of LOCALE_CATEGORIES) {
+    const entry = entries[category]
+    if (!entry) throw new Error(`${locale} index is missing ${category}`)
+    const assetPath = join(localeDir, entry.suffix.replace(/[^A-Za-z0-9._+-]/g, '_') + '.json')
+    let bytes
+    try { bytes = await readFile(assetPath) } catch {
+      await sleep(1000)
+      bytes = await fetchBytes(`${CONTENT_BASE}/${entry.line.replace('!', '%21')}`)
+      await atomicWrite(assetPath, bytes)
+    }
+    const value = JSON.parse(bytes)
+    const count = countRecords(value, category)
+    const previousCount = previous?.locales?.[locale]?.[category]?.count
+    if (previousCount && count < previousCount * 0.8) throw new Error(`${locale}/${category}: count collapsed`)
+    categories[category] = { suffix: entry.suffix, count, sha256: sha256(bytes), bytes: bytes.length }
+  }
+  return categories
+}
+
 async function fetchExports() {
   const cache = cacheDir
   await mkdir(join(cache, 'assets'), { recursive: true })
@@ -108,7 +141,7 @@ async function fetchExports() {
       reused += 1
     } catch {
       if (downloaded + reused > 0) await sleep(1000)
-      bytes = await fetchBytes(url)
+      bytes = await fetchBytes(url.replace('!', '%21'))
       downloaded += 1
       await atomicWrite(assetPath, bytes)
     }
@@ -145,6 +178,11 @@ async function fetchExports() {
     categories,
     validation: { requiredCategories: CATEGORIES, narin: Boolean(narin) },
     downloadStats: { downloaded, reused },
+    locales: {},
+  }
+  for (const locale of FETCH_LOCALES) {
+    await sleep(1000)
+    provenance.locales[locale] = await fetchLocaleExports(locale, previous)
   }
   await atomicWrite(join(cache, 'provenance.json'), JSON.stringify(provenance, null, 2) + '\n')
   return provenance

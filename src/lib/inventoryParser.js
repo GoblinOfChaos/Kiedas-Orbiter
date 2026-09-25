@@ -112,8 +112,9 @@ export function getWeaponBucket(entry, uniqueName = '') {
     : WEAPON_BUCKET_BY_SLOT[entry?.slot];
   // /Bayonet/ holds both attachment definitions (masteryReq 0) and real masterable
   // Tenno weapons such as Vinquibus (LongGuns, masteryReq 14, codexSecret false):
-  // DE's own masteryReq decides, not the path.
-  const isMasterableBayonet = /\/Bayonet\//i.test(uniqueName) && entry?.masteryReq > 0 && entry?.codexSecret !== true;
+  // DE's own masteryReq decides, not the path. The bayonet MELEE record is just that rifle's
+  // alternate mode (same weapon), so it stays excluded to avoid a duplicate entry.
+  const isMasterableBayonet = bucket !== 'melee' && /\/Bayonet\//i.test(uniqueName) && entry?.masteryReq > 0 && entry?.codexSecret !== true;
   if (!bucket || (NON_PLAYER_WEAPON_PATH.test(uniqueName) && !isMasterableBayonet)) return null;
   const name = String(entry?.name || '').toLowerCase();
   const isSpecial = /vandal|wraith|prisma|prime/.test(name);

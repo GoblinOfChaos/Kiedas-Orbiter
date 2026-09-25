@@ -25,6 +25,15 @@ assert.equal(missing.ExportWarframes[0].name, '/Lotus/TestName')
 assert.deepEqual(applyDeLocale(mirror, tables, 'en'), mirror)
 assert.deepEqual(applyDeLocale(localized, tables, 'en'), localized)
 
+const dictMirror = {
+  ExportWarframes: {
+    '/Lotus/Test/Warframe': { name: '/Lotus/TestName', description: '/Lotus/TestDescription' },
+  },
+}
+const dictLocalized = applyDeLocale(dictMirror, tables, 'de')
+assert.equal(dictLocalized.ExportWarframes['/Lotus/Test/Warframe'].name, 'Rahmen')
+assert.equal(dictLocalized.ExportWarframes['/Lotus/Test/Warframe'].description, 'Beschreibung')
+
 const provenancePath = join(cacheDir, 'provenance.json')
 const provenance = existsSync(provenancePath) ? JSON.parse(readFileSync(provenancePath, 'utf8')) : null
 const available = ['de', 'fr', 'ja'].filter((locale) => provenance?.locales?.[locale])

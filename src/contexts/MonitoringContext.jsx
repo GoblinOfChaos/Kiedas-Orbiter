@@ -560,9 +560,16 @@ export function MonitoringProvider({ children }) {
       // running them in parallel meant the launch that downloaded/merged new
       // data (e.g. DE's Narin) still loaded the old files and only showed
       // the update on the next launch. It is a fast no-op inside its 24h TTL.
-      const updatesRes = await Promise.allSettled([
-        invoke('check_exports', { locale: localeRef.current, force: false }),
-      ]).then((r) => r[0])
+      // Wait for check_exports (so a launch that downloads/merges new data shows it
+      // immediately) but never hang startup on a dead network: after the grace
+      // period continue with the files already on disk (the download keeps going;
+      // its result shows on the next launch). A real refresh downloads dozens of
+      // files, so the grace must be longer than a no-op check.
+      const checkPromise = invoke('check_exports', { locale: localeRef.current, force: false })
+      await Promise.race([
+        checkPromise,
+        new Promise((resolve) => setTimeout(resolve, 20000)),
+      ]).catch(() => {})
       const [exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('load_all_exports', { locale: localeRef.current }),
         invoke('check_media_assets'),

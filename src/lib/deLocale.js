@@ -26,7 +26,13 @@ function recordsOf(table, category) {
   if (!table || typeof table !== 'object') return []
   if (Array.isArray(table[category])) return table[category]
   const nested = Object.values(table).find(Array.isArray)
-  return nested || Object.values(table).filter((entry) => entry && typeof entry === 'object')
+  if (nested) return nested
+  return Object.entries(table).map(([uniqueName, entry]) => {
+    if (entry && typeof entry === 'object') {
+      return entry.uniqueName ? entry : { uniqueName, ...entry }
+    }
+    return entry
+  }).filter(Boolean)
 }
 
 function recordMap(table, category) {
@@ -65,13 +71,13 @@ function copyLocalizedFields(target, source) {
   return merged
 }
 
-function mapTable(table, applyRecord) {
-  if (Array.isArray(table)) return table.map(applyRecord)
+function mapTable(table, applyRecord, localized, parentKey = null) {
+  if (Array.isArray(table)) return table.map((record) => applyRecord(record, null))
   if (!table || typeof table !== 'object') return table
-  if (table.uniqueName) return applyRecord(table)
+  if (table.uniqueName || (parentKey && localized.has(parentKey))) return applyRecord(table, parentKey)
   return Object.fromEntries(Object.entries(table).map(([key, value]) => [
     key,
-    Array.isArray(value) || (value && typeof value === 'object') ? mapTable(value, applyRecord) : value,
+    Array.isArray(value) || (value && typeof value === 'object') ? mapTable(value, applyRecord, localized, key) : value,
   ]))
 }
 
@@ -86,11 +92,12 @@ export function applyDeLocale(exportsBundle, deLocaleTables, locale) {
       if (!targetTable) continue
       const localized = recordMap(localizedTable, deCategory)
       if (!localized.size) continue
-      const applyRecord = (record) => {
-        const translated = localized.get(record?.uniqueName)
+      const applyRecord = (record, key) => {
+        const un = record?.uniqueName || key
+        const translated = localized.get(un)
         return translated ? copyLocalizedFields(record, translated) : record
       }
-      const nextTable = mapTable(targetTable, applyRecord)
+      const nextTable = mapTable(targetTable, applyRecord, localized)
       if (result === exportsBundle) result = { ...exportsBundle }
       result[targetCategory] = nextTable
     }

@@ -15,7 +15,8 @@
     "build:appimage": "NO_STRIP=1 tauri build --bundles appimage",
     "audit": "node scripts/audit_static.js && node scripts/audit_e2e.js",
     "preview:dev": "node scripts/run-preview.mjs dev",
-    "preview:build": "node scripts/run-preview.mjs build"
+    "preview:build": "node scripts/run-preview.mjs build",
+    "check:completeness": "node scripts/check-completeness.mjs"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.0.0",

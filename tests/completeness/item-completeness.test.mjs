@@ -34,3 +34,12 @@ test('component drops attributed to the parent without a part label fail', () =>
   assert.equal(result.acquisition.pass, false)
   assert.equal(result.acquisition.unlabelledComponentDrops.length, 1)
 })
+
+test('DE recipe presence comes from the supplied DE cache decision', () => {
+  const result = checkItem({
+    harness: goldenHarness(), canary,
+    deRecipes: {}, acquisition: {},
+  })
+  assert.equal(result.recipe.presentInDE, false)
+  assert.equal(result.recipe.pass, true)
+})

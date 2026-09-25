@@ -28,14 +28,15 @@ const imageFor = (item, parsed, harness) => {
 }
 const cleanName = (value) => typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim() : ''
 
-export function checkItem({ harness, canary, acquisition = null }) {
+export function checkItem({ harness, canary, acquisition = null, deRecipes = null }) {
   const parsed = parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
   const item = (parsed.warframes || []).find((candidate) => canonicalPath(candidate.unique_name) === canonicalPath(canary.uniqueName))
   const name = cleanName(item?.name)
   const inventory = { pass: !!item, name, image: !!imageFor(item, parsed, harness), bucket: 'warframes' }
   inventory.pass = inventory.pass && !!name && !name.startsWith('/') && inventory.image
 
-  const rawRecipe = Object.values(harness.exportsBundle.ExportRecipes || {}).find((recipe) => canonicalPath(recipe?.resultType) === canonicalPath(canary.uniqueName))
+  const recipeSource = deRecipes || harness.exportsBundle.ExportRecipes || {}
+  const rawRecipe = Object.values(recipeSource).find((recipe) => canonicalPath(recipe?.resultType) === canonicalPath(canary.uniqueName))
   const craftable = (parsed.craftable || []).find((recipe) => canonicalPath(recipe.resultType) === canonicalPath(canary.uniqueName) || recipe.baseName === canary.name)
   const recipe = {
     presentInDE: !!rawRecipe,
@@ -52,13 +53,21 @@ export function checkItem({ harness, canary, acquisition = null }) {
     component,
     rows: acquisition?.[component.itemType] || acquisition?.[canonicalPath(component.itemType)] || [],
   }))
+  const requiredComponentSources = componentSources.filter((source) => source.component.itemType?.includes('Component'))
   const parentNames = new Set([canary.name, `${canary.name} Blueprint`, ...(recipe.components || []).map((component) => component.name)])
   const unlabelledComponentDrops = sourceRows.filter((row) => row.rewardName && row.rewardName !== canary.name && parentNames.has(row.rewardName) && !row.part)
   const acquisitionResult = {
     rows: sourceRows,
     componentSources,
     unlabelledComponentDrops,
-    pass: sourceRows.length > 0 && componentSources.every((source) => source.rows.length > 0) && unlabelledComponentDrops.length === 0 && sourceRows.every((row) => row.label || row.part || !row.rewardName || row.rewardName === canary.name),
+    reason: sourceRows.length === 0
+      ? 'no bundled source rows for the parent or its components'
+      : requiredComponentSources.some((source) => source.rows.length === 0)
+        ? `missing bundled source rows for ${requiredComponentSources.filter((source) => source.rows.length === 0).map((source) => source.component.name || source.component.itemType).join(', ')}`
+        : unlabelledComponentDrops.length > 0
+          ? 'component reward rows are attributed to the parent without a part label'
+          : null,
+    pass: sourceRows.length > 0 && requiredComponentSources.every((source) => source.rows.length > 0) && unlabelledComponentDrops.length === 0 && sourceRows.every((row) => row.label || row.part || !row.rewardName || row.rewardName === canary.name),
   }
   return { name: canary.name, uniqueName: canary.uniqueName, inventory, recipe, acquisition: acquisitionResult, pass: inventory.pass && recipe.pass && acquisitionResult.pass }
 }
@@ -74,29 +83,45 @@ function loadBundledAcquisition(repo) {
   const records = JSON.parse(fs.readFileSync(file, 'utf8'))
   const result = {}
   for (const record of records) {
-    const rows = (record.drops || []).map((drop) => ({ label: 'Blueprint', rewardName: record.name, location: drop.location, chance: drop.chance }))
-    if (record.uniqueName) result[record.uniqueName] = rows
+    const blueprint = (record.components || []).find((component) => component.name === 'Blueprint')
+    if (record.uniqueName) result[record.uniqueName] = (blueprint?.drops || []).map((drop) => ({ label: 'Blueprint', rewardName: record.name, location: drop.location, chance: drop.chance }))
     for (const component of record.components || []) {
-      if (!component.uniqueName) continue
-      result[component.uniqueName] = (component.drops || []).map((drop) => ({ part: component.name, rewardName: component.name, location: drop.location, chance: drop.chance }))
+      if (!component.uniqueName || component.name === 'Blueprint') continue
+      result[component.uniqueName] = (component.drops || []).map((drop) => ({ part: component.name, rewardName: drop.type || component.name, location: drop.location, chance: drop.chance }))
     }
   }
   return result
 }
 
-export async function run({ dataDir, repo = REPO, harness, acquisition, previousIndex = [] } = {}) {
+async function loadDeRecipes(cacheDir) {
+  const provenance = JSON.parse(await fs.promises.readFile(path.join(cacheDir, 'provenance.json'), 'utf8'))
+  const entry = provenance?.categories?.ExportRecipes
+  if (!entry?.suffix) throw new Error(`DE cache provenance has no ExportRecipes entry: ${cacheDir}`)
+  const file = path.join(cacheDir, 'assets', `${entry.suffix.replace(/[^A-Za-z0-9._+-]/g, '_')}.json`)
+  const raw = JSON.parse(await fs.promises.readFile(file, 'utf8'))
+  return Array.isArray(raw) ? raw : raw.ExportRecipes || raw
+}
+
+export async function run({ dataDir, repo = REPO, harness, acquisition, deCacheDir = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export', previousIndex = [], includeDiscovered = true } = {}) {
   const loaded = harness || await loadRealHarness({ dataDir, repo })
   const bundledAcquisition = acquisition || loadAcquisitionFixture(path.join(repo, 'src-tauri/data/assets/data/completeness-acquisition.json')) || loadBundledAcquisition(repo)
-  return selectCanaries(loaded, previousIndex).map((canary) => checkItem({ harness: loaded, canary, acquisition: bundledAcquisition }))
+  const deRecipes = await loadDeRecipes(deCacheDir)
+  const selected = includeDiscovered ? selectCanaries(loaded, previousIndex) : canaries
+  return selected.map((canary) => checkItem({ harness: loaded, canary, acquisition: bundledAcquisition, deRecipes }))
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const results = await run({ dataDir: process.env.PREVIEW_DATA_DIR })
+  const dataArg = process.argv.indexOf('--data-dir')
+  const cacheArg = process.argv.indexOf('--de-cache-dir')
+  const dataDir = dataArg >= 0 ? process.argv[dataArg + 1] : process.env.PREVIEW_DATA_DIR
+  const deCacheDir = cacheArg >= 0 ? process.argv[cacheArg + 1] : undefined
+  const results = await run({ dataDir, deCacheDir })
   console.log('| Item | Inventory | Image | Foundry/recipe | Components | Acquisition | Result |')
   console.log('| --- | --- | --- | --- | --- | --- | --- |')
   for (const result of results) {
     const components = result.recipe.presentInDE ? `${result.recipe.components.filter((component) => component.image).length}/${result.recipe.components.length}` : 'N/A (no DE recipe)'
-    console.log(`| ${result.name} | ${result.inventory.pass ? 'PASS' : 'FAIL'} | ${result.inventory.image ? 'PASS' : 'FAIL'} | ${result.recipe.presentInDE ? (result.recipe.foundry ? 'PASS' : 'FAIL') : 'N/A'} | ${components} | ${result.acquisition.pass ? 'PASS' : 'FAIL'} | ${result.pass ? 'PASS' : 'FAIL'} |`)
+    const acquisition = result.acquisition.pass ? 'PASS' : `FAIL (${result.acquisition.reason})`
+    console.log(`| ${result.name} | ${result.inventory.pass ? 'PASS' : 'FAIL'} | ${result.inventory.image ? 'PASS' : 'FAIL'} | ${result.recipe.presentInDE ? (result.recipe.foundry ? 'PASS' : 'FAIL') : 'N/A'} | ${components} | ${acquisition} | ${result.pass ? 'PASS' : 'FAIL'} |`)
     console.log(JSON.stringify(result, null, 2))
   }
   process.exitCode = results.every((result) => result.pass) ? 0 : 1

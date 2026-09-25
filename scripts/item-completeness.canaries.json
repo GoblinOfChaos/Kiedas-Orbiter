@@ -6,5 +6,9 @@
   {
     "name": "Citrine Prime",
     "uniqueName": "/Lotus/Powersuits/Geode/CitrinePrime"
+  },
+  {
+    "name": "Volt Prime",
+    "uniqueName": "/Lotus/Powersuits/Volt/VoltPrime"
   }
 ]

@@ -2371,7 +2371,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     };
   });
 
-  const resources = [], components = [], songItems = [], prime_parts = [], primeSets = {};
+  const resources = [], components = [], songItems = [], prime_parts = [], parts = [], primeSets = {};
 
   // Build owned items map for quick lookup (for prime sets)
   const primeItemCounts = new Map();
@@ -2484,6 +2484,80 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // Also add individual parts to prime_parts array with parent mastery status
       setParts.forEach(p => {
         if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
+      });
+    }
+  }
+
+  // Non-Prime equipment parts are real inventory identities, but they are
+  // represented in DE's profile as either a recipe blueprint (raw.Recipes)
+  // or a crafted component (raw.MiscItems). Keep them separate from the
+  // existing resource/components buckets: those buckets have consumers with
+  // deliberately different semantics. The parent equipment tables are the
+  // authoritative scope here; this avoids turning every fish/trophy recipe
+  // into an equipment part while still covering Warframes, weapons, and
+  // companions.
+  const primePartUniqueNames = new Set(
+    Object.values(primeSets).flatMap((set) => (set.parts ?? []).map((part) => part.unique_name))
+  );
+  const equipmentByUniqueName = new Map([
+    ...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws,
+    ...sentinels, ...moas, ...hounds, ...beasts, ...companion_weapons,
+    ...archweapons, ...necramechs, ...archwings, ...amps,
+  ].map((item) => [item.unique_name, item]));
+  const recipeByResult = new Map();
+  for (const [recipeKey, recipe] of Object.entries(ERecipe ?? {})) {
+    if (!recipe?.resultType || recipeByResult.has(recipe.resultType)) continue;
+    recipeByResult.set(recipe.resultType, { key: recipeKey, recipe });
+  }
+  const ownedBlueprintCounts = new Map();
+  for (const entry of raw.Recipes ?? []) {
+    if (entry?.ItemType) ownedBlueprintCounts.set(entry.ItemType, (ownedBlueprintCounts.get(entry.ItemType) ?? 0) + (entry.ItemCount ?? 1));
+  }
+  const ownedCraftedCounts = new Map();
+  for (const entry of raw.MiscItems ?? []) {
+    if (entry?.ItemType) ownedCraftedCounts.set(entry.ItemType, (ownedCraftedCounts.get(entry.ItemType) ?? 0) + (entry.ItemCount ?? 1));
+  }
+  const seenPartUniqueNames = new Set();
+  for (const parent of equipmentByUniqueName.values()) {
+    const parentRecipe = recipeByResult.get(parent.unique_name);
+    if (!parentRecipe || /Prime$/i.test(parent.name || '') || /Prime/i.test(parent.unique_name || '')) continue;
+    const parentName = parent.name;
+    const childParts = [];
+    for (const ingredient of parentRecipe.recipe.ingredients ?? []) {
+      const child = recipeByResult.get(ingredient.ItemType);
+      const childIsExportedPart = !!(EW[ingredient.ItemType] || EWf[ingredient.ItemType] || ES[ingredient.ItemType]);
+      const childLooksLikePart = /(Component|Barrel|Receiver|Stock|Blade|Handle|Link|Chassis|Helmet|Systems|Wings|Harness|Neuroptics|Cerebrum|Carapace)($|[^a-z])/i.test(child?.recipe.resultType || '');
+      if (!child || (!childIsExportedPart && !childLooksLikePart) || primePartUniqueNames.has(child.recipe.resultType) || /Prime/i.test(child.recipe.resultType || '')) continue;
+      childParts.push({ resultType: child.recipe.resultType, blueprintKey: child.key });
+    }
+    const entries = [{ resultType: parent.unique_name, blueprintKey: parentRecipe.key }, ...childParts];
+    for (const { resultType, blueprintKey } of entries) {
+      const uniqueName = resultType === parent.unique_name ? blueprintKey : resultType;
+      if (seenPartUniqueNames.has(uniqueName) || primePartUniqueNames.has(uniqueName)) continue;
+      const blueprintQuantity = ownedBlueprintCounts.get(blueprintKey) ?? 0;
+      const craftedQuantity = ownedCraftedCounts.get(resultType) ?? 0;
+      const itemName = resultType === parent.unique_name
+        ? (resolveName(blueprintKey, dict, locale, ERecipe, EW, EWf, ES, ER) || `${parentName} Blueprint`)
+        : resolveName(resultType, dict, locale, EW, EWf, ES, ER, ERecipe);
+      const image = resolveImage(resultType, EW, EWf, ES, ER, ERecipe);
+      // Keep a verified recipe part even when the current export lacks an
+      // icon. The completeness audit must be able to report that gap; silently
+      // dropping the item would recreate the missing-parts failure mode.
+      if (!itemName) continue;
+      seenPartUniqueNames.add(uniqueName);
+      parts.push({
+        unique_name: uniqueName,
+        name: itemName,
+        image,
+        category: 'parts',
+        parent_unique_name: parent.unique_name,
+        parent_name: parentName,
+        parent_category: parent.category,
+        blueprint_unique_name: blueprintKey,
+        blueprint_quantity: blueprintQuantity,
+        quantity: resultType === parent.unique_name ? blueprintQuantity : craftedQuantity,
+        crafted_quantity: craftedQuantity,
+        owned: blueprintQuantity > 0 || craftedQuantity > 0,
       });
     }
   }
@@ -3127,7 +3201,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
-  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts];
+  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts];
 
   const playerLevel = raw.PlayerLevel ?? 0;
   const rivenBin = raw.RandomModBin ?? { Slots: 0, Extra: 0 };
@@ -3257,7 +3331,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, parts, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──

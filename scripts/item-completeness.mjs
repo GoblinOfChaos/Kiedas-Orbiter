@@ -5,6 +5,7 @@ import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
 const { parseInventory } = await import('../src/lib/inventoryParser.js')
 const { getRelicCatalog } = await import('../src/lib/relicParser.js')
 const { resolveAnyImage, resolveNode } = await import('../src/lib/warframeUtils.js')
+const { buildDropIndex } = await import('../src/lib/dropsParser.js')
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const canaryFile = path.join(REPO, 'scripts/item-completeness.canaries.json')
@@ -281,6 +282,48 @@ export async function checkCraftableRecipes({ harness, parsed = null }) {
   return { total: checks.length, failed: checks.filter((check) => !check.pass), checks }
 }
 
+export async function checkPartsCompleteness({ harness, parsed = null }) {
+  const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
+  const parts = inventory.parts || []
+  const recipeEntries = Object.values(harness.exportsBundle.ExportRecipes || {})
+  const recipeByResult = new Map(recipeEntries.filter((recipe) => recipe?.resultType).map((recipe) => [canonicalPath(recipe.resultType), recipe]))
+  const recipeKeyByResult = new Map(Object.entries(harness.exportsBundle.ExportRecipes || {}).filter(([, recipe]) => recipe?.resultType).map(([key, recipe]) => [canonicalPath(recipe.resultType), key]))
+  const parents = [...(inventory.warframes || []), ...(inventory.primary || []), ...(inventory.secondary || []), ...(inventory.melee || []), ...(inventory.companions || []), ...(inventory.sentinels || []), ...(inventory.moas || []), ...(inventory.hounds || []), ...(inventory.beasts || [])]
+  const checks = []
+  const dropIndex = buildDropIndex(harness.exportsBundle)
+  const seenParents = new Set()
+  for (const parent of parents) {
+    const parentKey = canonicalPath(parent.unique_name)
+    if (seenParents.has(parentKey) || /Prime$/i.test(parent.name || '')) continue
+    const recipe = recipeByResult.get(parentKey)
+    if (!recipe) continue
+    seenParents.add(parentKey)
+    const childResults = (recipe.ingredients || []).map((ingredient) => recipeByResult.get(canonicalPath(ingredient.ItemType))?.resultType).filter((resultType) => resultType && parts.some((item) => canonicalPath(item.unique_name) === canonicalPath(resultType)))
+    const expected = [recipeKeyByResult.get(parentKey), ...childResults].filter(Boolean)
+    for (const uniqueName of expected) {
+      const item = parts.find((candidate) => canonicalPath(candidate.unique_name) === canonicalPath(uniqueName))
+      const name = item?.name || uniqueName
+      const directDropRows = dropIndex[canonicalPath(uniqueName)] || []
+      const acquisition = item && directDropRows.length > 0 ? await buildAcquisition(harness, item, name, buildRecipeIndex(harness), dropIndex) : null
+      const sourceRows = acquisition?.result?.sources || []
+      const labelled = directDropRows.length === 0 || (sourceRows.length > 0 && sourceRows.every((source) => ['source', 'location', 'relicName', 'rewardName', 'text'].some((key) => typeof source?.[key] === 'string' && source[key].trim())))
+      checks.push({ parent: parent.name, parentType: parent.category, uniqueName, name, image: !!item?.image, present: !!item, sourceRows: directDropRows.length, labelled, pass: !!item && !!item.image && labelled })
+    }
+  }
+  return { total: checks.length, failed: checks.filter((check) => !check.pass), checks, summary: partsSummary(parts) }
+}
+
+export function partsSummary(parts = []) {
+  const byParentType = {}
+  let owned = 0
+  for (const part of parts) {
+    if (part.owned) owned++
+    const key = part.parent_category || (part.parent_name?.match(/Prime$/i) ? 'prime' : 'equipment')
+    byParentType[key] = (byParentType[key] || 0) + 1
+  }
+  return { total: parts.length, owned, byParentType }
+}
+
 const imageFor = (item, parsed, harness) => {
   if (item?.image) return item.image
   const sameUnique = (parsed.all || []).find((candidate) => canonicalPath(candidate.unique_name) === canonicalPath(item?.unique_name))
@@ -369,6 +412,14 @@ export async function run({ dataDir, repo = REPO, harness, previousIndex = [], i
   const parsed = parseInventory({}, loaded.exportsBundle, loaded.dict, 'en', null)
   const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
   results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
+  results.partsCompleteness = await checkPartsCompleteness({ harness: loaded, parsed })
+  const summary = results.partsCompleteness.summary
+  try {
+    const { event } = await import('../src/lib/logging/logger.js')
+    event('inventory.parts.summary', { count: summary.total, owned: summary.owned, type: 'parts' }, { level: 'info', screen: 'inventory' })
+  } catch {
+    // CLI/test environments have no Tauri logger; the returned summary remains authoritative.
+  }
   return results
 }
 

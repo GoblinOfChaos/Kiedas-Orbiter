@@ -133,6 +133,7 @@ export default function Inventory() {
   { id: 'landing_craft', label: t('ui.inventory.tab_landing_craft') },
   { id: 'resources', label: t('ui.inventory.tab_resources') },
   { id: 'prime_parts', label: t('ui.inventory.tab_prime_parts') },
+  ...(IS_PREVIEW ? [{ id: 'parts', label: t('ui.inventory.tab_parts') || 'Parts' }] : []),
   { id: 'ayatan', label: t('ui.inventory.tab_ayatan') }];
 
 
@@ -151,6 +152,7 @@ export default function Inventory() {
     landing_craft: ['owned'],
     mods: ['owned'],
     prime_parts: ['owned', 'mastered', 'vaulted'],
+    parts: ['owned'],
     resources: ['owned'],
     ayatan: ['socketed']
   };
@@ -202,6 +204,7 @@ export default function Inventory() {
     landing_craft: [{ id: 'name', label: t('ui.inventory.sort_name') }],
     mods: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }, { id: 'rank', label: t('ui.inventory.sort_rank') }],
     prime_parts: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'completion', label: t('ui.inventory.sort_completion') }, { id: 'value', label: t('ui.inventory.sort_value') }],
+    parts: [{ id: 'name', label: t('ui.inventory.sort_name') }],
     resources: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }],
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
@@ -489,6 +492,7 @@ export default function Inventory() {
     if (activeTab === 'arcanes') return withImageFallback(inventoryData.arcanes_catalog ?? []);
     if (activeTab === 'consumables') return withImageFallback(inventoryData.consumables_catalog ?? []);
     if (activeTab === 'landing_craft') return withImageFallback(inventoryData.landing_craft_catalog ?? []);
+    if (activeTab === 'parts') return withImageFallback(inventoryData.parts ?? []);
     if (activeTab === 'all') return withImageFallback((inventoryData.all ?? []).filter((i) => i.category !== 'rivens' && i.category !== 'Arcanes'));
     return withImageFallback(inventoryData[activeTab] ?? []);
   }, [inventoryData, activeTab, uiPath, primePrices]);
@@ -500,10 +504,11 @@ export default function Inventory() {
       items = items.filter((item) => {
         const itemName = (item.name ?? '').toLowerCase();
         const components = (item.components ?? []).map((c) => c.toLowerCase());
+        const parentName = (item.parent_name ?? '').toLowerCase();
 
         // Match if ALL search words exist somewhere in either the name OR components
         return q.every((word) =>
-        itemName.includes(word) || components.some((c) => c.includes(word))
+          itemName.includes(word) || parentName.includes(word) || components.some((c) => c.includes(word))
         );
       });
     }
@@ -544,6 +549,12 @@ export default function Inventory() {
       // Ayatan stars card always first
       if (a.isStars) return -1;
       if (b.isStars) return 1;
+      if (activeTab === 'parts') {
+        const parentCompare = (a.parent_name ?? '').localeCompare(b.parent_name ?? '', undefined, { sensitivity: 'base' });
+        if (parentCompare !== 0) return sortDirection === 'asc' ? parentCompare : -parentCompare;
+        const partCompare = (a.name ?? '').localeCompare(b.name ?? '', undefined, { sensitivity: 'base' });
+        return sortDirection === 'asc' ? partCompare : -partCompare;
+      }
       // Special handling for prime_parts completion sort
       if (activeTab === 'prime_parts' && sortCriteria === 'completion') {
         const aComplete = (a.ownedCount ?? 0) / (a.totalCount ?? 1);
@@ -1088,7 +1099,7 @@ export default function Inventory() {
       {(() => {
         const categoryTabs = (
           <Tabs tabs={INVENTORY_TABS.map((t) => {
-          const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', ayatan: 'Ayatan' };
+          const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', parts: 'Resources', ayatan: 'Ayatan' };
           const iconName = iconMap[t.id] || t.label;
           const peelyPackPath = '/Lotus/Interface/Icons/StoreIcons/Resources/1999Wf/StickerPack.png';
           const peelyPackHash = ExportImages?.[peelyPackPath]?.contentHash;
@@ -1372,7 +1383,7 @@ export default function Inventory() {
               {windowedItems.map((item, idx) => {
             const isUnowned = !item.owned;
             const isPrimePart = item.category === 'prime_parts';
-            const isModOrResource = ['mods', 'resources', 'components', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
+            const isModOrResource = ['mods', 'resources', 'components', 'parts', 'Arcanes', 'arcanes', 'peely_pix', 'consumables', 'landing_craft'].includes(item.category);
             if (activeTab === 'arcanes') {
               return (
                 <div key={`${item.unique_name}_${firstRow * currentColumns + idx}`} className={`relative cursor-pointer flex justify-center rounded-xl ${isUnowned ? 'grayscale opacity-60' : ''}`} onClick={() => toggle(item.unique_name)}>
@@ -1500,6 +1511,9 @@ export default function Inventory() {
                       )}
                           </div>
                     }
+                        {item.category === 'parts' && item.parent_name &&
+                    <p className="text-[10px] text-kronos-dim/80 truncate">{item.parent_name}</p>
+                    }
                         {item.exaltedWeapons && item.exaltedWeapons.length > 0 &&
                     <div className="flex flex-wrap gap-x-2 gap-y-1 mt-1">
                             {item.exaltedWeapons.map((w) =>
@@ -1536,7 +1550,7 @@ export default function Inventory() {
                         {/* Stock count (mods, resources, arcanes, prime parts, veiled rivens) */}
                         {(isModOrResource || isPrimePart || item.veiled) && item.quantity !== undefined &&
                     <span className={`text-[10px] font-black uppercase truncate max-w-full ${item.quantity > 0 ? 'text-kronos-accent' : 'text-kronos-dim/30'}`}>
-                            {item.quantity > 0 ? `×${item.quantity}` : 'Unowned'}
+                            {item.quantity > 0 ? `×${item.quantity}` : item.blueprint_quantity > 0 ? `BP ×${item.blueprint_quantity}` : 'Unowned'}
                           </span>
                     }
 

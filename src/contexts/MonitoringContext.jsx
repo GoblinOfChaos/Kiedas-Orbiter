@@ -651,8 +651,14 @@ export function MonitoringProvider({ children }) {
       // GitHub #111 Phase 3: same lazy-load-once pattern, feeds
       // getSourceLabel's override-text localization (see acquisitionTemplates.js).
       loadAcquisitionTemplates().catch((err) => console.error('loadAcquisitionTemplates failed', err))
-      const [updatesRes, exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
+      // check_exports must finish BEFORE load_all_exports reads the files:
+      // running them in parallel meant the launch that downloaded/merged new
+      // data (e.g. DE's Narin) still loaded the old files and only showed
+      // the update on the next launch. It is a fast no-op inside its 24h TTL.
+      const updatesRes = await Promise.allSettled([
         invoke('check_exports', { locale: localeRef.current, force: false }),
+      ]).then((r) => r[0])
+      const [exportsRes, mediaRes, pricerRes, spiRes, arbRes, descRes] = await Promise.allSettled([
         invoke('load_all_exports', { locale: localeRef.current }),
         invoke('check_media_assets'),
         invoke('check_pricer_models'),

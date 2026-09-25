@@ -3954,5 +3954,6 @@
     "tpl_2721": "- Overpressured Rounds pode ser obtido ao alcançar Ranque <*> com Nightwave durante Amir's Shockwave.",
     "tpl_2722": "- Este mod pode ser obtido alcançando o ranque de Maxim na Arbiters de Hexis, ou o ranque de Partner na The Perrin Sequence, e gastando <*> para comprar. - Este mod pode ser obtido periodicamente no O Circuito.",
     "tpl_2723": "- Este mod pode ser obtido alcançando o ranque de Maxim na Arbiters de Hexis, ou o ranque de Exalted na Red Veil, e gastando <*> para comprar."
-  }
+  },
+  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

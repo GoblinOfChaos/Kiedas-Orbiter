@@ -8,6 +8,7 @@ import ItemImage from '../components/ItemImage'
 import { useUi } from '../contexts/UiContext'
 import { IS_PREVIEW } from '../lib/buildProfile'
 import { categoryDisplayLabel } from '../lib/categoryLabels'
+import FarmingTargetAction from '../components/FarmingTargetAction'
 
 const CATEGORIES = [
   { id: 'all', labelKey: 'foundry.cat_all', keys: null },
@@ -225,7 +226,7 @@ function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
             <ItemImage src={item.image} className="w-12 h-12 object-contain rounded-lg bg-black/20" placeholderClassName="w-12 h-12 rounded-lg bg-black/20" />
-            <div className="min-w-0"><h2 className="font-black uppercase truncate">{item.name}</h2><p className="text-[10px] text-kronos-dim uppercase">{item.category ? categoryDisplayLabel(item.category, t) : t('foundry.category_equipment')}</p></div>
+            <div className="min-w-0"><h2 className="font-black uppercase truncate">{item.name}</h2><p className="text-[10px] text-kronos-dim uppercase">{item.category ? categoryDisplayLabel(item.category, t) : t('foundry.category_equipment')}</p>{IS_PREVIEW && <FarmingTargetAction item={item} className="mt-1" />}</div>
           </div>
           <button onClick={onClose} className="text-kronos-dim hover:text-white text-xs font-bold uppercase">{t('foundry.close')}</button>
         </div>

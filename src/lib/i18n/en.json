@@ -1181,6 +1181,20 @@
     "farming_targets.relic_owned": "Owned relics: {count}",
     "farming_targets.relic_how_to_get": "How to get this relic",
     "farming_targets.honesty_unknown": "No listed location",
+    "farming_targets.add_target": "Add as farming target",
+    "farming_targets.already_target": "Already a target",
+    "farming_targets.view_switcher": "Farming target view",
+    "farming_targets.view_compact": "Targets",
+    "farming_targets.view_ledger": "Shopping list",
+    "farming_targets.view_inspector": "Target details",
+    "farming_targets.reserve": "Reserve",
+    "farming_targets.reserve_for": "Reserve {item}",
+    "farming_targets.overcommitted": "Overcommitted",
+    "farming_targets.priority": "Priority",
+    "farming_targets.due_date": "Due date",
+    "farming_targets.due": "Due",
+    "farming_targets.complete": "Complete",
+    "farming_targets.archive": "Archive",
     "foundry.cat_all": "All",
     "foundry.cat_warframe": "Warframe",
     "foundry.cat_primary": "Primary",
@@ -1588,5 +1602,6 @@
   "ui.riven_prompt.press": "Press",
   "ui.riven_prompt.action": "to grade your Rivens",
   "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
-  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
+  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
+  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

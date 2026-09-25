@@ -1,92 +1,114 @@
-/**
- * Persistence for the Farming Targets feature (GitHub Stage 4C, route
- * `farming-targets`). Stores a flat list of user-added targets in
- * `data/user/farming-targets.json`, using the same generic
- * read_file_bytes/write_file/get_data_root_path Tauri commands every other
- * screen's JSON persistence uses (see Inventory.jsx's acquisition_overrides
- * read and Settings.jsx's coverage-report write) - no new Rust code needed.
- *
- * This is the MVP ("Option B") data shape from the Stage 4C scope decision,
- * but every record reserves the fields Option A's full feature set
- * (reservations, reminders) will need, so upgrading later never requires a
- * migration of files already on disk - only `version` ever changes, and
- * `migrateStore` below is the single place that would grow a case for it.
- */
-import { invoke } from '../logging/tauri';
+/** Persistence and pure mutations for Preview Farming Targets. */
+import { invoke } from '../logging/tauri.js';
 
 const RELATIVE_PATH = 'data/user/farming-targets.json';
-const CURRENT_VERSION = 1;
+const CURRENT_VERSION = 2;
 
-function emptyStore() {
-  return { version: CURRENT_VERSION, targets: [] };
-}
+function emptyStore() { return { version: CURRENT_VERSION, targets: [], reservations: [], priorities: {} }; }
 
-// Placeholder for forward migrations. A real Option-A upgrade (e.g. adding
-// a new required field to every existing target) would add a `case 1:`
-// branch here that mutates `store` in place and falls through - deliberately
-// not building that machinery now since there is nothing to migrate yet.
 function migrateStore(store) {
   if (!store || typeof store !== 'object' || !Array.isArray(store.targets)) return emptyStore();
-  return { ...emptyStore(), ...store };
+  if (Number(store.version ?? 1) > CURRENT_VERSION) return { ...store };
+  return { ...emptyStore(), ...store, version: CURRENT_VERSION,
+    targets: store.targets.map((target) => ({ ...target, status: target.status || 'active',
+      priority: Number.isFinite(Number(target.priority)) ? Number(target.priority) : 0,
+      dueAt: target.dueAt ?? null, reservations: Array.isArray(target.reservations) ? target.reservations : [],
+      reminders: Array.isArray(target.reminders) ? target.reminders : [] })),
+    reservations: Array.isArray(store.reservations) ? store.reservations : [],
+    priorities: store.priorities && typeof store.priorities === 'object' ? store.priorities : {} };
 }
 
-export async function loadFarmingTargets() {
-  try {
-    const bytes = await invoke('read_file_bytes', { relative: RELATIVE_PATH });
-    const parsed = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)));
+function defaultIo() {
+  const injected = globalThis.__farmingTargetTestIO;
+  if (injected) return { dataRoot: async () => '', ...injected };
+  return { read: async () => invoke('read_file_bytes', { relative: RELATIVE_PATH }),
+    write: async (path, data) => invoke('write_file', { path, data }),
+    dataRoot: async () => invoke('get_data_root_path') };
+}
+
+export function createFarmingTargetsStore(io = {}) {
+  const adapter = {
+    read: (...args) => (io.read ?? defaultIo().read)(...args),
+    write: (...args) => (io.write ?? defaultIo().write)(...args),
+    dataRoot: (...args) => io.dataRoot ? io.dataRoot(...args) : (io.read || io.write ? '' : defaultIo().dataRoot(...args)),
+  };
+  const backedUpVersions = new Set();
+  let mutationQueue = Promise.resolve();
+  const load = async () => {
+    let raw;
+    try { raw = new TextDecoder().decode(new Uint8Array(await adapter.read())); } catch (error) {
+      const message = String(error?.message || error || '').toLowerCase();
+      return message.includes('not found') ? emptyStore() : { ...emptyStore(), readOnlyLoadError: true, loadError: String(error?.message || error) };
+    }
+    let parsed;
+    try { parsed = JSON.parse(raw); } catch (error) {
+      return { ...emptyStore(), readOnlyCorrupt: true, rawText: raw, loadError: String(error.message || error) };
+    }
+    const version = Number(parsed?.version ?? 1);
+    if (version < CURRENT_VERSION && !backedUpVersions.has(version)) {
+      backedUpVersions.add(version);
+      try {
+        const root = adapter.dataRoot ? await adapter.dataRoot() : '';
+        const timestamp = typeof io.now === 'function' ? io.now() : Date.now();
+        await adapter.write(`${root ? `${root}/` : ''}${RELATIVE_PATH}.bak-${timestamp}-v${version}`, new TextEncoder().encode(raw));
+      } catch {
+        return { ...migrateStore(parsed), readOnlyBackup: true, backupError: 'Unable to create migration backup' };
+      }
+    }
     return migrateStore(parsed);
-  } catch {
-    return emptyStore();
-  }
+  };
+  const save = async (store) => {
+    if (store?.readOnlyCorrupt) throw new Error('Refusing to overwrite corrupt farming targets file');
+    if (store?.readOnlyBackup) throw new Error('Refusing to migrate without a farming targets backup');
+    if (store?.readOnlyLoadError) throw new Error('Refusing to overwrite after a failed farming targets load');
+    const next = migrateStore(store);
+    const root = adapter.dataRoot ? await adapter.dataRoot() : '';
+    await adapter.write(`${root ? `${root}/` : ''}${RELATIVE_PATH}`, new TextEncoder().encode(JSON.stringify(next, null, 2)));
+    return next;
+  };
+  const mutate = (mutator) => {
+    const operation = mutationQueue.then(async () => {
+      const current = await load();
+      if (current.readOnlyCorrupt) throw new Error('Farming targets file is corrupt and read-only');
+      return save(await mutator(current));
+    });
+    mutationQueue = operation.catch(() => {});
+    return operation;
+  };
+  return { load, save, mutate, migrate: migrateStore };
 }
 
-export async function saveFarmingTargets(store) {
-  const dataRoot = await invoke('get_data_root_path');
-  const absolutePath = `${dataRoot}/${RELATIVE_PATH}`;
-  const payload = JSON.stringify(migrateStore(store), null, 2);
-  await invoke('write_file', { path: absolutePath, data: new TextEncoder().encode(payload) });
+const sharedStore = createFarmingTargetsStore();
+let sharedValue = null;
+const subscribers = new Set();
+function publish(value) { sharedValue = value; subscribers.forEach((listener) => listener(value)); return value; }
+export async function loadFarmingTargets() { return publish(await sharedStore.load()); }
+export async function saveFarmingTargets(store) { return publish(await sharedStore.save(store)); }
+export function mutateFarmingTargets(mutator) {
+  return sharedStore.mutate(mutator).then(publish);
 }
+export function subscribeFarmingTargets(listener) { subscribers.add(listener); if (sharedValue) listener(sharedValue); return () => subscribers.delete(listener); }
+export function getFarmingTargetsStore() { return sharedValue; }
+export const CURRENT_FARMING_TARGETS_VERSION = CURRENT_VERSION;
 
-/**
- * Builds a new target record. `reservations` and `reminders` are always
- * present (even though nothing reads or writes them yet) so an Option-A
- * build can start attaching to them immediately without touching every
- * record already saved by an Option-B build.
- */
 export function createFarmingTarget({ uniqueName, name, image, category, quantity = 1, note = '' }) {
-  return {
-    id: crypto.randomUUID(),
-    uniqueName,
-    name,
-    image: image || null,
-    category: category || null,
-    quantity: Math.max(1, Math.floor(quantity) || 1),
-    note,
-    createdAt: Date.now(),
-    reservations: [],
-    reminders: [],
-  };
+  return { id: crypto.randomUUID(), uniqueName, name, image: image || null, category: category || null,
+    quantity: Math.max(1, Math.floor(quantity) || 1), note, status: 'active', priority: 0, dueAt: null,
+    createdAt: Date.now(), reservations: [], reminders: [] };
 }
-
-export function addTarget(store, target) {
-  return { ...migrateStore(store), targets: [...store.targets, target] };
-}
-
-export function removeTarget(store, id) {
-  return { ...migrateStore(store), targets: store.targets.filter((t) => t.id !== id) };
-}
-
-export function setTargetQuantity(store, id, quantity) {
-  const safeQuantity = Math.max(1, Math.floor(quantity) || 1);
-  return {
-    ...migrateStore(store),
-    targets: store.targets.map((t) => (t.id === id ? { ...t, quantity: safeQuantity } : t)),
-  };
-}
-
-export function setTargetNote(store, id, note) {
-  return {
-    ...migrateStore(store),
-    targets: store.targets.map((t) => (t.id === id ? { ...t, note } : t)),
-  };
+export function addTarget(store, target) { const next = migrateStore(store); return { ...next, targets: [...next.targets, target] }; }
+export function removeTarget(store, id) { const next = migrateStore(store); return { ...next, targets: next.targets.filter((target) => target.id !== id) }; }
+export function setTargetQuantity(store, id, quantity) { const next = migrateStore(store); const safeQuantity = Math.max(1, Math.floor(quantity) || 1); return { ...next, targets: next.targets.map((target) => target.id === id ? { ...target, quantity: safeQuantity } : target) }; }
+export function setTargetNote(store, id, note) { const next = migrateStore(store); return { ...next, targets: next.targets.map((target) => target.id === id ? { ...target, note } : target) }; }
+export function updateTarget(store, id, changes) { const next = migrateStore(store); return { ...next, targets: next.targets.map((target) => target.id === id ? { ...target, ...changes } : target) }; }
+export function setTargetStatus(store, id, status) { return updateTarget(store, id, { status: status === 'archived' || status === 'complete' ? status : 'active' }); }
+export function setTargetPriority(store, id, priority) { return updateTarget(store, id, { priority: Math.max(0, Math.min(5, Math.floor(Number(priority) || 0))) }); }
+export function setTargetDueDate(store, id, dueAt) { return updateTarget(store, id, { dueAt: dueAt || null }); }
+export function setTargetReservation(store, reservation) {
+  const next = migrateStore(store);
+  if (!reservation || !reservation.itemType || !reservation.targetId) return next;
+  const reservations = next.reservations.filter((entry) => !(entry.itemType === reservation.itemType && entry.targetId === reservation.targetId));
+  const quantity = Math.max(0, Math.floor(Number(reservation.quantity) || 0));
+  if (quantity > 0) reservations.push({ itemType: reservation.itemType, targetId: reservation.targetId, quantity });
+  return { ...next, reservations };
 }

@@ -68,3 +68,30 @@ test('source rows match by item type or display name and expand component sub-re
   });
   assert.equal(byDisplayName.ranked[0].coveredItems[0].sources[0].source, 'Mod Node');
 });
+test('screen source filters completed target reservations from the ledger', () => {
+  const source = fs.readFileSync('src/lib/farmingTargets/screenModel.js', 'utf8');
+  assert.match(source, /activeTargetIds/);
+  assert.match(source, /activeTargetIds\.has\(reservation\?\.targetId\)/);
+});
+
+test('completed target reservations stay stored but do not enter the ledger', () => {
+  const model = buildFarmingTargetsScreenModel({
+    targets: [
+      { id: 'active', uniqueName: 'T', name: 'Target', quantity: 1, status: 'active' },
+      { id: 'done', uniqueName: 'D', name: 'Done', quantity: 1, status: 'complete' },
+    ],
+    reservations: [
+      { itemType: 'O', targetId: 'active', quantity: 2 },
+      { itemType: 'O', targetId: 'done', quantity: 9 },
+    ],
+    inventoryData: {
+      all: [{ unique_name: 'O', name: 'Ore', quantity: 20 }],
+      craftable: [
+        { resultType: 'T', ingredients: [{ itemType: 'O', name: 'Ore', need: 5 }] },
+        { resultType: 'D', ingredients: [{ itemType: 'O', name: 'Ore', need: 5 }] },
+      ],
+    },
+    dropIndex: {},
+  });
+  assert.equal(model.ledger.find((row) => row.itemType === 'O').reserved, 2);
+});

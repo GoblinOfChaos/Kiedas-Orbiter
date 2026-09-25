@@ -29,7 +29,7 @@ import {
   loadFarmingTargets, saveFarmingTargets, createFarmingTarget, addTarget, removeTarget, setTargetQuantity,
 } from '../lib/farmingTargets/store';
 import { computeFarmingTargetsView } from '../lib/farmingTargets/aggregation';
-import { buildFarmingTargetsScreenModel } from '../lib/farmingTargets/screenModel.js';
+import { buildFarmingTargetsScreenModel, buildPreviewPlaceIndex } from '../lib/farmingTargets/screenModel.js';
 import { event } from '../lib/logging/logger.js';
 
 function formatCount(n) {
@@ -55,6 +55,7 @@ function HonestyBadge({ place, t }) {
 function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChance, setMinChance, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id));
+  const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
   const missionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.missionType).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
   const factionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.faction).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
   return (
@@ -62,7 +63,7 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
         {[
           [t('farming_targets.summary_targets'), targets.length],
-          [t('farming_targets.summary_needed'), model.ledger.filter((row) => row.stillNeeded > 0).length],
+          [t('farming_targets.summary_needed'), stillNeededCount],
           [t('farming_targets.summary_places'), model.ranked.length],
           [t('farming_targets.summary_conclave'), model.conclaveOnlyItems.length],
         ].map(([label, value]) => <Card key={label} className="p-3"><p className="text-[10px] uppercase text-kronos-dim">{label}</p><p className="mt-1 text-xl font-black text-kronos-accent">{value}</p></Card>)}
@@ -85,7 +86,7 @@ function PreviewFarmingView({ targets, model, t, selectedTarget, setSelectedTarg
           <div className="divide-y divide-white/5">
             {model.ranked.length === 0 && <p className="p-5 text-sm text-kronos-dim">{t('farming_targets.no_sources')}</p>}
             {model.ranked.map((row) => <div key={row.place.id} className="p-4 space-y-2">
-              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupPlanet && row.place.planet ? row.place.planet : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: model.ledger.filter((item) => item.stillNeeded > 0).length })}</span></div>
+              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupPlanet && row.place.planet ? row.place.planet : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
               {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
               <div className="flex flex-wrap gap-2">{row.coveredItems.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>{source.rotation ? <span className="text-kronos-dim"> · {source.rotation}</span> : null}</span>))}</div>
             </div>)}
@@ -169,15 +170,17 @@ export default function FarmingTargets() {
   }, [catalog, search, targets]);
 
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
+  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex]);
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
     targets, inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex,
+    placeIndex: previewPlaceIndex,
     filters: { tab: farmTab, minChance: minChance === '' ? undefined : Number(minChance), missionTypes: missionType ? [missionType] : [], factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], conclaveOnlyItems: [] }, [targets, inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex, farmTab, minChance, missionType, faction]);
+  }) : { ledger: [], ranked: [], conclaveOnlyItems: [] }, [targets, inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChance, missionType, faction]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
     event('farming.screen.summary', { targets: targets.length, ledger: screenModel.ledger.length, still_needed: screenModel.ledger.filter((row) => row.stillNeeded > 0).length, places: screenModel.ranked.length, conclave_only: screenModel.conclaveOnlyItems.length });
-  }, [isInventoryLoading, store, targets.length, screenModel]);
+  }, [isInventoryLoading, Boolean(store), targets.length]);
 
   const handleAddTarget = useCallback((item) => {
     if (!store) return;
@@ -210,8 +213,13 @@ export default function FarmingTargets() {
     for (const entry of view.shoppingList) {
       if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: entry.image, category: null });
     }
+    if (IS_PREVIEW) {
+      for (const entry of screenModel.ledger) {
+        if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: null, category: null });
+      }
+    }
     return map;
-  }, [view]);
+  }, [view, screenModel]);
 
   const openItem = useMemo(() => {
     if (!openKey) return null;

@@ -15,11 +15,29 @@ function ownedMap(inventoryData) {
 }
 
 function recipeList(inventoryData) {
-  return (inventoryData?.craftable ?? []).map((recipe) => ({
+  const recipes = (inventoryData?.craftable ?? []).map((recipe) => ({
     ...recipe,
     itemType: recipe.itemType ?? recipe.resultType ?? recipe.uniqueName,
     ingredients: recipe.ingredients ?? [],
   })).filter((recipe) => recipe.itemType);
+  const byItemType = new Map(recipes.map((recipe) => [recipe.itemType, recipe]));
+  for (const recipe of recipes) {
+    for (const ingredient of recipe.ingredients) {
+      const subIngredients = ingredient.subIngredients ?? [];
+      if (!ingredient.itemType || !subIngredients.length || byItemType.has(ingredient.itemType)) continue;
+      byItemType.set(ingredient.itemType, {
+        itemType: ingredient.itemType,
+        name: ingredient.name ?? ingredient.itemType,
+        outputQty: 1,
+        ingredients: subIngredients.map((subIngredient) => ({
+          ...subIngredient,
+          itemType: subIngredient.itemType ?? subIngredient.ItemType,
+          need: subIngredient.need ?? subIngredient.ItemCount,
+        })),
+      });
+    }
+  }
+  return [...byItemType.values()];
 }
 
 function sourceType(source) {
@@ -32,7 +50,10 @@ function sourceType(source) {
 }
 
 function sourceName(source) {
-  return source.nodeName ?? source.node ?? source.relicName ?? source.source ?? source.name ?? 'Unknown source';
+  const provenance = lower(source.source);
+  const sourceIsProvenance = provenance === 'drops.wf' || provenance === 'browse.wf' || provenance.endsWith('.wf');
+  return source.nodeName ?? source.node ?? source.relicName ?? source.enemyName ?? source.bountyName ??
+    (sourceIsProvenance ? null : source.source) ?? source.name ?? 'Unknown source';
 }
 
 function sourcePlace(source, itemName) {
@@ -49,7 +70,7 @@ function sourcePlace(source, itemName) {
     badge: source.nodeName ? 'exact node' : isPlanet ? 'planet-wide resource' : source.relicName ? 'source only' : 'source only',
     missionType: source.missionType ?? null,
     faction: source.faction ?? null,
-    planet: source.planet ?? null,
+    planet: source.region ?? source.planet ?? null,
     itemName,
   };
 }
@@ -91,24 +112,26 @@ function sourceRowsFor(placeIndex, coveredItems) {
   return coveredItems.map((item) => ({
     ...item,
     sources: sortSourcesByChanceInRotations(
-      (placeIndex.byItem.get(lower(item.itemType)) ?? []).filter((source) => source.placeId === item.placeId),
+      [...new Set([item.itemType, item.name].map(lower).filter(Boolean))]
+        .flatMap((key) => placeIndex.byItem.get(key) ?? [])
+        .filter((source) => source.placeId === item.placeId),
     ),
   }));
 }
 
-export function buildFarmingTargetsScreenModel({ targets = [], inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {} } = {}) {
+export function buildFarmingTargetsScreenModel({ targets = [], inventoryData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex } = {}) {
   const owned = ownedMap(inventoryData);
-  const expanded = expandTargets(targets.map((target) => ({ ...target, itemType: target.itemType ?? target.uniqueName })), {
+  const expanded = expandTargets(targets.map((target) => ({ ...target, itemType: target.itemType ?? target.uniqueName, isAcquirable: target.isAcquirable ?? true })), {
     recipes: recipeList(inventoryData),
     owned,
   });
   const ledger = buildLedger({ leaves: expanded.leaves, owned, reservations: targets.flatMap((target) => target.reservations ?? []) });
-  const placeIndex = buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex });
-  const rankingResult = rankPlaces({ ledger, placeIndex, filters });
+  const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex });
+  const rankingResult = rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters });
   const ranked = rankingResult.ranked.map((row) => ({
     ...row,
     coveredItems: row.coveredItems.map((item) => ({ ...item, placeId: row.place.id })),
-  })).map((row) => ({ ...row, coveredItems: sourceRowsFor(placeIndex, row.coveredItems) }));
+  })).map((row) => ({ ...row, coveredItems: sourceRowsFor(resolvedPlaceIndex, row.coveredItems) }));
   return {
     ledger,
     ranked,
@@ -116,6 +139,6 @@ export function buildFarmingTargetsScreenModel({ targets = [], inventoryData, dr
     excludedByMinChance: rankingResult.excludedByMinChance,
     unresolved: expanded.unresolved,
     errors: expanded.errors,
-    placeCount: placeIndex.places.size,
+    placeCount: resolvedPlaceIndex.places.size,
   };
 }

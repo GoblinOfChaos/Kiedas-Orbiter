@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
 import { buildFarmingTargetsScreenModel } from '../../src/lib/farmingTargets/screenModel.js';
+
+const fixture = JSON.parse(fs.readFileSync(path.resolve('tests/farming/fixtures/screen-model-defects.json'), 'utf8'));
 
 test('screen model uses engine ledger and keeps chance rows visible', () => {
   const model = buildFarmingTargetsScreenModel({
@@ -32,3 +36,35 @@ test('minimum chance is opt-in and does not invent planet chances', () => {
   assert.equal(buildFarmingTargetsScreenModel({ ...input, filters: { minChance: 0.05 } }).ranked.length, 0);
 });
 
+test('recipe-less user targets remain acquirable and preserve enemy and bounty places', () => {
+  const model = buildFarmingTargetsScreenModel({
+    ...fixture,
+    targets: fixture.targets,
+    inventoryData: { all: [], craftable: [] },
+  });
+  assert.equal(model.unresolved.length, 0);
+  assert.equal(model.ledger.length, 2);
+  assert.deepEqual(model.ranked.map((row) => row.place.name).sort(), ['Test Bounty', 'Test Enemy', 'Narin Node'].sort());
+  assert.ok(model.ranked.every((row) => row.place.name !== 'drops.wf'));
+  assert.equal(model.ranked.find((row) => row.place.name === 'Narin Node').place.planet, 'Earth');
+});
+
+test('source rows match by item type or display name and expand component sub-recipes', () => {
+  const model = buildFarmingTargetsScreenModel({
+    ...fixture,
+    targets: [{ id: 'frame', uniqueName: '/Items/Frame', name: 'Frame', quantity: 1 }],
+    dropIndex: {
+      '/Resources/Alloy': [{ type: 'mission', nodeName: 'Alloy Node', region: 'Mars', source: 'drops.wf', chance: 0.4 }],
+    },
+  });
+  assert.deepEqual(model.ledger.map((row) => [row.itemType, row.stillNeeded]), [['/Resources/Alloy', 3]]);
+  assert.equal(model.ranked[0].place.name, 'Alloy Node');
+  assert.equal(model.ranked[0].place.planet, 'Mars');
+
+  const byDisplayName = buildFarmingTargetsScreenModel({
+    targets: [{ id: 'mod', uniqueName: '/Mods/TestMod', name: 'Test Mod', quantity: 1 }],
+    inventoryData: { all: [], craftable: [] },
+    dropIndex: { '/Mods/TestMod': [{ type: 'mission', nodeName: 'Mod Node', source: 'drops.wf', chance: 0.3, itemName: 'Test Mod' }] },
+  });
+  assert.equal(byDisplayName.ranked[0].coveredItems[0].sources[0].source, 'Mod Node');
+});

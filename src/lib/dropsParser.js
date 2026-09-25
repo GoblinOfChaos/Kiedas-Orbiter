@@ -245,6 +245,7 @@ const normChance = (c) => c != null ? c / 100 : null
 
 function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
   if (!DropsAll || typeof DropsAll !== 'object') return
+  const provenance = DropsAll.__source || 'drops.wf'
   const addNamed = (itemName, source) => addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
 
   // ── missionRewards: planet -> node -> rotation -> rewards ──────────────
@@ -272,7 +273,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             rotation: rotation === 'A' ? null : rotation,
             chance: normChance(entry.chance),
             itemCount: 1,
-            source: 'drops.wf',
+            source: provenance,
           })
         }
         if (Array.isArray(rewards)) {
@@ -305,7 +306,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           chance: normChance(entry.chance),
           relicManifest: relicName,
           state,
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -323,7 +324,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           rarity: enemy.rarity || '',
           chance: normChance(enemy.chance),
           enemyDropChance: enemy.enemyModDropChance ?? null,
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -340,7 +341,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           enemyName: enemy.enemyName,
           rarity: mod.rarity || '',
           chance: normChance(mod.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -358,7 +359,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           enemyName: enemy.enemyName,
           rarity: enemy.rarity || '',
           chance: normChance(enemy.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -376,7 +377,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             enemyName: enemy.enemyName,
             rarity: item.rarity || '',
             chance: normChance(item.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -387,7 +388,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             enemyName: enemy.enemyName,
             rarity: mod.rarity || '',
             chance: normChance(mod.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -421,7 +422,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             stage: entry.stage || '',
             rarity: entry.rarity || '',
             chance: normChance(entry.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -437,7 +438,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
         type: 'sortie',
         rarity: entry.rarity || '',
         chance: normChance(entry.chance),
-        source: 'drops.wf',
+        source: provenance,
       })
     }
   }
@@ -455,7 +456,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           rotation: entry.rotation || '',
           rarity: entry.rarity || '',
           chance: normChance(entry.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -478,7 +479,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             rotation: rotation === 'A' ? null : rotation,
             rarity: entry.rarity || '',
             chance: normChance(entry.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -499,7 +500,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           standing: entry.standing ?? null,
           rarity: entry.rarity || '',
           chance: normChance(entry.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -520,7 +521,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           sourceName,
           rarity: item.rarity || '',
           chance: normChance(item.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }

@@ -35,6 +35,9 @@ mod de_weapons;
 mod de_recipes;
 mod de_relics;
 mod de_upgrades;
+mod de_customs;
+mod de_sentgear;
+mod de_droptables;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -389,6 +392,7 @@ const DROPDATA_FILES: &[(&str, &str)] = &[
     ("DropsAll.json", "https://drops.warframestat.us/data/all.json"),
     ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
+const DE_DROP_TABLE_FILE: &str = "de/DropTables.json";
 
 // Creator/Partner redemption details are a browse.wf community supplement,
 // not Digital Extremes Public Export data. Keep this file separate from the
@@ -681,6 +685,30 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         }
     }
 
+    let de_customs_cache = export_dir.join("de/ExportCustoms_en.json");
+    let de_flavour_cache = export_dir.join("de/ExportFlavour_en.json");
+    let de_customs_manifest_cache = export_dir.join("de/ExportManifest.json");
+    if force || !de_customs_cache.exists() || !de_flavour_cache.exists() || !de_customs_manifest_cache.exists() || file_age_secs(&de_customs_cache) > 86_400 || file_age_secs(&de_flavour_cache) > 86_400 || file_age_secs(&de_customs_manifest_cache) > 86_400
+        || mirror_newer_than(&export_dir.join("ExportCustoms.json"), &de_customs_cache)
+        || mirror_newer_than(&export_dir.join("ExportFlavour.json"), &de_flavour_cache) {
+        match de_customs::refresh_de_customs(&client, &export_dir).await {
+            Ok(summary) => { updated_count += 1; eprintln!("DE customs/flavour merge: {} customs added, {} flavour added, {} mirror-only retained", summary.customs_added, summary.flavour_added, summary.customs_mirror_only + summary.flavour_mirror_only); }
+            Err(e) => eprintln!("Warning: could not refresh DE customs/flavour; retained mirror: {}", e),
+        }
+    }
+
+    let de_sentinel_cache = export_dir.join("de/ExportSentinels_en.json");
+    let de_gear_cache = export_dir.join("de/ExportGear_en.json");
+    if force || !de_sentinel_cache.exists() || !de_gear_cache.exists()
+        || file_age_secs(&de_sentinel_cache) > 86_400 || file_age_secs(&de_gear_cache) > 86_400
+        || mirror_newer_than(&export_dir.join("ExportSentinels.json"), &de_sentinel_cache)
+        || mirror_newer_than(&export_dir.join("ExportGear.json"), &de_gear_cache) {
+        match de_sentgear::refresh_de_sentgear(&client, &export_dir).await {
+            Ok(summary) => { updated_count += 1; eprintln!("DE Sentinels/Gear merge: {} / {} changed, {} / {} added, {} / {} mirror-only retained", summary.sentinels_changed, summary.gear_changed, summary.sentinels_added, summary.gear_added, summary.sentinels_mirror_only, summary.gear_mirror_only); }
+            Err(e) => eprintln!("Warning: could not refresh DE Sentinels/Gear; retained mirror: {}", e),
+        }
+    }
+
     // DE public manifest: locale-specific ExportUpgrades_{locale}.json gives us
     // localized mod descriptions (levelStats). English uses the same manifest
     // file (ExportUpgrades_en.json), which supersedes the bundled
@@ -732,6 +760,12 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 Err(e) => eprintln!("Warning: could not download {}: {}", file_name, e),
             }
         }
+    }
+
+    match de_droptables::refresh_de_drop_tables(&client, &export_dir, force).await {
+        Ok(true) => updated_count += 1,
+        Ok(false) => {},
+        Err(e) => eprintln!("Warning: could not refresh official DE drop tables; retained mirror: {}", e),
     }
 
     // WFCD weapon gap-fill files - refresh every 24 hours; non-fatal. See the
@@ -1394,6 +1428,13 @@ async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Resul
     for handle in drop_handles {
         let (key, json) = handle.await.map_err(|e| e.to_string())??;
         result.insert(key, json);
+    }
+
+    let de_drop_path = export_dir.join(DE_DROP_TABLE_FILE);
+    if de_drop_path.exists() {
+        let file = fs::File::open(&de_drop_path).map_err(|e| e.to_string())?;
+        let json: Value = serde_json::from_reader(std::io::BufReader::new(file)).map_err(|e| e.to_string())?;
+        result.insert("DEDropTables".to_string(), json);
     }
 
     // WFCD gap-fill files - purely supplemental (see WFCD_GAPFILL_FILES
@@ -2730,6 +2771,16 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
                 Err(e) => eprintln!("[load_all_exports_inner] failed to parse {} ({}b): {}", key, path.metadata().map(|m| m.len()).unwrap_or(0), e),
             },
             Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", key, e),
+        }
+    }
+
+    let de_drop_path = export_dir.join(crate::DE_DROP_TABLE_FILE);
+    if de_drop_path.exists() {
+        match std::fs::File::open(&de_drop_path).and_then(|file| {
+            serde_json::from_reader(std::io::BufReader::new(file)).map_err(|error| std::io::Error::new(std::io::ErrorKind::InvalidData, error))
+        }) {
+            Ok(json) => { result.insert("DEDropTables".to_string(), json); }
+            Err(e) => eprintln!("[load_all_exports_inner] failed to parse official DE drop tables: {}", e),
         }
     }
 

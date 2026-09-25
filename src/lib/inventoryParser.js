@@ -2301,7 +2301,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   for (const [un, entry] of Object.entries(ECustOrig)) {
     if (!un.startsWith('/Lotus/Upgrades/Skins/')) continue;
     const isOwned = ownedAppearanceKeys.has(canonicalUniqueName(un).toLowerCase());
-    const name = resolveName(un, dict, locale, ECustOrig, ECust, ER, ERecipe) || nameFromPath(un);
+    const name = resolveName(un, dict, locale, ECustOrig, ECust, ER, ERecipe) || entry?.name || nameFromPath(un);
     if (!name) continue;
     appearance_catalog.push({
       unique_name: un,

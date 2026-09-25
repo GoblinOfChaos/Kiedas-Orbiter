@@ -3,6 +3,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
 const { parseInventory } = await import('../src/lib/inventoryParser.js')
+const { getRelicCatalog } = await import('../src/lib/relicParser.js')
 const { resolveAnyImage } = await import('../src/lib/warframeUtils.js')
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -105,10 +106,15 @@ export function discoverNewDeSubjects({ dataDir, cacheDir }) {
   const output = []
   const seen = new Set()
   const add = (category, table, raw) => {
-    const mirrorKeys = new Set(tableEntries({ exportsBundle: { [table]: mirror(table) } }, [table]).map(([key]) => canonicalPath(key)))
+    const mirrorData = mirror(table)
+    const mirrorEntries = tableEntries({ exportsBundle: { [table]: mirrorData } }, [table])
+    const mirrorKeys = new Set(mirrorEntries.map(([key]) => canonicalPath(key)))
     for (const entry of cacheRecords(raw, table)) {
       const uniqueName = entry?.uniqueName || entry?.ItemType
-      if (!uniqueName || mirrorKeys.has(canonicalPath(uniqueName))) continue
+      if (!uniqueName) continue
+      const mirrorEntry = mirrorEntries.find(([key]) => canonicalPath(key) === canonicalPath(uniqueName))?.[1]
+      const needsRelicRewardAdapter = category === 'relics' && Array.isArray(entry?.relicRewards) && entry.relicRewards.length > 0 && !mirrorEntry?.rewardManifest
+      if (mirrorKeys.has(canonicalPath(uniqueName)) && !needsRelicRewardAdapter) continue
       const target = category === 'recipes' ? entry?.resultType : uniqueName
       if (!target) continue
       const key = `${category}:${canonicalPath(uniqueName)}`
@@ -126,10 +132,13 @@ export function discoverNewDeSubjects({ dataDir, cacheDir }) {
     const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
     if (cacheTable !== 'ExportRelicArcane') { add(category, cacheTable, raw); continue }
     const mirrorTable = category === 'arcanes' ? 'ExportArcanes' : 'ExportRelics'
-    const mirrorKeys = new Set(tableEntries({ exportsBundle: { [mirrorTable]: mirror(mirrorTable) } }, [mirrorTable]).map(([key]) => canonicalPath(key)))
+    const mirrorEntries = tableEntries({ exportsBundle: { [mirrorTable]: mirror(mirrorTable) } }, [mirrorTable])
+    const mirrorKeys = new Set(mirrorEntries.map(([key]) => canonicalPath(key)))
     for (const item of cacheRecords(raw, cacheTable)) {
       const isArcane = item?.uniqueName?.includes('/CosmeticEnhancers/')
-      if ((category === 'arcanes') !== isArcane || !item?.uniqueName || mirrorKeys.has(canonicalPath(item.uniqueName))) continue
+      const mirrorEntry = mirrorEntries.find(([key]) => canonicalPath(key) === canonicalPath(item?.uniqueName))?.[1]
+      const needsRelicRewardAdapter = category === 'relics' && Array.isArray(item?.relicRewards) && item.relicRewards.length > 0 && !mirrorEntry?.rewardManifest
+      if ((category === 'arcanes') !== isArcane || !item?.uniqueName || (mirrorKeys.has(canonicalPath(item.uniqueName)) && !needsRelicRewardAdapter)) continue
       const key = `${category}:${canonicalPath(item.uniqueName)}`
       if (!seen.has(key)) { seen.add(key); output.push({ uniqueName: item.uniqueName, name: cleanName(item.name || item.uniqueName), category }) }
     }
@@ -141,7 +150,13 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
   const category = subject.category || categoryFor(harness, subject.uniqueName)
   const rule = CATEGORY_RULES[category] || CATEGORY_RULES.resources
-  const catalogItem = findCatalogItem(inventory, subject.uniqueName)
+  const catalogItem = category === 'relics'
+    ? (() => {
+      const relicEntry = tableEntries(harness, ['ExportRelics']).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
+      const key = relicEntry?.name?.replace(/ Relic$/, '')
+      return getRelicCatalog(harness.exportsBundle).find((item) => item.key === key)
+    })()
+    : findCatalogItem(inventory, subject.uniqueName)
   const entry = tableEntries(harness, rule.tables).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
   const name = cleanName(catalogItem?.name || itemName(harness, subject.uniqueName, entry) || subject.name)
   const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))

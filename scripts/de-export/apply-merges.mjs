@@ -12,6 +12,9 @@ import { mergeWarframes } from './adapters/merge-warframes.mjs'
 import { mergeWeapons } from './adapters/merge-weapons.mjs'
 import { adaptRelicsArcanes, mergeRelicsArcanes } from './adapters/relics-arcanes.mjs'
 import { adaptUpgrades, addManifestIcons as addUpgradeManifestIcons, mergeImages as mergeUpgradeImages, mergeUpgrades } from './adapters/merge-upgrades.mjs'
+import { adaptCustoms, adaptFlavour, manifestIcons, mergeCustoms, mergeFlavour } from './adapters/merge-customs-flavour.mjs'
+import { adaptGear, adaptSentinels } from './adapters/sentgear.mjs'
+import { mergeGear, mergeSentinels } from './adapters/merge-sentgear.mjs'
 
 const DEFAULT_CACHE = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export'
 const DEFAULT_DATA = process.env.KIEDAS_PREVIEW_DATA_DIR || path.join(os.homedir(), '.local/share/kiedas-orbiter-preview/data')
@@ -37,25 +40,35 @@ async function loadDe(cacheDir, provenance, category) {
   return readJson(file)
 }
 
+async function loadDeOptional(cacheDir, provenance, category) {
+  if (!provenance?.categories?.[category]?.suffix) return {}
+  return loadDe(cacheDir, provenance, category)
+}
+
 export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFAULT_CACHE } = {}) {
   if (!out) throw new Error('apply-merges requires --out DIR')
   const sourceExport = path.join(dataDir, 'export')
   const outExport = path.join(out, 'export')
   await fs.cp(sourceExport, outExport, { recursive: true })
   const provenance = await readJson(path.join(cacheDir, 'provenance.json'))
-  const [deWarframesRaw, deWeaponsRaw, deRecipesRaw, deResourcesRaw, deRelicArcaneRaw, deUpgradesRaw, deManifest] = await Promise.all([
+  const [deWarframesRaw, deWeaponsRaw, deRecipesRaw, deResourcesRaw, deRelicArcaneRaw, deUpgradesRaw, deCustomsRaw, deFlavourRaw, deSentinelsRaw, deGearRaw, deManifest] = await Promise.all([
     loadDe(cacheDir, provenance, 'ExportWarframes'),
     loadDe(cacheDir, provenance, 'ExportWeapons'),
     loadDe(cacheDir, provenance, 'ExportRecipes'),
     loadDe(cacheDir, provenance, 'ExportResources'),
     loadDe(cacheDir, provenance, 'ExportRelicArcane'),
     loadDe(cacheDir, provenance, 'ExportUpgrades'),
+    loadDeOptional(cacheDir, provenance, 'ExportCustoms'),
+    loadDeOptional(cacheDir, provenance, 'ExportFlavour'),
+    loadDeOptional(cacheDir, provenance, 'ExportSentinels'),
+    loadDeOptional(cacheDir, provenance, 'ExportGear'),
     loadDe(cacheDir, provenance, 'ExportManifest'),
   ])
-  const readApp = (name) => readJson(path.join(sourceExport, name))
-  const [appWarframes, appWeapons, appRecipes, appResources, appRelics, appArcanes, appUpgrades, appImages] = await Promise.all([
+  const readApp = (name) => readJson(path.join(sourceExport, name)).catch(() => ({}))
+  const [appWarframes, appWeapons, appRecipes, appResources, appRelics, appArcanes, appUpgrades, appCustoms, appFlavour, appSentinels, appGear, appImages, appRewards] = await Promise.all([
     readApp('ExportWarframes.json'), readApp('ExportWeapons.json'), readApp('ExportRecipes.json'),
-    readApp('ExportResources.json'), readApp('ExportRelics.json'), readApp('ExportArcanes.json'), readApp('ExportUpgrades.json'), readApp('ExportImages.json'),
+    readApp('ExportResources.json'), readApp('ExportRelics.json'), readApp('ExportArcanes.json'), readApp('ExportUpgrades.json'),
+    readApp('ExportCustoms.json'), readApp('ExportFlavour.json'), readApp('ExportSentinels.json'), readApp('ExportGear.json'), readApp('ExportImages.json'), readApp('ExportRewards.json'),
   ])
 
   const { merged: warframesBase } = mergeWarframes(appWarframes, adaptWarframes(deWarframesRaw))
@@ -65,7 +78,14 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
   const deResources = addManifestIcons(adaptResources(deResourcesRaw), deManifest)
   const { merged: resources } = mergeResources(appResources, deResources)
   const { merged: images } = mergeImages(appImages, deManifest)
-  const { relics, arcanes } = mergeRelicsArcanes(appRelics, appArcanes, adaptRelicsArcanes(deRelicArcaneRaw))
+  const adaptedRelicsArcanes = adaptRelicsArcanes(deRelicArcaneRaw)
+  const { relics: mergedRelics, arcanes } = mergeRelicsArcanes(appRelics, appArcanes, adaptedRelicsArcanes)
+  const relics = addManifestIcons(mergedRelics, deManifest)
+  const rewards = { ...appRewards, ...adaptedRelicsArcanes.rewards }
+  const { merged: customs } = mergeCustoms(appCustoms, manifestIcons(adaptCustoms(deCustomsRaw), deManifest))
+  const { merged: flavour } = mergeFlavour(appFlavour, manifestIcons(adaptFlavour(deFlavourRaw), deManifest))
+  const { merged: sentinels } = mergeSentinels(appSentinels, adaptSentinels(deSentinelsRaw))
+  const { merged: gear } = mergeGear(appGear, adaptGear(deGearRaw))
   const { merged: upgradesBase } = mergeUpgrades(appUpgrades, adaptUpgrades(deUpgradesRaw))
   const upgrades = addUpgradeManifestIcons(upgradesBase, deManifest)
   const { merged: upgradeImages } = mergeUpgradeImages(images, deManifest)
@@ -78,6 +98,11 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'ExportRelics.json'), relics),
     writeJson(path.join(outExport, 'ExportArcanes.json'), arcanes),
     writeJson(path.join(outExport, 'ExportUpgrades.json'), upgrades),
+    writeJson(path.join(outExport, 'ExportCustoms.json'), customs),
+    writeJson(path.join(outExport, 'ExportFlavour.json'), flavour),
+    writeJson(path.join(outExport, 'ExportSentinels.json'), sentinels),
+    writeJson(path.join(outExport, 'ExportGear.json'), gear),
+    writeJson(path.join(outExport, 'ExportRewards.json'), rewards),
     writeJson(path.join(outExport, 'ExportImages.json'), upgradeImages),
   ])
   await fs.mkdir(path.join(outExport, 'de'), { recursive: true })
@@ -88,6 +113,10 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'de', 'ExportResources_en.json'), deResourcesRaw),
     writeJson(path.join(outExport, 'de', 'ExportRelicArcane_en.json'), deRelicArcaneRaw),
     writeJson(path.join(outExport, 'de', 'ExportUpgrades_en.json'), deUpgradesRaw),
+    writeJson(path.join(outExport, 'de', 'ExportCustoms_en.json'), deCustomsRaw),
+    writeJson(path.join(outExport, 'de', 'ExportFlavour_en.json'), deFlavourRaw),
+    writeJson(path.join(outExport, 'de', 'ExportSentinels_en.json'), deSentinelsRaw),
+    writeJson(path.join(outExport, 'de', 'ExportGear_en.json'), deGearRaw),
     writeJson(path.join(outExport, 'de', 'ExportManifest.json'), deManifest),
   ])
   return { out, exportDir: outExport, counts: {
@@ -95,6 +124,9 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     recipes: Object.keys(recipes).length, resources: Object.keys(resources).length,
     relics: Object.keys(relics).length, arcanes: Object.keys(arcanes).length,
     upgrades: Object.keys(upgrades).length, images: Object.keys(upgradeImages).length,
+    customs: Object.keys(customs).length, flavour: Object.keys(flavour).length,
+    sentinels: Object.keys(sentinels).length, gear: Object.keys(gear).length,
+    rewards: Object.keys(rewards).length,
   } }
 }
 

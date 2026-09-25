@@ -10,5 +10,15 @@
   {
     "name": "Volt Prime",
     "uniqueName": "/Lotus/Powersuits/Volt/VoltPrime"
+  },
+  {
+    "name": "Venari Prime",
+    "uniqueName": "/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit",
+    "category": "companions"
+  },
+  {
+    "name": "Fass Residue",
+    "uniqueName": "/Lotus/Types/Game/FishBait/Infested/InfestedFishBaitA",
+    "category": "gear"
   }
 ]

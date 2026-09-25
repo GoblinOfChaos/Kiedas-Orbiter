@@ -9,6 +9,8 @@ const frame = '/Lotus/Powersuits/Test/Test'
 const weapon = '/Lotus/Weapons/Test/Test'
 const recipe = '/Lotus/Types/Recipes/WarframeRecipes/TestBlueprint'
 const resource = '/Lotus/Types/Items/Resources/Test'
+const custom = '/Lotus/Upgrades/Skins/Test/TestSkin'
+const emote = '/Lotus/Types/Items/Emotes/TestEmote'
 
 test('apply-merges matches the hand-made Rust-shape fixture', async () => {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'apply-merges-test-'))
@@ -18,15 +20,15 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
   const exportDir = path.join(dataDir, 'export')
   await fs.mkdir(exportDir, { recursive: true })
   await fs.mkdir(path.join(cacheDir, 'assets'), { recursive: true })
-  const suffixes = { ExportWarframes: 'warframes', ExportWeapons: 'weapons', ExportRecipes: 'recipes', ExportResources: 'resources', ExportRelicArcane: 'relic-arcane', ExportUpgrades: 'upgrades', ExportManifest: 'manifest' }
+  const suffixes = { ExportWarframes: 'warframes', ExportWeapons: 'weapons', ExportRecipes: 'recipes', ExportResources: 'resources', ExportRelicArcane: 'relic-arcane', ExportUpgrades: 'upgrades', ExportCustoms: 'customs', ExportFlavour: 'flavour', ExportManifest: 'manifest' }
   await fs.writeFile(path.join(cacheDir, 'provenance.json'), JSON.stringify({ categories: Object.fromEntries(Object.entries(suffixes).map(([category, suffix]) => [category, { suffix }])) }))
   const app = {
     ExportWarframes: { [frame]: { uniqueName: frame, name: '/mirror/name', health: 10 } },
     ExportWeapons: { [weapon]: { uniqueName: weapon, name: '/mirror/weapon', totalDamage: 10 } },
-    ExportRecipes: {}, ExportResources: {}, ExportRelics: {}, ExportArcanes: {}, ExportUpgrades: {}, ExportImages: {},
+    ExportRecipes: {}, ExportResources: {}, ExportRelics: {}, ExportArcanes: {}, ExportUpgrades: {}, ExportCustoms: {}, ExportFlavour: {}, ExportImages: {},
   }
   for (const [name, value] of Object.entries(app)) await fs.writeFile(path.join(exportDir, `${name}.json`), JSON.stringify(value))
-  const manifest = { Manifest: [{ uniqueName: frame, textureLocation: '/Lotus/Test.png!hash' }, { uniqueName: resource, textureLocation: '/Lotus/Resource.png!resource-hash' }] }
+  const manifest = { Manifest: [{ uniqueName: frame, textureLocation: '/Lotus/Test.png!hash' }, { uniqueName: resource, textureLocation: '/Lotus/Resource.png!resource-hash' }, { uniqueName: custom, textureLocation: '/Lotus/Custom.png!custom-hash' }] }
   const de = {
     ExportWarframes: [{ uniqueName: frame, name: 'Test', health: 20 }],
     ExportWeapons: [{ uniqueName: weapon, name: 'Weapon', totalDamage: 20 }],
@@ -34,6 +36,7 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
     ExportResources: [{ uniqueName: resource, name: 'Resource' }],
     ExportRelicArcane: [{ uniqueName: '/Lotus/Types/Game/Relics/TestRelic', category: 'Lith' }, { uniqueName: '/Lotus/Types/Items/ArcaneEnhancements/TestArcane', rarity: 'Rare' }],
     ExportUpgrades: [{ uniqueName: '/Lotus/Powersuits/Test/NewAugmentCard', name: 'New Mod', levelStats: [{ stats: ['new'] }] }],
+    ExportCustoms: [{ uniqueName: custom, name: 'Test Skin' }], ExportFlavour: [{ uniqueName: emote, name: 'Test Emote' }],
     ExportManifest: manifest,
     ExportRelics: {}, ExportArcanes: {},
   }
@@ -57,12 +60,15 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
       [resource]: { icon: '/Lotus/Resource.png', name: 'Resource', uniqueName: resource },
     })
     assert.deepEqual(await read('ExportImages.json'), {
+      '/Lotus/Custom.png': { contentHash: 'custom-hash' },
       '/Lotus/Resource.png': { contentHash: 'resource-hash' },
       '/Lotus/Test.png': { contentHash: 'hash' },
     })
     const upgrades = await read('ExportUpgrades.json')
     assert.equal(upgrades['/Lotus/Powersuits/Test/NewAugmentCard'].name, 'New Mod')
     assert.deepEqual(upgrades['/Lotus/Powersuits/Test/NewAugmentCard'].levelStats, [{ stats: ['new'] }])
+    assert.equal((await read('ExportCustoms.json'))[custom].icon, '/Lotus/Custom.png')
+    assert.equal((await read('ExportFlavour.json'))[emote].icon, undefined)
   } finally {
     await fs.rm(root, { recursive: true, force: true })
   }

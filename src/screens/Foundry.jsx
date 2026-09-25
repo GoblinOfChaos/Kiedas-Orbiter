@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { event as logEvent } from '../lib/logging/logger'
 import { Check, Hammer, Search, Star } from 'lucide-react'
 import { PageLayout, Card, Input, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -340,6 +341,19 @@ export default function Foundry() {
       (masteryFilter === 'all' || (item.masterable === false ? false : (masteryFilter === 'mastered' ? item.mastered : !item.mastered)))
     )).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
   }, [items, search, ownershipFilter, readyOnly, masteryFilter])
+  // Diagnostic (2026-09-24, Narin parts missing report).
+  useEffect(() => {
+    const narin = (inventoryData?.warframes || []).find((i) => i.unique_name === '/Lotus/Powersuits/Duelist/Duelist');
+    logEvent('foundry.items.summary', {
+      category: activeCat,
+      items: items.length,
+      shown: filteredItems.length,
+      recipes_indexed: recipeByResult.size,
+      narin_in_inventory: !!narin,
+      narin_recipe: !!(recipeByResult.get('path:/Lotus/Powersuits/Duelist/Duelist') || recipeByResult.get('name:narin')),
+      narin_in_items: items.some((i) => i.unique_name === '/Lotus/Powersuits/Duelist/Duelist'),
+    }, { level: 'info', screen: 'foundry' });
+  }, [activeCat, items, filteredItems, recipeByResult, inventoryData]);
   const selected = filteredItems.find((item) => item.unique_name === selectedName) || null
   const ownedCount = items.filter((item) => hasFoundryOwnership(item, item.recipe)).length
   const categoriesWithLabels = CATEGORIES.map((c) => ({ ...c, label: t(c.labelKey) }))

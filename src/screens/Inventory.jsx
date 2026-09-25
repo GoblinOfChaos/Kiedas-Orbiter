@@ -575,6 +575,19 @@ export default function Inventory() {
     return items;
   }, [tabItems, searchQuery, currentFilters, activeTab, sortCriteria, sortDirection]);
 
+  // Diagnostic (2026-09-24, Narin missing-from-search report): records what the
+  // search/filter pipeline actually produced so the app log shows it.
+  useEffect(() => {
+    if (!searchQuery) return;
+    logEvent('inventory.search.result', {
+      query: searchQuery,
+      tab: activeTab,
+      tab_items: tabItems.length,
+      filtered_items: filteredItems.length,
+      first_names: filteredItems.slice(0, 3).map((i) => i.name),
+    }, { level: 'info', screen: 'inventory' });
+  }, [searchQuery, activeTab, tabItems, filteredItems]);
+
   const isPrimeParts = activeTab === 'prime_parts';
   const isAyatan = activeTab === 'ayatan';
   const isListView = IS_PREVIEW && viewMode === 'list' && activeTab !== 'arcanes';

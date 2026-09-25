@@ -29,7 +29,8 @@ function sourceRows(placeIndex, row) {
 
 function matchesFilters(place, filters) {
   if (filters.types?.length && !filters.types.includes(place.type)) return false;
-  if (filters.factions?.length && !filters.factions.includes(place.area?.faction)) return false;
+  if (filters.factions?.length && !filters.factions.includes(place.area?.faction ?? place.faction)) return false;
+  if (filters.missionTypes?.length && !filters.missionTypes.includes(place.missionType)) return false;
   if (filters.tab && filters.tab !== 'all' && !tabTypes[filters.tab]?.has(place.type)) return false;
   return true;
 }
@@ -67,7 +68,7 @@ export function rankPlaces({ ledger = [], placeIndex = { byItem: new Map(), plac
       if (!candidates.has(source.placeId)) candidates.set(source.placeId, new Map());
       const itemMap = candidates.get(source.placeId);
       const previous = itemMap.get(row.itemType);
-      const candidate = { itemType: row.itemType, name: row.name, chance: source.chance, rotation: source.rotation ?? null };
+      const candidate = { itemType: row.itemType, name: row.name, chance: source.chance, rotation: source.rotation ?? null, placeId: source.placeId };
       if (!previous || candidate.chance > previous.chance || (candidate.chance === previous.chance && textCompare(candidate.rotation, previous.rotation) < 0)) itemMap.set(row.itemType, candidate);
     }
   }

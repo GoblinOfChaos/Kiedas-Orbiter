@@ -1,0 +1,25 @@
+{
+  "targets": [
+    {"id":"narin","uniqueName":"/Items/Narin","name":"Narin","quantity":1},
+    {"id":"mod","uniqueName":"/Mods/TestMod","name":"Test Mod","quantity":1}
+  ],
+  "inventoryData": {
+    "all": [],
+    "craftable": [
+      {"resultType":"/Items/Frame","name":"Frame","ingredients":[
+        {"itemType":"/Items/FrameChassis","name":"Frame Chassis","need":1,"subIngredients":[
+          {"itemType":"/Resources/Alloy","name":"Alloy Plate","need":3}
+        ]}
+      ]}
+    ]
+  },
+  "dropIndex": {
+    "/Items/Narin": [
+      {"type":"mission","nodeName":"Narin Node","region":"Earth","source":"drops.wf","chance":0.5}
+    ],
+    "/Mods/TestMod": [
+      {"type":"enemy","enemyName":"Test Enemy","source":"drops.wf","chance":0.25},
+      {"type":"bounty","bountyName":"Test Bounty","source":"drops.wf","chance":0.2}
+    ]
+  }
+}

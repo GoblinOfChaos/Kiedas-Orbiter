@@ -23,159 +23,21 @@
 
 import fs from 'fs'
 import path from 'path'
-import os from 'os'
 import { fileURLToPath } from 'url'
-import { registerHooks } from 'node:module'
-
-// The app's source uses extensionless relative imports (Vite resolves them).
-// Teach Node to retry with a .js suffix so the real modules load unmodified.
-registerHooks({
-  resolve(spec, ctx, next) {
-    try { return next(spec, ctx) } catch { return next(spec + '.js', ctx) }
-  },
-})
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const EXPORT_DIR = path.join(os.homedir(), '.local/share/kiedas-orbiter/data/export')
-const ASSET_DATA = path.join(REPO, 'src-tauri/data/assets/data')
-const WFCD = path.join(REPO, 'src-tauri/data/assets/wfcd/wfcd-combined.json')
 const OUT = path.join(REPO, 'docs/missing-images.md')
 
+const { loadRealHarness } = await import('./lib/real-data-harness.mjs')
 const { parseInventory } = await import(path.join(REPO, 'src/lib/inventoryParser.js'))
-const { transformWarframeItems } = await import(path.join(REPO, 'src/lib/warframeItemsTransform.js'))
 const { resolveAnyImage } = await import(path.join(REPO, 'src/lib/warframeUtils.js'))
-
-const readJson = (p) => JSON.parse(fs.readFileSync(p, 'utf8'))
-
-// ── 1. Load the export bundle exactly as main.rs load_all_exports does ──────
-if (!fs.existsSync(EXPORT_DIR)) {
-  console.error(`Export directory not found: ${EXPORT_DIR}
-The DE public-export JSON is downloaded at runtime by the app; run the app once
-so it populates that directory, then re-run this audit.`)
-  process.exit(1)
-}
-
-const exportsBundle = {}
-for (const f of fs.readdirSync(EXPORT_DIR)) {
-  if (!f.endsWith('.json')) continue
-  const stem = f.replace(/\.json$/, '')
-  // Locale-specific ExportUpgrades is keyed as ExportUpgradesLocalized (en here).
-  if (stem === 'ExportUpgrades_en') {
-    exportsBundle.ExportUpgradesLocalized = readJson(path.join(EXPORT_DIR, f))
-    continue
-  }
-  if (/^ExportUpgrades_/.test(stem)) continue
-  exportsBundle[stem] = readJson(path.join(EXPORT_DIR, f))
-}
-
-// Repo-bundled supplements read by MonitoringContext via read_file_bytes.
-for (const [fname, key] of [
-  ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'],
-  ['mod-icon-map.json', 'ModIconMap'],
-  ['card-overlay-map.json', 'CardOverlayMap'],
-  ['peely-pix-map.json', 'PeelyPixMap'],
-  ['peely-pix-names.json', 'PeelyPixNames'],
-  ['warframe-items-acquisition.json', 'AcquisitionItems'],
-  ['browse-wf-glyphs.json', 'BrowseWfGlyphs'],
-]) {
-  const p = path.join(ASSET_DATA, fname)
-  if (fs.existsSync(p)) exportsBundle[key] = readJson(p)
-}
-
-// warframe-items maps (wfcdLoader.js → transformWarframeItems).
-const { maps: wiMaps, supplement: wiSupplement } = transformWarframeItems(readJson(WFCD))
-Object.assign(exportsBundle, wiMaps)
-exportsBundle.WI_Supplement = wiSupplement
-exportsBundle.uniqueNameToName = { ...wiSupplement.uniqueNameToName }
-exportsBundle.nameToImage = { ...wiSupplement.nameToImage }
-
-const dict = exportsBundle.dict ?? exportsBundle['dict.en'] ?? {}
+const { exportsBundle, dict, EI, nameToImage, uniqueNameToName } = await loadRealHarness({ dataDir: path.join(process.env.PREVIEW_DATA_DIR || '/home/jedwards/.local/share/kiedas-orbiter-preview/data'), repo: REPO })
 
 // ── 2. Build EI / nameToImage / uniqueNameToName ────────────────────────────
 // Verbatim port of MonitoringContext.jsx's useMemo (src/contexts/
 // MonitoringContext.jsx:275-371). Kept in sync manually; it is JSX-bound and
 // cannot be imported here.
-function buildImageMaps(exportData) {
-  const tableNames = [
-    'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
-    'ExportResources', 'ExportArcanes', 'ExportUpgrades',
-    'ExportAvionics', 'ExportRelics', 'ExportSyndicates',
-    'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms',
-    'ExportGear', 'ExportFlavour', 'ExportBundles',
-    'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
-    'WI_Upgrades', 'WI_Arcanes', 'WI_Resources',
-    'WI_Relics', 'WI_Gear', 'WI_Customs',
-    'WI_Skins', 'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
-  ]
-  const EI = {}
-  const nameToImage = {}
-  const uniqueNameToName = {}
-  const toBrowseWf = (p) => {
-    if (!p) return null
-    if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('asset-cache://') || p.startsWith('asset://') || p.startsWith('data:')) return p
-    const clean = p.startsWith('/') ? p : '/' + p
-    const hash = exportData.ExportImages?.[clean]?.contentHash
-    return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
-  }
-  const indexEntry = (e, k, t) => {
-    const un = e.uniqueName || e.ItemType || k
-    if (!un) return
-    let iconPath = e.icon ?? e.texture
-    let nameKey = e.name ?? e.displayName
-    if (t === 'ExportRecipes' && e.resultType) {
-      nameKey = uniqueNameToName[e.resultType] || e.resultType
-      if (!iconPath) {
-        const resultUn = e.resultType
-        iconPath = exportData.ExportImages?.[resultUn] || EI[resultUn]
-        if (typeof iconPath === 'string' && iconPath.startsWith('asset-cache://browse.wf')) {
-          iconPath = iconPath.replace('asset-cache://browse.wf', '')
-        }
-      }
-    }
-    if (t === 'ExportBundles' && e.components?.length && !exportData.ExportImages?.[iconPath]?.contentHash) {
-      const customs = exportData.ExportCustoms || {}
-      for (const c of e.components) {
-        const cType = c.typeName || c.ItemType || ''
-        const entry = customs[cType] || customs[cType.replace('/StoreItems/', '/')]
-        const cIcon = entry?.icon
-        if (cIcon && exportData.ExportImages?.[cIcon]?.contentHash) { iconPath = cIcon; break }
-      }
-    }
-    const url = toBrowseWf(iconPath ?? '')
-    const isStaleWikiThumbnail = typeof url === 'string' &&
-      /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
-    if (url && (!EI[un] || !isStaleWikiThumbnail)) EI[un] = url
-    uniqueNameToName[un] = nameKey
-    const locKey = uniqueNameToName[un]
-    if (locKey) {
-      const resolved = (dict[locKey] || dict['/' + locKey] || '').replace(/<[^>]*>/g, '').trim()
-      if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !isStaleWikiThumbnail)) {
-        if (url) nameToImage[resolved.toLowerCase()] = url
-      }
-    }
-  }
-  for (const tbl of tableNames) {
-    const data = exportData[tbl]
-    if (!data) continue
-    if (Array.isArray(data)) data.forEach(e => indexEntry(e, null, tbl))
-    else if (typeof data === 'object') {
-      const nested = data[tbl] ?? (Object.keys(data).length === 1 && typeof Object.values(data)[0] === 'object' ? Object.values(data)[0] : null)
-      if (Array.isArray(nested)) nested.forEach(e => indexEntry(e, null, tbl))
-      else Object.entries(data).forEach(([k, v]) => indexEntry(v, k, tbl))
-    }
-  }
-  const wiSupp = exportData?.WI_Supplement?.nameToImage
-  if (wiSupp) {
-    for (const [k, v] of Object.entries(wiSupp)) {
-      if (nameToImage[k] === undefined) nameToImage[k] = v
-    }
-  }
-  return { EI, nameToImage, uniqueNameToName }
-}
-
-const { EI, nameToImage, uniqueNameToName } = buildImageMaps(exportsBundle)
-
-// ── 3. Parse the ownership-independent catalogs ─────────────────────────────
+// ── 2. Parse the ownership-independent catalogs ─────────────────────────────
 // An empty raw inventory yields exactly the catalogs the app builds from the
 // export tables alone (unowned cards), which is what can be audited statically.
 const parsed = parseInventory({}, exportsBundle, dict, 'en', null)

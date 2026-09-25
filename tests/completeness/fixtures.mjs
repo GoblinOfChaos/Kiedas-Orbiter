@@ -35,6 +35,7 @@ export function goldenHarness({ broken = false } = {}) {
     resultType: chassis,
     ingredients: [{ ItemType: '/Lotus/Types/Items/Resources/Ferrite', ItemCount: 10 }],
   }
+  exportsBundle.AcquisitionItems = []
   exportsBundle.ExportWarframes[chassis] = { name: '/Lotus/Language/TestFrameChassis', icon: broken ? null : '/Lotus/Art/Chassis.png', productCategory: 'Suits', category: 'Warframes' }
   return makeHarness(exportsBundle)
 }

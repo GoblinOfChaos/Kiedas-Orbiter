@@ -163,6 +163,11 @@ function ItemCard({ item, recipe, selected, onClick, t }) {
                 BP
               </span>
             )}
+            {component.isComponent && component.have < component.need && component.bpOwned > 0 && (
+              <span className="absolute -top-1 -right-1 text-[6.5px] font-black rounded-full px-1 leading-tight shadow bg-amber-400 text-black" title={t('foundry.blueprints_owned', { count: component.bpOwned })}>
+                {t('foundry.blueprints_owned', { count: formatCount(component.bpOwned) })}
+              </span>
+            )}
             <span className={`absolute -bottom-1 -right-1 text-[7px] rounded-full px-0.5 leading-3 min-w-5 text-center font-black ${complete ? 'bg-emerald-400 text-black' : 'bg-black text-white/70'}`}>{formatCount(component.have)}/{formatCount(component.need)}</span>
           </span>
         })}
@@ -250,7 +255,10 @@ function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
               return <div key={ingredient.itemType || ingredient.name} className="flex items-center gap-2 rounded-lg bg-black/20 p-2">
                 <ItemImage src={ingredient.image} className="w-8 h-8 object-contain" placeholderClassName="w-8 h-8" />
                 <span className="text-[11px] flex-1 whitespace-normal break-words">{ingredient.name}</span>
-                <span className={`text-[10px] font-black shrink-0 ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
+                <span className="flex flex-col items-end shrink-0">
+                  <span className={`text-[10px] font-black ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
+                  {ingredient.isComponent && ingredient.have < ingredient.need && ingredient.bpOwned > 0 && <span className="text-[9px] font-black text-amber-300">{t('foundry.blueprints_owned', { count: formatCount(ingredient.bpOwned) })}</span>}
+                </span>
               </div>
             })}
           </div>

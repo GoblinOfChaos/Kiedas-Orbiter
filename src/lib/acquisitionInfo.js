@@ -961,7 +961,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
 
   const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
-    return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }
 
   // Prime weapon/Warframe component blueprints (Barrel, Chassis Blueprint,
@@ -984,6 +984,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (verifiedDisposition) {
     return {
       sources: [{ type: 'status', text: verifiedDisposition.text, source: verifiedDisposition.source || 'Verified disposition' }],
+      recipe: recipe || null,
       wikiLink: { url: verifiedDisposition.url, isDirect: true },
     };
   }
@@ -1003,6 +1004,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     if (['Disposition', 'Verification status'].includes(wikiPageAcquisition.section)) {
       return {
         sources: [{ type: 'status', text: wikiPageAcquisition.text, source: wikiPageAcquisition.section === 'Disposition' ? 'Warframe Wiki disposition' : 'Warframe Wiki verification status' }],
+        recipe: recipe || null,
         wikiLink: wikiPageAcquisition.url
           ? { url: wikiPageAcquisition.url, isDirect: true }
           : getWikiLink(dropIndexKey, displayName),
@@ -1370,14 +1372,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   if (wikiStatus?.exportDisposition) {
     return {
       sources: [{ type: 'status', text: wikiStatus.exportDisposition, source: 'DE export status' }],
+      recipe: recipe || null,
       wikiLink: wikiStatus.url
         ? { url: wikiStatus.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
     };
   }
   if (wikiStatus?.url) {
-    return { sources: [], wikiLink: { url: wikiStatus.url, isDirect: true } };
+    return { sources: [], recipe: recipe || null, wikiLink: { url: wikiStatus.url, isDirect: true } };
   }
 
-  return { sources: [], wikiLink: getWikiLink(dropIndexKey, displayName) };
+  return { sources: [], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
 }

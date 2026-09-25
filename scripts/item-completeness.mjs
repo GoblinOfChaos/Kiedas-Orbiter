@@ -65,12 +65,14 @@ function itemName(harness, uniqueName, entry) {
   return cleanName(harness.dict?.[key] || harness.dict?.['/' + key] || key)
 }
 
-async function buildAcquisition(harness, item, name) {
+async function buildAcquisition(harness, item, name, recipeResultIndex = null, dropIndex = null) {
   try {
     const { getAcquisitionInfo } = await import('../src/lib/acquisitionInfo.js')
-    const { loadAcquisitionData } = await import('../src/lib/acquisitionData.js')
-    await loadAcquisitionData()
-    const result = getAcquisitionInfo(item?.unique_name || item?.uniqueName, name, null, harness.exportsBundle.AcquisitionItems || {}, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+    if (!recipeResultIndex) {
+      const { loadAcquisitionData } = await import('../src/lib/acquisitionData.js')
+      await loadAcquisitionData()
+    }
+    const result = getAcquisitionInfo(item?.unique_name || item?.uniqueName, name, dropIndex, harness.exportsBundle.AcquisitionItems || {}, recipeResultIndex, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
     const sources = result?.sources || []
     const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName'].some((key) => typeof source[key] === 'string' && source[key].trim()))
     const chances = sources.map((source) => Number(source.chance)).filter(Number.isFinite)
@@ -147,7 +149,7 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))
   const recipe = Object.values(harness.exportsBundle.ExportRecipes || {}).find((candidate) => canonicalPath(candidate?.resultType) === canonicalPath(subject.uniqueName))
   const components = recipe?.ingredients || []
-  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name)
+  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness))
   const checks = {
     U1_catalog: !!catalogItem || category === 'recipes' || (category === 'cosmetics' && !!entry && !!(entry.name || entry.displayName) && !!(entry.icon || entry.texture)),
     U2_name: !!name && !name.startsWith('/') && !/^MT_/i.test(name),
@@ -173,6 +175,45 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const screens = Object.fromEntries([...rule.screens, ...Object.keys(primeScreens)].map((screen) => [screen, screen === 'Prime Parts' ? primeScreens[screen] !== false : checks.U1_catalog && checks.U2_name && checks.U3_image && (screen !== 'Foundry' || checks.recipe)]))
   const pass = Object.values(checks).every(Boolean) && (ownedState.pass || ownedState.cannot)
   return { name, uniqueName: subject.uniqueName, category, screens, checks, acquisition, ownedState, cannot, blockingCannot: acquisition.cannot, status: acquisition.cannot ? 'CANNOT' : pass ? 'PASS' : 'FAIL', pass: !!pass && !acquisition.cannot }
+}
+
+function buildRecipeIndex(harness) {
+  return Object.values(harness.exportsBundle.ExportRecipes || {}).reduce((index, recipe) => {
+    if (!recipe?.resultType) return index
+    const ingredients = (recipe.ingredients || []).map((ingredient) => ({
+      itemType: canonicalPath(ingredient.ItemType || ingredient.itemType),
+      count: ingredient.ItemCount ?? ingredient.itemCount ?? 1,
+      name: ingredient.ItemType || ingredient.itemType,
+    })).filter((ingredient) => ingredient.itemType)
+    if (ingredients.length) index.set(canonicalPath(recipe.resultType), {
+      resultType: canonicalPath(recipe.resultType),
+      ingredients,
+    })
+    return index
+  }, new Map())
+}
+
+export async function checkCraftableRecipes({ harness, parsed = null }) {
+  const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
+  const recipeIndex = buildRecipeIndex(harness)
+  const checks = []
+  for (const craftable of inventory.craftable || []) {
+    const expected = recipeIndex.get(canonicalPath(craftable.resultType))
+    if (!expected) continue
+    const acquisition = await buildAcquisition(harness, { unique_name: craftable.resultType }, craftable.bpName, recipeIndex)
+    const actual = acquisition.result?.recipe
+    const expectedParts = expected.ingredients.map(({ itemType, count }) => `${canonicalPath(itemType)}:${count}`).sort()
+    const actualParts = (actual?.ingredients || []).map(({ itemType, count }) => `${canonicalPath(itemType)}:${count}`).sort()
+    checks.push({
+      item: craftable.bpName,
+      uniqueName: craftable.resultType,
+      expected: expectedParts,
+      actual: actualParts,
+      pass: !!actual && JSON.stringify(actualParts) === JSON.stringify(expectedParts),
+      sourceCount: acquisition.result?.sources?.length || 0,
+    })
+  }
+  return { total: checks.length, failed: checks.filter((check) => !check.pass), checks }
 }
 
 const imageFor = (item, parsed, harness) => {
@@ -261,7 +302,9 @@ export async function run({ dataDir, repo = REPO, harness, previousIndex = [], i
   const discovered = deDiscovery || (includeDiscovered && deCacheDir ? discoverNewDeSubjects({ dataDir, cacheDir: deCacheDir }) : [])
   const subjects = includeDiscovered ? [...canaries, ...discovered] : canaries
   const parsed = parseInventory({}, loaded.exportsBundle, loaded.dict, 'en', null)
-  return Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
+  const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
+  results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
+  return results
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -280,6 +323,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(JSON.stringify(result, null, 2))
   }
   const cannot = [...new Set(results.flatMap((result) => result.cannot.concat(result.acquisition.cannot || [], result.ownedState.cannot || [])))]
+  console.log(`\nCraftable drawer recipe checks: ${results.recipeCompleteness.total} checked, ${results.recipeCompleteness.failed.length} failed`)
+  for (const failure of results.recipeCompleteness.failed) console.log(`- ${failure.item}: expected ${failure.expected.join(', ')}, got ${failure.actual.join(', ')}`)
   console.log('\nCannot be checked:')
   for (const entry of cannot) console.log(`- ${entry}`)
   fs.mkdirSync(path.dirname(stateFile), { recursive: true })

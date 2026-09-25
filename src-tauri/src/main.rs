@@ -31,6 +31,7 @@ mod riven_math;
 mod wiki_store;
 mod ee_log;
 mod de_warframes;
+mod de_weapons;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -613,6 +614,20 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
                 eprintln!("DE Warframes merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only);
             }
             Err(e) => eprintln!("Warning: could not refresh DE Warframes; retained mirror: {}", e),
+        }
+    }
+
+    // The DE Weapons asset is a non-fatal hybrid overlay, with the same daily
+    // TTL and validation guarantees as the Warframes overlay.
+    if !force && export_dir.join("de/ExportWeapons_en.json").exists()
+        && file_age_secs(&export_dir.join("de/ExportWeapons_en.json")) <= 86_400 {
+    } else {
+        match de_weapons::refresh_de_weapons(&client, &export_dir).await {
+            Ok(summary) => {
+                updated_count += 1;
+                eprintln!("DE Weapons merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only);
+            }
+            Err(e) => eprintln!("Warning: could not refresh DE Weapons; retained mirror: {}", e),
         }
     }
 

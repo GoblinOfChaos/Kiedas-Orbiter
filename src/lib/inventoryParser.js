@@ -145,7 +145,120 @@ export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
   if (INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES.has(parentName)) return true;
   if (INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES.has(entry?.productCategory)) return true;
   if (/\/ShipDecos\/|\/Glyphs\/|\/GlyphBoxes\/|\/Emotes\//i.test(`${parentName}${uniqueName}`)) return true;
+  if (/VoidProjection/i.test(`${parentName}${uniqueName}`)) return true;
   return false;
+}
+
+const INVENTORY_DEDUPE_ORDER = [
+  'warframes', 'primary', 'secondary', 'melee', 'kitguns', 'zaws', 'sentinels',
+  'moas', 'hounds', 'beasts', 'archwings', 'kdrives', 'archweapons', 'necramechs', 'amps',
+  'arcanes', 'consumables', 'rivens', 'parts', 'prime_parts', 'components', 'resources',
+];
+
+const canonicalInventoryUniqueName = (value = '') => value.replaceAll('/StoreItems/', '/');
+
+function mergeInventoryQuantities(target, source) {
+  for (const key of ['quantity', 'blueprint_quantity', 'crafted_quantity']) {
+    if (typeof source[key] === 'number') target[key] = (target[key] ?? 0) + source[key];
+  }
+  if (source.owned) target.owned = true;
+  for (const [key, value] of Object.entries(source)) {
+    if ((target[key] == null || target[key] === '') && value != null && value !== '') target[key] = value;
+  }
+  return target;
+}
+
+function hasCatalogVariantLeaf(uniqueName = '') {
+  return /(?:Large|Medium|Mythic|CapturedInfested[A-Za-z]+)Token$/i.test(uniqueName.split('/').pop() || '') || /FishItem(?:Large|Medium)$/i.test(uniqueName);
+}
+
+function sameCatalogIdentity(left, right) {
+  return left.name && left.name === right.name &&
+    (left.description || '') === (right.description || '') &&
+    (left.image || '') === (right.image || '') &&
+    !hasCatalogVariantLeaf(left.unique_name) && !hasCatalogVariantLeaf(right.unique_name);
+}
+
+function catalogNameSuffix(uniqueName = '') {
+  const leaf = uniqueName.split('/').filter(Boolean).at(-1) || uniqueName;
+  const cleaned = leaf
+    .replace(/^(CapturedInfested)/i, '')
+    .replace(/Token$/i, '')
+    .replace(/Item(?=Large|Medium)/i, '')
+    .replace(/Item$/i, '')
+    .replace(/([a-z\d])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .trim();
+  return cleaned || leaf;
+}
+
+export function reconcileInventoryBuckets(bucketMap) {
+  const owners = new Map();
+  const summaries = { duplicateUniqueNames: 0, duplicateCatalogRecords: 0, removed: {} };
+  for (const bucket of INVENTORY_DEDUPE_ORDER) {
+    const items = bucketMap[bucket] || [];
+    for (const item of items) {
+      const key = canonicalInventoryUniqueName(item.unique_name || '');
+      if (!key) continue;
+      const owner = owners.get(key);
+      if (!owner) {
+        owners.set(key, { bucket, item });
+        continue;
+      }
+      mergeInventoryQuantities(owner.item, item);
+      summaries.duplicateUniqueNames++;
+      summaries.removed[bucket] = (summaries.removed[bucket] || 0) + 1;
+    }
+  }
+  for (const bucket of ['parts', 'prime_parts', 'components', 'resources']) {
+    bucketMap[bucket] ||= [];
+    const kept = [];
+    for (const item of bucketMap[bucket] || []) {
+      const owner = owners.get(canonicalInventoryUniqueName(item.unique_name || ''));
+      if (owner?.bucket === bucket && owner.item === item) kept.push(item);
+    }
+    bucketMap[bucket].splice(0, bucketMap[bucket].length, ...kept);
+  }
+
+  const named = new Map();
+  for (const bucket of ['parts', 'prime_parts', 'components', 'resources']) {
+    for (const item of bucketMap[bucket] || []) {
+      if (!item.name) continue;
+      if (!named.has(item.name)) named.set(item.name, []);
+      named.get(item.name).push({ bucket, item });
+    }
+  }
+  for (const entries of named.values()) {
+    for (let index = 1; index < entries.length; index++) {
+      const duplicate = entries[index];
+      const prior = entries.slice(0, index).find((candidate) => sameCatalogIdentity(candidate.item, duplicate.item));
+      if (!prior) continue;
+      mergeInventoryQuantities(prior.item, duplicate.item);
+      const list = bucketMap[duplicate.bucket];
+      const position = list.indexOf(duplicate.item);
+      if (position >= 0) list.splice(position, 1);
+      summaries.duplicateCatalogRecords++;
+      summaries.removed[duplicate.bucket] = (summaries.removed[duplicate.bucket] || 0) + 1;
+    }
+  }
+
+  const remainingNames = new Map();
+  for (const bucket of ['parts', 'prime_parts', 'components', 'resources']) {
+    for (const item of bucketMap[bucket] || []) {
+      if (!item.name) continue;
+      if (!remainingNames.has(item.name)) remainingNames.set(item.name, []);
+      remainingNames.get(item.name).push(item);
+    }
+  }
+  for (const items of remainingNames.values()) {
+    if (items.length < 2) continue;
+    for (const item of items) item.name = `${item.name} (${catalogNameSuffix(item.unique_name)})`;
+  }
+  return summaries;
+}
+
+export function inventoryUniqueNameSet(items = []) {
+  return new Set(items.map((item) => canonicalInventoryUniqueName(item?.unique_name || '')).filter(Boolean));
 }
 
 /**
@@ -2576,13 +2689,19 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const child = recipeByResult.get(ingredient.ItemType);
       // A recipe that consumes another WHOLE weapon/frame/companion (e.g. Akbolto needs
       // Bolto) must not turn that item into a "part": it is already its own inventory item.
-      const isWholeEquipment = (equipmentByUniqueName.has(ingredient.ItemType) || equipmentByUniqueName.has(child?.recipe.resultType)) && !/Component/.test(child?.recipe.resultType || '');
+      const isWholeEquipment = !/\/Types\/Recipes\//i.test(ingredient.ItemType || '') &&
+        (equipmentByUniqueName.has(ingredient.ItemType) || equipmentByUniqueName.has(child?.recipe.resultType)) &&
+        !/Component/.test(child?.recipe.resultType || '');
       const childLooksLikePart = /(Component|Barrel|Receiver|Stock|Blade|Handle|Link|Chassis|Helmet|Systems|Wings|Harness|Neuroptics|Cerebrum|Carapace)($|[^a-z])/i.test(child?.recipe.resultType || '');
       if (!child || isWholeEquipment || !childLooksLikePart || primePartUniqueNames.has(child.recipe.resultType) || /Prime/i.test(child.recipe.resultType || '')) continue;
       childParts.push({ resultType: child.recipe.resultType, blueprintKey: child.key });
     }
     const entries = [{ resultType: parent.unique_name, blueprintKey: parentRecipe.key }, ...childParts];
     for (const { resultType, blueprintKey } of entries) {
+      // Kubrow/Kavat breed recipes are the companion's construction record,
+      // not a separate inventory part. The breed itself already lives in the
+      // beasts bucket and must not be surfaced a second time as a part.
+      if (resultType === parent.unique_name && parent.category === 'beasts') continue;
       const uniqueName = resultType === parent.unique_name ? blueprintKey : resultType;
       if (seenPartUniqueNames.has(uniqueName) || primePartUniqueNames.has(uniqueName)) continue;
       const blueprintQuantity = ownedBlueprintCounts.get(blueprintKey) ?? 0;
@@ -3067,6 +3186,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     })
   ];
 
+  const dedupeSummary = reconcileInventoryBuckets({
+    warframes, primary, secondary, melee, kitguns, zaws, sentinels, moas, hounds, beasts,
+    archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens,
+    parts, prime_parts, components, resources,
+  });
+  if (typeof window !== 'undefined') {
+    void import('./logging/logger').then(({ event }) => event('inventory.dedupe.summary', {
+      duplicate_unique_names: dedupeSummary.duplicateUniqueNames,
+      duplicate_catalog_records: dedupeSummary.duplicateCatalogRecords,
+      removed: dedupeSummary.removed,
+      resources: resources.length,
+      parts: parts.length,
+    }, { level: 'info', screen: 'inventory' })).catch(() => {});
+  }
+
   // ── Modular mastery components ──────────────────────────────────────────────
   // ── Owned-item lookup maps for modular components ────────────────────────────
   // Kitgun: barrel path → highest-XP build's custom name
@@ -3248,7 +3382,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
-  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts];
+  const all = [];
+  const allSeen = new Set();
+  for (const item of [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts]) {
+    const key = canonicalInventoryUniqueName(item.unique_name || '');
+    if (!key || allSeen.has(key)) continue;
+    allSeen.add(key);
+    all.push(item);
+  }
 
   const playerLevel = raw.PlayerLevel ?? 0;
   const rivenBin = raw.RandomModBin ?? { Slots: 0, Extra: 0 };

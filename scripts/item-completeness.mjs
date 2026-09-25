@@ -71,6 +71,36 @@ export function checkInventoryCatalog({ harness, parsed }) {
   }
 }
 
+export function checkInventoryDuplicates({ parsed }) {
+  const all = parsed?.all || []
+  const byUniqueName = new Map()
+  const byName = new Map()
+  for (const item of all) {
+    const uniqueName = canonicalPath(item?.unique_name)
+    if (uniqueName) {
+      if (!byUniqueName.has(uniqueName)) byUniqueName.set(uniqueName, [])
+      byUniqueName.get(uniqueName).push({ bucket: item.category, name: item.name })
+    }
+    if (item?.name) {
+      if (!byName.has(item.name)) byName.set(item.name, [])
+      byName.get(item.name).push(uniqueName)
+    }
+  }
+  const duplicateUniqueNames = [...byUniqueName].filter(([, entries]) => entries.length > 1)
+    .map(([uniqueName, entries]) => ({ uniqueName, entries }))
+  const nameGroups = [...byName].filter(([, uniqueNames]) => new Set(uniqueNames).size > 1)
+    .map(([name, uniqueNames]) => ({ name, uniqueNames: [...new Set(uniqueNames)] }))
+  const templateMarkers = all.filter((item) => /\|ERA\||\|CATEGORY\|/.test(item?.name || ''))
+    .map((item) => ({ uniqueName: item.unique_name, name: item.name }))
+  return {
+    total: all.length,
+    duplicateUniqueNames,
+    nameGroups,
+    templateMarkers,
+    pass: duplicateUniqueNames.length === 0 && templateMarkers.length === 0,
+  }
+}
+
 export function checkRegionCanary({ exportsBundle, dict = {}, uniqueName }) {
   const regions = exportsBundle?.ExportRegions || {}
   const entry = Array.isArray(regions)
@@ -324,6 +354,7 @@ export async function checkPartsCompleteness({ harness, parsed = null }) {
   const parents = [...(inventory.warframes || []), ...(inventory.primary || []), ...(inventory.secondary || []), ...(inventory.melee || []), ...(inventory.companions || []), ...(inventory.sentinels || []), ...(inventory.moas || []), ...(inventory.hounds || []), ...(inventory.beasts || [])]
   const checks = []
   const dropIndex = buildDropIndex(harness.exportsBundle)
+  const recipeIndex = buildRecipeIndex(harness)
   const seenParents = new Set()
   for (const parent of parents) {
     const parentKey = canonicalPath(parent.unique_name)
@@ -337,7 +368,7 @@ export async function checkPartsCompleteness({ harness, parsed = null }) {
       const item = parts.find((candidate) => canonicalPath(candidate.unique_name) === canonicalPath(uniqueName))
       const name = item?.name || uniqueName
       const directDropRows = dropIndex[canonicalPath(uniqueName)] || []
-      const acquisition = item && directDropRows.length > 0 ? await buildAcquisition(harness, item, name, buildRecipeIndex(harness), dropIndex) : null
+      const acquisition = item && directDropRows.length > 0 ? await buildAcquisition(harness, item, name, recipeIndex, dropIndex) : null
       const sourceRows = acquisition?.result?.sources || []
       const labelled = directDropRows.length === 0 || (sourceRows.length > 0 && sourceRows.every((source) => ['source', 'location', 'relicName', 'rewardName', 'text'].some((key) => typeof source?.[key] === 'string' && source[key].trim())))
       checks.push({ parent: parent.name, parentType: parent.category, uniqueName, name, image: !!item?.image, present: !!item, sourceRows: directDropRows.length, labelled, pass: !!item && !!item.image && labelled })
@@ -447,6 +478,7 @@ export async function run({ dataDir, repo = REPO, harness, previousIndex = [], i
   results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
   results.partsCompleteness = await checkPartsCompleteness({ harness: loaded, parsed })
   results.inventoryCatalog = checkInventoryCatalog({ harness: loaded, parsed })
+  results.inventoryDuplicates = checkInventoryDuplicates({ parsed })
   const summary = results.partsCompleteness.summary
   try {
     const { event } = await import('../src/lib/logging/logger.js')
@@ -459,6 +491,12 @@ export async function run({ dataDir, repo = REPO, harness, previousIndex = [], i
       unresolved: results.inventoryCatalog.unresolved.length,
       familyCounts: results.inventoryCatalog.familyCounts,
       pass: results.inventoryCatalog.pass,
+    }, { level: 'info', screen: 'inventory' })
+    event('inventory.dedupe.summary', {
+      count: results.inventoryDuplicates.total,
+      size: results.inventoryDuplicates.duplicateUniqueNames.length,
+      kind: 'duplicate_unique_names',
+      pass: results.inventoryDuplicates.pass,
     }, { level: 'info', screen: 'inventory' })
   } catch {
     // CLI/test environments have no Tauri logger; the returned summary remains authoritative.

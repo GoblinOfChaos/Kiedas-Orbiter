@@ -18,12 +18,12 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
   const exportDir = path.join(dataDir, 'export')
   await fs.mkdir(exportDir, { recursive: true })
   await fs.mkdir(path.join(cacheDir, 'assets'), { recursive: true })
-  const suffixes = { ExportWarframes: 'warframes', ExportWeapons: 'weapons', ExportRecipes: 'recipes', ExportResources: 'resources', ExportManifest: 'manifest' }
+  const suffixes = { ExportWarframes: 'warframes', ExportWeapons: 'weapons', ExportRecipes: 'recipes', ExportResources: 'resources', ExportRelicArcane: 'relic-arcane', ExportManifest: 'manifest' }
   await fs.writeFile(path.join(cacheDir, 'provenance.json'), JSON.stringify({ categories: Object.fromEntries(Object.entries(suffixes).map(([category, suffix]) => [category, { suffix }])) }))
   const app = {
     ExportWarframes: { [frame]: { uniqueName: frame, name: '/mirror/name', health: 10 } },
     ExportWeapons: { [weapon]: { uniqueName: weapon, name: '/mirror/weapon', totalDamage: 10 } },
-    ExportRecipes: {}, ExportResources: {}, ExportImages: {},
+    ExportRecipes: {}, ExportResources: {}, ExportRelics: {}, ExportArcanes: {}, ExportImages: {},
   }
   for (const [name, value] of Object.entries(app)) await fs.writeFile(path.join(exportDir, `${name}.json`), JSON.stringify(value))
   const manifest = { Manifest: [{ uniqueName: frame, textureLocation: '/Lotus/Test.png!hash' }, { uniqueName: resource, textureLocation: '/Lotus/Resource.png!resource-hash' }] }
@@ -32,7 +32,9 @@ test('apply-merges matches the hand-made Rust-shape fixture', async () => {
     ExportWeapons: [{ uniqueName: weapon, name: 'Weapon', totalDamage: 20 }],
     ExportRecipes: [{ uniqueName: recipe, resultType: frame, ingredients: [] }],
     ExportResources: [{ uniqueName: resource, name: 'Resource' }],
+    ExportRelicArcane: [{ uniqueName: '/Lotus/Types/Game/Relics/TestRelic', category: 'Lith' }, { uniqueName: '/Lotus/Types/Items/ArcaneEnhancements/TestArcane', rarity: 'Rare' }],
     ExportManifest: manifest,
+    ExportRelics: {}, ExportArcanes: {},
   }
   for (const [category, suffix] of Object.entries(suffixes)) {
     const value = category === 'ExportManifest' ? de[category] : de[category]

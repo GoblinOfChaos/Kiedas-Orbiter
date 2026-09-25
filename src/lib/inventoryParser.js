@@ -95,6 +95,29 @@ export const RIVEN_STAT_MAP = {
   'WeaponMeleeComboBonusOnHitMod': 'Combo Count',
 };
 
+const WEAPON_BUCKET_BY_CATEGORY = { LongGuns: 'primary', Pistols: 'secondary', Melee: 'melee' };
+const WEAPON_BUCKET_BY_SLOT = { 1: 'primary', 0: 'secondary', 5: 'melee' };
+const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
+
+/**
+ * Resolve a DE weapon definition to the player's primary/secondary/melee
+ * bucket. productCategory is authoritative; slot is the verified DE fallback
+ * when an older definition omits productCategory. Combat fields only decide
+ * whether an otherwise-bucketable definition is a real player weapon when DE
+ * retained an internal companion, exalted, enemy, or PvP weapon definition.
+ */
+export function getWeaponBucket(entry, uniqueName = '') {
+  const bucket = entry?.productCategory
+    ? WEAPON_BUCKET_BY_CATEGORY[entry.productCategory]
+    : WEAPON_BUCKET_BY_SLOT[entry?.slot];
+  if (!bucket || NON_PLAYER_WEAPON_PATH.test(uniqueName)) return null;
+  const name = String(entry?.name || '').toLowerCase();
+  const isSpecial = /vandal|wraith|prisma|prime/.test(name);
+  const hasCombatData = bucket === 'melee' ? entry?.damagePerShot : entry?.noise;
+  if (entry?.masteryReq > 0 || hasCombatData || isSpecial) return bucket;
+  return null;
+}
+
 /** Clean a dict stat label for display: drop value tokens (%|val|, |val|%,
  *  |STAT1|), HTML color tags, and the seconds glue DE appends (|val|sn).
  *  DE's raw text puts the '%' on either side of the placeholder depending on
@@ -1484,7 +1507,6 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   weaponsRaw.forEach(i => {
     const e = EW[i.unique_name];
     if (!e) return;
-    const name = (e.name || "").toLowerCase();
     const un = i.unique_name;
     const isKitgun = isKitgunPart(un);
     const isZaw = un.includes('ModularMelee') && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');
@@ -1501,18 +1523,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         i.category = 'zaws';
         zaws.push(i);
       }
-    } else if (e.productCategory === 'LongGuns' && (e.noise || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
-      i.category = 'primary';
-      i.weapon_type = 'primary';
-      primary.push(i);
-    } else if (e.productCategory === 'Pistols' && (e.noise || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
-      i.category = 'secondary';
-      i.weapon_type = 'secondary';
-      secondary.push(i);
-    } else if (e.productCategory === 'Melee' && (e.damagePerShot || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
-      i.category = 'melee';
-      i.weapon_type = 'melee';
-      melee.push(i);
+    } else {
+      const bucket = getWeaponBucket(e, un);
+      if (bucket === 'primary') {
+        i.category = 'primary';
+        i.weapon_type = 'primary';
+        primary.push(i);
+      } else if (bucket === 'secondary') {
+        i.category = 'secondary';
+        i.weapon_type = 'secondary';
+        secondary.push(i);
+      } else if (bucket === 'melee') {
+        i.category = 'melee';
+        i.weapon_type = 'melee';
+        melee.push(i);
+      }
     }
   });
 

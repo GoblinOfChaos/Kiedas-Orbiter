@@ -278,6 +278,11 @@ export function getWeaponBucket(entry, uniqueName = '') {
   // alternate mode (same weapon), so it stays excluded to avoid a duplicate entry.
   const isMasterableBayonet = bucket !== 'melee' && /\/Bayonet\//i.test(uniqueName) && entry?.masteryReq > 0 && entry?.codexSecret !== true;
   if (!bucket || (NON_PLAYER_WEAPON_PATH.test(uniqueName) && !isMasterableBayonet)) return null;
+  // DE's productCategory and slot must agree for a player weapon. The only record in the current
+  // export where they disagree is TnDoppelgangerGrimoire (Pistols but slot 5): the Doppelganger
+  // enemy's copy of Grimoire, which showed up as a second "Grimoire" in Inventory.
+  const slotBucket = WEAPON_BUCKET_BY_SLOT[entry?.slot];
+  if (entry?.productCategory && slotBucket && slotBucket !== bucket) return null;
   const name = String(entry?.name || '').toLowerCase();
   const isSpecial = /vandal|wraith|prisma|prime/.test(name);
   const hasCombatData = bucket === 'melee' ? entry?.damagePerShot : entry?.noise;

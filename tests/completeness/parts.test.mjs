@@ -46,7 +46,7 @@ test('real merged exports contain Narin parts and do not duplicate Volt Prime pa
     assert.equal(parsed.resources.some((item) => /\|ERA\||\|CATEGORY\|/.test(item.name || '')), false)
     assert.equal(parsed.warframes.length, 118)
     assert.equal(parsed.primary.length, 196)
-    assert.equal(parsed.secondary.length, 148)
+    assert.equal(parsed.secondary.length, 147) // 148 before the Doppelganger Grimoire (category/slot mismatch) was excluded
     assert.equal(parsed.melee.length, 224)
     assert.equal(parsed.beasts.some((item) => /Adarza Kavat|Sahasa Kubrow/.test(item.name || '')), true)
     assert.equal(parsed.parts.some((item) => /Adarza Kavat|Sahasa Kubrow/.test(item.name || '')), false)

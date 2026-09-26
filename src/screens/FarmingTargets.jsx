@@ -65,7 +65,7 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
   </div>;
 }
 
-export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, faction, setFaction, groupPlanet, setGroupPlanet, compactView, setCompactView, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
+export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, faction, setFaction, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
   const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id) && (!hideDone || row.stillNeeded > 0));
@@ -82,19 +82,15 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
         ].map(([label, value]) => <Card key={label} className="p-3"><p className="text-[10px] uppercase text-kronos-dim">{label}</p><p className="mt-1 text-xl font-black text-kronos-accent">{value}</p></Card>)}
       </div>
 
-      <div className="flex gap-1 rounded-xl border border-white/5 bg-black/20 p-1 w-fit" role="tablist" aria-label={t('farming_targets.view_switcher')}>
-        {['compact', 'ledger', 'inspector'].map((view) => <button key={view} type="button" role="tab" aria-selected={compactView === view} onClick={() => setCompactView(view)} className={`rounded-lg px-3 py-1.5 text-[10px] font-black uppercase ${compactView === view ? 'bg-kronos-accent text-kronos-bg' : 'text-kronos-dim hover:text-white'}`}>{t(`farming_targets.view_${view}`)}</button>)}
-      </div>
-
       <Card className="p-4 space-y-3">
         <Tabs tabs={FARM_TABS.map(([id, key]) => ({ id, label: t(key) }))} activeTab={tab} onChange={setTab} className="w-fit max-w-full flex-nowrap overflow-x-auto" />
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3 [&_button[role=switch]]:gap-3">
-          <div className="shrink-0">
+          <div className="flex shrink-0 items-center gap-3">
             <Toggle checked={minChanceOn} onChange={setMinChanceOn} label={t('farming_targets.min_chance')} />
-            <div className="mt-1 flex items-center gap-2 text-xs text-kronos-dim">
-              <input type="number" min="0" max="100" step="0.5" value={minChancePct} disabled={!minChanceOn} onChange={(e) => setMinChancePct(e.target.value)} aria-label={t('farming_targets.min_chance_value')} className="w-20 rounded bg-black/30 px-2 py-1 text-xs text-kronos-text disabled:opacity-40" />
+            <div className="flex items-center gap-2 text-xs text-kronos-dim">
+              <input type="number" min="0" max="100" step="0.5" value={minChancePct} disabled={!minChanceOn} onChange={(e) => setMinChancePct(e.target.value)} aria-label={t('farming_targets.min_chance_value')} className="w-16 rounded bg-black/30 px-2 py-1 text-xs text-kronos-text disabled:opacity-40" />
               <span>%</span>
-              <span>{minChanceOn ? t('farming_targets.min_chance_hidden', { count: model.excludedByMinChance ?? 0, percent: minChancePct }) : t('farming_targets.min_chance_off')}</span>
+              {minChanceOn && <span>{t('farming_targets.min_chance_hidden', { count: model.excludedByMinChance ?? 0, percent: minChancePct })}</span>}
             </div>
           </div>
           <div className="shrink-0"><Toggle checked={hideConclave} onChange={setHideConclave} label={t('farming_targets.hide_conclave')} /></div>
@@ -104,7 +100,7 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
         </div>
       </Card>
 
-      {compactView !== 'inspector' && <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)] gap-5">
+      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)] gap-5">
         <Card className="p-0 overflow-hidden">
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.farm_next')}</h2><p className="text-xs text-kronos-dim mt-1">{t('farming_targets.coverage_explanation')}</p></div>
           <div className="divide-y divide-white/5">
@@ -121,12 +117,12 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.target_inspector')}</h2><Select options={targets.map((item) => ({ id: item.id, label: item.name }))} value={target?.id ?? ''} onChange={setSelectedTarget} className="mt-3" /></div>
           <div className="p-4 space-y-3">{targetRows.length ? targetRows.map((row) => { const contribution = row.usedBy.find((entry) => entry.targetId === effectiveTargetId); const places = model.ranked.filter((place) => place.coveredItems.some((item) => item.itemType === row.itemType)).slice(0, 3); return <div key={row.itemType} className="rounded-md bg-black/20 p-2 text-xs"><div className="flex items-center gap-2"><ItemImage src={row.image} className="h-7 w-7 object-contain" placeholderClassName="h-7 w-7" /><span className="min-w-0 flex-1 truncate">{row.name}</span><span className="font-bold">{formatCount(row.stillNeeded)}</span></div><div className="mt-1 text-[10px] text-kronos-dim">{t('farming_targets.inspector_required_owned', { required: formatCount(contribution?.quantity ?? 0), owned: formatCount(row.owned), needed: formatCount(row.stillNeeded) })}</div>{places.length > 0 && <div className="mt-1 text-[10px] text-kronos-accent">{places.map((place) => place.place.name).join(' · ')}</div>}</div>; }) : <p className="text-xs text-kronos-dim">{model.targetUnresolved?.some((entry) => entry.targetId === effectiveTargetId) ? t('farming_targets.inspector_unresolved') : t('farming_targets.inspector_resolved')}</p>}</div>
         </Card>
-      </div>}
+      </div>
 
-      {compactView !== 'compact' && <Card className="p-0 overflow-x-auto">
+      <Card className="p-0 overflow-x-auto">
         <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.ledger')}</h2></div>
               <table className="w-full min-w-[860px] text-left text-xs"><thead className="text-[10px] uppercase text-kronos-dim"><tr>{['item', 'required', 'owned', 'reserved', 'still_needed', 'used_by', 'source'].map((key) => <th key={key} className="px-4 py-3">{t(`farming_targets.column_${key}`)}</th>)}<th className="px-4 py-3">{t('farming_targets.reserve')}</th></tr></thead><tbody className="divide-y divide-white/5">{model.ledger.filter((row) => !hideDone || row.stillNeeded > 0).map((row) => <tr key={row.itemType} className={row.overcommitted ? 'bg-red-500/10' : ''}><td className="px-4 py-3 font-bold"><span className="inline-flex items-center gap-2"><ItemImage src={row.image} className="h-6 w-6 object-contain" placeholderClassName="h-6 w-6" /><span>{row.name}</span></span>{row.overcommitted && <span className="ml-2 text-[9px] text-red-300">{t('farming_targets.overcommitted')}</span>}</td><td className="px-4 py-3">{formatCount(row.required)}</td><td className="px-4 py-3">{formatCount(row.owned)}</td><td className="px-4 py-3">{formatCount(row.reserved)}</td><td className={`px-4 py-3 font-black ${row.stillNeeded ? 'text-red-300' : 'text-emerald-300'}`}>{formatCount(row.stillNeeded)}</td><td className="px-4 py-3 text-kronos-dim">{row.usedBy.length}</td><td className="px-4 py-3"><button type="button" onClick={() => toggle(row.itemType)} className="text-kronos-accent hover:underline">{t('farming_targets.view_sources')}</button></td><td className="px-4 py-3"><input aria-label={t('farming_targets.reserve_for', { item: row.name })} type="number" min="0" max={row.owned} value={targetReservationQuantity(reservations, row.itemType, effectiveTargetId)} onChange={(event) => onReserve(row.itemType, Number(event.target.value), effectiveTargetId)} className="w-16 rounded bg-black/30 px-1 py-1 text-xs" /></td></tr>)}</tbody></table>
-      </Card>}
+      </Card>
 
       {targets.length > 0 && <div className="grid grid-cols-1 md:grid-cols-2 gap-2">{targets.map((item) => <Card key={item.id} className="p-3 flex flex-col gap-2"><div className="flex items-center gap-3"><ItemImage src={item.image} className="w-9 h-9 object-contain" placeholderClassName="w-9 h-9" /><div className="min-w-0 flex-1"><p className="truncate text-xs font-bold">{item.name}</p><p className="text-[9px] text-kronos-dim">{t('farming_targets.target_quantity', { count: item.quantity })}</p></div>{dueState(item) === 'due' && <span className="rounded-full bg-amber-400/15 px-2 py-1 text-[9px] text-amber-300">{t('farming_targets.due')}</span>}<button type="button" onClick={() => onRemoveTarget(item.id)} aria-label={t('farming_targets.remove_target')}><Trash2 size={13} /></button></div><div className="flex items-center gap-2"><button type="button" onClick={() => onQuantityChange(item.id, -1)} aria-label={t('farming_targets.decrease_quantity')}><Minus size={13} /></button><span className="text-xs font-bold w-6 text-center">{item.quantity}</span><button type="button" onClick={() => onQuantityChange(item.id, 1)} aria-label={t('farming_targets.increase_quantity')}><Plus size={13} /></button><label className="ml-auto text-[9px] text-kronos-dim">{t('farming_targets.priority')} <select value={item.priority ?? 0} onChange={(event) => onTargetChange(item.id, setTargetPriority, event.target.value)} className="rounded bg-black/30 px-1 py-1"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label><input type="date" value={item.dueAt ? String(item.dueAt).slice(0, 10) : ''} onChange={(event) => onTargetChange(item.id, setTargetDueDate, event.target.value === '' ? null : (validLocalDate(event.target.value) ? event.target.value : item.dueAt))} aria-label={t('farming_targets.due_date')} className="rounded bg-black/30 px-1 py-1 text-[9px]" /></div><div className="flex gap-2"><button type="button" onClick={() => onTargetChange(item.id, setTargetStatus, 'complete')} className="text-[9px] text-emerald-300"><CheckCircle2 size={12} className="inline mr-1" />{t('farming_targets.complete')}</button><button type="button" onClick={() => onTargetChange(item.id, setTargetStatus, 'archived')} className="text-[9px] text-kronos-dim"><Archive size={12} className="inline mr-1" />{t('farming_targets.archive')}</button></div></Card>)}</div>}
     </div>
@@ -179,7 +175,6 @@ export default function FarmingTargets() {
   const [faction, setFaction] = useState('');
   const [groupPlanet, setGroupPlanet] = useState(false);
   const [selectedTarget, setSelectedTarget] = useState(null);
-  const [compactView, setCompactView] = useState('compact');
   const { openKey, toggle, close } = useAcquisitionDrawer();
 
   const targets = useMemo(() => activeTargets(store?.targets), [store?.targets]);
@@ -323,7 +318,7 @@ export default function FarmingTargets() {
         <PreviewFarmingView
           targets={targets} reservations={store?.reservations} model={screenModel} t={t} selectedTarget={selectedTarget} setSelectedTarget={setSelectedTarget}
           tab={farmTab} setTab={setFarmTab} minChanceOn={minChanceOn} setMinChanceOn={setMinChanceOn} minChancePct={minChancePct} setMinChancePct={setMinChancePct} hideDone={hideDone} setHideDone={setHideDone} hideConclave={hideConclave} setHideConclave={setHideConclave}
-          faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} compactView={compactView} setCompactView={setCompactView} toggle={toggle}
+          faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} toggle={toggle}
           onRemoveTarget={handleRemoveTarget} onQuantityChange={handleQuantityChange} onTargetChange={handleTargetChange} onReserve={handleReserve}
         />
       </PageLayout>

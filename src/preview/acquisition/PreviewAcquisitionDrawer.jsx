@@ -130,7 +130,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 <ItemImage src={item.image} alt="" placeholderClassName="preview-acq-hero-image" />
               </div>
             </div>
-            <FarmingTargetAction item={{ ...item, uniqueName }} className="mt-2" />
+            <FarmingTargetAction item={{ ...item, uniqueName, name: item.name || displayName }} className="mt-2" />
             {recipe && <span className="preview-acq-badge">{t('acquisition_drawer.recipe_badge')}</span>}
           </div>
 

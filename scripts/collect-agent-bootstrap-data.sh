@@ -37,7 +37,11 @@ cleanup() { rm -rf "$STAGING"; }
 trap cleanup EXIT
 
 echo "Staging in $STAGING"
-mkdir -p "$STAGING/de-export-cache" "$STAGING/mirror-export" "$STAGING/user-data"
+# Layout matches what PREVIEW_DATA_DIR/KIEDAS_DE_EXPORT_CACHE are expected to
+# point at directly: real-data-harness.mjs reads <PREVIEW_DATA_DIR>/export
+# and <PREVIEW_DATA_DIR>/user, so the staged tree must use those exact names,
+# not a renamed/relabelled folder.
+mkdir -p "$STAGING/de-export-cache" "$STAGING/export" "$STAGING/user"
 
 copied_any=0
 
@@ -50,7 +54,7 @@ else
 fi
 
 if [ -d "$DATA_DIR/export" ]; then
-  cp -r "$DATA_DIR/export"/. "$STAGING/mirror-export/"
+  cp -r "$DATA_DIR/export"/. "$STAGING/export/"
   echo "Collected community mirror export cache from $DATA_DIR/export"
   copied_any=1
 else
@@ -59,7 +63,7 @@ fi
 
 for f in inventory.json inventory_history.json; do
   if [ -f "$DATA_DIR/user/$f" ]; then
-    cp "$DATA_DIR/user/$f" "$STAGING/user-data/$f"
+    cp "$DATA_DIR/user/$f" "$STAGING/user/$f"
     echo "Collected $f"
     copied_any=1
   fi

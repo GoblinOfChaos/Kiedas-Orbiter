@@ -5,7 +5,7 @@ import DataProcessingWorker from '../lib/dataProcessing.worker.js?worker'
 import { loadLocale } from '../lib/i18n'
 import { loadAcquisitionData } from '../lib/acquisitionData'
 import { loadAcquisitionTemplates } from '../lib/acquisitionTemplates'
-import { buildRecipeResultIndex, buildExaltedWeaponIndex, buildMarketIndex, buildAlwaysAvailableIndex, buildBundleIndex, buildSyndicateIndex, buildWikiSigilIndex, buildWikiVendorIndex, buildWikiTennoGenIndex, buildWikiBaroIndex, buildWikiBlueprintIndex, buildWikiResearchIndex, buildWikiResourceIndex, buildWikiPageAcquisitionIndex, buildWikiAcquisitionStatusIndex, buildRelicStateIndex, buildExportVendorIndex, buildGlyphSupplementIndex, buildExportComponentIndex } from '../lib/acquisitionInfo'
+import { buildAllAcquisitionIndexes } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
@@ -327,30 +327,13 @@ export function MonitoringProvider({ children }) {
     return () => { cancelled = true }
   }, [exportData])
 
-  const recipeResultIndex = useMemo(() => buildRecipeResultIndex(exportData), [exportData])
-  const exaltedWeaponIndex = useMemo(() => buildExaltedWeaponIndex(exportData), [exportData])
-
-  const marketIndex = useMemo(() => buildMarketIndex(exportData), [exportData])
-  const alwaysAvailableIndex = useMemo(() => buildAlwaysAvailableIndex(exportData), [exportData])
-
-  const bundleIndex = useMemo(() => buildBundleIndex(exportData), [exportData])
-
-  const syndicateIndex = useMemo(() => buildSyndicateIndex(exportData), [exportData])
-
-  const wikiSigilIndex = useMemo(() => buildWikiSigilIndex(exportData?.WikiSigilAcquisition), [exportData])
-
-  const wikiVendorIndex = useMemo(() => buildWikiVendorIndex(exportData?.WikiVendorAcquisition), [exportData])
-  const wikiTennoGenIndex = useMemo(() => buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition), [exportData])
-  const wikiBaroIndex = useMemo(() => buildWikiBaroIndex(exportData?.WikiBaroAcquisition), [exportData])
-  const wikiBlueprintIndex = useMemo(() => buildWikiBlueprintIndex(exportData?.WikiBlueprintAcquisition), [exportData])
-  const wikiResearchIndex = useMemo(() => buildWikiResearchIndex(exportData?.WikiResearchAcquisition), [exportData])
-  const wikiResourceIndex = useMemo(() => buildWikiResourceIndex(exportData?.WikiResourceAcquisition), [exportData])
-  const wikiPageAcquisitionIndex = useMemo(() => buildWikiPageAcquisitionIndex(exportData?.WikiPageAcquisition), [exportData])
-  const wikiAcquisitionStatusIndex = useMemo(() => buildWikiAcquisitionStatusIndex(exportData?.WikiAcquisitionStatus), [exportData])
-  const relicStateIndex = useMemo(() => buildRelicStateIndex(exportData), [exportData])
-  const exportVendorIndex = useMemo(() => buildExportVendorIndex(exportData), [exportData])
-  const glyphSupplementIndex = useMemo(() => buildGlyphSupplementIndex(exportData?.BrowseWfGlyphs), [exportData])
-  const exportComponentIndex = useMemo(() => buildExportComponentIndex(exportData), [exportData])
+  const {
+    recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex,
+    syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
+    wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex,
+    wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, glyphSupplementIndex,
+    exportComponentIndex,
+  } = useMemo(() => buildAllAcquisitionIndexes(exportData), [exportData])
 
   // Audio unlock (bypass autoplay policy)
   useEffect(() => {

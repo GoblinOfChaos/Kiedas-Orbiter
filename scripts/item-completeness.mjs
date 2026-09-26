@@ -152,6 +152,25 @@ function itemName(harness, uniqueName, entry) {
   return cleanName(harness.dict?.[key] || harness.dict?.['/' + key] || key)
 }
 
+async function acquisitionIndexesFor(harness) {
+  // Memoized on the harness: these 18 indexes are the same ones
+  // MonitoringContext.jsx/MirroredMonitoringProvider.jsx build once per
+  // exportData via buildAllAcquisitionIndexes - rebuilding per subject here
+  // (thousands of calls) would be wasteful, and previously they were never
+  // built at all (buildAcquisition passed 17 hardcoded nulls instead).
+  // Dynamic import, not static: acquisitionInfo.js statically imports a few
+  // JSON files, and real-data-harness.mjs's custom JSON-loader hook (see
+  // registerHooks above) only applies to modules loaded AFTER it registers
+  // - a static top-level import here would pull acquisitionInfo.js into the
+  // same load-phase graph as real-data-harness.mjs and load its JSON
+  // imports before the hook exists, breaking them outside a Vite bundle.
+  if (!harness.__acquisitionIndexes) {
+    const { buildAllAcquisitionIndexes } = await import('../src/lib/acquisitionInfo.js')
+    harness.__acquisitionIndexes = buildAllAcquisitionIndexes(harness.exportsBundle)
+  }
+  return harness.__acquisitionIndexes
+}
+
 async function buildAcquisition(harness, item, name, recipeResultIndex = null, dropIndex = null) {
   try {
     const { getAcquisitionInfo } = await import('../src/lib/acquisitionInfo.js')
@@ -159,7 +178,14 @@ async function buildAcquisition(harness, item, name, recipeResultIndex = null, d
       const { loadAcquisitionData } = await import('../src/lib/acquisitionData.js')
       await loadAcquisitionData()
     }
-    const result = getAcquisitionInfo(item?.unique_name || item?.uniqueName, name, dropIndex, harness.exportsBundle.AcquisitionItems || {}, recipeResultIndex, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+    const indexes = await acquisitionIndexesFor(harness)
+    const result = getAcquisitionInfo(
+      item?.unique_name || item?.uniqueName, name, dropIndex, harness.exportsBundle.AcquisitionItems || {}, recipeResultIndex,
+      indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex, indexes.wikiSigilIndex, indexes.wikiVendorIndex,
+      indexes.wikiTennoGenIndex, indexes.wikiBaroIndex, indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
+      indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex, indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex,
+      indexes.wikiAcquisitionStatusIndex, indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
+    )
     const sources = result?.sources || []
     const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName'].some((key) => typeof source[key] === 'string' && source[key].trim()))
     const chances = sources.map((source) => Number(source.chance)).filter(Number.isFinite)

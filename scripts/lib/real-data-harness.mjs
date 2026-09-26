@@ -26,6 +26,29 @@ const DEFAULT_DATA_DIR = path.join(os.homedir(), '.local/share/kiedas-orbiter-pr
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'))
 const canonicalPath = (value) => value?.replaceAll('/StoreItems/', '/') || value
 
+// Every asset-data supplement file MonitoringContext.jsx/
+// MirroredMonitoringProvider.jsx read via `invoke('read_file_bytes', ...)`
+// and fold into `exportData`, keyed exactly as `buildAllAcquisitionIndexes`
+// (src/lib/acquisitionInfo.js) expects on exportData. Exported so a test can
+// assert this list doesn't silently drop a key the runtime providers rely
+// on - a completeness run must see the same acquisition data the real UI
+// does, not a subset.
+export const HARNESS_SUPPLEMENT_FILES = [
+  ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'], ['mod-icon-map.json', 'ModIconMap'],
+  ['card-overlay-map.json', 'CardOverlayMap'], ['peely-pix-map.json', 'PeelyPixMap'],
+  ['peely-pix-names.json', 'PeelyPixNames'], ['warframe-items-acquisition.json', 'AcquisitionItems'],
+  ['browse-wf-glyphs.json', 'BrowseWfGlyphs'],
+  ['wiki-sigils-acquisition.json', 'WikiSigilAcquisition'],
+  ['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'],
+  ['wiki-tennogen-acquisition.json', 'WikiTennoGenAcquisition'],
+  ['wiki-baro-acquisition.json', 'WikiBaroAcquisition'],
+  ['wiki-blueprints-acquisition.json', 'WikiBlueprintAcquisition'],
+  ['wiki-research-acquisition.json', 'WikiResearchAcquisition'],
+  ['wiki-resources-acquisition.json', 'WikiResourceAcquisition'],
+  ['wiki-page-acquisition.json', 'WikiPageAcquisition'],
+  ['wiki-acquisition-status.json', 'WikiAcquisitionStatus'],
+]
+
 export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exportDir, assetData, wfcd } = {}) {
   const resolvedExportDir = exportDir || path.join(dataDir, 'export')
   const resolvedAssetData = assetData || path.join(repo, 'src-tauri/data/assets/data')
@@ -38,12 +61,7 @@ export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exp
     if (stem === 'ExportUpgrades_en') exportsBundle.ExportUpgradesLocalized = readJson(path.join(resolvedExportDir, file))
     else if (!/^ExportUpgrades_/.test(stem)) exportsBundle[stem] = readJson(path.join(resolvedExportDir, file))
   }
-  for (const [file, key] of [
-    ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'], ['mod-icon-map.json', 'ModIconMap'],
-    ['card-overlay-map.json', 'CardOverlayMap'], ['peely-pix-map.json', 'PeelyPixMap'],
-    ['peely-pix-names.json', 'PeelyPixNames'], ['warframe-items-acquisition.json', 'AcquisitionItems'],
-    ['browse-wf-glyphs.json', 'BrowseWfGlyphs'],
-  ]) {
+  for (const [file, key] of HARNESS_SUPPLEMENT_FILES) {
     const candidate = path.join(resolvedAssetData, file)
     if (fs.existsSync(candidate)) exportsBundle[key] = readJson(candidate)
   }

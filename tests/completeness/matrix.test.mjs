@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { buildImageMaps, buildRuntimeExportBundle } from '../../src/lib/exportBundle.js'
+import { HARNESS_SUPPLEMENT_FILES } from '../../scripts/lib/real-data-harness.mjs'
 import { checkCraftableRecipes, checkMatrixItem, primePartsVisible } from '../../scripts/item-completeness.mjs'
 import { goldenHarness, frame } from './fixtures.mjs'
 
@@ -8,6 +9,45 @@ test('shared loader maps are identical for the harness and runtime builder', () 
   const harness = goldenHarness()
   const runtime = buildRuntimeExportBundle({ exports: harness.exportsBundle })
   assert.deepEqual(buildImageMaps(runtime), harness.EI ? { EI: harness.EI, nameToImage: harness.nameToImage, uniqueNameToName: harness.uniqueNameToName } : buildImageMaps(harness.exportsBundle))
+})
+
+// Regression guard for the loader-parity bug: MonitoringContext.jsx and
+// MirroredMonitoringProvider.jsx each read these exact exportData keys to
+// build their acquisition indexes (see buildAllAcquisitionIndexes), but the
+// headless completeness harness previously loaded only 7 of them - the
+// other 9 wiki-sourced keys were silently undefined, so a completeness run
+// never exercised the acquisition routes real screens use. If this list
+// drops one of these keys again, this test must fail, not the harness
+// silently going quiet on that data again.
+test('the headless harness loads every acquisition supplement key the runtime providers read', () => {
+  const loadedKeys = new Set(HARNESS_SUPPLEMENT_FILES.map(([, key]) => key));
+  for (const key of [
+    'WikiSigilAcquisition', 'WikiVendorAcquisition', 'WikiTennoGenAcquisition', 'WikiBaroAcquisition',
+    'WikiBlueprintAcquisition', 'WikiResearchAcquisition', 'WikiResourceAcquisition',
+    'WikiPageAcquisition', 'WikiAcquisitionStatus',
+  ]) {
+    assert.ok(loadedKeys.has(key), `harness must load a supplement file into exportData.${key}`);
+  }
+})
+
+// P4-style self-test: prove buildAllAcquisitionIndexes actually reflects
+// harness-loaded supplement data end to end, not just that the key exists.
+// Real screens (Mods.jsx, Relics.jsx, etc.) trust wikiBaroIndex to carry
+// whatever the harness put on exportData.WikiBaroAcquisition; if that stops
+// flowing through, this must go red exactly like removing the file would.
+test('buildAllAcquisitionIndexes reflects harness-loaded wiki supplement data', async () => {
+  // Dynamic import, not static: acquisitionInfo.js statically imports a few
+  // JSON files, and real-data-harness.mjs's custom JSON-loader hook only
+  // applies to modules loaded after it registers - a static top-level import
+  // here would pull acquisitionInfo.js into the same load-phase graph as
+  // real-data-harness.mjs (imported above via item-completeness.mjs) before
+  // the hook exists, breaking those JSON imports outside a Vite bundle.
+  const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js')
+  const withData = buildAllAcquisitionIndexes({ WikiBaroAcquisition: { 'Test Baro Item': { location: 'Baro Ki\'Teer' } } });
+  assert.equal(withData.wikiBaroIndex?.has('test baro item'), true);
+
+  const withoutData = buildAllAcquisitionIndexes({});
+  assert.equal(withoutData.wikiBaroIndex?.has('test baro item') ?? false, false);
 })
 
 test('removing a recipe turns the Foundry row red', async () => {

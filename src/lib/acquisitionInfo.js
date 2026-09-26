@@ -755,6 +755,38 @@ export function buildExportComponentIndex(exportData) {
   return index;
 }
 
+// MonitoringContext.jsx and MirroredMonitoringProvider.jsx each built these
+// same 18 indexes independently (one `useMemo` per index, same builder, same
+// exportData field), which is exactly the "loader parity" drift risk: any
+// runtime consumer that skips one - the item-completeness harness did,
+// passing 17 hardcoded nulls into getAcquisitionInfo instead - never
+// exercises the real acquisition logic. Both providers and any headless
+// consumer (the completeness harness) should call this instead of
+// duplicating the useMemo list.
+export function buildAllAcquisitionIndexes(exportData) {
+  return {
+    recipeResultIndex: buildRecipeResultIndex(exportData),
+    exaltedWeaponIndex: buildExaltedWeaponIndex(exportData),
+    marketIndex: buildMarketIndex(exportData),
+    alwaysAvailableIndex: buildAlwaysAvailableIndex(exportData),
+    bundleIndex: buildBundleIndex(exportData),
+    syndicateIndex: buildSyndicateIndex(exportData),
+    wikiSigilIndex: buildWikiSigilIndex(exportData?.WikiSigilAcquisition),
+    wikiVendorIndex: buildWikiVendorIndex(exportData?.WikiVendorAcquisition),
+    wikiTennoGenIndex: buildWikiTennoGenIndex(exportData?.WikiTennoGenAcquisition),
+    wikiBaroIndex: buildWikiBaroIndex(exportData?.WikiBaroAcquisition),
+    wikiBlueprintIndex: buildWikiBlueprintIndex(exportData?.WikiBlueprintAcquisition),
+    wikiResearchIndex: buildWikiResearchIndex(exportData?.WikiResearchAcquisition),
+    wikiResourceIndex: buildWikiResourceIndex(exportData?.WikiResourceAcquisition),
+    wikiPageAcquisitionIndex: buildWikiPageAcquisitionIndex(exportData?.WikiPageAcquisition),
+    wikiAcquisitionStatusIndex: buildWikiAcquisitionStatusIndex(exportData?.WikiAcquisitionStatus),
+    relicStateIndex: buildRelicStateIndex(exportData),
+    exportVendorIndex: buildExportVendorIndex(exportData),
+    glyphSupplementIndex: buildGlyphSupplementIndex(exportData?.BrowseWfGlyphs),
+    exportComponentIndex: buildExportComponentIndex(exportData),
+  };
+}
+
 export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
   // The bare-displayName key is unsafe on its own: it's shared across every

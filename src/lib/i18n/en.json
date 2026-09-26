@@ -1167,6 +1167,7 @@
     "farming_targets.hide_done": "Hide items I no longer need",
     "farming_targets.hide_conclave": "Hide Conclave (PvP)",
     "farming_targets.faction": "Faction",
+    "farming_targets.faction_filter_all": "All factions",
     "farming_targets.filter_all": "All",
     "farming_targets.group_planet": "Group by planet",
     "farming_targets.summary_targets": "Active targets",

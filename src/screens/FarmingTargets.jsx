@@ -70,7 +70,7 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
   const effectiveTargetId = target?.id ?? null;
   const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id) && (!hideDone || row.stillNeeded > 0));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
-  const factionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.faction).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
+  const factionOptions = [{ id: '', label: t('farming_targets.faction_filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.faction).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
   return (
     <div className="space-y-5" data-preview-farming-targets>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
@@ -85,8 +85,8 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
       <Card className="p-4 space-y-3">
         <Tabs tabs={FARM_TABS.map(([id, key]) => ({ id, label: t(key) }))} activeTab={tab} onChange={setTab} className="w-fit max-w-full flex-nowrap overflow-x-auto" />
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3 [&_button[role=switch]]:gap-3">
-          <div className="flex shrink-0 items-center gap-3">
-            <Toggle checked={minChanceOn} onChange={setMinChanceOn} label={t('farming_targets.min_chance')} />
+          <div className="flex items-center gap-3">
+            <div className="shrink-0"><Toggle checked={minChanceOn} onChange={setMinChanceOn} label={t('farming_targets.min_chance')} /></div>
             <div className="flex items-center gap-2 text-xs text-kronos-dim">
               <input type="number" min="0" max="100" step="0.5" value={minChancePct} disabled={!minChanceOn} onChange={(e) => setMinChancePct(e.target.value)} aria-label={t('farming_targets.min_chance_value')} className="w-16 rounded bg-black/30 px-2 py-1 text-xs text-kronos-text disabled:opacity-40" />
               <span>%</span>
@@ -132,7 +132,7 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
 export default function FarmingTargets() {
   const { t } = useUi();
   const {
-    inventoryData, isInventoryLoading, exportData, dropIndex, recipeResultIndex, marketIndex, bundleIndex,
+    inventoryData, isInventoryLoading, exportData, dropIndex, recipeResultIndex, marketIndex, bundleIndex, EI, nameToImage, uniqueNameToName,
     syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex,
     exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex,
     wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex,
@@ -202,10 +202,10 @@ export default function FarmingTargets() {
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
   const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportData]);
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
-    targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex,
+    targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
     placeIndex: previewPlaceIndex,
     filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave, factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChanceOn, minChancePct, hideConclave, faction]);
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave, faction]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;

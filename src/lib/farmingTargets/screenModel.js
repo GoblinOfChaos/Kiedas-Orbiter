@@ -4,7 +4,7 @@ import { buildLedger } from './ledger.js';
 import { rankPlaces } from './farmNext.js';
 import { sortSourcesByChanceInRotations } from '../chanceSort.js';
 import { buildRelicPlaces } from './relicPlaces.js';
-import { resolveMissionType } from '../warframeUtils.js';
+import { resolveAnyImage, resolveMissionType, resolveNode } from '../warframeUtils.js';
 
 const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
 
@@ -22,12 +22,20 @@ function ownedMap(inventoryData) {
   return result;
 }
 
-function recipeList(inventoryData, exportData) {
+function recipeList(inventoryData, exportData, imageMaps) {
+  const { EI = {}, nameToImage = {}, uniqueNameToName = {} } = imageMaps ?? {};
+  const imageFor = (uniqueName, name, fallback = null) =>
+    (!imageMaps ? fallback : EI[uniqueName] || resolveAnyImage({ uniqueName, name }, EI, nameToImage, uniqueNameToName) || fallback);
   const recipes = (inventoryData?.craftable ?? []).map((recipe) => ({
     ...recipe,
     itemType: recipe.itemType ?? recipe.resultType ?? recipe.uniqueName,
     blueprintKey: recipe.blueprintKey ?? recipe.uniqueName,
     blueprintName: recipe.blueprintName ?? recipe.bpName,
+    image: recipe.image ?? imageFor(
+      recipe.blueprintKey ?? recipe.uniqueName,
+      recipe.blueprintName ?? recipe.bpName,
+      imageFor(recipe.resultType ?? recipe.itemType, recipe.name),
+    ),
     ingredients: recipe.ingredients ?? [],
   })).filter((recipe) => recipe.itemType);
   const byItemType = new Map(recipes.map((recipe) => [recipe.itemType, recipe]));
@@ -42,6 +50,11 @@ function recipeList(inventoryData, exportData) {
         // acquire first; by the parser's convention it is the same path with Component -> Blueprint.
         blueprintKey: ingredient.blueprintKey ?? String(ingredient.itemType).replace('Component', 'Blueprint'),
         blueprintName: `${ingredient.name ?? ingredient.itemType} Blueprint`,
+        image: imageFor(
+          ingredient.blueprintKey ?? String(ingredient.itemType).replace('Component', 'Blueprint'),
+          `${ingredient.name ?? ingredient.itemType} Blueprint`,
+          imageFor(ingredient.itemType, ingredient.name),
+        ),
         outputQty: 1,
         ingredients: subIngredients.map((subIngredient) => ({
           ...subIngredient,
@@ -59,6 +72,7 @@ function recipeList(inventoryData, exportData) {
       itemType: recipe.resultType,
       blueprintKey: key,
       blueprintName: dict[recipe.name] ?? dict[`/${recipe.name}`] ?? recipe.name,
+      image: recipe.image ?? imageFor(key, dict[recipe.name] ?? dict[`/${recipe.name}`] ?? recipe.name),
       outputQty: recipe.outputQty ?? recipe.num ?? 1,
       ingredients: (recipe.ingredients ?? []).map((ingredient) => ({
         ...ingredient,
@@ -87,7 +101,20 @@ function sourceName(source) {
     (sourceIsProvenance ? null : source.source) ?? source.name ?? null;
 }
 
-function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
+function regionEntries(regions) {
+  if (Array.isArray(regions)) return regions;
+  if (regions?.ExportRegions && Array.isArray(regions.ExportRegions)) return regions.ExportRegions;
+  return Object.entries(regions ?? {}).flatMap(([key, value]) => value && typeof value === 'object' ? [{ ...value, uniqueName: value.uniqueName ?? key }] : []);
+}
+
+function regionForSource(source, regions, dict) {
+  if (source?.type !== 'mission') return null;
+  const candidates = [source.node, source.nodeName, source.name].filter(Boolean).map(lower);
+  return regionEntries(regions).find((region) => [region.uniqueName, region.name, dict[region.name], dict[`/${region.name}`]]
+    .filter(Boolean).some((value) => candidates.includes(lower(value)))) ?? null;
+}
+
+function sourcePlace(source, itemName, { dict = {}, regions = {}, regionList = null } = {}) {
   const name = sourceName(source);
   if (!name) return null;
   const type = sourceType(source);
@@ -95,6 +122,8 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   const rawMissionType = source.type === 'cache' || source.type === 'container' ? null : source.missionType;
   const missionType = rawMissionType ? resolveMissionType(rawMissionType, dict, regions) : null;
   const pvp = type === 'conclave' || /conclave/i.test(name) || /^(conclave|pvp)$/i.test(String(missionType ?? rawMissionType ?? ''));
+  const region = regionForSource(source, regionList ?? regions, dict);
+  const faction = region?.faction ? resolveNode(region.faction, dict, regions) : null;
   return {
     id: `${type}:${lower(name)}`,
     name,
@@ -103,7 +132,7 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
     level: source.nodeName ? 'node' : isPlanet ? 'planet' : source.relicName ? 'source-only' : 'source-only',
     badge: source.nodeName ? 'exact node' : isPlanet ? 'planet-wide resource' : source.relicName ? 'source only' : 'source only',
     missionType: missionType || null,
-    faction: source.faction ?? null,
+    ...(faction ? { faction } : {}),
     planet: source.region ?? source.planet ?? null,
     itemName,
   };
@@ -112,9 +141,10 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
 export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, dict = {}, regions } = {}) {
   const byItem = new Map();
   const places = new Map();
+  const regionList = regionEntries(regions);
   const add = (item, source) => {
     if (!item || !source) return;
-    const place = sourcePlace(source, item, { dict, regions });
+    const place = sourcePlace(source, item, { dict, regions, regionList });
     if (!place) return;
     if (!places.has(place.id)) places.set(place.id, place);
     const key = lower(item);
@@ -154,13 +184,18 @@ function sourceRowsFor(placeIndex, coveredItems) {
   }));
 }
 
-export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex } = {}) {
+export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex, imageMaps } = {}) {
   const activeTargetIds = new Set(targets.filter((target) => target?.status !== 'archived' && target?.status !== 'complete').map((target) => target.id));
   const owned = ownedMap(inventoryData);
+  const recipes = recipeList(inventoryData, exportData, imageMaps);
   const expanded = expandTargets(targets.map((target) => ({ ...target, itemType: target.itemType ?? target.uniqueName, isAcquirable: target.isAcquirable ?? true })), {
-    recipes: recipeList(inventoryData, exportData),
+    recipes,
     owned,
   });
+  const recipesByBlueprint = new Map(recipes.filter((recipe) => recipe.blueprintKey).map((recipe) => [recipe.blueprintKey.replace('/StoreItems/', '/'), recipe]));
+  for (const [itemType, leaf] of expanded.leaves) {
+    if (!leaf.image) leaf.image = recipesByBlueprint.get(itemType)?.image ?? null;
+  }
   const ledger = buildLedger({ leaves: expanded.leaves, owned, reservations: [
     ...(reservations ?? []).filter((reservation) => activeTargetIds.has(reservation?.targetId)),
     ...targets.filter((target) => activeTargetIds.has(target.id)).flatMap((target) => target.reservations ?? []),

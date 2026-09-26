@@ -31,7 +31,7 @@ async function loadScreen() {
   } }
   const result = await build({ plugins: [viteOnlyStubs], entryPoints: [entry], bundle: true, write: false, platform: 'node', format: 'esm', jsx: 'automatic', loader: { '.css': 'empty', '.png': 'empty', '.svg': 'empty', '.webp': 'empty', '.ttf': 'empty', '.woff2': 'empty' }, define: { 'import.meta.env.MODE': '"preview"', 'import.meta.env': '{"MODE":"preview"}' }, packages: 'external', alias: { '@tauri-apps/api/core': tauriStub } })
   // Written inside the repo (not /tmp) so the bundle can resolve 'react' and 'react-dom/server' from node_modules.
-  const cacheDir = path.join(root, 'node_modules/.cache/farming-ui-ssr')
+  const cacheDir = path.join(root, 'tests/.cache/farming-ui-ssr')
   fs.mkdirSync(cacheDir, { recursive: true })
   const file = path.join(fs.mkdtempSync(path.join(cacheDir, 'run-')), 'screen.mjs')
   fs.writeFileSync(file, result.outputFiles[0].text)
@@ -59,6 +59,26 @@ test('SSR shows readable target options, blueprint rows, real mission labels, an
   assert.doesNotMatch(html, /Unknown source|drops\.wf|browse\.wf/)
   assert.match(html, /Minimum chance|farming_targets\.min_chance/)
   assert.match(html, /Narin Neuroptics/)
+})
+
+test('SSR keeps the minimum-chance toggle wrapper separate from its conditional note', async () => {
+  const { PreviewFarmingView, UiContext } = await loadScreen()
+  const { targets, model } = fixtureUiModel()
+  const render = (minChanceOn) => renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
+    targets, reservations: [], model, t, selectedTarget: targets[0].id, setSelectedTarget: noOp,
+    tab: 'all', setTab: noOp, minChanceOn, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
+    hideDone: false, setHideDone: noOp, hideConclave: false, setHideConclave: noOp, faction: '', setFaction: noOp,
+    groupPlanet: false, setGroupPlanet: noOp, toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp,
+    onTargetChange: noOp, onReserve: noOp,
+  })))
+  const off = render(false)
+  const on = render(true)
+  const toggleWrapper = '<div class="shrink-0"><button'
+  assert.equal((off.match(new RegExp(toggleWrapper, 'g')) ?? []).length >= 1, true)
+  assert.equal((on.match(new RegExp(toggleWrapper, 'g')) ?? []).length >= 1, true)
+  assert.match(on, /farming_targets\.min_chance_hidden/)
+  assert.doesNotMatch(off, /farming_targets\.min_chance_hidden/)
+  assert.match(on, /<div class="shrink-0"><button[\s\S]*?<\/div><div class="flex items-center gap-2 text-xs text-kronos-dim">[\s\S]*?farming_targets\.min_chance_hidden/)
 })
 
 test('screen model stays under 100ms for 80 targets with an indexed place set', () => {

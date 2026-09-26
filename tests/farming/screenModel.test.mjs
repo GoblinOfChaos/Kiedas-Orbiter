@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { buildFarmingTargetsScreenModel } from '../../src/lib/farmingTargets/screenModel.js';
+import { buildImageMaps } from '../../src/lib/exportBundle.js';
 
 const fixture = JSON.parse(fs.readFileSync(path.resolve('tests/farming/fixtures/screen-model-defects.json'), 'utf8'));
 
@@ -47,6 +48,41 @@ test('resolves mission types and excludes nameless provenance places', () => {
   assert.equal(model.ranked.some((row) => row.place.name === 'Tuvul Commons'), true);
   assert.equal(model.ranked.some((row) => row.place.name === 'Unknown source' || row.place.name === 'drops.wf' || row.place.name === 'browse.wf'), false);
   assert.equal(model.ranked.some((row) => /^MT_/.test(row.place.missionType ?? '')), false);
+});
+
+test('attaches ExportRegions faction names to matched mission nodes only', () => {
+  const model = buildFarmingTargetsScreenModel({
+    targets: [{ id: 'target', uniqueName: 'T', name: 'Target', quantity: 1 }],
+    inventoryData: { all: [], craftable: [{ resultType: 'T', ingredients: [{ itemType: 'O', name: 'Ore', need: 1 }] }] },
+    exportData: {
+      dict: { '/Lotus/Language/Regions/TestNode': 'Test Node' },
+      ExportRegions: [{ uniqueName: 'SolNodeTest', name: '/Lotus/Language/Regions/TestNode', faction: 'FC_GRINEER' }],
+    },
+    dropIndex: { O: [
+      { type: 'mission', node: 'SolNodeTest', nodeName: 'Test Node', chance: 0.5 },
+      { type: 'mission', node: 'UnknownNode', nodeName: 'Unknown Node', chance: 0.4 },
+    ] },
+  });
+  assert.equal(model.ranked.find((row) => row.place.name === 'Test Node').place.faction, 'Grineer');
+  assert.equal(model.ranked.find((row) => row.place.name === 'Unknown Node').place.faction, undefined);
+});
+
+test('blueprint leaves use DE image maps and fall back to the component image', () => {
+  const component = '/Lotus/Types/WarframeRecipes/TestChassisComponent';
+  const exportData = { dict: {}, ExportImages: { [component]: { contentHash: 'component-hash' } }, ExportWarframes: [{ uniqueName: component, name: 'Test Frame Chassis', icon: component }] };
+  const model = buildFarmingTargetsScreenModel({
+    targets: [{ id: 'target', uniqueName: 'T', name: 'Test Frame', quantity: 1 }],
+    inventoryData: { all: [], craftable: [
+      { resultType: 'T', uniqueName: '/Lotus/Types/Recipes/WarframeRecipes/TestBlueprint', ingredients: [{ itemType: component, name: 'Test Frame Chassis', need: 1 }] },
+      { resultType: component, uniqueName: '/Lotus/Types/Recipes/WarframeRecipes/TestChassisBlueprint', ingredients: [{ itemType: 'Raw', name: 'Raw', need: 1 }] },
+    ] },
+    exportData,
+    imageMaps: buildImageMaps(exportData),
+    dropIndex: {},
+  });
+  const row = model.ledger.find((entry) => entry.name === 'Test Frame Chassis Blueprint');
+  assert.ok(row?.image);
+  assert.match(row.image, /component-hash|browse\.wf/);
 });
 
 test('recipe-less user targets remain acquirable and preserve enemy and bounty places', () => {

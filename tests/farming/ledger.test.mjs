@@ -12,7 +12,7 @@ const owned = (itemType) => itemType === 'O' ? 8 : 0;
 test('applies owned inventory once and labels reservations', () => {
   const [row] = buildLedger({ leaves, owned, reservations: [{ itemType: 'O', targetId: 'rhino', quantity: 6 }] });
   assert.deepEqual(row, {
-    itemType: 'O', name: 'Orokin Cell', required: 15, owned: 8, reserved: 6,
+    itemType: 'O', name: 'Orokin Cell', image: null, required: 15, owned: 8, reserved: 6,
     overcommitted: false, stillNeeded: 7,
     usedBy: [{ targetId: 'lex', quantity: 5 }, { targetId: 'rhino', quantity: 10 }],
   });

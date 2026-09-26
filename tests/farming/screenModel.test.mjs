@@ -36,6 +36,19 @@ test('minimum chance is opt-in and does not invent planet chances', () => {
   assert.equal(buildFarmingTargetsScreenModel({ ...input, filters: { minChance: 0.05 } }).ranked.length, 0);
 });
 
+test('resolves mission types and excludes nameless provenance places', () => {
+  const model = buildFarmingTargetsScreenModel({
+    targets: [{ id: 'part', uniqueName: 'PART', name: 'Narin Chassis', quantity: 1 }],
+    inventoryData: { all: [], craftable: [{ resultType: 'PART', uniqueName: 'PART_BLUEPRINT', bpName: 'Narin Chassis Blueprint', ingredients: [{ itemType: 'RAW', name: 'Argon Crystal', need: 2 }] }] },
+    exportData: { dict: {}, ExportRecipes: {} },
+    dropIndex: { PART_BLUEPRINT: [{ type: 'mission', nodeName: 'Tuvul Commons', missionType: 'MT_VOID_FLOOD', chance: 0.5 }], RAW: [{ type: 'mission', source: 'drops.wf', missionType: 'MT_CACHE', chance: 0.5 }] },
+  });
+  assert.equal(model.ledger.some((row) => row.name === 'Narin Chassis Blueprint'), true);
+  assert.equal(model.ranked.some((row) => row.place.name === 'Tuvul Commons'), true);
+  assert.equal(model.ranked.some((row) => row.place.name === 'Unknown source' || row.place.name === 'drops.wf' || row.place.name === 'browse.wf'), false);
+  assert.equal(model.ranked.some((row) => /^MT_/.test(row.place.missionType ?? '')), false);
+});
+
 test('recipe-less user targets remain acquirable and preserve enemy and bounty places', () => {
   const model = buildFarmingTargetsScreenModel({
     ...fixture,
@@ -57,7 +70,7 @@ test('source rows match by item type or display name and expand component sub-re
       '/Resources/Alloy': [{ type: 'mission', nodeName: 'Alloy Node', region: 'Mars', source: 'drops.wf', chance: 0.4 }],
     },
   });
-  assert.deepEqual(model.ledger.map((row) => [row.itemType, row.stillNeeded]), [['/Resources/Alloy', 3]]);
+  assert.deepEqual(model.ledger.map((row) => [row.itemType, row.stillNeeded]), [['/Resources/Alloy', 3], ['/Items/FrameChassis', 1]]);
   assert.equal(model.ranked[0].place.name, 'Alloy Node');
   assert.equal(model.ranked[0].place.planet, 'Mars');
 

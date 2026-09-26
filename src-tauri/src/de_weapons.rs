@@ -133,8 +133,8 @@ pub async fn refresh_de_weapons(client: &reqwest::Client, export_dir: &Path) -> 
     let de_count = count_records(&de);
     if de_count < 100 { return Err(format!("DE Weapons count {} is below minimum 100", de_count)); }
     if mirror_count > 0 && de_count * 100 < mirror_count * 80 { return Err(format!("DE Weapons count {} collapsed below 80% of mirror {}", de_count, mirror_count)); }
-    crate::write_bytes_atomic(&export_dir.join("de/ExportWeapons_en.json"), &bytes).map_err(|e| e.to_string())?;
+    crate::write_export_json_atomic(&export_dir.join("de/ExportWeapons_en.json"), &de)?;
     let (merged, summary) = merge_weapons(&mirror, &de);
-    crate::write_json_atomic(&mirror_path, &merged)?;
+    crate::write_export_json_atomic(&mirror_path, &merged)?;
     Ok(summary)
 }

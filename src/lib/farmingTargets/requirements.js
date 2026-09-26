@@ -39,6 +39,14 @@ function outputQuantity(recipe) {
   return 1;
 }
 
+function blueprintKey(recipe) {
+  return recipe?.blueprintKey ?? recipe?.bpNameKey ?? recipe?.blueprint_unique_name ?? recipe?.uniqueName;
+}
+
+function blueprintName(recipe, itemName, key) {
+  return recipe?.blueprintName ?? recipe?.bpName ?? (/blueprint/i.test(String(itemName ?? '')) ? itemName : `${itemName || key} Blueprint`);
+}
+
 function ownedQuantity(owned, itemType) {
   const value = typeof owned === 'function' ? owned(itemType) : owned?.[itemType];
   return Math.max(0, Number.isFinite(Number(value)) ? Number(value) : 0);
@@ -56,6 +64,7 @@ function addContribution(working, item, targetId, quantity) {
   if (!quantity) return;
   const existing = working.get(item.itemType);
   if (existing) {
+    if (!existing.image && item.image) existing.image = item.image;
     existing.required += quantity;
     const contribution = existing.contributions.find((entry) => entry.targetId === targetId);
     if (contribution) contribution.quantity += quantity;
@@ -106,7 +115,7 @@ export function expandTargets(targets = [], ctx = {}) {
       return used;
     };
 
-    const expand = (key, name, amount, path) => {
+    const expand = (key, name, amount, path, image = null) => {
       if (!key || !Number.isFinite(amount) || amount < 0) {
         invalidReason = 'missing or invalid item requirement';
         return;
@@ -114,7 +123,7 @@ export function expandTargets(targets = [], ctx = {}) {
       const normalizedKey = recipeKey(key);
       const recipe = lookup.get(normalizedKey);
       if (!recipe) {
-        addContribution(localLeaves, { itemType: normalizedKey, name: name || normalizedKey }, targetId, amount);
+        addContribution(localLeaves, { itemType: normalizedKey, name: name || normalizedKey, image }, targetId, amount);
         return;
       }
       if (path.includes(normalizedKey)) {
@@ -123,6 +132,15 @@ export function expandTargets(targets = [], ctx = {}) {
       }
       const remaining = amount - consumeOwned(normalizedKey, amount);
       if (!remaining) return;
+      // A Foundry recipe is a two-step acquisition: the player needs the
+      // recipe blueprint before any of its ingredients can be built. Keep
+      // this as a separate ledger item so drop rows for e.g. Narin Chassis
+      // Blueprint remain addressable by the place index.
+      const bpKey = blueprintKey(recipe);
+      if (bpKey) {
+        const bpOwned = consumeOwned(bpKey, 1);
+        if (!bpOwned) addContribution(localLeaves, { itemType: recipeKey(bpKey), name: blueprintName(recipe, name, bpKey), image: recipe.image ?? image }, targetId, 1);
+      }
       const batches = Math.ceil(remaining / outputQuantity(recipe));
       for (const rawIngredient of recipe.ingredients ?? []) {
         const ingredientType = rawIngredient?.itemType ?? rawIngredient?.ItemType;
@@ -131,7 +149,7 @@ export function expandTargets(targets = [], ctx = {}) {
           invalidReason = 'recipe contains an unverifiable ingredient';
           return;
         }
-        expand(ingredientType, rawIngredient.name, batches * need, [...path, normalizedKey]);
+        expand(ingredientType, rawIngredient.name, batches * need, [...path, normalizedKey], rawIngredient.image);
         if (cyclePath || invalidReason) return;
       }
     };
@@ -145,7 +163,7 @@ export function expandTargets(targets = [], ctx = {}) {
       unresolved.push({ targetId, reason: 'no recipe or acquisition data' });
       continue;
     }
-    expand(itemType, target.name, targetQuantity(target), []);
+    expand(itemType, target.name, targetQuantity(target), [], target.image);
 
     if (cyclePath) {
       errors.push({ targetId, kind: 'cycle', path: cyclePath });

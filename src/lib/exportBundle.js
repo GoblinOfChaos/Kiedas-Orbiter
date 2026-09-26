@@ -1,4 +1,5 @@
 import { fillDataGaps, fillModGaps } from './wfcdGapFill.js'
+import { applyDeLocale } from './deLocale.js'
 
 const IMAGE_TABLES = [
   'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportResources',
@@ -69,6 +70,9 @@ export function buildImageMaps(exportData = {}) {
   for (const [key, value] of Object.entries(exportData.WI_Supplement?.nameToImage || {})) {
     if (nameToImage[key] === undefined) nameToImage[key] = value
   }
+  for (const [key, value] of Object.entries(exportData.WI_Supplement?.uniqueNameToName || exportData.uniqueNameToName || {})) {
+    if (uniqueNameToName[key] === undefined) uniqueNameToName[key] = value
+  }
   return { EI, nameToImage, uniqueNameToName }
 }
 
@@ -81,23 +85,29 @@ export function mergeCosmeticCatalogAdditions(exportData, additions) {
   return { ...exportData, ExportCustoms: customs }
 }
 
-export function buildRuntimeExportBundle({ exports, wiMaps = {}, wiSupplement = {}, cosmeticAdditions = null, onGapFillAudit, onModGapFillAudit } = {}) {
+export function buildRuntimeExportBundle({ exports, wiMaps = {}, wiSupplement = {}, cosmeticAdditions = null, locale = 'en', deLocaleTables = null, onGapFillAudit, onModGapFillAudit } = {}) {
   if (!exports) return null
   const withCosmetics = mergeCosmeticCatalogAdditions(exports, cosmeticAdditions)
   let filledExports = withCosmetics
-  try {
-    const gapResult = fillDataGaps(withCosmetics)
-    filledExports = gapResult.exportData
-    onGapFillAudit?.(gapResult.audit)
-  } catch { /* preserve the unfilled export */ }
+  if (!exports._gapFilled) {
+    try {
+      const gapResult = fillDataGaps(withCosmetics)
+      filledExports = gapResult.exportData
+      filledExports._gapFilled = true
+      onGapFillAudit?.(gapResult.audit)
+    } catch { /* preserve the unfilled export */ }
+  }
   const enhanced = { ...filledExports, ...wiMaps }
-  enhanced.uniqueNameToName = { ...(enhanced.uniqueNameToName || {}), ...(wiSupplement.uniqueNameToName || {}) }
-  enhanced.nameToImage = { ...(enhanced.nameToImage || {}), ...(wiSupplement.nameToImage || {}) }
-  enhanced.WI_Supplement = wiSupplement
-  try {
-    const modResult = fillModGaps(enhanced.WI_Upgrades, filledExports.WFCD_Mods)
-    enhanced.WI_Upgrades = modResult.map
-    onModGapFillAudit?.(modResult.audit)
-  } catch { /* optional live supplement */ }
-  return enhanced
+  const localized = applyDeLocale(enhanced, deLocaleTables || enhanced, locale)
+  localized.uniqueNameToName = { ...(localized.uniqueNameToName || {}), ...(wiSupplement.uniqueNameToName || {}) }
+  localized.nameToImage = { ...(localized.nameToImage || {}), ...(wiSupplement.nameToImage || {}) }
+  localized.WI_Supplement = wiSupplement
+  if (localized.WI_Upgrades) {
+    try {
+      const modResult = fillModGaps(localized.WI_Upgrades, filledExports.WFCD_Mods)
+      localized.WI_Upgrades = modResult.map
+      onModGapFillAudit?.(modResult.audit)
+    } catch { /* optional live supplement */ }
+  }
+  return localized
 }

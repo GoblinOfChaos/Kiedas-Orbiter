@@ -18,7 +18,7 @@ export const CATEGORY_DISPLAY_LABELS = {
   // untranslated ones. Confirmed against every literal `category: '...'`
   // value inventoryParser.js actually assigns.
   Arcanes: 'Arcane', components: 'Component', intrinsics: 'Intrinsic',
-  peely_pix: 'Peely Pix', prime_parts: 'Prime Part', relics: 'Relic',
+  peely_pix: 'Peely Pix', prime_parts: 'Prime Part', parts: 'Part', relics: 'Relic',
   resources: 'Resource', rivens: 'Riven Mod', songItems: 'Song',
 }
 

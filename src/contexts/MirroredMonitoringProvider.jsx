@@ -10,7 +10,7 @@ import { listen } from '@tauri-apps/api/event'
 import { MonitoringContext } from './MonitoringContext'
 import { getPricesBatch } from '../lib/marketEngine'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
-import { buildRuntimeExportBundle } from '../lib/exportBundle'
+import { buildImageMaps, buildRuntimeExportBundle } from '../lib/exportBundle'
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
 const ORACLE_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -45,6 +45,8 @@ const ARBY_TIERS = {
 
 export default function MirroredMonitoringProvider({ children }) {
   const [exportData, setExportData] = useState(null)
+  const exportDataRef = useRef(null)
+  useEffect(() => { exportDataRef.current = exportData }, [exportData])
   const [isMonitoring, setIsMonitoring] = useState(false)
   const [monitorResult, setMonitorResult] = useState('idle')
   const [autoStart, setAutoStartState] = useState(() => localStorage.getItem('autoStartMonitoring') === 'true')
@@ -173,8 +175,9 @@ export default function MirroredMonitoringProvider({ children }) {
           const bytes = await invoke('read_file_bytes', { relative: 'data/assets/data/cosmetic-catalog-additions.json' })
           cosmeticAdditions = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes)))
         } catch { /* optional cosmetic supplement */ }
-        const initialExports = buildRuntimeExportBundle({ exports, cosmeticAdditions })
+        const initialExports = buildRuntimeExportBundle({ exports, cosmeticAdditions, locale: localeRef.current })
         setExportData(initialExports)
+        exportDataRef.current = initialExports
 
         const [spiRes, arbRes, descRes] = await Promise.allSettled([
           invoke('load_txt_file', { name: 'sp-incursions.txt' }),
@@ -196,13 +199,11 @@ export default function MirroredMonitoringProvider({ children }) {
           setDescendiaDesc(descMap)
         }
 
-        // Set exports immediately (no wfcd blocking) — load wfcd in background
-        setExportData(initialExports)
-
         if (initialExports) {
           loadWarframeItemsMaps().then(({ maps: wiMaps, supplement: wiSupplement }) => {
-            const enhanced = buildRuntimeExportBundle({ exports: initialExports, wiMaps, wiSupplement })
+            const enhanced = buildRuntimeExportBundle({ exports: initialExports, wiMaps, wiSupplement, locale: localeRef.current })
             setExportData(enhanced)
+            exportDataRef.current = enhanced
           })
         }
         if (result.inventory) {
@@ -409,88 +410,7 @@ export default function MirroredMonitoringProvider({ children }) {
     return map
   }
 
-  function buildEI(ed, d) {
-    if (!ed || !d) return { EI: {}, nameToImage: {}, uniqueNameToName: {} }
-    const tableNames = [
-      'ExportWeapons', 'ExportWarframes', 'ExportSentinels',
-      'ExportResources', 'ExportArcanes', 'ExportUpgrades',
-      'ExportNightwave', 'ExportBoosterPacks', 'ExportRecipes', 'ExportCustoms', 'ExportGear', 'ExportFlavour', 'ExportBundles',
-      // warframe-items pre-resolved maps
-      'WI_Warframes', 'WI_Weapons', 'WI_Sentinels',
-      'WI_Upgrades', 'WI_Arcanes', 'WI_Resources',
-      'WI_Relics', 'WI_Gear', 'WI_Customs',
-      'WI_Skins', 'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
-    ]
-    const EI = {}
-    const nameToImage = {}
-    const uniqueNameToName = {}
-    const toBrowseWf = (p) => {
-      if (!p) return null
-      if (p.startsWith('http://') || p.startsWith('https://')) return p
-      const clean = p.startsWith('/') ? p : '/' + p
-      // content.warframe.com serves every export icon via its contentHash;
-      // browse.wf only mirrors a subset, so prefer the authoritative CDN.
-      const hash = ed.ExportImages?.[clean]?.contentHash
-      return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
-    }
-    const indexEntry = (e, k, t) => {
-      const un = e.uniqueName || e.ItemType || k
-      if (!un) return
-      let iconPath = e.icon ?? e.texture
-      let nameKey = e.name ?? e.displayName
-      if (t === 'ExportRecipes' && e.resultType) {
-        nameKey = uniqueNameToName[e.resultType] || e.resultType
-        if (!iconPath) {
-          const resultUn = e.resultType
-          iconPath = ed.ExportImages?.[resultUn] || EI[resultUn]
-          if (typeof iconPath === 'string' && iconPath.startsWith('asset-cache://browse.wf')) {
-            iconPath = iconPath.replace('asset-cache://browse.wf', '')
-          }
-        }
-      }
 
-      if (t === 'ExportBundles' && e.components?.length && !ed.ExportImages?.[iconPath]?.contentHash) {
-        // Bundle icons sometimes lack a contentHash (newer bundles aren't
-        // mirrored); fall back to the first component whose icon resolves.
-        const customs = ed.ExportCustoms || {}
-        for (const c of e.components) {
-          const cType = c.typeName || c.ItemType || ''
-          const entry = customs[cType] || customs[cType.replace('/StoreItems/', '/')]
-          const cIcon = entry?.icon
-          if (cIcon && ed.ExportImages?.[cIcon]?.contentHash) { iconPath = cIcon; break }
-        }
-      }
-      const url = toBrowseWf(iconPath ?? '')
-      if (url) EI[un] = url
-      uniqueNameToName[un] = nameKey
-      const locKey = uniqueNameToName[un]
-      if (locKey) {
-        const resolved = (d[locKey] || d['/' + locKey] || locKey || '').replace(/<[^>]*>/g, '').trim()
-        if (resolved && !resolved.startsWith('/')) { if (url) nameToImage[resolved.toLowerCase()] = url }
-      }
-    }
-    tableNames.forEach(tbl => {
-      const data = ed[tbl]
-      if (!data) return
-      if (Array.isArray(data)) data.forEach(e => indexEntry(e, null, tbl))
-      else if (typeof data === 'object') {
-        const nested = data[tbl] ?? (Object.keys(data).length === 1 && typeof Object.values(data)[0] === 'object' ? Object.values(data)[0] : null)
-        if (Array.isArray(nested)) nested.forEach(e => indexEntry(e, null, tbl))
-        else Object.entries(data).forEach(([k, v]) => indexEntry(v, k, tbl))
-      }
-    })
-
-    // wfcd supplement fallback: English display-name → image keys, so items
-    // whose localized dict key is missing (e.g. FR Dual Toxocyst/Dual Ichor
-    // base names) still resolve. Localized keys above take priority.
-    const wiSupp = ed.WI_Supplement?.nameToImage
-    if (wiSupp) {
-      for (const [k, v] of Object.entries(wiSupp)) {
-        if (nameToImage[k] === undefined) nameToImage[k] = v
-      }
-    }
-    return { EI, nameToImage, uniqueNameToName }
-  }
 
   // ── Memoized fields (mirrors MonitoringContext) ──
   const dict = useMemo(() => exportData?.dict ?? exportData?.['dict.en'] ?? {}, [exportData])
@@ -537,10 +457,7 @@ export default function MirroredMonitoringProvider({ children }) {
     return xpNeeded > 0 ? Math.min(100, (xpIntoRank / xpNeeded) * 100) : 100
   }, [inventoryData])
 
-  const eiResult = useMemo(() => buildEI(exportData, dict), [exportData, dict])
-  const nameToImage = eiResult.nameToImage
-  const uniqueNameToName = eiResult.uniqueNameToName
-  const EI = eiResult.EI
+  const { EI, nameToImage, uniqueNameToName } = useMemo(() => buildImageMaps(exportData || {}), [exportData])
 
   // ── Worldstate polling (after all memoized fields so deps are in scope) ──
   const fetchWorldstate = useCallback(async (locale) => {
@@ -603,7 +520,7 @@ export default function MirroredMonitoringProvider({ children }) {
     if (!raw) return
     rawInventoryRef.current = raw
     setRawInventory(raw)
-    const ed = exports || exportData
+    const ed = exports || exportDataRef.current || exportData
     if (!ed) return
     setTimeout(() => {
       try {

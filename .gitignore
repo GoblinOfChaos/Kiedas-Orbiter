@@ -73,7 +73,6 @@ lib/soup/
 src-tauri/gen/
 .superpowers/
 scripts/.item-completeness-state.json
-docs/agent-reports/matrix.md
 # IDE & Assistant Configs
 .claude/
 .continue/

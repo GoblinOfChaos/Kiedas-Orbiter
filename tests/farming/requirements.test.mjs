@@ -33,6 +33,15 @@ test('uses outputQty before calculating ceiling craft batches', () => {
   assert.equal(result.leaves.get('B').required, 3);
 });
 
+test('adds an unowned recipe blueprint before expanding its ingredients', () => {
+  const result = expandTargets([{ id: 'part', itemType: 'PART', name: 'Narin Chassis', quantity: 1 }], context([
+    { ...recipe('PART', [ingredient('RAW', 'Argon Crystal', 2)]), uniqueName: 'PART_BLUEPRINT', bpName: 'Narin Chassis Blueprint' },
+  ]));
+  assert.equal(result.leaves.get('PART_BLUEPRINT').name, 'Narin Chassis Blueprint');
+  assert.equal(result.leaves.get('PART_BLUEPRINT').required, 1);
+  assert.equal(result.leaves.get('RAW').required, 2);
+});
+
 test('uses owned intermediates once before expanding them', () => {
   const result = expandTargets([{ id: 'x', itemType: 'X', name: 'X', quantity: 1 }], context([
     recipe('X', [ingredient('B', 'B', 5)]),

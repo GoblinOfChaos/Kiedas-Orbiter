@@ -123,7 +123,7 @@ function buildResultTypeToBlueprintMap(exportData) {
       const resource = resourceByUniqueName(componentUn)
       const part = partFromResource(resource)
       if (!componentUn || !part) continue
-      const metadata = { parentResultType: recipe.resultType, part }
+      const metadata = { parentResultType: recipe.resultType, part, componentUn }
       componentMetadata[componentUn] = metadata
       if (resource?.name) componentRewardNames[`${resource.name} blueprint`.toLowerCase()] = metadata
     }
@@ -131,6 +131,20 @@ function buildResultTypeToBlueprintMap(exportData) {
   map.componentMetadata = componentMetadata
   map.componentRewardNames = componentRewardNames
   return map
+}
+
+// A component's drop rows are filed under its PARENT (labelled with the part, for the parent's
+// drawer) and ALSO under the component's own keys (its blueprint recipe key and its
+// resultType), so opening the part itself (e.g. Inventory > Parts > Narin Chassis) finds its own drop table.
+function addComponentSource(index, component, source, resultTypeToBlueprint) {
+  addSource(index, component.parentResultType, { ...source, part: component.part })
+  // Under the part's OWN keys the rows are its own sources (no part label): a labelled row would be
+  // shown by the drawer as a "component source" of the part, leaving "Where to start" empty.
+  if (component.componentUn) {
+    addSource(index, component.componentUn, source)
+    const blueprintUn = resultTypeToBlueprint?.[component.componentUn]
+    if (blueprintUn && blueprintUn !== component.componentUn) addSource(index, blueprintUn, source)
+  }
 }
 
 function addSource(index, itemUn, source) {
@@ -151,7 +165,8 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
     if (uniqueNames && uniqueNames.length > 0) {
       for (const un of uniqueNames) {
         const component = resultTypeToBlueprint?.componentMetadata?.[un]
-        addSource(index, component?.parentResultType || un, component ? { ...source, part: component.part } : source)
+        if (component) addComponentSource(index, component, source, resultTypeToBlueprint)
+        else addSource(index, un, source)
       }
       return true
     }
@@ -162,7 +177,7 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
   const componentReward = resultTypeToBlueprint?.componentRewardNames?.[lc]
   let found = false
   if (componentReward) {
-    addSource(index, componentReward.parentResultType, { ...source, part: componentReward.part })
+    addComponentSource(index, componentReward, source, resultTypeToBlueprint)
     found = true
   } else {
     found = tryName(lc)
@@ -186,7 +201,7 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
       for (const un of uniqueNames) {
         const component = resultTypeToBlueprint?.componentMetadata?.[un]
         if (component) {
-          addSource(index, component.parentResultType, { ...source, part: component.part })
+          addComponentSource(index, component, source, resultTypeToBlueprint)
           continue
         }
         const blueprintUn = resultTypeToBlueprint?.[un];
@@ -245,6 +260,7 @@ const normChance = (c) => c != null ? c / 100 : null
 
 function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
   if (!DropsAll || typeof DropsAll !== 'object') return
+  const provenance = DropsAll.__source || 'drops.wf'
   const addNamed = (itemName, source) => addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
 
   // ── missionRewards: planet -> node -> rotation -> rewards ──────────────
@@ -272,7 +288,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             rotation: rotation === 'A' ? null : rotation,
             chance: normChance(entry.chance),
             itemCount: 1,
-            source: 'drops.wf',
+            source: provenance,
           })
         }
         if (Array.isArray(rewards)) {
@@ -305,7 +321,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           chance: normChance(entry.chance),
           relicManifest: relicName,
           state,
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -323,7 +339,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           rarity: enemy.rarity || '',
           chance: normChance(enemy.chance),
           enemyDropChance: enemy.enemyModDropChance ?? null,
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -340,7 +356,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           enemyName: enemy.enemyName,
           rarity: mod.rarity || '',
           chance: normChance(mod.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -358,7 +374,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           enemyName: enemy.enemyName,
           rarity: enemy.rarity || '',
           chance: normChance(enemy.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -376,7 +392,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             enemyName: enemy.enemyName,
             rarity: item.rarity || '',
             chance: normChance(item.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -387,7 +403,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             enemyName: enemy.enemyName,
             rarity: mod.rarity || '',
             chance: normChance(mod.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -421,7 +437,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             stage: entry.stage || '',
             rarity: entry.rarity || '',
             chance: normChance(entry.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -437,7 +453,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
         type: 'sortie',
         rarity: entry.rarity || '',
         chance: normChance(entry.chance),
-        source: 'drops.wf',
+        source: provenance,
       })
     }
   }
@@ -455,7 +471,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           rotation: entry.rotation || '',
           rarity: entry.rarity || '',
           chance: normChance(entry.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -478,7 +494,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
             rotation: rotation === 'A' ? null : rotation,
             rarity: entry.rarity || '',
             chance: normChance(entry.chance),
-            source: 'drops.wf',
+            source: provenance,
           })
         }
       }
@@ -499,7 +515,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           standing: entry.standing ?? null,
           rarity: entry.rarity || '',
           chance: normChance(entry.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }
@@ -520,7 +536,7 @@ function processDropsAll(index, DropsAll, nameMap, resultTypeToBlueprint) {
           sourceName,
           rarity: item.rarity || '',
           chance: normChance(item.chance),
-          source: 'drops.wf',
+          source: provenance,
         })
       }
     }

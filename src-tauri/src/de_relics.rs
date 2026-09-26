@@ -50,13 +50,13 @@ pub async fn refresh_de_relics(client: &reqwest::Client, export_dir: &Path) -> R
     let mirror_relics: Value = serde_json::from_slice(&std::fs::read(&mirror_relic_path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
     let mirror_arcanes: Value = serde_json::from_slice(&std::fs::read(&mirror_arcane_path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
     let cache_path = export_dir.join("de/ExportRelicArcane_en.json");
-    let de = if cache_path.exists() && std::fs::metadata(&mirror_relic_path).map_err(|e| e.to_string())?.modified().map_err(|e| e.to_string())? <= std::fs::metadata(&cache_path).map_err(|e| e.to_string())?.modified().map_err(|e| e.to_string())? { serde_json::from_slice(&std::fs::read(&cache_path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())? } else {
-        let index = client.get(INDEX_URL).send().await.map_err(|e| e.to_string())?; if !index.status().is_success() { return Err(format!("DE relic index HTTP {}", index.status())); }
+    let de = {
+        let index = client.get(INDEX_URL).header("User-Agent", "KiedasOrbiter/1.3.3").send().await.map_err(|e| e.to_string())?; if !index.status().is_success() { return Err(format!("DE relic index HTTP {}", index.status())); }
         let text = crate::decompress_lzma(&index.bytes().await.map_err(|e| e.to_string())?)?;
         let line = text.lines().map(str::trim).find(|line| line.starts_with("ExportRelicArcane_en.json!")).ok_or("ExportRelicArcane_en.json missing from DE index")?.to_owned();
         tokio::time::sleep(Duration::from_secs(1)).await;
         let response = client.get(format!("{}/{}", MANIFEST_BASE, line.replace('!', "%21"))).send().await.map_err(|e| e.to_string())?; if !response.status().is_success() { return Err(format!("DE relic/arcane HTTP {}", response.status())); }
-        let bytes = response.bytes().await.map_err(|e| e.to_string())?; let value: Value = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?; let total = records(&value).len(); let (relics, arcanes) = split(&value); if total < 100 || relics.len() * 100 < mirror_relics.as_object().map(|x| x.len()).unwrap_or(0) * 80 || arcanes.len() * 100 < mirror_arcanes.as_object().map(|x| x.len()).unwrap_or(0) * 80 { return Err(format!("DE relic/arcane validation failed: total {}, relics {}, arcanes {}", total, relics.len(), arcanes.len())); } crate::write_bytes_atomic(&cache_path, &bytes).map_err(|e| e.to_string())?; value
+        let bytes = response.bytes().await.map_err(|e| e.to_string())?; let value: Value = serde_json::from_slice(&bytes).map_err(|e| e.to_string())?; let total = records(&value).len(); let (relics, arcanes) = split(&value); if total < 100 || relics.len() * 100 < mirror_relics.as_object().map(|x| x.len()).unwrap_or(0) * 80 || arcanes.len() * 100 < mirror_arcanes.as_object().map(|x| x.len()).unwrap_or(0) * 80 { return Err(format!("DE relic/arcane validation failed: total {}, relics {}, arcanes {}", total, relics.len(), arcanes.len())); } crate::write_export_json_atomic(&cache_path, &value)?; value
     };
-    let (relics, arcanes, summary) = merge(&mirror_relics, &mirror_arcanes, &de); crate::write_json_atomic(&mirror_relic_path, &relics)?; crate::write_json_atomic(&mirror_arcane_path, &arcanes)?; Ok(summary)
+    let (relics, arcanes, summary) = merge(&mirror_relics, &mirror_arcanes, &de); crate::write_export_json_atomic(&mirror_relic_path, &relics)?; crate::write_export_json_atomic(&mirror_arcane_path, &arcanes)?; Ok(summary)
 }

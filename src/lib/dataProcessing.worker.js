@@ -12,11 +12,15 @@
  */
 import * as Comlink from 'comlink'
 import { buildDropIndex } from './dropsParser'
+import { convertDeDropTables, DE_DROP_TABLES_ENABLED } from './deDropTables/convert'
 import { parseInventory } from './inventoryParser'
 
 const api = {
   buildDropIndex(exportData) {
-    return buildDropIndex(exportData)
+    const withDeDrops = DE_DROP_TABLES_ENABLED && exportData?.DEDropTables
+      ? { ...exportData, DropsAll: convertDeDropTables(exportData.DEDropTables) }
+      : exportData
+    return buildDropIndex(withDeDrops)
   },
   parseInventory(raw, exportData, dict, locale, i18n) {
     return parseInventory(raw, exportData, dict, locale, i18n)

@@ -52,7 +52,7 @@ fn adapted_record(raw: &Map<String, Value>) -> Map<String, Value> {
         let value = if *field == "abilities" {
             Value::Array(value.as_array().map(|abilities| abilities.iter().map(adapted_ability).collect()).unwrap_or_default())
         } else {
-            value.clone()
+            if *field == "sprintSpeed" { rounded_speed(value) } else { value.clone() }
         };
         result.insert((*field).to_owned(), value);
     }
@@ -138,9 +138,9 @@ pub async fn refresh_de_warframes(client: &reqwest::Client, export_dir: &Path) -
     let de_count = count_records(&de);
     if de_count < 100 { return Err(format!("DE Warframes count {} is below minimum 100", de_count)); }
     if mirror_count > 0 && de_count * 100 < mirror_count * 80 { return Err(format!("DE Warframes count {} collapsed below 80% of mirror {}", de_count, mirror_count)); }
-    crate::write_bytes_atomic(&export_dir.join("de/ExportWarframes_en.json"), &bytes).map_err(|e| e.to_string())?;
+    crate::write_export_json_atomic(&export_dir.join("de/ExportWarframes_en.json"), &de)?;
     let (merged, summary) = merge_warframes(&mirror, &de);
-    crate::write_json_atomic(&mirror_path, &merged)?;
+    crate::write_export_json_atomic(&mirror_path, &merged)?;
     Ok(summary)
 }
 

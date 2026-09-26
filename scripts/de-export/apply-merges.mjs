@@ -11,6 +11,11 @@ import { addManifestIcons, mergeImages, mergeRecipes, mergeResources } from './a
 import { mergeWarframes } from './adapters/merge-warframes.mjs'
 import { mergeWeapons } from './adapters/merge-weapons.mjs'
 import { adaptRelicsArcanes, mergeRelicsArcanes } from './adapters/relics-arcanes.mjs'
+import { adaptUpgrades, addManifestIcons as addUpgradeManifestIcons, mergeImages as mergeUpgradeImages, mergeUpgrades } from './adapters/merge-upgrades.mjs'
+import { adaptCustoms, adaptFlavour, manifestIcons, mergeCustoms, mergeFlavour } from './adapters/merge-customs-flavour.mjs'
+import { adaptGear, adaptSentinels } from './adapters/sentgear.mjs'
+import { mergeGear, mergeSentinels } from './adapters/merge-sentgear.mjs'
+import { adaptFusionBundles, adaptKeys, adaptRegions, mergeFusionBundles, mergeKeys, mergeRegions } from './adapters/regions-keys-bundles.mjs'
 
 const DEFAULT_CACHE = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export'
 const DEFAULT_DATA = process.env.KIEDAS_PREVIEW_DATA_DIR || path.join(os.homedir(), '.local/share/kiedas-orbiter-preview/data')
@@ -36,24 +41,41 @@ async function loadDe(cacheDir, provenance, category) {
   return readJson(file)
 }
 
-export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFAULT_CACHE } = {}) {
+async function loadDeOptional(cacheDir, provenance, category) {
+  if (!provenance?.categories?.[category]?.suffix) return {}
+  return loadDe(cacheDir, provenance, category)
+}
+
+export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFAULT_CACHE, rkbShadow = false } = {}) {
   if (!out) throw new Error('apply-merges requires --out DIR')
   const sourceExport = path.join(dataDir, 'export')
   const outExport = path.join(out, 'export')
   await fs.cp(sourceExport, outExport, { recursive: true })
   const provenance = await readJson(path.join(cacheDir, 'provenance.json'))
-  const [deWarframesRaw, deWeaponsRaw, deRecipesRaw, deResourcesRaw, deRelicArcaneRaw, deManifest] = await Promise.all([
+  const [deWarframesRaw, deWeaponsRaw, deRecipesRaw, deResourcesRaw, deRelicArcaneRaw, deUpgradesRaw, deCustomsRaw, deFlavourRaw, deSentinelsRaw, deGearRaw, deManifest, deRegionsRaw, deKeysRaw, deFusionBundlesRaw] = await Promise.all([
     loadDe(cacheDir, provenance, 'ExportWarframes'),
     loadDe(cacheDir, provenance, 'ExportWeapons'),
     loadDe(cacheDir, provenance, 'ExportRecipes'),
     loadDe(cacheDir, provenance, 'ExportResources'),
     loadDe(cacheDir, provenance, 'ExportRelicArcane'),
+    loadDe(cacheDir, provenance, 'ExportUpgrades'),
+    loadDeOptional(cacheDir, provenance, 'ExportCustoms'),
+    loadDeOptional(cacheDir, provenance, 'ExportFlavour'),
+    loadDeOptional(cacheDir, provenance, 'ExportSentinels'),
+    loadDeOptional(cacheDir, provenance, 'ExportGear'),
     loadDe(cacheDir, provenance, 'ExportManifest'),
+    loadDe(cacheDir, provenance, 'ExportRegions'),
+    loadDe(cacheDir, provenance, 'ExportKeys'),
+    rkbShadow ? loadDe(cacheDir, provenance, 'ExportFusionBundles') : Promise.resolve(null),
   ])
-  const readApp = (name) => readJson(path.join(sourceExport, name))
-  const [appWarframes, appWeapons, appRecipes, appResources, appRelics, appArcanes, appImages] = await Promise.all([
+  const readApp = (name) => readJson(path.join(sourceExport, name)).catch(() => ({}))
+  const [appWarframes, appWeapons, appRecipes, appResources, appRelics, appArcanes, appUpgrades, appCustoms, appFlavour, appSentinels, appGear, appImages, appRewards, appRegions, appKeys, appFusionBundles] = await Promise.all([
     readApp('ExportWarframes.json'), readApp('ExportWeapons.json'), readApp('ExportRecipes.json'),
-    readApp('ExportResources.json'), readApp('ExportRelics.json'), readApp('ExportArcanes.json'), readApp('ExportImages.json'),
+    readApp('ExportResources.json'), readApp('ExportRelics.json'), readApp('ExportArcanes.json'), readApp('ExportUpgrades.json'),
+    readApp('ExportCustoms.json'), readApp('ExportFlavour.json'), readApp('ExportSentinels.json'), readApp('ExportGear.json'), readApp('ExportImages.json'), readApp('ExportRewards.json'),
+    readApp('ExportRegions.json'),
+    readApp('ExportKeys.json'),
+    rkbShadow ? readApp('ExportFusionBundles.json') : Promise.resolve({}),
   ])
 
   const { merged: warframesBase } = mergeWarframes(appWarframes, adaptWarframes(deWarframesRaw))
@@ -63,7 +85,23 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
   const deResources = addManifestIcons(adaptResources(deResourcesRaw), deManifest)
   const { merged: resources } = mergeResources(appResources, deResources)
   const { merged: images } = mergeImages(appImages, deManifest)
-  const { relics, arcanes } = mergeRelicsArcanes(appRelics, appArcanes, adaptRelicsArcanes(deRelicArcaneRaw))
+  const adaptedRelicsArcanes = adaptRelicsArcanes(deRelicArcaneRaw)
+  const { relics: mergedRelics, arcanes } = mergeRelicsArcanes(appRelics, appArcanes, adaptedRelicsArcanes)
+  const relics = addManifestIcons(mergedRelics, deManifest)
+  const rewards = { ...appRewards, ...adaptedRelicsArcanes.rewards }
+  const { merged: customs } = mergeCustoms(appCustoms, manifestIcons(adaptCustoms(deCustomsRaw), deManifest))
+  const { merged: flavour } = mergeFlavour(appFlavour, manifestIcons(adaptFlavour(deFlavourRaw), deManifest))
+  const { merged: sentinels } = mergeSentinels(appSentinels, adaptSentinels(deSentinelsRaw))
+  const { merged: gear } = mergeGear(appGear, adaptGear(deGearRaw))
+  const { merged: upgradesBase } = mergeUpgrades(appUpgrades, adaptUpgrades(deUpgradesRaw))
+  const upgrades = addUpgradeManifestIcons(upgradesBase, deManifest)
+  const { merged: upgradeImages } = mergeUpgradeImages(images, deManifest)
+
+  const regions = mergeRegions(appRegions, adaptRegions(deRegionsRaw))
+  const keys = mergeKeys(appKeys, adaptKeys(deKeysRaw))
+  const fusionBundles = rkbShadow
+    ? mergeFusionBundles(appFusionBundles, adaptFusionBundles(deFusionBundlesRaw))
+    : null
 
   await Promise.all([
     writeJson(path.join(outExport, 'ExportWarframes.json'), warframes),
@@ -72,7 +110,16 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'ExportResources.json'), resources),
     writeJson(path.join(outExport, 'ExportRelics.json'), relics),
     writeJson(path.join(outExport, 'ExportArcanes.json'), arcanes),
-    writeJson(path.join(outExport, 'ExportImages.json'), images),
+    writeJson(path.join(outExport, 'ExportUpgrades.json'), upgrades),
+    writeJson(path.join(outExport, 'ExportCustoms.json'), customs),
+    writeJson(path.join(outExport, 'ExportFlavour.json'), flavour),
+    writeJson(path.join(outExport, 'ExportSentinels.json'), sentinels),
+    writeJson(path.join(outExport, 'ExportGear.json'), gear),
+    writeJson(path.join(outExport, 'ExportRewards.json'), rewards),
+    writeJson(path.join(outExport, 'ExportImages.json'), upgradeImages),
+    writeJson(path.join(outExport, 'ExportRegions.json'), regions.merged),
+    writeJson(path.join(outExport, 'ExportKeys.json'), keys.merged),
+    ...(fusionBundles ? [writeJson(path.join(outExport, 'ExportFusionBundles.json'), fusionBundles.merged)] : []),
   ])
   await fs.mkdir(path.join(outExport, 'de'), { recursive: true })
   await Promise.all([
@@ -81,20 +128,35 @@ export async function applyMerges({ dataDir = DEFAULT_DATA, out, cacheDir = DEFA
     writeJson(path.join(outExport, 'de', 'ExportRecipes_en.json'), deRecipesRaw),
     writeJson(path.join(outExport, 'de', 'ExportResources_en.json'), deResourcesRaw),
     writeJson(path.join(outExport, 'de', 'ExportRelicArcane_en.json'), deRelicArcaneRaw),
+    writeJson(path.join(outExport, 'de', 'ExportUpgrades_en.json'), deUpgradesRaw),
+    writeJson(path.join(outExport, 'de', 'ExportCustoms_en.json'), deCustomsRaw),
+    writeJson(path.join(outExport, 'de', 'ExportFlavour_en.json'), deFlavourRaw),
+    writeJson(path.join(outExport, 'de', 'ExportSentinels_en.json'), deSentinelsRaw),
+    writeJson(path.join(outExport, 'de', 'ExportGear_en.json'), deGearRaw),
     writeJson(path.join(outExport, 'de', 'ExportManifest.json'), deManifest),
+    writeJson(path.join(outExport, 'de', 'ExportRegions_en.json'), deRegionsRaw),
+    writeJson(path.join(outExport, 'de', 'ExportKeys_en.json'), deKeysRaw),
+    ...(fusionBundles ? [writeJson(path.join(outExport, 'de', 'ExportFusionBundles_en.json'), deFusionBundlesRaw)] : []),
   ])
   return { out, exportDir: outExport, counts: {
     warframes: Object.keys(warframes).length, weapons: Object.keys(weapons).length,
     recipes: Object.keys(recipes).length, resources: Object.keys(resources).length,
     relics: Object.keys(relics).length, arcanes: Object.keys(arcanes).length,
-    images: Object.keys(images).length,
+    upgrades: Object.keys(upgrades).length, images: Object.keys(upgradeImages).length,
+    customs: Object.keys(customs).length, flavour: Object.keys(flavour).length,
+    sentinels: Object.keys(sentinels).length, gear: Object.keys(gear).length,
+    rewards: Object.keys(rewards).length,
+    regions: regions.report.counts.merged,
+    keys: keys.report.counts.merged,
+    ...(fusionBundles ? { fusionBundles: fusionBundles.report.counts.merged } : {}),
+    rkbReports: { regions: regions.report, keys: keys.report, ...(fusionBundles ? { fusionBundles: fusionBundles.report } : {}) },
   } }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = process.argv.slice(2)
   if (args.includes('--help') || !args.includes('--out')) {
-    console.log('Usage: node scripts/de-export/apply-merges.mjs --data-dir DIR --out DIR [--cache-dir DIR]')
+    console.log('Usage: node scripts/de-export/apply-merges.mjs --data-dir DIR --out DIR [--cache-dir DIR] [--with-rkb-shadow]')
     process.exit(args.includes('--help') ? 0 : 2)
   }
   try {
@@ -102,6 +164,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       dataDir: argValue(args, '--data-dir', DEFAULT_DATA),
       out: path.resolve(argValue(args, '--out')),
       cacheDir: argValue(args, '--cache-dir', DEFAULT_CACHE),
+      rkbShadow: args.includes('--with-rkb-shadow'),
     }), null, 2))
   } catch (error) {
     console.error(`apply-merges: ${error.message}`)

@@ -760,5 +760,9 @@
   "/Lotus/Powersuits/ConcreteFrame/ConcreteWallAugmentCard": "/Lotus/Interface/Cards/Images/WreckingWall.jpg",
   "/Lotus/Upgrades/Mods/Antiques/HealthMax": "/Lotus/Interface/Cards/Images/YarDal.jpg",
   "/Lotus/Upgrades/Mods/Pistol/Event/AkstilettoEfficiencyWhileAirborneMod": "/Lotus/Interface/Cards/Images/Zazvat-Kar.png",
-  "/Lotus/Upgrades/Mods/Archwing/Rifle/ArchwingDualStatSlashStatusMod": "/Lotus/Interface/Cards/Images/ZodiacShred.png"
+  "/Lotus/Upgrades/Mods/Archwing/Rifle/ArchwingDualStatSlashStatusMod": "/Lotus/Interface/Cards/Images/ZodiacShred.png",
+  "/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard": "/Lotus/Interface/Cards/Images/AbilityAugments/UrielFireballAugmentCard.jpg",
+  "/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard": "/Lotus/Interface/Cards/Images/AbilityAugments/GrendelPassiveAugment.jpg",
+  "/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard": "/Lotus/Interface/Cards/Images/AbilityAugments/FrostIceShieldAugmentTwoCard.jpg",
+  "/Lotus/Powersuits/Oraxia/BroodAugmentCard": "/Lotus/Interface/Cards/Images/AbilityAugments/OraxiaBroodAugment.jpg"
 }

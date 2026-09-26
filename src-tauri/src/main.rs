@@ -13,6 +13,7 @@ use tauri::webview::{WebviewBuilder};
 use tauri::WebviewUrl;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
+use std::collections::HashSet;
 use serde_json::Value;
 use serde::Serialize;
 
@@ -34,6 +35,12 @@ mod de_warframes;
 mod de_weapons;
 mod de_recipes;
 mod de_relics;
+mod de_upgrades;
+mod de_customs;
+mod de_keys_regions;
+mod de_sentgear;
+mod de_droptables;
+mod de_i18n;
 
 #[derive(Clone, Serialize)]
 pub struct WikiTabInfo {
@@ -264,6 +271,13 @@ pub(crate) fn write_bytes_atomic(path: &std::path::Path, content: impl AsRef<[u8
     std::fs::rename(&tmp, path)
 }
 
+/// Atomic compact JSON writer for public-export caches. Unlike settings.json,
+/// these files contain no credentials and intentionally use normal file mode.
+pub(crate) fn write_export_json_atomic(path: &std::path::Path, value: &Value) -> Result<(), String> {
+    let content = serde_json::to_vec(value).map_err(|e| e.to_string())?;
+    write_bytes_atomic(path, content).map_err(|e| e.to_string())
+}
+
 /// Build an absolute path from a path relative to the bundled app root.
 /// Used as fallback when writable data root doesn't have the file yet (e.g. AppImage first run).
 pub(crate) fn resolve_bundled_path(app_handle: &tauri::AppHandle, relative: &str) -> Option<PathBuf> {
@@ -376,7 +390,7 @@ async fn download_locale_upgrades(client: &reqwest::Client, export_dir: &std::pa
     let line = line.trim();
 
     let dest = export_dir.join(&target_file);
-    let file_url = format!("{}/Manifest/{}", DE_MANIFEST_BASE, line);
+    let file_url = format!("{}/Manifest/{}", DE_MANIFEST_BASE, line.replace('!', "%21"));
     download_file(client, &file_url, &dest).await?;
     Ok(())
 }
@@ -388,6 +402,7 @@ const DROPDATA_FILES: &[(&str, &str)] = &[
     ("DropsAll.json", "https://drops.warframestat.us/data/all.json"),
     ("VaultTrader.json", "https://api.warframestat.us/pc/vaultTrader"),
 ];
+const DE_DROP_TABLE_FILE: &str = "de/DropTables.json";
 
 // Creator/Partner redemption details are a browse.wf community supplement,
 // not Digital Extremes Public Export data. Keep this file separate from the
@@ -420,7 +435,12 @@ fn vault_trader_expired(path: &std::path::Path) -> bool {
 async fn refresh_vault_trader() -> Result<bool, String> {
     let export_dir = resolve_path("data/export");
     let path = export_dir.join("VaultTrader.json");
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder()
+        .connect_timeout(std::time::Duration::from_secs(10))
+        .timeout(std::time::Duration::from_secs(30))
+        .user_agent("KiedasOrbiter/1.3.3")
+        .build()
+        .map_err(|e| e.to_string())?;
     let mut updated = false;
     if vault_trader_expired(&path) {
         download_file(&client, "https://api.warframestat.us/pc/vaultTrader", &path)
@@ -430,7 +450,7 @@ async fn refresh_vault_trader() -> Result<bool, String> {
     }
     match refresh_glyph_supplement(&client).await {
         Ok(was_updated) => updated |= was_updated,
-        Err(e) => eprintln!("Warning: could not refresh glyph supplement: {}", e),
+        Err(e) => crate::logger::log_message(&format!("Warning: could not refresh glyph supplement: {}", e)),
     }
     Ok(updated)
 }
@@ -541,10 +561,38 @@ fn file_age_secs(path: &std::path::Path) -> u64 {
         .unwrap_or(u64::MAX)
 }
 
-fn mirror_newer_than(mirror: &std::path::Path, cache: &std::path::Path) -> bool {
-    let Ok(mirror_time) = std::fs::metadata(mirror).and_then(|meta| meta.modified()) else { return false };
-    let Ok(cache_time) = std::fs::metadata(cache).and_then(|meta| meta.modified()) else { return false };
-    mirror_time > cache_time
+fn should_refresh(force: bool, cache_age_secs: Option<u64>, mirror_freshly_downloaded: bool) -> bool {
+    force || cache_age_secs.map(|age| age > 86_400).unwrap_or(true) || mirror_freshly_downloaded
+}
+
+async fn ensure_de_manifest(client: &reqwest::Client, export_dir: &Path) -> Result<(), String> {
+    let index_url = "https://origin.warframe.com/PublicExport/index_en.txt.lzma";
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    let index = client.get(index_url).send().await.map_err(|e| e.to_string())?;
+    if !index.status().is_success() { return Err(format!("DE manifest index HTTP {}", index.status())); }
+    let text = decompress_lzma(&index.bytes().await.map_err(|e| e.to_string())?)?;
+    let line = text.lines().map(str::trim)
+        .find(|line| line.starts_with("ExportManifest.json!"))
+        .ok_or("ExportManifest.json missing from DE index")?;
+    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    let response = client.get(format!("https://content.warframe.com/PublicExport/Manifest/{}", line.replace('!', "%21"))).send().await.map_err(|e| e.to_string())?;
+    if !response.status().is_success() { return Err(format!("DE manifest HTTP {}", response.status())); }
+    let manifest: Value = response.json().await.map_err(|e| e.to_string())?;
+    write_export_json_atomic(&export_dir.join("de/ExportManifest.json"), &manifest)
+}
+
+#[cfg(test)]
+mod export_refresh_tests {
+    use super::should_refresh;
+
+    #[test]
+    fn force_or_missing_or_old_or_fresh_mirror_refreshes() {
+        assert!(should_refresh(true, Some(0), false));
+        assert!(should_refresh(false, None, false));
+        assert!(should_refresh(false, Some(86_401), false));
+        assert!(should_refresh(false, Some(0), true));
+        assert!(!should_refresh(false, Some(86_400), false));
+    }
 }
 /// Decompress raw LZMA-compressed bytes (the DE manifest index is .txt.lzma).
 /// Returns the decompressed text.
@@ -581,8 +629,14 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         let _ = fs::remove_file(&old_path);
     }
 
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder()
+        .connect_timeout(std::time::Duration::from_secs(10))
+        .timeout(std::time::Duration::from_secs(30))
+        .user_agent("KiedasOrbiter/1.3.3")
+        .build()
+        .map_err(|e| e.to_string())?;
     let mut updated_count = 0u32;
+    let mut freshly_downloaded = HashSet::new();
 
     // Creator Glyph redemption details are a separate browse.wf supplement;
     // refresh them safely without ever changing DE-derived export files.
@@ -606,62 +660,126 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
             download_file(&client, &url, &path).await.map_err(|e| {
                 format!("Failed to download {}: {}", file_name, e)
             })?;
+            freshly_downloaded.insert((*file_name).to_owned());
             updated_count += 1;
         }
     }
 
-    // The DE Warframes asset is a non-fatal hybrid overlay. If any index,
-    // validation, or merge step fails, the validated mirror remains in place.
-    if !force && export_dir.join("de/ExportWarframes_en.json").exists()
-        && file_age_secs(&export_dir.join("de/ExportWarframes_en.json")) <= 86_400
-        && !mirror_newer_than(&export_dir.join("ExportWarframes.json"), &export_dir.join("de/ExportWarframes_en.json")) {
-        // Keep the once-per-day TTL aligned with the other export refreshes.
-    } else {
+    let warframes_needed = should_refresh(force, export_dir.join("de/ExportWarframes_en.json").exists().then(|| file_age_secs(&export_dir.join("de/ExportWarframes_en.json"))), freshly_downloaded.contains("ExportWarframes.json"));
+    if warframes_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
         match de_warframes::refresh_de_warframes(&client, &export_dir).await {
             Ok(summary) => {
-                updated_count += 1;
-                eprintln!("DE Warframes merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only);
+                if summary.changed + summary.added > 0 { updated_count += 1; }
+                crate::logger::log_message(&format!("DE Warframes merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only));
             }
-            Err(e) => eprintln!("Warning: could not refresh DE Warframes; retained mirror: {}", e),
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE Warframes; retained mirror: {}", e)),
         }
     }
 
     // The DE Weapons asset is a non-fatal hybrid overlay, with the same daily
     // TTL and validation guarantees as the Warframes overlay.
-    if !force && export_dir.join("de/ExportWeapons_en.json").exists()
-        && file_age_secs(&export_dir.join("de/ExportWeapons_en.json")) <= 86_400
-        && !mirror_newer_than(&export_dir.join("ExportWeapons.json"), &export_dir.join("de/ExportWeapons_en.json")) {
-    } else {
+    let weapons_needed = should_refresh(force, export_dir.join("de/ExportWeapons_en.json").exists().then(|| file_age_secs(&export_dir.join("de/ExportWeapons_en.json"))), freshly_downloaded.contains("ExportWeapons.json"));
+    if weapons_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
         match de_weapons::refresh_de_weapons(&client, &export_dir).await {
             Ok(summary) => {
-                updated_count += 1;
-                eprintln!("DE Weapons merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only);
+                if summary.changed + summary.added > 0 { updated_count += 1; }
+                crate::logger::log_message(&format!("DE Weapons merge: {} changed, {} added, {} mirror-only retained", summary.changed, summary.added, summary.mirror_only));
             }
-            Err(e) => eprintln!("Warning: could not refresh DE Weapons; retained mirror: {}", e),
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE Weapons; retained mirror: {}", e)),
         }
     }
 
     // DE recipes/resources/images are a non-fatal hybrid overlay. If any
     // request, shape, or count validation fails, the mirror exports remain.
     let de_recipe_cache = export_dir.join("de/ExportRecipes_en.json");
-    if force || !de_recipe_cache.exists() || file_age_secs(&de_recipe_cache) > 86_400
-        || mirror_newer_than(&export_dir.join("ExportRecipes.json"), &de_recipe_cache) {
-        match de_recipes::refresh_de_recipes(&client, &export_dir).await {
+    let recipes_needed = should_refresh(force, de_recipe_cache.exists().then(|| file_age_secs(&de_recipe_cache)), freshly_downloaded.contains("ExportRecipes.json") || freshly_downloaded.contains("ExportResources.json") || freshly_downloaded.contains("ExportImages.json"));
+    let de_relic_cache = export_dir.join("de/ExportRelicArcane_en.json");
+    let relics_needed = should_refresh(force, de_relic_cache.exists().then(|| file_age_secs(&de_relic_cache)), freshly_downloaded.contains("ExportRelics.json") || freshly_downloaded.contains("ExportArcanes.json"));
+    let de_upgrades_cache = export_dir.join("de/ExportUpgrades_en.json");
+    let upgrades_needed = should_refresh(force, de_upgrades_cache.exists().then(|| file_age_secs(&de_upgrades_cache)), freshly_downloaded.contains("ExportUpgrades.json") || freshly_downloaded.contains("ExportImages.json"));
+    let de_customs_cache = export_dir.join("de/ExportCustoms_en.json");
+    let de_flavour_cache = export_dir.join("de/ExportFlavour_en.json");
+    let customs_needed = force || !de_customs_cache.exists() || !de_flavour_cache.exists() || file_age_secs(&de_customs_cache) > 86_400 || file_age_secs(&de_flavour_cache) > 86_400 || freshly_downloaded.contains("ExportCustoms.json") || freshly_downloaded.contains("ExportFlavour.json") || freshly_downloaded.contains("ExportImages.json");
+    let de_regions_cache = export_dir.join("de/ExportRegions_en.json");
+    let de_keys_cache = export_dir.join("de/ExportKeys_en.json");
+    let keys_regions_needed = should_refresh(
+        force,
+        (de_regions_cache.exists() && de_keys_cache.exists())
+            .then(|| file_age_secs(&de_regions_cache).max(file_age_secs(&de_keys_cache))),
+        freshly_downloaded.contains("ExportRegions.json") || freshly_downloaded.contains("ExportKeys.json"),
+    );
+    let manifest_needed = recipes_needed || upgrades_needed || customs_needed;
+    let recipes_merge_images = recipes_needed;
+    let upgrades_merge_images = !recipes_needed && upgrades_needed;
+    let customs_merge_images = !recipes_needed && !upgrades_needed && customs_needed;
+    if manifest_needed {
+        if let Err(e) = ensure_de_manifest(&client, &export_dir).await { crate::logger::log_message(&format!("Warning: could not refresh DE manifest; retained mirror: {}", e)); }
+    }
+    if recipes_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        match de_recipes::refresh_de_recipes(&client, &export_dir, recipes_merge_images).await {
             Ok(summary) => {
-                updated_count += 1;
-                eprintln!("DE recipes merge: {} recipes added, {} resources added, {} images added", summary.recipes_added, summary.resources_added, summary.images_added);
+                if summary.recipes_added + summary.recipes_changed + summary.resources_added + summary.images_added > 0 { updated_count += 1; }
+                crate::logger::log_message(&format!("DE recipes merge: {} recipes added, {} resources added, {} images added", summary.recipes_added, summary.resources_added, summary.images_added));
             }
-            Err(e) => eprintln!("Warning: could not refresh DE recipes/resources/images; retained mirror: {}", e),
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE recipes/resources/images; retained mirror: {}", e)),
         }
     }
 
-    let de_relic_cache = export_dir.join("de/ExportRelicArcane_en.json");
-    if force || !de_relic_cache.exists() || file_age_secs(&de_relic_cache) > 86_400
-        || mirror_newer_than(&export_dir.join("ExportRelics.json"), &de_relic_cache)
-        || mirror_newer_than(&export_dir.join("ExportArcanes.json"), &de_relic_cache) {
+    if relics_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
         match de_relics::refresh_de_relics(&client, &export_dir).await {
-            Ok(summary) => { updated_count += 1; eprintln!("DE relics/arcanes merge: {} relics added, {} arcanes added, {} mirror-only retained", summary.relics_added, summary.arcanes_added, summary.relics_mirror_only + summary.arcanes_mirror_only); }
-            Err(e) => eprintln!("Warning: could not refresh DE relics/arcanes; retained mirror: {}", e),
+            Ok(summary) => { if summary.relics_added + summary.arcanes_added + summary.changed > 0 { updated_count += 1; } crate::logger::log_message(&format!("DE relics/arcanes merge: {} relics added, {} arcanes added, {} mirror-only retained", summary.relics_added, summary.arcanes_added, summary.relics_mirror_only + summary.arcanes_mirror_only)); }
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE relics/arcanes; retained mirror: {}", e)),
+        }
+    }
+
+    // DE upgrades are the authoritative source for mod numeric fields and
+    // levelStats. The mirror remains the base so its localization and
+    // mirror-only records survive a failed or incomplete DE refresh.
+    if upgrades_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        match de_upgrades::refresh_de_upgrades(&client, &export_dir, upgrades_merge_images).await {
+            Ok(summary) => {
+                if summary.changed + summary.added + summary.images_added > 0 { updated_count += 1; }
+                crate::logger::log_message(&format!("DE upgrades merge: {} changed, {} added, {} mirror-only retained, {} images added", summary.changed, summary.added, summary.mirror_only, summary.images_added));
+            }
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE upgrades; retained mirror: {}", e)),
+        }
+    }
+
+    if customs_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        match de_customs::refresh_de_customs(&client, &export_dir, customs_merge_images).await {
+            Ok(summary) => { if summary.customs_added + summary.flavour_added + summary.images_added > 0 { updated_count += 1; } crate::logger::log_message(&format!("DE customs/flavour merge: {} customs added, {} flavour added, {} mirror-only retained", summary.customs_added, summary.flavour_added, summary.customs_mirror_only + summary.flavour_mirror_only)); }
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE customs/flavour; retained mirror: {}", e)),
+        }
+    }
+
+    // Regions and keys are a non-fatal add-only DE overlay. The mirror remains
+    // authoritative for localized text, graph fields, quest stages, rewards,
+    // icons, and replay metadata; FusionBundles intentionally stays separate.
+    if keys_regions_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        match de_keys_regions::refresh_de_keys_regions(&client, &export_dir).await {
+            Ok(summary) => {
+                if summary.regions.changed + summary.regions.added + summary.keys.changed + summary.keys.added > 0 { updated_count += 1; }
+                crate::logger::log_message(&format!("DE regions/keys merge: {} regions changed, {} regions added, {} keys changed, {} keys added, {} mirror-only regions, {} mirror-only keys, {} unresolved region references", summary.regions.changed, summary.regions.added, summary.keys.changed, summary.keys.added, summary.regions.mirror_only, summary.keys.mirror_only, summary.unresolved_region_refs));
+            }
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE regions/keys; retained mirror: {}", e)),
+        }
+    }
+
+    let de_sentinel_cache = export_dir.join("de/ExportSentinels_en.json");
+    let de_gear_cache = export_dir.join("de/ExportGear_en.json");
+    let sentgear_needed = should_refresh(force, (de_sentinel_cache.exists() && de_gear_cache.exists()).then(|| file_age_secs(&de_sentinel_cache).max(file_age_secs(&de_gear_cache))), freshly_downloaded.contains("ExportSentinels.json") || freshly_downloaded.contains("ExportGear.json"));
+    if sentgear_needed {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        match de_sentgear::refresh_de_sentgear(&client, &export_dir).await {
+            Ok(summary) => { if summary.sentinels_changed + summary.gear_changed + summary.sentinels_added + summary.gear_added > 0 { updated_count += 1; } crate::logger::log_message(&format!("DE Sentinels/Gear merge: {} / {} changed, {} / {} added, {} / {} mirror-only retained", summary.sentinels_changed, summary.gear_changed, summary.sentinels_added, summary.gear_added, summary.sentinels_mirror_only, summary.gear_mirror_only)); }
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE Sentinels/Gear; retained mirror: {}", e)),
         }
     }
 
@@ -674,7 +792,13 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
     if needs_update {
         match download_locale_upgrades(&client, &export_dir, &locale).await {
             Ok(_) => updated_count += 1,
-            Err(e) => eprintln!("Warning: could not download DE locale upgrades: {}", e),
+            Err(e) => crate::logger::log_message(&format!("Warning: could not download DE locale upgrades: {}", e)),
+        }
+    }
+    if locale != "en" {
+        match de_i18n::refresh_de_locale(&client, &export_dir, &locale, force).await {
+            Ok(count) => updated_count += count,
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh DE locale literals for {}: {}", locale, e)),
         }
     }
     // TXT data files - refresh every 6 hours; failures are non-fatal
@@ -685,7 +809,7 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         if needs_update {
             match download_file(&client, url, &path).await {
                 Ok(_) => updated_count += 1,
-                Err(e) => eprintln!("Warning: could not download {}: {}", file_name, e),
+                Err(e) => crate::logger::log_message(&format!("Warning: could not download {}: {}", file_name, e)),
             }
         }
     }
@@ -713,8 +837,16 @@ async fn check_exports(locale: String, force: Option<bool>) -> Result<String, St
         if needs_update {
             match download_file(&client, url, &path).await {
                 Ok(_) => updated_count += 1,
-                Err(e) => eprintln!("Warning: could not download {}: {}", file_name, e),
+                Err(e) => crate::logger::log_message(&format!("Warning: could not download {}: {}", file_name, e)),
             }
+        }
+    }
+
+    if de_droptables::DE_DROP_TABLES_REFRESH_ENABLED {
+        match de_droptables::refresh_de_drop_tables(&client, &export_dir, force).await {
+            Ok(true) => updated_count += 1,
+            Ok(false) => {},
+            Err(e) => crate::logger::log_message(&format!("Warning: could not refresh official DE drop tables; retained mirror: {}", e)),
         }
     }
 
@@ -1380,6 +1512,13 @@ async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Resul
         result.insert(key, json);
     }
 
+    let de_drop_path = export_dir.join(DE_DROP_TABLE_FILE);
+    if de_drop_path.exists() {
+        let file = fs::File::open(&de_drop_path).map_err(|e| e.to_string())?;
+        let json: Value = serde_json::from_reader(std::io::BufReader::new(file)).map_err(|e| e.to_string())?;
+        result.insert("DEDropTables".to_string(), json);
+    }
+
     // WFCD gap-fill files - purely supplemental (see WFCD_GAPFILL_FILES
     // doc comment), so unlike every other block in this function, a failure
     // here must never propagate and take down the main export load. Each
@@ -1414,6 +1553,21 @@ async fn load_all_exports(app_handle: tauri::AppHandle, locale: String) -> Resul
         });
         let (lk, lv) = locale_handle.await.map_err(|e| e.to_string())??;
         result.insert(lk, lv);
+    }
+
+    if locale != "en" {
+        for category in de_i18n::DE_LOCALE_CATEGORIES {
+            let path = export_dir.join("de").join(format!("{}_{}.json", category, locale));
+            if !path.exists() { continue; }
+            let key = format!("DeLocale_{}", category);
+            match fs::File::open(&path) {
+                Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                    Ok(json) => { result.insert(key, json); }
+                    Err(e) => eprintln!("Warning: failed to parse DE locale {}: {}", path.display(), e),
+                },
+                Err(e) => eprintln!("Warning: failed to open DE locale {}: {}", path.display(), e),
+            }
+        }
     }
 
     let cache_relative = "data/export/combined_export_cache.json".to_string();
@@ -2717,6 +2871,16 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
         }
     }
 
+    let de_drop_path = export_dir.join(crate::DE_DROP_TABLE_FILE);
+    if de_drop_path.exists() {
+        match std::fs::File::open(&de_drop_path).and_then(|file| {
+            serde_json::from_reader(std::io::BufReader::new(file)).map_err(|error| std::io::Error::new(std::io::ErrorKind::InvalidData, error))
+        }) {
+            Ok(json) => { result.insert("DEDropTables".to_string(), json); }
+            Err(e) => eprintln!("[load_all_exports_inner] failed to parse official DE drop tables: {}", e),
+        }
+    }
+
     // Load locale-specific ExportUpgrades from DE public manifest if available.
     // Read locale from settings file (same source as sidebar_load_data caller).
     let settings = std::fs::read_to_string(resolve_path("data/user/settings.json")).ok()
@@ -2733,6 +2897,18 @@ fn load_all_exports_inner(app_handle: &tauri::AppHandle) -> Option<serde_json::V
                     Err(e) => eprintln!("[load_all_exports_inner] failed to parse {}: {}", locale_file, e),
                 },
                 Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", locale_file, e),
+            }
+        }
+        for category in crate::de_i18n::DE_LOCALE_CATEGORIES {
+            let path = export_dir.join("de").join(format!("{}_{}.json", category, locale));
+            if !path.exists() { continue; }
+            let key = format!("DeLocale_{}", category);
+            match std::fs::File::open(&path) {
+                Ok(file) => match serde_json::from_reader(std::io::BufReader::new(file)) {
+                    Ok(json) => { result.insert(key, json); }
+                    Err(e) => eprintln!("[load_all_exports_inner] failed to parse {}: {}", path.display(), e),
+                },
+                Err(e) => eprintln!("[load_all_exports_inner] failed to open {}: {}", path.display(), e),
             }
         }
     }

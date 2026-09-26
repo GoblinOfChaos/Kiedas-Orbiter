@@ -29,7 +29,22 @@ run_low_impact() {
 }
 
 echo "==> Building preview (the bundler's own linuxdeploy step will likely fail at the end - that's expected)"
+BUILD_MARK="$(mktemp)"
 run_low_impact pnpm run preview:build || true
+
+# The linuxdeploy failure above is tolerated, but a failed FRONTEND or Rust build must not be:
+# packaging the previous dist/binary silently produced a stale AppImage (2026-09-25: a worker
+# bundling error left the app on an old build for hours). Fail loudly instead.
+if [ ! "$REPO/dist/index.html" -nt "$BUILD_MARK" ]; then
+  echo "!! Frontend build failed: dist/index.html was not rebuilt. Not packaging a stale AppImage." >&2
+  echo "!! Run: node node_modules/vite/bin/vite.js build --mode preview   and read the error." >&2
+  rm -f "$BUILD_MARK"; exit 1
+fi
+if [ ! "$REPO/src-tauri/target/release/kiedas-orbiter-preview" -nt "$BUILD_MARK" ]; then
+  echo "!! Rust binary was not rebuilt after the frontend changed (embedded UI would be stale)." >&2
+  rm -f "$BUILD_MARK"; exit 1
+fi
+rm -f "$BUILD_MARK"
 
 echo "==> Cleaning stale AppDir and finishing packaging manually"
 rm -rf "$BUNDLE_DIR/Kieda's Orbiter Preview.AppDir"

@@ -1,0 +1,23 @@
+{
+  "exportData": {
+    "ExportRelics": {
+      "/Relics/LithA1Bronze": {"era":"Lith","category":"A1","rewardManifest":"/Rewards/A1","vaulted":false},
+      "/Relics/MesoB2Bronze": {"era":"Meso","category":"B2","rewardManifest":"/Rewards/B2","vaulted":true}
+    },
+    "ExportRewards": {
+      "/Rewards/A1": [[
+        {"type":"/Items/PrimeBarrel","rarity":"RARE"}, {"type":"/Items/Common1","rarity":"COMMON"}, {"type":"/Items/Common2","rarity":"COMMON"},
+        {"type":"/Items/Common3","rarity":"COMMON"}, {"type":"/Items/Uncommon1","rarity":"UNCOMMON"}, {"type":"/Items/Uncommon2","rarity":"UNCOMMON"}
+      ]],
+      "/Rewards/B2": [[
+        {"type":"/Items/PrimeBarrel","rarity":"COMMON"}, {"type":"/Items/Common1","rarity":"COMMON"}, {"type":"/Items/Common2","rarity":"COMMON"},
+        {"type":"/Items/Common3","rarity":"COMMON"}, {"type":"/Items/Uncommon1","rarity":"UNCOMMON"}, {"type":"/Items/Uncommon2","rarity":"UNCOMMON"}
+      ]]
+    },
+    "dict": {"/Items/PrimeBarrelName":"Prime Barrel"},
+    "uniqueNameToName": {"/Items/PrimeBarrel":"/Items/PrimeBarrelName"}
+  },
+  "inventoryData": {"relics": [{"era":"Lith","code":"A1","name":"A1","refinements":{"Intact":2,"Exceptional":1,"Flawless":0,"Radiant":1}}]},
+  "ledger": [{"itemType":"/Items/PrimeBarrel","name":"Prime Barrel","stillNeeded":2}],
+  "dropIndex": {"Lith A1 Relic":[{"type":"mission","nodeName":"Void Capture","chance":0.25}]}
+}

@@ -7,12 +7,34 @@ const records = (value) => {
 export function adaptRelicsArcanes(value) {
   const relics = {}
   const arcanes = {}
+  const rewards = {}
   for (const record of records(value)) {
     if (!record?.uniqueName) continue
-    if (record.uniqueName.includes('/CosmeticEnhancers/')) arcanes[record.uniqueName] = { ...record }
-    else relics[record.uniqueName] = { ...record }
+    if (record.uniqueName.includes('/CosmeticEnhancers/')) {
+      arcanes[record.uniqueName] = { ...record }
+      continue
+    }
+    const relic = { ...record }
+    const nameMatch = typeof record.name === 'string' && record.name.match(/^(Lith|Meso|Neo|Axi) ([A-Z]\d+) Relic$/)
+    if (nameMatch) {
+      relic.era = nameMatch[1]
+      relic.category = nameMatch[2]
+      const qualityBySuffix = { Bronze: 'VPQ_BRONZE', Silver: 'VPQ_SILVER', Gold: 'VPQ_GOLD', Platinum: 'VPQ_PLATINUM' }
+      const suffix = Object.keys(qualityBySuffix).find((value) => record.uniqueName.endsWith(value))
+      if (suffix) relic.quality = qualityBySuffix[suffix]
+    }
+    if (Array.isArray(record.relicRewards) && record.relicRewards.length) {
+      const rewardManifest = `${record.uniqueName}/DERewards`
+      relic.rewardManifest = rewardManifest
+      rewards[rewardManifest] = [record.relicRewards.map((reward) => ({
+        type: reward.rewardName,
+        itemCount: reward.itemCount ?? 1,
+        rarity: reward.rarity,
+      }))]
+    }
+    relics[record.uniqueName] = relic
   }
-  return { relics, arcanes }
+  return { relics, arcanes, rewards }
 }
 
 export const RELIC_MERGE_FIELDS = ['category', 'era', 'quality', 'rewardManifest', 'introducedAt', 'vaultedAt', 'codexSecret', 'icon']

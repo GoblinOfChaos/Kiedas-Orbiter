@@ -2,8 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
-const { parseInventory } = await import('../src/lib/inventoryParser.js')
-const { resolveAnyImage } = await import('../src/lib/warframeUtils.js')
+const { parseInventory, isExcludedInventoryResourceEntry, resourceFamilyForParent, PRIME_PART_PATH_RE } = await import('../src/lib/inventoryParser.js')
+const { getRelicCatalog } = await import('../src/lib/relicParser.js')
+const { resolveAnyImage, resolveNode } = await import('../src/lib/warframeUtils.js')
+const { buildDropIndex } = await import('../src/lib/dropsParser.js')
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const canaryFile = path.join(REPO, 'scripts/item-completeness.canaries.json')
@@ -32,6 +34,91 @@ export const CATEGORY_RULES = {
   resources: { tables: ['ExportResources'], buckets: ['resources', 'components'], screens: ['Inventory', 'Drawer'] },
   gear: { tables: ['ExportGear'], buckets: ['consumables_catalog', 'landing_craft_catalog', 'gear'], screens: ['Inventory', 'Drawer'] },
   recipes: { tables: ['ExportRecipes'], buckets: ['craftable'], screens: ['Foundry', 'Drawer'] },
+  regions: { tables: ['ExportRegions'], buckets: ['starchart'], screens: ['Starchart', 'Arbitration', 'Worldstate'] },
+  keys: { tables: ['ExportKeys'], buckets: ['keys'], screens: ['Worldstate', 'Acquisition'] },
+}
+
+export function checkInventoryCatalog({ harness, parsed }) {
+  const resources = parsed?.resources || []
+  const byPath = new Map(resources.map((item) => [canonicalPath(item.unique_name), item]))
+  const expected = []
+  const excluded = []
+  for (const [uniqueName, entry] of Object.entries(harness.exportsBundle.ExportResources || {})) {
+    if (isExcludedInventoryResourceEntry(entry, uniqueName)) {
+      excluded.push(uniqueName)
+      continue
+    }
+    if (PRIME_PART_PATH_RE.test(uniqueName.split('/').pop() || '')) continue
+    const isPetComponent = (uniqueName.includes('/MoaPetParts/') || uniqueName.includes('/ZanukaPetParts/')) && !uniqueName.includes('Head')
+    if (uniqueName.includes('/OperatorAmplifiers/') || uniqueName.includes('/ModularMelee') || uniqueName.includes('ModularSecondary') || isPetComponent) continue
+    expected.push({ uniqueName, family: resourceFamilyForParent(entry.parentName), entry })
+  }
+  const missing = expected.filter(({ uniqueName }) => !byPath.has(canonicalPath(uniqueName)))
+  const unresolved = expected.filter(({ uniqueName }) => {
+    const item = byPath.get(canonicalPath(uniqueName))
+    return item && (!item.name || item.name.startsWith('/') || !item.image)
+  })
+  const familyCounts = {}
+  for (const item of expected) familyCounts[item.family] = (familyCounts[item.family] || 0) + 1
+  return {
+    total: expected.length,
+    owned: resources.filter((item) => item.owned).length,
+    excluded: excluded.length,
+    missing: missing.map(({ uniqueName, family }) => ({ uniqueName, family })),
+    unresolved: unresolved.map(({ uniqueName, family }) => ({ uniqueName, family })),
+    familyCounts,
+    pass: missing.length === 0,
+  }
+}
+
+export function checkInventoryDuplicates({ parsed }) {
+  const all = parsed?.all || []
+  const byUniqueName = new Map()
+  const byName = new Map()
+  for (const item of all) {
+    const uniqueName = canonicalPath(item?.unique_name)
+    if (uniqueName) {
+      if (!byUniqueName.has(uniqueName)) byUniqueName.set(uniqueName, [])
+      byUniqueName.get(uniqueName).push({ bucket: item.category, name: item.name })
+    }
+    if (item?.name) {
+      if (!byName.has(item.name)) byName.set(item.name, [])
+      byName.get(item.name).push(uniqueName)
+    }
+  }
+  const duplicateUniqueNames = [...byUniqueName].filter(([, entries]) => entries.length > 1)
+    .map(([uniqueName, entries]) => ({ uniqueName, entries }))
+  const nameGroups = [...byName].filter(([, uniqueNames]) => new Set(uniqueNames).size > 1)
+    .map(([name, uniqueNames]) => ({ name, uniqueNames: [...new Set(uniqueNames)] }))
+  const templateMarkers = all.filter((item) => /\|ERA\||\|CATEGORY\|/.test(item?.name || ''))
+    .map((item) => ({ uniqueName: item.unique_name, name: item.name }))
+  return {
+    total: all.length,
+    duplicateUniqueNames,
+    nameGroups,
+    templateMarkers,
+    pass: duplicateUniqueNames.length === 0 && templateMarkers.length === 0,
+  }
+}
+
+export function checkRegionCanary({ exportsBundle, dict = {}, uniqueName }) {
+  const regions = exportsBundle?.ExportRegions || {}
+  const entry = Array.isArray(regions)
+    ? regions.find((candidate) => candidate?.uniqueName === uniqueName)
+    : regions[uniqueName]
+  const name = entry ? resolveNode(uniqueName, dict, { [uniqueName]: entry }) : ''
+  const planet = entry?.systemName ? resolveNode(entry.systemName, dict, { [entry.systemName]: { name: entry.systemName } }) : ''
+  return { uniqueName, present: !!entry, name, planet, pass: !!entry && name !== 'Unknown Node' && planet !== 'Unknown Node' }
+}
+
+export function checkKeyCanary({ exportsBundle, dict = {}, uniqueName }) {
+  const keys = exportsBundle?.ExportKeys || {}
+  const entry = Array.isArray(keys)
+    ? keys.find((candidate) => candidate?.uniqueName === uniqueName)
+    : keys[uniqueName]
+  const nameKey = entry?.name
+  const name = dict[nameKey] || dict['/' + nameKey] || nameKey || ''
+  return { uniqueName, present: !!entry, name, pass: !!entry && !!name && !name.startsWith('/') }
 }
 
 export function primePartsVisible(primeSets, baseName) {
@@ -65,12 +152,14 @@ function itemName(harness, uniqueName, entry) {
   return cleanName(harness.dict?.[key] || harness.dict?.['/' + key] || key)
 }
 
-async function buildAcquisition(harness, item, name) {
+async function buildAcquisition(harness, item, name, recipeResultIndex = null, dropIndex = null) {
   try {
     const { getAcquisitionInfo } = await import('../src/lib/acquisitionInfo.js')
-    const { loadAcquisitionData } = await import('../src/lib/acquisitionData.js')
-    await loadAcquisitionData()
-    const result = getAcquisitionInfo(item?.unique_name || item?.uniqueName, name, null, harness.exportsBundle.AcquisitionItems || {}, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+    if (!recipeResultIndex) {
+      const { loadAcquisitionData } = await import('../src/lib/acquisitionData.js')
+      await loadAcquisitionData()
+    }
+    const result = getAcquisitionInfo(item?.unique_name || item?.uniqueName, name, dropIndex, harness.exportsBundle.AcquisitionItems || {}, recipeResultIndex, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
     const sources = result?.sources || []
     const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName'].some((key) => typeof source[key] === 'string' && source[key].trim()))
     const chances = sources.map((source) => Number(source.chance)).filter(Number.isFinite)
@@ -105,10 +194,15 @@ export function discoverNewDeSubjects({ dataDir, cacheDir }) {
   const output = []
   const seen = new Set()
   const add = (category, table, raw) => {
-    const mirrorKeys = new Set(tableEntries({ exportsBundle: { [table]: mirror(table) } }, [table]).map(([key]) => canonicalPath(key)))
+    const mirrorData = mirror(table)
+    const mirrorEntries = tableEntries({ exportsBundle: { [table]: mirrorData } }, [table])
+    const mirrorKeys = new Set(mirrorEntries.map(([key]) => canonicalPath(key)))
     for (const entry of cacheRecords(raw, table)) {
       const uniqueName = entry?.uniqueName || entry?.ItemType
-      if (!uniqueName || mirrorKeys.has(canonicalPath(uniqueName))) continue
+      if (!uniqueName) continue
+      const mirrorEntry = mirrorEntries.find(([key]) => canonicalPath(key) === canonicalPath(uniqueName))?.[1]
+      const needsRelicRewardAdapter = category === 'relics' && Array.isArray(entry?.relicRewards) && entry.relicRewards.length > 0 && !mirrorEntry?.rewardManifest
+      if (mirrorKeys.has(canonicalPath(uniqueName)) && !needsRelicRewardAdapter) continue
       const target = category === 'recipes' ? entry?.resultType : uniqueName
       if (!target) continue
       const key = `${category}:${canonicalPath(uniqueName)}`
@@ -126,10 +220,13 @@ export function discoverNewDeSubjects({ dataDir, cacheDir }) {
     const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
     if (cacheTable !== 'ExportRelicArcane') { add(category, cacheTable, raw); continue }
     const mirrorTable = category === 'arcanes' ? 'ExportArcanes' : 'ExportRelics'
-    const mirrorKeys = new Set(tableEntries({ exportsBundle: { [mirrorTable]: mirror(mirrorTable) } }, [mirrorTable]).map(([key]) => canonicalPath(key)))
+    const mirrorEntries = tableEntries({ exportsBundle: { [mirrorTable]: mirror(mirrorTable) } }, [mirrorTable])
+    const mirrorKeys = new Set(mirrorEntries.map(([key]) => canonicalPath(key)))
     for (const item of cacheRecords(raw, cacheTable)) {
       const isArcane = item?.uniqueName?.includes('/CosmeticEnhancers/')
-      if ((category === 'arcanes') !== isArcane || !item?.uniqueName || mirrorKeys.has(canonicalPath(item.uniqueName))) continue
+      const mirrorEntry = mirrorEntries.find(([key]) => canonicalPath(key) === canonicalPath(item?.uniqueName))?.[1]
+      const needsRelicRewardAdapter = category === 'relics' && Array.isArray(item?.relicRewards) && item.relicRewards.length > 0 && !mirrorEntry?.rewardManifest
+      if ((category === 'arcanes') !== isArcane || !item?.uniqueName || (mirrorKeys.has(canonicalPath(item.uniqueName)) && !needsRelicRewardAdapter)) continue
       const key = `${category}:${canonicalPath(item.uniqueName)}`
       if (!seen.has(key)) { seen.add(key); output.push({ uniqueName: item.uniqueName, name: cleanName(item.name || item.uniqueName), category }) }
     }
@@ -141,13 +238,47 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
   const category = subject.category || categoryFor(harness, subject.uniqueName)
   const rule = CATEGORY_RULES[category] || CATEGORY_RULES.resources
-  const catalogItem = findCatalogItem(inventory, subject.uniqueName)
+  if (category === 'regions' || category === 'keys') {
+    const resolved = category === 'regions'
+      ? checkRegionCanary({ exportsBundle: harness.exportsBundle, dict: harness.dict, uniqueName: subject.uniqueName })
+      : checkKeyCanary({ exportsBundle: harness.exportsBundle, dict: harness.dict, uniqueName: subject.uniqueName })
+    const checks = {
+      U1_catalog: resolved.present,
+      U2_name: !!resolved.name && !resolved.name.startsWith('/') && resolved.name !== 'Unknown Node',
+      U3_image: true,
+      U4_uniqueName: !!subject.uniqueName,
+      U5_acquisition: true,
+      U6_description: true,
+      recipe: true,
+    }
+    const screens = Object.fromEntries(rule.screens.map((screen) => [screen, Object.values(checks).every(Boolean)]))
+    return {
+      name: resolved.name || subject.name,
+      uniqueName: subject.uniqueName,
+      category,
+      screens,
+      checks,
+      acquisition: { pass: true, cannot: null, sources: [] },
+      ownedState: { pass: true, cannot: null },
+      cannot: [],
+      blockingCannot: null,
+      status: Object.values(checks).every(Boolean) ? 'PASS' : 'FAIL',
+      pass: Object.values(checks).every(Boolean),
+    }
+  }
+  const catalogItem = category === 'relics'
+    ? (() => {
+      const relicEntry = tableEntries(harness, ['ExportRelics']).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
+      const key = relicEntry?.name?.replace(/ Relic$/, '')
+      return getRelicCatalog(harness.exportsBundle).find((item) => item.key === key)
+    })()
+    : findCatalogItem(inventory, subject.uniqueName)
   const entry = tableEntries(harness, rule.tables).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
   const name = cleanName(catalogItem?.name || itemName(harness, subject.uniqueName, entry) || subject.name)
   const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))
   const recipe = Object.values(harness.exportsBundle.ExportRecipes || {}).find((candidate) => canonicalPath(candidate?.resultType) === canonicalPath(subject.uniqueName))
   const components = recipe?.ingredients || []
-  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name)
+  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness))
   const checks = {
     U1_catalog: !!catalogItem || category === 'recipes' || (category === 'cosmetics' && !!entry && !!(entry.name || entry.displayName) && !!(entry.icon || entry.texture)),
     U2_name: !!name && !name.startsWith('/') && !/^MT_/i.test(name),
@@ -173,6 +304,88 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const screens = Object.fromEntries([...rule.screens, ...Object.keys(primeScreens)].map((screen) => [screen, screen === 'Prime Parts' ? primeScreens[screen] !== false : checks.U1_catalog && checks.U2_name && checks.U3_image && (screen !== 'Foundry' || checks.recipe)]))
   const pass = Object.values(checks).every(Boolean) && (ownedState.pass || ownedState.cannot)
   return { name, uniqueName: subject.uniqueName, category, screens, checks, acquisition, ownedState, cannot, blockingCannot: acquisition.cannot, status: acquisition.cannot ? 'CANNOT' : pass ? 'PASS' : 'FAIL', pass: !!pass && !acquisition.cannot }
+}
+
+function buildRecipeIndex(harness) {
+  return Object.values(harness.exportsBundle.ExportRecipes || {}).reduce((index, recipe) => {
+    if (!recipe?.resultType) return index
+    const ingredients = (recipe.ingredients || []).map((ingredient) => ({
+      itemType: canonicalPath(ingredient.ItemType || ingredient.itemType),
+      count: ingredient.ItemCount ?? ingredient.itemCount ?? 1,
+      name: ingredient.ItemType || ingredient.itemType,
+    })).filter((ingredient) => ingredient.itemType)
+    if (ingredients.length) index.set(canonicalPath(recipe.resultType), {
+      resultType: canonicalPath(recipe.resultType),
+      ingredients,
+    })
+    return index
+  }, new Map())
+}
+
+export async function checkCraftableRecipes({ harness, parsed = null }) {
+  const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
+  const recipeIndex = buildRecipeIndex(harness)
+  const checks = []
+  for (const craftable of inventory.craftable || []) {
+    const expected = recipeIndex.get(canonicalPath(craftable.resultType))
+    if (!expected) continue
+    const acquisition = await buildAcquisition(harness, { unique_name: craftable.resultType }, craftable.bpName, recipeIndex)
+    const actual = acquisition.result?.recipe
+    const expectedParts = expected.ingredients.map(({ itemType, count }) => `${canonicalPath(itemType)}:${count}`).sort()
+    const actualParts = (actual?.ingredients || []).map(({ itemType, count }) => `${canonicalPath(itemType)}:${count}`).sort()
+    checks.push({
+      item: craftable.bpName,
+      uniqueName: craftable.resultType,
+      expected: expectedParts,
+      actual: actualParts,
+      pass: !!actual && JSON.stringify(actualParts) === JSON.stringify(expectedParts),
+      sourceCount: acquisition.result?.sources?.length || 0,
+    })
+  }
+  return { total: checks.length, failed: checks.filter((check) => !check.pass), checks }
+}
+
+export async function checkPartsCompleteness({ harness, parsed = null }) {
+  const inventory = parsed || parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
+  const parts = inventory.parts || []
+  const recipeEntries = Object.values(harness.exportsBundle.ExportRecipes || {})
+  const recipeByResult = new Map(recipeEntries.filter((recipe) => recipe?.resultType).map((recipe) => [canonicalPath(recipe.resultType), recipe]))
+  const recipeKeyByResult = new Map(Object.entries(harness.exportsBundle.ExportRecipes || {}).filter(([, recipe]) => recipe?.resultType).map(([key, recipe]) => [canonicalPath(recipe.resultType), key]))
+  const parents = [...(inventory.warframes || []), ...(inventory.primary || []), ...(inventory.secondary || []), ...(inventory.melee || []), ...(inventory.companions || []), ...(inventory.sentinels || []), ...(inventory.moas || []), ...(inventory.hounds || []), ...(inventory.beasts || [])]
+  const checks = []
+  const dropIndex = buildDropIndex(harness.exportsBundle)
+  const recipeIndex = buildRecipeIndex(harness)
+  const seenParents = new Set()
+  for (const parent of parents) {
+    const parentKey = canonicalPath(parent.unique_name)
+    if (seenParents.has(parentKey) || /Prime$/i.test(parent.name || '')) continue
+    const recipe = recipeByResult.get(parentKey)
+    if (!recipe) continue
+    seenParents.add(parentKey)
+    const childResults = (recipe.ingredients || []).map((ingredient) => recipeByResult.get(canonicalPath(ingredient.ItemType))?.resultType).filter((resultType) => resultType && parts.some((item) => canonicalPath(item.unique_name) === canonicalPath(resultType)))
+    const expected = [recipeKeyByResult.get(parentKey), ...childResults].filter(Boolean)
+    for (const uniqueName of expected) {
+      const item = parts.find((candidate) => canonicalPath(candidate.unique_name) === canonicalPath(uniqueName))
+      const name = item?.name || uniqueName
+      const directDropRows = dropIndex[canonicalPath(uniqueName)] || []
+      const acquisition = item && directDropRows.length > 0 ? await buildAcquisition(harness, item, name, recipeIndex, dropIndex) : null
+      const sourceRows = acquisition?.result?.sources || []
+      const labelled = directDropRows.length === 0 || (sourceRows.length > 0 && sourceRows.every((source) => ['source', 'location', 'relicName', 'rewardName', 'text'].some((key) => typeof source?.[key] === 'string' && source[key].trim())))
+      checks.push({ parent: parent.name, parentType: parent.category, uniqueName, name, image: !!item?.image, present: !!item, sourceRows: directDropRows.length, labelled, pass: !!item && !!item.image && labelled })
+    }
+  }
+  return { total: checks.length, failed: checks.filter((check) => !check.pass), checks, summary: partsSummary(parts) }
+}
+
+export function partsSummary(parts = []) {
+  const byParentType = {}
+  let owned = 0
+  for (const part of parts) {
+    if (part.owned) owned++
+    const key = part.parent_category || (part.parent_name?.match(/Prime$/i) ? 'prime' : 'equipment')
+    byParentType[key] = (byParentType[key] || 0) + 1
+  }
+  return { total: parts.length, owned, byParentType }
 }
 
 const imageFor = (item, parsed, harness) => {
@@ -261,7 +474,34 @@ export async function run({ dataDir, repo = REPO, harness, previousIndex = [], i
   const discovered = deDiscovery || (includeDiscovered && deCacheDir ? discoverNewDeSubjects({ dataDir, cacheDir: deCacheDir }) : [])
   const subjects = includeDiscovered ? [...canaries, ...discovered] : canaries
   const parsed = parseInventory({}, loaded.exportsBundle, loaded.dict, 'en', null)
-  return Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
+  const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
+  results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
+  results.partsCompleteness = await checkPartsCompleteness({ harness: loaded, parsed })
+  results.inventoryCatalog = checkInventoryCatalog({ harness: loaded, parsed })
+  results.inventoryDuplicates = checkInventoryDuplicates({ parsed })
+  const summary = results.partsCompleteness.summary
+  try {
+    const { event } = await import('../src/lib/logging/logger.js')
+    event('inventory.parts.summary', { count: summary.total, owned: summary.owned, type: 'parts' }, { level: 'info', screen: 'inventory' })
+    event('inventory.catalog.summary', {
+      total: results.inventoryCatalog.total,
+      owned: results.inventoryCatalog.owned,
+      excluded: results.inventoryCatalog.excluded,
+      missing: results.inventoryCatalog.missing.length,
+      unresolved: results.inventoryCatalog.unresolved.length,
+      familyCounts: results.inventoryCatalog.familyCounts,
+      pass: results.inventoryCatalog.pass,
+    }, { level: 'info', screen: 'inventory' })
+    event('inventory.dedupe.summary', {
+      count: results.inventoryDuplicates.total,
+      size: results.inventoryDuplicates.duplicateUniqueNames.length,
+      kind: 'duplicate_unique_names',
+      pass: results.inventoryDuplicates.pass,
+    }, { level: 'info', screen: 'inventory' })
+  } catch {
+    // CLI/test environments have no Tauri logger; the returned summary remains authoritative.
+  }
+  return results
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -280,6 +520,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(JSON.stringify(result, null, 2))
   }
   const cannot = [...new Set(results.flatMap((result) => result.cannot.concat(result.acquisition.cannot || [], result.ownedState.cannot || [])))]
+  console.log(`\nCraftable drawer recipe checks: ${results.recipeCompleteness.total} checked, ${results.recipeCompleteness.failed.length} failed`)
+  for (const failure of results.recipeCompleteness.failed) console.log(`- ${failure.item}: expected ${failure.expected.join(', ')}, got ${failure.actual.join(', ')}`)
   console.log('\nCannot be checked:')
   for (const entry of cannot) console.log(`- ${entry}`)
   fs.mkdirSync(path.dirname(stateFile), { recursive: true })

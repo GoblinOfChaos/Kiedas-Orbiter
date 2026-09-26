@@ -8,6 +8,7 @@ import ItemImage from '../components/ItemImage'
 import { useUi } from '../contexts/UiContext'
 import { IS_PREVIEW } from '../lib/buildProfile'
 import { categoryDisplayLabel } from '../lib/categoryLabels'
+import FarmingTargetAction from '../components/FarmingTargetAction'
 
 const CATEGORIES = [
   { id: 'all', labelKey: 'foundry.cat_all', keys: null },
@@ -163,6 +164,11 @@ function ItemCard({ item, recipe, selected, onClick, t }) {
                 BP
               </span>
             )}
+            {component.isComponent && component.have < component.need && component.bpOwned > 0 && (
+              <span className="absolute -top-1 -right-1 text-[6.5px] font-black rounded-full px-1 leading-tight shadow bg-amber-400 text-black" title={t('foundry.blueprints_owned', { count: component.bpOwned })}>
+                {t('foundry.blueprints_owned', { count: formatCount(component.bpOwned) })}
+              </span>
+            )}
             <span className={`absolute -bottom-1 -right-1 text-[7px] rounded-full px-0.5 leading-3 min-w-5 text-center font-black ${complete ? 'bg-emerald-400 text-black' : 'bg-black text-white/70'}`}>{formatCount(component.have)}/{formatCount(component.need)}</span>
           </span>
         })}
@@ -220,7 +226,7 @@ function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
             <ItemImage src={item.image} className="w-12 h-12 object-contain rounded-lg bg-black/20" placeholderClassName="w-12 h-12 rounded-lg bg-black/20" />
-            <div className="min-w-0"><h2 className="font-black uppercase truncate">{item.name}</h2><p className="text-[10px] text-kronos-dim uppercase">{item.category ? categoryDisplayLabel(item.category, t) : t('foundry.category_equipment')}</p></div>
+            <div className="min-w-0"><h2 className="font-black uppercase truncate">{item.name}</h2><p className="text-[10px] text-kronos-dim uppercase">{item.category ? categoryDisplayLabel(item.category, t) : t('foundry.category_equipment')}</p>{IS_PREVIEW && <FarmingTargetAction item={item} className="mt-1" />}</div>
           </div>
           <button onClick={onClose} className="text-kronos-dim hover:text-white text-xs font-bold uppercase">{t('foundry.close')}</button>
         </div>
@@ -250,7 +256,10 @@ function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
               return <div key={ingredient.itemType || ingredient.name} className="flex items-center gap-2 rounded-lg bg-black/20 p-2">
                 <ItemImage src={ingredient.image} className="w-8 h-8 object-contain" placeholderClassName="w-8 h-8" />
                 <span className="text-[11px] flex-1 whitespace-normal break-words">{ingredient.name}</span>
-                <span className={`text-[10px] font-black shrink-0 ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
+                <span className="flex flex-col items-end shrink-0">
+                  <span className={`text-[10px] font-black ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
+                  {ingredient.isComponent && ingredient.have < ingredient.need && ingredient.bpOwned > 0 && <span className="text-[9px] font-black text-amber-300">{t('foundry.blueprints_owned', { count: formatCount(ingredient.bpOwned) })}</span>}
+                </span>
               </div>
             })}
           </div>

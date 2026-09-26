@@ -11,6 +11,7 @@ import BugReporterModal from './BugReporterModal';
 import { useUi } from '../contexts/UiContext';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { useWikiNavigation } from '../contexts/WikiNavigationContext';
+import { event } from '../lib/logging/logger';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -156,6 +157,16 @@ export function useAcquisitionDrawerData(item) {
   const [codexInfo, setCodexInfo] = useState(null);
   const [codexLoading, setCodexLoading] = useState(false);
   const baseInfo = item?.info;
+
+  useEffect(() => {
+    if (!item || !uniqueName) return;
+    event('drawer.recipe.summary', {
+      item: displayName || uniqueName,
+      has_recipe: !!baseInfo?.recipe,
+      components: baseInfo?.recipe?.ingredients?.length || 0,
+      part_sources: (baseInfo?.sources || []).filter((source) => source?.part).length,
+    }, { level: 'info', screen: 'acquisition-drawer' });
+  }, [uniqueName]);
 
   useEffect(() => {
     setCodexInfo(null);

@@ -36,6 +36,7 @@ export function buildLedger({ leaves = new Map(), owned, reservations = [], prio
     return {
       itemType,
       name: leaf.name ?? itemType,
+      image: leaf.image ?? null,
       required,
       owned: ownedCount,
       reserved: Math.min(reservedTotal, ownedCount),

@@ -95,6 +95,204 @@ export const RIVEN_STAT_MAP = {
   'WeaponMeleeComboBonusOnHitMod': 'Combo Count',
 };
 
+const WEAPON_BUCKET_BY_CATEGORY = { LongGuns: 'primary', Pistols: 'secondary', Melee: 'melee' };
+const WEAPON_BUCKET_BY_SLOT = { 1: 'primary', 0: 'secondary', 5: 'melee' };
+const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
+
+// ExportResources contains both player-held resources and cosmetic/decoration
+// definitions. These parent families are excluded from Inventory > Resources
+// because DE identifies them as ship decorations, glyphs, projections, or
+// other presentation-only items rather than consumable/resource inventory.
+export const INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES = new Set([
+  '/Lotus/Types/Items/ShipDecos/ShipDecoItem',
+  '/Lotus/Types/Items/ShipDecos/BaseFishTrophy',
+  '/Lotus/Types/Items/ShipDecos/ChildDrawingBase',
+  '/Lotus/Types/Items/ShipDecos/LotusShawzinPlayableBase',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseEntrati',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseDuviri',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseCorpus',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseZariman',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseDate',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTile',
+  '/Lotus/Types/Items/MiscItems/PhotoboothTileBaseSU',
+  '/Lotus/Types/Items/ShipFeatureItems/ShipFeatureItem',
+  '/Lotus/Types/Items/NavigationFeatureItem',
+  '/Lotus/Types/Game/SongItem',
+  '/Lotus/Types/Game/VoidProjectionItem',
+]);
+
+export const INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES = new Set([
+  'ShipDecorations', 'Glyphs', 'Emotes', 'Flavour', 'ShipFeatures',
+]);
+
+export function resourceFamilyForParent(parentName = '') {
+  const parent = String(parentName).toLowerCase();
+  if (parent.includes('/fish/')) return 'fish';
+  if (parent.includes('/gems/')) return 'gems';
+  if (parent.includes('/plants/')) return 'plants';
+  if (parent.includes('/ayatan') || parent.includes('/fusiontreasures/')) return 'ayatan';
+  if (parent.includes('/railjackmiscitems/')) return 'railjack';
+  if (parent.includes('/incarnonadapters/')) return 'incarnon';
+  if (parent.includes('/duviri/') && parent.includes('resource')) return 'duviri';
+  if (parent.includes('/focuslens')) return 'focus_lens';
+  if (parent.includes('/restoratives/') || parent.includes('/fishbait/')) return 'consumables';
+  if (parent.includes('/keys/') || parent.includes('/quest')) return 'keys_quest';
+  return 'other';
+}
+
+export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
+  const parentName = entry?.parentName ?? '';
+  if (INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES.has(parentName)) return true;
+  if (INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES.has(entry?.productCategory)) return true;
+  if (/\/ShipDecos\/|\/Glyphs\/|\/GlyphBoxes\/|\/Emotes\//i.test(`${parentName}${uniqueName}`)) return true;
+  if (/VoidProjection/i.test(`${parentName}${uniqueName}`)) return true;
+  // DE's placeholder icon (Graphics/PH.png) marks an unreleased/unfinished record (e.g. the sixth
+  // "Technocyte Coda Token" (Lich): the Coda has five members and this token has no art).
+  if (/\/Graphics\/PH\.png$/i.test(entry?.icon ?? '')) return true;
+  return false;
+}
+
+const INVENTORY_DEDUPE_ORDER = [
+  'warframes', 'primary', 'secondary', 'melee', 'kitguns', 'zaws', 'sentinels',
+  'moas', 'hounds', 'beasts', 'archwings', 'kdrives', 'archweapons', 'necramechs', 'amps',
+  'arcanes', 'consumables', 'rivens', 'parts', 'prime_parts', 'components', 'resources',
+];
+
+const canonicalInventoryUniqueName = (value = '') => value.replaceAll('/StoreItems/', '/');
+
+function mergeInventoryQuantities(target, source) {
+  for (const key of ['quantity', 'blueprint_quantity', 'crafted_quantity']) {
+    if (typeof source[key] === 'number') target[key] = (target[key] ?? 0) + source[key];
+  }
+  if (source.owned) target.owned = true;
+  for (const [key, value] of Object.entries(source)) {
+    if ((target[key] == null || target[key] === '') && value != null && value !== '') target[key] = value;
+  }
+  return target;
+}
+
+function hasCatalogVariantLeaf(uniqueName = '') {
+  return /(?:Large|Medium|Mythic|CapturedInfested[A-Za-z]+)Token$/i.test(uniqueName.split('/').pop() || '') || /FishItem(?:Large|Medium)$/i.test(uniqueName);
+}
+
+function sameCatalogIdentity(left, right) {
+  return left.name && left.name === right.name &&
+    (left.description || '') === (right.description || '') &&
+    (left.image || '') === (right.image || '') &&
+    !hasCatalogVariantLeaf(left.unique_name) && !hasCatalogVariantLeaf(right.unique_name);
+}
+
+function catalogNameSuffix(uniqueName = '') {
+  const leaf = uniqueName.split('/').filter(Boolean).at(-1) || uniqueName;
+  const cleaned = leaf
+    .replace(/^(CapturedInfested)/i, '')
+    .replace(/Token$/i, '')
+    .replace(/Item(?=Large|Medium)/i, '')
+    .replace(/Item$/i, '')
+    .replace(/([a-z\d])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .trim();
+  return cleaned || leaf;
+}
+
+export function reconcileInventoryBuckets(bucketMap) {
+  const owners = new Map();
+  const summaries = { duplicateUniqueNames: 0, duplicateCatalogRecords: 0, removed: {} };
+  for (const bucket of INVENTORY_DEDUPE_ORDER) {
+    const items = bucketMap[bucket] || [];
+    for (const item of items) {
+      const key = canonicalInventoryUniqueName(item.unique_name || '');
+      if (!key) continue;
+      const owner = owners.get(key);
+      if (!owner) {
+        owners.set(key, { bucket, item });
+        continue;
+      }
+      mergeInventoryQuantities(owner.item, item);
+      summaries.duplicateUniqueNames++;
+      summaries.removed[bucket] = (summaries.removed[bucket] || 0) + 1;
+    }
+  }
+  for (const bucket of ['parts', 'prime_parts', 'components', 'resources']) {
+    bucketMap[bucket] ||= [];
+    const kept = [];
+    for (const item of bucketMap[bucket] || []) {
+      const owner = owners.get(canonicalInventoryUniqueName(item.unique_name || ''));
+      if (owner?.bucket === bucket && owner.item === item) kept.push(item);
+    }
+    bucketMap[bucket].splice(0, bucketMap[bucket].length, ...kept);
+  }
+
+  const named = new Map();
+  for (const bucket of ['parts', 'prime_parts', 'components', 'resources']) {
+    for (const item of bucketMap[bucket] || []) {
+      if (!item.name) continue;
+      if (!named.has(item.name)) named.set(item.name, []);
+      named.get(item.name).push({ bucket, item });
+    }
+  }
+  for (const entries of named.values()) {
+    for (let index = 1; index < entries.length; index++) {
+      const duplicate = entries[index];
+      const prior = entries.slice(0, index).find((candidate) => sameCatalogIdentity(candidate.item, duplicate.item));
+      if (!prior) continue;
+      mergeInventoryQuantities(prior.item, duplicate.item);
+      const list = bucketMap[duplicate.bucket];
+      const position = list.indexOf(duplicate.item);
+      if (position >= 0) list.splice(position, 1);
+      summaries.duplicateCatalogRecords++;
+      summaries.removed[duplicate.bucket] = (summaries.removed[duplicate.bucket] || 0) + 1;
+    }
+  }
+
+  const remainingNames = new Map();
+  for (const bucket of ['parts', 'prime_parts', 'components', 'resources']) {
+    for (const item of bucketMap[bucket] || []) {
+      if (!item.name) continue;
+      if (!remainingNames.has(item.name)) remainingNames.set(item.name, []);
+      remainingNames.get(item.name).push(item);
+    }
+  }
+  for (const items of remainingNames.values()) {
+    if (items.length < 2) continue;
+    for (const item of items) item.name = `${item.name} (${catalogNameSuffix(item.unique_name)})`;
+  }
+  return summaries;
+}
+
+export function inventoryUniqueNameSet(items = []) {
+  return new Set(items.map((item) => canonicalInventoryUniqueName(item?.unique_name || '')).filter(Boolean));
+}
+
+/**
+ * Resolve a DE weapon definition to the player's primary/secondary/melee
+ * bucket. productCategory is authoritative; slot is the verified DE fallback
+ * when an older definition omits productCategory. Combat fields only decide
+ * whether an otherwise-bucketable definition is a real player weapon when DE
+ * retained an internal companion, exalted, enemy, or PvP weapon definition.
+ */
+export function getWeaponBucket(entry, uniqueName = '') {
+  const bucket = entry?.productCategory
+    ? WEAPON_BUCKET_BY_CATEGORY[entry.productCategory]
+    : WEAPON_BUCKET_BY_SLOT[entry?.slot];
+  // /Bayonet/ holds both attachment definitions (masteryReq 0) and real masterable
+  // Tenno weapons such as Vinquibus (LongGuns, masteryReq 14, codexSecret false):
+  // DE's own masteryReq decides, not the path. The bayonet MELEE record is just that rifle's
+  // alternate mode (same weapon), so it stays excluded to avoid a duplicate entry.
+  const isMasterableBayonet = bucket !== 'melee' && /\/Bayonet\//i.test(uniqueName) && entry?.masteryReq > 0 && entry?.codexSecret !== true;
+  if (!bucket || (NON_PLAYER_WEAPON_PATH.test(uniqueName) && !isMasterableBayonet)) return null;
+  // DE's productCategory and slot must agree for a player weapon. The only record in the current
+  // export where they disagree is TnDoppelgangerGrimoire (Pistols but slot 5): the Doppelganger
+  // enemy's copy of Grimoire, which showed up as a second "Grimoire" in Inventory.
+  const slotBucket = WEAPON_BUCKET_BY_SLOT[entry?.slot];
+  if (entry?.productCategory && slotBucket && slotBucket !== bucket) return null;
+  const name = String(entry?.name || '').toLowerCase();
+  const isSpecial = /vandal|wraith|prisma|prime/.test(name);
+  const hasCombatData = bucket === 'melee' ? entry?.damagePerShot : entry?.noise;
+  if (entry?.masteryReq > 0 || hasCombatData || isSpecial) return bucket;
+  return null;
+}
+
 /** Clean a dict stat label for display: drop value tokens (%|val|, |val|%,
  *  |STAT1|), HTML color tags, and the seconds glue DE appends (|val|sn).
  *  DE's raw text puts the '%' on either side of the placeholder depending on
@@ -242,7 +440,7 @@ const BOOSTER_NAME_MAP = {
 // localized builds), e.g. .../WeaponParts/AfurisPrimeBarrel.  Used to separate
 // prime parts from resources and to build prime-set component lists — matching
 // the localized display name instead (e.g. "Afuris Prime: Lauf") would miss them.
-const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
+export const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
 
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
@@ -1484,7 +1682,6 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   weaponsRaw.forEach(i => {
     const e = EW[i.unique_name];
     if (!e) return;
-    const name = (e.name || "").toLowerCase();
     const un = i.unique_name;
     const isKitgun = isKitgunPart(un);
     const isZaw = un.includes('ModularMelee') && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');
@@ -1501,18 +1698,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         i.category = 'zaws';
         zaws.push(i);
       }
-    } else if (e.productCategory === 'LongGuns' && (e.noise || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
-      i.category = 'primary';
-      i.weapon_type = 'primary';
-      primary.push(i);
-    } else if (e.productCategory === 'Pistols' && (e.noise || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
-      i.category = 'secondary';
-      i.weapon_type = 'secondary';
-      secondary.push(i);
-    } else if (e.productCategory === 'Melee' && (e.damagePerShot || name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime'))) {
-      i.category = 'melee';
-      i.weapon_type = 'melee';
-      melee.push(i);
+    } else {
+      const bucket = getWeaponBucket(e, un);
+      if (bucket === 'primary') {
+        i.category = 'primary';
+        i.weapon_type = 'primary';
+        primary.push(i);
+      } else if (bucket === 'secondary') {
+        i.category = 'secondary';
+        i.weapon_type = 'secondary';
+        secondary.push(i);
+      } else if (bucket === 'melee') {
+        i.category = 'melee';
+        i.weapon_type = 'melee';
+        melee.push(i);
+      }
     }
   });
 
@@ -2301,7 +2501,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   for (const [un, entry] of Object.entries(ECustOrig)) {
     if (!un.startsWith('/Lotus/Upgrades/Skins/')) continue;
     const isOwned = ownedAppearanceKeys.has(canonicalUniqueName(un).toLowerCase());
-    const name = resolveName(un, dict, locale, ECustOrig, ECust, ER, ERecipe) || nameFromPath(un);
+    const name = resolveName(un, dict, locale, ECustOrig, ECust, ER, ERecipe) || entry?.name || nameFromPath(un);
     if (!name) continue;
     appearance_catalog.push({
       unique_name: un,
@@ -2341,7 +2541,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     };
   });
 
-  const resources = [], components = [], songItems = [], prime_parts = [], primeSets = {};
+  const resources = [], components = [], songItems = [], prime_parts = [], parts = [], primeSets = {};
 
   // Build owned items map for quick lookup (for prime sets)
   const primeItemCounts = new Map();
@@ -2458,6 +2658,96 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
+  // Non-Prime equipment parts are real inventory identities, but they are
+  // represented in DE's profile as either a recipe blueprint (raw.Recipes)
+  // or a crafted component (raw.MiscItems). Keep them separate from the
+  // existing resource/components buckets: those buckets have consumers with
+  // deliberately different semantics. The parent equipment tables are the
+  // authoritative scope here; this avoids turning every fish/trophy recipe
+  // into an equipment part while still covering Warframes, weapons, and
+  // companions.
+  const primePartUniqueNames = new Set(
+    Object.values(primeSets).flatMap((set) => (set.parts ?? []).map((part) => part.unique_name))
+  );
+  const equipmentByUniqueName = new Map([
+    ...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws,
+    ...sentinels, ...moas, ...hounds, ...beasts, ...companion_weapons,
+    ...archweapons, ...necramechs, ...archwings, ...amps,
+  ].map((item) => [item.unique_name, item]));
+  const recipeByResult = new Map();
+  for (const [recipeKey, recipe] of Object.entries(ERecipe ?? {})) {
+    if (!recipe?.resultType || recipeByResult.has(recipe.resultType)) continue;
+    recipeByResult.set(recipe.resultType, { key: recipeKey, recipe });
+  }
+  const ownedBlueprintCounts = new Map();
+  for (const entry of raw.Recipes ?? []) {
+    if (entry?.ItemType) ownedBlueprintCounts.set(entry.ItemType, (ownedBlueprintCounts.get(entry.ItemType) ?? 0) + (entry.ItemCount ?? 1));
+  }
+  const ownedCraftedCounts = new Map();
+  for (const entry of raw.MiscItems ?? []) {
+    if (entry?.ItemType) ownedCraftedCounts.set(entry.ItemType, (ownedCraftedCounts.get(entry.ItemType) ?? 0) + (entry.ItemCount ?? 1));
+  }
+  const seenPartUniqueNames = new Set();
+  for (const parent of equipmentByUniqueName.values()) {
+    const parentRecipe = recipeByResult.get(parent.unique_name);
+    if (!parentRecipe || /Prime$/i.test(parent.name || '') || /Prime/i.test(parent.unique_name || '')) continue;
+    const parentName = parent.name;
+    const childParts = [];
+    for (const ingredient of parentRecipe.recipe.ingredients ?? []) {
+      const child = recipeByResult.get(ingredient.ItemType);
+      // A recipe that consumes another WHOLE weapon/frame/companion (e.g. Akbolto needs
+      // Bolto) must not turn that item into a "part": it is already its own inventory item.
+      const isWholeEquipment = !/\/Types\/Recipes\//i.test(ingredient.ItemType || '') &&
+        (equipmentByUniqueName.has(ingredient.ItemType) || equipmentByUniqueName.has(child?.recipe.resultType)) &&
+        !/Component/.test(child?.recipe.resultType || '');
+      const childLooksLikePart = /(Component|Barrel|Receiver|Stock|Blade|Handle|Link|Chassis|Helmet|Systems|Wings|Harness|Neuroptics|Cerebrum|Carapace)($|[^a-z])/i.test(child?.recipe.resultType || '');
+      if (!child || isWholeEquipment || !childLooksLikePart || primePartUniqueNames.has(child.recipe.resultType) || /Prime/i.test(child.recipe.resultType || '')) continue;
+      childParts.push({ resultType: child.recipe.resultType, blueprintKey: child.key });
+    }
+    const entries = [{ resultType: parent.unique_name, blueprintKey: parentRecipe.key }, ...childParts];
+    for (const { resultType, blueprintKey } of entries) {
+      // Kubrow/Kavat breed recipes are the companion's construction record,
+      // not a separate inventory part. The breed itself already lives in the
+      // beasts bucket and must not be surfaced a second time as a part.
+      if (resultType === parent.unique_name && parent.category === 'beasts') continue;
+      const uniqueName = resultType === parent.unique_name ? blueprintKey : resultType;
+      if (seenPartUniqueNames.has(uniqueName) || primePartUniqueNames.has(uniqueName)) continue;
+      const blueprintQuantity = ownedBlueprintCounts.get(blueprintKey) ?? 0;
+      const craftedQuantity = ownedCraftedCounts.get(resultType) ?? 0;
+      const itemName = resultType === parent.unique_name
+        ? (resolveName(blueprintKey, dict, locale, ERecipe, EW, EWf, ES, ER) || `${parentName}${BLUEPRINT_SUFFIX[locale] ?? ' Blueprint'}`)
+        : resolveName(resultType, dict, locale, EW, EWf, ES, ER, ERecipe);
+      const image = resolveImage(resultType, EW, EWf, ES, ER, ERecipe);
+      // Keep a verified recipe part even when the current export lacks an
+      // icon. The completeness audit must be able to report that gap; silently
+      // dropping the item would recreate the missing-parts failure mode.
+      if (!itemName) continue;
+      seenPartUniqueNames.add(uniqueName);
+      parts.push({
+        unique_name: uniqueName,
+        name: itemName,
+        image,
+        category: 'parts',
+        parent_unique_name: parent.unique_name,
+        parent_name: parentName,
+        parent_category: parent.category,
+        // Drops are keyed by the blueprint, so the acquisition drawer must look that up.
+        real_unique_name: blueprintKey,
+        blueprint_unique_name: blueprintKey,
+        blueprint_quantity: blueprintQuantity,
+        quantity: resultType === parent.unique_name ? blueprintQuantity : craftedQuantity,
+        crafted_quantity: craftedQuantity,
+        owned: blueprintQuantity > 0 || craftedQuantity > 0,
+        description: '',
+        xp: 0,
+        rank: 0,
+        max_rank: 0,
+        mastered: false,
+        is_prime: false,
+      });
+    }
+  }
+
   // Add non-prime resources
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
@@ -2508,6 +2798,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       });
       continue;
     }
+    if (isExcludedInventoryResourceEntry(ER[un], un)) continue;
     // Prime parts are shown in the prime-sets tab, not as resources. Match the
     // ItemType path (always English) — localized names like "Afuris Prime: Lauf"
     // don't contain the English component words.
@@ -2536,7 +2827,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // undefined) so they're correctly excluded from both the Mastered and
       // Unmastered filters, matching the pattern createItem already uses for
       // other no-mastery parts (see its own masterable comment).
-      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', quantity: item.ItemCount ?? 1, owned: true, masterable: false };
+      const obj = { unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: isModularComponent ? 'components' : 'resources', resource_family: resourceFamilyForParent(entry?.parentName), parent_name: entry?.parentName ?? '', quantity: item.ItemCount ?? 1, owned: true, masterable: false };
       (isModularComponent ? components : resources).push(obj);
     }
   }
@@ -2586,36 +2877,23 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     });
   }
 
-  // Several real, findable resource categories only showed up in Resources
-  // when owned - an unowned one was completely absent, with no way to even
-  // discover it exists or where to find it. Unlike the rest of MiscItems
-  // (thousands of entries, many decorative/one-off), DE's own `parentName`
-  // field cleanly identifies these specific real catalogs, so it's safe to
-  // list every item in each one with an owned/unowned status, the same way
-  // Relics.jsx shows the full relic catalog rather than only owned relics.
-  // Deliberately NOT filtering by `excludeFromCodex` - spot-checking it
-  // showed real, legitimate items (Kavat Genetic Code, Höllvania apartment
-  // decorations) carry that flag too, so it's not a safe "hide this" signal.
-  const FULL_CATALOG_RESOURCE_PARENTS = new Set([
-    '/Lotus/Types/Items/Fish/FishItem',
-    '/Lotus/Types/Items/Fish/FishPartItem',
-    '/Lotus/Types/Items/MiscItems/ResourceItem',
-    '/Lotus/Types/Items/Gems/GemItem',
-    '/Lotus/Types/Items/MiscItems/IncarnonAdapters/BaseIncarnonUnlocker',
-    '/Lotus/Types/Gameplay/Duviri/Resource/DuviriBaseResourceItem',
-    '/Lotus/Types/Items/RailjackMiscItems/BaseRailjackItem',
-    '/Lotus/Types/Items/Plants/MiscItems/PlantItem',
-    '/Lotus/Types/Items/MiscItems/FocusLens',
-  ]);
-  const ownedResourceUns = new Set(resources.map((r) => r.unique_name));
+  // Full DE resource catalog: parentName is the authoritative family field.
+  // The explicit exclusions above remove cosmetics/decorations; all other
+  // ExportResources entries are browsable even when quantity is zero.
+  const ownedResourceUns = new Set([...resources, ...components].map((r) => r.unique_name));
   for (const [un, entry] of Object.entries(ER)) {
-    if (!FULL_CATALOG_RESOURCE_PARENTS.has(entry?.parentName)) continue;
+    if (isExcludedInventoryResourceEntry(entry, un)) continue;
+    if (PRIME_PART_PATH_RE.test(un.split('/').pop())) continue;
+    if (un.includes('/WoundedInfested')) continue;
+    const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
+    const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent;
+    if (isModularComponent) continue;
     if (ownedResourceUns.has(un)) continue;
     const name = resolveName(un, dict, locale, ER, ERel, EW, ES);
     const resDescLoctag = entry?.description ?? '';
     const resRawDesc = resDescLoctag ? (dict[resDescLoctag] || dict['/' + resDescLoctag] || '') : '';
     const resDescription = resRawDesc ? resRawDesc.replace(/\|[^|]+\|/g, '').replace(/<[^>]*>/g, '').trim() : '';
-    resources.push({ unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', quantity: 0, owned: false });
+    resources.push({ unique_name: un, name, description: resDescription, image: resolveImage(un, ER, ERel, EW, ES), category: 'resources', resource_family: resourceFamilyForParent(entry?.parentName), parent_name: entry?.parentName ?? '', quantity: 0, owned: false });
   }
 
   const resolveRelicRewards = (entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew) => {
@@ -2916,6 +3194,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     })
   ];
 
+  const dedupeSummary = reconcileInventoryBuckets({
+    warframes, primary, secondary, melee, kitguns, zaws, sentinels, moas, hounds, beasts,
+    archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens,
+    parts, prime_parts, components, resources,
+  });
+  // (Logged from the UI thread in Inventory.jsx: a dynamic import of the logger here breaks the worker bundle.)
+
   // ── Modular mastery components ──────────────────────────────────────────────
   // ── Owned-item lookup maps for modular components ────────────────────────────
   // Kitgun: barrel path → highest-XP build's custom name
@@ -3097,7 +3382,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
-  const all = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts];
+  const all = [];
+  const allSeen = new Set();
+  for (const item of [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts]) {
+    const key = canonicalInventoryUniqueName(item.unique_name || '');
+    if (!key || allSeen.has(key)) continue;
+    allSeen.add(key);
+    all.push(item);
+  }
 
   const playerLevel = raw.PlayerLevel ?? 0;
   const rivenBin = raw.RandomModBin ?? { Slots: 0, Extra: 0 };
@@ -3227,7 +3519,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, parts, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, dedupeSummary, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──
@@ -3494,6 +3786,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
                 ingredientUsage[subKey] = subAlreadyAllocated + subNeed;
                 return {
                   name: resolveName(subIng.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe),
+                  itemType: subIng.ItemType,
                   have: subHave,
                   need: subNeed,
                   image: resolveImage(subIng.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe)

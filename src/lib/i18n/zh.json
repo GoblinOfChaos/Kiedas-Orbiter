@@ -566,7 +566,21 @@
     "ui.inventory.tab_companion_weapons": "伴随武器",
     "ui.inventory.tab_companions": "伴随物",
     "ui.inventory.tab_prime_parts": "Prime 套装",
+    "ui.inventory.tab_parts": "Parts",
     "ui.inventory.tab_resources": "资源",
+    "ui.inventory.resource_family_all": "All",
+    "ui.inventory.resource_family_fish": "Fish",
+    "ui.inventory.resource_family_gems": "Gems",
+    "ui.inventory.resource_family_plants": "Plants",
+    "ui.inventory.resource_family_ayatan": "Ayatan",
+    "ui.inventory.resource_family_railjack": "Railjack",
+    "ui.inventory.resource_family_incarnon": "Incarnon",
+    "ui.inventory.resource_family_duviri": "Duviri",
+    "ui.inventory.resource_family_focus_lens": "Focus Lens",
+    "ui.inventory.resource_family_consumables": "Consumables",
+    "ui.inventory.resource_family_keys_quest": "Keys and Quest Items",
+    "ui.inventory.resource_family_other": "Other",
+    "ui.inventory.resource_family_label": "Resource family",
     "ui.inventory.tab_vehicles": "载具",
     "ui.inventory.tab_warframes": "战甲",
     "ui.inventory.tab_weapons": "武器",
@@ -3954,5 +3968,6 @@
     "tpl_2721": "- Overpressured Rounds：可在 Nightwave 的 Amir's Shockwave. 期间达到等级 <*> 获得。",
     "tpl_2722": "- 此 Mod 可通过达到 Maxim under the Arbiters of Hexis, 或 the rank of Partner under the The Perrin Sequence, 和 spending <*> to purchase. - This mod 可定期从 The Circuit 中获得。",
     "tpl_2723": "- 此 Mod 可通过在 Red Veil 达到 Maxim under the Arbiters of Hexis, 或 the rank of Exalted 等级并花费 <*> 购买。"
-  }
+  },
+  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

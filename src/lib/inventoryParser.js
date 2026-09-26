@@ -3481,6 +3481,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     return null;
   }).filter(Boolean);
 
+  // Recipes the equipment-driven `craftable` catalog leaves out (component
+  // blueprints, Helminth abilities, quest items, non-equipment results).
+  // Filled by the craftable builder below so the Foundry can list every DE
+  // recipe; each entry carries `foundryGroup`.
+  let craftableExtraItems = [];
+
   return {
     account: {
       mastery_rank: playerLevel,
@@ -3562,6 +3568,29 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // ── Craftable Items (all recipes with ingredient checks) ──
     craftable: (() => {
       const craftableItems = [];
+      const extraItems = [];
+
+      // DE's recipe export carries no category field, so a recipe outside
+      // the equipment catalog is grouped by its result item's own
+      // `productCategory` in the DE export tables, with a resource-family
+      // fallback for MiscItems-style results.
+      const productCategoryFor = (resultType) => {
+        for (const table of [EW, EWf, ES, ER, EA, EM, ECust, EGear]) {
+          const entry = table?.[resultType];
+          if (entry?.productCategory) return entry.productCategory;
+        }
+        return null;
+      };
+      const foundryGroupFor = (bpKey, resultType, isComponentBlueprint) => {
+        if (bpKey.includes('AbilityOverride') || resultType?.includes('/Abilities/')) return 'helminth';
+        if (bpKey.includes('Quest')) return 'quest';
+        if (isComponentBlueprint) return 'component_blueprints';
+        const category = productCategoryFor(resultType);
+        if (category === 'WeaponSkins') return 'skins';
+        if (category === 'ShipDecorations') return 'ship_decorations';
+        const entry = [ER, EM, ECust, EGear].map((table) => table?.[resultType]).find(Boolean);
+        return resourceFamilyForParent(entry?.parentName);
+      };
 
       // Inventory payloads and export recipe keys may differ only by the
       // StoreItems namespace. Counts used for readiness must use one identity
@@ -3663,13 +3692,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
         const resultName = resolveName(recipe.resultType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
 
-        // Skip Helminth abilities and quest items
-        if (bpKey.includes('AbilityOverride')) return;
-        if (recipe.resultType?.includes('/Abilities/')) return;
-        if (bpKey.includes('Quest')) return;
-
-        // Skip component blueprints (Helmet/Chassis/Systems/Wings Blueprint) - they're shown as components in main BP
-        if (bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') || bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') || bpKey.includes('WingsBlueprint')) return;
+        // Helminth abilities, quest items, and component blueprints (Helmet/
+        // Chassis/Systems/Harness/Wings - shown as components in the main BP)
+        // stay out of the main catalog and go to `craftable_extra` instead,
+        // rather than being dropped entirely.
+        const isComponentBlueprint = bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') || bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') || bpKey.includes('WingsBlueprint');
+        let isExtra = bpKey.includes('AbilityOverride') || recipe.resultType?.includes('/Abilities/') || bpKey.includes('Quest') || isComponentBlueprint;
 
         // Check if this is a main BP that could have components (warframes, archwings, etc)
         const isMainItemBP = (bpKey.includes('/Recipes/WarframeRecipes/') || bpKey.includes('/Recipes/ArchwingRecipes/')) && !bpKey.includes('Component');
@@ -3709,7 +3737,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           showBP = componentBPs.some(cb => (ownedItemCounts[canonicalInventoryType(cb)] ?? 0) > 0);
         }
 
-        if (!showBP) return;
+        if (!showBP) isExtra = true;
 
         // Get count of this BP owned
         const bpCount = ownedItemCounts[canonicalInventoryType(bpKey)] ?? 0;
@@ -3813,7 +3841,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
         // No separate "parts" section needed - ingredients already has everything
 
-        craftableItems.push({
+        (isExtra ? extraItems : craftableItems).push({
+          ...(isExtra ? { foundryGroup: foundryGroupFor(bpKey, recipe.resultType, isComponentBlueprint) } : {}),
           bpName: resultName,
           baseName,
           componentBased: isMainItemBP && !isOwned,
@@ -3834,8 +3863,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         });
       });
 
+      craftableExtraItems = extraItems;
       return craftableItems;
     })(),
+    craftable_extra: craftableExtraItems,
 
     foundry: (raw.PendingRecipes ?? []).map(p => {
       const recipe = ERecipe[p.ItemType];

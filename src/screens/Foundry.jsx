@@ -60,6 +60,13 @@ const CATEGORIES = [
   // to something already mid-build (GitHub issue #109: this was the one
   // real remaining gap in Foundry's category coverage).
   { id: 'in_progress', labelKey: 'foundry.cat_in_progress', keys: [] },
+  // Pulls from `inventoryData.craftable_extra` (recipes the equipment-driven
+  // catalog above excludes: Helminth abilities, quest items, component
+  // blueprints, and every other DE recipe with no equipment/catalog home -
+  // skins, ship decorations, resources, etc). Recipe-first, not item-first,
+  // like `in_progress` - there is no catalog item to match against for most
+  // of these, only the raw recipe record.
+  { id: 'more_recipes', labelKey: 'foundry.cat_more_recipes', keys: [] },
 ]
 
 const ALL_KEYS = ['warframes', 'primary', 'secondary', 'melee', 'kitguns', 'zaws', 'amps', 'components', 'companions', 'companion_weapons', 'sentinels', 'moas', 'hounds', 'beasts', 'robotics', 'archwings', 'archweapons', 'necramechs', 'kdrives', 'consumables_catalog', 'landing_craft_catalog', 'appearance_catalog']
@@ -185,6 +192,21 @@ function timeRemainingLabel(finishTime, ready, t) {
   if (ready) return t('foundry.in_progress_ready')
   const seconds = finishTime - (Date.now() / 1000)
   return t('foundry.in_progress_remaining', { time: formatDuration(seconds) })
+}
+
+function ExtraRecipeCard({ recipe, t }) {
+  const ready = recipe.readyToCraft
+  return <div className={`relative text-left rounded-xl border overflow-hidden ${ready ? 'border-emerald-500/70 bg-emerald-950/80' : 'border-white/10 bg-black/20'}`}>
+    <div className="px-2 pt-1.5 flex items-center justify-center gap-1 min-w-0 h-8">
+      <Hammer size={13} className="text-white/80 shrink-0" />
+      <p className="text-[15px] font-medium truncate">{recipe.bpName}</p>
+    </div>
+    <div className="relative h-[112px] flex items-center justify-center px-2">
+      <ItemImage src={recipe.image} className="max-w-full max-h-full object-contain object-bottom" placeholderClassName="w-full h-full bg-white/5 rounded-lg" />
+      <span className={`absolute bottom-1 left-1 text-[8px] font-black rounded-full px-1.5 py-0.5 ${recipe.bpCount > 0 ? 'bg-emerald-400 text-black' : 'bg-black/60 text-kronos-dim'}`}>{recipe.bpCount > 0 ? t('foundry.owned_badge') : t('foundry.missing_badge')}</span>
+      {ready && <span className="absolute bottom-1 right-1 p-1 rounded-full bg-emerald-400/80 text-black" title={t('foundry.ready_to_craft')}><Check size={10} /></span>}
+    </div>
+  </div>
 }
 
 function InProgressCard({ pending, t }) {
@@ -372,6 +394,19 @@ export default function Foundry() {
       .filter((p) => !q || p.name?.toLowerCase().includes(q))
       .sort((a, b) => (a.finishTime || 0) - (b.finishTime || 0))
   }, [inventoryData, search])
+  const moreRecipeGroups = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    const byGroup = new Map()
+    for (const recipe of inventoryData?.craftable_extra || []) {
+      if (q && !recipe.bpName?.toLowerCase().includes(q)) continue
+      const group = recipe.foundryGroup || 'other'
+      if (!byGroup.has(group)) byGroup.set(group, [])
+      byGroup.get(group).push(recipe)
+    }
+    return [...byGroup.entries()]
+      .map(([group, recipes]) => [group, recipes.sort((a, b) => (a.bpName || '').localeCompare(b.bpName || ''))])
+      .sort((a, b) => a[0].localeCompare(b[0]))
+  }, [inventoryData, search])
 
   if (isInventoryLoading) return <PageLayout title={t('nav.foundry')}><MonitorState isLoading className="py-20" /></PageLayout>
   if (!inventoryData) return <PageLayout title={t('nav.foundry')}><MonitorState className="py-20" /></PageLayout>
@@ -417,6 +452,17 @@ export default function Foundry() {
     <div className="space-y-4">
       {activeCat === 'in_progress' ? (
         pendingItems.length === 0 ? <Card className="p-8 text-center text-kronos-dim text-sm">{t('foundry.no_match')}</Card> : <div className="grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-2 content-start">{pendingItems.map((pending) => <InProgressCard key={pending.unique_name} pending={pending} t={t} />)}</div>
+      ) : activeCat === 'more_recipes' ? (
+        moreRecipeGroups.length === 0 ? <Card className="p-8 text-center text-kronos-dim text-sm">{t('foundry.no_match')}</Card> : <div className="space-y-4">
+          {moreRecipeGroups.map(([group, recipes]) => (
+            <div key={group}>
+              <h3 className="text-[11px] font-black uppercase tracking-wider text-kronos-dim mb-2">{t(`foundry.group_${group}`)} ({recipes.length})</h3>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-2 content-start">
+                {recipes.map((recipe) => <ExtraRecipeCard key={recipe.uniqueName} recipe={recipe} t={t} />)}
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
         filteredItems.length === 0 ? <Card className="p-8 text-center text-kronos-dim text-sm">{t('foundry.no_match')}</Card> : <div className="grid grid-cols-[repeat(auto-fill,minmax(225px,1fr))] gap-2 content-start">{filteredItems.map((item) => <ItemCard key={item.unique_name} item={item} recipe={item.recipe} selected={item.unique_name === selectedName} onClick={() => setSelectedName(item.unique_name)} t={t} />)}</div>
       )}

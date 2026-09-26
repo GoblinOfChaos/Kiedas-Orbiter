@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import '../../scripts/lib/real-data-harness.mjs';
+import { makeHarness } from '../../scripts/lib/real-data-harness.mjs';
 
-const { getWeaponBucket } = await import('../../src/lib/inventoryParser.js');
+const { getWeaponBucket, parseInventory } = await import('../../src/lib/inventoryParser.js');
 
 const weaponFixtures = [
   { uniqueName: '/Lotus/Weapons/Tenno/LongGuns/TestRifle', productCategory: 'LongGuns', masteryReq: 8 },
@@ -37,4 +37,61 @@ test('inventoryParser craftable projection carries outputQty from ExportRecipes.
   assert.ok(craftableEnd > craftableStart, 'craftable builder must have an end');
   const craftableSource = source.slice(craftableStart, craftableEnd);
   assert.match(craftableSource, /outputQty:\s+recipe\.num\s+===\s+undefined\s+\?\s+1\s+:\s+recipe\.num/);
+});
+
+test('craftable_extra carries every recipe the equipment catalog excludes, grouped by foundryGroup', () => {
+  const harness = makeHarness({
+    dict: {
+      '/Lotus/Language/HelminthAbility': 'Helminth Ability',
+      '/Lotus/Language/SomeQuestKey': 'Quest Key',
+      '/Lotus/Language/TestSkin': 'Test Skin',
+      '/Lotus/Language/TestBait': 'Test Bait',
+    },
+    ExportImages: {},
+    ExportWarframes: {},
+    ExportWeapons: {},
+    ExportResources: [
+      { uniqueName: '/Lotus/Types/Restoratives/TestBait', name: '/Lotus/Language/TestBait', parentName: '/Lotus/Types/Restoratives/FishBait/' },
+    ],
+    ExportCustoms: [
+      { uniqueName: '/Lotus/Upgrades/Skins/TestSkin', name: '/Lotus/Language/TestSkin', productCategory: 'WeaponSkins' },
+    ],
+    ExportRecipes: {
+      '/Lotus/Types/Recipes/AbilityOverrides/HelminthAbilityBlueprint': {
+        resultType: '/Lotus/Powersuits/Abilities/HelminthAbility',
+        ingredients: [],
+      },
+      '/Lotus/Types/Recipes/Quests/SomeQuestKeyBlueprint': {
+        resultType: '/Lotus/Language/SomeQuestKey',
+        ingredients: [],
+      },
+      '/Lotus/Types/Recipes/WarframeRecipes/GhostChassisBlueprint': {
+        resultType: '/Lotus/Powersuits/Ghost/GhostChassis',
+        ingredients: [],
+      },
+      '/Lotus/Types/Recipes/Skins/TestSkinBlueprint': {
+        resultType: '/Lotus/Upgrades/Skins/TestSkin',
+        ingredients: [],
+      },
+      '/Lotus/Types/Recipes/Restoratives/TestBaitBlueprint': {
+        resultType: '/Lotus/Types/Restoratives/TestBait',
+        ingredients: [],
+      },
+    },
+    WI_Warframes: {},
+    WI_Resources: {},
+    AcquisitionItems: [],
+  });
+  const parsed = parseInventory({}, harness.exportsBundle, harness.dict, 'en', null);
+
+  const byBpKey = new Map(parsed.craftable_extra.map((entry) => [entry.uniqueName, entry]));
+  assert.equal(byBpKey.get('/Lotus/Types/Recipes/AbilityOverrides/HelminthAbilityBlueprint')?.foundryGroup, 'helminth');
+  assert.equal(byBpKey.get('/Lotus/Types/Recipes/Quests/SomeQuestKeyBlueprint')?.foundryGroup, 'quest');
+  assert.equal(byBpKey.get('/Lotus/Types/Recipes/WarframeRecipes/GhostChassisBlueprint')?.foundryGroup, 'component_blueprints');
+  assert.equal(byBpKey.get('/Lotus/Types/Recipes/Skins/TestSkinBlueprint')?.foundryGroup, 'skins');
+  assert.equal(byBpKey.get('/Lotus/Types/Recipes/Restoratives/TestBaitBlueprint')?.foundryGroup, 'consumables');
+
+  // None of the above should also appear in the main equipment-driven catalog.
+  const craftableBpKeys = new Set(parsed.craftable.map((entry) => entry.uniqueName));
+  for (const bpKey of byBpKey.keys()) assert.ok(!craftableBpKeys.has(bpKey), `${bpKey} must not be in both craftable and craftable_extra`);
 });

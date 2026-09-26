@@ -65,12 +65,11 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
   </div>;
 }
 
-export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, faction, setFaction, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
+export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
   const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id) && (!hideDone || row.stillNeeded > 0));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
-  const factionOptions = [{ id: '', label: t('farming_targets.faction_filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.faction).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
   return (
     <div className="space-y-5" data-preview-farming-targets>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
@@ -94,7 +93,6 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
             </div>
           </div>
           <div className="shrink-0"><Toggle checked={hideConclave} onChange={setHideConclave} label={t('farming_targets.hide_conclave')} /></div>
-          <Select options={factionOptions} value={faction} onChange={setFaction} label={t('farming_targets.faction')} className="min-w-[125px]" />
           <div className="shrink-0"><Toggle checked={groupPlanet} onChange={setGroupPlanet} label={t('farming_targets.group_planet')} /></div>
           <div className="shrink-0"><Toggle checked={hideDone} onChange={setHideDone} label={t('farming_targets.hide_done')} /></div>
         </div>
@@ -172,7 +170,6 @@ export default function FarmingTargets() {
   const setHideDone = rememberSetting('hideDone', setHideDoneState);
   const [hideConclave, setHideConclaveState] = useState(() => readSetting('hideConclave', true) === true);
   const setHideConclave = rememberSetting('hideConclave', setHideConclaveState);
-  const [faction, setFaction] = useState('');
   const [groupPlanet, setGroupPlanet] = useState(false);
   const [selectedTarget, setSelectedTarget] = useState(null);
   const { openKey, toggle, close } = useAcquisitionDrawer();
@@ -204,8 +201,8 @@ export default function FarmingTargets() {
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
     targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
     placeIndex: previewPlaceIndex,
-    filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave, factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave, faction]);
+    filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave },
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
@@ -318,7 +315,7 @@ export default function FarmingTargets() {
         <PreviewFarmingView
           targets={targets} reservations={store?.reservations} model={screenModel} t={t} selectedTarget={selectedTarget} setSelectedTarget={setSelectedTarget}
           tab={farmTab} setTab={setFarmTab} minChanceOn={minChanceOn} setMinChanceOn={setMinChanceOn} minChancePct={minChancePct} setMinChancePct={setMinChancePct} hideDone={hideDone} setHideDone={setHideDone} hideConclave={hideConclave} setHideConclave={setHideConclave}
-          faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} toggle={toggle}
+          groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} toggle={toggle}
           onRemoveTarget={handleRemoveTarget} onQuantityChange={handleQuantityChange} onTargetChange={handleTargetChange} onReserve={handleReserve}
         />
       </PageLayout>

@@ -1165,7 +1165,7 @@
     "farming_targets.min_chance_off": "Off: showing every drop chance",
     "farming_targets.min_chance_hidden": "Hiding {count} drops below {percent}%",
     "farming_targets.hide_done": "Hide items I no longer need",
-    "farming_targets.mission_type": "Mission type",
+    "farming_targets.hide_conclave": "Hide Conclave (PvP)",
     "farming_targets.faction": "Faction",
     "farming_targets.filter_all": "All",
     "farming_targets.group_planet": "Group by planet",

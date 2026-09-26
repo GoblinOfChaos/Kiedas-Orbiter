@@ -91,10 +91,10 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   const name = sourceName(source);
   if (!name) return null;
   const type = sourceType(source);
-  const pvp = type === 'conclave' || /conclave/i.test(name);
   const isPlanet = type === 'planet';
   const rawMissionType = source.type === 'cache' || source.type === 'container' ? null : source.missionType;
   const missionType = rawMissionType ? resolveMissionType(rawMissionType, dict, regions) : null;
+  const pvp = type === 'conclave' || /conclave/i.test(name) || /^(conclave|pvp)$/i.test(String(missionType ?? rawMissionType ?? ''));
   return {
     id: `${type}:${lower(name)}`,
     name,

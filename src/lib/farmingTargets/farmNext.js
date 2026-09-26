@@ -31,6 +31,7 @@ function matchesFilters(place, filters) {
   if (filters.types?.length && !filters.types.includes(place.type)) return false;
   if (filters.factions?.length && !filters.factions.includes(place.area?.faction ?? place.faction)) return false;
   if (filters.missionTypes?.length && !filters.missionTypes.includes(place.missionType)) return false;
+  if (filters.hideConclave && filters.tab !== 'conclave' && place.type === 'conclave') return false;
   if (filters.tab && filters.tab !== 'all' && !tabTypes[filters.tab]?.has(place.type)) return false;
   return true;
 }

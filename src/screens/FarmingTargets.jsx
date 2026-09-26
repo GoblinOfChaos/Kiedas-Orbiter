@@ -10,7 +10,7 @@
  * shared entry points while keeping Stable on its existing path.
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Search, Plus, Minus, Trash2, Target as TargetIcon, ChevronRight, SlidersHorizontal, Archive, CheckCircle2 } from 'lucide-react';
+import { Search, Plus, Minus, Trash2, Target as TargetIcon, ChevronRight, Archive, CheckCircle2 } from 'lucide-react';
 import { invoke } from '../lib/logging/tauri';
 import { PageLayout, Card, Input, Button, MonitorState, Tabs, Select, Toggle } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
@@ -43,7 +43,7 @@ function formatCount(n) {
 
 const FARM_TABS = [
   ['all', 'farming_targets.tab_all'], ['missions', 'farming_targets.tab_missions'],
-  ['enemies', 'farming_targets.tab_enemies'], ['planets', 'farming_targets.tab_planets'],
+  ['enemies', 'farming_targets.tab_enemies'],
   ['relics', 'farming_targets.tab_relics'], ['vendors', 'farming_targets.tab_vendors'],
   ['conclave', 'farming_targets.tab_conclave'],
 ];
@@ -65,12 +65,11 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
   </div>;
 }
 
-export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, compactView, setCompactView, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
+export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, faction, setFaction, groupPlanet, setGroupPlanet, compactView, setCompactView, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
   const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id) && (!hideDone || row.stillNeeded > 0));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
-  const missionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.missionType).filter((value) => value && !/^MT_/i.test(value)))].sort().map((value) => ({ id: value, label: value }))];
   const factionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.faction).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
   return (
     <div className="space-y-5" data-preview-farming-targets>
@@ -88,10 +87,9 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
       </div>
 
       <Card className="p-4 space-y-3">
-        <div className="flex items-center gap-2"><SlidersHorizontal size={16} className="text-kronos-accent" /><h2 className="text-sm font-black uppercase">{t('farming_targets.filters')}</h2></div>
-        <div className="flex flex-wrap items-end gap-3">
-          <Tabs tabs={FARM_TABS.map(([id, key]) => ({ id, label: t(key) }))} activeTab={tab} onChange={setTab} className="flex-1 min-w-[280px]" />
-          <div className="min-w-[230px]">
+        <Tabs tabs={FARM_TABS.map(([id, key]) => ({ id, label: t(key) }))} activeTab={tab} onChange={setTab} className="w-fit max-w-full flex-nowrap overflow-x-auto" />
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 [&_button[role=switch]]:gap-3">
+          <div className="shrink-0">
             <Toggle checked={minChanceOn} onChange={setMinChanceOn} label={t('farming_targets.min_chance')} />
             <div className="mt-1 flex items-center gap-2 text-xs text-kronos-dim">
               <input type="number" min="0" max="100" step="0.5" value={minChancePct} disabled={!minChanceOn} onChange={(e) => setMinChancePct(e.target.value)} aria-label={t('farming_targets.min_chance_value')} className="w-20 rounded bg-black/30 px-2 py-1 text-xs text-kronos-text disabled:opacity-40" />
@@ -99,10 +97,10 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
               <span>{minChanceOn ? t('farming_targets.min_chance_hidden', { count: model.excludedByMinChance ?? 0, percent: minChancePct }) : t('farming_targets.min_chance_off')}</span>
             </div>
           </div>
-          <Select options={missionOptions} value={missionType} onChange={setMissionType} label={t('farming_targets.mission_type')} className="min-w-[145px]" />
+          <div className="shrink-0"><Toggle checked={hideConclave} onChange={setHideConclave} label={t('farming_targets.hide_conclave')} /></div>
           <Select options={factionOptions} value={faction} onChange={setFaction} label={t('farming_targets.faction')} className="min-w-[125px]" />
-          <div className="min-w-[200px]"><Toggle checked={groupPlanet} onChange={setGroupPlanet} label={t('farming_targets.group_planet')} /></div>
-          <div className="min-w-[230px]"><Toggle checked={hideDone} onChange={setHideDone} label={t('farming_targets.hide_done')} /></div>
+          <div className="shrink-0"><Toggle checked={groupPlanet} onChange={setGroupPlanet} label={t('farming_targets.group_planet')} /></div>
+          <div className="shrink-0"><Toggle checked={hideDone} onChange={setHideDone} label={t('farming_targets.hide_done')} /></div>
         </div>
       </Card>
 
@@ -176,7 +174,8 @@ export default function FarmingTargets() {
   const setMinChanceOn = rememberSetting('minChanceOn', setMinChanceOnState);
   const setMinChancePct = rememberSetting('minChancePct', setMinChancePctState);
   const setHideDone = rememberSetting('hideDone', setHideDoneState);
-  const [missionType, setMissionType] = useState('');
+  const [hideConclave, setHideConclaveState] = useState(() => readSetting('hideConclave', true) === true);
+  const setHideConclave = rememberSetting('hideConclave', setHideConclaveState);
   const [faction, setFaction] = useState('');
   const [groupPlanet, setGroupPlanet] = useState(false);
   const [selectedTarget, setSelectedTarget] = useState(null);
@@ -210,8 +209,8 @@ export default function FarmingTargets() {
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
     targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex,
     placeIndex: previewPlaceIndex,
-    filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, missionTypes: missionType ? [missionType] : [], factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChanceOn, minChancePct, missionType, faction]);
+    filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave, factions: faction ? [faction] : [] },
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChanceOn, minChancePct, hideConclave, faction]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
@@ -323,7 +322,7 @@ export default function FarmingTargets() {
         {store.readOnlyCorrupt && <div role="alert" className="mb-4 rounded-lg border border-amber-400/40 bg-amber-400/10 p-3 text-xs text-amber-200">{t('farming_targets.corrupt_warning')}</div>}
         <PreviewFarmingView
           targets={targets} reservations={store?.reservations} model={screenModel} t={t} selectedTarget={selectedTarget} setSelectedTarget={setSelectedTarget}
-          tab={farmTab} setTab={setFarmTab} minChanceOn={minChanceOn} setMinChanceOn={setMinChanceOn} minChancePct={minChancePct} setMinChancePct={setMinChancePct} hideDone={hideDone} setHideDone={setHideDone} missionType={missionType} setMissionType={setMissionType}
+          tab={farmTab} setTab={setFarmTab} minChanceOn={minChanceOn} setMinChanceOn={setMinChanceOn} minChancePct={minChancePct} setMinChancePct={setMinChancePct} hideDone={hideDone} setHideDone={setHideDone} hideConclave={hideConclave} setHideConclave={setHideConclave}
           faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} compactView={compactView} setCompactView={setCompactView} toggle={toggle}
           onRemoveTarget={handleRemoveTarget} onQuantityChange={handleQuantityChange} onTargetChange={handleTargetChange} onReserve={handleReserve}
         />

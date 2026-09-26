@@ -14,7 +14,15 @@ function buildId() {
   if (commit === 'unknown') {
     try {
       const head = readFileSync(path.join(__dirname, '.git/HEAD'), 'utf8').trim()
-      const ref = head.startsWith('ref: ') ? readFileSync(path.join(__dirname, '.git', head.slice(5)), 'utf8').trim() : head
+      let ref = head
+      if (head.startsWith('ref: ')) {
+        const refName = head.slice(5)
+        try { ref = readFileSync(path.join(__dirname, '.git', refName), 'utf8').trim() } catch {
+          // the branch ref was packed (git gc / push): look it up in packed-refs
+          const packed = readFileSync(path.join(__dirname, '.git/packed-refs'), 'utf8').split('\n').find((line) => line.endsWith(` ${refName}`))
+          ref = packed ? packed.split(' ')[0] : 'unknown'
+        }
+      }
       commit = ref.slice(0, 7)
     } catch { /* leave unknown */ }
   }

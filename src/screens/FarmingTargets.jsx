@@ -65,10 +65,10 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
   </div>;
 }
 
-function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChance, setMinChance, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, compactView, setCompactView, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
+function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, missionType, setMissionType, faction, setFaction, groupPlanet, setGroupPlanet, compactView, setCompactView, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
-  const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id));
+  const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id) && (!hideDone || row.stillNeeded > 0));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
   const missionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.missionType).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
   const factionOptions = [{ id: '', label: t('farming_targets.filter_all') }, ...[...new Set(model.ranked.map((row) => row.place.faction).filter(Boolean))].sort().map((value) => ({ id: value, label: value }))];
@@ -91,10 +91,18 @@ function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, s
         <div className="flex items-center gap-2"><SlidersHorizontal size={16} className="text-kronos-accent" /><h2 className="text-sm font-black uppercase">{t('farming_targets.filters')}</h2></div>
         <div className="flex flex-wrap items-end gap-3">
           <Tabs tabs={FARM_TABS.map(([id, key]) => ({ id, label: t(key) }))} activeTab={tab} onChange={setTab} className="flex-1 min-w-[280px]" />
-          <label className="flex items-center gap-2 text-xs"><input type="checkbox" checked={minChance !== ''} onChange={(e) => setMinChance(e.target.checked ? '0.05' : '')} />{t('farming_targets.min_chance')}</label>
+          <div className="min-w-[230px]">
+            <Toggle checked={minChanceOn} onChange={setMinChanceOn} label={t('farming_targets.min_chance')} />
+            <div className="mt-1 flex items-center gap-2 text-xs text-kronos-dim">
+              <input type="number" min="0" max="100" step="0.5" value={minChancePct} disabled={!minChanceOn} onChange={(e) => setMinChancePct(e.target.value)} aria-label={t('farming_targets.min_chance_value')} className="w-20 rounded bg-black/30 px-2 py-1 text-xs text-kronos-text disabled:opacity-40" />
+              <span>%</span>
+              <span>{minChanceOn ? t('farming_targets.min_chance_hidden', { count: model.excludedByMinChance ?? 0, percent: minChancePct }) : t('farming_targets.min_chance_off')}</span>
+            </div>
+          </div>
           <Select options={missionOptions} value={missionType} onChange={setMissionType} label={t('farming_targets.mission_type')} className="min-w-[145px]" />
           <Select options={factionOptions} value={faction} onChange={setFaction} label={t('farming_targets.faction')} className="min-w-[125px]" />
-          <Toggle checked={groupPlanet} onChange={setGroupPlanet} label={t('farming_targets.group_planet')} />
+          <div className="min-w-[200px]"><Toggle checked={groupPlanet} onChange={setGroupPlanet} label={t('farming_targets.group_planet')} /></div>
+          <div className="min-w-[230px]"><Toggle checked={hideDone} onChange={setHideDone} label={t('farming_targets.hide_done')} /></div>
         </div>
       </Card>
 
@@ -119,7 +127,7 @@ function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, s
 
       {compactView !== 'compact' && <Card className="p-0 overflow-x-auto">
         <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.ledger')}</h2></div>
-        <table className="w-full min-w-[860px] text-left text-xs"><thead className="text-[10px] uppercase text-kronos-dim"><tr>{['item', 'required', 'owned', 'reserved', 'still_needed', 'used_by', 'source'].map((key) => <th key={key} className="px-4 py-3">{t(`farming_targets.column_${key}`)}</th>)}<th className="px-4 py-3">{t('farming_targets.reserve')}</th></tr></thead><tbody className="divide-y divide-white/5">{model.ledger.map((row) => <tr key={row.itemType} className={row.overcommitted ? 'bg-red-500/10' : ''}><td className="px-4 py-3 font-bold">{row.name}{row.overcommitted && <span className="ml-2 text-[9px] text-red-300">{t('farming_targets.overcommitted')}</span>}</td><td className="px-4 py-3">{formatCount(row.required)}</td><td className="px-4 py-3">{formatCount(row.owned)}</td><td className="px-4 py-3">{formatCount(row.reserved)}</td><td className={`px-4 py-3 font-black ${row.stillNeeded ? 'text-red-300' : 'text-emerald-300'}`}>{formatCount(row.stillNeeded)}</td><td className="px-4 py-3 text-kronos-dim">{row.usedBy.length}</td><td className="px-4 py-3"><button type="button" onClick={() => toggle(row.itemType)} className="text-kronos-accent hover:underline">{t('farming_targets.view_sources')}</button></td><td className="px-4 py-3"><input aria-label={t('farming_targets.reserve_for', { item: row.name })} type="number" min="0" max={row.owned} value={targetReservationQuantity(reservations, row.itemType, effectiveTargetId)} onChange={(event) => onReserve(row.itemType, Number(event.target.value), effectiveTargetId)} className="w-16 rounded bg-black/30 px-1 py-1 text-xs" /></td></tr>)}</tbody></table>
+        <table className="w-full min-w-[860px] text-left text-xs"><thead className="text-[10px] uppercase text-kronos-dim"><tr>{['item', 'required', 'owned', 'reserved', 'still_needed', 'used_by', 'source'].map((key) => <th key={key} className="px-4 py-3">{t(`farming_targets.column_${key}`)}</th>)}<th className="px-4 py-3">{t('farming_targets.reserve')}</th></tr></thead><tbody className="divide-y divide-white/5">{model.ledger.filter((row) => !hideDone || row.stillNeeded > 0).map((row) => <tr key={row.itemType} className={row.overcommitted ? 'bg-red-500/10' : ''}><td className="px-4 py-3 font-bold">{row.name}{row.overcommitted && <span className="ml-2 text-[9px] text-red-300">{t('farming_targets.overcommitted')}</span>}</td><td className="px-4 py-3">{formatCount(row.required)}</td><td className="px-4 py-3">{formatCount(row.owned)}</td><td className="px-4 py-3">{formatCount(row.reserved)}</td><td className={`px-4 py-3 font-black ${row.stillNeeded ? 'text-red-300' : 'text-emerald-300'}`}>{formatCount(row.stillNeeded)}</td><td className="px-4 py-3 text-kronos-dim">{row.usedBy.length}</td><td className="px-4 py-3"><button type="button" onClick={() => toggle(row.itemType)} className="text-kronos-accent hover:underline">{t('farming_targets.view_sources')}</button></td><td className="px-4 py-3"><input aria-label={t('farming_targets.reserve_for', { item: row.name })} type="number" min="0" max={row.owned} value={targetReservationQuantity(reservations, row.itemType, effectiveTargetId)} onChange={(event) => onReserve(row.itemType, Number(event.target.value), effectiveTargetId)} className="w-16 rounded bg-black/30 px-1 py-1 text-xs" /></td></tr>)}</tbody></table>
       </Card>}
 
       {targets.length > 0 && <div className="grid grid-cols-1 md:grid-cols-2 gap-2">{targets.map((item) => <Card key={item.id} className="p-3 flex flex-col gap-2"><div className="flex items-center gap-3"><ItemImage src={item.image} className="w-9 h-9 object-contain" placeholderClassName="w-9 h-9" /><div className="min-w-0 flex-1"><p className="truncate text-xs font-bold">{item.name}</p><p className="text-[9px] text-kronos-dim">{t('farming_targets.target_quantity', { count: item.quantity })}</p></div>{dueState(item) === 'due' && <span className="rounded-full bg-amber-400/15 px-2 py-1 text-[9px] text-amber-300">{t('farming_targets.due')}</span>}<button type="button" onClick={() => onRemoveTarget(item.id)} aria-label={t('farming_targets.remove_target')}><Trash2 size={13} /></button></div><div className="flex items-center gap-2"><button type="button" onClick={() => onQuantityChange(item.id, -1)} aria-label={t('farming_targets.decrease_quantity')}><Minus size={13} /></button><span className="text-xs font-bold w-6 text-center">{item.quantity}</span><button type="button" onClick={() => onQuantityChange(item.id, 1)} aria-label={t('farming_targets.increase_quantity')}><Plus size={13} /></button><label className="ml-auto text-[9px] text-kronos-dim">{t('farming_targets.priority')} <select value={item.priority ?? 0} onChange={(event) => onTargetChange(item.id, setTargetPriority, event.target.value)} className="rounded bg-black/30 px-1 py-1"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label><input type="date" value={item.dueAt ? String(item.dueAt).slice(0, 10) : ''} onChange={(event) => onTargetChange(item.id, setTargetDueDate, event.target.value === '' ? null : (validLocalDate(event.target.value) ? event.target.value : item.dueAt))} aria-label={t('farming_targets.due_date')} className="rounded bg-black/30 px-1 py-1 text-[9px]" /></div><div className="flex gap-2"><button type="button" onClick={() => onTargetChange(item.id, setTargetStatus, 'complete')} className="text-[9px] text-emerald-300"><CheckCircle2 size={12} className="inline mr-1" />{t('farming_targets.complete')}</button><button type="button" onClick={() => onTargetChange(item.id, setTargetStatus, 'archived')} className="text-[9px] text-kronos-dim"><Archive size={12} className="inline mr-1" />{t('farming_targets.archive')}</button></div></Card>)}</div>}
@@ -159,7 +167,15 @@ export default function FarmingTargets() {
 
   const [search, setSearch] = useState('');
   const [farmTab, setFarmTab] = useState('all');
-  const [minChance, setMinChance] = useState('');
+  // Farm-next filter settings are per-viewer conveniences: remembered in localStorage (try/catch: may be unavailable).
+  const readSetting = (key, fallback) => { try { const raw = localStorage.getItem(`farming.${key}`); return raw === null ? fallback : JSON.parse(raw); } catch { return fallback; } };
+  const [minChanceOn, setMinChanceOnState] = useState(() => readSetting('minChanceOn', false) === true);
+  const [minChancePct, setMinChancePctState] = useState(() => String(readSetting('minChancePct', '5')));
+  const [hideDone, setHideDoneState] = useState(() => readSetting('hideDone', false) === true);
+  const rememberSetting = (key, setter) => (value) => { setter(value); try { localStorage.setItem(`farming.${key}`, JSON.stringify(value)); } catch { /* not persisted */ } };
+  const setMinChanceOn = rememberSetting('minChanceOn', setMinChanceOnState);
+  const setMinChancePct = rememberSetting('minChancePct', setMinChancePctState);
+  const setHideDone = rememberSetting('hideDone', setHideDoneState);
   const [missionType, setMissionType] = useState('');
   const [faction, setFaction] = useState('');
   const [groupPlanet, setGroupPlanet] = useState(false);
@@ -194,8 +210,8 @@ export default function FarmingTargets() {
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
     targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex,
     placeIndex: previewPlaceIndex,
-    filters: { tab: farmTab, minChance: minChance === '' ? undefined : Number(minChance), missionTypes: missionType ? [missionType] : [], factions: faction ? [faction] : [] },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChance, missionType, faction]);
+    filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, missionTypes: missionType ? [missionType] : [], factions: faction ? [faction] : [] },
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, farmTab, minChanceOn, minChancePct, missionType, faction]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
@@ -307,7 +323,7 @@ export default function FarmingTargets() {
         {store.readOnlyCorrupt && <div role="alert" className="mb-4 rounded-lg border border-amber-400/40 bg-amber-400/10 p-3 text-xs text-amber-200">{t('farming_targets.corrupt_warning')}</div>}
         <PreviewFarmingView
           targets={targets} reservations={store?.reservations} model={screenModel} t={t} selectedTarget={selectedTarget} setSelectedTarget={setSelectedTarget}
-          tab={farmTab} setTab={setFarmTab} minChance={minChance} setMinChance={setMinChance} missionType={missionType} setMissionType={setMissionType}
+          tab={farmTab} setTab={setFarmTab} minChanceOn={minChanceOn} setMinChanceOn={setMinChanceOn} minChancePct={minChancePct} setMinChancePct={setMinChancePct} hideDone={hideDone} setHideDone={setHideDone} missionType={missionType} setMissionType={setMissionType}
           faction={faction} setFaction={setFaction} groupPlanet={groupPlanet} setGroupPlanet={setGroupPlanet} compactView={compactView} setCompactView={setCompactView} toggle={toggle}
           onRemoveTarget={handleRemoveTarget} onQuantityChange={handleQuantityChange} onTargetChange={handleTargetChange} onReserve={handleReserve}
         />

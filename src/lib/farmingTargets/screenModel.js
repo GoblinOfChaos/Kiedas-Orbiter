@@ -107,14 +107,41 @@ function regionEntries(regions) {
   return Object.entries(regions ?? {}).flatMap(([key, value]) => value && typeof value === 'object' ? [{ ...value, uniqueName: value.uniqueName ?? key }] : []);
 }
 
-function regionForSource(source, regions, dict) {
-  if (source?.type !== 'mission') return null;
-  const candidates = [source.node, source.nodeName, source.name].filter(Boolean).map(lower);
-  return regionEntries(regions).find((region) => [region.uniqueName, region.name, dict[region.name], dict[`/${region.name}`]]
-    .filter(Boolean).some((value) => candidates.includes(lower(value)))) ?? null;
+// One lookup Map built once per `regions` object instead of one full
+// `.find()` scan over every region PER drop-index row (35k+ mission rows x
+// 350+ regions on real data = ~12.6M comparisons, measured at ~5.6s -
+// same performance-bug class relicSourceIndex below already fixed once for
+// relics; this sibling lookup never got the same treatment). First region
+// to claim a given lowercased candidate string wins, matching the original
+// `.find()`'s first-match semantics.
+const regionLookupCache = new WeakMap();
+function regionLookup(regions, dict) {
+  const cached = regionLookupCache.get(regions);
+  if (cached) return cached;
+  const map = new Map();
+  for (const region of regionEntries(regions)) {
+    for (const value of [region.uniqueName, region.name, dict[region.name], dict[`/${region.name}`]]) {
+      if (!value) continue;
+      const key = lower(value);
+      if (!map.has(key)) map.set(key, region);
+    }
+  }
+  regionLookupCache.set(regions, map);
+  return map;
 }
 
-function sourcePlace(source, itemName, { dict = {}, regions = {}, regionList = null } = {}) {
+function regionForSource(source, regions, dict) {
+  if (source?.type !== 'mission') return null;
+  const lookup = regionLookup(regions, dict);
+  for (const candidate of [source.node, source.nodeName, source.name]) {
+    if (!candidate) continue;
+    const region = lookup.get(lower(candidate));
+    if (region) return region;
+  }
+  return null;
+}
+
+function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   const name = sourceName(source);
   if (!name) return null;
   const type = sourceType(source);
@@ -122,7 +149,10 @@ function sourcePlace(source, itemName, { dict = {}, regions = {}, regionList = n
   const rawMissionType = source.type === 'cache' || source.type === 'container' ? null : source.missionType;
   const missionType = rawMissionType ? resolveMissionType(rawMissionType, dict, regions) : null;
   const pvp = type === 'conclave' || /conclave/i.test(name) || /^(conclave|pvp)$/i.test(String(missionType ?? rawMissionType ?? ''));
-  const region = regionForSource(source, regionList ?? regions, dict);
+  // regionForSource caches its lookup Map by `regions`' own object identity
+  // (regionLookupCache), so this must be the stable object, not a freshly
+  // built array per call - otherwise every call misses the cache.
+  const region = regionForSource(source, regions, dict);
   const faction = region?.faction ? resolveNode(region.faction, dict, regions) : null;
   return {
     id: `${type}:${lower(name)}`,
@@ -141,10 +171,9 @@ function sourcePlace(source, itemName, { dict = {}, regions = {}, regionList = n
 export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, dict = {}, regions } = {}) {
   const byItem = new Map();
   const places = new Map();
-  const regionList = regionEntries(regions);
   const add = (item, source) => {
     if (!item || !source) return;
-    const place = sourcePlace(source, item, { dict, regions, regionList });
+    const place = sourcePlace(source, item, { dict, regions });
     if (!place) return;
     if (!places.has(place.id)) places.set(place.id, place);
     const key = lower(item);

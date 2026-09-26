@@ -8,8 +8,8 @@ import '../../scripts/lib/real-data-harness.mjs' // registers the extensionless 
 
 const { isExcludedInventoryResourceEntry, resourceFamilyForParent } = await import('../../src/lib/inventoryParser.js')
 
-const dataDir = '/home/jedwards/.local/share/kiedas-orbiter-preview/data'
-const cacheDir = '/home/jedwards/.cache/kiedas-de-export'
+const dataDir = process.env.PREVIEW_DATA_DIR || '/home/jedwards/.local/share/kiedas-orbiter-preview/data'
+const cacheDir = process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export'
 
 test('merged DE resource catalog has named, imaged samples for every family', async () => {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'inventory-catalog-'))

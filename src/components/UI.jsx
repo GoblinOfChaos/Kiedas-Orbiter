@@ -358,25 +358,18 @@ export function Tabs({ tabs, activeTab, onChange, className = '', fullWidth = fa
 
 // Select Component
 export function Select({ options, value, onChange, label, className = '' }) {
+  const [open, setOpen] = useState(false);
+  const selected = options.find((option) => String(option.id) === String(value)) ?? options[0];
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
       {label && <span className="text-[10px] font-black text-kronos-accent uppercase tracking-widest px-1">{label}</span>}
       <div className="relative">
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-kronos-panel/30 border border-white/5 rounded-xl px-4 py-2 text-sm font-bold appearance-none focus:outline-none focus:glow-border transition-all cursor-pointer text-kronos-text">
-          
-          {options.map((opt) =>
-          <option key={opt.id} value={opt.id} className="bg-kronos-bg text-kronos-text">
-              {opt.label}
-            </option>
-          )}
-        </select>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-kronos-dim">
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <button type="button" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen((current) => !current)} className="w-full flex items-center justify-between bg-kronos-panel/30 border border-white/5 rounded-xl px-4 py-2 text-sm font-bold focus:outline-none focus:glow-border transition-all cursor-pointer text-kronos-text text-left">
+          <span className="truncate">{selected?.label ?? ''}</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" className="shrink-0 text-kronos-dim"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </button>
+        <div role="listbox" aria-label={label} className={`${open ? 'absolute z-50 mt-1 w-full max-h-64 overflow-y-auto rounded-xl border border-white/10 bg-kronos-bg text-kronos-text shadow-2xl' : 'hidden'}`}>
+          {options.map((opt) => <button key={opt.id} type="button" role="option" aria-selected={String(opt.id) === String(value)} onClick={() => { onChange(opt.id); setOpen(false); }} className="block w-full px-4 py-2 text-left text-sm font-bold text-kronos-text hover:bg-white/10 focus:bg-white/10 focus:outline-none">{opt.label}</button>)}
         </div>
       </div>
     </div>);

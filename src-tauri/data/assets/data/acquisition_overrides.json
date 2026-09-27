@@ -10480,7 +10480,9 @@
     "/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneInfested": "Available in the Market for 100 Platinum.",
     "/Lotus/Types/Items/ShipDecos/TennoVIP2025Deco": "Given to attendees of TennoVIP 2025 events; not obtainable through normal gameplay.",
     "/Lotus/Types/Items/ShipDecos/TennoVIP2026Deco": "Given to attendees of TennoVIP 2026 events; not obtainable through normal gameplay.",
-    "/Lotus/Types/Items/ShipDecos/Conquera2025Display": "Community reward unlocked by reaching a community-wide donation goal during the 2025 Conquera (Quest to Conquer Cancer) charity event."
+    "/Lotus/Types/Items/ShipDecos/Conquera2025Display": "Community reward unlocked by reaching a community-wide donation goal during the 2025 Conquera (Quest to Conquer Cancer) charity event.",
+    "/Lotus/Weapons/Tenno/Bows/DuelistBow/DuelistBow": "Blueprints are purchased from Cephalon Melica on Yuvan Peak (Earth) or in the Chrysalith (Zariman Ten Zero) for Entropic Kuva: 200 for the Nunchasa blueprint and 50 each for the Upper Limb, Lower Limb, Grip and String blueprints (400 total). Entropic Kuva drops from Entropic Eximus enemies in the Zariman. Added in Update 44.0.",
+    "Nunchasa|Blueprint": "Blueprints are purchased from Cephalon Melica on Yuvan Peak (Earth) or in the Chrysalith (Zariman Ten Zero) for Entropic Kuva: 200 for the Nunchasa blueprint and 50 each for the Upper Limb, Lower Limb, Grip and String blueprints (400 total). Entropic Kuva drops from Entropic Eximus enemies in the Zariman. Added in Update 44.0."
   },
   "mods": {
     "Acidic Spittle": "Acidic Spittle is automatically acquired upon obtaining a Vizier Predasite.",

@@ -28,7 +28,7 @@
     "@tauri-apps/plugin-http": "^2",
     "@tauri-apps/plugin-updater": "^2",
     "@uiw/react-md-editor": "^4.0.11",
-    "@wfcd/items": "^1.1275.90",
+    "@wfcd/items": "^1.1276.6",
     "comlink": "^4.4.2",
     "country-flag-icons": "^1.6.20",
     "lucide-react": "^0.344.0",

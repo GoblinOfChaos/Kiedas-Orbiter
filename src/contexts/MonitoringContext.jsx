@@ -1052,7 +1052,7 @@ const hasCachedData = useCallback(async () => {
       relicSoundPlayed.current = false // Reset for new session
       fissureStateRef.current.squad_relics = [] // Drop stale candidates from the previous round
       invoke('show_overlay_window', { label: 'overlay-relic' }).catch(() => { })
-      invoke('relay_event', { event: 'overlay-squad-size', payload: { squad_size } }).catch(() => { })
+      invoke('relay_event', { event: 'overlay-squad-size', payload: { squad_size, session_id: ocrSessionRef.current } }).catch(() => { })
     }))
 
     subs.push(listen('fissure-relic-phase', (e) => {
@@ -1079,7 +1079,7 @@ const hasCachedData = useCallback(async () => {
       const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData, localeRef.current)
       inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
       const reward = { uniqueName: local_reward, ...baseItem, icon: EI[local_reward], platPrice, inventory }
-      invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size } }).catch(() => { })
+      invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size, session_id: ocrSessionRef.current } }).catch(() => { })
     }))
 
     subs.push(listen('fissure-ocr-band', async (e) => {

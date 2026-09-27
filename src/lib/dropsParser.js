@@ -663,6 +663,9 @@ export function buildDropIndex(exportData) {
           relicName: relicCat ? `${relicEra} ${relicCat}` : null,
           rarity: entry.rarity || 'COMMON',
           relicManifest: relic.rewardManifest,
+          // Same gap as the ExportRegions/ExportRewards mission builder above:
+          // this DE-native path never attributed its data either.
+          source: 'DE export (ExportRelics/ExportRewards)',
         })
       }
     }

@@ -253,6 +253,14 @@ export function discoverSubjects(harness, previousIndex = []) {
   const subjects = new Map(canaries.map((entry) => [entry.uniqueName, entry]))
   for (const [category, rule] of Object.entries(CATEGORY_RULES)) {
     for (const [uniqueName, entry] of tableEntries(harness, rule.tables)) {
+      // ExportResources genuinely contains VoidProjection (relic) records -
+      // the real app's own resource catalog (isExcludedInventoryResourceEntry,
+      // inventoryParser.js) deliberately excludes them, since relics already
+      // have their own dedicated category/screen. Without this, every relic
+      // also became a 'resources' subject, resolving its name from a shared,
+      // unsubstituted "|ERA| |CATEGORY| Relic" template loctag - real data,
+      // wrong category, and never findable in the real resources catalog.
+      if (category === 'resources' && isExcludedInventoryResourceEntry(entry, uniqueName)) continue
       subjects.set(uniqueName, { uniqueName, name: itemName(harness, uniqueName, entry), category })
     }
   }

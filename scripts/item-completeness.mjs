@@ -400,7 +400,11 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
     // +X% rank text) instead, by design - real UI behavior, not a gap. Pass
     // them on that fallback instead of demanding a prose field DE never
     // provides for these two categories.
-    U6_description: !!(catalogItem?.description || entry?.description || category === 'recipes' ||
+    // Cosmetics.jsx never reads item.description anywhere (confirmed: zero
+    // references in that file) - its cards show name/image/acquisition only,
+    // so a missing description is never a real rendering gap for this
+    // category either.
+    U6_description: !!(catalogItem?.description || entry?.description || category === 'recipes' || category === 'cosmetics' ||
       (['mods', 'arcanes'].includes(category) && Array.isArray(catalogItem?.levelStats ?? entry?.levelStats) && (catalogItem?.levelStats ?? entry?.levelStats).length > 0)),
     recipe: !recipe || (components.length > 0 && components.every((component) => !!component.ItemType)),
   }

@@ -16,7 +16,7 @@ export default function RivenPromptOverlay() {
     const refreshHotkey = async () => {
       await loadSettings()
       const configured = getSetting('hotkeys', []).find((hk) => hk.action === 'grade_rivens')?.shortcut
-      setHotkey(configured || t('ui.riven_prompt.configure_hotkey'))
+      setHotkey(configured || t('riven_prompt.configure_hotkey'))
     }
     refreshHotkey()
     const offSettings = onSettingsChanged(refreshHotkey)
@@ -48,9 +48,9 @@ export default function RivenPromptOverlay() {
   return (
     <div className="w-full h-full flex items-center justify-center p-8 pointer-events-none">
       <div className="w-full max-w-[920px] rounded-2xl border-2 border-fuchsia-300/80 bg-zinc-950/95 px-10 py-8 text-center shadow-[0_0_45px_rgba(217,70,239,0.45)]">
-        <p className="text-[18px] font-black uppercase tracking-[0.35em] text-fuchsia-200">{t('ui.riven_prompt.title')}</p>
-        <p className="mt-4 text-[32px] font-black leading-tight text-white">{t('ui.riven_prompt.press')} <span className="inline-block rounded-lg border border-fuchsia-200 bg-fuchsia-300 px-4 py-1 font-mono text-zinc-950 shadow-[0_2px_0_rgba(255,255,255,0.35)]">[{hotkey}]</span> {t('ui.riven_prompt.action')}</p>
-        <p className="mt-4 text-[14px] font-semibold uppercase tracking-[0.18em] text-zinc-300">{t('ui.riven_prompt.hint')}</p>
+        <p className="text-[18px] font-black uppercase tracking-[0.35em] text-fuchsia-200">{t('riven_prompt.title')}</p>
+        <p className="mt-4 text-[32px] font-black leading-tight text-white">{t('riven_prompt.press')} <span className="inline-block rounded-lg border border-fuchsia-200 bg-fuchsia-300 px-4 py-1 font-mono text-zinc-950 shadow-[0_2px_0_rgba(255,255,255,0.35)]">[{hotkey}]</span> {t('riven_prompt.action')}</p>
+        <p className="mt-4 text-[14px] font-semibold uppercase tracking-[0.18em] text-zinc-300">{t('riven_prompt.hint')}</p>
       </div>
     </div>
   )

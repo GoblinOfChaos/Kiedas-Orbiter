@@ -614,7 +614,7 @@
     "ui.setup.game_assets": "게임 에셋",
     "ui.setup.welcome": "Kieda's Orbiter에 오신 것을 환영합니다",
     "wiki.refresh": "이 탭 새로고침",
-  "nav.market": "마켓",
+    "nav.market": "마켓",
     "settings.theme_accessibility_hint": "고대비 및 색각 지원 프로필이 맞춤 제공됩니다",
     "settings.active_label": "사용 중:",
     "settings.theme_info_label": "테마 정보:",
@@ -1532,16 +1532,16 @@
     "category.resources": "자원",
     "category.rivens": "리븐 모드",
     "category.song_items": "노래",
-    "acquisition_drawer.sources_count_one": "{count}개의 출처"
+    "acquisition_drawer.sources_count_one": "{count}개의 출처",
+    "riven_prompt.title": "RIVEN GRADING READY",
+    "riven_prompt.press": "Press",
+    "riven_prompt.action": "to grade your Rivens",
+    "riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "마켓",
   "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "ui.riven_prompt.title": "RIVEN GRADING READY",
-  "ui.riven_prompt.press": "Press",
-  "ui.riven_prompt.action": "to grade your Rivens",
-  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
-  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

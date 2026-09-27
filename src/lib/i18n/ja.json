@@ -614,7 +614,7 @@
     "ui.setup.game_assets": "ゲームアセット",
     "ui.setup.welcome": "Kieda's Orbiterへようこそ",
     "wiki.refresh": "このタブを更新",
-  "nav.market": "マーケット",
+    "nav.market": "マーケット",
     "settings.theme_accessibility_hint": "高コントラストや色覚サポート用に調整されたプロファイルを含みます",
     "settings.active_label": "使用中:",
     "settings.theme_info_label": "テーマ情報:",
@@ -1532,16 +1532,16 @@
     "category.resources": "リソース",
     "category.rivens": "リヴェンMOD",
     "category.song_items": "曲",
-    "acquisition_drawer.sources_count_one": "{count}件の入手先"
+    "acquisition_drawer.sources_count_one": "{count}件の入手先",
+    "riven_prompt.title": "RIVEN GRADING READY",
+    "riven_prompt.press": "Press",
+    "riven_prompt.action": "to grade your Rivens",
+    "riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "マーケット",
   "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "ui.riven_prompt.title": "RIVEN GRADING READY",
-  "ui.riven_prompt.press": "Press",
-  "ui.riven_prompt.action": "to grade your Rivens",
-  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
-  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

@@ -614,7 +614,7 @@
     "ui.setup.game_assets": "ของมีอยู่",
     "ui.setup.welcome": "ยินดีต้อนรับสู่ Kieda's Orbiter",
     "wiki.refresh": "รีเฟรชแท็บนี้",
-  "nav.market": "ตลาด",
+    "nav.market": "ตลาด",
     "settings.theme_accessibility_hint": "มีธีมที่ปรับแต่งสำหรับความคมชัดสูงและการมองเห็นสี",
     "settings.active_label": "ใช้งานอยู่:",
     "settings.theme_info_label": "ข้อมูลธีม:",
@@ -1532,16 +1532,16 @@
     "category.resources": "ทรัพยากร",
     "category.rivens": "ริเวนม็อด",
     "category.song_items": "เพลง",
-    "acquisition_drawer.sources_count_one": "{count} แหล่งที่มา"
+    "acquisition_drawer.sources_count_one": "{count} แหล่งที่มา",
+    "riven_prompt.title": "RIVEN GRADING READY",
+    "riven_prompt.press": "Press",
+    "riven_prompt.action": "to grade your Rivens",
+    "riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
+    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
   "nav.market": "ตลาด",
   "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "ui.riven_prompt.title": "RIVEN GRADING READY",
-  "ui.riven_prompt.press": "Press",
-  "ui.riven_prompt.action": "to grade your Rivens",
-  "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
-  "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
   "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
 }

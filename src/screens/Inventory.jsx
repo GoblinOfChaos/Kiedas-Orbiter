@@ -394,14 +394,15 @@ export default function Inventory() {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
         const isVaulted = !(set.parts ?? []).some((p) => unvaultedRewards.has(p.unique_name) || unvaultedRewards.has(p.name?.toLowerCase()));
-        return { ...set, image: set.image || parent.image, owned: parent.owned ?? false, mastered: parent.mastered ?? false, vaulted: isVaulted, _value };
-      }).filter((set) =>
-      // A fully-crafted set's blueprint/components are consumed (quantity 0
-      // on every part), so ownership must also be checked via the finished
-      // item itself - filtering on leftover part quantity alone drops every
-      // completed set from the tab despite genuine ownership.
-      set.owned || set.parts.some((p) => p.quantity > 0)
-      );
+        // Every DE Prime set is browsable, owned or not (same full-catalog
+        // rule as every other Inventory tab). Previously sets with no owned
+        // finished item and no leftover part quantity were filtered out, so an
+        // unowned Prime (e.g. Citrine Prime) showed in Warframes but none of
+        // its parts ever appeared. A fully-crafted set's parts are consumed
+        // (quantity 0), so ownership is the finished item OR any part held.
+        const ownedSet = (parent.owned ?? false) || (set.parts ?? []).some((p) => p.quantity > 0);
+        return { ...set, image: set.image || parent.image, owned: ownedSet, mastered: parent.mastered ?? false, vaulted: isVaulted, _value };
+      });
     }
     if (activeTab === 'vehicles') {
       const vehicles = inventoryData.vehicles ?? [];

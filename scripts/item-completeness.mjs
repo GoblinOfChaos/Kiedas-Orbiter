@@ -3,7 +3,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
 const { parseInventory, isExcludedInventoryResourceEntry, resourceFamilyForParent, PRIME_PART_PATH_RE } = await import('../src/lib/inventoryParser.js')
-const { getRelicCatalog } = await import('../src/lib/relicParser.js')
+const { getRelicCatalog, parseRelicName } = await import('../src/lib/relicParser.js')
 const { resolveAnyImage, resolveNode } = await import('../src/lib/warframeUtils.js')
 const { buildDropIndex } = await import('../src/lib/dropsParser.js')
 
@@ -346,8 +346,17 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   }
   const catalogItem = category === 'relics'
     ? (() => {
+      // ExportRelics entries carry no `.name` field (confirmed against real
+      // data: always undefined) - only era/category, plus a fallback via
+      // parseRelicName(uniqueName) for entries missing even those. Match
+      // getRelicCatalog()'s own key derivation exactly (`${era} ${category}`)
+      // instead of deriving a key from a field that's never populated, which
+      // silently failed to match any catalog entry for every relic.
       const relicEntry = tableEntryMap(harness, ['ExportRelics']).get(canonicalPath(subject.uniqueName))
-      const key = relicEntry?.name?.replace(/ Relic$/, '')
+      const parsed = parseRelicName(subject.uniqueName)
+      const era = relicEntry?.era || parsed.era
+      const relicCategory = relicEntry?.category || parsed.name
+      const key = era && relicCategory ? `${era} ${relicCategory}` : null
       return getRelicCatalog(harness.exportsBundle).find((item) => item.key === key)
     })()
     : findCatalogItem(inventory, subject.uniqueName)

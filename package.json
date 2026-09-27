@@ -18,7 +18,8 @@
     "preview:build": "node scripts/run-preview.mjs build",
     "check:completeness": "node scripts/check-completeness.mjs",
     "check:completeness:full": "node scripts/check-completeness.mjs --full",
-    "check:supplements": "node scripts/supplement-freshness.mjs"
+    "check:supplements": "node scripts/supplement-freshness.mjs",
+    "wiki:fetch": "node scripts/wiki-store/fetch.mjs"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.0.0",

@@ -239,14 +239,22 @@ async function buildAcquisition(harness, item, name, recipeResultIndex = null, d
       indexes.wikiAcquisitionStatusIndex, indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
     )
     const sources = result?.sources || []
-    // AcquisitionDrawer.jsx's own label-building (getSourceLabel, line ~90)
-    // falls back through nodeName/node/missionType for type:'mission' sources
-    // - they never carry text/location/relicName/rewardName at all, by design
-    // (dropsParser.js's addEntry never sets those fields for a mission drop).
-    // The audit's own field list didn't know this, so it flagged every
-    // mission-sourced item (most relics, most mission-drop resources) as
-    // "unlabelled" even though the real drawer renders them correctly.
-    const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName', 'nodeName', 'node', 'missionType'].some((key) => typeof source[key] === 'string' && source[key].trim()))
+    // AcquisitionDrawer.jsx's getSourceLabel() switches on source.type and
+    // reads a different field per case (syndicate -> place/syndicateName,
+    // mission -> nodeName/node/missionType, enemy -> enemyName/enemy, bounty
+    // -> bountyLevel, transient -> objectiveName, key -> keyName, avatar ->
+    // sourceName, relic -> relicName/relicManifest, blueprint -> location/
+    // blueprintName, drop -> location, and its own default branch falls back
+    // through name/sourceName/objectiveName/syndicateName/enemyName/text and
+    // finally source.type itself). The audit's original short field list only
+    // covered the generic text-ish cases, so it flagged every syndicate-,
+    // mission-, enemy-, bounty-, key-, and avatar-sourced item as
+    // "unlabelled" even though the real drawer always renders real text for
+    // them. This list is every field getSourceLabel actually reads.
+    const LABEL_FIELDS = ['text', 'location', 'blueprintName', 'dropType', 'relicName', 'relicManifest',
+      'nodeName', 'node', 'missionType', 'region', 'enemyName', 'enemy', 'bountyLevel', 'objectiveName',
+      'keyName', 'place', 'syndicateName', 'sourceName', 'name', 'type']
+    const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && LABEL_FIELDS.some((key) => typeof source[key] === 'string' && source[key].trim()))
     const chances = sources.map((source) => Number(source.chance)).filter(Number.isFinite)
     const sorted = chances.every((chance, index) => index === 0 || chances[index - 1] >= chance)
     const valid = labelled && sorted

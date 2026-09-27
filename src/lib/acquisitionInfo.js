@@ -981,6 +981,23 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       }
     }
   }
+  // dropSources is built by concatenating dropIndex[key] for several key
+  // aliases in whatever order those keys happen to be checked - never sorted
+  // by chance. Both drawers (AcquisitionDrawer.jsx, PreviewAcquisitionDrawer.jsx)
+  // show sources[0] as the prominent "featured" best pick, so an unsorted list
+  // can highlight a worse drop location than one further down the same list.
+  // Stable sort descending by chance; entries with no finite chance (e.g. a
+  // vendor/Baro/non-drop source mixed in) keep their relative position at the
+  // back instead of being treated as chance 0 and outranking a real low-chance
+  // drop.
+  dropSources.sort((a, b) => {
+    const chanceA = Number(a?.chance);
+    const chanceB = Number(b?.chance);
+    if (!Number.isFinite(chanceA) && !Number.isFinite(chanceB)) return 0;
+    if (!Number.isFinite(chanceA)) return 1;
+    if (!Number.isFinite(chanceB)) return -1;
+    return chanceB - chanceA;
+  });
   if (dropSources && dropSources.length > 0) {
     const usedBaseRelicFallback = baseRelicDisplay && !dropIndex?.['display:' + displayLower]?.length;
     const sources = usedBaseRelicFallback

@@ -117,6 +117,10 @@ export default function RelicRewardOverlay() {
     }));
 
     subs.push(listen('overlay-update-reward', (e) => {
+      if (e.payload.session_id !== sessionIdRef.current) {
+        console.log(`[RelicOverlay] Discarding stale overlay-update-reward event (session=${e.payload.session_id}, current=${sessionIdRef.current})`);
+        return;
+      }
       console.log(`[RelicRewardOverlay] EVENT: overlay-update-reward (reward=${e.payload.local_reward?.name})`);
       setLocalReward(e.payload.local_reward);
       setSquadSize(e.payload.squad_size);
@@ -137,6 +141,10 @@ export default function RelicRewardOverlay() {
     }));
 
     subs.push(listen('overlay-squad-size', (e) => {
+      if (e.payload.session_id !== sessionIdRef.current) {
+        console.log(`[RelicOverlay] Discarding stale overlay-squad-size event (session=${e.payload.session_id}, current=${sessionIdRef.current})`);
+        return;
+      }
       console.log(`[RelicRewardOverlay] EVENT: overlay-squad-size (size=${e.payload.squad_size})`);
       setSquadSize(e.payload.squad_size);
       setData((prev) => prev || []); // Ensure data is not null so it renders skeleton

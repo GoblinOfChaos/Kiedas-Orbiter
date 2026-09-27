@@ -29,9 +29,9 @@ test('real merged exports contain Narin parts and do not duplicate Volt Prime pa
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'partsinv-real-'))
   try {
     const merged = await applyMerges({
-      dataDir: '/home/jedwards/.local/share/kiedas-orbiter-preview/data',
+      dataDir: process.env.PREVIEW_DATA_DIR || '/home/jedwards/.local/share/kiedas-orbiter-preview/data',
       out: root,
-      cacheDir: '/home/jedwards/.cache/kiedas-de-export',
+      cacheDir: process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export',
     })
     const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root })
     const { parseInventory } = await import('../../src/lib/inventoryParser.js')

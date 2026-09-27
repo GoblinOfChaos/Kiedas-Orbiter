@@ -136,6 +136,45 @@ function tableEntries(harness, tableNames) {
   return result.filter(([uniqueName]) => uniqueName)
 }
 
+// checkMatrixItem calls `tableEntries(harness, rule.tables).find(...)` once
+// per subject to look up a single entry by uniqueName - same "rebuild then
+// linear-scan every call" cost as buildRecipeIndex above, and worse for
+// categories with large tables (cosmetics: ExportCustoms + ExportFlavour,
+// ~7,500 entries scanned per cosmetic checked). Memoized Map lookup instead,
+// keyed per harness per distinct table-list.
+const tableEntryMapCache = new WeakMap()
+function tableEntryMap(harness, tableNames) {
+  let byTables = tableEntryMapCache.get(harness)
+  if (!byTables) { byTables = new Map(); tableEntryMapCache.set(harness, byTables) }
+  const key = tableNames.join(',')
+  let map = byTables.get(key)
+  if (map) return map
+  map = new Map()
+  for (const [uniqueName, entry] of tableEntries(harness, tableNames)) {
+    const canonical = canonicalPath(uniqueName)
+    if (!map.has(canonical)) map.set(canonical, entry)
+  }
+  byTables.set(key, map)
+  return map
+}
+
+// Same fix for the per-item `Object.values(ExportRecipes).find(recipe =>
+// recipe.resultType === subject.uniqueName)` scan - a full linear pass over
+// every recipe, once per subject, instead of one Map built once.
+const recipeByResultTypeCache = new WeakMap()
+function recipeByResultType(harness) {
+  const cached = recipeByResultTypeCache.get(harness)
+  if (cached) return cached
+  const map = new Map()
+  for (const recipe of Object.values(harness.exportsBundle.ExportRecipes || {})) {
+    if (!recipe?.resultType) continue
+    const canonical = canonicalPath(recipe.resultType)
+    if (!map.has(canonical)) map.set(canonical, recipe)
+  }
+  recipeByResultTypeCache.set(harness, map)
+  return map
+}
+
 function categoryFor(harness, uniqueName) {
   for (const [category, rule] of Object.entries(CATEGORY_RULES)) {
     if (tableEntries(harness, rule.tables).some(([candidate]) => canonicalPath(candidate) === canonicalPath(uniqueName))) return category
@@ -294,15 +333,15 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   }
   const catalogItem = category === 'relics'
     ? (() => {
-      const relicEntry = tableEntries(harness, ['ExportRelics']).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
+      const relicEntry = tableEntryMap(harness, ['ExportRelics']).get(canonicalPath(subject.uniqueName))
       const key = relicEntry?.name?.replace(/ Relic$/, '')
       return getRelicCatalog(harness.exportsBundle).find((item) => item.key === key)
     })()
     : findCatalogItem(inventory, subject.uniqueName)
-  const entry = tableEntries(harness, rule.tables).find(([uniqueName]) => canonicalPath(uniqueName) === canonicalPath(subject.uniqueName))?.[1]
+  const entry = tableEntryMap(harness, rule.tables).get(canonicalPath(subject.uniqueName))
   const name = cleanName(catalogItem?.name || itemName(harness, subject.uniqueName, entry) || subject.name)
   const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))
-  const recipe = Object.values(harness.exportsBundle.ExportRecipes || {}).find((candidate) => canonicalPath(candidate?.resultType) === canonicalPath(subject.uniqueName))
+  const recipe = recipeByResultType(harness).get(canonicalPath(subject.uniqueName))
   const components = recipe?.ingredients || []
   const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness))
   const checks = {
@@ -332,8 +371,18 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   return { name, uniqueName: subject.uniqueName, category, screens, checks, acquisition, ownedState, cannot, blockingCannot: acquisition.cannot, status: acquisition.cannot ? 'CANNOT' : pass ? 'PASS' : 'FAIL', pass: !!pass && !acquisition.cannot }
 }
 
+// Memoized on the harness: checkMatrixItem calls this once per subject
+// (thousands of times per run), and it was rebuilding a full Map over every
+// ExportRecipes entry from scratch each time - a 7,524-item cosmetics-only
+// audit ran 53+ minutes with zero progress before this was found. Same
+// performance-bug class already fixed once this session in
+// screenModel.js's regionForSource (recompute-per-item instead of caching
+// once).
+const recipeIndexCache = new WeakMap()
 function buildRecipeIndex(harness) {
-  return Object.values(harness.exportsBundle.ExportRecipes || {}).reduce((index, recipe) => {
+  const cached = recipeIndexCache.get(harness)
+  if (cached) return cached
+  const index = Object.values(harness.exportsBundle.ExportRecipes || {}).reduce((index, recipe) => {
     if (!recipe?.resultType) return index
     const ingredients = (recipe.ingredients || []).map((ingredient) => ({
       itemType: canonicalPath(ingredient.ItemType || ingredient.itemType),
@@ -346,6 +395,8 @@ function buildRecipeIndex(harness) {
     })
     return index
   }, new Map())
+  recipeIndexCache.set(harness, index)
+  return index
 }
 
 export async function checkCraftableRecipes({ harness, parsed = null }) {

@@ -1316,7 +1316,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       // literal asterisks/tildes, and frame it honestly as a personal perk.
       const cleaned = glyph.markdown
         .replace(/~~/g, '')
-        .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+        .replace(/\[([^\]]+)\]\([^)]*\)(\{:[^}]*\})?/g, '$1')
         .split('\n')
         .map((line) => line.replace(/^\s*[*-]\s*/, '').trim())
         .filter(Boolean)

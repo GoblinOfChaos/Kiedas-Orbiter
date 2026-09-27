@@ -6,7 +6,9 @@ import { fileURLToPath } from 'node:url';
 import { buildDropIndex } from '../src/lib/dropsParser.js';
 import { buildFarmingTargetsScreenModel } from '../src/lib/farmingTargets/screenModel.js';
 
-const defaultExport = '/home/jedwards/.local/share/kiedas-orbiter-preview/data/export';
+const defaultExport = process.env.PREVIEW_DATA_DIR
+  ? path.join(process.env.PREVIEW_DATA_DIR, 'export')
+  : '/home/jedwards/.local/share/kiedas-orbiter-preview/data/export';
 
 function normalizeRecipes(value) {
   return Object.entries(value ?? {}).map(([itemType, recipe]) => ({

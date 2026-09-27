@@ -492,7 +492,7 @@ export default function Relics() {
                           {/* Left: Metadata Stack*/}
                           <div className="w-24 flex-shrink-0 flex flex-col items-center text-center mr-4 py-1">
                             <h4 className="font-black text-[11px] uppercase tracking-tight text-kronos-accent mb-1 truncate w-full px-1">
-                              {item.name.replace(' Relic', '')}
+                              {(item.name || '').replace(' Relic', '')}
                             </h4>
                             {item.vaulted === true &&
                               <span className="text-[8px] font-black uppercase text-red-400 tracking-wider">{t('relics.vaulted')}</span>
@@ -521,7 +521,7 @@ export default function Relics() {
                           <div className="flex-1 flex flex-col min-w-0 pr-1 pl-1">
                             <div className="flex-1 flex flex-col justify-center gap-0.5">
                               {sortedRewards.map((reward, ridx) => {
-                            const rewardLower = reward.name.toLowerCase();
+                            const rewardLower = (reward.name || '').toLowerCase();
                             const cleanReward = rewardLower.replace(/[&]/g, '');
                             const searchWords = searchQuery.toLowerCase().split(/\s+/).filter((w) => w.length > 0);
                             const isMatch = searchWords.length > 0 && searchWords.every((word) => rewardLower.includes(word) || cleanReward.includes(word));

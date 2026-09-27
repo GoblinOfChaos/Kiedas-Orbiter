@@ -363,12 +363,13 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
     U3_image: image,
     U4_uniqueName: !!subject.uniqueName,
     U5_acquisition: acquisition.pass,
-    // Mods legitimately ship no `description` in DE's export (ModCard.jsx
-    // falls back to rendering levelStats instead, by design - real UI
-    // behavior, not a gap); pass mods on that fallback instead of demanding
-    // a prose field DE never provides for this category.
+    // Mods and Arcanes legitimately ship no `description` in DE's export -
+    // both render through ModCard.jsx, which falls back to levelStats (the
+    // +X% rank text) instead, by design - real UI behavior, not a gap. Pass
+    // them on that fallback instead of demanding a prose field DE never
+    // provides for these two categories.
     U6_description: !!(catalogItem?.description || entry?.description || category === 'recipes' ||
-      (category === 'mods' && Array.isArray(catalogItem?.levelStats ?? entry?.levelStats) && (catalogItem?.levelStats ?? entry?.levelStats).length > 0)),
+      (['mods', 'arcanes'].includes(category) && Array.isArray(catalogItem?.levelStats ?? entry?.levelStats) && (catalogItem?.levelStats ?? entry?.levelStats).length > 0)),
     recipe: !recipe || (components.length > 0 && components.every((component) => !!component.ItemType)),
   }
   const cannot = [

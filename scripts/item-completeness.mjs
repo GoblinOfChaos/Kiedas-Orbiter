@@ -239,7 +239,14 @@ async function buildAcquisition(harness, item, name, recipeResultIndex = null, d
       indexes.wikiAcquisitionStatusIndex, indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
     )
     const sources = result?.sources || []
-    const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName'].some((key) => typeof source[key] === 'string' && source[key].trim()))
+    // AcquisitionDrawer.jsx's own label-building (getSourceLabel, line ~90)
+    // falls back through nodeName/node/missionType for type:'mission' sources
+    // - they never carry text/location/relicName/rewardName at all, by design
+    // (dropsParser.js's addEntry never sets those fields for a mission drop).
+    // The audit's own field list didn't know this, so it flagged every
+    // mission-sourced item (most relics, most mission-drop resources) as
+    // "unlabelled" even though the real drawer renders them correctly.
+    const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName', 'nodeName', 'node', 'missionType'].some((key) => typeof source[key] === 'string' && source[key].trim()))
     const chances = sources.map((source) => Number(source.chance)).filter(Number.isFinite)
     const sorted = chances.every((chance, index) => index === 0 || chances[index - 1] >= chance)
     const valid = labelled && sorted

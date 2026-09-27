@@ -632,6 +632,10 @@ export function buildDropIndex(exportData) {
               rotation: tierIdx > 0 ? rotation : null,
               chance: entry.probability ?? null,
               itemCount: entry.itemCount ?? 1,
+              // Unlike the DropsAll.wf-derived mission sources above, which
+              // always set source: provenance, this DE ExportRegions/
+              // ExportRewards-derived path never attributed its data at all.
+              source: 'DE export (ExportRegions/ExportRewards)',
             })
           }
         }

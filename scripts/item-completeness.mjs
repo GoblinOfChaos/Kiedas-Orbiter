@@ -546,12 +546,12 @@ async function loadDeRecipes(cacheDir) {
   return Array.isArray(raw) ? raw : raw.ExportRecipes || raw
 }
 
-export async function run({ dataDir, repo = REPO, harness, previousIndex = [], includeDiscovered = true, deCacheDir = null, deDiscovery = null } = {}) {
+export async function run({ dataDir, repo = REPO, harness, previousIndex = [], includeDiscovered = true, deCacheDir = null, deDiscovery = null, syntheticOwned = true } = {}) {
   const loaded = harness || await loadRealHarness({ dataDir, repo })
   const discovered = deDiscovery || (includeDiscovered && deCacheDir ? discoverNewDeSubjects({ dataDir, cacheDir: deCacheDir }) : [])
   const subjects = includeDiscovered ? [...canaries, ...discovered] : canaries
   const parsed = parseInventory({}, loaded.exportsBundle, loaded.dict, 'en', null)
-  const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
+  const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed, syntheticOwned })))
   results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
   results.partsCompleteness = await checkPartsCompleteness({ harness: loaded, parsed })
   results.inventoryCatalog = checkInventoryCatalog({ harness: loaded, parsed })

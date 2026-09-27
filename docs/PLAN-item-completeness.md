@@ -54,7 +54,8 @@ P1 Startup ordering (check_exports finished before load_all_exports reads; combi
 ## Order of work (Codex implements in worktrees, Antigravity reviews read-only, coordinator re-runs the matrix on real data)
 
 1. Re-scope/stop `agent/citrine`; fix loader parity (step 1) and generalise the harness with Warframe + Weapon + Recipe rows first (rules verified against the code, including the Prime Parts owned-only rule).
-2. Supplement-freshness report; run it now to give the user the true list of everything currently missing.
+2. DONE — Supplement-freshness report: `scripts/supplement-freshness.mjs` exists and its report (`docs/agent-reports/supplement-freshness.md`) already found real unfixed bugs (Diwata/Diwata Prime mastery-bucket gap, 4 missing augment acquisitions, 1 missing cosmetic). It also has an `--all` full-catalog mode, not just DE-diff mode.
+   Also done: the item-completeness matrix's own diff-mode discovery (`discoverNewDeSubjects`) is now paired with a full-mode discovery (`discoverSubjects`) wired into `scripts/check-completeness.mjs` via `npm run check:completeness:full` (or `KIEDAS_COMPLETENESS_FULL=1`). Full mode runs the same U1-U7 matrix (presence, name, image, recipe, acquisition, description) against every item in every `CATEGORY_RULES` category — not just DE-only diffs — and writes its own report at `docs/agent-reports/matrix-full.md`, separate from the fast diff-mode gate's `docs/agent-reports/matrix.md`. `discoverSubjects` was already proven correct via `scripts/audit-acquisition-quality.mjs` before this wiring.
 3. Add rows for mods, arcanes, relics, cosmetics, companions, gear, resources.
 4. Wire into data-watch and CI; per-screen log lines; DOM markers.
 5. Continue DE adoption slices behind the matrix.

@@ -17,6 +17,7 @@
     "preview:dev": "node scripts/run-preview.mjs dev",
     "preview:build": "node scripts/run-preview.mjs build",
     "check:completeness": "node scripts/check-completeness.mjs",
+    "check:completeness:full": "node scripts/check-completeness.mjs --full",
     "check:supplements": "node scripts/supplement-freshness.mjs"
   },
   "dependencies": {

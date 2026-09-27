@@ -643,6 +643,19 @@ function resolveImage(un, ...tables) {
       }
     }
   }
+
+  // Last resort, for items whose export records carry no `icon` at all (e.g.
+  // Nunchasa/DuelistBow: neither DE's nor the mirror's record has one): DE's
+  // own image manifest is keyed by icon path, and its StoreIcons entries are
+  // named after the item's uniqueName leaf. Exact filename match only, and only
+  // inside StoreIcons, so this can turn a missing image into DE's real one but
+  // never override an image found above.
+  if (un && activeLeafImageMap) {
+    const match = activeLeafImageMap.get(`${un.split('/').pop()}.png`);
+    if (match?.hash && match.path.includes('/StoreIcons/')) {
+      return `asset-cache://content.warframe.com/PublicExport${match.path}!${match.hash}`;
+    }
+  }
   return null;
 }
 
@@ -3382,9 +3395,26 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
+  const catalogItems = [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts];
+
+  // Backfill images DE does ship but our export records don't point at: DE's
+  // StoreIcons files for weapons/archwings are named after the item's English
+  // display name without spaces (SteflosPrime.png, Amesha.png), which differs
+  // from the uniqueName leaf that resolveImage already tries. Exact filename
+  // match inside StoreIcons only; never touches an item that already has one.
+  if (activeLeafImageMap) {
+    for (const item of catalogItems) {
+      if (item.image || !item.name) continue;
+      const match = activeLeafImageMap.get(`${String(item.name).replace(/[^A-Za-z0-9]/g, '')}.png`);
+      if (match?.hash && match.path.includes('/StoreIcons/')) {
+        item.image = `asset-cache://content.warframe.com/PublicExport${match.path}!${match.hash}`;
+      }
+    }
+  }
+
   const all = [];
   const allSeen = new Set();
-  for (const item of [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts]) {
+  for (const item of catalogItems) {
     const key = canonicalInventoryUniqueName(item.unique_name || '');
     if (!key || allSeen.has(key)) continue;
     allSeen.add(key);

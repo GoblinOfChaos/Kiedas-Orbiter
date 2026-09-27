@@ -210,6 +210,19 @@ async function acquisitionIndexesFor(harness) {
   return harness.__acquisitionIndexes
 }
 
+// MonitoringContext builds this index from the complete exportData bundle in
+// a worker before acquisition drawers open. The headless bundle contains the
+// same inputs, so build it once here instead of passing null for every item.
+const dropIndexCache = new WeakMap()
+function dropIndexFor(harness) {
+  let index = dropIndexCache.get(harness)
+  if (!index) {
+    index = buildDropIndex(harness.exportsBundle)
+    dropIndexCache.set(harness, index)
+  }
+  return index
+}
+
 async function buildAcquisition(harness, item, name, recipeResultIndex = null, dropIndex = null) {
   try {
     const { getAcquisitionInfo } = await import('../src/lib/acquisitionInfo.js')
@@ -219,7 +232,7 @@ async function buildAcquisition(harness, item, name, recipeResultIndex = null, d
     }
     const indexes = await acquisitionIndexesFor(harness)
     const result = getAcquisitionInfo(
-      item?.unique_name || item?.uniqueName, name, dropIndex, harness.exportsBundle.AcquisitionItems || {}, recipeResultIndex,
+      item?.unique_name || item?.uniqueName, name, dropIndex || dropIndexFor(harness), harness.exportsBundle.AcquisitionOverrides || {}, recipeResultIndex,
       indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex, indexes.wikiSigilIndex, indexes.wikiVendorIndex,
       indexes.wikiTennoGenIndex, indexes.wikiBaroIndex, indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
       indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex, indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex,
@@ -343,7 +356,7 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))
   const recipe = recipeByResultType(harness).get(canonicalPath(subject.uniqueName))
   const components = recipe?.ingredients || []
-  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness))
+  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness), dropIndexFor(harness))
   const checks = {
     U1_catalog: !!catalogItem || category === 'recipes' || (category === 'cosmetics' && !!entry && !!(entry.name || entry.displayName) && !!(entry.icon || entry.texture)),
     U2_name: !!name && !name.startsWith('/') && !/^MT_/i.test(name),

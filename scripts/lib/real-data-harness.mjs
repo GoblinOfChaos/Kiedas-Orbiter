@@ -37,6 +37,7 @@ export const HARNESS_SUPPLEMENT_FILES = [
   ['ExportAvionics_fixed.json', 'ExportAvionicsFixed'], ['mod-icon-map.json', 'ModIconMap'],
   ['card-overlay-map.json', 'CardOverlayMap'], ['peely-pix-map.json', 'PeelyPixMap'],
   ['peely-pix-names.json', 'PeelyPixNames'], ['warframe-items-acquisition.json', 'AcquisitionItems'],
+  ['acquisition_overrides.json', 'AcquisitionOverrides'],
   ['browse-wf-glyphs.json', 'BrowseWfGlyphs'],
   ['wiki-sigils-acquisition.json', 'WikiSigilAcquisition'],
   ['wiki-vendors-acquisition.json', 'WikiVendorAcquisition'],

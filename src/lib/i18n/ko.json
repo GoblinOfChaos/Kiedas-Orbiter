@@ -1540,11 +1540,10 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "파밍 목표 {count}개 진행 중",
     "preview.dashboard.targets_active_detail": "목표와 아직 필요한 부품의 전체 목록을 확인하세요.",
-    "preview.dashboard.view_targets": "모든 목표 보기"
+    "preview.dashboard.view_targets": "모든 목표 보기",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
-  "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "마켓",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  "checklist.eleanor_batch_b": "Batch B"
 }

@@ -1540,12 +1540,12 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "{count} alvo(s) de farming em andamento",
     "preview.dashboard.targets_active_detail": "Reveja os seus alvos e a lista combinada de componentes ainda necessários.",
-    "preview.dashboard.view_targets": "Ver todos os alvos"
+    "preview.dashboard.view_targets": "Ver todos os alvos",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "Mercado",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
   "acquisitionTemplates": {
     "tpl_0000": "Special Warframe Creator Glyphs são criados regularmente para vários Content Creators na comunidade de Warframe. Embora alguns sejam distribuídos apenas pelos próprios criadores pessoalmente, muitos são disponibilizados por meio de Promo Codes universais que podem ser resgatados livremente por qualquer jogador. Os Creator Glyphs conhecidos estão listados abaixo - clique no link abaixo de um glifo para resgatá-lo! Nota: Esta lista está definitivamente incompleta e pode conter imprecisões. Creator Glyphs são adicionados, atualizados, substituídos e desativados regularmente, e alguns códigos de Glyph existentes nem sequer são conhecidos pela comunidade em geral. Por favor, atualize a lista se notar algo de errado.",
     "tpl_0001": "Comprado no Market por <*> Platinum.",
@@ -3971,6 +3971,5 @@
     "tpl_2721": "- Overpressured Rounds pode ser obtido ao alcançar Ranque <*> com Nightwave durante Amir's Shockwave.",
     "tpl_2722": "- Este mod pode ser obtido alcançando o ranque de Maxim na Arbiters de Hexis, ou o ranque de Partner na The Perrin Sequence, e gastando <*> para comprar. - Este mod pode ser obtido periodicamente no O Circuito.",
     "tpl_2723": "- Este mod pode ser obtido alcançando o ranque de Maxim na Arbiters de Hexis, ou o ranque de Exalted na Red Veil, e gastando <*> para comprar."
-  },
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  }
 }

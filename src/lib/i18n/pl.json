@@ -1540,11 +1540,10 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "{count} cel(e) farmienia w toku",
     "preview.dashboard.targets_active_detail": "Przejrzyj swoje cele oraz połączoną listę wciąż potrzebnych komponentów.",
-    "preview.dashboard.view_targets": "Zobacz wszystkie cele"
+    "preview.dashboard.view_targets": "Zobacz wszystkie cele",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
-  "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "Rynek",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  "checklist.eleanor_batch_b": "Batch B"
 }

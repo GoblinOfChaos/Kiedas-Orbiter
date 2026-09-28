@@ -1638,9 +1638,8 @@
     "riven_prompt.press": "Press",
     "riven_prompt.action": "to grade your Rivens",
     "riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
-    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
-  },
-  "nav.market": "Market",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  }
 }

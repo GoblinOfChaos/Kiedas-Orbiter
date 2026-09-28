@@ -1540,12 +1540,12 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "{count} цель(и) фарма в процессе",
     "preview.dashboard.targets_active_detail": "Просмотрите свои цели и общий список ещё нужных компонентов.",
-    "preview.dashboard.view_targets": "Посмотреть все цели"
+    "preview.dashboard.view_targets": "Посмотреть все цели",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "Рынок",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
   "acquisitionTemplates": {
     "tpl_0000": "Специальные Warframe Creator Glyphs регулярно создаются для различных Content Creators в сообществе Warframe. Хотя некоторые из них раздаются создателями только лично, многие активируются с помощью универсальных Promo Codes, которые может свободно активировать любой игрок. Известные Creator Glyphs перечислены ниже — перейдите по ссылке под глифом, чтобы активировать его! Примечание: этот список заведомо не полон и может содержать неточности. Creator Glyphs регулярно добавляются, обновляются, заменяются и отключаются, а некоторые существующие коды Glyph даже не известны широкому сообществу. Пожалуйста, обновите список, если заметите неточность.",
     "tpl_0001": "Приобретается в Market за <*> Platinum.",
@@ -3971,6 +3971,5 @@
     "tpl_2721": "- Overpressured Rounds может быть получена при достижении ранга <*> в Nightwave во время Amir's Shockwave.",
     "tpl_2722": "- Эту модификацию можно получить, достигнув ранга Maxim у Arbiters of Hexis или ранг Partner у The Perrin Sequence, и потратив <*> на покупку. - Эту модификацию можно периодически получать в The Circuit.",
     "tpl_2723": "- Эту модификацию можно получить, достигнув ранга Maxim under the Arbiters of Hexis, или the rank of Exalted under the Red Veil, и потратив <*> на покупку."
-  },
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  }
 }

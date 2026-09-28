@@ -1540,12 +1540,12 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "{count} 个farm目标进行中",
     "preview.dashboard.targets_active_detail": "查看你的目标，以及仍需要的组件汇总列表。",
-    "preview.dashboard.view_targets": "查看所有目标"
+    "preview.dashboard.view_targets": "查看所有目标",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "市场",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
   "acquisitionTemplates": {
     "tpl_0000": "特殊的 Warframe Creator Glyphs 会定期为 Warframe 社区中的各类 Content Creators 制作。虽然有些仅由创作者本人发放，但许多都配备了通用 Promo Codes，任何玩家均可免费兑换。已知的 Creator Glyphs 列于下方 - 点击 glyph 下方的链接即可兑换！注意：此列表绝非完整，可能包含不准确之处。Creator Glyphs 会定期添加、更新、替换和停用，一些现存的 Glyph 代码甚至未被整个社区所知。如果您发现有任何问题，请协助更新列表。",
     "tpl_0001": "可在 Market 花费 <*> Platinum 购买。",
@@ -3971,6 +3971,5 @@
     "tpl_2721": "- Overpressured Rounds：可在 Nightwave 的 Amir's Shockwave. 期间达到等级 <*> 获得。",
     "tpl_2722": "- 此 Mod 可通过达到 Maxim under the Arbiters of Hexis, 或 the rank of Partner under the The Perrin Sequence, 和 spending <*> to purchase. - This mod 可定期从 The Circuit 中获得。",
     "tpl_2723": "- 此 Mod 可通过在 Red Veil 达到 Maxim under the Arbiters of Hexis, 或 the rank of Exalted 等级并花费 <*> 购买。"
-  },
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  }
 }

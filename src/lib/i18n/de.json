@@ -1540,12 +1540,12 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "{count} Farmziel(e) in Bearbeitung",
     "preview.dashboard.targets_active_detail": "Sieh dir deine Ziele und die kombinierte Liste der noch benötigten Komponenten an.",
-    "preview.dashboard.view_targets": "Alle Ziele anzeigen"
+    "preview.dashboard.view_targets": "Alle Ziele anzeigen",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "Markt",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
   "acquisitionTemplates": {
     "tpl_0000": "Spezielle Warframe-Creator-Glyphen werden regelmäßig für verschiedene Content Creator in der Warframe-Community erstellt. Während einige nur von den Creatorn persönlich vergeben werden, werden viele mit universellen Promo-Codes implementiert, die von jedem Spieler kostenlos eingelöst werden können. Bekannte Creator-Glyphen sind unten aufgeführt – klicke auf den Link unter einer Glyphe, um sie einzulösen! Hinweis: Diese Liste ist definitiv unvollständig und kann Ungenauigkeiten enthalten. Creator-Glyphen werden regelmäßig hinzugefügt, aktualisiert, ersetzt und deaktiviert, und einige bestehende Glyphen-Codes sind der breiten Community nicht einmal bekannt. Bitte aktualisiere die Liste, wenn dir auffällt, dass etwas nicht stimmt.",
     "tpl_0001": "Gekauft im Market für <*> Platinum.",
@@ -3971,6 +3971,5 @@
     "tpl_2721": "- Overpressured Rounds kann durch das Erreichen von Rang <*> bei Nightwave während Amir's Shockwave erhalten werden.",
     "tpl_2722": "- Dieser Mod kann erhalten werden, indem bei den Arbiters of Hexis der Rang Maxim oder bei The Perrin Sequence der Rang Partner erreicht und <*> für den Kauf ausgegeben wird. - Dieser Mod kann regelmäßig aus The Circuit erhalten werden.",
     "tpl_2723": "- Dieser Mod kann erhalten werden, indem bei den Arbiters of Hexis der Rang Maxim oder beim Red Veil der Rang Exalted erreicht und <*> für den Kauf ausgegeben wird."
-  },
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  }
 }

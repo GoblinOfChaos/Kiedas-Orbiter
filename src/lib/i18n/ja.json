@@ -1540,11 +1540,10 @@
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "preview.dashboard.targets_active": "周回目標が{count}件進行中です",
     "preview.dashboard.targets_active_detail": "目標と、まだ必要なコンポーネントの一覧を確認してください。",
-    "preview.dashboard.view_targets": "すべての目標を表示"
+    "preview.dashboard.view_targets": "すべての目標を表示",
+    "settings.hotkey_action_grade_rivens": "Grade Rivens",
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
   },
   "checklist.eleanor_batch_a": "Batch A",
-  "checklist.eleanor_batch_b": "Batch B",
-  "nav.market": "マーケット",
-  "settings.hotkey_action_grade_rivens": "Grade Rivens",
-  "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+  "checklist.eleanor_batch_b": "Batch B"
 }

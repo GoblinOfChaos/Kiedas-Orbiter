@@ -2683,9 +2683,19 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         setPath: recipe.resultType,
         mastered: isBaseMastered
       };
-      // Also add individual parts to prime_parts array with parent mastery status
+      // Also add individual parts to prime_parts array with parent mastery status.
+      // Was gated behind `if (p.owned)` - an unowned Prime component never
+      // got added to this array at all, meaning it was completely absent
+      // from the general "ALL" inventory search/list, not just shown as
+      // unowned. For a frame with zero owned parts (e.g. Citrine Prime with
+      // relics but no built components), that meant NONE of its parts were
+      // searchable or listed anywhere outside the Prime Sets tab - matching
+      // exactly what was reported live ("the items were never there").
+      // Existence and ownership are two different facts; every part should
+      // always exist here, with p.owned (already correctly set on each
+      // entry) reflecting the real ownership state per item.
       setParts.forEach(p => {
-        if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
+        prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
       });
     }
   }

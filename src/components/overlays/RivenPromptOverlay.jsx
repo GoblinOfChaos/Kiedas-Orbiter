@@ -22,9 +22,11 @@ export default function RivenPromptOverlay() {
     const offSettings = onSettingsChanged(refreshHotkey)
     const events = [
       listen('riven-screen-open', () => setVisible(true)),
-      listen('riven-grade-activate', () => {
-        setVisible(false)
-      }),
+      // Previously hid on riven-grade-activate (the moment the hotkey was
+      // pressed). Confirmed live 2026-09-27: you want the reminder banner
+      // to stay up for the whole riven-screen session, not disappear the
+      // instant it's armed - only riven-screen-closed (leaving the screen)
+      // should hide it now.
       listen('riven-screen-closed', () => setVisible(false)),
     ]
     return () => {

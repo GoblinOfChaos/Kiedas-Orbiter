@@ -344,13 +344,13 @@ export default function RivenOverlay() {
             // doOcr('Middle') unconditionally, so both scanned the exact
             // same screen region and always showed the identical single
             // card - confirmed live 2026-09-27 ("grading with two cards
-            // shows only one"). Capturing 'Right' instead so this window
-            // reads its own card's screen position, reusing the
-            // calibration already verified for the manual ocr_riven_right
-            // hotkey. Best-evidence guess on which side the game puts the
-            // new roll (vs 'Left') - needs a live check; a one-word flip
-            // if backwards.
-            doOcr('Right');
+            // shows only one"). First attempt used 'Right' as a guess;
+            // a live screenshot proved that wrong (the big/current card
+            // sits center-screen at 'Middle', the smaller reroll-comparison
+            // card sits to its LEFT, not right - the 'Right' capture region
+            // was genuine empty space, hence a permanent "waiting for
+            // card"). Confirmed against the real screen this time.
+            doOcr('Left');
           }
         }),
         listen('riven-reroll', () => {
@@ -364,7 +364,7 @@ export default function RivenOverlay() {
           timer = setTimeout(() => {
             timer = null;
             show();
-            doOcr('Right');
+            doOcr('Left');
           }, 4000);
         }),
         listen('riven-reroll-confirmed', () => {

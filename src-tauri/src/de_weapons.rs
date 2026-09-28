@@ -5,6 +5,11 @@ use std::time::Duration;
 
 const INDEX_URL: &str = "https://origin.warframe.com/PublicExport/index_en.txt.lzma";
 const MANIFEST_BASE: &str = "https://content.warframe.com/PublicExport/Manifest";
+// name/description deliberately excluded here originally, same bug as
+// de_warframes.rs's MERGE_FIELDS (see its comment) - a weapon existing in
+// both mirror and DE always kept the mirror's name/description, silently
+// discarding DE's fresher, already-resolved text for any newer weapon the
+// mirror is stale or wrong on.
 const MERGE_FIELDS: &[&str] = &[
     "codexSecret", "damagePerShot", "totalDamage", "criticalChance", "criticalMultiplier",
     "procChance", "fireRate", "masteryReq", "productCategory", "slot", "accuracy",
@@ -12,7 +17,7 @@ const MERGE_FIELDS: &[&str] = &[
     "reloadTime", "multishot", "blockingAngle", "comboDuration", "followThrough",
     "heavyAttackDamage", "heavySlamAttack", "heavySlamRadialDamage", "heavySlamRadius",
     "range", "sentinel", "slamAttack", "slamRadialDamage", "slamRadius", "slideAttack",
-    "windUp", "excludeFromCodex", "maxLevelCap",
+    "windUp", "excludeFromCodex", "maxLevelCap", "name", "description",
 ];
 const ADAPTER_FIELDS: &[&str] = &[
     "uniqueName", "name", "description", "codexSecret", "damagePerShot", "totalDamage",

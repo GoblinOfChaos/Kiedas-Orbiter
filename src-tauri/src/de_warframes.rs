@@ -5,9 +5,25 @@ use std::time::Duration;
 
 const INDEX_URL: &str = "https://origin.warframe.com/PublicExport/index_en.txt.lzma";
 const MANIFEST_BASE: &str = "https://content.warframe.com/PublicExport/Manifest";
+// name/description/passiveDescription/abilities were deliberately left out
+// of this list, only refreshing numeric stats from DE and always keeping
+// the mirror's own text fields. That's fine for a long-established frame
+// (the mirror's name/description for Ash Prime is correct and stable),
+// but for a newer frame the mirror is stale or wrong on, DE's fresh,
+// already-resolved data was being silently discarded in favor of the
+// mirror's bad entry. Confirmed live 2026-09-28: Citrine Prime's
+// ExportWarframes entry from DE has a correctly resolved "name":"Citrine
+// Prime" and fully written-out ability text, but the merged output still
+// showed whatever the (evidently broken/stale) mirror had for those same
+// fields, breaking every downstream lookup that keys off resolveName()
+// finding "...Prime" at the end of the name. DE is the verified ground
+// truth here (that's the whole reason this merge exists in the first
+// place - see #119), so these fields should always come from DE too, not
+// just stats.
 const MERGE_FIELDS: &[&str] = &[
     "parentName", "health", "shield", "armor", "stamina", "power",
     "codexSecret", "masteryReq", "sprintSpeed", "exalted", "productCategory",
+    "name", "description", "passiveDescription", "abilities",
 ];
 const ADAPTER_FIELDS: &[&str] = &[
     "uniqueName", "name", "parentName", "description", "health", "shield", "armor",
@@ -149,11 +165,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn hybrid_fixture_keeps_keys_and_takes_stats() {
+    fn hybrid_fixture_takes_stats_and_text_from_de() {
+        // Was "keeps_keys_and_takes_stats" - asserted the mirror's own
+        // (possibly stale/broken) name/description always won over DE's,
+        // which was the actual bug (see MERGE_FIELDS comment above):
+        // confirmed live, this exact shape broke Citrine Prime everywhere
+        // it's looked up by name. DE is the verified source; text fields
+        // should come from it too now, not just stats.
         let mirror = serde_json::json!({"/a": {"uniqueName":"/a", "name":"/key", "description":"/desc", "health":100, "sprintSpeed":1.0}});
         let de = serde_json::json!({"ExportWarframes":[{"uniqueName":"/a", "name":"English", "description":"Text", "health":200, "sprintSpeed":0.89999998}]});
         let (merged, _) = merge_warframes(&mirror, &de);
-        assert_eq!(merged["/a"]["name"], "/key");
+        assert_eq!(merged["/a"]["name"], "English");
+        assert_eq!(merged["/a"]["description"], "Text");
         assert_eq!(merged["/a"]["health"], 200);
         assert_eq!(merged["/a"]["sprintSpeed"], 0.9);
     }

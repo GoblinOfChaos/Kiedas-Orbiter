@@ -79,11 +79,17 @@ fn ordered(record: Map<String, Value>) -> Map<String, Value> {
 }
 
 fn de_overlay(record: &Map<String, Value>) -> Map<String, Value> {
+    // Same bug as de_warframes.rs's MERGE_FIELDS and de_weapons.rs's
+    // MERGE_FIELDS (see their comments): "name"/"description" were
+    // excluded here too (only levelStats and numeric fields ever
+    // overlaid), so a mod/arcane/upgrade existing in both sources always
+    // kept the mirror's stale name/description, discarding DE's fresher
+    // data for anything newer the mirror hasn't caught up on.
     record
         .iter()
         .filter_map(|(field, value)| {
-            if field == "levelStats" || value.is_number() {
-                Some((field.clone(), normalize_numbers(value)))
+            if field == "levelStats" || value.is_number() || field == "name" || field == "description" {
+                Some((field.clone(), if value.is_number() { normalize_numbers(value) } else { value.clone() }))
             } else {
                 None
             }

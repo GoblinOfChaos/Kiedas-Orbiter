@@ -805,7 +805,21 @@ export default function Inventory() {
     // getAcquisitionInfo() call inside it) recompute on every pagination tick
     // while the drawer was open, causing the acquisition drawer to rapidly
     // flicker between its loading/resolved states.
-    const item = filteredItems.find((it) => it.unique_name === openKey);
+    let item = filteredItems.find((it) => it.unique_name === openKey);
+    // Prime Set parts (Blueprint/Neuroptics/Chassis/Systems/...) live nested
+    // inside primeSets[setName].parts, not as their own entry in any tab's
+    // flat item list - they were deliberately kept out of resources/parts to
+    // avoid listing each one twice (see inventoryParser.js). That's only a
+    // reasonable tradeoff if they're still reachable and clickable from the
+    // Prime Sets tab itself, which they previously weren't. Fall back to a
+    // nested search here so toggle(part.unique_name) resolves regardless of
+    // which tab is currently active.
+    if (!item) {
+      for (const set of Object.values(inventoryData?.primeSets ?? {})) {
+        const part = (set.parts ?? []).find((p) => p.unique_name === openKey);
+        if (part) { item = part; break; }
+      }
+    }
     if (!item) return null;
     // Relics are grouped under a synthetic display key (e.g. "Meso N17"),
     // not a real DE path - real_unique_name carries the actual path needed
@@ -1295,7 +1309,7 @@ export default function Inventory() {
                           const partSources = sortSourcesByChanceInRotations(partSourcesRaw).filter((s) => {const k = partDedupKey(s);if (partSeen[k]) return false;partSeen[k] = true;return true;});
                           const hasPartSources = partSources.length > 0;
                           const partCell =
-                          <div className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
+                          <div onClick={(e) => { e.stopPropagation(); toggle(part.unique_name); }} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full cursor-pointer hover:bg-white/5 transition-colors ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
                                   {part.need > 1 &&
                             <span className="absolute top-1 left-1 text-[14px] font-black text-kronos-accent px-1.5 py-0.5 rounded leading-none z-10">×{part.need}</span>
                             }

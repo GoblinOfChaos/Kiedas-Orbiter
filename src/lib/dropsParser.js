@@ -1,5 +1,6 @@
 import { BARO_RELIC_NAMES } from './baroRelics.js'
 import { sortSourcesByChanceInRotations } from './chanceSort.js'
+import { getRelicRewardChance } from './relicParser.js'
 
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
@@ -662,6 +663,16 @@ export function buildDropIndex(exportData) {
           relicEra,
           relicName: relicCat ? `${relicEra} ${relicCat}` : null,
           rarity: entry.rarity || 'COMMON',
+          // Same flat per-rarity math the Relic Planner/relic reward EV
+          // calculations already use (getRelicRewardChance), defaulted to
+          // Intact since that's what every other percentage in the app
+          // assumes when refinement isn't otherwise known here. Confirmed
+          // live 2026-09-27: acquisition drawer ingredient rows sourced
+          // from this DE-native path showed a relic name with no
+          // percentage at all, unlike the community-mirror relic builder
+          // above (which always set chance) and unlike every other source
+          // type in this file.
+          chance: getRelicRewardChance(entry, 'Intact', pool),
           relicManifest: relic.rewardManifest,
           // Same gap as the ExportRegions/ExportRewards mission builder above:
           // this DE-native path never attributed its data either.

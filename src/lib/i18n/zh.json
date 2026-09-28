@@ -1542,7 +1542,9 @@
     "preview.dashboard.targets_active_detail": "查看你的目标，以及仍需要的组件汇总列表。",
     "preview.dashboard.view_targets": "查看所有目标",
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
-    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
+    "monitoring.chat_new_message_title": "新聊天消息",
+    "monitoring.chat_new_message_body": "来自{channel}的新消息"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

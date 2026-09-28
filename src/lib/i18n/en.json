@@ -1640,6 +1640,8 @@
     "riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
     "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
-    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
+    "monitoring.chat_new_message_title": "New Chat Message",
+    "monitoring.chat_new_message_body": "New message from {channel}"
   }
 }

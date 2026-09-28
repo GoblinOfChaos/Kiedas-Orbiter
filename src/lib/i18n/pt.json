@@ -1542,7 +1542,9 @@
     "preview.dashboard.targets_active_detail": "Reveja os seus alvos e a lista combinada de componentes ainda necessários.",
     "preview.dashboard.view_targets": "Ver todos os alvos",
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
-    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets."
+    "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
+    "monitoring.chat_new_message_title": "Nova mensagem de chat",
+    "monitoring.chat_new_message_body": "Nova mensagem de {channel}"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

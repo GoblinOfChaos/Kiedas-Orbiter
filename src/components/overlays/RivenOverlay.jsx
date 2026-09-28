@@ -344,18 +344,13 @@ export default function RivenOverlay() {
             // doOcr('Middle') unconditionally, so both scanned the exact
             // same screen region and always showed the identical single
             // card - confirmed live 2026-09-27 ("grading with two cards
-            // shows only one"). Two wrong guesses since: 'Right' was
-            // genuine empty space (only two physical cards exist, at
-            // 'Left' and 'Middle', never 'Right'); 'Left' got real card
-            // data but crossed the desktop windows - a live screenshot
-            // showed this (isNew, the desktop-RIGHT window) reading the
-            // small 'Left' card while the OTHER window (desktop-LEFT)
-            // read the big 'Middle' card, backwards from what a viewer
-            // standing at each window's own side would expect. Reverted
-            // to 'Middle' here; the non-isNew branch below now reads
-            // 'Left' instead, so each desktop-side window shows the card
-            // physically nearer to it.
-            doOcr('Middle');
+            // shows only one"). First attempt used 'Right' as a guess;
+            // a live screenshot proved that wrong (the big/current card
+            // sits center-screen at 'Middle', the smaller reroll-comparison
+            // card sits to its LEFT, not right - the 'Right' capture region
+            // was genuine empty space, hence a permanent "waiting for
+            // card"). Confirmed against the real screen this time.
+            doOcr('Left');
           }
         }),
         listen('riven-reroll', () => {
@@ -369,7 +364,7 @@ export default function RivenOverlay() {
           timer = setTimeout(() => {
             timer = null;
             show();
-            doOcr('Middle');
+            doOcr('Left');
           }, 4000);
         }),
         listen('riven-reroll-confirmed', () => {
@@ -411,15 +406,7 @@ export default function RivenOverlay() {
         listen('riven-grade-armed', () => {
           armedRef.current = true;
           show();
-          // Preview has two physical cards on screen during a reroll
-          // comparison (big one at 'Middle', small one at 'Left') and two
-          // separate overlay windows, one per card - this (non-isNew,
-          // desktop-LEFT) window now reads the small 'Left' card so it
-          // matches the card physically nearer to it, instead of dueling
-          // with the isNew window over the same 'Middle' region. Stable
-          // has no second window/card to compare against, so it keeps
-          // reading 'Middle' as always.
-          doOcr(IS_PREVIEW ? 'Left' : 'Middle');
+          doOcr('Middle');
         }),
         listen('riven-linked-closed', () => hide()),
         listen('riven-screen-closed', () => {
@@ -443,7 +430,7 @@ export default function RivenOverlay() {
             // rest of the session - bring it back first.
             if (!aliveRef.current) show();
             setRefreshTick((t) => t + 1);
-            doOcr(IS_PREVIEW ? 'Left' : 'Middle');
+            doOcr('Middle');
           }, 2000);
         })
       );

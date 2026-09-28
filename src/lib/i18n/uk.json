@@ -1544,7 +1544,8 @@
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Нове повідомлення в чаті",
     "monitoring.chat_new_message_body": "Нове повідомлення від {channel}",
-    "dashboard.the_circuit": "Контур"
+    "dashboard.the_circuit": "Контур",
+    "nav.farming-targets": "Цілі Фарму"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

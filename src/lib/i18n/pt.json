@@ -1544,7 +1544,8 @@
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Nova mensagem de chat",
     "monitoring.chat_new_message_body": "Nova mensagem de {channel}",
-    "dashboard.the_circuit": "O Circuito"
+    "dashboard.the_circuit": "O Circuito",
+    "nav.farming-targets": "Alvos de Farming"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

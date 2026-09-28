@@ -2576,6 +2576,17 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
     // Check if this is a prime item (but not a component blueprint)
     if (!/Prime$/i.test(resultName)) continue;
+    // DE genuinely names upgraded resource-extractor drones "X Extractor
+    // Prime" (Distilling Extractor Prime, Titan Extractor Prime) - a real,
+    // in-game name that happens to end in "Prime" with zero relation to
+    // Void Relic Prime warframes/weapons. The name-suffix check above can't
+    // tell those apart, so it was building a fake "Distilling Extractor
+    // Primeset" card with an unowned/unmastered blueprint - confirmed live
+    // 2026-09-27. Every one of DE's 4 /Lotus/Types/Ship/ recipes is one of
+    // these drones (verified against the full export), never a real Prime
+    // set, so excluding that whole resultType namespace is precise, not a
+    // guess.
+    if (recipe.resultType.startsWith('/Lotus/Types/Ship/')) continue;
     if (bpKey.includes('HelmetBlueprint') || bpKey.includes('ChassisBlueprint') ||
       bpKey.includes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint') ||
       bpKey.includes('WingsBlueprint') || bpKey.includes('BarrelBlueprint') ||

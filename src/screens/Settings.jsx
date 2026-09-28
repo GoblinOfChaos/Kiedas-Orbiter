@@ -173,17 +173,33 @@ export default function SettingsScreen() {
   // there's no default binding and nothing else surfaces this feature at all.
   useEffect(() => {
     const seeded = getSetting('grade_rivens_hotkey_seeded', false);
-    setHotkeys((prev) => {
-      const next = [...prev];
-      if (!next.some((hk) => hk.action === 'toggle_sidebar')) {
-        next.push({ action: 'toggle_sidebar', shortcut: '' });
-      }
-      if (IS_PREVIEW && !seeded && !next.some((hk) => hk.action === 'grade_rivens')) {
-        next.push({ action: 'grade_rivens', shortcut: next.some((hk) => hk.shortcut === 'Ctrl+Alt+R') ? '' : 'Ctrl+Alt+R' });
-      }
-      return next;
-    });
+    const prev = getSetting('hotkeys', []);
+    const next = [...prev];
+    let changed = false;
+    if (!next.some((hk) => hk.action === 'toggle_sidebar')) {
+      next.push({ action: 'toggle_sidebar', shortcut: '' });
+      changed = true;
+    }
+    if (IS_PREVIEW && !seeded && !next.some((hk) => hk.action === 'grade_rivens')) {
+      next.push({ action: 'grade_rivens', shortcut: next.some((hk) => hk.shortcut === 'Ctrl+Alt+R') ? '' : 'Ctrl+Alt+R' });
+      changed = true;
+    }
+    setHotkeys(next);
     if (IS_PREVIEW && !seeded) setSetting('grade_rivens_hotkey_seeded', true);
+    // Previously only updated local component state here - the seeded
+    // default hotkey (and the toggle_sidebar backfill) were never actually
+    // persisted or registered with Rust unless the user opened the hotkeys
+    // editor and saved something themselves. On a fresh install that meant
+    // the Riven screen's overlay (reading getSetting('hotkeys', []) with an
+    // empty fallback, unlike this screen's rich default) correctly reported
+    // "not configured" forever, even though Settings appeared to show
+    // Ctrl+Alt+R - that display was only ever the getSetting() fallback
+    // default, never a saved value, so the OS-level shortcut was never
+    // registered and the hotkey silently did nothing when pressed.
+    if (changed) {
+      setSetting('hotkeys', next);
+      invoke('set_hotkeys', { hotkeys: next.filter((hk) => hk.shortcut && hk.action) }).catch((err) => console.error('Hotkey sync failed:', err));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

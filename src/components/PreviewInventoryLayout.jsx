@@ -54,7 +54,14 @@ export default function PreviewInventoryLayout({ stats, controls }) {
   return (
     <section ref={rootRef} aria-label={t('preview.landmark.inventory_controls')} className="min-w-0">
       {stats && (
-        <div className="mb-3 overflow-x-auto" style={{ scrollbarWidth: 'thin' }} aria-label={t('preview.landmark.account_resources')}>
+        // pb-2: the row's own content has no bottom clearance, so the
+        // reserved scrollbar-track gutter (scrollbarWidth: 'thin' still
+        // reserves height even when nothing needs scrolling) sat right on
+        // top of the digit baseline - visible as a permanent, immovable
+        // hairline overlapping the comma descenders in the currency
+        // numbers, directly under the real (draggable) scroll thumb.
+        // Confirmed live 2026-09-27.
+        <div className="mb-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }} aria-label={t('preview.landmark.account_resources')}>
           {stats}
         </div>
       )}

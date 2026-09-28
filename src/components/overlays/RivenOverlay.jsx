@@ -338,7 +338,19 @@ export default function RivenOverlay() {
           armedRef.current = true;
           if (newRollSeenRef.current) {
             show();
-            doOcr('Middle');
+            // This is the "new roll" overlay window (isNew) - a second,
+            // separate window from the "current" card's overlay below,
+            // each an instance of this same component. Both used to call
+            // doOcr('Middle') unconditionally, so both scanned the exact
+            // same screen region and always showed the identical single
+            // card - confirmed live 2026-09-27 ("grading with two cards
+            // shows only one"). Capturing 'Right' instead so this window
+            // reads its own card's screen position, reusing the
+            // calibration already verified for the manual ocr_riven_right
+            // hotkey. Best-evidence guess on which side the game puts the
+            // new roll (vs 'Left') - needs a live check; a one-word flip
+            // if backwards.
+            doOcr('Right');
           }
         }),
         listen('riven-reroll', () => {
@@ -352,7 +364,7 @@ export default function RivenOverlay() {
           timer = setTimeout(() => {
             timer = null;
             show();
-            doOcr('Middle');
+            doOcr('Right');
           }, 4000);
         }),
         listen('riven-reroll-confirmed', () => {

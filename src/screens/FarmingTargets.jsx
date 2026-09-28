@@ -104,16 +104,28 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
           <div className="divide-y divide-white/5">
             {model.ranked.length === 0 && <p className="p-5 text-sm text-kronos-dim">{t('farming_targets.no_sources')}</p>}
             {model.ranked.map((row) => tab === 'relics' ? <RelicPlaceRow key={row.place.id} row={row} total={stillNeededCount} t={t} onHowToGet={toggle} /> : <div key={row.place.id} className="p-4 space-y-2">
-              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupPlanet && row.place.planet ? row.place.planet : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
+              {/* Was row.place.planet OR row.place.name (never both) - the
+                  default (groupPlanet off) view showed a bare node name
+                  with zero planet context, e.g. "Luckless Expanse" with no
+                  way to know which planet that's on, unlike the
+                  acquisition drawer's own "Planet — Node" format.
+                  Confirmed live 2026-09-28. Now always shows both when not
+                  grouped; groupPlanet keeps its coarser planet-only view. */}
+              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupPlanet ? (row.place.planet || row.place.name) : (row.place.planet ? `${row.place.planet} — ${row.place.name}` : row.place.name)}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
               {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
               <div className="flex flex-wrap gap-2">{row.coveredItems.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>{source.rotation ? <span className="text-kronos-dim"> · Rot {String(source.rotation).replace(/^Rot\s*/i, '')}</span> : null}</span>))}</div>
             </div>)}
           </div>
         </Card>
 
-        <Card className="p-0 overflow-hidden">
+        <Card className="p-0">
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.target_inspector')}</h2><Select options={targets.map((item) => ({ id: item.id, label: item.name }))} value={target?.id ?? ''} onChange={setSelectedTarget} className="mt-3" /></div>
-          <div className="p-4 space-y-3">{targetRows.length ? targetRows.map((row) => { const contribution = row.usedBy.find((entry) => entry.targetId === effectiveTargetId); const places = model.ranked.filter((place) => place.coveredItems.some((item) => item.itemType === row.itemType)).slice(0, 3); return <div key={row.itemType} className="rounded-md bg-black/20 p-2 text-xs"><div className="flex items-center gap-2"><ItemImage src={row.image} className="h-7 w-7 object-contain" placeholderClassName="h-7 w-7" /><span className="min-w-0 flex-1 truncate">{row.name}</span><span className="font-bold">{formatCount(row.stillNeeded)}</span></div><div className="mt-1 text-[10px] text-kronos-dim">{t('farming_targets.inspector_required_owned', { required: formatCount(contribution?.quantity ?? 0), owned: formatCount(row.owned), needed: formatCount(row.stillNeeded) })}</div>{places.length > 0 && <div className="mt-1 text-[10px] text-kronos-accent">{places.map((place) => place.place.name).join(' · ')}</div>}</div>; }) : <p className="text-xs text-kronos-dim">{model.targetUnresolved?.some((entry) => entry.targetId === effectiveTargetId) ? t('farming_targets.inspector_unresolved') : t('farming_targets.inspector_resolved')}</p>}</div>
+          {/* overflow-hidden scoped to just this rows section (was on the
+              whole Card) - that clipped the Select dropdown above it too,
+              regardless of its z-index, since overflow:hidden cuts off an
+              absolutely-positioned child outright. Confirmed live 2026-09-28
+              (dropdown rendered hidden behind other page content). */}
+          <div className="p-4 space-y-3 rounded-b-lg overflow-hidden">{targetRows.length ? targetRows.map((row) => { const contribution = row.usedBy.find((entry) => entry.targetId === effectiveTargetId); const places = model.ranked.filter((place) => place.coveredItems.some((item) => item.itemType === row.itemType)).slice(0, 3); return <div key={row.itemType} className="rounded-md bg-black/20 p-2 text-xs"><div className="flex items-center gap-2"><ItemImage src={row.image} className="h-7 w-7 object-contain" placeholderClassName="h-7 w-7" /><span className="min-w-0 flex-1 truncate">{row.name}</span><span className="font-bold">{formatCount(row.stillNeeded)}</span></div><div className="mt-1 text-[10px] text-kronos-dim">{t('farming_targets.inspector_required_owned', { required: formatCount(contribution?.quantity ?? 0), owned: formatCount(row.owned), needed: formatCount(row.stillNeeded) })}</div>{places.length > 0 && <div className="mt-1 text-[10px] text-kronos-accent">{places.map((place) => place.place.name).join(' · ')}</div>}</div>; }) : <p className="text-xs text-kronos-dim">{model.targetUnresolved?.some((entry) => entry.targetId === effectiveTargetId) ? t('farming_targets.inspector_unresolved') : t('farming_targets.inspector_resolved')}</p>}</div>
         </Card>
       </div>
 
@@ -253,7 +265,12 @@ export default function FarmingTargets() {
     }
     if (IS_PREVIEW) {
       for (const entry of screenModel.ledger) {
-        if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: null, category: null });
+        // Was hardcoded image: null, throwing away entry.image even though
+        // it's already correctly resolved (same value the Target Inspector
+        // panel already displays) - the acquisition drawer's own image slot
+        // showed "IMAGE UNAVAILABLE" for every farming-target item as a
+        // result. Confirmed live 2026-09-28.
+        if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: entry.image, category: null });
       }
       for (const row of screenModel.relicPlaces ?? []) {
         if (!map.has(row.place.uniqueName)) map.set(row.place.uniqueName, { uniqueName: row.place.uniqueName, name: row.place.name, image: null, category: 'relics' });

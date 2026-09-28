@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "Incursiones SP",
     "ui.dashboard.standing": "Reputación",
     "ui.dashboard.steel_path": "El Camino de Acero",
-    "ui.dashboard.the_circuit": "El Circuito",
     "ui.dashboard.upcoming": "Próximo",
     "ui.dashboard.upcoming_rotations": "Rotaciones próximas",
     "ui.dashboard.visible_cards": "Cartas visibles",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Nuevo mensaje de chat",
-    "monitoring.chat_new_message_body": "Nuevo mensaje de {channel}"
+    "monitoring.chat_new_message_body": "Nuevo mensaje de {channel}",
+    "dashboard.the_circuit": "El Circuito"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

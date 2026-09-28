@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "SP рейды",
     "ui.dashboard.standing": "Репутация",
     "ui.dashboard.steel_path": "Стальной путь",
-    "ui.dashboard.the_circuit": "Циркут",
     "ui.dashboard.upcoming": "Предстоящие",
     "ui.dashboard.upcoming_rotations": "Предстоящие ротации",
     "ui.dashboard.visible_cards": "Видимые карты",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Новое сообщение в чате",
-    "monitoring.chat_new_message_body": "Новое сообщение от {channel}"
+    "monitoring.chat_new_message_body": "Новое сообщение от {channel}",
+    "dashboard.the_circuit": "Циркут"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "SP侵略",
     "ui.dashboard.standing": "評判",
     "ui.dashboard.steel_path": "鋼の道のり",
-    "ui.dashboard.the_circuit": "ザ・サーキット",
     "ui.dashboard.upcoming": "upcoming",
     "ui.dashboard.upcoming_rotations": "upcoming ローテーション",
     "ui.dashboard.visible_cards": "表示カード",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "新しいチャットメッセージ",
-    "monitoring.chat_new_message_body": "{channel}からの新しいメッセージ"
+    "monitoring.chat_new_message_body": "{channel}からの新しいメッセージ",
+    "dashboard.the_circuit": "ザ・サーキット"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

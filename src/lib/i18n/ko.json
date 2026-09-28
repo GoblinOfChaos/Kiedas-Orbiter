@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "스틸 패스 침입",
     "ui.dashboard.standing": "명성",
     "ui.dashboard.steel_path": "강철의 길",
-    "ui.dashboard.the_circuit": "서킷",
     "ui.dashboard.upcoming": "예정",
     "ui.dashboard.upcoming_rotations": "예정된 로테이션",
     "ui.dashboard.visible_cards": "보이는 카드",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "새 채팅 메시지",
-    "monitoring.chat_new_message_body": "{channel}님의 새 메시지"
+    "monitoring.chat_new_message_body": "{channel}님의 새 메시지",
+    "dashboard.the_circuit": "서킷"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

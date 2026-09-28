@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "Incydenty SP",
     "ui.dashboard.standing": "Reputacja",
     "ui.dashboard.steel_path": "Ścieżka Stali",
-    "ui.dashboard.the_circuit": "Circuit",
     "ui.dashboard.upcoming": "Nadchodzące",
     "ui.dashboard.upcoming_rotations": "Nadchodzące rotacje",
     "ui.dashboard.visible_cards": "Widoczne karty",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Nowa wiadomość na czacie",
-    "monitoring.chat_new_message_body": "Nowa wiadomość od {channel}"
+    "monitoring.chat_new_message_body": "Nowa wiadomość od {channel}",
+    "dashboard.the_circuit": "Circuit"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

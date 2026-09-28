@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "SP 入侵",
     "ui.dashboard.standing": "声望",
     "ui.dashboard.steel_path": "钢铁之路",
-    "ui.dashboard.the_circuit": "电路",
     "ui.dashboard.upcoming": "即将开始",
     "ui.dashboard.upcoming_rotations": "即将到来的轮换",
     "ui.dashboard.visible_cards": "可见卡片",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "新聊天消息",
-    "monitoring.chat_new_message_body": "来自{channel}的新消息"
+    "monitoring.chat_new_message_body": "来自{channel}的新消息",
+    "dashboard.the_circuit": "电路"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

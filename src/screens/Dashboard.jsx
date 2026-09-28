@@ -1931,7 +1931,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
             </Card>),
     "circuit": (isVisible('circuit') &&
           <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title={t('ui.dashboard.the_circuit')} />
+              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title={t('dashboard.the_circuit')} />
               {renderCircuit()}
             </Card>),
     "1999": (isVisible('1999') &&
@@ -2094,7 +2094,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
             { id: 'desc', label: t('ui.dashboard.descendia') },
             { id: 'sortie', label: t('dashboard.sorties') },
             { id: 'hunt', label: t('dashboard.archon_hunts') },
-            { id: 'circuit', label: t('ui.dashboard.the_circuit') },
+            { id: 'circuit', label: t('dashboard.the_circuit') },
             { id: 'deal', label: t('dashboard.daily_deals') },
             { id: 'sales', label: t('ui.dashboard.market_sales') },
             { id: 'alerts', label: t('ui.dashboard.alerts') },

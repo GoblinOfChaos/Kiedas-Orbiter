@@ -765,7 +765,6 @@
     "ui.dashboard.sp_incursions": "SP Incursions",
     "ui.dashboard.standing": "Standing",
     "ui.dashboard.steel_path": "The Steel Path",
-    "ui.dashboard.the_circuit": "The Circuit",
     "ui.dashboard.upcoming": "Upcoming",
     "ui.dashboard.upcoming_rotations": "Upcoming Rotations",
     "ui.dashboard.visible_cards": "Visible Cards",
@@ -1642,6 +1641,7 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "New Chat Message",
-    "monitoring.chat_new_message_body": "New message from {channel}"
+    "monitoring.chat_new_message_body": "New message from {channel}",
+    "dashboard.the_circuit": "The Circuit"
   }
 }

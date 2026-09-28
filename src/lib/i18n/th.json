@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "SP Incursions",
     "ui.dashboard.standing": "ชื่อเสียง",
     "ui.dashboard.steel_path": "เส้นทางเหล็กกล้า",
-    "ui.dashboard.the_circuit": "The Circuit",
     "ui.dashboard.upcoming": "จะมาถึง",
     "ui.dashboard.upcoming_rotations": "การหมุนที่กำลังจะมา",
     "ui.dashboard.visible_cards": "การ์ดที่มองเห็นได้",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "ข้อความแชทใหม่",
-    "monitoring.chat_new_message_body": "ข้อความใหม่จาก {channel}"
+    "monitoring.chat_new_message_body": "ข้อความใหม่จาก {channel}",
+    "dashboard.the_circuit": "The Circuit"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

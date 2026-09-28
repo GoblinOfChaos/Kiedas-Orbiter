@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "SP-Invasionen",
     "ui.dashboard.standing": "Ansehen",
     "ui.dashboard.steel_path": "Der Stählerne Pfad",
-    "ui.dashboard.the_circuit": "The Circuit",
     "ui.dashboard.upcoming": "Bevorstehend",
     "ui.dashboard.upcoming_rotations": "Bevorstehende Rotationen",
     "ui.dashboard.visible_cards": "Sichtbare Karten",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Neue Chatnachricht",
-    "monitoring.chat_new_message_body": "Neue Nachricht von {channel}"
+    "monitoring.chat_new_message_body": "Neue Nachricht von {channel}",
+    "dashboard.the_circuit": "Der Rundkurs"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

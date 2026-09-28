@@ -512,7 +512,6 @@
     "ui.dashboard.sp_incursions": "SP Baskınları",
     "ui.dashboard.standing": "İtibar",
     "ui.dashboard.steel_path": "Çelik Yol",
-    "ui.dashboard.the_circuit": "The Circuit",
     "ui.dashboard.upcoming": "Yaklaşan",
     "ui.dashboard.upcoming_rotations": "Yaklaşan Döngüler",
     "ui.dashboard.visible_cards": "Görünür Kartlar",
@@ -1544,7 +1543,8 @@
     "settings.hotkey_action_grade_rivens": "Grade Rivens",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "monitoring.chat_new_message_title": "Yeni Sohbet Mesajı",
-    "monitoring.chat_new_message_body": "{channel}'den yeni mesaj"
+    "monitoring.chat_new_message_body": "{channel}'den yeni mesaj",
+    "dashboard.the_circuit": "The Circuit"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

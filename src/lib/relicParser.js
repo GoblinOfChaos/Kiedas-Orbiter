@@ -247,12 +247,26 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
   const relicEntry = relics[relicUniqueName];
   if (!relicEntry) return [];
 
-  const manifestPath = relicEntry.rewardManifest;
-  const pool = rewards[manifestPath];
-  if (!pool) return [];
-
-  const poolList = Array.isArray(pool) ? (Array.isArray(pool[0]) ? pool[0] : pool) : [];
-  const flatPool = poolList.flat();
+  // DE's real ExportRelics data uses two different schemas: most relics
+  // (the legacy majority) point via rewardManifest into a separate
+  // ExportRewards lookup table, but a newer batch (confirmed live
+  // 2026-09-28: every single Citrine Prime relic, every tier/refinement,
+  // 108 relics total) embeds its rewards directly as relicRewards instead
+  // - no rewardManifest field at all. This function only ever checked the
+  // legacy path, so every one of those relics silently returned zero
+  // rewards and got filtered out of the whole relic catalog everywhere in
+  // the app (getRelicCatalog's `if (!rewards.length) continue`) - not
+  // just the Farming Targets Relics tab.
+  let flatPool;
+  if (Array.isArray(relicEntry.relicRewards)) {
+    flatPool = relicEntry.relicRewards.map((entry) => ({ type: entry.rewardName, rarity: entry.rarity }));
+  } else {
+    const manifestPath = relicEntry.rewardManifest;
+    const pool = rewards[manifestPath];
+    if (!pool) return [];
+    const poolList = Array.isArray(pool) ? (Array.isArray(pool[0]) ? pool[0] : pool) : [];
+    flatPool = poolList.flat();
+  }
 
   return flatPool.map(item => {
     const un = item.type;

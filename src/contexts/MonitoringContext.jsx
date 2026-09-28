@@ -1316,8 +1316,11 @@ const hasCachedData = useCallback(async () => {
             const sound = getSetting('notif_sound', 'notification1.wav')
             invoke('play_notification_sound', { sound }).catch(console.error)
             invoke('show_notification', {
-              title: 'New Chat Message',
-              message: `New message from ${channel}`,
+              // Was hardcoded English regardless of locale - found during
+              // the 2026-09-27 raw-key sweep (a different bug class, but
+              // caught by the same audit).
+              title: t('monitoring.chat_new_message_title'),
+              message: t('monitoring.chat_new_message_body', { channel }),
               image: '',
               position,
               no_focus: true,
@@ -1331,7 +1334,12 @@ const hasCachedData = useCallback(async () => {
     }))
 
     return () => { subs.forEach(p => p.then(f => f())) }
-  }, [exportData, inventoryData, globalRewardPool, EI])
+  // t added 2026-09-27: the chat-incoming-message listener inside this
+  // effect calls t() for its notification text (same stale-closure class
+  // as App.jsx's scanner-hooked toast) - without t as a dep, a chat message
+  // arriving before UiContext's async locale load finishes would
+  // permanently show raw keys for the rest of the session.
+  }, [exportData, inventoryData, globalRewardPool, EI, t])
 
   // Monitoring-active listener in its own effect so it's registered ASAP.
   useEffect(() => {

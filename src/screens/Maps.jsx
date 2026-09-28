@@ -153,7 +153,12 @@ export default function Maps() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, [duviriCycle]);
+    // t must be a dep too - same stale-closure class as the App.jsx
+    // scanner-hooked toast (2026-09-27 sweep), just much less severe here
+    // since this effect already re-subscribes whenever duviriCycle updates
+    // (which happens often), masking most of the window where t() would
+    // still return a raw key.
+  }, [duviriCycle, t]);
 
   const applyTransform = useCallback(() => {
     if (!transformRef.current) return;

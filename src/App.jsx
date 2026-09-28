@@ -283,7 +283,14 @@ function AppContent() {
       }).catch(() => {});
     });
     return () => {unsub.then((f) => f());};
-  }, []);
+    // `[]` deps used to mean this listener closure captured whatever `t`
+    // was on the very first render - before UiContext's async locale load
+    // finishes (`ui: {}` default) - and never re-subscribed, so scanner-
+    // hooked (which fires early, right as the game launches) permanently
+    // showed raw keys ("APP.SCANNER_TITLE" / "app.scanner_hooked_message")
+    // for the entire session. Confirmed live 2026-09-27. `t` must be a dep
+    // so this re-subscribes with the real translation once it loads.
+  }, [t]);
 
   // Toggle .sidebar-mode on <body> when entering/exiting sidebar mode
   useEffect(() => {

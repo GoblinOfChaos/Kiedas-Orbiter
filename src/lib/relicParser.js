@@ -398,7 +398,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
 
   const clean = (s) => s ? s.replace('/StoreItems/', '/').toLowerCase() : '';
   const recipe = exportData.ExportRecipes?.[rewardUniqueName]
-    || exportData.ExportRecipes?.[rewardUniqueName.replace('/StoreItems/', '/')];
+    || exportData.ExportRecipes?.[rewardUniqueName?.replace('/StoreItems/', '/')];
   let actualComponent = recipe ? recipe.resultType : rewardUniqueName;
 
   let parentRecipe = null;

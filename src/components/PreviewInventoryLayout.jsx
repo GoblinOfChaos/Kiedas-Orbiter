@@ -54,14 +54,21 @@ export default function PreviewInventoryLayout({ stats, controls }) {
   return (
     <section ref={rootRef} aria-label={t('preview.landmark.inventory_controls')} className="min-w-0">
       {stats && (
-        // pb-2: the row's own content has no bottom clearance, so the
-        // reserved scrollbar-track gutter (scrollbarWidth: 'thin' still
-        // reserves height even when nothing needs scrolling) sat right on
-        // top of the digit baseline - visible as a permanent, immovable
-        // hairline overlapping the comma descenders in the currency
-        // numbers, directly under the real (draggable) scroll thumb.
-        // Confirmed live 2026-09-27.
-        <div className="mb-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }} aria-label={t('preview.landmark.account_resources')}>
+        // Confirmed live 2026-09-27 via zoomed real screenshots: this is
+        // ONE continuous native scrollbar, not two - it visually fragments
+        // into disconnected-looking pieces (one movable, one that looks
+        // "stuck" and does nothing) wherever the row's vertical divider
+        // bars (bg-white/10, in renderHeaderStats) sit on top of it, and
+        // which fragment renders solidly flickers between screenshots
+        // taken seconds apart. scrollbarWidth: 'thin' has no real spec
+        // support in WebKit - WebKitGTK is polyfilling/theming it
+        // non-standard, which is exactly the kind of thing prone to this
+        // paint/compositing instability (same class of issue as #116's
+        // silent paint failures). Removed as a targeted experiment. It
+        // was originally added because the *default* scrollbar was
+        // invisible on some platforms (see history) - if that reappears,
+        // this needs a different visibility mechanism, not just reverting.
+        <div className="mb-3 overflow-x-auto pb-2" aria-label={t('preview.landmark.account_resources')}>
           {stats}
         </div>
       )}

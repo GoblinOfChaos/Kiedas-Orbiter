@@ -260,21 +260,28 @@ export default function FarmingTargets() {
     for (const { target } of view.perTarget) {
       map.set(target.uniqueName, { uniqueName: target.uniqueName, name: target.name, image: target.image, category: target.category });
     }
-    for (const entry of view.shoppingList) {
-      if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: entry.image, category: null });
-    }
+    // IS_PREVIEW's ledger runs BEFORE view.shoppingList now, not after -
+    // the first fix here (entry.image instead of a hardcoded null) never
+    // actually took effect for any item that also appears in
+    // view.shoppingList (nearly everything), because that loop ran first
+    // and claimed the map slot via !map.has(), and shoppingList's own
+    // buildShoppingList() has the identical unresolved-raw-ingredient-
+    // image gap through a completely different, non-Preview code path
+    // (buildRecipeIndex, no imageFor()/imageMaps access at all) - so the
+    // worse image always won regardless of what the real fix produced.
+    // Confirmed live 2026-09-28 (Argon Crystal still "Image Unavailable"
+    // after the first fix). Preview's better-resolved data must claim the
+    // slot first; shoppingList now only fills gaps Preview didn't cover.
     if (IS_PREVIEW) {
       for (const entry of screenModel.ledger) {
-        // Was hardcoded image: null, throwing away entry.image even though
-        // it's already correctly resolved (same value the Target Inspector
-        // panel already displays) - the acquisition drawer's own image slot
-        // showed "IMAGE UNAVAILABLE" for every farming-target item as a
-        // result. Confirmed live 2026-09-28.
         if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: entry.image, category: null });
       }
       for (const row of screenModel.relicPlaces ?? []) {
         if (!map.has(row.place.uniqueName)) map.set(row.place.uniqueName, { uniqueName: row.place.uniqueName, name: row.place.name, image: null, category: 'relics' });
       }
+    }
+    for (const entry of view.shoppingList) {
+      if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: entry.image, category: null });
     }
     return map;
   }, [view, screenModel]);

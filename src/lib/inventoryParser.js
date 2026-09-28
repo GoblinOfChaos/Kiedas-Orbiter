@@ -21,7 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { BLUEPRINT_SUFFIX } from './warframeUtils'
+import { BLUEPRINT_SUFFIX } from './warframeUtils.js'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -2568,6 +2568,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     primeItemCounts.set(un, item.ItemCount ?? 1);
   }
 
+  // Component recipes identify the crafted part in `resultType`, while the
+  // owned blueprint may use the recipe's own identity. Keep that relationship
+  // from the export instead of guessing an inventory key from a path suffix.
+  const primeComponentAliases = new Map();
+  for (const [recipeKey, recipe] of Object.entries(ERecipe ?? {})) {
+    if (!recipe?.resultType) continue;
+    const recipeIdentity = recipe.uniqueName || recipeKey;
+    if (/Blueprint$/i.test(recipeIdentity)) primeComponentAliases.set(recipe.resultType, recipeIdentity);
+  }
+
   // Find all prime weapon/warframe recipes and build sets
   const seenPrimeSets = new Set();
   for (const [bpKey, recipe] of Object.entries(ERecipe ?? {})) {
@@ -2633,10 +2643,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         craftedQty = primeItemCounts.get(data.ItemType) ?? 0;
         bpQty = primeItemCounts.get(bpKey) ?? 0;
         if (bpQty === 0) {
-          const leaf = bpKey.split('/').pop();
-          for (const [key, count] of primeItemCounts) {
-            if (key.endsWith('/' + leaf)) { bpQty = count; break; }
-          }
+          const aliasKey = primeComponentAliases.get(data.ItemType);
+          if (aliasKey) bpQty = primeItemCounts.get(aliasKey) ?? 0;
         }
         setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, crafted: craftedQty, owned: bpQty > 0 || craftedQty > 0, need: data.need, ducats: ERecipe[data.ItemType]?.primeSellingPrice || ER[data.ItemType]?.primeSellingPrice || EW[data.ItemType]?.primeSellingPrice || 0 });
         if (bpQty > 0 || craftedQty > 0) ownedCount += 1;

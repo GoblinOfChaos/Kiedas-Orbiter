@@ -39,6 +39,41 @@ test('inventoryParser craftable projection carries outputQty from ExportRecipes.
   assert.match(craftableSource, /outputQty:\s+recipe\.num\s+===\s+undefined\s+\?\s+1\s+:\s+recipe\.num/);
 });
 
+test('prime component ownership falls back to the export recipe identity alias', async () => {
+  const harness = makeHarness({
+    dict: {
+      '/Lotus/Language/CitrinePrime': 'Citrine Prime',
+      '/Lotus/Language/CitrinePrimeHelmet': 'Citrine Prime Neuroptics',
+    },
+    ExportImages: {},
+    ExportWarframes: {
+      '/Lotus/Powersuits/Geode/CitrinePrime': { name: '/Lotus/Language/CitrinePrime' },
+    },
+    ExportRecipes: {
+      '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeBlueprint': {
+        resultType: '/Lotus/Powersuits/Geode/CitrinePrime',
+        ingredients: [{ ItemType: '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeHelmetComponent', ItemCount: 1 }],
+      },
+      '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeHelmetComponentRecipe': {
+        uniqueName: '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeHelmetBlueprint',
+        resultType: '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeHelmetComponent',
+        ingredients: [],
+      },
+    },
+    WI_Warframes: {},
+    WI_Resources: {},
+    AcquisitionItems: [],
+  });
+  const before = parseInventory({}, harness.exportsBundle, harness.dict, 'en', null).primeSets['Citrine Prime'];
+  const after = parseInventory({ Recipes: [{ ItemType: '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeHelmetBlueprint', ItemCount: 1 }] }, harness.exportsBundle, harness.dict, 'en', null).primeSets['Citrine Prime'];
+  assert.equal(before.ownedCount, 0);
+  assert.equal(after.ownedCount, 1);
+  // parts[0] is always the main Blueprint entry (pushed first, unowned in
+  // this fixture); the component we actually gave ownership to is a later
+  // entry, found by its own unique_name rather than assumed by index.
+  assert.equal(after.parts.find((part) => part.unique_name === '/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeHelmetComponent')?.owned, true);
+});
+
 test('craftable_extra carries every recipe the equipment catalog excludes, grouped by foundryGroup', () => {
   const harness = makeHarness({
     dict: {

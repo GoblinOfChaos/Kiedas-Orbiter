@@ -1110,7 +1110,13 @@ export default function Dashboard({ onNavigate = () => {} }) {
                       {selectedDay.date.getDate()}
                     </p>
                     <p className="text-[9px] text-kronos-dim uppercase tracking-widest leading-none pt-0.5">
-                      {selectedDay.date.toLocaleDateString('en-US', { weekday: 'long' })}
+                      {/* Unlike the monthName internal-key pattern elsewhere
+                          in this file, this weekday text is pure display -
+                          no internal lookup depends on it - so it should
+                          use the real locale, not be hardcoded en-US.
+                          Confirmed live 2026-09-28 (German UI, English
+                          weekday names). */}
+                      {new Intl.DateTimeFormat(toBcp47(locale), { weekday: 'long' }).format(selectedDay.date)}
                     </p>
                   </div>
                   <div className="space-y-2">

@@ -36,7 +36,16 @@ function recipeList(inventoryData, exportData, imageMaps) {
       recipe.blueprintName ?? recipe.bpName,
       imageFor(recipe.resultType ?? recipe.itemType, recipe.name),
     ),
-    ingredients: recipe.ingredients ?? [],
+    // A raw resource ingredient (Argon Crystal, Oxium...) never gets its
+    // own byItemType entry below unless it has subIngredients, so this is
+    // the only place its image ever gets resolved - previously it wasn't
+    // resolved at all here, only the recipe's own resultType was, leaving
+    // every raw-resource ledger row with no image (confirmed live
+    // 2026-09-28, Argon Crystal in the Target Ledger table).
+    ingredients: (recipe.ingredients ?? []).map((ingredient) => ({
+      ...ingredient,
+      image: ingredient.image ?? imageFor(ingredient.itemType, ingredient.name),
+    })),
   })).filter((recipe) => recipe.itemType);
   const byItemType = new Map(recipes.map((recipe) => [recipe.itemType, recipe]));
   for (const recipe of recipes) {
@@ -60,6 +69,7 @@ function recipeList(inventoryData, exportData, imageMaps) {
           ...subIngredient,
           itemType: subIngredient.itemType ?? subIngredient.ItemType,
           need: subIngredient.need ?? subIngredient.ItemCount,
+          image: subIngredient.image ?? imageFor(subIngredient.itemType ?? subIngredient.ItemType, subIngredient.name),
         })),
       });
     }
@@ -78,6 +88,7 @@ function recipeList(inventoryData, exportData, imageMaps) {
         ...ingredient,
         itemType: ingredient.itemType ?? ingredient.ItemType,
         need: ingredient.need ?? ingredient.ItemCount,
+        image: ingredient.image ?? imageFor(ingredient.itemType ?? ingredient.ItemType, ingredient.name),
       })),
     });
   }

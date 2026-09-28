@@ -494,7 +494,10 @@ export default function Inventory() {
     if (activeTab === 'arcanes') return withImageFallback(inventoryData.arcanes_catalog ?? []);
     if (activeTab === 'consumables') return withImageFallback(inventoryData.consumables_catalog ?? []);
     if (activeTab === 'landing_craft') return withImageFallback(inventoryData.landing_craft_catalog ?? []);
-    if (activeTab === 'parts') return withImageFallback(inventoryData.parts ?? []);
+    // Prime Sets is a static grouped-card view, not a browsable inventory
+    // list - Prime components need to also be findable here, in the actual
+    // parts list, alongside every non-Prime part. Confirmed live 2026-09-28.
+    if (activeTab === 'parts') return withImageFallback([...(inventoryData.parts ?? []), ...(inventoryData.prime_parts ?? [])]);
     if (activeTab === 'resources') {
       const resources = inventoryData.resources ?? [];
       return withImageFallback(resourceFamily === 'all'

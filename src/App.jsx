@@ -255,7 +255,7 @@ function AppContent() {
   const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
 
   const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
-  const { t } = useUi();
+  const { t, ready: uiReady } = useUi();
 
   useEffect(() => installUiDelegation(document), []);
   useEffect(() => { logScreen(activeTab, activeTab); }, [activeTab]);
@@ -271,26 +271,37 @@ function AppContent() {
   }, []);
 
   // Show toast when scanner latches onto Warframe (single notification, main window only)
+  const pendingScannerHookRef = useRef(false);
+  const fireScannerHookedToast = useCallback(() => {
+    invoke('show_notification', {
+      title: t('app.scanner_title'),
+      message: t('app.scanner_hooked_message'),
+      image: '',
+      position: 'top-right',
+      no_focus: true,
+      silent: true
+    }).catch(() => {});
+  }, [t]);
   useEffect(() => {
     const unsub = listen('scanner-hooked', () => {
-      invoke('show_notification', {
-        title: t('app.scanner_title'),
-        message: t('app.scanner_hooked_message'),
-        image: '',
-        position: 'top-right',
-        no_focus: true,
-        silent: true
-      }).catch(() => {});
+      // scanner-hooked is a single-shot early-startup event (fires as soon
+      // as the memory scan latches on) - re-subscribing when `t` changes
+      // (previous fix, confirmed live 2026-09-27 as still broken) doesn't
+      // help if the event has *already fired* before translations finish
+      // loading, since by then there's nothing left to re-subscribe to.
+      // Buffer it and fire once uiReady actually flips true instead of
+      // racing the subscription against the one-shot event.
+      if (!uiReady) {pendingScannerHookRef.current = true;return;}
+      fireScannerHookedToast();
     });
     return () => {unsub.then((f) => f());};
-    // `[]` deps used to mean this listener closure captured whatever `t`
-    // was on the very first render - before UiContext's async locale load
-    // finishes (`ui: {}` default) - and never re-subscribed, so scanner-
-    // hooked (which fires early, right as the game launches) permanently
-    // showed raw keys ("APP.SCANNER_TITLE" / "app.scanner_hooked_message")
-    // for the entire session. Confirmed live 2026-09-27. `t` must be a dep
-    // so this re-subscribes with the real translation once it loads.
-  }, [t]);
+  }, [uiReady, fireScannerHookedToast]);
+  useEffect(() => {
+    if (uiReady && pendingScannerHookRef.current) {
+      pendingScannerHookRef.current = false;
+      fireScannerHookedToast();
+    }
+  }, [uiReady, fireScannerHookedToast]);
 
   // Toggle .sidebar-mode on <body> when entering/exiting sidebar mode
   useEffect(() => {

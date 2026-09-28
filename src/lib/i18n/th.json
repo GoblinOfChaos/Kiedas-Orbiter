@@ -1537,7 +1537,10 @@
     "riven_prompt.press": "Press",
     "riven_prompt.action": "to grade your Rivens",
     "riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
-    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings"
+    "riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
+    "preview.dashboard.targets_active": "เป้าหมายการฟาร์ม {count} รายการกำลังดำเนินการ",
+    "preview.dashboard.targets_active_detail": "ตรวจสอบเป้าหมายของคุณและรายการส่วนประกอบที่ยังต้องการทั้งหมด",
+    "preview.dashboard.view_targets": "ดูเป้าหมายทั้งหมด"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

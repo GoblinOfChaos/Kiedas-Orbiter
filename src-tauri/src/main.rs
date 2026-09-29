@@ -4568,6 +4568,18 @@ fn main() {
         if std::env::var("GST_DEBUG").is_err() {
             std::env::set_var("GST_DEBUG", "*:0");
         }
+        // Every scrollable area in the app showed two visible scrollbar
+        // elements at once, confirmed live on components with zero custom
+        // scrollbar CSS - not an app bug. This is a known WebKitGTK/GTK
+        // overlay-scrollbar defect (WebKit Bugzilla #234874, also tracked
+        // against Tauri's own windowing layer at tauri-apps/tao#368): GTK's
+        // overlay-scrollbar system can render its auto-hide overlay bar
+        // simultaneously with the classic always-drawn scrollbar instead of
+        // replacing it. Disabling overlay scrolling forces one consistent
+        // scrollbar everywhere. Researched and applied 2026-09-28.
+        if std::env::var("GTK_OVERLAY_SCROLLING").is_err() {
+            std::env::set_var("GTK_OVERLAY_SCROLLING", "0");
+        }
     }
     // Recover before any profile-dependent state is read or normal services start.
     let _preview_profile_guard = if build_profile::IS_PREVIEW {

@@ -26,6 +26,15 @@ export default function RivenOverlay() {
   const showingRef = useRef(false);
   const armedRef = useRef(false);
   const newRollSeenRef = useRef(false);
+  // Mirrors newRollSeenRef but for the non-isNew ("current", desktop-LEFT)
+  // window, which previously had no reroll tracking of its own at all - it
+  // always read 'Middle' unconditionally. Needed so this window can switch
+  // to reading 'Left' (its own physically-nearer card) once a reroll has
+  // actually put a second card on screen, without breaking the single-card
+  // case before any reroll happens (where 'Left' would be genuine empty
+  // space - confirmed live 2026-09-28, this exact regression already
+  // happened once from a blind swap that didn't track this).
+  const hasRerolledRef = useRef(false);
   // Bumped at the start of every capture (doOcr call or a manual OCR-hotkey
   // riven-ocr-result event) so an async pricing result can check it's still
   // the most recent one before writing state - without this, the manual OCR
@@ -338,19 +347,17 @@ export default function RivenOverlay() {
           armedRef.current = true;
           if (newRollSeenRef.current) {
             show();
-            // This is the "new roll" overlay window (isNew) - a second,
-            // separate window from the "current" card's overlay below,
-            // each an instance of this same component. Both used to call
-            // doOcr('Middle') unconditionally, so both scanned the exact
-            // same screen region and always showed the identical single
-            // card - confirmed live 2026-09-27 ("grading with two cards
-            // shows only one"). First attempt used 'Right' as a guess;
-            // a live screenshot proved that wrong (the big/current card
-            // sits center-screen at 'Middle', the smaller reroll-comparison
-            // card sits to its LEFT, not right - the 'Right' capture region
-            // was genuine empty space, hence a permanent "waiting for
-            // card"). Confirmed against the real screen this time.
-            doOcr('Left');
+            // This is the "new roll" overlay window (isNew, desktop-RIGHT).
+            // It always reads 'Middle' - the big/center card, which is the
+            // freshly rerolled result. Confirmed against a live screenshot
+            // 2026-09-28: the desktop-left/desktop-right windows were
+            // showing crossed data (left window had the big/Middle card,
+            // right window had the small/Left card) - backwards from what
+            // a viewer at each window's own side expects. This window
+            // stays on 'Middle'; the non-isNew branch below now reads
+            // 'Left' once a reroll has actually happened, so each desktop
+            // side matches the physically nearer card.
+            doOcr('Middle');
           }
         }),
         listen('riven-reroll', () => {
@@ -364,7 +371,7 @@ export default function RivenOverlay() {
           timer = setTimeout(() => {
             timer = null;
             show();
-            doOcr('Left');
+            doOcr('Middle');
           }, 4000);
         }),
         listen('riven-reroll-confirmed', () => {
@@ -397,6 +404,7 @@ export default function RivenOverlay() {
         listen('riven-screen-open', () => {
           if (IS_PREVIEW) {
             armedRef.current = false;
+            hasRerolledRef.current = false;
             hide();
           } else {
             show();
@@ -406,15 +414,38 @@ export default function RivenOverlay() {
         listen('riven-grade-armed', () => {
           armedRef.current = true;
           show();
-          doOcr('Middle');
+          // Preview has two physical cards on screen during a reroll
+          // comparison (big one at 'Middle', small one at 'Left') and two
+          // separate overlay windows, one per card. This (non-isNew,
+          // desktop-LEFT) window reads 'Middle' before any reroll has
+          // happened (the only card that exists yet), then switches to
+          // 'Left' once hasRerolledRef confirms a second card is actually
+          // on screen - matching a live screenshot 2026-09-28 showing the
+          // desktop-left window should show the small/Left card, not the
+          // big/Middle one. Stable has no second window/card to compare
+          // against and keeps reading 'Middle' unconditionally.
+          doOcr(IS_PREVIEW && hasRerolledRef.current ? 'Left' : 'Middle');
+        }),
+        listen('riven-reroll', () => {
+          // This window doesn't re-scan on every reroll (the "current"
+          // card's own stats never change across cycles - only the
+          // isNew/desktop-right window's card does), it just needs to know
+          // a second card now exists so future doOcr calls read the right
+          // position.
+          hasRerolledRef.current = true;
         }),
         listen('riven-linked-closed', () => hide()),
         listen('riven-screen-closed', () => {
           if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
           armedRef.current = false;
+          hasRerolledRef.current = false;
           hide();
         }),
         listen('riven-reroll-confirmed', () => {
+          // The pending roll was accepted: there is no second card on
+          // screen any more, so a later re-arm must read 'Middle' again,
+          // not 'Left'.
+          hasRerolledRef.current = false;
           // Rerolling again before the previous 2s settle timer fires left
           // two competing OCR calls in flight with no defined winner -
           // whichever's OCR/pricing round-trip happened to finish last would

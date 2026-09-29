@@ -1,6 +1,6 @@
 import { BARO_RELIC_NAMES } from './baroRelics.js'
 import { sortSourcesByChanceInRotations } from './chanceSort.js'
-import { getRelicRewardChance } from './relicParser.js'
+import { getRelicRewardChance, parseRelicName } from './relicParser.js'
 
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
@@ -648,13 +648,33 @@ export function buildDropIndex(exportData) {
   if (ERel && ERw) {
     const relics = Array.isArray(ERel) ? ERel : Object.values(ERel)
     for (const relic of relics) {
-      if (!relic || !relic.rewardManifest) continue
-      const rewardTable = ERw[relic.rewardManifest]
-      if (!rewardTable || !Array.isArray(rewardTable)) continue
-
-      const pool = Array.isArray(rewardTable[0]) ? rewardTable[0] : rewardTable
-      const relicEra = relic.era || ''
-      const relicCat = relic.category || ''
+      if (!relic) continue
+      // Same two-schema split as relicParser.js's getRelicRewards/
+      // getAllRelicRewards (see their comments): a newer batch of relics -
+      // every Citrine Prime relic confirmed - has no rewardManifest at all
+      // and embeds rewards directly as relicRewards instead. This builder
+      // had its own independent copy of the old manifest-only gate, so
+      // every Citrine relic was skipped before ever reaching the pool loop
+      // below - the chance-field fix added earlier (558f01e9/9cd37049)
+      // never actually ran for Citrine, since this gate killed it first.
+      // Confirmed live 2026-09-28 (relic reward overlay's OCR match pool
+      // never contained any Citrine Prime reward at all).
+      let pool
+      if (Array.isArray(relic.relicRewards)) {
+        pool = relic.relicRewards.map((entry) => ({ type: entry.rewardName, rarity: entry.rarity }))
+      } else if (relic.rewardManifest) {
+        const rewardTable = ERw[relic.rewardManifest]
+        if (!rewardTable || !Array.isArray(rewardTable)) continue
+        pool = Array.isArray(rewardTable[0]) ? rewardTable[0] : rewardTable
+      } else {
+        continue
+      }
+      // relic.era/relic.category are also absent on this newer schema
+      // (confirmed live) - parseRelicName derives the same era/refinement
+      // from the uniqueName path that getRelicCatalog already relies on.
+      const parsed = parseRelicName(relic.uniqueName || '')
+      const relicEra = relic.era || parsed.era || ''
+      const relicCat = relic.category || parsed.name || ''
 
       for (const entry of pool) {
         if (!entry || !entry.type) continue
@@ -673,7 +693,9 @@ export function buildDropIndex(exportData) {
           // above (which always set chance) and unlike every other source
           // type in this file.
           chance: getRelicRewardChance(entry, 'Intact', pool),
-          relicManifest: relic.rewardManifest,
+          // rewardManifest doesn't exist on the newer relicRewards schema;
+          // the relic's own uniqueName is an equally stable identifier.
+          relicManifest: relic.rewardManifest || relic.uniqueName,
           // Same gap as the ExportRegions/ExportRewards mission builder above:
           // this DE-native path never attributed its data either.
           source: 'DE export (ExportRelics/ExportRewards)',

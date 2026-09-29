@@ -8,6 +8,14 @@ export function isProjectionPath(value) { return value?.includes('/Projections/'
 export function isPackagePath(value) { return value?.includes('/Packages/') || false }
 
 function rewardList(rewards, relic) {
+  // Same two-schema split as relicParser.js's getRelicRewards (see its
+  // comment) - a newer batch of relics (every Citrine Prime relic,
+  // confirmed live) has no rewardManifest at all and embeds rewards
+  // directly as relicRewards instead. This was a third independent copy
+  // of the old manifest-only logic that never got the fallback.
+  if (Array.isArray(relic?.relicRewards)) {
+    return relic.relicRewards.map((entry) => ({ type: entry.rewardName, rarity: entry.rarity }))
+  }
   const pool = relic?.rewardManifest ? rewards?.[relic.rewardManifest] : null
   if (Array.isArray(pool?.[0])) return pool[0]
   return Array.isArray(pool) ? pool : []

@@ -1,0 +1,280 @@
+
+❯ lets continue docs/HANDOFF.md
+
+  Read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Preview is the default; the matching file is under the Preview tree.
+
+  Read 1 file, called mcp-server-google-antigravity 2 times, ran 5 shell commands (ctrl+o to expand)
+
+● Step A is partly done, and there's a decision for you before I go further. I
+  changed no repo files. The one script I wrote is in the scratchpad.
+
+  Antigravity job muhsr8jq_wl8ute: It has been running about 4h45m with zero
+  output. I'd treat it as hung. I haven't cancelled it, since that's your call.
+
+  What the DE export shows about the 1,045 recipes missing from Foundry (real
+  data, read-only):
+
+  ┌────────────────────────────────────────────────┬────────┐
+  │         Result item's productCategory          │ Count  │
+  ├────────────────────────────────────────────────┼────────┤
+  │ MiscItems (includes the Narin part components) │ 542    │
+  ├────────────────────────────────────────────────┼────────┤
+  │ WeaponSkins                                    │ 269    │
+  ├────────────────────────────────────────────────┼────────┤
+  │ ShipDecorations                                │ 49     │
+  ├────────────────────────────────────────────────┼────────┤
+  │ No category found in the exports               │ 181    │
+  ├────────────────────────────────────────────────┼────────┤
+  │ Kubrow pet, Ship, supply drop, long gun        │ 1 each │
+  └────────────────────────────────────────────────┴────────┘
+
+  - Flags: excludeFromCodex is set on 278 of them and hidden on 133. Only 2 have
+    codexSecret and 1 has alwaysAvailable.
+  - Foundry tab: DE's recipe records have no tab field, so it has to be derived.
+    That's the gap the wiki research was meant to fill.
+  - Narin: Chassis, Helmet and Systems part recipes are all missing from
+    Foundry. The result of each is a NarinXComponent item.
+
+  Next step (needs your go-ahead): Ask Antigravity a narrower text-only
+  question. Given the counts above, the question is how the in-game foundry tabs
+  map to productCategory values, and what the 181 uncategorised results are.
+  Sources would be wiki.warframe.com only. It would be told not to edit files,
+  and I'd check its git diff afterwards. Or I can do the wiki lookup myself
+  instead, which is slower but uses no agent.
+
+  Which do you want: the narrower Antigravity job, or me doing it? And should I
+  cancel the stuck job?
+
+❯ cancel the antigravity job, then give it narrower stuff
+
+  Called mcp-server-google-antigravity 6 times (ctrl+o to expand)
+
+❯ im going to bed. fix my fucking app, do the entire list. install a headless
+  browser, idc
+
+  Read 2 files, ran 13 shell commands (ctrl+o to expand)
+
+● Now the edits.
+
+● Update(.preview-work/stage4-command-center/src/lib/inventoryParser.js)
+  ⎿  Added 6 lines
+      3481      return null;
+      3482    }).filter(Boolean);
+      3483  
+      3484 +  // Recipes the equipment-driven `craftable` catalog leaves 
+           +out (component                                               
+      3485 +  // blueprints, Helminth abilities, quest items, non-equipme
+           +nt results).                                                 
+      3486 +  // Filled by the craftable builder below so the Foundry can
+           + list every DE                                               
+      3487 +  // recipe; each entry carries `foundryGroup`.              
+      3488 +  let craftableExtraItems = [];                              
+      3489 +                                                             
+      3490    return {
+      3491      account: {
+      3492        mastery_rank: playerLevel,
+
+● Update(.preview-work/stage4-command-center/src/lib/inventoryParser.js)
+  ⎿  Added 24 lines
+      3568      // ── Craftable Items (all recipes with ingredient checks
+            ) ──
+      3569      craftable: (() => {
+      3570        const craftableItems = [];
+      3571 +      const extraItems = [];                                 
+      3572  
+      3573 +      // DE's recipe export has no category field, so the gro
+           +up of a recipe                                               
+      3574 +      // outside the equipment catalog comes from the result 
+           +item's own                                                   
+      3575 +      // `productCategory` in the DE exports, with the result
+           + path as fallback.                                           
+      3576 +      const productCategoryByType = new Map();               
+      3577 +      for (const table of [EW, ES, ER, EWf, EA, EM, ECust, EG
+           +ear]) {                                                      
+      3578 +        if (!table) continue;                                
+      3579 +        for (const [un, entry] of Object.entries(table)) {   
+      3580 +          if (entry?.productCategory && !productCategoryByTyp
+           +e.has(un)) productCategoryByType.set(un, entry.productCategor
+           +y);                                                          
+      3581 +        }                                                    
+      3582 +      }                                                      
+      3583 +      const foundryGroupFor = (bpKey, resultType, isComponent
+           +Blueprint) => {                                              
+      3584 +        if (bpKey.includes('AbilityOverride') || resultType?.
+           +includes('/Abilities/') || resultType?.startsWith('/Lotus/Pow
+           +ersuits/')) return 'helminth';                               
+      3585 +        if (isComponentBlueprint) return 'component_blueprint
+           +s';                                                          
+      3586 +        if (bpKey.includes('Quest')) return 'quest';         
+      3587 +        const category = productCategoryByType.get(resultType
+           +);                                                           
+      3588 +        if (category === 'WeaponSkins') return 'skins';      
+      3589 +        if (category === 'ShipDecorations') return 'ship_deco
+           +rations';                                                    
+      3590 +        if (resultType?.includes('/Restoratives/')) return 'r
+           +estoratives';                                                
+      3591 +        if (resultType?.includes('/Upgrades/Focus/')) return 
+           +'focus';                                                     
+      3592 +        if (resultType?.includes('/Types/Keys/')) return 'key
+           +s';                                                          
+      3593 +        return 'other';                                      
+      3594 +      };                                                     
+      3595 +                                                             
+      3596        // Inventory payloads and export recipe keys may differ
+             only by the
+      3597        // StoreItems namespace. Counts used for readiness must
+             use one identity
+      3598        // for both forms, otherwise a blueprint can appear abs
+            ent (or a recipe
+
+● Update(.preview-work/stage4-command-center/src/lib/inventoryParser.js)
+  ⎿  Added 5 lines, removed 7 lines
+      3693  
+      3694          const resultName = resolveName(recipe.resultType, dic
+            t, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
+      3695  
+      3696 -        // Skip Helminth abilities and quest items           
+      3697 -        if (bpKey.includes('AbilityOverride')) return;       
+      3698 -        if (recipe.resultType?.includes('/Abilities/')) retur
+           -n;                                                           
+      3699 -        if (bpKey.includes('Quest')) return;                 
+      3696 +        // Helminth abilities, quest items and component blue
+           +prints (Helmet/                                              
+      3697 +        // Chassis/Systems/Harness/Wings - shown as component
+           +s in the main BP)                                            
+      3698 +        // stay out of the main catalog and go to the extra l
+           +ist instead.                                                 
+      3699 +        const isComponentBlueprint = bpKey.includes('HelmetBl
+           +ueprint') || bpKey.includes('ChassisBlueprint') || bpKey.incl
+           +udes('SystemsBlueprint') || bpKey.includes('HarnessBlueprint'
+           +) || bpKey.includes('WingsBlueprint');                       
+      3700 +        let isExtra = bpKey.includes('AbilityOverride') || re
+           +cipe.resultType?.includes('/Abilities/') || bpKey.includes('Q
+           +uest') || isComponentBlueprint;                              
+      3701  
+      3701 -        // Skip component blueprints (Helmet/Chassis/Systems/
+           -Wings Blueprint) - they're shown as components in main BP    
+      3702 -        if (bpKey.includes('HelmetBlueprint') || bpKey.includ
+           -es('ChassisBlueprint') || bpKey.includes('SystemsBlueprint') 
+           -|| bpKey.includes('HarnessBlueprint') || bpKey.includes('Wing
+           -sBlueprint')) return;                                        
+      3703 -                                                             
+      3702          // Check if this is a main BP that could have compone
+            nts (warframes, archwings, etc)
+      3703          const isMainItemBP = (bpKey.includes('/Recipes/Warfra
+            meRecipes/') || bpKey.includes('/Recipes/ArchwingRecipes/')) 
+            && !bpKey.includes('Component');
+      3704          const isOwned = (ownedItemCounts[canonicalInventoryTy
+            pe(bpKey)] ?? 0) > 0;
+
+● Update(.preview-work/stage4-command-center/src/lib/inventoryParser.js)
+  ⎿  Added 1 line, removed 1 line
+      3737            showBP = componentBPs.some(cb => (ownedItemCounts[c
+            anonicalInventoryType(cb)] ?? 0) > 0);
+      3738          }
+      3739  
+      3740 -        if (!showBP) return;                                 
+      3740 +        if (!showBP) isExtra = true;                         
+      3741  
+      3742          // Get count of this BP owned
+      3743          const bpCount = ownedItemCounts[canonicalInventoryTyp
+            e(bpKey)] ?? 0;
+
+● Update(.preview-work/stage4-command-center/src/lib/inventoryParser.js)
+  ⎿  Added 2 lines, removed 1 line
+      3841  
+      3842          // No separate "parts" section needed - ingredients a
+            lready has everything
+      3843  
+      3844 -        craftableItems.push({                                
+      3844 +        (isExtra ? extraItems : craftableItems).push({       
+      3845 +          ...(isExtra ? { foundryGroup: foundryGroupFor(bpKey
+           +, recipe.resultType, isComponentBlueprint) } : {}),          
+      3846            bpName: resultName,
+      3847            baseName,
+      3848            componentBased: isMainItemBP && !isOwned,
+
+● Update(.preview-work/stage4-command-center/src/lib/inventoryParser.js)
+  ⎿  Added 2 lines
+      3863          });
+      3864        });
+      3865  
+      3866 +      craftableExtraItems = extraItems;                      
+      3867        return craftableItems;
+      3868      })(),
+      3869 +    craftable_extra: craftableExtraItems,                    
+      3870  
+      3871      foundry: (raw.PendingRecipes ?? []).map(p => {
+      3872        const recipe = ERecipe[p.ItemType];
+
+  Ran 23 shell commands (ctrl+o to expand)
+
+● I finished two items in code and committed them, but I haven't built or
+  deployed anything, so your app doesn't have any of this yet. The build/deploy
+  guard hook blocked me. It wants the exact plan stated and a go-ahead for each
+  build, and "do the entire list" doesn't count. I didn't work around it.
+
+  Tests are at 157 passing. Commits are on the Preview branch (nothing pushed):
+  c02d6d8, 4c2cd95, and a handoff update to
+  .preview-work/stage4-command-center/docs/HANDOFF.md.
+
+  Done
+  - Foundry (item 8):
+    - I added a "More Recipes" tab covering every recipe not already in the
+      equipment tabs. On your real data that's 979 in the existing tabs plus
+      1,045 in the new one, 2,024 unique in all, so nothing is dropped.
+    - Narin Chassis, Neuroptics and Systems are in it, under Component
+      Blueprints.
+    - The groups (component blueprints, skins, ship decorations, restoratives,
+      focus, keys, Helminth, quest, other) come from Digital Extremes' own item
+      categories. They are not the real in-game tab names. The wiki doesn't
+      document those, and Antigravity only confirmed "Keys". So please check the
+      group split when you look at it.
+  - Keys and quests (item 7): A Preview-only "Keys & Quests" tab in Inventory.
+    It shows the 47 published keys plus anything you hold, and ownership comes
+    only from your LevelKeys and QuestKeys. All 47 of your keys show as owned.
+
+  Findings
+  - Faction dropdown: This is a data gap, not a bug. 245 of 894 mission places
+    have a faction. The other 649 aren't in DE's regions export (Phoebe, Miranda
+    and Quirinus, for example). Filling them would need wiki data, and I didn't
+    guess.
+  - Parts with no drop source (item 9): The 384 break down as 245 weapon part
+    and blueprint recipes, 67 Warframe recipes, 52 Dojo research items, 12
+    Archwing, 6 Sentinel and 2 other. Most of these probably aren't drops at all
+    (Market, Dojo, quests), so they need part-by-part wiki research. I haven't
+    started that.
+  - Antigravity: The old job was already dead, so cancel returned "not running".
+    The narrower job finished and its result is above.
+
+  Not done: item 10 (the remaining Digital Extremes adoption) and the wiki
+  research for item 9. The items that are only yours to do (deleting old
+  AppImage backups, worktree cleanup, GitHub issues #118 to #128) are untouched
+  too. I also skipped the headless browser, since nothing I changed needed a
+  visual check yet.
+
+  Decision for you: May I build the Preview AppImage with
+  scripts/rebuild-appimage.sh in dev-fedora, under CARGO_BUILD_JOBS=4 and nice?
+  It overwrites ~/AppImages/kiedas_orbiter_preview.appimage. Your running copy
+  has been up since Sep 25. I wouldn't touch it, but it wouldn't pick up the new
+  build until you relaunch. Reply "go" and I'll run it.
+
+❯ get rid of faction dropdown then. get the list done. sure you can write it.
+  now dont bother me until literally everything left in our lists is done
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Remove only the UI dropdown and its state; keep the model's faction data
+  (harmless, tested).
+
+  Listed 1 directory, ran 15 shell commands (ctrl+o to expand)
+  ⎿  Error: No such tool available: bash. Tool names are case-sensitive: call
+     Bash instead.
+
+  Ran 36 shell commands (ctrl+o to expand)
+  ⎿  You've hit your weekly limit · resets 4pm (America/Los_Angeles)
+     /upgrade to increase your usage limit.
+
+● Background shell command didn't finish before the previous session ended

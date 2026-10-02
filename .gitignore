@@ -125,3 +125,18 @@ codeql-custom-queries-rust/
 tools/warframe_api.http
 scripts/resolved_nightwave_rewards.json
 *.kate-swp
+
+# Nested Preview-app git repo + its agent worktrees (own .git, not tracked here)
+.preview-work/
+
+# pnpm local package store
+.pnpm-store/
+
+# Wiki scrape/mirror data dumps (regenerate via existing wiki scripts)
+wf-wiki-module-data-mirror/
+wiki_article_wikitext/
+wiki_module_archive/
+wiki_module_json/
+
+# Test cache
+tests/.cache/

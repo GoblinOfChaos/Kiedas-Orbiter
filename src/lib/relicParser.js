@@ -4,6 +4,7 @@
 import { BLUEPRINT_SUFFIX } from './warframeUtils.js';
 import { BARO_RELIC_NAMES } from './baroRelics.js';
 import { REQUIEM_MOD_ALIASES } from './requiemModAliases.js';
+import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js';
 
 const allRelicRewardsCache = new WeakMap();
 const relicCatalogCache = new WeakMap();
@@ -173,7 +174,8 @@ function resolveDisplayName(uniqueName, exportData, locale = 'en') {
  */
 export function getAllRelicRewards(exportData, locale = 'en') {
   if (!exportData || !exportData.ExportRelics || !exportData.ExportRewards) return [];
-  if (allRelicRewardsCache.has(exportData)) return allRelicRewardsCache.get(exportData);
+  const localeCache = allRelicRewardsCache.get(exportData);
+  if (localeCache?.has(locale)) return localeCache.get(locale);
 
   const relicData = Array.isArray(exportData.ExportRelics) ? exportData.ExportRelics : Object.values(exportData.ExportRelics);
   const rewardsMap = Array.isArray(exportData.ExportRewards) ? {} : exportData.ExportRewards;
@@ -192,14 +194,7 @@ export function getAllRelicRewards(exportData, locale = 'en') {
   const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';
 
   for (const relic of relicData) {
-    const manifestPath = relic.rewardManifest;
-    if (!manifestPath) continue;
-
-    const pool = lookupTable[manifestPath];
-    if (!pool) continue;
-
-    const poolList = Array.isArray(pool) ? (Array.isArray(pool[0]) ? pool[0] : pool) : [];
-    const flatPool = poolList.flat();
+    const flatPool = relicRewardPool(relic, lookupTable);
 
     for (const drop of flatPool) {
       const un = drop.type;
@@ -218,7 +213,7 @@ export function getAllRelicRewards(exportData, locale = 'en') {
         rarity: drop.rarity || 'COMMON',
         ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
         isForma: norm.toLowerCase().includes('forma'),
-        isPrimePart: norm.includes('Prime'),
+        isPrimePart: /prime/i.test(norm),
       });
     }
   }
@@ -234,7 +229,9 @@ export function getAllRelicRewards(exportData, locale = 'en') {
     });
   }
 
-  allRelicRewardsCache.set(exportData, allItems);
+  const cache = localeCache || new Map();
+  cache.set(locale, allItems);
+  allRelicRewardsCache.set(exportData, cache);
   return allItems;
 }
 
@@ -247,12 +244,7 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
   const relicEntry = relics[relicUniqueName];
   if (!relicEntry) return [];
 
-  const manifestPath = relicEntry.rewardManifest;
-  const pool = rewards[manifestPath];
-  if (!pool) return [];
-
-  const poolList = Array.isArray(pool) ? (Array.isArray(pool[0]) ? pool[0] : pool) : [];
-  const flatPool = poolList.flat();
+  const flatPool = relicRewardPool(relicEntry, rewards, relicUniqueName);
 
   return flatPool.map(item => {
     const un = item.type;
@@ -269,7 +261,7 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
       ducats: recipe?.primeSellingPrice || itemData?.primeSellingPrice || 0,
       icon: exportData.EI?.[un] || exportData.EI?.[norm] || null,
       isForma: norm.toLowerCase().includes('forma'),
-      isPrimePart: norm.includes('Prime'),
+      isPrimePart: /prime/i.test(norm),
     };
   });
 }
@@ -281,7 +273,8 @@ export function getRelicRewards(relicUniqueName, exportData, locale = 'en') {
  */
 export function getRelicCatalog(exportData, locale = 'en') {
   if (!exportData?.ExportRelics || !exportData?.ExportRewards) return [];
-  if (relicCatalogCache.has(exportData)) return relicCatalogCache.get(exportData);
+  const localeCache = relicCatalogCache.get(exportData);
+  if (localeCache?.has(locale)) return localeCache.get(locale);
 
   const relics = Array.isArray(exportData.ExportRelics)
     ? exportData.ExportRelics.map((entry) => [entry.uniqueName || entry.ItemType, entry])
@@ -292,8 +285,12 @@ export function getRelicCatalog(exportData, locale = 'en') {
   for (const [uniqueName, entry] of relics) {
     if (!uniqueName || !entry) continue;
 
-    const era = entry.era || parseRelicName(uniqueName).era;
-    const category = entry.category || parseRelicName(uniqueName).name;
+    const normalized = normalizeRelicEntry(entry, uniqueName);
+    const era = normalized.era || parseRelicName(uniqueName).era;
+    const parsedName = parseRelicName(uniqueName);
+    const category = normalized.category || (
+      parsedName.name && !/Prime[A-Z]$/.test(parsedName.name) ? parsedName.name : null
+    );
     if (!era || !category || era === 'Unknown') continue;
 
     // This is the Prime relic planner. ExportRelics also contains T5
@@ -317,7 +314,7 @@ export function getRelicCatalog(exportData, locale = 'en') {
       rewards,
       // Carried so unowned relics can render art too: inventory parsing only
       // ever produces owned relics, so a catalog-only entry had no image at all.
-      icon: entry.icon || null,
+      icon: normalized.icon || null,
       // DE export variants differ in whether this field is present. Keep an
       // unknown value unknown instead of labelling an unverified relic as
       // farmable.
@@ -325,7 +322,9 @@ export function getRelicCatalog(exportData, locale = 'en') {
     });
   }
 
-  relicCatalogCache.set(exportData, catalog);
+  const cache = localeCache || new Map();
+  cache.set(locale, catalog);
+  relicCatalogCache.set(exportData, cache);
   return catalog;
 }
 

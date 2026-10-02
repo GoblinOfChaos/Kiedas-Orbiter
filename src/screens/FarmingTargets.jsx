@@ -68,7 +68,9 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
 export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
-  const targetRows = model.ledger.filter((row) => target?.name && row.usedBy.some((entry) => entry.targetId === target.id) && (!hideDone || row.stillNeeded > 0));
+  const targetRows = model.ledger.filter((row) => target?.id != null
+    && row.usedBy.some((entry) => String(entry.targetId) === String(target.id))
+    && (!hideDone || row.stillNeeded > 0));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
   return (
     <div className="space-y-5" data-preview-farming-targets>
@@ -253,7 +255,7 @@ export default function FarmingTargets() {
     }
     if (IS_PREVIEW) {
       for (const entry of screenModel.ledger) {
-        if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: null, category: null });
+        if (!map.has(entry.itemType)) map.set(entry.itemType, { uniqueName: entry.itemType, name: entry.name, image: entry.image ?? null, category: null });
       }
       for (const row of screenModel.relicPlaces ?? []) {
         if (!map.has(row.place.uniqueName)) map.set(row.place.uniqueName, { uniqueName: row.place.uniqueName, name: row.place.name, image: null, category: 'relics' });

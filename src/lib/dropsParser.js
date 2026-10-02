@@ -1,5 +1,6 @@
 import { BARO_RELIC_NAMES } from './baroRelics.js'
 import { sortSourcesByChanceInRotations } from './chanceSort.js'
+import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 
 function buildNameToUniqueNameMap(exportData, dict) {
   const map = {}
@@ -83,8 +84,9 @@ function buildNameToUniqueNameMap(exportData, dict) {
     const relicEntries = Array.isArray(relics) ? relics : Object.entries(relics)
     for (const [relicUn, relic] of relicEntries) {
       if (!relic) continue
-      const era = relic.era || ''
-      const category = relic.category || ''
+      const normalizedRelic = normalizeRelicEntry(relic, relicUn)
+      const era = normalizedRelic.era || ''
+      const category = normalizedRelic.category || ''
       if (!era || !category) continue
       const displayName = `${era} ${category}`.toLowerCase()
       if (!map[displayName]) map[displayName] = []
@@ -643,13 +645,12 @@ export function buildDropIndex(exportData) {
   if (ERel && ERw) {
     const relics = Array.isArray(ERel) ? ERel : Object.values(ERel)
     for (const relic of relics) {
-      if (!relic || !relic.rewardManifest) continue
-      const rewardTable = ERw[relic.rewardManifest]
-      if (!rewardTable || !Array.isArray(rewardTable)) continue
-
-      const pool = Array.isArray(rewardTable[0]) ? rewardTable[0] : rewardTable
-      const relicEra = relic.era || ''
-      const relicCat = relic.category || ''
+      if (!relic) continue
+      const normalizedRelic = normalizeRelicEntry(relic)
+      const pool = relicRewardPool(relic, ERw)
+      if (!pool.length) continue
+      const relicEra = normalizedRelic.era || ''
+      const relicCat = normalizedRelic.category || ''
 
       for (const entry of pool) {
         if (!entry || !entry.type) continue
@@ -658,7 +659,7 @@ export function buildDropIndex(exportData) {
           relicEra,
           relicName: relicCat ? `${relicEra} ${relicCat}` : null,
           rarity: entry.rarity || 'COMMON',
-          relicManifest: relic.rewardManifest,
+          relicManifest: relic.rewardManifest ?? null,
         })
       }
     }

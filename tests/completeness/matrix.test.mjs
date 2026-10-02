@@ -72,9 +72,9 @@ test('removing a cosmetic supplement image turns the image check red', () => {
   assert.equal(withoutSupplement.ExportCustoms?.[addition], undefined)
 })
 
-test('Prime Parts visibility is absent when unowned and present when a part is owned', () => {
+test('Prime Parts lists every Prime set, owned or not', () => {
   assert.equal(primePartsVisible({}, 'Citrine'), false)
-  assert.equal(primePartsVisible({ Citrine: { parts: [{ quantity: 0 }] } }, 'Citrine'), false)
+  assert.equal(primePartsVisible({ Citrine: { parts: [{ quantity: 0 }] } }, 'Citrine'), true)
   assert.equal(primePartsVisible({ Citrine: { parts: [{ quantity: 1 }] } }, 'Citrine'), true)
 })
 

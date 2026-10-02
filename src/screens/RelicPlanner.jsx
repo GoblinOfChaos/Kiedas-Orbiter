@@ -10,7 +10,7 @@ import PreviewRelicPlannerLayout from '../components/PreviewRelicPlannerLayout';
 import FarmingTargetAction from '../components/FarmingTargetAction';
 
 export default function RelicPlanner() {
-  const { t } = useUi();
+  const { t, locale } = useUi();
   const { inventoryData, exportData, isInventoryLoading } = useMonitoring();
   const [partSearch, setPartSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -39,12 +39,12 @@ export default function RelicPlanner() {
   // Catalog of distinct prime parts
   const allParts = useMemo(() => {
     if (!exportData) return [];
-    return getAllRelicRewards(exportData, 'en')
+    return getAllRelicRewards(exportData, locale)
       .filter((part) => part.isPrimePart || /Forma(?:Blueprint)?$/i.test(part.uniqueName || ''))
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [exportData]);
+  }, [exportData, locale]);
 
-  const relicCatalog = useMemo(() => getRelicCatalog(exportData, 'en'), [exportData]);
+  const relicCatalog = useMemo(() => getRelicCatalog(exportData, locale), [exportData, locale]);
 
   // Pre-indexed owned relics by exact normalized key for instant O(1) matching
   const ownedRelics = useMemo(() => {
@@ -66,15 +66,15 @@ export default function RelicPlanner() {
     if (!allParts.length) return new Map();
     return new Map(allParts.map((p) => [
       p.uniqueName,
-      getPartObtainedStatus(p.uniqueName, p.name, inventoryData, exportData, 'en'),
+      getPartObtainedStatus(p.uniqueName, p.name, inventoryData, exportData, locale),
     ]));
-  }, [allParts, inventoryData, exportData]);
+  }, [allParts, inventoryData, exportData, locale]);
 
   const getPartStatus = (uniqueName) => partStatuses.get(uniqueName) || { directOwned: false, everObtained: false, hasEnough: false, need: 1 };
 
   const filteredParts = useMemo(() => {
     const q = debouncedSearch.trim().toLowerCase();
-    let parts = q ? allParts.filter((p) => p.name.toLowerCase().includes(q)) : allParts;
+    let parts = q ? allParts.filter((p) => p.name.toLowerCase().includes(q) || p.uniqueName.toLowerCase().includes(q)) : allParts;
     if (partFilter === 'never-obtained') {
       parts = parts.filter((p) => !getPartStatus(p.uniqueName).everObtained);
     } else if (partFilter === 'missing') {

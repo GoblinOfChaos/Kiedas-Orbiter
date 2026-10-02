@@ -1,3 +1,4 @@
+import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 const PRIME_REWARD_RE = /Prime.*(?:Blueprint|Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band)$/i
 
 export function canonicalPrimePath(value) {
@@ -8,9 +9,7 @@ export function isProjectionPath(value) { return value?.includes('/Projections/'
 export function isPackagePath(value) { return value?.includes('/Packages/') || false }
 
 function rewardList(rewards, relic) {
-  const pool = relic?.rewardManifest ? rewards?.[relic.rewardManifest] : null
-  if (Array.isArray(pool?.[0])) return pool[0]
-  return Array.isArray(pool) ? pool : []
+  return relicRewardPool(relic, rewards)
 }
 
 function recipeIndex(exportData) {
@@ -79,7 +78,8 @@ export function buildPrimeResurgenceModel(trader, exportData, inventoryData) {
   for (const projection of trader.inventory.filter((entry) => isProjectionPath(entry.uniqueName))) {
     const key = projection.uniqueName.replace('/StoreItems/', '/')
     const relic = relics[projection.uniqueName] || relics[key]
-    const label = relic?.era && relic?.category ? `${relic.era} ${relic.category}` : projection.item
+    const normalizedRelic = relic ? normalizeRelicEntry(relic, projection.uniqueName) : null
+    const label = normalizedRelic?.era && normalizedRelic?.category ? `${normalizedRelic.era} ${normalizedRelic.category}` : projection.item
     for (const reward of rewardList(rewards, relic)) {
       const type = reward.type || reward.rewardItem
       const normalized = canonicalPrimePath(type)

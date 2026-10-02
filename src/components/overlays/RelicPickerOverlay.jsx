@@ -16,6 +16,7 @@ export default function RelicPickerOverlay() {
   const [relics, setRelics] = useState(null)
   const [windowVisible, setWindowVisible] = useState(false)
   const windowVisibleRef = useRef(false)
+  const knownEraContainerRef = useRef(null)
 
   const showWindow = useCallback(async (fromRust = false) => {
     if (windowVisibleRef.current) return
@@ -64,6 +65,20 @@ export default function RelicPickerOverlay() {
     return () => { subs.forEach(p => p.then(f => f())) }
   }, [])
 
+  useEffect(() => {
+    if (!relics || relics.by_era || !knownEraContainerRef.current) return
+    const resize = () => {
+      const height = Math.max(40, Math.ceil(knownEraContainerRef.current.scrollHeight))
+      invoke('resize_overlay_window', {
+        label: 'overlay-relic-picker',
+        width: 620,
+        height,
+      }).catch((error) => console.error('[RelicPickerOverlay] Resize failed:', error))
+    }
+    const frame = requestAnimationFrame(resize)
+    return () => cancelAnimationFrame(frame)
+  }, [relics])
+
   if (!relics) return null
 
   // Known single era (in-mission or a confirmed non-endless fissure): the
@@ -71,8 +86,8 @@ export default function RelicPickerOverlay() {
   if (!relics.by_era) {
     const eraSuffix = relics.era ? ` (${relics.era})` : ''
     return (
-      <div className="w-full h-full bg-zinc-900 flex flex-col">
-        <div className="flex-1 flex items-center justify-center p-4">
+      <div ref={knownEraContainerRef} className="w-full min-h-0 bg-zinc-900 flex flex-col">
+        <div className="p-4">
           <div className="w-full">
             <div className="flex gap-3">
               <Column items={relics.ducat_top} title={t('relic_picker.top_ducat_ev', { eraSuffix })} accent="text-amber-400" valueKey="evDucats" suffix="" />
@@ -115,7 +130,13 @@ export default function RelicPickerOverlay() {
                 </span>
                 <EraCell item={row.ducat} valueClass="text-kronos-accent-secondary" value={row.ducat ? row.ducat.value : null} />
                 <EraCell item={row.plat} valueClass="text-kronos-accent" value={row.plat ? `${row.plat.value}p` : null} />
-                <EraCell item={row.missing} valueClass="text-green-400 uppercase tracking-wide" value={row.missing ? `${row.missing.count} part${row.missing.count === 1 ? '' : 's'}` : null} />
+                <EraCell
+                  item={row.missing}
+                  valueClass="text-green-400 uppercase tracking-wide"
+                  value={row.missing
+                    ? t(`relic_picker.parts_${row.missing.count === 1 ? 'one' : 'other'}`, { count: row.missing.count })
+                    : null}
+                />
               </React.Fragment>
             ))}
           </div>

@@ -36,7 +36,27 @@ export default function PreviewRelicsLayout({ enabled, children }) {
           height: auto;
           min-height: 42px;
           overflow-x: auto;
-          scrollbar-width: thin;
+        }
+        /* scrollbar-width/-color removed on purpose - WebKitGTK draws
+           elements styled with those standard properties as a native
+           overlay bar above everything once GTK_OVERLAY_SCROLLING=0
+           (see src-tauri/src/main.rs), ignoring ::-webkit-scrollbar CSS. */
+        [data-preview-relics-ownership]::-webkit-scrollbar,
+        [data-preview-relics-squad]::-webkit-scrollbar,
+        [data-preview-relics-target]::-webkit-scrollbar {
+          height: 8px;
+          width: 8px;
+        }
+        [data-preview-relics-ownership]::-webkit-scrollbar-track,
+        [data-preview-relics-squad]::-webkit-scrollbar-track,
+        [data-preview-relics-target]::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        [data-preview-relics-ownership]::-webkit-scrollbar-thumb,
+        [data-preview-relics-squad]::-webkit-scrollbar-thumb,
+        [data-preview-relics-target]::-webkit-scrollbar-thumb {
+          background: rgba(var(--color-accent-rgb), 0.35);
+          border-radius: 10px;
         }
         [data-preview-relics-secondary-controls] {
           display: grid;
@@ -48,7 +68,17 @@ export default function PreviewRelicsLayout({ enabled, children }) {
           width: 100%;
           flex-wrap: nowrap;
           overflow-x: auto;
-          scrollbar-width: thin;
+        }
+        [data-preview-relics-rail]::-webkit-scrollbar {
+          height: 8px;
+          width: 8px;
+        }
+        [data-preview-relics-rail]::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        [data-preview-relics-rail]::-webkit-scrollbar-thumb {
+          background: rgba(var(--color-accent-rgb), 0.35);
+          border-radius: 10px;
         }
         [data-preview-relics-rail] > span {
           position: sticky;

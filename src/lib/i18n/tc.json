@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "白金",
     "relic_picker.missing": "缺少",
     "relic_picker.prime_parts": "Prime 零件",
+    "relic_picker.parts_one": "{count} 個零件",
+    "relic_picker.parts_other": "{count} 個零件",
     "relic_reward.mastered_caps": "已精通",
     "relic_reward.unmastered_caps": "尚未精通",
     "relic_reward.owned_count": "擁有 {count} 個",

@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "プラチナ",
     "relic_picker.missing": "不足",
     "relic_picker.prime_parts": "プライムパーツ",
+    "relic_picker.parts_one": "{count}パーツ",
+    "relic_picker.parts_other": "{count}パーツ",
     "relic_reward.mastered_caps": "マスター済み",
     "relic_reward.unmastered_caps": "未マスター",
     "relic_reward.owned_count": "所持数 {count}",

@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "แพลตินัม",
     "relic_picker.missing": "ขาด",
     "relic_picker.prime_parts": "ชิ้นส่วนไพรม์",
+    "relic_picker.parts_one": "{count} ชิ้นส่วน",
+    "relic_picker.parts_other": "{count} ชิ้นส่วน",
     "relic_reward.mastered_caps": "เชี่ยวชาญแล้ว",
     "relic_reward.unmastered_caps": "ยังไม่เชี่ยวชาญ",
     "relic_reward.owned_count": "มี {count} ชิ้น",

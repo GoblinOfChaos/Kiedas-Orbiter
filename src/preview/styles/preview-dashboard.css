@@ -33,7 +33,13 @@
 .preview-dashboard__live { border-left: 1px solid var(--preview-line); padding-left: 24px; }
 .preview-dashboard__live > h2 { margin: 16px 0 12px; }
 .preview-dashboard__live-cards { display: grid; gap: 12px; }
-.preview-dashboard__live-card { min-width: 0; max-height: 270px; overflow: auto; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-md); background: var(--preview-surface); scrollbar-width: thin; }
+.preview-dashboard__live-card { min-width: 0; max-height: 270px; overflow: auto; border: 1px solid var(--preview-line); border-radius: var(--preview-radius-md); background: var(--preview-surface); }
+/* scrollbar-width removed on purpose - WebKitGTK draws elements styled with that standard
+   property as a native overlay bar above everything once GTK_OVERLAY_SCROLLING=0 (see
+   src-tauri/src/main.rs), ignoring ::-webkit-scrollbar CSS. */
+.preview-dashboard__live-card::-webkit-scrollbar { width: 8px; }
+.preview-dashboard__live-card::-webkit-scrollbar-track { background: transparent; }
+.preview-dashboard__live-card::-webkit-scrollbar-thumb { background: var(--preview-line); border-radius: 10px; }
 .preview-dashboard__live-card > * { border: 0 !important; border-radius: 0 !important; }
 .preview-dashboard__live-empty { padding: 20px; color: var(--preview-muted); font-size: 12px; }
 .preview-dashboard__view-all { width: 100%; margin-top: 12px; color: var(--preview-accent); }

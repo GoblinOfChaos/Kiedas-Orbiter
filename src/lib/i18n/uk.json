@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Платина",
     "relic_picker.missing": "Бракує",
     "relic_picker.prime_parts": "Прайм-деталі",
+    "relic_picker.parts_one": "{count} частина",
+    "relic_picker.parts_other": "{count} частини",
     "relic_reward.mastered_caps": "ОПАНОВАНО",
     "relic_reward.unmastered_caps": "НЕ ОПАНОВАНО",
     "relic_reward.owned_count": "Є: {count}",

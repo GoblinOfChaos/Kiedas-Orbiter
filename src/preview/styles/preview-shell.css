@@ -45,9 +45,21 @@
   min-height: 0;
   overflow-y: auto;
   scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: var(--preview-line) transparent;
   padding: 12px 10px 20px;
+}
+/* scrollbar-width/-color removed on purpose - WebKitGTK draws elements
+   styled with those standard properties as a native overlay bar above
+   everything once GTK_OVERLAY_SCROLLING=0 (see src-tauri/src/main.rs),
+   ignoring ::-webkit-scrollbar CSS. */
+.preview-nav__groups::-webkit-scrollbar {
+  width: 8px;
+}
+.preview-nav__groups::-webkit-scrollbar-track {
+  background: transparent;
+}
+.preview-nav__groups::-webkit-scrollbar-thumb {
+  background: var(--preview-line);
+  border-radius: 10px;
 }
 .preview-nav__group-heading {
   width: 100%;

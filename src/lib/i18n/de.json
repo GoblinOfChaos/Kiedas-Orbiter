@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Platin",
     "relic_picker.missing": "Fehlend",
     "relic_picker.prime_parts": "Prime-Teile",
+    "relic_picker.parts_one": "{count} Teil",
+    "relic_picker.parts_other": "{count} Teile",
     "relic_reward.mastered_caps": "GEMEISTERT",
     "relic_reward.unmastered_caps": "NICHT GEMEISTERT",
     "relic_reward.owned_count": "{count} besessen",

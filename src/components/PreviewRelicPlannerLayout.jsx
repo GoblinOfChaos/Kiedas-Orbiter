@@ -45,7 +45,21 @@ export default function PreviewRelicPlannerLayout({ enabled, children }) {
           min-width: 0;
           flex-wrap: nowrap;
           overflow-x: auto;
-          scrollbar-width: thin;
+        }
+        /* scrollbar-width/-color removed on purpose - WebKitGTK draws
+           elements styled with those standard properties as a native
+           overlay bar above everything once GTK_OVERLAY_SCROLLING=0
+           (see src-tauri/src/main.rs), ignoring ::-webkit-scrollbar CSS. */
+        [data-preview-relic-planner-rail]::-webkit-scrollbar {
+          height: 8px;
+          width: 8px;
+        }
+        [data-preview-relic-planner-rail]::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        [data-preview-relic-planner-rail]::-webkit-scrollbar-thumb {
+          background: rgba(var(--color-accent-rgb), 0.35);
+          border-radius: 10px;
         }
         [data-preview-relic-planner-rail] > button {
           min-width: max-content;

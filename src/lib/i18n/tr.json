@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Platin",
     "relic_picker.missing": "Eksik",
     "relic_picker.prime_parts": "Prime Parçaları",
+    "relic_picker.parts_one": "{count} parça",
+    "relic_picker.parts_other": "{count} parça",
     "relic_reward.mastered_caps": "USTALAŞILDI",
     "relic_reward.unmastered_caps": "USTALAŞILMADI",
     "relic_reward.owned_count": "{count} adet var",

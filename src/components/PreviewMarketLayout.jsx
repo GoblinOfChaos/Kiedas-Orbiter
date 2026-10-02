@@ -50,7 +50,21 @@ export default function PreviewMarketLayout({ enabled, children }) {
           overflow-x: auto;
           overflow-y: hidden;
           flex-wrap: nowrap;
-          scrollbar-width: thin;
+        }
+        /* scrollbar-width/-color removed on purpose - WebKitGTK draws
+           elements styled with those standard properties as a native
+           overlay bar above everything once GTK_OVERLAY_SCROLLING=0
+           (see src-tauri/src/main.rs), ignoring ::-webkit-scrollbar CSS. */
+        .preview-market-shell [data-preview-market-tabs]::-webkit-scrollbar {
+          height: 8px;
+          width: 8px;
+        }
+        .preview-market-shell [data-preview-market-tabs]::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .preview-market-shell [data-preview-market-tabs]::-webkit-scrollbar-thumb {
+          background: rgba(var(--color-accent-rgb), 0.35);
+          border-radius: 10px;
         }
 
         .preview-market-shell [data-preview-market-tabs] > * {

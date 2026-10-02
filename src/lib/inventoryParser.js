@@ -21,7 +21,8 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { BLUEPRINT_SUFFIX } from './warframeUtils'
+import { BLUEPRINT_SUFFIX, OFFICIAL_IMAGE_OVERRIDES } from './warframeUtils'
+import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -586,6 +587,7 @@ function updateActiveExportImages(images) {
 const AUTHORITATIVE_ITEM_ICONS = {
   '/Lotus/Powersuits/Frumentarius/Frumentarius': '/Lotus/Interface/Icons/StoreIcons/Warframes/Frumentarius.png',
   '/Lotus/Powersuits/Choir/Choir': '/Lotus/Interface/Icons/StoreIcons/Warframes/Jade.png',
+  ...OFFICIAL_IMAGE_OVERRIDES,
 };
 
 function resolveImage(un, ...tables) {
@@ -615,6 +617,13 @@ function resolveImage(un, ...tables) {
       ? `asset-cache://content.warframe.com/PublicExport${finalPath}!${hash}`
       : `asset-cache://browse.wf${path}`;
   };
+
+  const officialOverride = AUTHORITATIVE_ITEM_ICONS[un];
+  if (officialOverride) return officialOverride;
+  const normalizedNameOverride = typeof un === 'string'
+    ? OFFICIAL_IMAGE_OVERRIDES[un.toLowerCase()]
+    : null;
+  if (normalizedNameOverride) return normalizedNameOverride;
 
   // Check exact match first
   for (const tbl of tables) {
@@ -2651,9 +2660,19 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         setPath: recipe.resultType,
         mastered: isBaseMastered
       };
-      // Also add individual parts to prime_parts array with parent mastery status
+      // Also add individual parts to prime_parts array with parent mastery status.
+      // Was gated behind `if (p.owned)` - an unowned Prime component never
+      // got added to this array at all, meaning it was completely absent
+      // from the general "ALL" inventory search/list, not just shown as
+      // unowned. For a frame with zero owned parts (e.g. Citrine Prime with
+      // relics but no built components), that meant NONE of its parts were
+      // searchable or listed anywhere outside the Prime Sets tab - matching
+      // exactly what was reported live ("the items were never there").
+      // Existence and ownership are two different facts; every part should
+      // always exist here, with p.owned (already correctly set on each
+      // entry) reflecting the real ownership state per item.
       setParts.forEach(p => {
-        if (p.owned) prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
+        prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
       });
     }
   }
@@ -2918,14 +2937,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       };
     };
 
-    if (entry.rewardManifest && ERew[entry.rewardManifest]) {
-      const manifest = ERew[entry.rewardManifest];
-      const rewardList = Array.isArray(manifest[0]) ? manifest[0] : (Array.isArray(manifest) ? manifest : []);
-      return rewardList.map(mapReward);
-    } else if (Array.isArray(entry.relicRewards)) {
-      return entry.relicRewards.map(mapReward);
-    }
-    return [];
+    return relicRewardPool(entry, ERew).map(mapReward);
   };
 
   // ── Relics ──────────────────────────────────────────────────────────────────
@@ -2937,6 +2949,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (!un) return;
     const normalizedUn = un.replace('/StoreItems/', '/');
     const entry = ERel[un] || ERel[normalizedUn];
+
+    const normalizedRelic = entry ? normalizeRelicEntry(entry, un) : null;
 
     // Determine refinement level
     const qualityMap = { 'VPQ_BRONZE': 'Intact', 'VPQ_SILVER': 'Exceptional', 'VPQ_GOLD': 'Flawless', 'VPQ_PLATINUM': 'Radiant' };
@@ -2976,10 +2990,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         // Relic" back apart with regex, which was the root cause of relics
         // silently vanishing under ownership filters on any name-format
         // mismatch (GitHub issue #109, Fix Group B).
-        code: entry?.category || null,
+        code: normalizedRelic?.category || null,
         era,
         description: relDescription,
-        image: resolveImage(un, ERel),
+        image: resolveImage(un, ERel, normalizedRelic?.icon ? { [un]: { icon: normalizedRelic.icon } } : null),
         category: 'relics',
         refinements: { Intact: 0, Exceptional: 0, Flawless: 0, Radiant: 0 },
         rewards: resolveRelicRewards(entry, dict, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe, ERew),
@@ -3957,8 +3971,9 @@ export function relicNameFromPath(path, ERel = {}) {
   };
 
   if (entry) {
-    const era = entry.era || 'Unknown';
-    const cat = entry.category || 'Unknown';
+    const normalized = normalizeRelicEntry(entry, path);
+    const era = normalized.era || 'Unknown';
+    const cat = normalized.category || 'Unknown';
     let quality = 'Intact';
 
     if (entry.quality && vpqMap[entry.quality]) {

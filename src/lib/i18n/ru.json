@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Платина",
     "relic_picker.missing": "Не хватает",
     "relic_picker.prime_parts": "Прайм-детали",
+    "relic_picker.parts_one": "{count} часть",
+    "relic_picker.parts_other": "{count} части",
     "relic_reward.mastered_caps": "ОСВОЕНО",
     "relic_reward.unmastered_caps": "НЕ ОСВОЕНО",
     "relic_reward.owned_count": "Есть: {count}",

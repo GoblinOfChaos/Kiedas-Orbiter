@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "백금",
     "relic_picker.missing": "부족",
     "relic_picker.prime_parts": "프라임 부품",
+    "relic_picker.parts_one": "{count}개 부품",
+    "relic_picker.parts_other": "{count}개 부품",
     "relic_reward.mastered_caps": "마스터 완료",
     "relic_reward.unmastered_caps": "마스터 미완료",
     "relic_reward.owned_count": "보유 {count}개",

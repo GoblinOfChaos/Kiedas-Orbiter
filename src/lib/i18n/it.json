@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Platino",
     "relic_picker.missing": "Mancante",
     "relic_picker.prime_parts": "Pezzi Prime",
+    "relic_picker.parts_one": "{count} parte",
+    "relic_picker.parts_other": "{count} parti",
     "relic_reward.mastered_caps": "PADRONEGGIATO",
     "relic_reward.unmastered_caps": "NON PADRONEGGIATO",
     "relic_reward.owned_count": "{count} posseduti",

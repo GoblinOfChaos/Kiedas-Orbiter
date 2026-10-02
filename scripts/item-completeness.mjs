@@ -121,9 +121,9 @@ export function checkKeyCanary({ exportsBundle, dict = {}, uniqueName }) {
   return { uniqueName, present: !!entry, name, pass: !!entry && !!name && !name.startsWith('/') }
 }
 
+// Inventory is the full catalog, owned or not: every Prime set exists here.
 export function primePartsVisible(primeSets, baseName) {
-  const set = primeSets?.[baseName]
-  return !!set && (set.owned || (set.parts || []).some((part) => (part.quantity ?? 0) > 0))
+  return !!primeSets?.[baseName]
 }
 
 function tableEntries(harness, tableNames) {
@@ -365,7 +365,7 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
       ownedState = { pass: !!owned && (owned.owned || (owned.quantity ?? 0) > 0), cannot: owned && (owned.owned || (owned.quantity ?? 0) > 0) ? null : cannot[1] }
     } catch (error) { ownedState = { pass: false, cannot: `${cannot[1]} (${error.message})` } }
   }
-  const primeScreens = /\bPrime$/i.test(name) ? { 'Prime Parts': primePartsVisible(inventory.primeSets, name.replace(/\s+Prime$/i, '')) || 'not owned by design', 'Relic Planner': !!recipe, 'Prime Resurgence': !!recipe } : {}
+  const primeScreens = /\bPrime$/i.test(name) ? { 'Prime Parts': primePartsVisible(inventory.primeSets, name.replace(/\s+Prime$/i, '')) || 'MISSING', 'Relic Planner': !!recipe, 'Prime Resurgence': !!recipe } : {}
   const screens = Object.fromEntries([...rule.screens, ...Object.keys(primeScreens)].map((screen) => [screen, screen === 'Prime Parts' ? primeScreens[screen] !== false : checks.U1_catalog && checks.U2_name && checks.U3_image && (screen !== 'Foundry' || checks.recipe)]))
   const pass = Object.values(checks).every(Boolean) && (ownedState.pass || ownedState.cannot)
   return { name, uniqueName: subject.uniqueName, category, screens, checks, acquisition, ownedState, cannot, blockingCannot: acquisition.cannot, status: acquisition.cannot ? 'CANNOT' : pass ? 'PASS' : 'FAIL', pass: !!pass && !acquisition.cannot }

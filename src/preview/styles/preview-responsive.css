@@ -6,7 +6,13 @@
   .preview-nav__rail-brand img { width: 38px; height: 38px; object-fit: contain; }
   .preview-nav__menu { width: 42px; height: 42px; display: grid; place-items: center; margin: 9px 0 5px; border-radius: 7px; color: var(--preview-muted); }
   .preview-nav__menu svg { width: 18px; }
-  .preview-nav__rail-list { width: 100%; min-height: 0; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--preview-line) transparent; padding: 4px 0 12px; }
+  .preview-nav__rail-list { width: 100%; min-height: 0; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; overflow-y: auto; padding: 4px 0 12px; }
+  /* scrollbar-width/-color removed on purpose - WebKitGTK draws elements styled with those
+     standard properties as a native overlay bar above everything once GTK_OVERLAY_SCROLLING=0
+     (see src-tauri/src/main.rs), ignoring ::-webkit-scrollbar CSS. */
+  .preview-nav__rail-list::-webkit-scrollbar { width: 8px; }
+  .preview-nav__rail-list::-webkit-scrollbar-track { background: transparent; }
+  .preview-nav__rail-list::-webkit-scrollbar-thumb { background: var(--preview-line); border-radius: 10px; }
   .preview-nav__rail-list button { width: 44px; height: 42px; display: grid; place-items: center; flex: 0 0 42px; border-radius: 7px; color: var(--preview-muted); }
   .preview-nav__rail-list button:hover, .preview-nav__rail-list button.is-active { color: var(--preview-accent); background: var(--preview-surface-selected); }
   .preview-nav__rail-list button.is-active { box-shadow: inset 3px 0 0 var(--preview-accent); }

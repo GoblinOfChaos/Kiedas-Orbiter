@@ -81,7 +81,12 @@ function recipeList(inventoryData, exportData, imageMaps) {
       })),
     });
   }
-  return [...byItemType.values()];
+  // A farmable raw material (Orokin Cell, Argon Crystal...) is a plain leaf even when DE also ships a Foundry
+  // recipe for it (Orokin Cell has a 100 Platinum blueprint): expanding it would demand the blueprint plus
+  // hundreds of thousands of Alloy Plate/Nano Spores/Salvage instead of the drops every player actually farms.
+  // `...Component` results (Archwing/companion parts) are also in ExportResources but are genuinely crafted.
+  const resources = exportData?.ExportResources ?? {};
+  return [...byItemType.values()].filter((recipe) => !(resources[recipe.itemType] && !/Component$/.test(recipe.itemType)));
 }
 
 function sourceType(source) {
@@ -222,8 +227,16 @@ export function buildFarmingTargetsScreenModel({ targets = [], reservations = []
     owned,
   });
   const recipesByBlueprint = new Map(recipes.filter((recipe) => recipe.blueprintKey).map((recipe) => [recipe.blueprintKey.replace('/StoreItems/', '/'), recipe]));
+  const { EI: leafEI = {}, nameToImage: leafNameToImage = {}, uniqueNameToName: leafUniqueNameToName = {} } = imageMaps ?? {};
   for (const [itemType, leaf] of expanded.leaves) {
     if (!leaf.image) leaf.image = recipesByBlueprint.get(itemType)?.image ?? null;
+    // Raw ingredients of recipes built from ExportRecipes (every unowned blueprint) arrive with no image at all;
+    // resolve them the same way recipes and blueprints are resolved above.
+    if (!leaf.image && imageMaps) {
+      leaf.image = leafEI[itemType]
+        || resolveAnyImage({ uniqueName: itemType, name: leaf.name }, leafEI, leafNameToImage, leafUniqueNameToName)
+        || null;
+    }
   }
   const ledger = buildLedger({ leaves: expanded.leaves, owned, reservations: [
     ...(reservations ?? []).filter((reservation) => activeTargetIds.has(reservation?.targetId)),

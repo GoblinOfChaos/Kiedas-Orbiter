@@ -92,7 +92,7 @@ export default function Relics() {
       const existing = ownedByKey.get(key);
       if (existing) {
         ownedByKey.delete(key);
-        return { ...existing, vaulted: c.vaulted };
+        return { ...existing, image: existing.image || relicIconUrl(c.icon), vaulted: c.vaulted };
       }
       return {
         unique_name: c.uniqueName,

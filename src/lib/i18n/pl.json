@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Platyna",
     "relic_picker.missing": "Brakuje",
     "relic_picker.prime_parts": "Części Prime",
+    "relic_picker.parts_one": "{count} część",
+    "relic_picker.parts_other": "{count} części",
     "relic_reward.mastered_caps": "OPANOWANY",
     "relic_reward.unmastered_caps": "NIEOPANOWANY",
     "relic_reward.owned_count": "Posiadane: {count}",

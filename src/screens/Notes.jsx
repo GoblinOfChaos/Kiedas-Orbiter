@@ -460,7 +460,7 @@ export default function Notes() {
 
       <Card className="p-4 h-full flex flex-col">
         {/* Tab strip */}
-        <div className="flex items-center gap-1.5 overflow-x-auto shrink-0 pb-3" style={{ scrollbarWidth: 'thin' }}>
+        <div className="flex items-center gap-1.5 overflow-x-auto shrink-0 pb-3 custom-scrollbar">
           {files.map((f) => {
             const isActive = f === activeFile;
             if (renamingTab === f) {

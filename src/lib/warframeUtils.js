@@ -134,9 +134,7 @@ export const MAPPING_TYPES = {
   'ALCHEMY': 'Alchemy',
   'MT_CORRUPTION': 'Corruption',
   'CORRUPTION': 'Corruption',
-  'MT_EXCAVATE': 'Excavation',
   'EXCAVATE': 'Excavation',
-  'MT_SURVIVAL': 'Survival',
   'SURVIVAL': 'Survival',
   'MT_VOID_FLOOD': 'Void Flood',
   'VOID_FLOOD': 'Void Flood',
@@ -538,6 +536,35 @@ const FOLDER_OVERRIDES = {
   Fairy: 'Wisp', Jade: 'Nyx',
 };
 
+// Official Warframe Wiki artwork for newer items that are present in DE's
+// catalog but do not yet have an icon entry in the local PublicExport image
+// snapshot. These URLs are deliberately explicit; do not infer artwork from
+// a similarly named item.
+export const OFFICIAL_IMAGE_OVERRIDES = {
+  '/Lotus/Weapons/Tenno/Pistols/DuelistPistols/DuelistPistols': 'https://wiki.warframe.com/images/Aksondol.png',
+  '/Lotus/Weapons/Tenno/Archwing/Melee/PrimeCorufell/PrimeCorufellScytheWeapon': 'https://wiki.warframe.com/images/CorufellPrime.png',
+  '/Lotus/Weapons/Tenno/Bows/DuelistBow/DuelistBow': 'https://wiki.warframe.com/images/Nunchasa.png',
+  '/Lotus/Weapons/Tenno/LongGuns/PrimeSteflos/PrimeSteflosShotgun': 'https://wiki.warframe.com/images/SteflosPrime.png',
+  '/Lotus/Types/Recipes/Weapons/DuelistPistolsBlueprint': 'https://wiki.warframe.com/images/Aksondol.png',
+  '/Lotus/Types/Recipes/Weapons/CorufellPrimeBlueprint': 'https://wiki.warframe.com/images/CorufellPrime.png',
+  '/Lotus/Types/Recipes/Weapons/DuelistBowBlueprint': 'https://wiki.warframe.com/images/Nunchasa.png',
+  '/Lotus/Types/Recipes/Weapons/SteflosPrimeBlueprint': 'https://wiki.warframe.com/images/SteflosPrime.png',
+  '/Lotus/Types/Recipes/Drones/AdvancedUcResourceDroneBlueprint': 'https://wiki.warframe.com/images/TitanExtractor.png',
+  '/Lotus/Types/Recipes/Drones/AdvancedResourceDroneBlueprint': 'https://wiki.warframe.com/images/TitanExtractor.png',
+  aksondol: 'https://wiki.warframe.com/images/Aksondol.png',
+  'corufell prime': 'https://wiki.warframe.com/images/CorufellPrime.png',
+  nunchasa: 'https://wiki.warframe.com/images/Nunchasa.png',
+  'steflos prime': 'https://wiki.warframe.com/images/SteflosPrime.png',
+  'distilling extractor prime': 'https://wiki.warframe.com/images/TitanExtractor.png',
+  'titan extractor prime': 'https://wiki.warframe.com/images/TitanExtractor.png',
+  'aksondol blueprint': 'https://wiki.warframe.com/images/Aksondol.png',
+  'corufell prime blueprint': 'https://wiki.warframe.com/images/CorufellPrime.png',
+  'nunchasa blueprint': 'https://wiki.warframe.com/images/Nunchasa.png',
+  'steflos prime blueprint': 'https://wiki.warframe.com/images/SteflosPrime.png',
+  'distilling extractor prime blueprint': 'https://wiki.warframe.com/images/TitanExtractor.png',
+  'titan extractor prime blueprint': 'https://wiki.warframe.com/images/TitanExtractor.png',
+};
+
 // NAME_OVERRIDES is no longer needed — all previously-overridden items are
 // either hidden (MuseumDogTag, TestPartItem) or resolved by the game dict.
 
@@ -722,7 +749,7 @@ export function resolveAnyImage(rewardOrItem, EI, nameToImage, uniqueNameToName 
   if (!rewardOrItem) return null
   const byName = (s) => {
     if (!s || typeof s !== 'string') return null
-    return EI[s] ?? nameToImage[s.toLowerCase()] ?? null
+    return OFFICIAL_IMAGE_OVERRIDES[s] ?? OFFICIAL_IMAGE_OVERRIDES[s.toLowerCase()] ?? EI[s] ?? nameToImage[s.toLowerCase()] ?? null
   }
 
   let item = rewardOrItem;

@@ -1,7 +1,6 @@
 {
   "/Lotus/Upgrades/Skins/Clan/CY17173MediaBadge": "Awarded to Tenno recruited by an ally of The Lotus.",
   "/Lotus/Upgrades/Skins/Clan/CorpusVoidBadgeItem": "An insignia awarded to the Tenno who proved themselves during Arid Fear event.",
-  "/Lotus/Upgrades/Skins/Sigils/BladeAndGunSigil": "Awarded to dedicated members within the Warframe community.",
   "/Lotus/Upgrades/Skins/Clan/InfTacAlertPussAncientBadgeItem": "Awarded to Tenno who participated in the Mutalist Incursions event.",
   "/Lotus/Upgrades/Skins/Clan/HiveSabotageEventBadgeItem": "Awarded to Tenno for the contributions they made during the Breeding Grounds event.",
   "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem": "Awarded to Tenno who achieved a Bronze Rank on the retired Global Leaderboards.",
@@ -51,7 +50,6 @@
   "/Lotus/Types/AvatarImages/TennoCon2019SimarisGlyph": "Given to those attending the Sanctuary Showcase gameshow at TennoCon 2019.",
   "/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexHelmet": "A gift from the Lotus to commemorate the fifth anniversary of the first Tenno waking from Cryo stasis.",
   "/Lotus/Upgrades/Skins/Rhino/RhinoDexHelmet": "A gift from the Lotus to commemorate the eighth anniversary of the first Tenno waking from Cryo stasis.",
-  "/Lotus/Upgrades/Skins/Clan/EntratiEventEmblemItem": "Tenno who bear this insignia resisted the Murmur during Operation Gargoyle's Cry.",
   "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem": "An emblem for veterans of the Operation: Orphix Venom.",
   "/Lotus/Upgrades/Skins/Sigils/MechEventSigil": "A sigil for veterans of Operation Orphix Venom.",
   "/Lotus/Upgrades/Skins/Sigils/VorDuviriSigil": "From Baro Ki’Teer comes this stylish reimagining of the infamous Captain Vor.",
@@ -162,14 +160,6 @@
     "text": "Operation: Atramentum reward.",
     "source": "Warframe.com Operation: Atramentum"
   },
-  "/Lotus/Upgrades/Skins/Sigils/EventSigilZorba": {
-    "text": "Operation: Atramentum reward.",
-    "source": "Warframe.com Operation: Atramentum"
-  },
-  "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaBirdThree": {
-    "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
-    "source": "Warframe.com Operation: Gargoyle's Cry"
-  },
   "/Lotus/Upgrades/Skins/Sigils/EventSigilCaviaFibonacci": {
     "text": "Operation: Gargoyle's Cry reward; trade Grotesque Splinters with the Gargoyle in a Dojo.",
     "source": "Warframe.com Operation: Gargoyle's Cry"
@@ -278,18 +268,6 @@
     "text": "Awarded to the top 10 winners of the 10 Year Anniversary Community Showcase contest.",
     "source": "Warframe Forums 10 Year Anniversary Community Showcase"
   },
-  "/Lotus/Upgrades/Skins/Promo/Twitch/Twitch2021AfurisSkin": {
-    "text": "Available from Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
-    "source": "Warframe.com Verv Collection Re-release 2"
-  },
-  "/Lotus/Upgrades/Skins/Promo/Twitch/AkjagaraIridosSkin": {
-    "text": "Available from Varzia's wares in Maroo's Bazaar through Prime Resurgence; acquired for Aya.",
-    "source": "Warframe.com Iridos Collection Re-release"
-  },
-  "/Lotus/Upgrades/Skins/Promo/Nintendo/NintendoAklatoSkin": {
-    "text": "Included in the Nintendo Switch-exclusive Esteem Pack V.",
-    "source": "Warframe.com Esteem Pack V Available Now"
-  },
   "/Lotus/Upgrades/Skins/Sony/ObsidianAkmagnus": {
     "text": "Included in the PlayStation Plus Booster Pack II.",
     "source": "Warframe.com PlayStation Plus Booster Pack II"
@@ -349,10 +327,6 @@
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAthletic": {
     "text": "Included with the Athletic Drifter/Operator Collection; the collection and individual pieces are available for Platinum in the in-game Market.",
     "source": "Warframe.com Update 38: Warframe: 1999"
-  },
-  "/Lotus/Upgrades/Skins/Sigils/NightwavePizzaSigil": {
-    "text": "Reward from Nightwave: Nora's Mix Vol. 8.",
-    "source": "Warframe.com Nightwave: Nora's Mix Vol. 8"
   },
   "/Lotus/Upgrades/Skins/PaxDuviricus/PaxDuviricusBodyBlades": {
     "text": "Included in the Kullervo Apostate Collection, available from the in-game Market.",
@@ -540,10 +514,6 @@
   },
   "/Lotus/Upgrades/Skins/Sigils/ConqueraSigil": {
     "text": "Redeem the promo code Conquer; the code was retired after November 2, 2020.",
-    "source": "Warframe Wiki Sigils"
-  },
-  "/Lotus/Upgrades/Skins/Sigils/RadioLegionSigil": {
-    "text": "Nightwave: Intermission III rank 8 reward; it may also appear in Nightwave Cred Offerings.",
     "source": "Warframe Wiki Sigils"
   },
   "/Lotus/Upgrades/Skins/Sigils/WolfSigil": {

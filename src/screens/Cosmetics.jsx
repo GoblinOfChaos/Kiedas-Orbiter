@@ -428,7 +428,7 @@ export default function Cosmetics() {
   // normally rather than forced into a hidden horizontal rail, as the
   // compact/narrow-width selector).
   const renderCategoryNavigator = () => (
-    <nav className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1" style={{ scrollbarWidth: 'thin' }} aria-label={t('cosmetics.page_title')}>
+    <nav className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1 custom-scrollbar" aria-label={t('cosmetics.page_title')}>
       {KIND_VALUES.map((value) => {
         const isActive = kindFilter === value
         return (

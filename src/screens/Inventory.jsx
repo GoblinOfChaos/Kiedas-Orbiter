@@ -18,6 +18,7 @@ import AcquisitionDrawer, { useAcquisitionDrawer, formatChance } from '../compon
 import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer';
 import ModCard from '../components/ModCard';
 import { getRelicCatalog } from '../lib/relicParser';
+import { OFFICIAL_IMAGE_OVERRIDES } from '../lib/warframeUtils';
 import { getSetting } from '../lib/settings';
 import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
 import { formatNumber } from '../lib/formatNumber';
@@ -367,7 +368,9 @@ export default function Inventory() {
     const withImageFallback = (items) => (items ?? []).map((item) => {
       if (item?.image) return item;
       const image = imageByUniqueName.get(canonicalItemPath(item?.unique_name))
-        || imageByName.get(item?.name?.trim().toLowerCase());
+        || imageByName.get(item?.name?.trim().toLowerCase())
+        || OFFICIAL_IMAGE_OVERRIDES[item?.unique_name]
+        || OFFICIAL_IMAGE_OVERRIDES[item?.name?.trim().toLowerCase()];
       return image ? { ...item, image } : item;
     });
     if (activeTab === 'prime_junk') {
@@ -394,14 +397,23 @@ export default function Inventory() {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
         const isVaulted = !(set.parts ?? []).some((p) => unvaultedRewards.has(p.unique_name) || unvaultedRewards.has(p.name?.toLowerCase()));
-        return { ...set, image: set.image || parent.image, owned: parent.owned ?? false, mastered: parent.mastered ?? false, vaulted: isVaulted, _value };
-      }).filter((set) =>
-      // A fully-crafted set's blueprint/components are consumed (quantity 0
-      // on every part), so ownership must also be checked via the finished
-      // item itself - filtering on leftover part quantity alone drops every
-      // completed set from the tab despite genuine ownership.
-      set.owned || set.parts.some((p) => p.quantity > 0)
-      );
+        // Every DE Prime set is browsable, owned or not (same full-catalog
+        // rule as every other Inventory tab). Previously sets with no owned
+        // finished item and no leftover part quantity were filtered out, so an
+        // unowned Prime (e.g. Citrine Prime) showed in Warframes but none of
+        // its parts ever appeared. A fully-crafted set's parts are consumed
+        // (quantity 0), so ownership is the finished item OR any part held.
+        const ownedSet = (parent.owned ?? false) || (set.parts ?? []).some((p) => p.quantity > 0);
+        return {
+          ...set,
+          unique_name: set.unique_name || set.setPath,
+          image: set.image || parent.image,
+          owned: ownedSet,
+          mastered: parent.mastered ?? false,
+          vaulted: isVaulted,
+          _value,
+        };
+      });
     }
     if (activeTab === 'vehicles') {
       const vehicles = inventoryData.vehicles ?? [];
@@ -493,7 +505,10 @@ export default function Inventory() {
     if (activeTab === 'arcanes') return withImageFallback(inventoryData.arcanes_catalog ?? []);
     if (activeTab === 'consumables') return withImageFallback(inventoryData.consumables_catalog ?? []);
     if (activeTab === 'landing_craft') return withImageFallback(inventoryData.landing_craft_catalog ?? []);
-    if (activeTab === 'parts') return withImageFallback(inventoryData.parts ?? []);
+    // Prime Sets is a static grouped-card view, not a browsable inventory
+    // list - Prime components need to also be findable here, in the actual
+    // parts list, alongside every non-Prime part. Confirmed live 2026-09-28.
+    if (activeTab === 'parts') return withImageFallback([...(inventoryData.parts ?? []), ...(inventoryData.prime_parts ?? [])]);
     if (activeTab === 'resources') {
       const resources = inventoryData.resources ?? [];
       return withImageFallback(resourceFamily === 'all'
@@ -844,8 +859,7 @@ export default function Inventory() {
   // sharing it, so this stays isolated from the already-verified header code.
   const renderCategoryNavigator = () =>
   <nav
-    className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1"
-    style={{ scrollbarWidth: 'thin' }}
+    className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1 custom-scrollbar"
     aria-label={t('screen.inventory')}>
     {INVENTORY_TABS.map((tab) => {
       const iconMap = { all: 'All', warframes: 'Warframe', weapons: 'Primary', companions: 'Companion', companion_weapons: 'Sentinels', archweapons: 'Archgun', vehicles: 'Vehicles', amps: 'Amps', arcanes: 'Arcanes', peely_pix: 'Mods', consumables: 'Resources', landing_craft: 'Vehicles', resources: 'Resources', prime_parts: 'PrimeParts', parts: 'Resources', ayatan: 'Ayatan' };
@@ -1163,8 +1177,11 @@ export default function Inventory() {
         // strip was left visible at all widths by mistake initially, so both
         // selectors showed simultaneously. Stable renders the bare Tabs
         // element with no extra wrapping node, exactly as before.
+        // `custom-scrollbar` (not inline scrollbarWidth) - see
+        // PreviewInventoryLayout.jsx for why the standard scrollbar-width/
+        // color properties render as a native overlay bar in WebKitGTK.
         return IS_PREVIEW
-          ? <div className="overflow-x-auto lg:hidden" style={{ scrollbarWidth: 'thin' }}>{categoryTabs}</div>
+          ? <div className="overflow-x-auto lg:hidden custom-scrollbar">{categoryTabs}</div>
           : categoryTabs;
       })()}
     </div>;
@@ -1237,7 +1254,19 @@ export default function Inventory() {
               const setValue = primePrices?.[set.setPath] ?? set.parts.reduce((sum, p) => sum + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
 
               return (
-                <div key={`${set.name}_${firstRow * currentColumns + idx}`} className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}>
+                <div
+                  key={`${set.name}_${firstRow * currentColumns + idx}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => set.setPath && toggle(set.setPath)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      if (set.setPath) toggle(set.setPath);
+                    }
+                  }}
+                  className={`relative rounded-xl border border-white/5 overflow-hidden flex flex-col bg-kronos-panel/20 ${isComplete ? 'border-green-500/30' : ''}`}
+                >
                       {isPriceLoading ?
                   <span className="absolute top-4 right-4 z-10 inline-block w-6 h-3 bg-white/10 rounded animate-pulse" /> :
                   setValue > 0 &&
@@ -1449,7 +1478,7 @@ export default function Inventory() {
               return (
                 <Card key={`${item.unique_name}_${firstRow * currentColumns + idx}`} glow={!isUnowned} onClick={() => toggle(item.unique_name)} className={`relative p-0 overflow-hidden flex items-center gap-3 px-3 py-2 cursor-pointer transition-all ${isUnowned ? 'bg-kronos-panel/10 border-2 border-dashed border-kronos-accent' : 'border-kronos-panel/40'}`}>
                   <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center bg-kronos-panel/30 rounded">
-                    {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-6 h-6" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
+                    <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-6 h-6" loading="lazy" resolveFallbackSrc={resolveImgFallback} />
                   </div>
                   <span className="text-[9px] font-black text-kronos-accent uppercase tracking-widest w-24 flex-shrink-0 truncate">
                     {item.category === 'mods' ? item.rarity || t('inventory.category_mod') : item.weapon_type || item.vehicle_type || (isPrimePart ? t('inventory.category_prime_part') : categoryDisplayLabel(item.category, t))}
@@ -1477,7 +1506,7 @@ export default function Inventory() {
                 {isScrolling ?
                   <>
                     <div className="w-32 flex-shrink-0 relative overflow-hidden border-r border-white/5 flex items-center justify-center bg-kronos-panel/30 p-3">
-                      {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
+                      <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16" loading="lazy" resolveFallbackSrc={resolveImgFallback} />
                     </div>
                     <div className="flex-1 px-4 py-3 flex items-center min-w-0 overflow-hidden">
                       <h4 title={item.name} className={`font-bold text-sm uppercase ${item.category === 'parts' ? 'line-clamp-2' : 'line-clamp-1'} text-kronos-text leading-tight`}>
@@ -1495,7 +1524,7 @@ export default function Inventory() {
                           {modFrameTop(item.modFrame) && <img src={modFrameTop(item.modFrame)} className="absolute top-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'top' }} />}
                           {modFrameBot(item.modFrame) && <img src={modFrameBot(item.modFrame)} className="absolute bottom-0 left-0 w-full pointer-events-none" alt="" style={{ objectFit: 'cover', objectPosition: 'bottom' }} />}
                           <div className={`relative z-10 flex flex-col items-center justify-center w-full h-full ${isUnowned ? 'grayscale opacity-40' : ''}`}>
-                            {item.image && <ItemImage src={item.image} className="max-w-[60%] max-h-[60%] object-contain" placeholderClassName="w-[60%] h-[60%]" alt="" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
+                            <ItemImage src={item.image} className="max-w-[60%] max-h-[60%] object-contain" placeholderClassName="w-[60%] h-[60%]" alt="" loading="lazy" resolveFallbackSrc={resolveImgFallback} />
                             {item.rank > 0 && item.max_rank > 0 &&
                       <span className="text-[8px] font-black text-white mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">R{item.rank}</span>
                       }
@@ -1507,7 +1536,7 @@ export default function Inventory() {
 
                   <>
                           <Box className="text-kronos-panel absolute w-20 h-20 opacity-10" />
-                          {item.image && <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16 relative z-10" loading="lazy" resolveFallbackSrc={resolveImgFallback} />}
+                          <ItemImage src={item.image} alt="" className={`max-w-full max-h-full object-contain relative z-10 transition-all duration-500 group-hover:scale-110 ${isUnowned ? 'grayscale opacity-40' : ''}`} placeholderClassName="w-16 h-16 relative z-10" loading="lazy" resolveFallbackSrc={resolveImgFallback} />
 
                           {!isUnowned && item.formas > 0 &&
                     <div className="absolute top-1 left-1 z-20 flex items-center gap-2 bg-black/50 text-yellow-400 px-1.5 py-0.5 rounded shadow-lg border border-white/10 backdrop-blur-sm">

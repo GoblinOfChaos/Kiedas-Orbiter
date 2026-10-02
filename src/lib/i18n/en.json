@@ -1489,6 +1489,8 @@
     "relic_picker.plat_col": "Plat",
     "relic_picker.missing": "Missing",
     "relic_picker.prime_parts": "Prime Parts",
+    "relic_picker.parts_one": "{count} part",
+    "relic_picker.parts_other": "{count} parts",
     "relic_reward.mastered_caps": "MASTERED",
     "relic_reward.unmastered_caps": "UNMASTERED",
     "relic_reward.owned_count": "{count} Owned",

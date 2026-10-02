@@ -5,5 +5,7 @@ allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
   - '@wfcd/items@1.1275.90'
+  - '@tauri-apps/plugin-http@2.8.0'
+  - '@tauri-apps/plugin-updater@2.13.1'
 overrides:
   js-yaml: ^4.3.1

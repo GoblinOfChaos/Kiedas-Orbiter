@@ -974,6 +974,8 @@
     "relic_picker.plat_col": "Platino",
     "relic_picker.missing": "Falta",
     "relic_picker.prime_parts": "Piezas Prime",
+    "relic_picker.parts_one": "{count} pieza",
+    "relic_picker.parts_other": "{count} piezas",
     "relic_reward.mastered_caps": "DOMINADO",
     "relic_reward.unmastered_caps": "SIN DOMINAR",
     "relic_reward.owned_count": "{count} en posesión",

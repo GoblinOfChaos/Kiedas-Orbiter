@@ -30,7 +30,7 @@ const OUT = path.join(REPO, 'docs/missing-images.md')
 
 const { loadRealHarness } = await import('./lib/real-data-harness.mjs')
 const { parseInventory } = await import(path.join(REPO, 'src/lib/inventoryParser.js'))
-const { resolveAnyImage } = await import(path.join(REPO, 'src/lib/warframeUtils.js'))
+const { OFFICIAL_IMAGE_OVERRIDES, resolveAnyImage } = await import(path.join(REPO, 'src/lib/warframeUtils.js'))
 const { exportsBundle, dict, EI, nameToImage, uniqueNameToName } = await loadRealHarness({ dataDir: path.join(process.env.PREVIEW_DATA_DIR || '/home/jedwards/.local/share/kiedas-orbiter-preview/data'), repo: REPO })
 
 // ── 2. Build EI / nameToImage / uniqueNameToName ────────────────────────────
@@ -59,6 +59,8 @@ for (const item of parsed.all ?? []) {
 const withImageFallback = (item) => item?.image
   || imageByUniqueName.get(canonicalItemPath(item?.unique_name))
   || imageByName.get(item?.name?.trim().toLowerCase())
+  || OFFICIAL_IMAGE_OVERRIDES[item?.unique_name]
+  || OFFICIAL_IMAGE_OVERRIDES[item?.name?.trim().toLowerCase()]
   || null
 
 // ── 4. Catalog definitions ──────────────────────────────────────────────────

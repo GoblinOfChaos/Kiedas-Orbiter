@@ -234,8 +234,7 @@ export default function Mods() {
   // sharing it, so this stays isolated from the already-verified header.
   const renderCategoryNavigator = () =>
   <nav
-    className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1"
-    style={{ scrollbarWidth: 'thin' }}
+    className="hidden lg:flex flex-col gap-1 w-48 flex-shrink-0 overflow-y-auto py-1 custom-scrollbar"
     aria-label={t('screen.mods')}>
     {CATEGORIES.map(({ label, icon, category }) => {
       const iconUrl = iconsPath ? convertFileSrc(`${iconsPath}/Categories/${icon}.png`) : null;

@@ -60,3 +60,15 @@ test('German Circuit card uses its localized UI key', () => {
     assert.equal(data.ui['ui.dashboard.circuit_title'], 'The Circuit', `${locale}: Circuit must remain the English official name`)
   }
 })
+
+test('Simplified and Traditional Chinese translations use distinct regional wording', () => {
+  const zh = JSON.parse(fs.readFileSync(path.join(root, 'zh.json'), 'utf8')).ui
+  const tc = JSON.parse(fs.readFileSync(path.join(root, 'tc.json'), 'utf8')).ui
+  for (const key of ['settings.reload_ui_button', 'settings.reload_ui_confirm', 'farming_targets.empty_detail', 'foundry.group_component_blueprints']) {
+    assert.notEqual(zh[key], tc[key], `${key}: zh and tc should differ`)
+  }
+  assert.match(zh['settings.reload_ui_button'], /加载|界面/)
+  assert.match(tc['settings.reload_ui_button'], /載入|介面/)
+  assert.match(zh['foundry.group_component_blueprints'], /组件/)
+  assert.match(tc['foundry.group_component_blueprints'], /元件/)
+})

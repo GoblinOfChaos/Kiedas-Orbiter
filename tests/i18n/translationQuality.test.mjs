@@ -37,6 +37,7 @@ const mixedLanguageCheckKeys = new Set([
   'ui.relic_rarity.uncommon',
   'ui.relic_rarity.rare',
 ])
+const scriptLocales = new Set(['ja', 'ko', 'zh', 'tc', 'th'])
 
 const removePlaceholders = (value) => String(value).replace(/\{[A-Za-z0-9_]+\}/g, '')
 const wordsIn = (value) => new Set((removePlaceholders(value).toLowerCase().match(tokenPattern) || []))
@@ -59,6 +60,18 @@ export function findTranslationQualityIssues(locale, translated, english = en.ui
       if (functionWordPattern?.test(text)) issues.push(`${key}: English function word in ${JSON.stringify(value)}`)
       if (english[key] && /[A-Za-z]{3,}/.test(english[key]) && value === english[key] && !localeBaseline.has(key)) {
         issues.push(`${key}: identical to English`) 
+      }
+      if (!localeBaseline.has(key) && (mixedLanguageCheckKeys.has(key) || mixedLanguageCheckPrefixes.some((prefix) => key.startsWith(prefix)))) {
+        for (const word of wordsIn(value)) {
+          if (englishWords.has(word) && !allowedWords.has(word)) {
+            issues.push(`${key}: English word ${JSON.stringify(word)} in ${JSON.stringify(value)}`)
+            break
+          }
+        }
+      }
+    } else if (scriptLocales.has(locale) && scriptPatterns[locale]) {
+      if (!scriptPatterns[locale].test(text)) {
+        issues.push(`${key}: no ${locale} script character in ${JSON.stringify(value)}`)
       }
       if (!localeBaseline.has(key) && (mixedLanguageCheckKeys.has(key) || mixedLanguageCheckPrefixes.some((prefix) => key.startsWith(prefix)))) {
         for (const word of wordsIn(value)) {
@@ -125,6 +138,27 @@ test('quality gate catches three deliberate non-Cyrillic leftovers in Russian an
     const issues = findTranslationQualityIssues(locale, rejected, Object.fromEntries(Object.keys(rejected).map((key) => [key, key])), new Set())
     for (const key of Object.keys(rejected)) {
       assert.ok(issues.some((issue) => issue.startsWith(`${key}:`)), `${locale}: failed to catch non-Cyrillic leftover in ${key}`)
+    }
+  }
+})
+
+test('quality gate catches three deliberate mixed-language leftovers in every Asian locale', () => {
+  const rejected = {
+    'farming_targets.empty_title': {
+      ja: 'ターゲット ready', ko: '타겟 ready', zh: '目标 ready', tc: '目標 ready', th: 'เป้าหมาย ready',
+    },
+    'farming_targets.empty_detail': {
+      ja: '必要な素材を search', ko: '필요한 재료를 search', zh: '搜索所需材料 search', tc: '搜尋所需材料 search', th: 'ค้นหาทรัพยากร search',
+    },
+    'ui.riven_prompt.hint': {
+      ja: 'リベンを grade', ko: '리벤을 grade', zh: '为裂罅卡 grade', tc: '為裂罅卡 grade', th: 'ประเมินริเวน grade',
+    },
+  }
+  for (const locale of ['ja', 'ko', 'zh', 'tc', 'th']) {
+    const translated = Object.fromEntries(Object.entries(rejected).map(([key, values]) => [key, values[locale]]))
+    const issues = findTranslationQualityIssues(locale, translated, Object.fromEntries(Object.keys(rejected).map((key) => [key, key])), new Set())
+    for (const key of Object.keys(rejected)) {
+      assert.ok(issues.some((issue) => issue.startsWith(`${key}:`)), `${locale}: failed to catch mixed-language leftover in ${key}`)
     }
   }
 })

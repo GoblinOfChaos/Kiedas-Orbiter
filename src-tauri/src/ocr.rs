@@ -1215,6 +1215,100 @@ fn apply_ocr_preprocessing(slot_crop: &DynamicImage, _debug_slot: Option<usize>)
     binary
 }
 
+/// Strip leading non-alphanumeric junk from a token (e.g. "-Forma" → "Forma").
+fn strip_prefix_junk(s: &str) -> &str {
+    let mut start = 0;
+    for (i, c) in s.char_indices() {
+        if c.is_alphanumeric() {
+            start = i;
+            break;
+        }
+    }
+    &s[start..]
+}
+
+/// Strip a glued quantity prefix from a token (e.g. "2XForma" -> "Forma",
+/// "3xForma" -> "Forma"). OCR often drops the space after a "2X" multiplier,
+/// and a token containing a digit would otherwise be discarded whole,
+/// leaving only the trailing word (e.g. "Blueprint"). The quantity is not
+/// needed for reward matching. Only strips when the remainder is a word that
+/// starts with an uppercase letter.
+fn strip_quantity_prefix(s: &str) -> &str {
+    let digits = s.chars().take_while(|c| c.is_ascii_digit()).count();
+    if digits == 0 { return s; }
+    let rest = &s[digits..];
+    let mut chars = rest.chars();
+    match chars.next() {
+        Some('x') | Some('X') | Some('\u{00d7}') => {
+            let word = chars.as_str();
+            if word.len() >= 2 && word.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) {
+                word
+            } else {
+                s
+            }
+        }
+        _ => s,
+    }
+}
+
+fn clean_ocr_output(raw: &str) -> String {
+    let tokens: Vec<&str> = raw.split_whitespace().map(strip_quantity_prefix).collect();
+    if tokens.is_empty() { return String::new(); }
+
+    for i in 0..tokens.len() {
+        let t = strip_prefix_junk(tokens[i]);
+        if t.len() < 2 { continue; }
+        if t.chars().any(|c| c.is_ascii_digit()) { continue; }
+        if !t.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) { continue; }
+
+        // Once a plausible leading word is found, retain all following
+        // alphabetic words. OCR can change the capitalization of a word in
+        // the middle of an item name (for example, "prime").
+        let mut result = String::new();
+        for token in tokens[i..].iter() {
+            let cleaned = strip_prefix_junk(token);
+            if cleaned.len() < 2
+                || cleaned.chars().any(|c| c.is_ascii_digit())
+                || !cleaned.chars().all(|c| c.is_alphabetic())
+            {
+                continue;
+            }
+            if !result.is_empty() { result.push(' '); }
+            result.push_str(cleaned);
+        }
+        if !result.is_empty() { return result; }
+    }
+
+    raw.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::clean_ocr_output;
+
+    #[test]
+    fn keeps_lowercase_words_inside_reward_names() {
+        assert_eq!(
+            clean_ocr_output("Sevagoth prime NeuropticsBlueprint"),
+            "Sevagoth prime NeuropticsBlueprint"
+        );
+    }
+
+    #[test]
+    fn preserves_existing_quantity_and_junk_cleanup() {
+        assert_eq!(clean_ocr_output("2XForma"), "Forma");
+        assert_eq!(clean_ocr_output("3xForma"), "Forma");
+        assert_eq!(clean_ocr_output("-Forma"), "Forma");
+        assert_eq!(clean_ocr_output("Forma"), "Forma");
+        assert_eq!(clean_ocr_output("junk -Forma"), "Forma");
+    }
+
+    #[test]
+    fn leaves_unusable_lines_unchanged() {
+        assert_eq!(clean_ocr_output("x 1 !"), "x 1 !");
+    }
+}
+
 fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, captured_image: Option<DynamicImage>, attempt: u8) {
     let app_c = app.clone();
     std::thread::spawn(move || {
@@ -1307,76 +1401,6 @@ fn run_ocr_with_retry(app: AppHandle, squad_size: usize, is_debug: bool, capture
                     }
                 }
                 
-/// Strip leading non-alphanumeric junk from a token (e.g. "-Forma" → "Forma").
-fn strip_prefix_junk(s: &str) -> &str {
-    let mut start = 0;
-    for (i, c) in s.char_indices() {
-        if c.is_alphanumeric() {
-            start = i;
-            break;
-        }
-    }
-    &s[start..]
-}
-
-/// Strip a glued quantity prefix from a token (e.g. "2XForma" -> "Forma",
-/// "3xForma" -> "Forma"). OCR often drops the space after a "2X" multiplier,
-/// and a token containing a digit would otherwise be discarded whole,
-/// leaving only the trailing word (e.g. "Blueprint"). The quantity is not
-/// needed for reward matching. Only strips when the remainder is a word that
-/// starts with an uppercase letter.
-fn strip_quantity_prefix(s: &str) -> &str {
-    let digits = s.chars().take_while(|c| c.is_ascii_digit()).count();
-    if digits == 0 { return s; }
-    let rest = &s[digits..];
-    let mut chars = rest.chars();
-    match chars.next() {
-        Some('x') | Some('X') | Some('\u{00d7}') => {
-            let word = chars.as_str();
-            if word.len() >= 2 && word.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) {
-                word
-            } else {
-                s
-            }
-        }
-        _ => s,
-    }
-}
-
-fn clean_ocr_output(raw: &str) -> String {
-    let tokens: Vec<&str> = raw.split_whitespace().map(strip_quantity_prefix).collect();
-    if tokens.is_empty() { return String::new(); }
-
-    for i in 0..tokens.len() {
-        let t = strip_prefix_junk(tokens[i]);
-        if t.len() < 2 { continue; }
-        if t.chars().any(|c| c.is_ascii_digit()) { continue; }
-        if !t.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) { continue; }
-
-        // Accept if this is the last token, or the next token also looks valid.
-        let accept = if i + 1 < tokens.len() {
-            let next = strip_prefix_junk(tokens[i + 1]);
-            next.len() >= 2
-                && !next.chars().any(|c| c.is_ascii_digit())
-                && next.chars().next().map(|c| c.is_uppercase()).unwrap_or(false)
-        } else {
-            true
-        };
-
-        if accept {
-            // Reconstruct with original tokens (some may have junk prefixes to preserve)
-            let mut result = String::new();
-            for (idx, token) in tokens[i..].iter().enumerate() {
-                if idx > 0 { result.push(' '); }
-                result.push_str(strip_prefix_junk(token));
-            }
-            return result;
-        }
-    }
-
-    raw.to_string()
-}
-
 // ... existing run_ocr_with_retry ...
                 if !combined_lines.is_empty() {
                     let raw = combined_lines.join(" ");

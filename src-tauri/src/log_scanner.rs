@@ -59,6 +59,7 @@ pub struct LogScanner {
     relic_picker_opened_at: f64,
     void_tier: Option<String>,
     riven_state: RivenState,
+    last_riven_open_ts: Option<f64>,
     /// True between a confirmed cycle (a new roll now shown beside the
     /// current selection) and the follow-up "keep the new roll" confirm.
     riven_roll_pending: bool,
@@ -97,6 +98,24 @@ fn parse_timestamp(line: &str) -> Option<f64> {
     None
 }
 
+fn is_stale_riven_close(open_ts: Option<f64>, close_ts: Option<f64>) -> bool {
+    matches!((open_ts, close_ts), (Some(open), Some(close)) if close < open)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::is_stale_riven_close;
+
+    #[test]
+    fn stale_riven_close_requires_two_parseable_timestamps() {
+        assert!(is_stale_riven_close(Some(286.169), Some(268.314)));
+        assert!(!is_stale_riven_close(Some(268.314), Some(286.169)));
+        assert!(!is_stale_riven_close(Some(268.314), Some(268.314)));
+        assert!(!is_stale_riven_close(Some(268.314), None));
+        assert!(!is_stale_riven_close(None, Some(268.314)));
+    }
+}
+
 /// Check if a line matches one of the riven menu close patterns (numeric values ignored).
 impl LogScanner {
     pub fn new() -> Self {
@@ -109,6 +128,7 @@ impl LogScanner {
             relic_picker_opened_at: 0.0,
             void_tier: None,
             riven_state: RivenState::Idle,
+            last_riven_open_ts: None,
             riven_roll_pending: false,
             riven_prompt_is_accept: None,
 squad_channels: HashSet::new(),
@@ -318,6 +338,7 @@ squad_channels: HashSet::new(),
         // ─── Riven reroll menu state machine ───────────────────────────────
         if s.contains("OmegaRerollSelection.lua: Diorama setup") {
             self.riven_state = RivenState::ScreenOpen;
+            self.last_riven_open_ts = parse_timestamp(line);
             self.riven_roll_pending = false;
             RIVEN_SCREEN_ACTIVE.store(true, Ordering::SeqCst);
             if crate::build_profile::IS_PREVIEW {
@@ -383,7 +404,9 @@ squad_channels: HashSet::new(),
         // These triggers (CancelJobs, ClearAgents) fire for many unrelated game events,
         // so only act on them when the riven reroll screen is actually open.
         if self.riven_state != RivenState::Idle {
-            if s.contains("CancelJobs batchcount 0") {
+            if s.contains("CancelJobs batchcount 0")
+                && !is_stale_riven_close(self.last_riven_open_ts, parse_timestamp(line))
+            {
                 self.riven_state = RivenState::Idle;
                 self.riven_roll_pending = false;
                 RIVEN_SCREEN_ACTIVE.store(false, Ordering::SeqCst);
@@ -392,7 +415,9 @@ squad_channels: HashSet::new(),
                 app.emit("riven-screen-closed", ()).unwrap_or_default();
                 return;
             }
-            if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false") {
+            if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false")
+                && !is_stale_riven_close(self.last_riven_open_ts, parse_timestamp(line))
+            {
                 self.riven_state = RivenState::Idle;
                 self.riven_roll_pending = false;
                 RIVEN_SCREEN_ACTIVE.store(false, Ordering::SeqCst);

@@ -1700,18 +1700,36 @@ export default function Inventory() {
 
 }
 
-function renderHeaderStats(inventoryData, iconsPath, t, locale) {
+export function renderFormaTooltipContent(account, iconsPath, t, locale) {
+  const { forma, aura_forma, stance_forma, umbra_forma } = account;
+  const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
+
+  return (
+    <div className="p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl min-w-[180px] glass-panel">
+      <div className="space-y-3">
+        <div className="flex justify-between items-center gap-3">
+          <span className="flex items-center gap-2 text-[15px] text-kronos-dim uppercase font-bold whitespace-nowrap">{iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_standard')}</span>
+          <span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(forma, locale)}</span>
+        </div>
+        {aura_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-blue-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_aura')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(aura_forma, locale)}</span></div>}
+        {stance_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-green-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_stance')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(stance_forma, locale)}</span></div>}
+        {umbra_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-purple-400 uppercase font-bold whitespace-nowrap">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_umbra')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(umbra_forma, locale)}</span></div>}
+      </div>
+    </div>
+  );
+}
+
+export function renderHeaderStats(inventoryData, iconsPath, t, locale) {
   if (!inventoryData?.account) return null;
   const { credits, platinum, forma, aura_forma, stance_forma, umbra_forma, orokin_reactor, orokin_catalyst, endo, ducats, aya, aya_image, void_traces, void_traces_max, steel_essence, steel_essence_image, riven_slivers, riven_slivers_image } = inventoryData.account;
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
-  const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim', tooltip = null }) =>
+  const StatWidget = ({ icon, label, value, accent = 'text-kronos-dim' }) =>
   <div className="flex items-stretch gap-1.5 min-w-[50px] relative group flex-shrink-0">
       {icon && <img src={icon} className="w-[30px] object-contain flex-shrink-0 self-stretch" alt="" />}
       <div className="flex flex-col justify-between py-[1px] min-w-0">
         <span className={`text-[10px] ${accent} uppercase font-black tracking-widest leading-tight`}>{label}</span>
         <span className="text-sm font-bold text-kronos-text leading-tight">{value}</span>
       </div>
-      {tooltip}
     </div>;
 
   return (
@@ -1720,20 +1738,11 @@ function renderHeaderStats(inventoryData, iconsPath, t, locale) {
       <StatWidget icon={iconSrc('Platinum')} label={t('ui.dashboard.platinum')} value={formatNumber(platinum, locale)} accent="text-kronos-accent" />
       <StatWidget icon={iconSrc('EndoIconRenderLarge')} label={t('ui.inventory.stat_endo')} value={formatNumber(endo, locale)} accent="text-orange-400" />
       <div className="h-8 w-px bg-white/10 flex-shrink-0" />
-      <StatWidget icon={iconSrc('Forma')} label={t('ui.inventory.forma')} value={formatNumber(forma + aura_forma + stance_forma + umbra_forma, locale)} accent="text-kronos-accent"
-      tooltip={
-      <div className="absolute top-full right-0 mt-2 p-3 bg-kronos-bg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[110] min-w-[180px] glass-panel">
-            <div className="space-y-3">
-              <div className="flex justify-between items-center gap-3">
-                <span className="flex items-center gap-2 text-[15px] text-kronos-dim uppercase font-bold whitespace-nowrap">{iconSrc('Forma') && <img src={iconSrc('Forma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_standard')}</span>
-                <span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(forma, locale)}</span>
-              </div>
-              {aura_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-blue-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaUmbra') && <img src={iconSrc('FormaUmbra')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_aura')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(aura_forma, locale)}</span></div>}
-              {stance_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-green-300 uppercase font-bold whitespace-nowrap">{iconSrc('FormaStance') && <img src={iconSrc('FormaStance')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_stance')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(stance_forma, locale)}</span></div>}
-              {umbra_forma > 0 && <div className="flex justify-between items-center gap-3"><span className="flex items-center gap-2 text-[15px] text-purple-400 uppercase font-bold whitespace-nowrap">{iconSrc('OmegaForma') && <img src={iconSrc('OmegaForma')} className="w-8 h-8 object-contain flex-shrink-0" alt="" />}{t('ui.inventory.forma_umbra')}</span><span className="text-[15px] font-bold text-kronos-text tabular-nums">{formatNumber(umbra_forma, locale)}</span></div>}
-            </div>
-          </div>
-      } />
+      <div className="flex-shrink-0">
+      <Tooltip position="bottom" content={renderFormaTooltipContent(inventoryData.account, iconsPath, t, locale)}>
+        <StatWidget icon={iconSrc('Forma')} label={t('ui.inventory.forma')} value={formatNumber(forma + aura_forma + stance_forma + umbra_forma, locale)} accent="text-kronos-accent" />
+      </Tooltip>
+      </div>
       
       <StatWidget icon={iconSrc('Reactor')} label={t('ui.inventory.stat_reactors')} value={formatNumber(orokin_reactor, locale)} accent="text-yellow-500" />
       <StatWidget icon={iconSrc('Catalyst')} label={t('ui.inventory.stat_catalysts')} value={formatNumber(orokin_catalyst, locale)} accent="text-blue-400" />

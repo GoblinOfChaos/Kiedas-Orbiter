@@ -85,5 +85,25 @@
     "functionWords": ["a", "in", "no", "for"],
     "strings": [],
     "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "preview", "wiki", "item", "continue", "chance", "local", "data", "card"]
+  },
+  "pl": {
+    "functionWords": ["a", "in", "to"],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "farm", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "wiki", "preview"]
+  },
+  "tr": {
+    "functionWords": ["the", "and", "for", "you", "your", "to", "of", "in", "with", "from", "that", "this", "any", "all", "a", "on", "son", "no"],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "farm", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "vault", "wiki", "boss", "preview"]
+  },
+  "ru": {
+    "functionWords": [],
+    "strings": ["Platinum:"],
+    "words": ["warframe", "mod", "conclave", "pvp", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "wiki", "ee.log"]
+  },
+  "uk": {
+    "functionWords": [],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "wiki", "ee.log"]
   }
 }

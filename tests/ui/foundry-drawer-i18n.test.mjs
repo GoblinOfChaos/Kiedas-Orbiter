@@ -45,9 +45,10 @@ const readBaseLocale = (locale) => {
     throw error
   }
 }
+const baseEnglish = readBaseLocale('en')
 
-const assertUiKeyContract = (directory = localesDir) => {
-  for (const file of fs.readdirSync(directory).filter((name) => name.endsWith('.json'))) {
+const assertUiKeyContract = (directory = localesDir, files = fs.readdirSync(directory).filter((name) => name.endsWith('.json'))) => {
+  for (const file of files) {
     const locale = path.basename(file, '.json')
     const current = JSON.parse(fs.readFileSync(path.join(directory, file), 'utf8'))
     const base = readBaseLocale(locale)
@@ -55,12 +56,13 @@ const assertUiKeyContract = (directory = localesDir) => {
       assert.ok(Object.hasOwn(current.ui, key), `${file} missing base ui key ${key}`)
       if (current.ui[key] === base.ui[key]) continue
       const isMovedKey = requestedUiKeys.includes(key)
+      const isEnglishIdenticalBase = base.ui[key] === baseEnglish.ui[key]
       const isSyndicatePlaceholderFix = ['es', 'it', 'pt'].includes(locale)
         && key === 'ui.notif_mgr.msg_syndicate_risk_body'
       const isGermanBackfill = locale === 'de'
         && ['ui.riven_overlay.scanning', ...requestedUiKeys.filter((item) => item.startsWith('ui.riven_prompt.'))].includes(key)
       assert.ok(
-        isMovedKey || isSyndicatePlaceholderFix || isGermanBackfill,
+        isEnglishIdenticalBase || isMovedKey || isSyndicatePlaceholderFix || isGermanBackfill,
         `${file} changed existing ui.${key}`,
       )
     }
@@ -82,6 +84,54 @@ test('the fixed-base contract catches the prior fr nav.market loss', () => {
     delete fr.ui['nav.market']
     fs.writeFileSync(frPath, `${JSON.stringify(fr, null, 2)}\n`)
     assert.throws(() => assertUiKeyContract(copy), /fr\.json missing base ui key nav\.market/)
+  } finally {
+    fs.rmSync(copy, { recursive: true, force: true })
+  }
+})
+
+test('the fixed-base contract allows translating an English-identical base value', () => {
+  const copy = fs.mkdtempSync(path.join(os.tmpdir(), 'foundry-i18n-'))
+  try {
+    for (const file of fs.readdirSync(localesDir).filter((name) => name.endsWith('.json'))) {
+      fs.copyFileSync(path.join(localesDir, file), path.join(copy, file))
+    }
+    const plPath = path.join(copy, 'pl.json')
+    const pl = JSON.parse(fs.readFileSync(plPath, 'utf8'))
+    pl.ui['settings.vision_deuteranopia'] = 'Test translation'
+    fs.writeFileSync(plPath, `${JSON.stringify(pl, null, 2)}\n`)
+    assert.doesNotThrow(() => assertUiKeyContract(copy, ['pl.json']))
+  } finally {
+    fs.rmSync(copy, { recursive: true, force: true })
+  }
+})
+
+test('the fixed-base contract rejects altering a real base translation', () => {
+  const copy = fs.mkdtempSync(path.join(os.tmpdir(), 'foundry-i18n-'))
+  try {
+    for (const file of fs.readdirSync(localesDir).filter((name) => name.endsWith('.json'))) {
+      fs.copyFileSync(path.join(localesDir, file), path.join(copy, file))
+    }
+    const frPath = path.join(copy, 'fr.json')
+    const fr = JSON.parse(fs.readFileSync(frPath, 'utf8'))
+    fr.ui['nav.market'] = 'Changed French translation'
+    fs.writeFileSync(frPath, `${JSON.stringify(fr, null, 2)}\n`)
+    assert.throws(() => assertUiKeyContract(copy, ['fr.json']), /fr\.json changed existing ui\.nav\.market/)
+  } finally {
+    fs.rmSync(copy, { recursive: true, force: true })
+  }
+})
+
+test('the fixed-base contract rejects deleting a base key', () => {
+  const copy = fs.mkdtempSync(path.join(os.tmpdir(), 'foundry-i18n-'))
+  try {
+    for (const file of fs.readdirSync(localesDir).filter((name) => name.endsWith('.json'))) {
+      fs.copyFileSync(path.join(localesDir, file), path.join(copy, file))
+    }
+    const plPath = path.join(copy, 'pl.json')
+    const pl = JSON.parse(fs.readFileSync(plPath, 'utf8'))
+    delete pl.ui['settings.vision_deuteranopia']
+    fs.writeFileSync(plPath, `${JSON.stringify(pl, null, 2)}\n`)
+    assert.throws(() => assertUiKeyContract(copy, ['pl.json']), /pl\.json missing base ui key settings\.vision_deuteranopia/)
   } finally {
     fs.rmSync(copy, { recursive: true, force: true })
   }

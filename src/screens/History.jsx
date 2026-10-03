@@ -151,7 +151,7 @@ function Chart({ allData, activeMetrics, trackedItems = [], startTime, endTime }
             width={55}
           />
           <Tooltip
-            content={<CustomTooltip t={t} span={span} activeMetrics={activeMetrics} trackedItems={trackedItems} />}
+            content={<CustomTooltip t={t} locale={locale} span={span} activeMetrics={activeMetrics} trackedItems={trackedItems} />}
           />
           {activeMetrics.map(mk => (
             <Area
@@ -181,7 +181,7 @@ function Chart({ allData, activeMetrics, trackedItems = [], startTime, endTime }
   )
 }
 
-function CustomTooltip({ active, payload, label, span, activeMetrics, trackedItems, t }) {
+export function CustomTooltip({ active, payload, label, span, activeMetrics, trackedItems, t, locale }) {
   if (!active || !payload?.length) return null
   const getColor = (mk) => {
     const tracked = mk.startsWith('item:') ? trackedItems.find(ti => `item:${ti.key}` === mk) : null

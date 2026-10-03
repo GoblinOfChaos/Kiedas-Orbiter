@@ -15,6 +15,7 @@ globalThis.localStorage ??= { getItem: () => null, setItem() {}, removeItem() {}
 globalThis.__TAURI_INTERNALS__ ??= { transformCallback: () => 0, unregisterCallback() {}, invoke: async () => null, convertFileSrc: (value) => value, metadata: { currentWindow: { label: 'main' }, currentWebview: { label: 'main', currentWindow: { label: 'main' } } } }
 globalThis.window.__TAURI_INTERNALS__ = globalThis.__TAURI_INTERNALS__
 const localesDir = path.join(root, 'src/lib/i18n')
+const BASE_COMMIT = '56796f00'
 const requestedUiKeys = [
   'settings.hotkey_action_grade_rivens',
   'ui.riven_prompt.title',
@@ -24,11 +25,17 @@ const requestedUiKeys = [
   'ui.riven_prompt.configure_hotkey',
   'farming_targets.corrupt_warning',
 ]
+const renamedRelicRarityKeys = [
+  'relic_rarity.common',
+  'relic_rarity.uncommon',
+  'relic_rarity.rare',
+]
+const addedRelicRarityKeys = renamedRelicRarityKeys.map((key) => `ui.${key}`)
 
-const readHeadLocale = (locale) => {
+const readBaseLocale = (locale) => {
   try {
     return JSON.parse(execFileSync(
-      'git', ['show', `HEAD:src/lib/i18n/${locale}.json`], { cwd: root, encoding: 'utf8' },
+      'git', ['show', `${BASE_COMMIT}:src/lib/i18n/${locale}.json`], { cwd: root, encoding: 'utf8' },
     ))
   } catch (error) {
     // Node 24 can report EPERM after receiving successful git output in this
@@ -42,27 +49,30 @@ const assertUiKeyContract = (directory = localesDir) => {
   for (const file of fs.readdirSync(directory).filter((name) => name.endsWith('.json'))) {
     const locale = path.basename(file, '.json')
     const current = JSON.parse(fs.readFileSync(path.join(directory, file), 'utf8'))
-    const head = readHeadLocale(locale)
-    const expectedKeys = new Set([...Object.keys(head.ui), ...requestedUiKeys])
+    const base = readBaseLocale(locale)
+    const expectedKeys = new Set([...Object.keys(base.ui), ...requestedUiKeys])
+    for (const key of renamedRelicRarityKeys) expectedKeys.delete(key)
+    if (locale === 'en') for (const key of addedRelicRarityKeys) expectedKeys.add(key)
     assert.deepEqual(
       Object.keys(current.ui).sort(),
       [...expectedKeys].sort(),
-      `${file} ui key set differs from HEAD plus moved keys`,
+      `${file} ui key set differs from the fixed base plus moved keys`,
     )
-    for (const key of Object.keys(head.ui)) {
-      assert.deepEqual(current.ui[key], head.ui[key], `${file} changed existing ui.${key}`)
+    for (const key of Object.keys(base.ui)) {
+      if (renamedRelicRarityKeys.includes(key)) continue
+      assert.deepEqual(current.ui[key], base.ui[key], `${file} changed existing ui.${key}`)
     }
     for (const key of requestedUiKeys) {
-      assert.deepEqual(current.ui[key], head[key], `${file} changed moved ${key}`)
+      assert.deepEqual(current.ui[key], base[key], `${file} changed moved ${key}`)
     }
   }
 }
 
-test('every locale preserves HEAD ui keys and contains all moved ui keys', () => {
+test('every locale preserves fixed-base ui keys and contains all moved ui keys', () => {
   assertUiKeyContract()
 })
 
-test('the HEAD-based contract catches the prior fr nav.market loss', () => {
+test('the fixed-base contract catches the prior fr nav.market loss', () => {
   const copy = fs.mkdtempSync(path.join(os.tmpdir(), 'foundry-i18n-'))
   try {
     for (const file of fs.readdirSync(localesDir).filter((name) => name.endsWith('.json'))) {
@@ -72,7 +82,7 @@ test('the HEAD-based contract catches the prior fr nav.market loss', () => {
     const fr = JSON.parse(fs.readFileSync(frPath, 'utf8'))
     delete fr.ui['nav.market']
     fs.writeFileSync(frPath, `${JSON.stringify(fr, null, 2)}\n`)
-    assert.throws(() => assertUiKeyContract(copy), /fr\.json ui key set differs from HEAD plus moved keys/)
+    assert.throws(() => assertUiKeyContract(copy), /fr\.json ui key set differs from the fixed base plus moved keys/)
   } finally {
     fs.rmSync(copy, { recursive: true, force: true })
   }
@@ -110,6 +120,23 @@ test('all referenced dotted UI keys resolve from every locale ui object', () => 
     }
   }
   assert.equal(en.ui['settings.hotkey_action_grade_rivens'], 'Grade Rivens')
+})
+
+test('all derived relic rarity UI keys resolve from the English ui object', () => {
+  const en = JSON.parse(fs.readFileSync(path.join(localesDir, 'en.json'), 'utf8'))
+  const sourceFiles = []
+  const walk = (directory) => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const file = path.join(directory, entry.name)
+      if (entry.isDirectory()) walk(file)
+      else if (/\.(jsx|js)$/.test(entry.name)) sourceFiles.push(fs.readFileSync(file, 'utf8'))
+    }
+  }
+  walk(path.join(root, 'src'))
+  assert.ok(sourceFiles.some((source) => /t\(\s*`ui\.relic_rarity\.\$\{/.test(source)))
+  for (const rarity of ['common', 'uncommon', 'rare']) {
+    assert.ok(en.ui?.[`ui.relic_rarity.${rarity}`], `en.json missing ui.relic_rarity.${rarity}`)
+  }
 })
 
 test('RecipeDrawer SSR includes a wired backdrop and panel propagation guard', async () => {

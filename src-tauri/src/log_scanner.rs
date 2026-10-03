@@ -50,6 +50,51 @@ enum RivenState {
     AwaitingConfirm1,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum RivenEventKind {
+    ScreenOpen,
+    LinkedOpen,
+    LinkedClose,
+    DialogCreate,
+    DialogCancel,
+    DialogSelect,
+    ScreenClose,
+}
+
+#[derive(Default)]
+struct RivenTimestampGuard {
+    newest_ts: Option<f64>,
+    newest_kind: Option<RivenEventKind>,
+}
+
+fn should_accept_riven_event(
+    newest_ts: Option<f64>,
+    newest_kind: Option<RivenEventKind>,
+    event_ts: Option<f64>,
+    event_kind: RivenEventKind,
+) -> bool {
+    let Some(ts) = event_ts else {
+        return true;
+    };
+    match newest_ts {
+        Some(newest) if ts < newest => false,
+        Some(newest) if ts == newest && newest_kind == Some(event_kind) => false,
+        _ => true,
+    }
+}
+
+impl RivenTimestampGuard {
+    fn accept(&mut self, event_ts: Option<f64>, kind: RivenEventKind) -> bool {
+        if !should_accept_riven_event(self.newest_ts, self.newest_kind, event_ts, kind) { return false; }
+        let Some(ts) = event_ts else { return true; };
+        if self.newest_ts.map_or(true, |newest| ts >= newest) {
+            self.newest_ts = Some(ts);
+            self.newest_kind = Some(kind);
+        }
+        true
+    }
+}
+
 pub struct LogScanner {
     squad_relics: Vec<RelicInfo>,
     squad_size: usize,
@@ -60,6 +105,7 @@ pub struct LogScanner {
     void_tier: Option<String>,
     riven_state: RivenState,
     last_riven_open_ts: Option<f64>,
+    riven_timestamp_guard: RivenTimestampGuard,
     /// True between a confirmed cycle (a new roll now shown beside the
     /// current selection) and the follow-up "keep the new roll" confirm.
     riven_roll_pending: bool,
@@ -104,7 +150,7 @@ fn is_stale_riven_close(open_ts: Option<f64>, close_ts: Option<f64>) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::is_stale_riven_close;
+    use super::{is_stale_riven_close, should_accept_riven_event, RivenEventKind, RivenTimestampGuard};
 
     #[test]
     fn stale_riven_close_requires_two_parseable_timestamps() {
@@ -113,6 +159,42 @@ mod tests {
         assert!(!is_stale_riven_close(Some(268.314), Some(268.314)));
         assert!(!is_stale_riven_close(Some(268.314), None));
         assert!(!is_stale_riven_close(None, Some(268.314)));
+    }
+
+    #[test]
+    fn monotonic_guard_ignores_replayed_open_after_newer_close() {
+        let mut guard = RivenTimestampGuard::default();
+        assert!(guard.accept(Some(12765.373), RivenEventKind::ScreenOpen));
+        assert!(guard.accept(Some(12769.161), RivenEventKind::ScreenClose));
+        assert!(!guard.accept(Some(12765.373), RivenEventKind::ScreenOpen));
+    }
+
+    #[test]
+    fn monotonic_guard_resets_for_a_new_process_session() {
+        let mut guard = RivenTimestampGuard::default();
+        assert!(guard.accept(Some(12769.161), RivenEventKind::ScreenClose));
+        assert!(!guard.accept(Some(12765.373), RivenEventKind::ScreenOpen));
+        guard = RivenTimestampGuard::default();
+        assert!(guard.accept(Some(1.25), RivenEventKind::ScreenOpen));
+    }
+
+    #[test]
+    fn equal_timestamp_replays_of_the_same_event_are_ignored() {
+        let mut guard = RivenTimestampGuard::default();
+        assert!(guard.accept(Some(4.0), RivenEventKind::ScreenOpen));
+        assert!(!guard.accept(Some(4.0), RivenEventKind::ScreenOpen));
+        assert!(guard.accept(Some(4.0), RivenEventKind::ScreenClose));
+        assert!(guard.accept(None, RivenEventKind::ScreenOpen));
+    }
+
+    #[test]
+    fn pure_guard_decision_preserves_missing_timestamp_behavior() {
+        assert!(!should_accept_riven_event(
+            Some(9.0), Some(RivenEventKind::ScreenOpen), Some(8.0), RivenEventKind::ScreenClose
+        ));
+        assert!(should_accept_riven_event(
+            Some(9.0), Some(RivenEventKind::ScreenOpen), None, RivenEventKind::ScreenClose
+        ));
     }
 }
 
@@ -129,6 +211,7 @@ impl LogScanner {
             void_tier: None,
             riven_state: RivenState::Idle,
             last_riven_open_ts: None,
+            riven_timestamp_guard: RivenTimestampGuard::default(),
             riven_roll_pending: false,
             riven_prompt_is_accept: None,
 squad_channels: HashSet::new(),
@@ -326,17 +409,20 @@ squad_channels: HashSet::new(),
         if s.contains("ThemedDetailedPurchaseDialog.lua: PopulateInfo->")
             && s.contains("/Lotus/StoreItems/Upgrades/Mods/Randomized")
         {
+            if !self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::LinkedOpen) { return; }
             crate::logger::log_to_disk(app, &format!("[LOG SCANNER] Riven linked in chat opened (LogTS: {}s)", ts));
             app.emit("riven-linked-open", ()).unwrap_or_default();
             return;
         }
         if s.contains("ThemedDetailedPurchaseDialog.lua: DBG: HudVis") {
+            if !self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::LinkedClose) { return; }
             app.emit("riven-linked-closed", ()).unwrap_or_default();
             return;
         }
 
         // ─── Riven reroll menu state machine ───────────────────────────────
         if s.contains("OmegaRerollSelection.lua: Diorama setup") {
+            if !self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::ScreenOpen) { return; }
             self.riven_state = RivenState::ScreenOpen;
             self.last_riven_open_ts = parse_timestamp(line);
             self.riven_roll_pending = false;
@@ -353,6 +439,7 @@ squad_channels: HashSet::new(),
         // also opens an OkCancel "please wait" dialog (leftItem=nil) right
         // after every confirm, which must not advance the state machine.
         if s.contains("Dialog.lua: Dialog::CreateOkCancel(description=") {
+            if !self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::DialogCreate) { return; }
             if self.riven_state != RivenState::Idle && s.contains("leftItem=/Menu/Confirm_Item_Yes") {
                 self.riven_state = RivenState::AwaitingConfirm1;
                 self.riven_prompt_is_accept = if s.contains("into current selection") {
@@ -367,6 +454,7 @@ squad_channels: HashSet::new(),
         }
 
         if s.contains("Dialog.lua: SendResult_MENU_CANCEL()") || s.contains("Dialog.lua: Dialog::SendResult(5)") {
+            if !self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::DialogCancel) { return; }
             if self.riven_state == RivenState::AwaitingConfirm1 {
                 self.riven_state = RivenState::ScreenOpen;
             }
@@ -378,6 +466,7 @@ squad_channels: HashSet::new(),
         // arrives while AwaitingConfirm1; it moves the state on, so the
         // duplicate line is ignored (previously each confirm emitted twice).
         if s.contains("Dialog.lua: SendResult_MENU_SELECT()") || s.contains("Dialog.lua: Dialog::SendResult(4)") {
+            if !self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::DialogSelect) { return; }
             if self.riven_state == RivenState::AwaitingConfirm1 {
                 self.riven_state = RivenState::ScreenOpen;
                 // Trust the prompt text when it is recognized (self-corrects
@@ -405,6 +494,7 @@ squad_channels: HashSet::new(),
         // so only act on them when the riven reroll screen is actually open.
         if self.riven_state != RivenState::Idle {
             if s.contains("CancelJobs batchcount 0")
+                && self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::ScreenClose)
                 && !is_stale_riven_close(self.last_riven_open_ts, parse_timestamp(line))
             {
                 self.riven_state = RivenState::Idle;
@@ -416,6 +506,7 @@ squad_channels: HashSet::new(),
                 return;
             }
             if s.contains("NpcManager::ClearAgents() ReadyToCreateAgents = false")
+                && self.riven_timestamp_guard.accept(parse_timestamp(line), RivenEventKind::ScreenClose)
                 && !is_stale_riven_close(self.last_riven_open_ts, parse_timestamp(line))
             {
                 self.riven_state = RivenState::Idle;
@@ -953,6 +1044,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                         had_pid = false;
                         seen_set.clear();
                         seen_count = 0;
+                        scanner.riven_timestamp_guard = RivenTimestampGuard::default();
                     }
                     if !logged_waiting {
                         crate::logger::log_to_disk(&app_inner, "[MEMORY WATCHER] Waiting for Warframe process...");
@@ -1067,6 +1159,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                 validated = false;
                 ever_hooked = false;
                 discovery_attempts = 0;
+                scanner.riven_timestamp_guard = RivenTimestampGuard::default();
                 crate::overlay_utils::stop_focus_watcher();
                 clear_pid_cache();
                 std::thread::sleep(std::time::Duration::from_millis(500));

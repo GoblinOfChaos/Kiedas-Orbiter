@@ -9,6 +9,7 @@ import { useUi } from '../contexts/UiContext'
 import { IS_PREVIEW } from '../lib/buildProfile'
 import { categoryDisplayLabel } from '../lib/categoryLabels'
 import FarmingTargetAction from '../components/FarmingTargetAction'
+import '../preview/acquisition/preview-acquisition.css'
 
 const CATEGORIES = [
   { id: 'all', labelKey: 'foundry.cat_all', keys: null },
@@ -235,15 +236,27 @@ function InProgressCard({ pending, t }) {
 // the same reason as AcquisitionDrawer: nested inside the scroll container,
 // its anchor point would scroll away with the page instead of staying
 // pinned to the viewport.
-function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
-  if (!item) return null
+export function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
   const isPanel = variant === 'panel'
   const rootClassName = isPanel
     ? 'absolute inset-y-0 right-0 z-40 w-full lg:max-w-sm bg-kronos-bg border-l border-white/10 shadow-[-8px_0_24px_rgba(0,0,0,0.4)] overflow-y-auto'
     : 'fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]'
   const innerClassName = isPanel ? 'px-5 py-5' : 'max-w-6xl mx-auto px-6 py-4 max-h-[52vh] overflow-y-auto'
+  useEffect(() => {
+    if (!item) return undefined
+    const onKeyDown = (event) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      onClose()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [item, onClose])
+  if (!item) return null
   return (
-    <div className={rootClassName}>
+    <>
+      <div className="preview-acq-backdrop" onClick={onClose} />
+      <div className={rootClassName} onClick={(event) => event.stopPropagation()}>
       <div className={innerClassName}>
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="flex items-center gap-3 min-w-0">
@@ -290,7 +303,8 @@ function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
           </div>
         </>}
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 

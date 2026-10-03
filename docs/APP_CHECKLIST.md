@@ -6,16 +6,16 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 1 - Quick looks (under a minute each, no game needed, English is fine)
 
-- [ ] #13 Inventory: search "Titan Extractor" and "Distilling Extractor": the Prime Set card and its Blueprint show real artwork, not IMAGE UNAVAILABLE
+- [x] #13 Inventory: search "Titan Extractor" and "Distilling Extractor": the Prime Set card and its Blueprint show real artwork, not IMAGE UNAVAILABLE
 - [ ] #32 Prime Sets tab: Aklex Prime, Akvasto Prime, Akbronco Prime and Akmagnus Prime list their two base guns (for example Lex Prime) as well as the Link and Blueprint
-- [ ] #30 Prime Sets tab: OWNED appears only on sets whose finished item you own. Nyx, Vauban, Garuda, Carrier, Limbo, Nidus and Akbolto Prime must NOT say OWNED if you only hold the blueprint or parts (the completion ring "1/2 (50%)" still shows held parts)
-- [ ] #11 Salvage drawer: no ship-decoration paragraph; Conclave drops are listed AND the wiki lines (Market: 30 Platinum for 3000 Salvage; Carme Mobile Defense and Olympus Disruption farming notes)
-- [ ] #10 Voidgel Orb drawer: the sources listed match the summary; no "+N more sources" text without matching rows (spot-check two other items)
+- [x] #30 Prime Sets tab: OWNED appears only on sets whose finished item you own. Nyx, Vauban, Garuda, Carrier, Limbo, Nidus and Akbolto Prime must NOT say OWNED if you only hold the blueprint or parts (the completion ring "1/2 (50%)" still shows held parts)
+- [x] #11 Salvage drawer: no ship-decoration paragraph; Conclave drops are listed AND the wiki lines (Market: 30 Platinum for 3000 Salvage; Carme Mobile Defense and Olympus Disruption farming notes)
+- [x] #10 Voidgel Orb drawer: the sources listed match the summary; no "+N more sources" text without matching rows (spot-check two other items)
 - [ ] #8 REOPENED 2026-10-03: your check found it is not fixed. The Orokin Cell drawer's "1x Blueprint" row shows the resource's enemy-drop text; it should be the 100 Platinum Market purchase. Cause found, NO fix started; goes with #36 and #38. The Forma Blueprint and Prime part drawers part of this check still stands [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
 - [ ] #9 REOPENED 2026-10-03 for Warframe drawers: Ash Prime Neuroptics still lists (Radiant)/(Flawless) rows with percentages. Cause partly found, NO fix started. The part-drawer checks for Citrine Prime Blueprint and Acceltra Prime below still stand. Original text: Prime part drawers (Ash Prime Chassis, Citrine Prime Blueprint, Acceltra Prime): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no percentages, no raw key like `ui.relic_rarity.rare`. Check BOTH the top "How to obtain" list AND the "Crafting requirements" part rows [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`
+- [x] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`
 - [ ] #18 REOPENED 2026-10-03: the Riven hotkey label "Grade Rivens" is still English when the app is not in English. Found: German is untranslated (the other 13 are done), and the tests accepted it. Tell me which language you saw it in. NO fix started; part of the wider English-text audit (see the report, section 18 addendum)
-- [ ] Window under 1050px wide: collapsed sidebar rail scrollbar OK
+- [x] Window under 1050px wide: collapsed sidebar rail scrollbar OK
 
 ## Step 2 - Switch the app language (about 5 minutes)
 
@@ -31,12 +31,12 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 4 - Needs Warframe running
 
-- [ ] #24 Start the scanner (launch the game) with the app in a non-English language: the "scanner hooked" toast shows real text, not `app.scanner_title`
-- [ ] #28 After a session with the game open, the log (`~/.local/share/kiedas-orbiter-preview/data/user/logs/app-YYYY-MM-DD.log`) does not fill with `[FOCUS_WATCHER] transition: focused -> unfocused` every half second (R)
-- [ ] #17 / #25 / #26 Riven reroll screen: the grading banner appears and STAYS visible after you press the hotkey, and disappears only when you leave the riven screen; leaving the screen hides everything and nothing reappears on its own later; look in the log for `[MEMORY WATCHER] dedupe:` lines (R)
-- [ ] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R)
+- [x] #24 Start the scanner (launch the game) with the app in a non-English language: the "scanner hooked" toast shows real text, not `app.scanner_title`
+- [ ] #28 After a session with the game open, the log (`~/.local/share/kiedas-orbiter-preview/data/user/logs/app-YYYY-MM-DD.log`) does not fill with `[FOCUS_WATCHER] transition: focused -> unfocused` every half second (R) [Coordinator check 2026-10-03 14:44: only 24 focus changes in about 1 hour of play (worst case 5 in one minute), versus 459 in a day with the old build, so this looks fixed; your call to tick]
+- [x] #17 / #25 / #26 Riven reroll screen: the grading banner appears and STAYS visible after you press the hotkey, and disappears only when you leave the riven screen; leaving the screen hides everything and nothing reappears on its own later; look in the log for `[MEMORY WATCHER] dedupe:` lines (R)
+- [x] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R)
 - [ ] #23 Relic mission (Citrine/Sevagoth Prime or any relic): all reward cards are recognized, none say UNRECOGNIZED (R) [PARTLY RE-OPENED 2026-10-03: see #44, one card of a duplicate pair was UNRECOGNIZED twice]
-- [ ] Riven single-card grading (one card only, before any reroll)
+- [x] Riven single-card grading (one card only, before any reroll)
 
 ## Step 5 - Needs measuring or sending me something
 
@@ -65,7 +65,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #41 Rivens page: horizontal scrollbars on the filters (state, sort, weapon type) that cannot be grabbed, plus one under the cards (reported 2026-10-03). Filters found, cards need a screenshot or dev-tools element. Decision: only the Inventory currency strip keeps a horizontal scrollbar. NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build] (the card-area scrollbar was not located; tell me if it is still there)
 - [ ] #42 History crash "Can't find variable: locale" when hovering the chart, and the crash screen shows raw `ERROR_BOUNDARY.*` text (reported 2026-10-03). Both causes verified, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
 - [ ] #43 Wiki tab blank after that crash; only restarting the app fixed it (reported 2026-10-03). Not understood. If it happens again, send me the log file before restarting
-- [ ] #44 Relic reward overlay (reported 2026-10-03): "Yareli Prime Chassis Blueprint" and one "Akbronco Prime Blueprint" were UNRECOGNIZED. Both causes verified in the log and by running the matcher (a hyphen dropped by the native cleaner, and a wrongly capitalized O). NO fix started; the native half needs your explicit yes first
+- [ ] #44 Relic reward overlay (reported 2026-10-03): "Yareli Prime Chassis Blueprint" and one "Akbronco Prime Blueprint" were UNRECOGNIZED. Both causes verified in the log and by running the matcher (a hyphen dropped by the native cleaner, and a wrongly capitalized O). NO fix started; the native half needs your explicit yes first [FIXED IN CODE 2026-10-03, merged, not in a build yet: after the next build, check a relic mission with duplicate rewards; no card should say UNRECOGNIZED]
 - [ ] #45 Inventory parse error `Q.startsWith is not a function` in the developer tools (found by you 2026-10-03; 10 times in today's log). Exact line not found yet, NO fix started. If your Inventory ever looks empty or stale after starting the app, tell me when
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 

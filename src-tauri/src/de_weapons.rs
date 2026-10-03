@@ -12,7 +12,7 @@ const MERGE_FIELDS: &[&str] = &[
     "reloadTime", "multishot", "blockingAngle", "comboDuration", "followThrough",
     "heavyAttackDamage", "heavySlamAttack", "heavySlamRadialDamage", "heavySlamRadius",
     "range", "sentinel", "slamAttack", "slamRadialDamage", "slamRadius", "slideAttack",
-    "windUp", "excludeFromCodex", "maxLevelCap",
+    "windUp", "excludeFromCodex", "maxLevelCap", "name", "description",
 ];
 const ADAPTER_FIELDS: &[&str] = &[
     "uniqueName", "name", "description", "codexSecret", "damagePerShot", "totalDamage",
@@ -99,7 +99,7 @@ pub fn merge_weapons(mirror_export: &Value, de_export: &Value) -> (Value, MergeS
 
 #[cfg(test)]
 mod tests {
-    use super::{normalize_numbers, rounded_number};
+    use super::{merge_weapons, normalize_numbers, rounded_number};
     use serde_json::json;
 
     #[test]
@@ -112,6 +112,15 @@ mod tests {
     #[test]
     fn rounds_numeric_array_elements() {
         assert_eq!(normalize_numbers(&json!([7.5000005, 14])), json!([7.5, 14]));
+    }
+
+    #[test]
+    fn shared_weapon_takes_name_and_description_from_de() {
+        let mirror = json!({"/a": {"uniqueName":"/a", "name":"Stale", "description":"Old"}});
+        let de = json!({"ExportWeapons":[{"uniqueName":"/a", "name":"English", "description":"Text"}]});
+        let (merged, _) = merge_weapons(&mirror, &de);
+        assert_eq!(merged["/a"]["name"], "English");
+        assert_eq!(merged["/a"]["description"], "Text");
     }
 }
 

@@ -82,13 +82,39 @@ fn de_overlay(record: &Map<String, Value>) -> Map<String, Value> {
     record
         .iter()
         .filter_map(|(field, value)| {
-            if field == "levelStats" || value.is_number() {
-                Some((field.clone(), normalize_numbers(value)))
+            if field == "levelStats" || value.is_number() || field == "name" || field == "description" {
+                Some((field.clone(), if value.is_number() { normalize_numbers(value) } else { value.clone() }))
             } else {
                 None
             }
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::merge_upgrades;
+    use serde_json::json;
+
+    #[test]
+    fn shared_upgrade_takes_name_and_description_from_de() {
+        let mirror = json!({"/a": {
+            "uniqueName": "/a",
+            "name": "Stale",
+            "description": "Old",
+            "levelStats": [{"value": 1}],
+        }});
+        let de = json!({"ExportUpgrades": [{
+            "uniqueName": "/a",
+            "name": "English",
+            "description": "Text",
+            "levelStats": [{"value": 2}],
+        }]});
+        let (merged, _) = merge_upgrades(&mirror, &de);
+        assert_eq!(merged["/a"]["name"], "English");
+        assert_eq!(merged["/a"]["description"], "Text");
+        assert_eq!(merged["/a"]["levelStats"][0]["value"], 2);
+    }
 }
 
 pub fn merge_upgrades(mirror_export: &Value, de_export: &Value) -> (Value, MergeSummary) {

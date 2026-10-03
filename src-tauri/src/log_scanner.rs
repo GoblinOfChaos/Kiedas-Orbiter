@@ -1,6 +1,7 @@
-use std::collections::HashSet;
+use std::collections::{HashSet, VecDeque};
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use std::sync::{Arc, Mutex};
+use std::time::{Duration, Instant};
 use tauri::{AppHandle, Emitter, Manager};
 
 pub static IS_SCANNING: AtomicBool = AtomicBool::new(false);
@@ -144,13 +145,92 @@ fn parse_timestamp(line: &str) -> Option<f64> {
     None
 }
 
+/// The memory watcher only hashes lines with the normal EE.log timestamp
+/// shape. This keeps binary data from the oversized read window out of the
+/// dedupe set and out of the scanner's state machine.
+fn looks_like_log_line(line: &str) -> bool {
+    let Some(space_idx) = line.find(' ') else { return false };
+    let timestamp = &line[..space_idx];
+    let Some(dot_idx) = timestamp.find('.') else { return false };
+    let (seconds, fraction_with_dot) = timestamp.split_at(dot_idx);
+    let fraction = &fraction_with_dot[1..];
+    if seconds.is_empty()
+        || fraction.is_empty()
+        || !seconds.bytes().all(|byte| byte.is_ascii_digit())
+        || !fraction.bytes().all(|byte| byte.is_ascii_digit())
+        || parse_timestamp(line).is_none()
+    {
+        return false;
+    }
+    let message = &line[space_idx + 1..];
+    !message.is_empty()
+        && message.chars().all(|character| character == '\t' || !character.is_control())
+}
+
+const SEEN_LINES_CAPACITY: usize = 65_536;
+
+/// Bounded recency dedupe for the circular log buffer. The capacity is far
+/// larger than the roughly thousand lines held by the ring buffer, so a hash
+/// is not forgotten while its source line can still be present in the buffer.
+struct SeenLines {
+    hashes: HashSet<u64>,
+    insertion_order: VecDeque<u64>,
+    capacity: usize,
+    evictions: u64,
+}
+
+impl SeenLines {
+    fn new() -> Self {
+        Self::with_capacity(SEEN_LINES_CAPACITY)
+    }
+
+    fn with_capacity(capacity: usize) -> Self {
+        Self {
+            hashes: HashSet::with_capacity(capacity),
+            insertion_order: VecDeque::with_capacity(capacity),
+            capacity,
+            evictions: 0,
+        }
+    }
+
+    fn insert(&mut self, hash: u64) -> bool {
+        if !self.hashes.insert(hash) {
+            return false;
+        }
+        self.insertion_order.push_back(hash);
+        if self.hashes.len() > self.capacity {
+            if let Some(oldest) = self.insertion_order.pop_front() {
+                self.hashes.remove(&oldest);
+                self.evictions += 1;
+            }
+        }
+        true
+    }
+
+    fn clear(&mut self) {
+        self.hashes.clear();
+        self.insertion_order.clear();
+    }
+
+    fn len(&self) -> usize {
+        self.hashes.len()
+    }
+
+    fn evictions(&self) -> u64 {
+        self.evictions
+    }
+}
+
 fn is_stale_riven_close(open_ts: Option<f64>, close_ts: Option<f64>) -> bool {
     matches!((open_ts, close_ts), (Some(open), Some(close)) if close < open)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{is_stale_riven_close, should_accept_riven_event, RivenEventKind, RivenTimestampGuard};
+    use super::{
+        is_stale_riven_close, looks_like_log_line, should_accept_riven_event, SeenLines,
+        RivenEventKind, RivenTimestampGuard, SEEN_LINES_CAPACITY,
+    };
 
     #[test]
     fn stale_riven_close_requires_two_parseable_timestamps() {
@@ -195,6 +275,56 @@ mod tests {
         assert!(should_accept_riven_event(
             Some(9.0), Some(RivenEventKind::ScreenOpen), None, RivenEventKind::ScreenClose
         ));
+    }
+
+    #[test]
+    fn seen_lines_rejects_known_hashes() {
+        let mut seen = SeenLines::with_capacity(2);
+        assert!(seen.insert(10));
+        assert!(!seen.insert(10));
+        assert_eq!(seen.len(), 1);
+    }
+
+    #[test]
+    fn seen_lines_evicts_only_the_oldest_hash() {
+        let mut seen = SeenLines::with_capacity(2);
+        assert!(seen.insert(10));
+        assert!(seen.insert(20));
+        assert!(seen.insert(30));
+        assert_eq!(seen.len(), 2);
+        assert_eq!(seen.evictions(), 1);
+        assert!(seen.insert(10));
+        assert!(!seen.insert(30));
+    }
+
+    #[test]
+    fn seen_lines_respects_the_production_capacity() {
+        let mut seen = SeenLines::new();
+        for hash in 0..=(SEEN_LINES_CAPACITY as u64) {
+            assert!(seen.insert(hash));
+        }
+        assert_eq!(seen.len(), SEEN_LINES_CAPACITY);
+        assert_eq!(seen.evictions(), 1);
+    }
+
+    #[test]
+    fn seen_lines_accepts_a_hash_again_after_eviction() {
+        let mut seen = SeenLines::with_capacity(1);
+        assert!(seen.insert(10));
+        assert!(seen.insert(20));
+        assert!(seen.insert(10));
+    }
+
+    #[test]
+    fn looks_like_log_line_requires_a_timestamp_and_text() {
+        assert!(looks_like_log_line(
+            "12765.373 Script [Info]: OmegaRerollSelection.lua: Diorama setup"
+        ));
+        assert!(looks_like_log_line("12765.373 Script [Info]: Foo\tbar baz"));
+        assert!(!looks_like_log_line("12765.373 Script [Info]: Foo\u{1}bar"));
+        assert!(!looks_like_log_line("12765.373 \u{0}\u{0}"));
+        assert!(!looks_like_log_line("12abc"));
+        assert!(!looks_like_log_line("9"));
     }
 }
 
@@ -1022,9 +1152,10 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
         // Scratch buffers reused across cycles (no per-cycle allocs)
         let mut raw = Vec::new();
         let mut prev = vec![0u8; 0];
-        let mut seen_set: std::collections::HashSet<u64> = std::collections::HashSet::new();
-        let mut seen_count: usize = 0;
-        const SEEN_RESET_THRESHOLD: usize = 16_384;
+        let mut seen_lines = SeenLines::new();
+        let mut new_hashes_last_minute: usize = 0;
+        let mut last_dedupe_report: Option<Instant> = None;
+        let mut logged_first_eviction = false;
 
         loop {
             if !IS_SCANNING.load(Ordering::SeqCst) || SCANNER_GENERATION.load(Ordering::SeqCst) != my_gen {
@@ -1042,8 +1173,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                         ever_hooked = false;
                         prev.clear();
                         had_pid = false;
-                        seen_set.clear();
-                        seen_count = 0;
+                        seen_lines.clear();
                         scanner.riven_timestamp_guard = RivenTimestampGuard::default();
                     }
                     if !logged_waiting {
@@ -1159,6 +1289,7 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                 validated = false;
                 ever_hooked = false;
                 discovery_attempts = 0;
+                seen_lines.clear();
                 scanner.riven_timestamp_guard = RivenTimestampGuard::default();
                 crate::overlay_utils::stop_focus_watcher();
                 clear_pid_cache();
@@ -1176,15 +1307,16 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
             for line in text.split('\n') {
                 let line = line.trim_matches(|c: char| c.is_whitespace() || c == '\0');
                 if line.is_empty() { continue; }
-                if !line.starts_with(|c: char| c.is_ascii_digit()) { continue; }
+                if !looks_like_log_line(line) { continue; }
                 let hash = line_hash(line);
-                if !seen_set.insert(hash) {
+                if !seen_lines.insert(hash) {
                     continue;
                 }
-                seen_count += 1;
-                if seen_count >= SEEN_RESET_THRESHOLD {
-                    seen_set.clear();
-                    seen_count = 0;
+                new_hashes_last_minute += 1;
+                if !logged_first_eviction && seen_lines.evictions() > 0 {
+                    crate::logger::log_to_disk(&app_inner,
+                        "[MEMORY WATCHER] dedupe: first eviction occurred");
+                    logged_first_eviction = true;
                 }
 
                 // On the first cycle only (prev empty), skip stateful
@@ -1206,6 +1338,21 @@ pub fn spawn_memory_watcher(app: AppHandle) -> Result<LogScannerHandle, String> 
                 }
 
                 scanner.on_line(&app_inner, line);
+            }
+
+            let now = Instant::now();
+            if last_dedupe_report.map_or(true, |reported_at| {
+                now.duration_since(reported_at) >= Duration::from_secs(60)
+            }) {
+                crate::logger::log_to_disk(&app_inner, &format!(
+                    "[MEMORY WATCHER] dedupe: new_hashes_last_minute={} set_len={} raw_len={} evictions={}",
+                    new_hashes_last_minute,
+                    seen_lines.len(),
+                    raw.len(),
+                    seen_lines.evictions(),
+                ));
+                new_hashes_last_minute = 0;
+                last_dedupe_report = Some(now);
             }
 
             if prev.len() != raw.len() {

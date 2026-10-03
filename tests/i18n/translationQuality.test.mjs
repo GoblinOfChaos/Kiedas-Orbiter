@@ -107,10 +107,24 @@ test('quality gate catches three deliberate English leftovers in every supported
     'farming_targets.empty_detail': 'Search above for a Warframe to track what you need.',
     'ui.riven_prompt.hint': 'The grading overlay scans the current card.',
   }
-  for (const locale of ['es', 'fr', 'it', 'pt']) {
-    const issues = findTranslationQualityIssues(locale, rejected, Object.fromEntries(Object.keys(rejected).map((key) => [key, key])))
+  for (const locale of ['es', 'fr', 'it', 'pt', 'pl', 'tr']) {
+    const issues = findTranslationQualityIssues(locale, rejected, Object.fromEntries(Object.keys(rejected).map((key) => [key, key])), new Set())
     for (const key of Object.keys(rejected)) {
       assert.ok(issues.some((issue) => issue.startsWith(`${key}:`)), `${locale}: failed to catch English leftover in ${key}`)
+    }
+  }
+})
+
+test('quality gate catches three deliberate non-Cyrillic leftovers in Russian and Ukrainian', () => {
+  const rejected = {
+    'farming_targets.empty_title': 'No farming targets yet',
+    'farming_targets.empty_detail': 'Search above for a Warframe to track what you need.',
+    'ui.riven_prompt.hint': 'The grading overlay scans the current card.',
+  }
+  for (const locale of ['ru', 'uk']) {
+    const issues = findTranslationQualityIssues(locale, rejected, Object.fromEntries(Object.keys(rejected).map((key) => [key, key])), new Set())
+    for (const key of Object.keys(rejected)) {
+      assert.ok(issues.some((issue) => issue.startsWith(`${key}:`)), `${locale}: failed to catch non-Cyrillic leftover in ${key}`)
     }
   }
 })

@@ -24,15 +24,22 @@ Each section details:
 | # | Status | Root cause / what changed |
 |---|---|---|
 | 8 Orokin Cell Blueprint as enemy drop | Fixed in code, awaiting in-app check | `dropsParser.js` `addNamedSource` filed unresolved reward names (e.g. "2X Orokin Cell") under a phantom `display:<name> blueprint` key (731 phantom keys). Quantity prefixes are now stripped and no blueprint key is invented. Test: `tests/farming/acquisitionC1.test.mjs` |
-| 9 Meso C11 repeated x5 | Fixed in code, awaiting in-app check | Rows were refinement variants (4 chance-less ExportRelics rows + 4 per-refinement mirror rows). User decision: no refinements shown; each relic once with its Common/Uncommon/Rare tier from ExportRelics `rarity`. Label key fixed to `ui.relic_rarity.*` (C4). Tests: `acquisitionC1.test.mjs`, `tests/relics/acquisitionDrawerLabels.test.mjs` |
+| 9 Meso C11 repeated x5 | PARTLY fixed: top-level sources deduped; the "Crafting requirements" ingredient rows still show duplicates (user check 2026-10-02). See the update in section 9 | Rows were refinement variants (4 chance-less ExportRelics rows + 4 per-refinement mirror rows). User decision: no refinements shown; each relic once with its Common/Uncommon/Rare tier from ExportRelics `rarity`. Label key fixed to `ui.relic_rarity.*` (C4). Tests: `acquisitionC1.test.mjs`, `tests/relics/acquisitionDrawerLabels.test.mjs` |
 | 10 "+N more" without rows | Fixed in code, awaiting in-app check | 85 override strings in `acquisition_overrides.json` carried "(+N more sources)" and `acquisitionInfo.js` returned only that text. Live drop rows are now used when they exist |
 | 11 Salvage Conclave-only | Partly fixed, awaiting in-app check | Unrelated decoration blurb removed; Conclave kept as a DROP source (DE drop table and wiki.warframe.com list only Conclave under drops). A Market purchase source was NOT added: no verified entry exists in repo data. Needs a wiki-sourced addition |
 | 12 Foundry drawer outside click | Fixed in code, awaiting in-app check | `RecipeDrawer` now has the shared backdrop, click guard and Escape handling. Test: `tests/ui/foundry-drawer-i18n.test.mjs` |
-| 13, 14, 16, 19, 20, 21, 22 | Not worked in this round | 19, 20, 22 were fixed in code in an earlier snapshot and are still unconfirmed in the app |
+| 14 New UI strings never translated (reworded from "Farming Targets not localized") | Open: scope measured, NOT fixed | 104 keys missing in all 14 locales plus 73-227 English-identical strings per locale; no test or rule enforced translation. See section 14 |
+| 13, 16, 19, 20, 21, 22 | Not worked in this round | 19, 20, 22 were fixed in code in an earlier snapshot and are still unconfirmed in the app |
 | 15 Inventory overscroll | Investigated, cause unproven | Candidate: hardcoded row strides (`SETS_ROW_STRIDE`, `GENERAL_CARD_HEIGHT`) vs real heights, but a calibration step already exists. Needs a live measurement |
-| 17 Riven overlay does not appear | Fixed in code, awaiting in-app check | Log evidence: "screen opened" and "overlays closed (ClearAgents)" logged in the same millisecond with the close LogTS older than the open. Stale close triggers are now ignored (`log_scanner.rs`, unit test). The replay mechanism of the old line is NOT proven |
+| 17 Riven overlay does not appear | Partly fixed (stale CLOSE ignored); new log evidence in item 26 shows a replayed OPEN the guard does not cover | Log evidence: "screen opened" and "overlays closed (ClearAgents)" logged in the same millisecond with the close LogTS older than the open. Stale close triggers are now ignored (`log_scanner.rs`, unit test). The replay mechanism of the old line is NOT proven |
 | 18 Raw key in Riven trigger | Fixed in code, awaiting in-app check | `t()` reads only `ui[key]`; six keys sat at the top level of every locale JSON. Moved under `ui` in all 15 locales; all-locale integrity test added |
 | 23 Relic reward overlay "UNRECOGNIZED" (new) | Fixed in code, awaiting in-app check | See section 23 |
+| 24 Scanner toast shows raw i18n keys (new) | Open: root cause found, NOT fixed | See section 24 |
+| 25 Riven prompt banner vanishes when the hotkey is pressed (regression) | Open: cause proven, NOT fixed | The fix exists only in the old root repo and was never ported (`a92b5311`). See section 25 |
+| 26 Riven overlay stuck on screen outside the riven screen (new) | Open: evidence found, mechanism partly proven, NOT fixed | A replayed old "screen opened" log line re-opens the overlay with no later close. Item 17 is only partly fixed. See section 26 |
+| 27 Riven grader runs on every roll after one hotkey press | Open: decision made (one hotkey press per roll), NOT fixed | Code arms per riven-screen session in both old and new trees; automatic timers capture blurry, moving cards. See section 27 |
+| 28 Focus watcher floods the log (new) | Open: noted, NOT investigated | 706 lines in one session. See section 28 |
+| 29 Fixes made in the old root repo never ported to Preview (process) | Open | Listed commits are missing from the app. See section 29 |
 
 Process lessons from this round (apply to all future fixes):
 - A passing test is not proof: two Codex changes shipped bugs their own tests missed (9 locales lost `nav.market`; the tier label key lacked the `ui.` prefix, so the app would have printed a raw key). Always render the real label or screen on real data.
@@ -212,6 +219,13 @@ Process lessons from this round (apply to all future fixes):
 - If the rows are not refinement variants, identify the distinct source keys and display the differentiating data.
 - Add regression coverage for multiple Prime-part acquisition presentations and recheck them in the deployed Preview AppImage.
 
+### Update 2026-10-02 (evening): only half fixed, second path still shows duplicates
+* **User check (screenshot of Acceltra Prime Barrel, "Crafting requirements")**: the same relic still appears several times, with different tiers and percentages (for example `Lith A11 (Uncommon) 10.0%` and `Lith A11 (Rare) 6.0%`).
+* **What the 2026-10-02 fix covered**: the top-level sources returned by `getAcquisitionInfo` (verified on real data: Acceltra Prime shows 9 relic rows for 9 distinct relics; Citrine Prime Blueprint and Ash Prime Chassis tests pass).
+* **What it missed**: the "Crafting requirements" section builds each ingredient's relic list separately. `AcquisitionDrawer.jsx:318` calls `getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name)` straight on the raw drop index and `PreviewAcquisitionDrawer.jsx` (around lines 240-260) does the same, so none of the new dedupe, tier-only labelling or percentage removal applies there. The raw rows still carry one row per refinement, each with its own rarity label and chance (and DE labels the Radiant row "Uncommon (10%)" while the lower refinements are "Rare"), which is why the tiers look contradictory.
+* **Root cause class**: two code paths build the same relic list (same lesson as the duplicated `ExportRelics` readers, R2). The earlier test only exercised one of them.
+* **Required resolution**: move the per-relic dedupe and tier labelling into one shared helper used by the top-level sources, the Crafting requirements ingredient rows, and the Foundry/farming consumers; test the ingredient path for Acceltra Prime Barrel and at least one other part, in both drawers; recheck in the deployed app.
+
 ---
 
 ## 10. Farming Source Summaries Claim Additional Sources Missing From Their Drawers
@@ -274,16 +288,29 @@ Process lessons from this round (apply to all future fixes):
 
 ---
 
-## 14. Farming Targets Surface Is Not Localized
-* **Frequency**: Reported during live Preview verification on 2026-10-01.
-* **User Symptom**: With German selected, the Farming Targets home summary and screen remain English or mixed. This includes headings, counters, search placeholders, filter tabs, switches, buttons, target descriptions, and source labels.
+## 14. New UI Strings Are Never Translated (Whole App, All 14 Non-English Locales)
+* **Frequency**: Recurring. First found in the 2026-09-16 full-app locale audit (184 + 39 + 43 keys missing in all 14 locales, then translated by hand); reported again on 2026-10-01 (Farming Targets, Circuit, Riven prompt, Relic Picker) and 2026-10-02 (Farming Targets still fully English in German). Replaces the earlier Farming Targets-only wording of this item.
+* **User Symptom**: With German (or any other language) selected, anything added recently shows English: the whole Farming Targets screen, most of Foundry's new text, and other new labels. "Anything that was written by the agents is never translated." Related raw-key symptoms are items 16, 18, 19, 20 and 24.
+
+### Current Evidence (measured 2026-10-02 on `preview/stage4`)
+1. `en.json` has 1,498 `ui` keys. **Every one of the 14 other locales is missing the same 104 keys**: Farming Targets 77 (of its 78 strings, 0 translated in any locale; the 78th is an English copy), Foundry 18, `ui` 3, `preview` 3, `settings` 2, `nav` 1.
+2. On top of the missing keys, many existing strings are identical to the English text (some deliberately, such as proper nouns, many not): de 212, es 174, fr 210, it 191, ja 85, ko 103, pl 162, pt 181, ru 73, tc 227, th 158, tr 177, uk 97, zh 108. Untranslated total for German: 316 of 1,498 (21%).
+3. The Farming Targets screen code is correct: it has no hardcoded English in JSX and every string goes through `t()`. The gap is missing translation content, not wiring.
+4. `UiContext.jsx` merges English under every locale (`{ ...en.ui, ...locale.ui }`), so a missing key silently shows English instead of failing. Nothing detects it.
+5. The Riven prompt overlay strings ("RIVEN GRADING READY", "Press", "to grade your Rivens", the hint and the hotkey-missing text) and `ui.riven_overlay.scanning` are English in `de.json`, and were English in the old tree as well. The earlier fix (`042070c1`) only repaired raw keys; the values were never translated. Reported 2026-10-02 ("Riven overlay still does not translate").
+
+### Root Cause
+- New strings are added to `en.json` only. No step requires translating them, no test fails when a locale lacks a key, and the English fallback hides the gap in normal use.
+- `scripts/i18n-audit.mjs` only finds hardcoded English in JSX; it never compares locale files, and nothing runs it automatically.
+- The 2026-09-16 audit's lesson (translate every new key into all 14 locales; check with a key and `{placeholder}` diff) was recorded only in memory under a different project path, which is not loaded in this project, so later work (including agent briefs on 2026-10-02 that explicitly said not to translate) repeated the mistake.
 
 ### Required Resolution Protocol
-- Trace all user-facing strings in the Farming Targets flow, including the home-screen summary component.
-- Replace hard-coded or bypassed English strings with the shared localization system.
-- Cover headings, counters, controls, filters, placeholders, buttons, target descriptions, source labels, empty states, and error states.
-- Add a German localization regression check covering the full Farming Targets surface.
-- Recheck the result in the deployed Preview AppImage.
+- **Rule**: every new or changed UI string is translated into all 14 non-English locales in the same change. English-only keys are not accepted. Put this rule in every agent brief.
+- **Enforcement test**: fail if any English `ui` key is missing from any locale, or if `{placeholders}` differ between English and a locale. Keep a small explicit allowlist for strings that must stay identical (proper nouns, brand names). Make the test part of the standard suite.
+- **Backfill**: translate the 104 missing keys into all 14 locales (all languages, one pass). Game terms must use the official Digital Extremes localization from the project's language data; if no official term exists keep the English term; never invent names.
+- **Triage**: review the strings that are identical to English per locale (list above) and separate deliberate ones from untranslated ones; translate the rest.
+- **Verify**: render the Farming Targets and Foundry screens in German and one other language and assert no English from the affected key sets; recheck in the deployed Preview AppImage.
+- Cross-check stale-closure translation failures (item 24) while doing this.
 
 ---
 
@@ -403,6 +430,104 @@ Process lessons from this round (apply to all future fixes):
 ### Resolution
 - `clean_ocr_output` now keeps following alphabetic words regardless of case and only drops real junk. The helpers were hoisted to module level so they can be unit-tested. Rust unit tests (`ocr::tests`, 3) and a real-data JS test (`tests/relics/rivenOcrMatch.test.mjs`) cover it; a truncated "NeuropticsBlueprint" alone still stays unmatched (no fabrication).
 - Not yet confirmed in a live relic mission.
+
+---
+
+## 24. Scanner "Hooked" Toast Shows Raw Translation Keys
+* **Frequency**: Reported again during live Preview verification on 2026-10-02 (recurrence of an earlier i18n stale-closure bug).
+* **User Symptom**: The top-right toast that appears when the scanner latches onto Warframe shows `APP.SCANNER_TITLE` and `app.scanner_hooked_message` instead of the translated title and message.
+
+### Current Evidence
+1. `src/App.jsx` registers the `scanner-hooked` listener in a `useEffect` with an empty dependency list (`[]`, lines ~274-285) and calls `t('app.scanner_title')` and `t('app.scanner_hooked_message')` inside the callback.
+2. `UiContext.jsx` starts with `ui: {}` and loads the locale asynchronously; `t` changes identity when the data arrives, but the listener keeps the `t` it captured on the first render, so it returns the raw key.
+3. Both keys exist under `ui` in all 15 locale files, so this is not a missing-translation problem.
+4. A heuristic scan for effects that call `t()` inside event/async callbacks without `t` in their dependencies found one more candidate: `src/screens/Maps.jsx` (~line 144, deps `duviriCycle`). Not confirmed as a visible bug; the scan can miss other closure patterns.
+
+### Required Resolution Protocol
+- Make the `scanner-hooked` listener always use the latest `t` (a ref updated every render, or `t` in the effect dependencies with correct listener cleanup).
+- Check `Maps.jsx` and any other callback that reads `t` after an await, timer or event.
+- Add a test that fires the event before the locale data has loaded and after, and asserts the translated string (never a raw key); it must fail on the current code.
+- Recheck the toast in the deployed Preview AppImage in English and one other language.
+
+---
+
+## 25. Riven Prompt Banner Disappears When The Grading Hotkey Is Pressed (Regression)
+* **Frequency**: Reported 2026-10-02 against the build deployed at 20:18. User: "we had fixed this in the past but now it does it again."
+* **User Symptom**: Pressing Shift+C (the Riven grading hotkey) makes the "press hotkey to grade" banner disappear. The user wants it to stay up for the whole riven-screen session.
+* **Root Cause (proven)**: `src/components/overlays/RivenPromptOverlay.jsx` in Preview still hides the banner on `riven-grade-activate`, which fires the moment the hotkey is pressed (`main.rs` `grade_rivens` emits `riven-grade-armed` and `riven-grade-activate`). The fix was committed only in the OLD root repo as `a92b5311` ("keep prompt banner up"); its message records: "Confirmed live 2026-09-27: you want the reminder banner to stay up for the whole riven-screen session ... only riven-screen-closed should hide it". That repo is not the one the app is built from, and the commit is not in Preview's history (`git merge-base` reports the hash as not a valid object in the Preview repo).
+* **Required Resolution Protocol**: port the behavior (remove the `riven-grade-activate` hide, keep `riven-screen-closed` as the only hide); add a test that the banner stays visible after the hotkey event and hides on screen close; recheck in the deployed app. See also 29.
+
+---
+
+## 26. Riven Overlay Stuck Visible Outside The Riven Screen
+* **Frequency**: Reported 2026-10-02 ("the riven overlay is now up on my monitor when not in the riven screen ... right now"). Item 17 (overlay opens then closes instantly) is the same family.
+* **Evidence (app log 2026-10-02)**:
+  - 20:44:34 `Riven reroll screen opened (LogTS: 12765.373s)`; 20:44:38 `overlays closed (ClearAgents) (LogTS: 12769.161s)`.
+  - 20:45:39 `Riven reroll screen opened (LogTS: 12765.373s)`: the SAME game timestamp as the first open, processed again about 65 seconds later, after the real close. Nothing closes it afterwards, so the overlay stays up.
+  - Earlier evidence from 2026-10-01 shows the same replay (a stale ClearAgents with an older LogTS processed right after an open).
+* **Mechanism (partly proven)**: `log_scanner.rs` re-parses the game's circular log buffer on every poll and skips lines already seen by hashing each line. Anything that makes an old line look new (for example the seen-set reset at `SEEN_RESET_THRESHOLD = 16_384`, a re-hook, or a line changed by the ring buffer overwriting it) replays old state transitions out of order. Which of these occurs here is NOT proven.
+* **Why the 2026-10-02 fix did not cover it**: the stale-close guard (merged for item 17) ignores a close older than the last open. It does nothing for a replayed OPEN, which is what happened here.
+* **Required Resolution Protocol**: add a monotonic LogTS guard for all riven state-machine transitions (ignore any trigger line older than the newest riven event already processed; reset it when the Warframe process or hook restarts); show the overlay only while the screen state is genuinely open; add a unit test with the 20:44-20:45 sequence; investigate which condition replays lines; recheck in the deployed app. Also consider whether the overlay should hide when Warframe loses focus.
+
+---
+
+## 27. Riven Grader Runs On Every Roll After One Hotkey Press (Needs A Decision)
+* **Frequency**: Reported 2026-10-02: "it's now auto doing the roll grader when I click to do a roll ... it's supposed to only activate on my input."
+* **Evidence**: app log: `Riven reroll screen opened 20:40:25`, Riven OCR at 20:40:30 (hotkey arming not logged), `reroll confirmed 20:41:19` then OCR at 20:41:24, `new selection confirmed 20:42:16` then OCR at 20:42:19, `reroll confirmed 20:42:21` then OCR at 20:42:26.
+* **How the code behaves (both old and new trees)**: `RivenOverlay.jsx` starts disarmed on `riven-screen-open`; the hotkey sets `armedRef = true`; after that, `riven-reroll` (new-card window, 4 s timer) and `riven-reroll-confirmed` (current-card window, 2 s timer) run the OCR automatically until `riven-screen-closed` resets the flag. The old root tree changed card positions but did NOT change arming, so there is no evidence this ever worked per roll.
+* **Decision (user, 2026-10-02)**: **each roll needs its own hotkey press to start a new grading.** Reason: the automatic grading fired on timers while the cards were still moving or blurry (and rolls came too fast), so the screenshot could not be read properly and the grades were often wrong. The "one press arms the whole session" behavior is therefore the bug.
+* **Required Resolution Protocol**:
+  - Make arming single-use: the hotkey arms exactly one grading; after that grading completes (or the roll is accepted, a new roll appears, or the screen closes) the overlay is disarmed again, and the next roll does nothing until the hotkey is pressed.
+  - Remove the automatic grading timers for `riven-reroll` (4 s, new-card window), `riven-reroll-confirmed` (2 s, current-card window) and the `riven-linked-open` trigger when not armed, so that nothing starts OCR without a key press.
+  - Keep the banner visible between presses (item 25) so the user knows to press again.
+  - The user presses when the cards have settled, so the capture should not add its own early timer; if a short settle delay is wanted it must start after the key press, not after the game event.
+  - Add a test of the arming state across several rerolls (press, grade, roll, nothing happens, press, grade) and recheck in the deployed app.
+
+---
+
+## 28. Focus Watcher Floods The Log
+* **Frequency**: Seen while investigating 26 (2026-10-02).
+* **Evidence**: the log has 706 `[FOCUS_WATCHER] transition: focused -> unfocused, hiding overlays` lines in one session, one roughly every 0.52 seconds for long stretches. A transition message should appear once per change, so either the state is not being stored or the message is logged on every poll.
+* **Concerns**: log noise that buries real events, and possible aggressive polling and repeated overlay-hide calls (AGENTS.md rule 1 forbids aggressive polling). It may also be related to overlays appearing or disappearing unexpectedly.
+* **Status**: not investigated.
+* **Required Resolution Protocol**: find where `spawn_focus_watcher` logs, make it log only on a real state change, check the poll interval, and recheck CPU use with Warframe running.
+
+---
+
+## 29. Fixes Made In The Old Root Repo Were Never Ported To Preview (Process)
+* **Frequency**: Recurring cause of "fixed but not fixed" since 2026-09-29; behind items 25 and the riven prompt text problem.
+* **Fact**: `docs/agent-context/HANDOFF.md` section 5 lists root-repo fixes still to port. As of 2026-10-02 these old-tree commits are not in the Preview app: `a92b5311` (keep riven prompt banner up), `042070c1` (riven prompt raw keys), `4820397f` (riven new-roll overlay scanned the wrong region), `3e479918` (riven two-card side mapping) and others in that table. The 2026-10-02 fix round (items 8-24) did not include this list, which was a planning miss.
+* **Required Resolution Protocol**: port each listed commit into the Preview repo, hand-merging conflicts, each with a test and an in-app check; reconcile the HANDOFF table against `git cherry` or equivalent so none are left unaccounted for. Treat any "this was fixed before" report as a prompt to check this list first.
+
+---
+
+## Resolved (confirmed by the user in the deployed Preview app)
+
+Entries move here only after the user confirms the fix in the running app (ticked in `docs/APP_CHECKLIST.md`). They stay in this file so a recurrence can be recognized and the test that should have caught it is known. The four below were ticked in the checklist before 2026-10-02; the exact confirmation date was not recorded. Facts come from `docs/agent-context/HANDOFF.md` and were re-verified in the code on 2026-10-02 where noted.
+
+### R1. Double / oversized / white scrollbars (Inventory, Rivens, Relics, Market, Relic Planner, Dashboard live activities, sidebar, Notes tab strip)
+* **Status**: Resolved. Checklist: "Double scrollbar gone" and "Scrollbars (8px) are grabbable by mouse and not big or white".
+* **Symptom**: Two scrollbars on one list, or a bar that was too large, white, or hard to grab. Reported repeatedly before the fix.
+* **Root cause**: WebKitGTK draws elements styled with the standard `scrollbar-width` / `scrollbar-color` properties as a native overlay bar on top of the content, in addition to the app's own styled bar. An earlier attempt in the old root repo (the `GTK_OVERLAY_SCROLLING` environment variable) was never needed and is not in Preview's `main.rs`; some code comments wrongly said it was.
+* **Fix**: every live `scrollbar-width` / `scrollbar-color` rule was removed and replaced with `::-webkit-scrollbar` rules at 8px (class `custom-scrollbar`) in `src/index.css`, the `Preview*Layout.jsx` components, `src/preview/styles/*.css`, and the Inventory, Mods, Cosmetics and Notes screens. Re-verified 2026-10-02: the 11 remaining mentions of those properties in `src` are all comments explaining the removal.
+* **Tests**: none automated; scrollbar rendering can only be checked in the running app.
+* **Rule**: never use `scrollbar-width` or `scrollbar-color` in this app (WebKitGTK). A related open item is #15 (Inventory overscroll) and the currency scrollbar noted in the checklist.
+
+### R2. Citrine Prime relics missing or "Unrecognized" in Relics tab, Relic Planner, Relics screen and Inventory
+* **Status**: Resolved for those screens (checklist: "Citrine Prime relics: Relics tab, Relic Planner, Relics screen, Inventory"). The relic reward overlay path is tracked separately (item 23 and checklist).
+* **Symptom**: Citrine Prime relics did not appear, or appeared with internal names.
+* **Root cause**: DE's `ExportRelics` has two schemas. The 108 new-format relics (all Citrine Prime) use `{ name, uniqueName, relicRewards: [{ rewardName }] }` with no era, category, quality, icon or rewardManifest. Every screen carried its own copy of an old-schema reader, so each one dropped them independently. `mapReward` also read `r.type` instead of `r.rewardName`.
+* **Fix**: one shared reader, `src/lib/relicEntry.js`, now used by `relicParser.js`, `inventoryParser.js`, `dropsParser.js` and `primeResurgence.js`.
+* **Tests**: `tests/relics/relicEntry.test.mjs`, including a real-export test where every relic resolves era, category, icon and rewards and Citrine reaches the catalog.
+* **Lesson**: duplicated readers of the same data drift apart. Before fixing "X missing on screen A", grep every consumer of that export (`grep -rn ExportRelics src`) and check each handles every schema variant.
+
+### R3. Farming target images and drawer sources
+* **Status**: Resolved. Checklist: "Farming target images (drawer + ledger, blueprints and raw resources)".
+* **Symptom**: Missing images in the Farming Targets ledger and drawer, and raw resources shown as expanded recipes.
+* **Root cause**: raw resources got no image in the ledger, the drawer did not receive the ledger row's image, and farmable resources such as Orokin Cell were expanded through a Foundry recipe row. Earlier fixes (for example `db9ea507`, `94fcc649`) were made in the wrong git repository (the old root repo) and never reached the app.
+* **Fix**: `src/lib/farmingTargets/screenModel.js` and `src/screens/FarmingTargets.jsx`: raw resources get images, the drawer uses the ledger row's image, and farmable resources are leaves in the ledger.
+* **Tests**: `tests/farming/ledgerImages.test.mjs` (recorded in HANDOFF as failing without the fix).
+* **Lesson**: run every git command from the Preview repo and confirm the fix is in the built AppImage (the footer shows the build commit). Items 8 and 10 are later, separate farming-drawer defects.
 
 ---
 

@@ -9,7 +9,7 @@ Sources: the pasted list from an earlier chat (statuses there are unverified by 
 - [x] Farming target images (drawer + ledger, blueprints and raw resources)
 - [x] Citrine Prime relics: Relics tab, Relic Planner, Relics screen, Inventory
 - [ ] Relic reward overlay: Citrine Prime not "Unrecognized" (needs game running; uncommitted `relicParser.js` change)
-- [ ] Farming Targets screen fully in German (all 78 strings, not just one label)
+- [ ] #14 No untranslated UI anywhere (all 14 languages): in German and one other language, Farming Targets (78 strings), Foundry and every other screen show translated text. No English left over, no raw keys. Status: OPEN. 104 keys are missing in all 14 locales; the backfill and the enforcement test are not done yet
 
 ## Fixed in code 2026-10-02, verify in the deployed build (tick only when seen in the app)
 
@@ -53,7 +53,7 @@ Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
 - [ ] Market tab riven filters
 - [ ] #109 leftovers
 - [ ] Mission-percentage gap (#131)
-- [ ] Circuit / Farming Targets translations for the other 13 locales
+- [ ] Circuit translation for the other 13 locales (Farming Targets and all other missing strings for every language are tracked under #14)
 
 ## Open from 2026-09-29 walkthrough
 

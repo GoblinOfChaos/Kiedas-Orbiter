@@ -51,6 +51,7 @@ Each section details:
 | 35 Prime Sets card shows only the last word of a part name ("Limb", "Limb", "Prime") (new, reported 2026-10-03) | Open: cause verified, NO fix started | `PrimeSetCard.jsx:54`; 8 sets affected (see section 35) |
 | 36 Drawer "Crafting requirements" omits the main Blueprint row for most Prime items (new, reported 2026-10-03) | Open: cause verified, 92 of 166 Prime drawers affected, NO fix started | See section 36 |
 | 37 The "xN" part-count badge sits in the top-left of the part cell and reads as belonging to the cell on its left (new, reported 2026-10-03) | Open: DECISION MADE (center it above the piece's image), NO fix started | `PrimeSetCard.jsx:51`; see section 37 |
+| 38 Resource drawers (Alloy Plate and most common resources) show only a few mission drops and none of the world-container/planet sources the wiki lists (new, reported 2026-10-03) | Open: cause partly verified, NO fix started; needs a manual overhaul decision | See section 38 |
 
 
 Process lessons from this round (apply to all future fixes):
@@ -643,3 +644,15 @@ Entries move here only after the user confirms the fix in the running app (ticke
 1. **Rule #1 (Zero Guesswork & Primary Sources Only)**: Only use official DE WorldState (`api.warframe.com`), DE PublicExport manifests (`content.warframe.com`), and official Warframe Wiki (`wiki.warframe.com`). Fandom wiki is strictly banned.
 2. **Rule #2 (Hardware Protection)**: All Rust/Cargo build jobs MUST run with `CARGO_BUILD_JOBS=4` and `nice -n 19`.
 3. **Rule #3 (Pre-Build Audits)**: `npm run audit` must execute and pass with 0 errors across all 19 screens and 6 overlays prior to any packaging.
+
+---
+
+## 38. Resource Drawers Miss Most Sources (Alloy Plate And Other Common Resources)
+* **Frequency**: Reported 2026-10-03 while checking item 11 (screenshots: app Alloy Plate drawer vs wiki.warframe.com Alloy Plate page).
+* **User Symptom**: Alloy Plate says "1 source" with one text block: "Drops from: Annihilation (Conclave), Cephalon Capture (Conclave), Tier 1 Reactor Sabotage Resource Caches, Team Annihilation (Conclave), Lunaro (Conclave)". The wiki also lists where it is found in the world (Venus, Jupiter, Sedna, Ceres, Phobos, Pluto, the Zariman) in containers, and its Mission Drop Tables show Sabotage nodes (Ishtar/Venus, Terminus/Mercury, Gradivus/Mars) and Saturn Conclave nodes. The user's point: most resources are found in containers on planets, not only as enemy or mission drops.
+* **Findings so far (read-only, verified)**:
+  * The only structured source is the DE drop-table export (`warframe-items-acquisition.json`): Alloy Plate has 10 rows, all mission rewards (3 Sabotage caches, 7 Conclave modes). No container or planet-location data exists there.
+  * `wiki-resources-acquisition.json` (429 entries) has NO entry for Alloy Plate, Ferrite, Nano Spores, Polymer Bundle, Rubedo, Salvage, Plastids, Circuits, Morphics, Gallium or Control Module (it does have Neurodes, Orokin Cell, Detonite Ampule, Fieldron Sample, Mutagen Sample). Those resources therefore only get the drop-table text.
+  * The drawer shows 5 of the 10 rows in one paragraph with one repeated percentage; the Variant Annihilation / Variant Cephalon Capture rows and the Neruda and Mars/Mercury node names are not shown. Where exactly the cut happens is NOT yet traced.
+  * `acquisition_overrides.json` line ~1063 maps "Alloy Plate" (and Argon Crystal, Circuits, Control Module...) to an unrelated decoration-market sentence; it is not what the drawer showed here, but it is wrong data to review in the same pass.
+* **Required Resolution Protocol (proposal, needs the user's decision)**: (1) trace why only 5 of 10 DE rows appear and show them as a proper list (one row per source with chance, nodes included); (2) add a wiki.warframe.com-verified "where it is found" entry per common resource (planets, container types, enemies), written as a manual data file with the wiki page and fetch date for each, never guessed (AGENTS.md rule 4); (3) fix or remove the bad decoration-market override; (4) test over every resource that none has an empty or single-line source; (5) recheck in the deployed app. Suggested to do manually for the roughly 40 common resources, in batches.

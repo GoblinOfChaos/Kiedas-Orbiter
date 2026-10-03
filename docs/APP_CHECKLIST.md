@@ -58,6 +58,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #35 Prime Sets part labels (reported 2026-10-03): Paris, Ballistica, Cernos and Daikyu Prime show two cards both labelled "Limb" (Upper/Lower Limb), and Akbronco, Aklex, Akmagnus and Akvasto Prime show a card labelled only "Prime". Cause found, NO fix started
 - [ ] #36 Drawer "Crafting requirements" has no Blueprint row for 92 of 166 Prime items (for example Akarius Prime), although the Prime Sets card lists the Blueprint. Cause found, NO fix started
 - [ ] #37 The "x2" badge on Prime Sets part cells (reported 2026-10-03): decision made, it goes centered directly above the image of the needed piece. NO fix started
+- [ ] #38 Resource drawers (reported 2026-10-03): Alloy Plate lists only some mission drops and none of the planet/container sources the wiki gives; most common resources have no wiki entry in the app data. Cause partly found, NO fix started; needs your decision on a manual wiki-verified overhaul
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

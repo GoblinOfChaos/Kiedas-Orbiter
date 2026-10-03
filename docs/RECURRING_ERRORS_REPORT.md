@@ -33,7 +33,7 @@ Each section details:
 | 15 Inventory overscroll | OPEN, not fixed deliberately | Fixed row-height constants; rows are CSS grid rows as tall as their tallest card, so no uniform stride is exact; a correct fix needs a variable-height virtualizer. Waiting for the user's measurement (see section 15) |
 | 16 Circuit title | BLOCKED | No official localized name exists in the repo data or on wiki.warframe.com; title routed through `t()` and kept "The Circuit" |
 | 17 Riven overlay does not appear | Fixed in code (stale close + replay guards), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | See 26 |
-| 18 Raw key in Riven trigger | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | Keys moved under `ui` in all locales |
+| 18 Raw key in Riven trigger | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | Keys moved under `ui` in all locales | **REOPENED 2026-10-03**: "Grade Rivens" is still English in German; see section 18 addendum |
 | 19, 20, 22 | Fixed in an earlier snapshot, never confirmed in the app | Need the user's check |
 | 21 Reward overlay blueprint count | No defect found | The display path and all translation keys are correct for the logged payload; needs an overlay screenshot showing the miss |
 | 23 Relic reward overlay UNRECOGNIZED | Fixed in code (OCR cleanup, tests), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | `clean_ocr_output` kept only capitalised neighbours |
@@ -392,6 +392,12 @@ Process lessons from this round (apply to all future fixes):
 - Verify the wording and German translation against the project's established localization data; do not expose translation keys in the UI.
 - Add a localization regression test for the Riven trigger in German and the fallback locale.
 - Recheck the trigger title and its relationship to the Riven overlay in the deployed Preview AppImage.
+
+### Addendum 2026-10-03: the hotkey label is still English in a non-English language (user report)
+* **User Symptom**: Settings > Hotkeys reads "Grade Rivens" in English, and also "Grade Rivens" (English) when the app is in another language.
+* **Cause (verified)**: `ui.settings.hotkey_action_grade_rivens` is translated in 13 locales (es "Evaluar Rivens", fr "Evaluer les Rivens", ja, ko, it, pl, pt, ru, tc, th, tr, uk, zh) but **de.json still holds the English text "Grade Rivens"**. The German translation pass (commit 8ad7f108) allowed it because `tests/fixtures/i18n-identical-baseline.json` lists it as an accepted English-identical string for de. The user's report does not say which language, so if it also happens in another language, that is a different cause and I need the language name.
+* **Wider scope (measured)**: that baseline file accepts 1,900 English-identical UI strings across the 14 locales (de 214, tc 216, fr 209, it 186, pt 177, tr 172, es 170, pl 154, th 147, zh 97, ko 92, uk 91, ja 74, ru 67). Many are legitimate (game proper names, Discord, GitHub), but nobody has audited the list, so every language can still contain English UI text that the tests deliberately ignore. This is the real reason item 14 could not be fully proven.
+* **Required Resolution Protocol (proposal)**: (1) translate "Grade Rivens" into German ("Rivens bewerten", consistent with the app's other German riven wording; a real German string, checked in the German riven screens); (2) audit the 1,900 baseline entries per language, translating the ones that are real UI text and keeping only game names/brands, with a short reason list in the allowlist; (3) shrink the baseline in the tests so a new English-only string cannot hide; (4) recheck in the deployed app in at least German plus one other language. Delegated per the translation rules (Codex, one language group at a time), with real-text checks after each.
 
 ---
 

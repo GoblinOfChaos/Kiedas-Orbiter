@@ -44,6 +44,10 @@ function toMap(data, key) {
   return arr || {}
 }
 
+export function nextInventoryAfterParseFailure(previous) {
+  return previous === undefined ? null : previous
+}
+
 const ARBY_TIERS = {
   SolNode450: "S",
   SolNode106: "S",
@@ -509,7 +513,7 @@ export function MonitoringProvider({ children }) {
       console.error('parseInventory worker call failed:', err)
       parseSpan.fail(err, { state: 'inventory' })
       logEvent('state.parse.failed', { state: 'inventory' }, { phase: 'failed', outcome: 'failure', error: err })
-      setInventoryData(null)
+      setInventoryData(prev => nextInventoryAfterParseFailure(prev))
     }).finally(() => {
       const tsStr = String(ts ?? Date.now())
       setLastUpdate(tsStr)

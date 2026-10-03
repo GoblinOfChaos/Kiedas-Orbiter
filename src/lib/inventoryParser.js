@@ -301,7 +301,7 @@ export function getWeaponBucket(entry, uniqueName = '') {
  *  value - a trailing '%' left behind here (the "|val|%" case, previously
  *  unhandled) showed up as a doubled "23% %" in the Riven popover. */
 function cleanStatLabel(raw) {
-  if (!raw || typeof raw !== 'string' || raw.startsWith('/Lotus/')) return '';
+  if (!raw || typeof raw !== 'string' || isLotusPath(raw)) return '';
   return raw
     .replace(/<[^>]*>/g, '')
     .replace(/%?\|(?:val|STAT\d+)\|(?:sn|s)?%?\s*/g, '')
@@ -377,9 +377,13 @@ function calculateRank(xp, category, un, limit = 30) {
 /** Strip HTML tags and trim whitespace from a display name.  Returns '' for
  *  any value that looks like an internal path (/Lotus/...). */
 function cleanName(name) {
-  if (!name) return '';
-  if (typeof name === 'string' && name.startsWith('/Lotus/')) return '';
+  if (typeof name !== 'string' || !name) return '';
+  if (isLotusPath(name)) return '';
   return name.replace(/<[^>]*>/g, '').trim();
+}
+
+export function isLotusPath(value) {
+  return typeof value === 'string' && value.startsWith('/Lotus/');
 }
 
 /** Split a PascalCase string into space-separated words. */
@@ -499,7 +503,7 @@ function _resolveNameInternal(un, dict, locale = 'en', depth, ...tables) {
         const resolved = cleanName(dict[locKey]);
         if (resolved) return resolved;
       }
-      if (!locKey.startsWith('/Lotus/')) {
+      if (!isLotusPath(locKey)) {
         const cleaned = cleanName(locKey);
         if (cleaned) return cleaned;
       }
@@ -1152,7 +1156,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         const syllable = (k) => {
           if (!k) return '';
           const v = dict[k] || dict[k.replace(/^\//, '')] || '';
-          return v && !v.startsWith('/Lotus/') ? v.replace(/<[^>]*>/g, '').trim() : '';
+          return typeof v === 'string' && !isLotusPath(v) ? v.replace(/<[^>]*>/g, '').trim() : '';
         };
         byTag[ue.tag] = {
           value: uv?.value ?? 0.01,
@@ -1191,8 +1195,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           // entry carries a dict loctag that resolves in the active locale
           // dict, prefer it so resolveName() localizes the name.
           const origName = origEntry?.name;
-          const locValue = (typeof origName === 'string' && origName.startsWith('/Lotus/')) ? dict[origName] : null;
-          if (locValue && !locValue.startsWith('/Lotus/')) {
+          const locValue = isLotusPath(origName) ? dict[origName] : null;
+          if (locValue && !isLotusPath(locValue)) {
             map[un].name = origName;
           }
           // Same as names: WI descriptions are pre-resolved to English literals
@@ -1200,8 +1204,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           // resolves in the active locale dict, prefer the lockey so the desc
           // localizes (e.g. Adarza Kavat's English flavor text → Turkish).
           const origDesc = origEntry?.description;
-          const descLocValue = (typeof origDesc === 'string' && origDesc.startsWith('/Lotus/')) ? dict[origDesc] : null;
-          if (descLocValue && !descLocValue.startsWith('/Lotus/')) {
+          const descLocValue = isLotusPath(origDesc) ? dict[origDesc] : null;
+          if (descLocValue && !isLotusPath(descLocValue)) {
             map[un].description = origDesc;
           }
           for (const [k, v] of Object.entries(origEntry)) {
@@ -1217,7 +1221,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           const origIcon = origEntry?.icon;
           if (
             typeof origIcon === 'string' &&
-            origIcon.startsWith('/Lotus/') &&
+            isLotusPath(origIcon) &&
             typeof map[un].icon === 'string' &&
             /^https?:\/\//.test(map[un].icon)
           ) {
@@ -1314,7 +1318,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // Locale manifests (e.g. TR) ship mod/augment names as literal
       // translations. The dict only resolves these to English, so prefer the
       // manifest's literal name (non-loctag) whenever one exists.
-      if (typeof entry.name === 'string' && entry.name && !entry.name.startsWith('/Lotus/')) {
+      if (typeof entry.name === 'string' && entry.name && !isLotusPath(entry.name)) {
         EM[un].name = entry.name;
       }
     }
@@ -1472,7 +1476,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // own, and was wrongly shown as unmastered/unowned before this fix.
     const isGilded = (sourceItem?.Features & 1) ||
       (sourceItem?.Polarized > 0) ||
-      (!!sourceItem?.CustomName && !sourceItem.CustomName.startsWith('/Lotus/')) ||
+      (typeof sourceItem?.CustomName === 'string' && !isLotusPath(sourceItem.CustomName)) ||
       (!sourceItem && xp > 0);
     const grantsMastery = !isModular || isGilded;
 
@@ -1552,7 +1556,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     let image = resolveImage(un, ...imgTbls);
 
     const customName = sourceItem?.ItemName || sourceItem?.CustomName || sourceItem?.Details?.Name;
-    if (customName && !customName.startsWith('/Lotus/') && customName !== name) {
+    if (typeof customName === 'string' && customName && !isLotusPath(customName) && customName !== name) {
       name = `${customName} (${baseName})`;
     }
 
@@ -1564,7 +1568,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const prismPart = sourceItem?.ModularParts?.[0] || parseFP(sourceItem.UpgradeFingerprint)?.ModularParts?.[0];
       if (prismPart) image = resolveImage(prismPart, EW, ER);
       if (un.includes('DrifterPistol')) name = 'Sirocco';
-      else name = (customName && !customName.startsWith('/Lotus/')) ? customName : 'Operator Amp';
+      else name = (typeof customName === 'string' && customName && !isLotusPath(customName)) ? customName : 'Operator Amp';
     } else {
       components = fp?.components?.map(c => resolveName(c, dict, locale, EW, ES, ER, EA)) ?? [];
     }
@@ -1578,8 +1582,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
     const entry = nameTbls[0]?.[un];
     const descLoctag = entry?.description ?? '';
-    const rawDesc = descLoctag
-      ? (descLoctag.startsWith('/Lotus/')
+    const rawDesc = typeof descLoctag === 'string' && descLoctag
+      ? (isLotusPath(descLoctag)
           ? (dict[descLoctag] || dict['/' + descLoctag] || '')
           : descLoctag)
       : '';
@@ -1637,7 +1641,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         const sId = String(sourceItem?.ItemId?.$oid || sourceItem?.ItemId || sourceItem?.Id?.$oid || sourceItem?.Id || '');
         if (sId && incarnonItemIds.has(sId)) return true;
         const unLeaf = un.split('/').pop()?.toLowerCase() || '';
-        const nameLeaf = (entry?.name || '').split('/').pop()?.toLowerCase() || '';
+        const nameLeaf = (typeof entry?.name === 'string' ? entry.name : '').split('/').pop()?.toLowerCase() || '';
         if (incarnonLeaves.has(unLeaf) || incarnonLeaves.has(nameLeaf)) return true;
         if ((sourceItem?.Upgrades || []).some(u => typeof u === 'string' && u.includes('Incarnon'))) return true;
         return false;
@@ -1861,7 +1865,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       const baseName = deckPart ? resolveName(deckPart, dict, locale, EW) : 'K-Drive';
       const image = deckPart ? resolveImage(deckPart, EW) : null;
       const customName = h.ItemName || h.CustomName || h.Details?.Name;
-      const ownedCustomName = (customName && !customName.startsWith('/Lotus/') && customName !== baseName) ? customName : '';
+      const ownedCustomName = (typeof customName === 'string' && customName && !isLotusPath(customName) && customName !== baseName) ? customName : '';
       const displayName = ownedCustomName ? `${baseName} (${ownedCustomName})` : baseName;
       const item = createItem(deckPart || h.ItemType, 'kdrives', [EW], [EW], h);
       kdrives.push({ ...item, name: displayName, ownedCustomName, image: image || item.image, components, vehicle_type: 'kdrive' });
@@ -2165,8 +2169,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       if (isFlawedMod(entry, originalUpgradesMap[un])) mod.name = `Flawed ${mod.name}`;
       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
-      const rawDesc = descLoctag
-        ? (descLoctag.startsWith('/Lotus/')
+      const rawDesc = typeof descLoctag === 'string' && descLoctag
+        ? (isLotusPath(descLoctag)
             ? (dict[descLoctag] || dict['/' + descLoctag] || '')
             : descLoctag)
         : '';
@@ -2281,7 +2285,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const acquisition = acquisitionModsByKey.get(canonicalUniqueName(un));
     const mod = owned ? { ...owned } : createItem(un, 'mods', [EM], [EM]);
     const name = mod.name || nameFromPath(un);
-    if (!name || name.startsWith('/Lotus/')) {
+    if (!name || isLotusPath(name)) {
       if (!owned) continue;
     }
     mod.rarity = entry?.rarity ?? mod.rarity ?? '';
@@ -2291,8 +2295,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (isFlawedMod(entry, originalUpgradesMap[un])) mod.name = `Flawed ${mod.name}`;
     if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
     const descLoctag = entry?.description ?? '';
-    const rawDesc = descLoctag
-      ? (descLoctag.startsWith('/Lotus/')
+    const rawDesc = typeof descLoctag === 'string' && descLoctag
+      ? (isLotusPath(descLoctag)
           ? (dict[descLoctag] || dict['/' + descLoctag] || '')
           : descLoctag)
       : '';
@@ -2474,9 +2478,9 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     const owned = ownedConsumableMap.get(canonicalConsumableName(un));
     const name = resolveName(un, dict, locale, EGearOrig, EGear, ER, ERecipe) || nameFromPath(un);
     const descLoctag = entry?.description ?? '';
-    const description = descLoctag.startsWith('/Lotus/')
+    const description = isLotusPath(descLoctag)
       ? (dict[descLoctag] || dict['/' + descLoctag] || '')
-      : descLoctag;
+      : (typeof descLoctag === 'string' ? descLoctag : '');
     // Omni is auto-granted on Archwing quest completion and never appears in
     // raw.Consumables (it's not purchased/crafted with charges like normal
     // gear) - the normal ownership check above would show it as permanently

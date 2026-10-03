@@ -46,6 +46,7 @@ Each section details:
 | 30 Prime Sets OWNED | Fixed in code, deployed 22:41, awaiting in-app check | 62 of 166 sets wrongly owned -> 0 on the real inventory; the overlay part could not be reproduced and needs an example |
 | 31 Prime Sets scroll slowness | Fixed in code (cached part sources, memoized cards; 362 ms -> 1.9 ms simulated), deployed 22:41, awaiting in-app check, NOT yet measured in the app | Not a leak per the code review |
 | 32 Dual-weapon recipes | Fixed in code, deployed 22:41, awaiting in-app check | Aklex, Akvasto, Akbronco, Akmagnus list their 2 base guns with images |
+| 33 Inventory currency strip has a vertical scrollbar that scrolls into blank space (new, reported 2026-10-03) | Open: cause verified in code, fix drafted on a branch (`agent/b9-strip`), NOT merged or deployed | The Forma tooltip hangs below the strip inside an `overflow-x-auto` wrapper (see section 33) |
 
 
 Process lessons from this round (apply to all future fixes):
@@ -541,6 +542,15 @@ Process lessons from this round (apply to all future fixes):
 * **Frequency**: Reported 2026-10-02: "a bunch of the items that require two base primes, like Aklex Prime, are not showing the two prime guns needed for the recipe. It's saying you just need the link and blueprint."
 * **Root cause (verified on real data)**: in `src/lib/inventoryParser.js` ~line 2602 set parts are built from recipe ingredients filtered by `isPrimeComponent` (`PRIME_PART_PATH_RE`, which only accepts part names such as Barrel, Receiver, Link, Blueprint). The dual weapons' recipes use finished single weapons as ingredients, whose paths do not match, so they are dropped: `AklexPrimeBlueprint` = 2x `Weapons/Tenno/Pistols/PrimeLex/PrimeLex` + Aklex Prime Link; `AkvastoPrimeBlueprint` = 2x `PrimeVasto/PrimeVastoPistol` + Link; `AkbroncoPrimeBlueprint` = 2x `Pistol/BroncoPrime` + Link; `AkmagnusPrimeBlueprint` = 2x `PrimeMagnus/PrimeMagnusWeapon` + Link. Only these 4 Prime blueprints have such ingredients in the current export; the other dual Primes (Akarius, Akbolto, Akjagara, Aksomati, Akstiletto) use ordinary parts and are unaffected.
 * **Required Resolution Protocol**: include non-resource weapon ingredients as set parts (named from the export, with the correct count of 2 and ownership from the weapon in inventory); show them in the Prime Sets card and any other recipe views that use the same filter (check the Foundry and acquisition drawers); add a real-data test for the four sets; recheck in the deployed app.
+
+---
+
+## 33. Inventory Currency Strip Has A Vertical Scrollbar That Scrolls Into Blank Space
+* **Frequency**: Reported 2026-10-03 with a screenshot (Inventory page). This is the old backlog item "Currency scrollbar (needs a fresh look, not stale evidence)". It is NOT item 15 (the item list's scroll range).
+* **User Symptom**: The strip with the currency and resource widgets (above the search and filter row) shows a small vertical scrollbar; scrolling it shows only blank space.
+* **Root cause (verified in code, not yet measured in the running app)**: `src/components/PreviewInventoryLayout.jsx` wraps the stats row in `<div className="mb-3 overflow-x-auto custom-scrollbar">`. The horizontal scroll is intentional, but in CSS any `overflow-x` other than `visible` makes `overflow-y` compute to `auto` as well. In `src/screens/Inventory.jsx` `renderHeaderStats` (~line 1725) the Forma widget has an absolutely positioned tooltip (`absolute top-full right-0 mt-2 ... opacity-0 invisible group-hover:opacity-100 group-hover:visible`) placed BELOW the widget inside that wrapper. Invisible elements still count toward scrollable overflow, so the wrapper gains a vertical scroll range equal to the hidden tooltip's height. It is the only `top-full` tooltip in `Inventory.jsx`.
+* **Status**: a fix was drafted by Codex on branch `agent/b9-strip` (replace the tooltip with the existing portal `Tooltip` from `src/components/UI.jsx`, add `overflow-y-hidden` to the wrapper, scan other screens for the same pattern, add tests). It is NOT merged, built or deployed; it waits for the user's go-ahead.
+* **Required Resolution Protocol**: remove the hidden absolute tooltip from the scroll container (portal tooltip), guard the wrapper with `overflow-y-hidden` (never `scrollbar-width`/`scrollbar-color`, see R1), check other `overflow-x-auto` wrappers for the same pattern, add regression tests, and recheck in the deployed app: no vertical scrollbar on the strip, hovering Forma still shows its breakdown. If the scrollbar remains, read `scrollHeight` and `clientHeight` of the wrapper in the developer tools and send both numbers.
 
 ---
 

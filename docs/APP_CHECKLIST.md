@@ -53,6 +53,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 ## Blocked or waiting on something other than a check
 
 - [ ] #16 "The Circuit" translation: BLOCKED. No official localized name exists in the repo data or on wiki.warframe.com; the title stays "The Circuit" in every language until an official source is found
+- [ ] #33 Inventory currency strip vertical scrollbar (reported 2026-10-03; this replaces the old backlog line "Currency scrollbar"): cause found, fix drafted on a branch, NOT merged or deployed. When it is deployed it becomes a Step 1 check: the top strip has no vertical scrollbar and hovering Forma still shows the breakdown
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)
@@ -60,7 +61,6 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 Known, root-caused, not fixed:
 
 - [ ] Which desktop side shows which riven card
-- [ ] Currency scrollbar (needs a fresh look, not stale evidence)
 - [ ] "ROATS OBLIVION" (find which widget it is under)
 
 Untouched:

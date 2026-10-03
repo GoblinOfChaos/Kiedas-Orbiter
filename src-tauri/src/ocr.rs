@@ -1251,8 +1251,44 @@ fn strip_quantity_prefix(s: &str) -> &str {
     }
 }
 
+fn split_internal_dashes(s: &str) -> Vec<&str> {
+    let mut parts = Vec::new();
+    let mut start = 0;
+
+    for (index, c) in s.char_indices() {
+        let is_dash = matches!(c, '-' | '\u{2010}'..='\u{2015}' | '\u{2212}');
+        if !is_dash {
+            continue;
+        }
+
+        let end = index + c.len_utf8();
+        let previous_is_letter = s[..index]
+            .chars()
+            .next_back()
+            .map(|previous| previous.is_alphabetic())
+            .unwrap_or(false);
+        let next_is_letter = s[end..]
+            .chars()
+            .next()
+            .map(|next| next.is_alphabetic())
+            .unwrap_or(false);
+
+        if previous_is_letter && next_is_letter {
+            parts.push(&s[start..index]);
+            start = end;
+        }
+    }
+
+    parts.push(&s[start..]);
+    parts
+}
+
 fn clean_ocr_output(raw: &str) -> String {
-    let tokens: Vec<&str> = raw.split_whitespace().map(strip_quantity_prefix).collect();
+    let tokens: Vec<&str> = raw
+        .split_whitespace()
+        .map(strip_quantity_prefix)
+        .flat_map(split_internal_dashes)
+        .collect();
     if tokens.is_empty() { return String::new(); }
 
     for i in 0..tokens.len() {
@@ -1299,8 +1335,21 @@ mod tests {
         assert_eq!(clean_ocr_output("2XForma"), "Forma");
         assert_eq!(clean_ocr_output("3xForma"), "Forma");
         assert_eq!(clean_ocr_output("-Forma"), "Forma");
+        assert_eq!(clean_ocr_output("Forma-"), "Forma-");
         assert_eq!(clean_ocr_output("Forma"), "Forma");
         assert_eq!(clean_ocr_output("junk -Forma"), "Forma");
+    }
+
+    #[test]
+    fn splits_internal_hyphens_and_dashes_into_words() {
+        assert_eq!(
+            clean_ocr_output("Yareli-Prime Chassis Blueprint"),
+            "Yareli Prime Chassis Blueprint"
+        );
+        assert_eq!(
+            clean_ocr_output("Yareli–Prime Chassis Blueprint"),
+            "Yareli Prime Chassis Blueprint"
+        );
     }
 
     #[test]

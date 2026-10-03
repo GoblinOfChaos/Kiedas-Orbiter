@@ -29,6 +29,7 @@ import { categoryDisplayLabel } from '../lib/categoryLabels';
 import { sortByChanceDesc, sortSourcesByChanceInRotations } from '../lib/chanceSort';
 import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 import PrimeSetCard from '../components/PrimeSetCard';
+import { getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualRootHeight } from '../lib/inventoryScroll.js';
 
 
 
@@ -57,6 +58,7 @@ const ARCANE_ROW_STRIDE = Math.round(ARCANE_CARD_HEIGHT) + COL_GAP; // 298
 const GENERAL_CARD_MIN_WIDTH = 280;
 const GENERAL_CARD_HEIGHT = 168;
 const GENERAL_ROW_STRIDE = GENERAL_CARD_HEIGHT + COL_GAP; // 184
+const VIRTUAL_ROOT_BOTTOM_PADDING = 16;
 
 function sortMissionRotationGroups(sources) {
   return sortSourcesByChanceInRotations(sources);
@@ -248,6 +250,9 @@ export default function Inventory() {
     viewportHeight: typeof window !== 'undefined' ? window.innerHeight : 800,
     columns: 1,
   });
+  const windowMetricsRef = useRef(windowMetrics);
+  windowMetricsRef.current = windowMetrics;
+  const [generalRowStride, setGeneralRowStride] = useState(GENERAL_ROW_STRIDE);
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollingDebounceRef = useRef(null);
   // Preview-only. Applies to the generic item branch only (12 of 15
@@ -266,6 +271,48 @@ export default function Inventory() {
     pageScrollRef.current?.scrollTo({ top: 0 });
     setWindowMetrics((prev) => (prev.scrollTop === 0 ? prev : { ...prev, scrollTop: 0 }));
   }, [activeTab, searchQuery, currentFilters, sortCriteria, sortDirection, viewMode, resourceFamily]);
+
+  useEffect(() => {
+    const container = pageScrollRef.current;
+    if (!container) return;
+
+    const isFormControl = (target) => target?.closest?.('input, textarea, select, button, [contenteditable="true"]');
+    const focusListOnClick = (event) => {
+      if (isFormControl(event.target) || !event.target?.closest?.('[data-inventory-list-root]')) return;
+      container.focus({ preventScroll: true });
+    };
+    const handleListKeyDown = (event) => {
+      if (event.target !== container && isFormControl(event.target)) return;
+      const target = getScrollKeyTarget({
+        key: event.key,
+        scrollTop: container.scrollTop,
+        clientHeight: container.clientHeight,
+        scrollHeight: container.scrollHeight,
+        shiftKey: event.shiftKey,
+      });
+      if (target === null) return;
+      event.preventDefault();
+      container.scrollTo({ top: target, behavior: 'auto' });
+    };
+
+    const previousTabIndex = container.getAttribute('tabindex');
+    const hadOutlineClass = container.classList.contains('outline-none');
+    container.tabIndex = 0;
+    container.classList.add('outline-none');
+    container.addEventListener('click', focusListOnClick);
+    container.addEventListener('keydown', handleListKeyDown);
+
+    const activeElement = typeof document !== 'undefined' ? document.activeElement : null;
+    if (!isFormControl(activeElement)) container.focus({ preventScroll: true });
+
+    return () => {
+      container.removeEventListener('click', focusListOnClick);
+      container.removeEventListener('keydown', handleListKeyDown);
+      if (previousTabIndex === null) container.removeAttribute('tabindex');
+      else container.setAttribute('tabindex', previousTabIndex);
+      if (!hadOutlineClass) container.classList.remove('outline-none');
+    };
+  }, []);
 
   const handleImgError = useCallback((e) => {
     if (e.target.dataset.wfFallback === 'true') return;
@@ -635,6 +682,7 @@ export default function Inventory() {
   const isAyatan = activeTab === 'ayatan';
   const isListView = IS_PREVIEW && viewMode === 'list' && activeTab !== 'arcanes';
   const isArcanes = activeTab === 'arcanes';
+  const isGeneralGrid = !isPrimeParts && !isAyatan && !isListView && !isArcanes;
 
   const rowStride = isPrimeParts
     ? SETS_ROW_STRIDE
@@ -644,7 +692,7 @@ export default function Inventory() {
     ? LIST_ROW_STRIDE
     : isArcanes
     ? ARCANE_ROW_STRIDE
-    : GENERAL_ROW_STRIDE;
+    : generalRowStride;
 
   // The page scroll area is shared with the header controls, so measure the
   // virtual content's position inside that owner rather than adding a nested
@@ -676,10 +724,13 @@ export default function Inventory() {
         : Math.max(1, Math.floor((virtualRoot.clientWidth + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
     };
 
-    const applyScrollTop = (columns) => {
-      const scrollTop = Math.max(0, container.scrollTop - baseOffset);
+    const applyScrollTop = (columns, normalizedScrollTop = null) => {
+      const scrollTop = normalizedScrollTop === null
+        ? Math.max(0, container.scrollTop - baseOffset)
+        : normalizedScrollTop;
+      const next = { scrollTop, viewportHeight: container.clientHeight, columns: columns ?? windowMetricsRef.current.columns };
+      windowMetricsRef.current = next;
       setWindowMetrics((previous) => {
-        const next = { scrollTop, viewportHeight: container.clientHeight, columns: columns ?? previous.columns };
         return previous.scrollTop === next.scrollTop &&
           previous.viewportHeight === next.viewportHeight &&
           previous.columns === next.columns
@@ -699,10 +750,37 @@ export default function Inventory() {
     // scroll tick just reads container.scrollTop, a cheap property that
     // doesn't force layout.
     const calibrate = () => {
+      const columns = computeColumns();
       const rootRect = virtualRoot.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
-      baseOffset = container.scrollTop - (containerRect.top - rootRect.top);
-      applyScrollTop(computeColumns());
+      const nextBaseOffset = container.scrollTop - (containerRect.top - rootRect.top);
+      let normalizedScrollTop = Math.max(0, container.scrollTop - nextBaseOffset);
+      const previous = windowMetricsRef.current;
+
+      if (isGeneralGrid && columns !== previous.columns && previous.columns > 0) {
+        const firstItemIndex = Math.floor(previous.scrollTop / rowStride) * previous.columns;
+        const preservedScrollTop = getScrollTopForFirstItem({
+          firstItemIndex,
+          columns,
+          rowStride,
+        });
+        container.scrollTo({ top: nextBaseOffset + preservedScrollTop, behavior: 'auto' });
+        normalizedScrollTop = Math.max(0, container.scrollTop - nextBaseOffset);
+      }
+
+      baseOffset = nextBaseOffset;
+      applyScrollTop(columns, normalizedScrollTop);
+
+      if (isGeneralGrid) {
+        const grid = virtualRoot.querySelector('[data-inventory-general-grid]');
+        if (grid) {
+          const firstRowChildren = Array.from(grid.children).slice(0, columns);
+          const measuredCardHeight = Math.max(...firstRowChildren.map((child) => child.offsetHeight), 0);
+          const rowGap = Number.parseFloat(getComputedStyle(grid).rowGap) || 0;
+          const measuredStride = getMeasuredRowStride(measuredCardHeight, rowGap, GENERAL_ROW_STRIDE);
+          setGeneralRowStride((previousStride) => previousStride === measuredStride ? previousStride : measuredStride);
+        }
+      }
     };
     let resizeTimer = null;
     const scheduleCalibration = () => {
@@ -761,7 +839,7 @@ export default function Inventory() {
       container.removeEventListener('scroll', onScroll);
       container.style.overflowAnchor = previousOverflowAnchor;
     };
-  }, [virtualRoot, activeTab, viewMode, isPrimeParts, isAyatan, isListView]);
+  }, [virtualRoot, activeTab, viewMode, isPrimeParts, isAyatan, isListView, isArcanes, isGeneralGrid, rowStride]);
 
   useEffect(() => {
     const container = pageScrollRef.current;
@@ -782,6 +860,11 @@ export default function Inventory() {
     : Math.max(1, Math.floor(((virtualRoot?.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200)) + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
 
   const rowCount = Math.ceil(filteredItems.length / currentColumns);
+  const virtualRootHeight = getVirtualRootHeight({
+    rowCount,
+    rowStride,
+    bottomPadding: VIRTUAL_ROOT_BOTTOM_PADDING,
+  });
   const firstRow = Math.max(0, Math.floor(windowMetrics.scrollTop / rowStride) - WINDOW_OVERSCAN_ROWS);
   const lastRow = Math.min(rowCount, Math.ceil((windowMetrics.scrollTop + windowMetrics.viewportHeight) / rowStride) + WINDOW_OVERSCAN_ROWS);
   const windowedItems = filteredItems.slice(firstRow * currentColumns, lastRow * currentColumns);
@@ -1222,7 +1305,7 @@ export default function Inventory() {
                   <span className="text-[10px] font-black uppercase text-kronos-accent">{t('ui.inventory.fetching_prices')}</span>
                 </div>
           }
-              <div ref={setVirtualRoot} className="relative pb-4" style={{ height: `${rowCount * rowStride}px` }}>
+              <div ref={setVirtualRoot} data-inventory-list-root className="relative pb-4" style={{ height: `${virtualRootHeight}px` }}>
                 <div
                   className="absolute inset-x-0 grid grid-cols-1 lg:grid-cols-2 gap-4"
                   style={{ top: `${firstRow * rowStride}px` }}
@@ -1244,7 +1327,7 @@ export default function Inventory() {
               </div>
             </> :
         activeTab === 'ayatan' ?
-        <div ref={setVirtualRoot} className="relative pb-4" style={{ height: `${rowCount * rowStride}px` }}>
+        <div ref={setVirtualRoot} data-inventory-list-root className="relative pb-4" style={{ height: `${virtualRootHeight}px` }}>
           <div
             className="absolute inset-x-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
             style={{ top: `${firstRow * rowStride}px` }}
@@ -1314,8 +1397,9 @@ export default function Inventory() {
             </div>
         </div> :
 
-        <div ref={setVirtualRoot} className="relative pb-4" style={{ height: `${rowCount * rowStride}px` }}>
+        <div ref={setVirtualRoot} data-inventory-list-root className="relative pb-4" style={{ height: `${virtualRootHeight}px` }}>
           <div
+            data-inventory-general-grid={isGeneralGrid ? '' : undefined}
             className={isListView ? 'absolute inset-x-0 flex flex-col gap-1.5' : 'absolute inset-x-0 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4'}
             style={{ top: `${firstRow * rowStride}px` }}
           >

@@ -2,36 +2,46 @@
 
 Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4-6s per screen before judging (screens render slowly). Numbers like #9 refer to `docs/RECURRING_ERRORS_REPORT.md`. Report anything wrong with a screenshot, the screen name and the app language, and I will trace it and add it to the error file.
 
-**Order: easiest first.** Work top to bottom. Each step needs a bit more than the one before. This is an evolving list: new items are added to the step that fits their effort, confirmed items move to "Confirmed by you". Build details and the rollback copy are in the BUILD STATUS line of `docs/RECURRING_ERRORS_REPORT.md`.
+**Order: easiest first.** Work top to bottom. Each step needs a bit more than the one before. This is an evolving list: new items are added to the step that fits their effort, confirmed items move to "Confirmed by you". Build details and the rollback copy are in the BUILD STATUS line of `docs/RECURRING_ERRORS_REPORT.md`. Everything below marked "fixed in code" is in the build made on 2026-10-03 in the evening (not in build 795d0a7, which you tested before).
 
 ## Step 1 - Quick looks (under a minute each, no game needed, English is fine)
 
-- [ ] #32 Prime Sets tab: Aklex Prime, Akvasto Prime, Akbronco Prime and Akmagnus Prime list their two base guns (for example Lex Prime) as well as the Link and Blueprint
-- [ ] #8 REOPENED 2026-10-03: your check found it is not fixed. The Orokin Cell drawer's "1x Blueprint" row shows the resource's enemy-drop text; it should be the 100 Platinum Market purchase. Cause found, NO fix started; goes with #36 and #38. The Forma Blueprint and Prime part drawers part of this check still stands [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #9 REOPENED 2026-10-03 for Warframe drawers: Ash Prime Neuroptics still lists (Radiant)/(Flawless) rows with percentages. Cause partly found, NO fix started. The part-drawer checks for Citrine Prime Blueprint and Acceltra Prime below still stand. Original text: Prime part drawers (Ash Prime Chassis, Citrine Prime Blueprint, Acceltra Prime): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no percentages, no raw key like `ui.relic_rarity.rare`. Check BOTH the top "How to obtain" list AND the "Crafting requirements" part rows [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #18 REOPENED 2026-10-03: the Riven hotkey label "Grade Rivens" is still English when the app is not in English. Found: German is untranslated (the other 13 are done), and the tests accepted it. Tell me which language you saw it in. NO fix started; part of the wider English-text audit (see the report, section 18 addendum)
+- [ ] #35 / #37 / #32 Prime Sets tab: Paris, Ballistica, Cernos, Daikyu Prime show "Upper Limb" and "Lower Limb" (not two "Limb"); Akbronco, Aklex, Akmagnus, Akvasto Prime show their two base guns with real names (for example "Lex Prime", not "Prime") plus Link and Blueprint; the "x2" badge sits centered directly above the part's image
+- [ ] #36 / #39 Prime drawers (Akarius Prime, Ash Prime, Citrine Prime): "Crafting requirements" has a "1x ... Blueprint" row listing its relics once each with (Common/Uncommon/Rare); Ash Prime no longer says "Market Blueprint: 25,000 Credits"
+- [ ] #9 Ash Prime Neuroptics / Chassis / Systems rows and Citrine Prime Blueprint, Acceltra Prime: each relic once with its tier, no Intact/Exceptional/Flawless/Radiant, no percentages, no raw key like `ui.relic_rarity.rare`
+- [ ] #8 Orokin Cell drawer: the Blueprint row says it is a Market purchase for 100 Platinum, not the enemy-drop text; Forma Blueprint and Prime part drawers still list their drops
+- [ ] #38 Resource drawers: Alloy Plate lists all 10 mission rows and the line "found on Venus, Jupiter, Sedna, Ceres, Phobos, Pluto and the Zariman Ten Zero"; spot-check two or three other resources (Ferrite, Nano Spores, Plastids)
+- [ ] #34 Inventory: search "Extractor": four entries (Titan, Titan Prime, Distilling, Distilling Prime), the Distilling Extractor marked owned, each with an image; the two Prime extractor drawers list several wiki source rows
+- [ ] #33 Inventory top strip: no vertical scrollbar; hovering Forma still shows the breakdown (Forma, Aura, Stance, Umbra)
+- [ ] #41 Rivens page: the state, sort and weapon-type filters wrap onto more lines and have NO horizontal scrollbar; tell me if a scrollbar is still under the cards
+- [ ] #40 Market page with the window under 1050px wide: the "Active Orders" and "Tradeable Stock" tabs are fully visible
+- [ ] #42 History: hover over the chart points; the screen no longer crashes
+- [ ] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes
 
 ## Step 2 - Switch the app language (about 5 minutes)
 
-- [ ] #14 German: Farming Targets (all 78 strings), Foundry, Prime Sets, Riven prompt text and relic tier labels are fully translated; nothing left in English except game names and "The Circuit" (no official localized name exists, so it stays English everywhere)
-- [ ] #14 Japanese, then one more language of your choice: the same screens read natively; no raw keys
-- [ ] #18 Market label in the sidebar is translated in French, Korean, Italian, Japanese, Polish, Traditional Chinese, Thai, Turkish and Ukrainian (a translation was nearly lost in one fix and restored)
-- [ ] #29 In German: the Dashboard calendar weekday and month names are German; Farming Targets > Target Inspector: the dropdown opens fully (not cut off) and ranked places show the planet with the place; farming drawer items show their images [You reported 2026-10-03: the Target Inspector dropdown works and no longer clips. Still to check: the German weekday/month names and the farming drawer images. The 'Group by planet' toggle problem is #47]
+- [ ] #14 / #18 German: Farming Targets, Foundry, Prime Sets, Riven prompt text, relic tier labels, and Settings > Hotkeys "Rivens bewerten" are German; nothing left in English except game names and "The Circuit" (no official localized name exists, so it stays English everywhere)
+- [ ] #14 / #18 Japanese, then one more language of your choice (all 14 languages had an English-text audit): the same screens read natively; no raw keys
+- [ ] #18 Market label in the sidebar is translated in French, Korean, Italian, Japanese, Polish, Traditional Chinese, Thai, Turkish and Ukrainian
+- [ ] #29 In German: the Dashboard calendar weekday and month names are German; farming drawer items show their images (the Target Inspector dropdown and clipping you already confirmed)
+- [ ] #42 With the app in a non-English language the crash screen (if you ever see it) shows real text, not `ERROR_BOUNDARY.TITLE`
 
 ## Step 3 - A little scrolling and clicking (about 5 minutes)
 
+- [ ] #46 / #15 Inventory list: click in the list and press End, Home, Page Down, Page Up (they scroll; typing in the search box still works); scroll down and maximize the window (the list stays where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it, a small one-time shift when the first row is measured is expected)
 - [ ] #31 Prime Sets tab: scroll down and then UP quickly; it should feel smooth and not get slower over time. If it is still slow, record a 5 second Performance profile and send it (steps in the report, section 31)
-- [ ] Old items now merged into the ones above, re-check once: "Target Inspector dropdown clipping", "Farm Next planet + node display", "Calendar weekday locale" (all covered by #29)
+- [ ] #45 After using the app for a while open the log and search for `parseInventory worker call failed`: it should be gone; tell me if the Inventory ever looks empty or stale after starting
 
 ## Step 4 - Needs Warframe running
 
-- [ ] #28 After a session with the game open, the log (`~/.local/share/kiedas-orbiter-preview/data/user/logs/app-YYYY-MM-DD.log`) does not fill with `[FOCUS_WATCHER] transition: focused -> unfocused` every half second (R) [Coordinator check 2026-10-03 14:44: only 24 focus changes in about 1 hour of play (worst case 5 in one minute), versus 459 in a day with the old build, so this looks fixed; your call to tick] [Coordinator re-check 15:08: 26 transitions in 1.5 h, max 5/minute; but twice the focus flapped for a few seconds when the relic reward overlay appeared, so tell me if you saw the overlay flicker]
-- [ ] #23 Relic mission (Citrine/Sevagoth Prime or any relic): all reward cards are recognized, none say UNRECOGNIZED (R) [PARTLY RE-OPENED 2026-10-03: see #44, one card of a duplicate pair was UNRECOGNIZED twice]
+- [ ] #44 / #23 Relic mission with duplicate rewards (two of the same item): every card is recognized, none say UNRECOGNIZED (the Yareli Prime Chassis and Akbronco cases) (R)
+- [ ] #28 After a session with the game open, the log does not fill with `[FOCUS_WATCHER] transition` lines every half second (coordinator count 2026-10-03: 26 in 1.5 hours with the old build 795d0a7, versus 459 in a day before; your call to tick)
 
-## Step 5 - Needs measuring or sending me something
+## Step 5 - Needs you to send me something
 
-- [x] #15 Inventory scroll range: open developer tools, click one general inventory card and read its `offsetHeight` and the grid `row-gap`; send me both numbers (the fix waits for them). Also say which tab shows the empty space [UPDATE 2026-10-03: you saw no extra room at the end on the tab you tried; see #46. The console measurement is optional now] [FIXED IN CODE 2026-10-03, merged, not in a build yet; needs your live check after the next build: click in the Inventory list, press End, Home, Page Down; scroll down and maximize the window (the list should stay where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it)]
 - [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
+- [ ] #48 1999 Calendar in German: the upgrade names ("Electric Status Damage And Chance", "Armor", ...) stay English because no German text exists in the data; send a screenshot of the in-game 1999 calendar with the game set to German so I can use the real names
+- [ ] #43 Wiki tab blank after a crash: if it happens again, send me the log file before restarting the app
 
 ## Confirmed by you (kept for the record)
 
@@ -50,29 +60,15 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [x] #17 / #25 / #26 Riven reroll screen: the grading banner appears and STAYS visible after you press the hotkey, and disappears only when you leave the riven screen; leaving the screen hides everything and nothing reappears on its own later; look in the log for `[MEMORY WATCHER] dedupe:` lines (R) (confirmed by you 2026-10-03, build 795d0a7)
 - [x] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R) (confirmed by you 2026-10-03, build 795d0a7)
 - [x] Riven single-card grading (one card only, before any reroll) (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #15 measurement step in the developer tools (done by you 2026-10-03; it is replaced by the live check in Step 3, item #46 / #15)
 
 ## Blocked or waiting on something other than a check
 
 - [ ] #16 "The Circuit" translation: BLOCKED. No official localized name exists in the repo data or on wiki.warframe.com; the title stays "The Circuit" in every language until an official source is found
-- [ ] #33 Inventory currency strip vertical scrollbar (reported 2026-10-03; this replaces the old backlog line "Currency scrollbar"): cause found, fix drafted on a branch, NOT merged or deployed. When it is deployed it becomes a Step 1 check: the top strip has no vertical scrollbar and hovering Forma still shows the breakdown [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #34 Extractors (reported 2026-10-03): Titan Extractor, Titan Extractor Prime, Distilling Extractor and Distilling Extractor Prime are missing from the Inventory (you own a Distilling Extractor and it does not show), and the Prime extractors' "how to obtain" text does not match the wiki. Cause found, NO fix started; waiting for your go-ahead [FIXED IN CODE 2026-10-03, merged, not in a build yet: after the next build search the Inventory for 'Extractor': four entries, the Distilling Extractor marked owned; open the two Prime extractor drawers: several wiki source rows]
-- [ ] #35 Prime Sets part labels (reported 2026-10-03): Paris, Ballistica, Cernos and Daikyu Prime show two cards both labelled "Limb" (Upper/Lower Limb), and Akbronco, Aklex, Akmagnus and Akvasto Prime show a card labelled only "Prime". Cause found, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #36 Drawer "Crafting requirements" has no Blueprint row for 92 of 166 Prime items (for example Akarius Prime), although the Prime Sets card lists the Blueprint. Cause found, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #37 The "x2" badge on Prime Sets part cells (reported 2026-10-03): decision made, it goes centered directly above the image of the needed piece. NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #38 Resource drawers (reported 2026-10-03): Alloy Plate lists only some mission drops and none of the planet/container sources the wiki gives; most common resources have no wiki entry in the app data. Cause partly found, NO fix started; needs your decision on a manual wiki-verified overhaul Decision 2026-10-03: manual wiki.warframe.com-verified data for ALL resources, scheduled after the Prime Sets work [FIXED IN CODE 2026-10-03, merged, not in a build yet: check Alloy Plate (all 10 mission rows plus the 'found on Venus, Jupiter, Sedna...' line) and two or three other resources after the next build]
-- [ ] #39 Prime Warframe drawers (reported 2026-10-03): say the Prime Blueprint costs credits in the Market ("Market Blueprint: 25,000 Credits" on Ash Prime). Cause found on real data (DE marks those blueprints excludeFromMarket), NO fix started; goes with #36, #8 and #9 [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #40 Market under 1050px wide: the Active Orders / Tradeable Stock tab row is cut off at the top (reported 2026-10-03). Probable cause found, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #41 Rivens page: horizontal scrollbars on the filters (state, sort, weapon type) that cannot be grabbed, plus one under the cards (reported 2026-10-03). Filters found, cards need a screenshot or dev-tools element. Decision: only the Inventory currency strip keeps a horizontal scrollbar. NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build] (the card-area scrollbar was not located; tell me if it is still there)
-- [ ] #42 History crash "Can't find variable: locale" when hovering the chart, and the crash screen shows raw `ERROR_BOUNDARY.*` text (reported 2026-10-03). Both causes verified, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [ ] #43 Wiki tab blank after that crash; only restarting the app fixed it (reported 2026-10-03). Not understood. If it happens again, send me the log file before restarting
-- [ ] #44 Relic reward overlay (reported 2026-10-03): "Yareli Prime Chassis Blueprint" and one "Akbronco Prime Blueprint" were UNRECOGNIZED. Both causes verified in the log and by running the matcher (a hyphen dropped by the native cleaner, and a wrongly capitalized O). NO fix started; the native half needs your explicit yes first [FIXED IN CODE 2026-10-03, merged, not in a build yet: after the next build, check a relic mission with duplicate rewards; no card should say UNRECOGNIZED]
-- [ ] #45 Inventory parse error `Q.startsWith is not a function` in the developer tools (found by you 2026-10-03; 10 times in today's log). Exact line not found yet, NO fix started. If your Inventory ever looks empty or stale after starting the app, tell me when [HARDENED 2026-10-03, merged, not in a build yet: after the next build open the app log and search for 'parseInventory worker call failed'; it should be gone. Tell me if the Inventory ever looks empty]
-- [ ] #46 Inventory (reported 2026-10-03): End and Page Down do nothing, maximizing the window jumps the list to the top, no extra room at the end of the list on the tab you tried. Keyboard part verified in code (list not focusable), jump cause not found, NO fix started. This also replaces the #15 measurement for now: you do not need to run the console snippet any more [Fix QUEUED with Codex 2026-10-03 (job P9 together with #15); not started] [FIXED IN CODE 2026-10-03, merged, not in a build yet; needs your live check after the next build: click in the Inventory list, press End, Home, Page Down; scroll down and maximize the window (the list should stay where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it)]
-- [ ] #47 Farming Targets: 'Group by planet' only changes the wording of the rows and the rows look like duplicates (reported 2026-10-03). Cause verified, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: after the next build, turn on Group by planet: each planet appears once with a node count and its nodes underneath]
-- [ ] #48 1999 Calendar in German: upgrade names such as 'Electric Status Damage And Chance' stay English (reported 2026-10-03). Localized source not located, NO fix started [PARTLY DONE 2026-10-03: clean English fallback merged; the German text is not in any offline data, so these names stay English until you can send the in-game German names (a screenshot of the in-game 1999 calendar with the game set to German)]
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
+- [ ] Other owned items the Inventory parser does not read yet (Focus upgrades, Boosters, Email items, Railjack salvage and more; the list is in the report under item 34): tell me which of them you want shown
 
-## Backlog (not part of the 22:41 build; kept from earlier lists)
+## Backlog (kept from earlier lists)
 
 Known, root-caused, not fixed:
 
@@ -100,6 +96,7 @@ Known-good items to re-check after data changes (search Inventory for each):
 - [ ] Narin: Warframe + Blueprint, Chassis, Neuroptics, Systems
 - [ ] Citrine Prime: Warframe + 3 Prime parts
 - [ ] Grimoire + Grimoire Blueprint
+
 
 ## Screen sweep
 

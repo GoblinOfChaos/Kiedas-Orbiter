@@ -27,7 +27,7 @@ Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
 
 ## Deployed 2026-10-02 22:41 (build 795d0a78): verify these in the app
 
-These were merged after the 20:18 build and are in the build deployed at 22:41 (commit `795d0a78`; the Rust unit tests, 47, passed before the build). The AppImage footer shows the build commit and time: check it says `795d0a78` before testing. Items marked (R) involve the Rust side. If this build is worse than the previous one, the previous build (20:18, commit `63121682`) is kept as `~/AppImages/kiedas_orbiter_preview.appimage.bak-2241`. Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`. Tick a box only when you have seen it work; report anything wrong with a screenshot, the screen name and the language.
+These were merged after the 20:18 build and are in the build deployed at 22:41 (commit `795d0a78`; the Rust unit tests, 47, passed before the build). The AppImage footer shows the build commit and time: check it reads `Build 795d0a7 2026-10-02 22:40` (the footer shows a 7-character hash and the compile start time) before testing. Items marked (R) involve the Rust side. If this build is worse than the previous one, the previous build (20:18, commit `63121682`) is kept as `~/AppImages/kiedas_orbiter_preview.appimage.bak-2241`. Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`. Tick a box only when you have seen it work; report anything wrong with a screenshot, the screen name and the language.
 
 - [ ] #9 Acceltra Prime (and any Prime weapon): the "Crafting requirements" part rows show each relic once with (Common/Uncommon/Rare), no repeats, no percentages
 - [ ] #11 Salvage drawer: Conclave drops AND the wiki lines (Market 30 Platinum for 3000, Carme and Olympus farming notes)

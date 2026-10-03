@@ -8,6 +8,7 @@ const MANIFEST_BASE: &str = "https://content.warframe.com/PublicExport/Manifest"
 const MERGE_FIELDS: &[&str] = &[
     "parentName", "health", "shield", "armor", "stamina", "power",
     "codexSecret", "masteryReq", "sprintSpeed", "exalted", "productCategory",
+    "name", "description", "passiveDescription", "abilities",
 ];
 const ADAPTER_FIELDS: &[&str] = &[
     "uniqueName", "name", "parentName", "description", "health", "shield", "armor",
@@ -149,11 +150,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn hybrid_fixture_keeps_keys_and_takes_stats() {
+    fn hybrid_fixture_takes_stats_and_text_from_de() {
         let mirror = serde_json::json!({"/a": {"uniqueName":"/a", "name":"/key", "description":"/desc", "health":100, "sprintSpeed":1.0}});
         let de = serde_json::json!({"ExportWarframes":[{"uniqueName":"/a", "name":"English", "description":"Text", "health":200, "sprintSpeed":0.89999998}]});
         let (merged, _) = merge_warframes(&mirror, &de);
-        assert_eq!(merged["/a"]["name"], "/key");
+        assert_eq!(merged["/a"]["name"], "English");
+        assert_eq!(merged["/a"]["description"], "Text");
         assert_eq!(merged["/a"]["health"], 200);
         assert_eq!(merged["/a"]["sprintSpeed"], 0.9);
     }

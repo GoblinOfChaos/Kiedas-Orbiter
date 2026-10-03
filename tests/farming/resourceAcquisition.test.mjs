@@ -48,7 +48,8 @@ test('wiki resource source data is complete and has a stable provenance record',
   }
 })
 
-test('wiki resource source generator is deterministic', () => {
+const haveWikiSnapshots = fs.existsSync(new URL('../../scratchwiki/wiki-resource-pages.json', import.meta.url))
+test('wiki resource source generator is deterministic', { skip: !haveWikiSnapshots && 'wiki snapshots (scratchwiki/) are not committed' }, () => {
   const pages = JSON.parse(fs.readFileSync(new URL('../../scratchwiki/wiki-resource-pages.json', import.meta.url)))
   const sections = JSON.parse(fs.readFileSync(new URL('../../scratchwiki/wiki-resource-sections.json', import.meta.url)))
   const first = buildWikiResourceSources(pages, sections)

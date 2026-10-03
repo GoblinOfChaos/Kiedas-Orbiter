@@ -216,8 +216,12 @@ export function buildWikiResourceSources(pagesData, sectionsData = { pages: {} }
   return writeCompactObject(entries)
 }
 
-const pagesData = JSON.parse(fs.readFileSync(inputPages, 'utf8'))
-const sectionsData = fs.existsSync(inputSections) ? JSON.parse(fs.readFileSync(inputSections, 'utf8')) : { pages: {} }
-const output = buildWikiResourceSources(pagesData, sectionsData)
-fs.writeFileSync(outputFile, output)
-console.log(`wrote ${output.split('\n').length - 3} wiki resource entries to ${path.relative(ROOT, outputFile)}`)
+// Only run when launched directly (node scripts/build-wiki-resource-sources.mjs),
+// never as a side effect of importing buildWikiResourceSources in a test.
+if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+  const pagesData = JSON.parse(fs.readFileSync(inputPages, 'utf8'))
+  const sectionsData = fs.existsSync(inputSections) ? JSON.parse(fs.readFileSync(inputSections, 'utf8')) : { pages: {} }
+  const output = buildWikiResourceSources(pagesData, sectionsData)
+  fs.writeFileSync(outputFile, output)
+  console.log(`wrote ${output.split('\n').length - 3} wiki resource entries to ${path.relative(ROOT, outputFile)}`)
+}

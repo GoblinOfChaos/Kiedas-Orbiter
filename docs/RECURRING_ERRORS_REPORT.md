@@ -50,7 +50,7 @@ Each section details:
 | 34 Extractors: not in the Inventory at all; Prime extractors' "how to obtain" is vague and incomplete vs the wiki (new, reported 2026-10-03) | Open: cause verified in code and real data, NO fix started (waiting for the user's go-ahead) | See section 34 |
 | 35 Prime Sets card shows only the last word of a part name ("Limb", "Limb", "Prime") (new, reported 2026-10-03) | Open: cause verified, NO fix started | `PrimeSetCard.jsx:54`; 8 sets affected (see section 35) |
 | 36 Drawer "Crafting requirements" omits the main Blueprint row for most Prime items (new, reported 2026-10-03) | Open: cause verified, 92 of 166 Prime drawers affected, NO fix started | See section 36 |
-| 37 The "xN" part-count badge sits in the top-left of the part cell and reads as belonging to the cell on its left (new, reported 2026-10-03) | Open: placement decision needed from the user, NO fix started | `PrimeSetCard.jsx:51`; see section 37 |
+| 37 The "xN" part-count badge sits in the top-left of the part cell and reads as belonging to the cell on its left (new, reported 2026-10-03) | Open: DECISION MADE (center it above the piece's image), NO fix started | `PrimeSetCard.jsx:51`; see section 37 |
 
 
 Process lessons from this round (apply to all future fixes):
@@ -596,8 +596,8 @@ Process lessons from this round (apply to all future fixes):
 * **Frequency**: Reported 2026-10-03 (Akbronco Prime Set screenshot).
 * **User Symptom**: The "x2" shown for parts that are needed more than once sits in the TOP-LEFT of the part cell, so it looks like it belongs to the cell on its left. Almost everything else in the app is centered, or in the top right (like the platinum value).
 * **Cause (verified)**: `src/components/PrimeSetCard.jsx` line 51: `<span className="absolute top-1 left-1 text-[14px] font-black text-kronos-accent ...">x{part.need}</span>`.
-* **Needs a decision from the user**: where it should go. The top-right already holds the platinum price badge, so the user suggested centering. Options: centered above or below the image, or in the label line ("x2 Bronco Prime"). NO change has been made.
-* **Required Resolution Protocol**: after the decision, move the badge, check it with 1, 2 and 3 parts per row and with long labels (item 35), recheck in the deployed app.
+* **Decision (user, 2026-10-03, with a marked-up screenshot)**: the badge goes **centered, directly above the image of the needed piece** (the top-right is taken by the platinum value). NO change has been made yet.
+* **Required Resolution Protocol**: place the "x2" centered above the part image in the cell (keeping the platinum badge top-right and the label below), make sure it does not overlap the image or the price badge, check with 1, 2 and 3 parts per row and with the longer labels from item 35, and recheck in the deployed app. Do it together with item 35 (same component).
 
 ---
 

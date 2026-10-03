@@ -647,6 +647,38 @@ function nameFromPath(path = '', locale = 'en') {
     : name;
 }
 
+/**
+ * Resolve a 1999 calendar upgrade without matching its short leaf against an
+ * unrelated item in the dictionary.  Calendar upgrade paths are not present
+ * in the offline DE language/export data, so the path leaf is the documented
+ * English fallback until an exact localized entry is supplied.
+ */
+export function resolveCalendarUpgradeName(path, dict = {}, uniqueNameToName = {}) {
+  if (!path) return ''
+
+  const pathVariants = [...new Set([
+    path,
+    path.replace('/Types/StoreItems/', '/Types/'),
+    path.replace('/StoreItems/', '/'),
+    path.replace('/Types/StoreItems/', '/'),
+  ])]
+
+  for (const candidate of pathVariants) {
+    const locKey = uniqueNameToName?.[candidate]
+    if (locKey) {
+      const mapped = dict[locKey] || dict['/' + locKey]
+      if (mapped && typeof mapped === 'string' && !mapped.startsWith('/Lotus/')) return clean(mapped)
+      if (typeof locKey === 'string' && !locKey.startsWith('/Lotus/')) return clean(locKey)
+    }
+
+    const direct = dict[candidate] || dict['/' + candidate]
+    if (direct && typeof direct === 'string' && !direct.startsWith('/Lotus/')) return clean(direct)
+  }
+
+  const leaf = path.split('/').filter(Boolean).at(-1) || ''
+  return splitPascal(leaf).trim()
+}
+
 
 /**
  * Resolve an item unique name (e.g. /Lotus/Weapons/Tenno/Rifle/Latron) to a
@@ -656,6 +688,10 @@ function nameFromPath(path = '', locale = 'en') {
  */
 export function resolveItemName(path, dict, uniqueNameToName, locale = 'en') {
   if (!path) return ''
+
+  if (path.includes('/Upgrades/Calendar/')) {
+    return resolveCalendarUpgradeName(path, dict, uniqueNameToName)
+  }
 
   const isBlueprint = path.includes('/Recipes/') || path.endsWith('Blueprint');
   const bpSuffix = BLUEPRINT_SUFFIX[locale] ?? ' Blueprint';

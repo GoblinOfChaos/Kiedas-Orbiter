@@ -23,7 +23,7 @@ export default function PreviewInventoryLayout({ stats, controls }) {
   return (
     <section aria-label={t('preview.landmark.inventory_controls')} className="min-w-0">
       {stats && (
-        <div className="mb-3 overflow-x-auto custom-scrollbar" aria-label={t('preview.landmark.account_resources')}>
+        <div className="mb-3 overflow-x-auto overflow-y-hidden custom-scrollbar" aria-label={t('preview.landmark.account_resources')}>
           {stats}
         </div>
       )}

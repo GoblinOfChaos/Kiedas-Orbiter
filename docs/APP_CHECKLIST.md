@@ -11,6 +11,20 @@ Sources: the pasted list from an earlier chat (statuses there are unverified by 
 - [ ] Relic reward overlay: Citrine Prime not "Unrecognized" (needs game running; uncommitted `relicParser.js` change)
 - [ ] Farming Targets screen fully in German (all 78 strings, not just one label)
 
+## Fixed in code 2026-10-02, verify in the deployed build (tick only when seen in the app)
+
+Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
+
+- [ ] #12 Foundry: open a recipe panel, click outside it, it closes; Escape closes it; the close button still works; clicking inside the panel does not close it
+- [ ] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`; also check the Riven prompt text in German
+- [ ] #18 Market label in the sidebar is translated in French, Korean, Italian, Japanese, Polish, Traditional Chinese, Thai, Turkish and Ukrainian (a translation was nearly lost in one fix and restored)
+- [ ] #9 Prime part drawers (for example Ash Prime Chassis, Citrine Prime Blueprint): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no raw key like `ui.relic_rarity.rare`
+- [ ] #8 Farming Targets: Orokin Cell is not shown as having a blueprint that drops from enemies; Forma Blueprint and Prime part drawers still list their drops
+- [ ] #10 Voidgel Orb drawer: the sources listed match the summary; no "+N more sources" text without matching rows (spot-check two other items)
+- [ ] #11 Salvage drawer: no ship-decoration paragraph; Conclave appears as drop sources. A Market source is NOT added yet
+- [ ] #17 Riven reroll screen: the overlay appears and stays; closing the screen hides it
+- [ ] #23 Relic mission with Sevagoth Prime: all reward cards are recognized (Sevagoth Prime Neuroptics Blueprint)
+
 ## Fixed earlier, needs retest
 
 - [ ] Riven single-card grading

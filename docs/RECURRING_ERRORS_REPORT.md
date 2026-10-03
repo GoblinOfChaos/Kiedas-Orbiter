@@ -17,6 +17,30 @@ Each section details:
 
 ---
 
+## Status Log (2026-10-02): items 8-23 after the Codex fix round
+
+"Fixed in code" means: root cause identified, regression test added and passing, merged to `preview/stage4` (full suite 139/139). Nothing below is "resolved" until the user confirms it in the deployed Preview AppImage; confirmations are recorded in `docs/APP_CHECKLIST.md`.
+
+| # | Status | Root cause / what changed |
+|---|---|---|
+| 8 Orokin Cell Blueprint as enemy drop | Fixed in code, awaiting in-app check | `dropsParser.js` `addNamedSource` filed unresolved reward names (e.g. "2X Orokin Cell") under a phantom `display:<name> blueprint` key (731 phantom keys). Quantity prefixes are now stripped and no blueprint key is invented. Test: `tests/farming/acquisitionC1.test.mjs` |
+| 9 Meso C11 repeated x5 | Fixed in code, awaiting in-app check | Rows were refinement variants (4 chance-less ExportRelics rows + 4 per-refinement mirror rows). User decision: no refinements shown; each relic once with its Common/Uncommon/Rare tier from ExportRelics `rarity`. Label key fixed to `ui.relic_rarity.*` (C4). Tests: `acquisitionC1.test.mjs`, `tests/relics/acquisitionDrawerLabels.test.mjs` |
+| 10 "+N more" without rows | Fixed in code, awaiting in-app check | 85 override strings in `acquisition_overrides.json` carried "(+N more sources)" and `acquisitionInfo.js` returned only that text. Live drop rows are now used when they exist |
+| 11 Salvage Conclave-only | Partly fixed, awaiting in-app check | Unrelated decoration blurb removed; Conclave kept as a DROP source (DE drop table and wiki.warframe.com list only Conclave under drops). A Market purchase source was NOT added: no verified entry exists in repo data. Needs a wiki-sourced addition |
+| 12 Foundry drawer outside click | Fixed in code, awaiting in-app check | `RecipeDrawer` now has the shared backdrop, click guard and Escape handling. Test: `tests/ui/foundry-drawer-i18n.test.mjs` |
+| 13, 14, 16, 19, 20, 21, 22 | Not worked in this round | 19, 20, 22 were fixed in code in an earlier snapshot and are still unconfirmed in the app |
+| 15 Inventory overscroll | Investigated, cause unproven | Candidate: hardcoded row strides (`SETS_ROW_STRIDE`, `GENERAL_CARD_HEIGHT`) vs real heights, but a calibration step already exists. Needs a live measurement |
+| 17 Riven overlay does not appear | Fixed in code, awaiting in-app check | Log evidence: "screen opened" and "overlays closed (ClearAgents)" logged in the same millisecond with the close LogTS older than the open. Stale close triggers are now ignored (`log_scanner.rs`, unit test). The replay mechanism of the old line is NOT proven |
+| 18 Raw key in Riven trigger | Fixed in code, awaiting in-app check | `t()` reads only `ui[key]`; six keys sat at the top level of every locale JSON. Moved under `ui` in all 15 locales; all-locale integrity test added |
+| 23 Relic reward overlay "UNRECOGNIZED" (new) | Fixed in code, awaiting in-app check | See section 23 |
+
+Process lessons from this round (apply to all future fixes):
+- A passing test is not proof: two Codex changes shipped bugs their own tests missed (9 locales lost `nav.market`; the tier label key lacked the `ui.` prefix, so the app would have printed a raw key). Always render the real label or screen on real data.
+- Compare the whole result before and after on real data (e.g. drop-index key sets) when changing a shared parser.
+- Antigravity reports were wrong or half-wrong on 3 of 7 items; verify every claimed root cause against code and data before delegating a fix.
+
+---
+
 ## 1. Missing or Broken Acquisition Info & Empty Drawers
 * **Frequency**: 12+ occurrences
 * **User Symptom**: Clicking an item in Inventory, Mastery, or Cosmetics opens the Acquisition Drawer, but the drawer is either empty, missing component drops, or fails to resolve the item's origin.
@@ -364,6 +388,21 @@ Each section details:
 - Remove the excessive blank region and size or vertically align the recommendation content consistently with the overlay's intended presentation.
 - Preserve readability of all three recommendation columns at the game's supported resolutions.
 - Add a visual/layout regression check for the known-era view and recheck it in the deployed Preview AppImage.
+
+---
+
+## 23. Relic Reward Overlay Shows "UNRECOGNIZED" For A Valid Prime Part
+* **Frequency**: Reported during live Preview verification on 2026-10-02.
+* **User Symptom**: During a relic mission the first reward card (Sevagoth Prime Neuroptics Blueprint) showed "UNRECOGNIZED / NeuropticsBlueprint" while the other three cards matched.
+
+### Root Cause
+1. App log: `[OCR] Slot 1 cleaned: "Sevagoth prime NeuropticsBlueprint" -> "NeuropticsBlueprint"`. OCR read "Prime" in lowercase and lost the space before "Blueprint".
+2. `src-tauri/src/ocr.rs` `clean_ocr_output` accepted a leading token only if the next token also started with a capital, so "Sevagoth" and "prime" were discarded.
+3. The candidate pool (`getAllRelicRewards`) already contained "Sevagoth Prime Neuroptics Blueprint" under that exact name, so no data change was needed.
+
+### Resolution
+- `clean_ocr_output` now keeps following alphabetic words regardless of case and only drops real junk. The helpers were hoisted to module level so they can be unit-tested. Rust unit tests (`ocr::tests`, 3) and a real-data JS test (`tests/relics/rivenOcrMatch.test.mjs`) cover it; a truncated "NeuropticsBlueprint" alone still stays unmatched (no fabrication).
+- Not yet confirmed in a live relic mission.
 
 ---
 

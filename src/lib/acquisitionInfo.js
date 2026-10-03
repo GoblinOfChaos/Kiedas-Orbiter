@@ -5,6 +5,8 @@ import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisi
 // be opened before asynchronous resource injection reaches the context.
 import bundledWikiBaroAcquisition from '../../src-tauri/data/assets/data/wiki-baro-acquisition.json';
 import bundledWikiResourceAcquisition from '../../src-tauri/data/assets/data/wiki-resources-acquisition.json';
+import bundledWikiResourceSources from '../../src-tauri/data/assets/data/wiki-resource-sources.json';
+import bundledWarframeAcquisition from '../../src-tauri/data/assets/data/warframe-items-acquisition.json';
 import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
 import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
 import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-relic-drops.json';
@@ -19,6 +21,7 @@ const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map
 // check and fell through as if no data existed, for any resource whose
 // richer index lacked a matching entry.
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), typeof entry === 'string' ? { location: entry } : entry]));
+const bundledWikiResourceSourcesIndex = new Map(Object.entries(bundledWikiResourceSources).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replaceAll('/StoreItems/', '/'), text]));
 
@@ -89,6 +92,7 @@ const INCARNON_GENESIS_PATTERN = /\/Types\/Items\/MiscItems\/IncarnonAdapters\//
 // occurrences so those exact components match the corresponding catalog
 // identity instead of silently falling through to the Wiki fallback.
 const canonicalPath = (v) => typeof v === 'string' ? v.replaceAll('/StoreItems/', '/') : v;
+const bundledWarframeAcquisitionIndex = new Map((Array.isArray(bundledWarframeAcquisition) ? bundledWarframeAcquisition : []).map((entry) => [canonicalPath(entry?.uniqueName), entry]));
 
 function cleanResolvedName(value) {
   return typeof value === 'string' ? value.replace(/<[^>]*>/g, '').trim() : '';
@@ -674,6 +678,92 @@ export function buildWikiResourceIndex(data) {
   return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
 }
 
+function isResourceItem(uniqueName, displayName, wikiResourceIndex, exportComponentIndex) {
+  const key = normalizeDisplayName(displayName);
+  if (bundledWikiResourceSourcesIndex.has(key) || wikiResourceIndex?.has(key) || bundledWikiResourceIndex.has(key)) return true;
+  if (exportComponentIndex?.resourceCatalog?.has(canonicalPath(uniqueName))) return true;
+  return /^\/Lotus\/Types\/(?:Items\/(?:MiscItems|Research|Gems|Fish|Resources)|Gameplay\/.*\/Resources|Game\/.*\/Resources)\//i.test(canonicalPath(uniqueName) || '');
+}
+
+function wikiDropMatchesDeRow(wikiDrop, deRow) {
+  const wikiNodes = (wikiDrop.nodes || []).map((node) => normalizeDisplayName(String(node).split(',')[0])).filter(Boolean);
+  const deLocation = normalizeDisplayName(deRow.location || '');
+  const sameChance = wikiDrop.chance == null || deRow.chance == null || Math.abs(wikiDrop.chance - deRow.chance) < 0.000001;
+  const deLocationName = deLocation.replace(/^.*\//, '').replace(/, rotation [a-d]$/i, '').trim();
+  const sameNamedSource = wikiDrop.source && deLocationName === normalizeDisplayName(wikiDrop.source);
+  const sameNode = wikiNodes.some((node) => deLocation.includes(node));
+  return sameChance && (sameNamedSource || sameNode);
+}
+
+function formatWikiResourceDrop(wikiDrop) {
+  const nodes = (wikiDrop.nodes || []).length ? ` — ${(wikiDrop.nodes || []).join('; ')}` : '';
+  const rotation = wikiDrop.rotationOrTable ? `, ${wikiDrop.rotationOrTable}` : '';
+  const quantity = wikiDrop.quantity != null ? `, ${wikiDrop.quantity}x` : '';
+  return `${wikiDrop.source || wikiDrop.missionType}${rotation}${quantity}${nodes}`;
+}
+
+function buildResourceSources(displayName, wikiResource, deSources, supplementalSources = []) {
+  const sources = [];
+  if (wikiResource?.foundText) {
+    sources.push({ type: 'non-drop', text: wikiResource.foundText, source: `Warframe Wiki (${wikiResource.url})`, resourceWiki: true });
+  }
+
+  const deRows = Array.isArray(deSources) ? deSources.map((source) => ({ ...source })) : [];
+  const wikiDrops = Array.isArray(wikiResource?.drops) ? wikiResource.drops : [];
+  for (const deRow of deRows) {
+    deRow.type = 'mission';
+    deRow.nodeName = deRow.location || deRow.nodeName;
+    deRow.source = deRow.source || 'warframe-items';
+    const wikiDrop = wikiDrops.find((candidate) => wikiDropMatchesDeRow(candidate, deRow));
+    if (!wikiDrop) continue;
+    deRow.nodes = wikiDrop.nodes || [];
+    deRow.missionType = wikiDrop.missionType || deRow.missionType;
+    deRow.rotationOrTable = wikiDrop.rotationOrTable || deRow.rotationOrTable;
+    deRow.resourceSource = wikiDrop.source || deRow.resourceSource;
+  }
+  sources.push(...deRows);
+
+  const unmatchedWikiDrops = wikiDrops.filter((wikiDrop) => !deRows.some((deRow) => wikiDropMatchesDeRow(wikiDrop, deRow)));
+  for (const wikiDrop of unmatchedWikiDrops) {
+    sources.push({
+      type: 'non-drop',
+      text: formatWikiResourceDrop(wikiDrop),
+      chance: wikiDrop.chance,
+      quantity: wikiDrop.quantity,
+      nodes: wikiDrop.nodes || [],
+      missionType: wikiDrop.missionType,
+      resourceSource: wikiDrop.source,
+      source: `Warframe Wiki (${wikiResource.url})`,
+      resourceWiki: true,
+    });
+  }
+  for (const section of wikiResource?.otherSections || []) {
+    sources.push({
+      type: 'non-drop',
+      text: section.text,
+      section: section.heading,
+      source: `Warframe Wiki (${wikiResource.url})`,
+      resourceWiki: true,
+    });
+  }
+  for (const supplemental of supplementalSources) {
+    if (!sources.some((source) => source.text === supplemental.text && source.source === supplemental.source)) sources.push(supplemental);
+  }
+  return sources;
+}
+
+function getBundledResourceDrops(uniqueName) {
+  const item = bundledWarframeAcquisitionIndex.get(canonicalPath(uniqueName));
+  if (!Array.isArray(item?.drops)) return null;
+  return item.drops.map((drop) => ({
+    type: 'drop',
+    location: drop.location,
+    dropType: drop.type,
+    rarity: drop.rarity,
+    chance: drop.chance,
+  }));
+}
+
 export function buildWikiPageAcquisitionIndex(data) {
   return buildDisplayNameIndex(data, (entry) => entry && typeof entry === 'object' ? entry : null);
 }
@@ -741,6 +831,15 @@ export function buildGlyphSupplementIndex(data) {
 export function buildExportComponentIndex(exportData) {
   const index = new Map();
   const dict = exportData?.dict || exportData?.['dict.en'] || {};
+  const resourceCatalog = new Set();
+  const excludedProducts = new Set(['ShipDecorations', 'Glyphs', 'Emotes', 'Flavour', 'ShipFeatures']);
+  const primePart = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
+  for (const [uniqueName, entry] of Object.entries(exportData?.ExportResources || {})) {
+    if (!entry || excludedProducts.has(entry.productCategory)) continue;
+    if (/\/ShipDecos\/|\/Glyphs\/|\/GlyphBoxes\/|\/Emotes\/|VoidProjection|\/SongItem|\/PhotoboothTile|\/ShipFeatureItems\/|\/NavigationFeatureItem\//i.test(`${entry.parentName || ''}${uniqueName}`)) continue;
+    if (primePart.test(uniqueName.split('/').pop() || '')) continue;
+    resourceCatalog.add(canonicalPath(uniqueName));
+  }
   const cleanName = (value) => cleanResolvedName(value ? (dict[value] || dict[`/${value}`] || value) : '');
   for (const tableName of ['ExportCustoms', 'ExportGear', 'ExportResources', 'ExportUpgrades']) {
     for (const [parentUniqueName, entry] of Object.entries(exportData?.[tableName] || {})) {
@@ -758,6 +857,7 @@ export function buildExportComponentIndex(exportData) {
     }
   }
   for (const [key, value] of index) if (!value) index.delete(key);
+  index.resourceCatalog = resourceCatalog;
   return index;
 }
 
@@ -795,6 +895,7 @@ export function buildAllAcquisitionIndexes(exportData) {
 
 export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
+  const resourceRoute = isResourceItem(dropIndexKey, displayName, wikiResourceIndex, exportComponentIndex);
   // The bare-displayName key is unsafe on its own: it's shared across every
   // item that happens to have this exact display name (e.g. a Warframe and
   // an unrelated Prex Card can both be "Follie"), so a more specific,
@@ -802,7 +903,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // ordering, ~34 items showed a bundle/promo blurb meant for a cosmetic
   // variant instead of their own correct `${displayName}|Blueprint` entry
   // sitting right next to it in the same file.
-  const rawOverrideText = overridesData?.mods?.[displayName]
+  const rawOverrideText = resourceRoute ? null : overridesData?.mods?.[displayName]
     ?? overridesData?.components?.[dropIndexKey]
     ?? overridesData?.components?.[`${displayName}|Blueprint`]
     ?? overridesData?.components?.[displayName];
@@ -1001,6 +1102,23 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       }
     }
   }
+  const itemDrops = getItemDrops(dropIndexKey) || getBundledResourceDrops(dropIndexKey);
+  const bundledResource = bundledWikiResourceSourcesIndex.get(displayLower)
+    || (() => {
+      const legacy = wikiResourceIndex?.get(displayLower) || bundledWikiResourceIndex.get(displayLower);
+      return legacy?.location ? { foundText: `Found at ${legacy.location}.`, drops: [], otherSections: [], url: getWikiLink(dropIndexKey, displayName)?.url } : null;
+    })();
+  if (resourceRoute
+    && (dropSources.length > 0 || itemDrops?.length > 0 || bundledResource)) {
+    const deSources = itemDrops?.length > 0 ? itemDrops : dropSources;
+    return {
+      sources: buildResourceSources(displayName, bundledResource, deSources, wikiPageSupplementSources),
+      recipe: recipe || null,
+      wikiLink: bundledResource?.url
+        ? { url: bundledResource.url, isDirect: true }
+        : getWikiLink(dropIndexKey, displayName),
+    };
+  }
   if (dropSources && dropSources.length > 0) {
     const sourcesWithoutInternalFields = normalizeRelicSources(dropSources).map(({ __relicSignature, state, chance, ...source }) => source);
     const usedBaseRelicFallback = baseRelicDisplay && !dropIndex?.['display:' + displayLower]?.length;
@@ -1014,7 +1132,6 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
       : getWikiLink(dropIndexKey, displayName) };
   }
 
-  const itemDrops = getItemDrops(dropIndexKey);
   if (itemDrops) {
     return { sources: itemDrops.map((source) => source.source ? source : { ...source, source: 'warframe-items' }), recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
   }

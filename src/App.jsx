@@ -578,12 +578,14 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <UiProvider>
-          <MonitoringProvider>
-            <UpdateProvider>
-              <SetupScreen />
-              <AppContent />
-            </UpdateProvider>
-          </MonitoringProvider>
+          <ErrorBoundary>
+            <MonitoringProvider>
+              <UpdateProvider>
+                <SetupScreen />
+                <AppContent />
+              </UpdateProvider>
+            </MonitoringProvider>
+          </ErrorBoundary>
         </UiProvider>
       </ThemeProvider>
     </ErrorBoundary>);

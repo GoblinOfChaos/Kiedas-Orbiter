@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Map, X, ChevronDown, ExternalLink, Flag } from 'lucide-react';
 import {
   useAcquisitionDrawerData,
@@ -9,7 +9,7 @@ import {
   formatDuration,
 } from '../../components/AcquisitionDrawer';
 import { resolveBlueprintOrigin, getItemDrops } from '../../lib/acquisitionData';
-import { buildIngredientSourceRows } from '../../lib/relicSources';
+import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex } from '../../lib/relicSources';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
 import { useUi } from '../../contexts/UiContext';
@@ -25,13 +25,14 @@ import FarmingTargetAction from '../../components/FarmingTargetAction';
  */
 export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const { t, i18nData } = useUi();
-  const { dropIndex } = useMonitoring();
+  const { dropIndex, exportData } = useMonitoring();
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
   const [showReportModal, setShowReportModal] = useState(false);
   const [altsExpanded, setAltsExpanded] = useState(false);
   const drawerRef = useRef(null);
   const previousFocusRef = useRef(null);
   const headingId = 'preview-acq-drawer-title';
+  const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
 
   // Reset the disclosure/scroll state whenever the drawer starts showing a
   // different item (the drawer stays mounted, only `item` changes) so a
@@ -89,7 +90,12 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const featured = sources[0] || null;
   const alternatives = sources.slice(1);
   const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t, i18nData)) : null;
-  const blueprintOrigin = recipe ? resolveBlueprintOrigin(displayName, recipe) : null;
+  const isPrimeItem = /\bPrime\b/i.test(displayName || '');
+  const blueprintSources = recipe && isPrimeItem
+    ? buildBlueprintSourceRows(displayName, recipe, dropIndex, getItemDrops(recipe.blueprintUniqueName), relicRarityIndex)
+    : [];
+  const blueprintOrigin = recipe && blueprintSources.length === 0 ? resolveBlueprintOrigin(displayName, recipe) : null;
+  const blueprintCost = recipe?.blueprintMarketEligible === false ? null : formatCredits(recipe?.blueprintCost);
 
   return (
     <>
@@ -238,27 +244,31 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
             <div className="preview-acq-recipe">
               <h3>{t('acquisition_drawer.crafting_requirements')}</h3>
               <div className="preview-acq-recipe-costs">
-                {formatCredits(recipe.blueprintCost) && <span>{t('acquisition_drawer.blueprint_label')} <strong>{formatCredits(recipe.blueprintCost)}</strong></span>}
+                {blueprintCost && <span>{t('acquisition_drawer.blueprint_label')} <strong>{blueprintCost}</strong></span>}
                 {formatCredits(recipe.buildCost) && <span>{t('acquisition_drawer.build_label')} <strong>{formatCredits(recipe.buildCost)}</strong></span>}
                 {formatDuration(recipe.buildTime) && <span>{t('acquisition_drawer.time_label')} <strong>{formatDuration(recipe.buildTime)}</strong></span>}
                 {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong>{recipe.rushCost} {t('ui.dashboard.platinum')}</strong></span>}
               </div>
               {recipe.ingredients?.length > 0 &&
                 <div className="preview-acq-ingredients">
-                  {blueprintOrigin &&
+                  {(blueprintSources.length > 0 || blueprintOrigin) &&
                     <div className="preview-acq-ingredient">
                       <div className="preview-acq-ingredient-row">
-                        <span>1x {t('acquisition_drawer.blueprint_label')}</span>
+                        <span>1x {isPrimeItem ? `${displayName} Blueprint` : t('acquisition_drawer.blueprint_label')}</span>
                       </div>
                       <div className="preview-acq-ingredient-sources">
-                        <div className="preview-acq-ingredient-source-row">
-                          <span>{blueprintOrigin}</span>
-                        </div>
+                        {blueprintSources.length > 0
+                          ? blueprintSources.map((source, sourceIndex) => (
+                            <div key={`${source.relicName || source.location || 'source'}-${sourceIndex}`} className="preview-acq-ingredient-source-row">
+                              <span>{getSourceLabel(source, t)}</span>
+                            </div>
+                          ))
+                          : <div className="preview-acq-ingredient-source-row"><span>{blueprintOrigin}</span></div>}
                       </div>
                     </div>
                   }
                   {recipe.ingredients.map((ingredient, i) => {
-                    const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType));
+                    const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
                     return (
                       <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="preview-acq-ingredient">
                         <div className="preview-acq-ingredient-row">

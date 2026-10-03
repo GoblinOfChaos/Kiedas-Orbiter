@@ -5,7 +5,7 @@ import path from 'node:path'
 import { loadRealHarness, DEFAULT_DATA_DIR } from '../../scripts/lib/real-data-harness.mjs'
 import { buildDropIndex } from '../../src/lib/dropsParser.js'
 import { buildRelicPlaces } from '../../src/lib/farmingTargets/relicPlaces.js'
-import { buildIngredientSourceRows, getRelicSourceLabel } from '../../src/lib/relicSources.js'
+import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel } from '../../src/lib/relicSources.js'
 
 const overrides = JSON.parse(fs.readFileSync(new URL('../../src-tauri/data/assets/data/acquisition_overrides.json', import.meta.url)))
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'))
@@ -53,6 +53,46 @@ test('real data: Ash Prime Chassis relic rows are unique per relic', { skip: !ha
   assert.equal(new Set(names).size, names.length)
   assert.ok(names.length > 0)
   assert.ok(relics.every((source) => source.chance === undefined && source.state === undefined))
+})
+
+test('real data: Prime blueprint rows use one DE-tiered relic per blueprint in the drawer path', { skip: !haveRealData }, async () => {
+  const harness = await sharedHarness()
+  const dropIndex = sharedDropIndex ||= buildDropIndex(harness.exportsBundle)
+  const rarityIndex = buildRelicRarityIndex(harness.exportsBundle)
+  const checks = [
+    ['/Lotus/Powersuits/Ninja/AshPrime', 'Ash Prime'],
+    ['/Lotus/Powersuits/Geode/CitrinePrime', 'Citrine Prime'],
+    ['/Lotus/Weapons/Tenno/LongGuns/PrimeAcceltra/PrimeAcceltraWeapon', 'Acceltra Prime'],
+  ]
+  for (const [uniqueName, displayName] of checks) {
+    const result = await acquisition(harness, uniqueName, displayName)
+    const fallback = harness.exportsBundle.AcquisitionItems
+      .flatMap((item) => item.components || [])
+      .find((component) => component.uniqueName === result.recipe.blueprintUniqueName)
+    const rows = buildBlueprintSourceRows(displayName, result.recipe, dropIndex, fallback?.drops || [], rarityIndex)
+    assert.ok(rows.length > 0, `${displayName} blueprint has no source rows`)
+    assert.ok(rows.every((source) => source.type === 'relic'))
+    assert.equal(new Set(rows.map((source) => source.relicName)).size, rows.length)
+    assert.ok(rows.every((source) => source.chance === undefined && source.state === undefined))
+    assert.ok(rows.every((source) => !/Intact|Exceptional|Flawless|Radiant|%/i.test(JSON.stringify(source))))
+    assert.ok(rows.every((source) => source.rarity))
+  }
+})
+
+test('real data: plain Prime component drops become unique DE-tiered relic rows', { skip: !haveRealData }, async () => {
+  const harness = await sharedHarness()
+  const item = harness.exportsBundle.AcquisitionItems.find((entry) => entry.name === 'Ash Prime')
+  const ingredient = item.components.find((component) => component.name === 'Neuroptics')
+  const rows = buildIngredientSourceRows(
+    { itemType: ingredient.uniqueName, name: 'Ash Prime Neuroptics' },
+    {},
+    ingredient.drops,
+    buildRelicRarityIndex(harness.exportsBundle),
+  )
+  assert.ok(rows.length > 0)
+  assert.equal(new Set(rows.map((source) => source.relicName)).size, rows.length)
+  assert.ok(rows.every((source) => source.type === 'relic' && source.chance === undefined && source.state === undefined))
+  assert.ok(rows.every((source) => !/Intact|Exceptional|Flawless|Radiant|%/i.test(JSON.stringify(source))))
 })
 
 test('real data: Acceltra Prime Barrel ingredient rows show each relic once with only its tier', { skip: !haveRealData }, async () => {
@@ -117,4 +157,42 @@ test('real data: quantity-prefixed Orokin Cell does not create a blueprint displ
   assert.equal(index['/Lotus/Types/Recipes/WarframeRecipes/NarinChassisBlueprint']?.length, 3)
   assert.equal(index['/Lotus/Types/Recipes/WarframeRecipes/CitrinePrimeChassisBlueprint']?.length, 8)
   assert.equal(index['/Lotus/Types/Recipes/Weapons/GrimoireBlueprint']?.length || 0, 0)
+})
+
+test('real data: Orokin Cell blueprint origin is the recipe-derived Market price', { skip: !haveRealData }, async () => {
+  const harness = await sharedHarness()
+  const result = await acquisition(harness, '/Lotus/Types/Items/MiscItems/OrokinCell', 'Orokin Cell')
+  const { resolveBlueprintOrigin } = await import('../../src/lib/acquisitionData.js')
+  assert.equal(result.recipe.blueprintPlatinumCost, 100)
+  assert.equal(resolveBlueprintOrigin('Orokin Cell', result.recipe), 'Market Blueprint: 100 Platinum')
+  assert.doesNotMatch(resolveBlueprintOrigin('Orokin Cell', result.recipe), /Saturn|Ceres|Deimos|enemy drops/i)
+})
+
+test('real data: excluded recipes never expose creditsCost as a Market blueprint price', { skip: !haveRealData }, async () => {
+  const harness = await sharedHarness()
+  const { buildRecipeResultIndex } = await import('../../src/lib/acquisitionInfo.js')
+  const recipeIndex = buildRecipeResultIndex(harness.exportsBundle)
+  for (const recipe of Object.values(harness.exportsBundle.ExportRecipes || {})) {
+    if (recipe?.excludeFromMarket !== true || !recipe?.creditsCost) continue
+    const indexed = recipeIndex.get(recipe.resultType)
+    if (!indexed) continue
+    assert.equal(indexed?.blueprintMarketEligible, false)
+    assert.equal(indexed?.blueprintCost, null)
+  }
+})
+
+test('real data: non-Prime priced recipes retain their verified blueprint prices', { skip: !haveRealData }, async () => {
+  const harness = await sharedHarness()
+  const { buildRecipeResultIndex } = await import('../../src/lib/acquisitionInfo.js')
+  const recipeIndex = buildRecipeResultIndex(harness.exportsBundle)
+  const samples = [
+    ['/Lotus/Types/Items/Ships/ZarimanShip', 70000, null],
+    ['/Lotus/Types/Items/MiscItems/NeuralSensor', null, 100],
+  ]
+  for (const [resultType, creditsCost, platinumCost] of samples) {
+    const indexed = recipeIndex.get(resultType)
+    assert.equal(indexed?.blueprintMarketEligible, true)
+    if (creditsCost != null) assert.equal(indexed?.blueprintCost, creditsCost)
+    if (platinumCost != null) assert.equal(indexed?.blueprintPlatinumCost, platinumCost)
+  }
 })

@@ -246,7 +246,10 @@ export function buildRecipeResultIndex(exportData) {
       index.set(canonicalPath(recipe.resultType), {
         resultType: canonicalPath(recipe.resultType),
         blueprintUniqueName: canonicalPath(blueprintName),
-        blueprintCost: recipe.creditsCost,
+        blueprintCost: recipe.excludeFromMarket ? null : recipe.creditsCost,
+        blueprintPlatinumCost: recipe.excludeFromMarket ? null : recipe.platinumCost,
+        blueprintMarketEligible: recipe.excludeFromMarket !== true,
+        excludeFromMarket: recipe.excludeFromMarket === true,
         buildCost: recipe.buildPrice,
         buildTime: recipe.buildTime,
         rushCost: recipe.skipBuildTimePrice,
@@ -322,9 +325,11 @@ function formatBuildTime(seconds) {
 
 function formatRecipeAcquisition(recipe) {
   const details = ['Built in the Foundry from a blueprint.'];
-  const blueprintCost = formatCredits(recipe?.blueprintCost);
+  const blueprintCost = recipe?.blueprintMarketEligible === false ? null : formatCredits(recipe?.blueprintCost);
+  const blueprintPlatinumCost = recipe?.blueprintMarketEligible === false ? null : recipe?.blueprintPlatinumCost;
   const buildCost = formatCredits(recipe?.buildCost);
   if (blueprintCost) details.push(`Blueprint: ${blueprintCost}.`);
+  if (blueprintPlatinumCost > 0) details.push(`Blueprint: ${Number(blueprintPlatinumCost).toLocaleString()} Platinum.`);
   if (buildCost) details.push(`Build cost: ${buildCost}.`);
   const buildTime = formatBuildTime(recipe?.buildTime);
   if (buildTime) details.push(`Build time: ${buildTime}.`);
@@ -871,7 +876,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const marketAmount = marketEntry ? Number(marketEntry.amount) : 0;
   const marketCurrency = marketEntry?.currency || 'Platinum';
   const marketRouteCanBeRendered = marketMentioned && marketAmount > 0
-    && (!recipe || Number(recipe.blueprintCost) > 0 || !/blueprint/i.test(overrideText));
+    && (!recipe || (recipe.blueprintMarketEligible !== false && Number(recipe.blueprintCost) > 0) || !/blueprint/i.test(overrideText));
   // An exact, source-backed acquisition record outranks an older manual
   // override for the same DE object. Keep the path match strict: this is not
   // a name/category rule and cannot bleed into similarly named variants.

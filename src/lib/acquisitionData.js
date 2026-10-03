@@ -4354,7 +4354,7 @@ export const WARFRAME_ACQUISITIONS = {
   },
   "orokin cell": {
     "general": "Saturn, Ceres, and Deimos missions \u2014 Planetary enemy drops, Cell Array deposits, and Boss drops (General Sargas Ruk, Lieutenant Lech Kril, Stalker).",
-    "blueprint": "Saturn, Ceres, and Deimos missions \u2014 Planetary enemy drops, Cell Array deposits, and Boss drops (General Sargas Ruk, Lieutenant Lech Kril, Stalker)."
+    "blueprint": null
   },
   "orokin orientation matrix": {
     "general": "Orokin Orientation Matrix are a common reward in the Isolation Vault bounties offered by Mother. One is also guaranteed to drop by killing the Necramech guarding the Tier 1 Isolation Vault. Resource Booster and loot abilities such as Nekros' Desecrate increase the amount of Orokin Matrices acquired from killed Necramechs.",
@@ -14819,7 +14819,9 @@ export function getItemRecipe(uniqueName, displayName) {
     skipBuildTimePrice: item.skipBuildTimePrice ?? null,
     consumeOnBuild: item.consumeOnBuild ?? true,
     bpCost: item.bpCost ?? null,
-    blueprintCost: item.bpCost ?? null,
+    blueprintCost: item.excludeFromMarket ? null : item.bpCost ?? null,
+    blueprintPlatinumCost: item.excludeFromMarket ? null : item.blueprintPlatinumCost ?? null,
+    blueprintMarketEligible: item.excludeFromMarket !== true,
     blueprintDrops: bpDrops,
     marketCost: item.marketCost ?? null,
     itemCount: item.itemCount ?? 1,
@@ -14919,12 +14921,19 @@ export function resolveComponentAcquisition(name, parentName) {
 export function resolveBlueprintOrigin(displayName, resolvedRecipe) {
   if (!displayName) return null;
   const norm = displayName.toLowerCase().trim();
+  const blueprintMarketEligible = resolvedRecipe?.blueprintMarketEligible !== false;
 
   // 1. Clan Dojo Research (O(1) hash lookup)
   const r = WIKI_RESEARCH[displayName] || WIKI_RESEARCH[norm];
   if (r?.lab) {
-    const creditStr = resolvedRecipe?.blueprintCost ? ` (${resolvedRecipe.blueprintCost.toLocaleString()} Credits)` : '';
+    const creditStr = blueprintMarketEligible && resolvedRecipe?.blueprintCost
+      ? ` (${resolvedRecipe.blueprintCost.toLocaleString()} Credits)`
+      : '';
     return `Clan Dojo Research: ${r.lab}${creditStr}`;
+  }
+
+  if (blueprintMarketEligible && resolvedRecipe?.blueprintPlatinumCost > 0) {
+    return `Market Blueprint: ${Number(resolvedRecipe.blueprintPlatinumCost).toLocaleString()} Platinum`;
   }
 
   // 2. Warframe & Weapon Master Registry (O(1) hash lookup)
@@ -14942,7 +14951,7 @@ export function resolveBlueprintOrigin(displayName, resolvedRecipe) {
   }
 
   // 4. Verified Market Blueprint
-  if (resolvedRecipe?.blueprintCost) {
+  if (blueprintMarketEligible && resolvedRecipe?.blueprintCost) {
     return `Market Blueprint: ${resolvedRecipe.blueprintCost.toLocaleString()} Credits`;
   }
 

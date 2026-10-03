@@ -1,9 +1,9 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { Info, ExternalLink, Flag } from 'lucide-react';
 import { invoke } from '../lib/logging/tauri';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
 import { sortSourcesByChanceInRotations } from '../lib/chanceSort';
-import { getItemDrops } from '../lib/acquisitionData';
+import { getItemDrops, resolveBlueprintOrigin } from '../lib/acquisitionData';
 import { localizeOverrideText } from '../lib/acquisitionTemplates';
 import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
@@ -11,7 +11,7 @@ import { useUi } from '../contexts/UiContext';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 import { event } from '../lib/logging/logger';
-import { buildIngredientSourceRows, getRelicSourceLabel } from '../lib/relicSources';
+import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel } from '../lib/relicSources';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -214,9 +214,10 @@ export function useAcquisitionDrawerData(item) {
 
 export default function AcquisitionDrawer({ item, onClose }) {
   const { t, i18nData } = useUi();
-  const { dropIndex } = useMonitoring();
+  const { dropIndex, exportData } = useMonitoring();
   const [showReportModal, setShowReportModal] = useState(false);
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
+  const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
 
   if (!item) return null;
 
@@ -225,6 +226,12 @@ export default function AcquisitionDrawer({ item, onClose }) {
   const rootClassName = 'fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]';
   const innerClassName = 'max-w-6xl mx-auto px-6 py-4';
   const sourcesGridClassName = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto';
+  const isPrimeItem = /\bPrime\b/i.test(displayName || '');
+  const blueprintSources = recipe && isPrimeItem
+    ? buildBlueprintSourceRows(displayName, recipe, dropIndex, getItemDrops(recipe.blueprintUniqueName), relicRarityIndex)
+    : [];
+  const blueprintOrigin = recipe && blueprintSources.length === 0 ? resolveBlueprintOrigin(displayName, recipe) : null;
+  const blueprintCost = recipe?.blueprintMarketEligible === false ? null : formatCredits(recipe?.blueprintCost);
 
   return (
     <div className={rootClassName}>
@@ -303,19 +310,31 @@ export default function AcquisitionDrawer({ item, onClose }) {
         {recipe &&
           <div className="mt-3 rounded bg-black/20 border border-white/5 px-3 py-2">
             <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-kronos-dim">
-              {formatCredits(recipe.blueprintCost) && <span>{t('acquisition_drawer.blueprint_label')} <strong className="text-kronos-text">{formatCredits(recipe.blueprintCost)}</strong></span>}
+              {blueprintCost && <span>{t('acquisition_drawer.blueprint_label')} <strong className="text-kronos-text">{blueprintCost}</strong></span>}
               {formatCredits(recipe.buildCost) && <span>{t('acquisition_drawer.build_label')} <strong className="text-kronos-text">{formatCredits(recipe.buildCost)}</strong></span>}
               {formatDuration(recipe.buildTime) && <span>{t('acquisition_drawer.time_label')} <strong className="text-kronos-text">{formatDuration(recipe.buildTime)}</strong></span>}
               {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong className="text-kronos-text">{recipe.rushCost} {t('ui.dashboard.platinum')}</strong></span>}
             </div>
             {recipe.ingredients?.length > 0 &&
               <div className="mt-2 flex flex-wrap gap-1.5">
+            {(blueprintSources.length > 0 || blueprintOrigin) &&
+              <div className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="whitespace-normal break-words">1x {isPrimeItem ? `${displayName} Blueprint` : t('acquisition_drawer.blueprint_label')}</span>
+                </div>
+                <div className="mt-1 space-y-0.5 border-t border-white/5 pt-1">
+                  {blueprintSources.length > 0
+                    ? blueprintSources.map((source, sourceIndex) => <div key={`${source.relicName || source.location || 'source'}-${sourceIndex}`} className="flex items-start justify-between gap-2 text-[11px] text-kronos-dim"><span className="whitespace-normal break-words">{getSourceLabel(source, t)}</span></div>)
+                    : <div className="flex items-start justify-between gap-2 text-[11px] text-kronos-dim"><span className="whitespace-normal break-words">{blueprintOrigin}</span></div>}
+                </div>
+              </div>
+            }
             {recipe.ingredients.map((ingredient, i) => {
               // Prefer the live drops.wf-based index (matches PreviewAcquisitionDrawer's
               // pattern, see GitHub #114); fall back to the static warframe-items file
               // only when the live index has no entry, so its isFakeVendorPurchaseDrop
               // filtering still covers any items dropIndex doesn't.
-              const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType));
+              const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
               return (
               <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
                 <div className="flex items-start justify-between gap-2">

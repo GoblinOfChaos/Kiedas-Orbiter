@@ -6,6 +6,7 @@ import { Loader2, Check, HelpCircle } from 'lucide-react';
 import { listen } from '@tauri-apps/api/event';
 import { convertFileSrc, invoke } from '../../lib/logging/tauri';
 import { getPrice } from '../../lib/marketEngine';
+import { getRelicRewardCounts } from '../../lib/relicRewardModel';
 
 const RELIC_TIMEOUT = 14500;
 
@@ -364,6 +365,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
   const iconSrc = (name) => iconsPath ? convertFileSrc(`${iconsPath}/${String(name).replace(/^\/+/, '')}.png`) : null;
   const item = confirmed?.item;
   const inv = item?.inventory || {};
+  const counts = getRelicRewardCounts(item, inv);
   const isRequiem = item?.isRequiem;
   const isForma = inv.isForma;
   const isResource = inv.isResource;
@@ -375,7 +377,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
   if (isCountLayout) {
     return (
       <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40 min-h-[180px]">
-        <ItemArt icon={itemIcon} owned={inv.craftedCount} blueprintCount={inv.blueprintCount} />
+        <ItemArt icon={itemIcon} owned={counts.craftedCount} blueprintCount={counts.blueprintCount} />
         <div className="px-2.5 pt-2.5">
           <div className="text-[11px] font-black text-white uppercase leading-tight mb-3 text-center tracking-tight">
             {displayName}
@@ -389,7 +391,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
         <div className="border-t border-white/5" />
         <div className="px-2.5 pt-2 pb-2">
           <div className="flex items-center gap-1.5 justify-evenly">
-            <Badge count={inv.craftedCount} label="Owned" />
+            <Badge count={counts.craftedCount} label="Owned" />
           </div>
         </div>
         <div className="flex-1" />
@@ -400,7 +402,7 @@ function RewardSlot({ confirmed, isLocal, price }) {
   // Normal items - original structure unchanged
   return (
     <div className="rounded-xl border overflow-hidden flex flex-col mx-1 transition-all border-white/5 bg-black/40">
-      <ItemArt icon={itemIcon} owned={inv.craftedCount} blueprintCount={inv.blueprintCount} />
+      <ItemArt icon={itemIcon} owned={counts.craftedCount} blueprintCount={counts.blueprintCount} />
       {/* Reward Name */}
       <div className="px-2.5 pt-2.5 pb-2">
         <div className="text-[11px] font-black text-white uppercase leading-tight mb-2 text-center tracking-tight">
@@ -439,10 +441,10 @@ function RewardSlot({ confirmed, isLocal, price }) {
       {/* BP + Owned + Mastery badges */}
       {!isRequiem &&
       <div className="flex items-center gap-1.5 px-2.5 pb-2 justify-evenly">
-          {!isResource && <Badge count={inv.blueprintCount} label="BP" />}
-          <Badge count={inv.craftedCount} label="Owned" />
+          {!isResource && <Badge count={counts.blueprintCount} label="BP" />}
+          <Badge count={counts.craftedCount} label="Owned" />
           {!isForma && !isResource &&
-        <Badge count={0} label="Mastered" isMastered={inv.isMastered} canMastered={true} />
+        <Badge count={0} label="Mastered" isMastered={counts.isMastered} canMastered={true} />
         }
         </div>
       }

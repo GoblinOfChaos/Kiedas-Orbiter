@@ -89,7 +89,8 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
         : undefined;
       const label = source.nodeName || source.node || missionTypeName || t('acquisition_drawer.mission_fallback');
       const suffix = missionTypeName && (source.nodeName || source.node) ? ` (${missionTypeName})` : '';
-      return `${source.region ? `${source.region} — ` : ''}${label}${suffix}${rotation}`;
+      const nodes = Array.isArray(source.nodes) && source.nodes.length ? ` — ${source.nodes.join('; ')}` : '';
+      return `${source.region ? `${source.region} — ` : ''}${label}${suffix}${rotation}${nodes}`;
     }
     case 'enemy':
       return source.enemyName || source.enemy || t('acquisition_drawer.enemy_drop');

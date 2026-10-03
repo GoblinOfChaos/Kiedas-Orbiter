@@ -6,23 +6,17 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 1 - Quick looks (under a minute each, no game needed, English is fine)
 
-- [x] #13 Inventory: search "Titan Extractor" and "Distilling Extractor": the Prime Set card and its Blueprint show real artwork, not IMAGE UNAVAILABLE
 - [ ] #32 Prime Sets tab: Aklex Prime, Akvasto Prime, Akbronco Prime and Akmagnus Prime list their two base guns (for example Lex Prime) as well as the Link and Blueprint
-- [x] #30 Prime Sets tab: OWNED appears only on sets whose finished item you own. Nyx, Vauban, Garuda, Carrier, Limbo, Nidus and Akbolto Prime must NOT say OWNED if you only hold the blueprint or parts (the completion ring "1/2 (50%)" still shows held parts)
-- [x] #11 Salvage drawer: no ship-decoration paragraph; Conclave drops are listed AND the wiki lines (Market: 30 Platinum for 3000 Salvage; Carme Mobile Defense and Olympus Disruption farming notes)
-- [x] #10 Voidgel Orb drawer: the sources listed match the summary; no "+N more sources" text without matching rows (spot-check two other items)
 - [ ] #8 REOPENED 2026-10-03: your check found it is not fixed. The Orokin Cell drawer's "1x Blueprint" row shows the resource's enemy-drop text; it should be the 100 Platinum Market purchase. Cause found, NO fix started; goes with #36 and #38. The Forma Blueprint and Prime part drawers part of this check still stands [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
 - [ ] #9 REOPENED 2026-10-03 for Warframe drawers: Ash Prime Neuroptics still lists (Radiant)/(Flawless) rows with percentages. Cause partly found, NO fix started. The part-drawer checks for Citrine Prime Blueprint and Acceltra Prime below still stand. Original text: Prime part drawers (Ash Prime Chassis, Citrine Prime Blueprint, Acceltra Prime): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no percentages, no raw key like `ui.relic_rarity.rare`. Check BOTH the top "How to obtain" list AND the "Crafting requirements" part rows [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
-- [x] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`
 - [ ] #18 REOPENED 2026-10-03: the Riven hotkey label "Grade Rivens" is still English when the app is not in English. Found: German is untranslated (the other 13 are done), and the tests accepted it. Tell me which language you saw it in. NO fix started; part of the wider English-text audit (see the report, section 18 addendum)
-- [x] Window under 1050px wide: collapsed sidebar rail scrollbar OK
 
 ## Step 2 - Switch the app language (about 5 minutes)
 
 - [ ] #14 German: Farming Targets (all 78 strings), Foundry, Prime Sets, Riven prompt text and relic tier labels are fully translated; nothing left in English except game names and "The Circuit" (no official localized name exists, so it stays English everywhere)
 - [ ] #14 Japanese, then one more language of your choice: the same screens read natively; no raw keys
 - [ ] #18 Market label in the sidebar is translated in French, Korean, Italian, Japanese, Polish, Traditional Chinese, Thai, Turkish and Ukrainian (a translation was nearly lost in one fix and restored)
-- [ ] #29 In German: the Dashboard calendar weekday and month names are German; Farming Targets > Target Inspector: the dropdown opens fully (not cut off) and ranked places show the planet with the place; farming drawer items show their images
+- [ ] #29 In German: the Dashboard calendar weekday and month names are German; Farming Targets > Target Inspector: the dropdown opens fully (not cut off) and ranked places show the planet with the place; farming drawer items show their images [You reported 2026-10-03: the Target Inspector dropdown works and no longer clips. Still to check: the German weekday/month names and the farming drawer images. The 'Group by planet' toggle problem is #47]
 
 ## Step 3 - A little scrolling and clicking (about 5 minutes)
 
@@ -31,16 +25,12 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 4 - Needs Warframe running
 
-- [x] #24 Start the scanner (launch the game) with the app in a non-English language: the "scanner hooked" toast shows real text, not `app.scanner_title`
 - [ ] #28 After a session with the game open, the log (`~/.local/share/kiedas-orbiter-preview/data/user/logs/app-YYYY-MM-DD.log`) does not fill with `[FOCUS_WATCHER] transition: focused -> unfocused` every half second (R) [Coordinator check 2026-10-03 14:44: only 24 focus changes in about 1 hour of play (worst case 5 in one minute), versus 459 in a day with the old build, so this looks fixed; your call to tick] [Coordinator re-check 15:08: 26 transitions in 1.5 h, max 5/minute; but twice the focus flapped for a few seconds when the relic reward overlay appeared, so tell me if you saw the overlay flicker]
-- [x] #17 / #25 / #26 Riven reroll screen: the grading banner appears and STAYS visible after you press the hotkey, and disappears only when you leave the riven screen; leaving the screen hides everything and nothing reappears on its own later; look in the log for `[MEMORY WATCHER] dedupe:` lines (R)
-- [x] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R)
 - [ ] #23 Relic mission (Citrine/Sevagoth Prime or any relic): all reward cards are recognized, none say UNRECOGNIZED (R) [PARTLY RE-OPENED 2026-10-03: see #44, one card of a duplicate pair was UNRECOGNIZED twice]
-- [x] Riven single-card grading (one card only, before any reroll)
 
 ## Step 5 - Needs measuring or sending me something
 
-- [ ] #15 Inventory scroll range: open developer tools, click one general inventory card and read its `offsetHeight` and the grid `row-gap`; send me both numbers (the fix waits for them). Also say which tab shows the empty space [UPDATE 2026-10-03: you saw no extra room at the end on the tab you tried; see #46. The console measurement is optional now]
+- [x] #15 Inventory scroll range: open developer tools, click one general inventory card and read its `offsetHeight` and the grid `row-gap`; send me both numbers (the fix waits for them). Also say which tab shows the empty space [UPDATE 2026-10-03: you saw no extra room at the end on the tab you tried; see #46. The console measurement is optional now]
 - [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
 
 ## Confirmed by you (kept for the record)
@@ -50,6 +40,16 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [x] Citrine Prime relics: Relics tab, Relic Planner, Relics screen, Inventory
 - [x] Double scrollbar gone: Inventory, Rivens, Relics, Market, Relic Planner, Dashboard live activities, sidebar, Notes tab strip
 - [x] Scrollbars (8px) are grabbable by mouse and not big or white
+- [x] #13 Inventory: search "Titan Extractor" and "Distilling Extractor": the Prime Set card and its Blueprint show real artwork, not IMAGE UNAVAILABLE (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #30 Prime Sets tab: OWNED appears only on sets whose finished item you own. Nyx, Vauban, Garuda, Carrier, Limbo, Nidus and Akbolto Prime must NOT say OWNED if you only hold the blueprint or parts (the completion ring "1/2 (50%)" still shows held parts) (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #11 Salvage drawer: no ship-decoration paragraph; Conclave drops are listed AND the wiki lines (Market: 30 Platinum for 3000 Salvage; Carme Mobile Defense and Olympus Disruption farming notes) (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #10 Voidgel Orb drawer: the sources listed match the summary; no "+N more sources" text without matching rows (spot-check two other items) (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens` (confirmed by you 2026-10-03, build 795d0a7)
+- [x] Window under 1050px wide: collapsed sidebar rail scrollbar OK (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #24 Start the scanner (launch the game) with the app in a non-English language: the "scanner hooked" toast shows real text, not `app.scanner_title` (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #17 / #25 / #26 Riven reroll screen: the grading banner appears and STAYS visible after you press the hotkey, and disappears only when you leave the riven screen; leaving the screen hides everything and nothing reappears on its own later; look in the log for `[MEMORY WATCHER] dedupe:` lines (R) (confirmed by you 2026-10-03, build 795d0a7)
+- [x] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R) (confirmed by you 2026-10-03, build 795d0a7)
+- [x] Riven single-card grading (one card only, before any reroll) (confirmed by you 2026-10-03, build 795d0a7)
 
 ## Blocked or waiting on something other than a check
 
@@ -68,6 +68,8 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #44 Relic reward overlay (reported 2026-10-03): "Yareli Prime Chassis Blueprint" and one "Akbronco Prime Blueprint" were UNRECOGNIZED. Both causes verified in the log and by running the matcher (a hyphen dropped by the native cleaner, and a wrongly capitalized O). NO fix started; the native half needs your explicit yes first [FIXED IN CODE 2026-10-03, merged, not in a build yet: after the next build, check a relic mission with duplicate rewards; no card should say UNRECOGNIZED]
 - [ ] #45 Inventory parse error `Q.startsWith is not a function` in the developer tools (found by you 2026-10-03; 10 times in today's log). Exact line not found yet, NO fix started. If your Inventory ever looks empty or stale after starting the app, tell me when
 - [ ] #46 Inventory (reported 2026-10-03): End and Page Down do nothing, maximizing the window jumps the list to the top, no extra room at the end of the list on the tab you tried. Keyboard part verified in code (list not focusable), jump cause not found, NO fix started. This also replaces the #15 measurement for now: you do not need to run the console snippet any more [Fix QUEUED with Codex 2026-10-03 (job P9 together with #15); not started]
+- [ ] #47 Farming Targets: 'Group by planet' only changes the wording of the rows and the rows look like duplicates (reported 2026-10-03). Cause verified, NO fix started
+- [ ] #48 1999 Calendar in German: upgrade names such as 'Electric Status Damage And Chance' stay English (reported 2026-10-03). Localized source not located, NO fix started
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

@@ -53,6 +53,10 @@ Each section details:
 | 37 The "xN" part-count badge sits in the top-left of the part cell and reads as belonging to the cell on its left (new, reported 2026-10-03) | Open: DECISION MADE (center it above the piece's image), NO fix started | `PrimeSetCard.jsx:51`; see section 37 |
 | 38 Resource drawers (Alloy Plate and most common resources) show only a few mission drops and none of the world-container/planet sources the wiki lists (new, reported 2026-10-03) | Open: cause partly verified, NO fix started; needs a manual overhaul decision | See section 38 |
 | 39 Prime Warframe drawers say the Prime Blueprint can be bought from the Market for credits (new, reported 2026-10-03) | Open: cause verified on real data, NO fix started | See section 39 |
+| 40 Market page under 1050px wide cuts off the top of the Active Orders / Tradeable Stock tabs (new, reported 2026-10-03) | Open: probable cause only, NO fix started | See section 40 |
+| 41 Rivens page has horizontal scrollbars on the filters and the card area; they cannot be grabbed or do not work (new, reported 2026-10-03) | Open: filters verified, card area NOT yet traced, NO fix started | See section 41 |
+| 42 History screen crashes with "Can't find variable: locale"; the crash screen shows raw `error_boundary.*` keys (new, reported 2026-10-03) | Open: both causes verified in code and in the log, NO fix started | See section 42 |
+| 43 Wiki tab is a blank white box after the History crash; Reload UI and fullscreen do not fix it, restarting the app does (new, reported 2026-10-03) | Open: not reproduced, cause unknown, NO fix started | See section 43 |
 
 
 Process lessons from this round (apply to all future fixes):
@@ -683,4 +687,35 @@ Entries move here only after the user confirms the fix in the running app (ticke
 * **Cause (verified on the user's export)**: ExportRecipes `AshPrimeBlueprint` has `creditsCost: 25000` (the same number as its build price) AND `excludeFromMarket: true`. `acquisitionInfo.js` ~line 249 copies `creditsCost` into `blueprintCost` without looking at `excludeFromMarket`, and `resolveBlueprintOrigin` (`acquisitionData.js` ~line 14945) turns it into "Market Blueprint: N Credits".
 * **Scope (measured)**: ExportRecipes has 1,766 recipes with `excludeFromMarket` and 775 with `creditsCost`; 577 recipes have BOTH, so every one of them can show a false "Market Blueprint" price. Prime Warframes are the visible case (51 Prime Warframe recipes carry `creditsCost`).
 * **Required Resolution Protocol**: only treat `creditsCost` as a Market price when the recipe is not `excludeFromMarket` (and check the wiki for a few non-Prime items to confirm the meaning of the field before relying on it); for Prime items show the relic sources in the Blueprint row (item 36); drop the "Blueprint:" cost chip when it is not a real market price; test over all recipes with the real export that no `excludeFromMarket` recipe produces a Market Blueprint text; recheck in the app. Do together with items 36 and 8.
+
+---
+
+## 40. Market Page Under 1050px Cuts Off The Tabs
+* **Reported 2026-10-03** (screenshot): with the window narrower than 1050px, the top of the "Active Orders (0)" and "Tradeable Stock (568)" tab row is clipped on the Market page.
+* **Probable cause (NOT verified in the running app)**: `src/screens/Market.jsx` line ~700 lays the page out as `flex-1 p-6 flex flex-col gap-6 overflow-y-auto`. The tab row (line ~754, `flex border-b border-white/5 gap-6`) has no `flex-shrink-0`, and the tables below use `overflow-hidden`, so in a short, narrow window flex shrinking can squeeze the row below its content height and clip the text. The 1050px rules live in `src/preview/styles/preview-responsive.css` and have nothing for Market.
+* **Required Resolution Protocol**: get the measured heights from the user (or the dev tools) to confirm, then stop the tab row and the stat cards from shrinking (`flex-shrink-0`/`min-height: auto`) and let the page scroll; check at 800, 1000 and 1049px; recheck in the app.
+
+---
+
+## 41. Rivens Page Shows Horizontal Scrollbars On The Filters And The Card Area
+* **Reported 2026-10-03**: the Rivens page has a horizontal scrollbar under the cards section where other tabs have none; the horizontal scrollbars on the Rivens filters either cannot be grabbed or do not work. "No other filters in the app get scrollbars, these shouldn't either. They should work like other tabs. The only horizontal scrollbar is supposed to be on the currency strip in Inventory."
+* **Verified (filters)**: `src/components/PreviewRivensLayout.jsx` deliberately gives the state filter, the sort filter (`[data-preview-rivens-state]`, `[data-preview-rivens-sort]`, `overflow-x: auto`, lines ~33-55) and the weapon-type row (`.preview-rivens-types`, `flex-wrap: nowrap; overflow-x: auto`, lines ~65-80) their own 8px horizontal scrollbars with `width: max-content` children. That is the scrollbars the user sees; they are hard to grab for the same WebKitGTK reason as the earlier scrollbar items (R1).
+* **NOT verified (cards)**: the card grid (`Rivens.jsx` line ~342) is `repeat(auto-fill, 200px)` with a container-query gap; the page scroller (`preview-page__scroll`) hides horizontal overflow, so the scrollbar under the cards must come from another element. I have not located it and need either the dev tools element or a screenshot with the scrollbar visible.
+* **Required Resolution Protocol**: remove the horizontal scrollbars from the three filter rows and let them wrap onto several lines like the other tabs; find and fix the card-area overflow; leave only the Inventory currency strip with a horizontal scroll (a test that lists every `overflow-x: auto` in `src` and allows only that one); recheck at normal width and under 1050px.
+
+---
+
+## 42. History Screen Crashes: "Can't find variable: locale"; Crash Screen Shows Raw Keys
+* **Reported 2026-10-03** (screenshot of the crash screen). The app log confirms three crashes today at 12:10:56, 12:11:22 and 12:13:55: `ReferenceError: Can't find variable: locale` then `Unhandled render error`.
+* **Cause 1 (verified)**: in `src/screens/History.jsx`, `CustomTooltip` (line ~184) is a separate function with parameters `{ active, payload, label, span, activeMetrics, trackedItems, t }` but line ~208 calls `formatNumber(p.value, locale)`. `locale` is never defined there and the chart (line ~154) does not pass it, so hovering a numeric point on the history chart throws and the whole screen is replaced by the error screen. Same class as the stale-closure bugs in the report (a value used where it is not in scope).
+* **Cause 2 (verified)**: `src/App.jsx` lines ~578-589 mounts `<ErrorBoundary>` OUTSIDE `<UiProvider>`. `ErrorBoundary.jsx` reads `this.context?.t`, which is empty there, so it falls back to `(key) => key` and prints `ERROR_BOUNDARY.TITLE` etc. Its own comment says it falls back to English literals; the code returns the key instead. The keys exist in all 14 locales.
+* **Required Resolution Protocol**: pass `locale` into `CustomTooltip` (and add a test that renders it with a numeric payload); move the boundary inside the UI provider or give it a real English fallback and a language read from saved settings so the crash screen is always translated; search all screens for the same out-of-scope variable pattern (lint rule `no-undef` on the screens, run over `src/screens`); recheck in the app by hovering the History chart.
+
+---
+
+## 43. Wiki Tab Blank After The Crash (Not Understood)
+* **Reported 2026-10-03**: after the History crash the Wiki tab was a blank white box; Settings > Reload UI did not fix it, making the app fullscreen did not fix it, closing and restarting the app did. Repeating the History crash and then opening Wiki worked the next time, so it is intermittent.
+* **What I know**: the Wiki screen is a native child webview managed by Rust (`show_wiki_tab`, `reflow_wiki_tab`, `hide_wiki_tab`; `Wiki.jsx` lines ~60-140). Its React cleanup hides the active webview, and the module variable `lastActiveId` that remembers the active tab is reset by a page reload, while the Rust side keeps its webview list across a UI reload (`list_wiki_tabs`). A crash while the Wiki was mounted or just left could leave Rust and React disagreeing about which tab is shown. The app log of 2026-10-03 has no wiki, webview or reflow lines at all, so there is no evidence of what happened.
+* **NOT verified**: this is a hypothesis. It needs a reproduction: after the History crash, open Wiki, and send me the log file (`~/.local/share/kiedas-orbiter-preview/data/user/logs/app-2026-10-03.log`) plus whether the white box is the whole content area. Likely to disappear if item 42 is fixed, because the crash is what triggers it.
+* **Required Resolution Protocol**: fix item 42 first; then try to reproduce by forcing an error, add logging to the wiki show/hide/reflow commands, and make the Wiki screen re-sync with the Rust tab list on every mount.
 

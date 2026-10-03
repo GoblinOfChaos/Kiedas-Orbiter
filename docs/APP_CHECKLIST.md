@@ -61,6 +61,10 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #37 The "x2" badge on Prime Sets part cells (reported 2026-10-03): decision made, it goes centered directly above the image of the needed piece. NO fix started
 - [ ] #38 Resource drawers (reported 2026-10-03): Alloy Plate lists only some mission drops and none of the planet/container sources the wiki gives; most common resources have no wiki entry in the app data. Cause partly found, NO fix started; needs your decision on a manual wiki-verified overhaul
 - [ ] #39 Prime Warframe drawers (reported 2026-10-03): say the Prime Blueprint costs credits in the Market ("Market Blueprint: 25,000 Credits" on Ash Prime). Cause found on real data (DE marks those blueprints excludeFromMarket), NO fix started; goes with #36, #8 and #9
+- [ ] #40 Market under 1050px wide: the Active Orders / Tradeable Stock tab row is cut off at the top (reported 2026-10-03). Probable cause found, NO fix started
+- [ ] #41 Rivens page: horizontal scrollbars on the filters (state, sort, weapon type) that cannot be grabbed, plus one under the cards (reported 2026-10-03). Filters found, cards need a screenshot or dev-tools element. Decision: only the Inventory currency strip keeps a horizontal scrollbar. NO fix started
+- [ ] #42 History crash "Can't find variable: locale" when hovering the chart, and the crash screen shows raw `ERROR_BOUNDARY.*` text (reported 2026-10-03). Both causes verified, NO fix started
+- [ ] #43 Wiki tab blank after that crash; only restarting the app fixed it (reported 2026-10-03). Not understood. If it happens again, send me the log file before restarting
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

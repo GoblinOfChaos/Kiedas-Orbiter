@@ -19,33 +19,33 @@ Each section details:
 
 ## Status Log (2026-10-02): items 8-23 after the Codex fix round
 
-"Fixed in code" means: root cause identified, regression test added and passing, merged to `preview/stage4` (full suite 179/179 as of 2026-10-02 22:30, head `60afb5cc`). Nothing below is "resolved" until the user confirms it in a deployed Preview AppImage; confirmations are recorded in `docs/APP_CHECKLIST.md`. IMPORTANT: the AppImage deployed on 2026-10-02 20:18 does NOT contain most of these fixes (only items 8-12 and 18 from the first round); the later merges need a new build, and the Rust changes (marked uncompiled) need a Rust test run first.
+"Fixed in code" means: root cause identified, regression test added and passing, merged to `preview/stage4` (full suite 179/179 as of 2026-10-02 22:30, head `60afb5cc`). Nothing below is "resolved" until the user confirms it in a deployed Preview AppImage; confirmations are recorded in `docs/APP_CHECKLIST.md`. BUILD STATUS: the AppImage deployed on 2026-10-02 22:41 was built from commit `795d0a78` (code identical to `60afb5cc`, the last code merge) and contains every fix marked "fixed in code" below; the Rust unit tests (47) passed before the build. Rows say "deployed 22:41" for these. The previous build (20:18, commit `63121682`) is kept as `~/AppImages/kiedas_orbiter_preview.appimage.bak-2241` for rollback.
 
 | # | Status | Root cause / what changed |
 |---|---|---|
-| 8 Orokin Cell Blueprint as enemy drop | Fixed in code, in the 20:18 build, awaiting in-app check | `dropsParser.js` filed unresolved names such as "2X Orokin Cell" under phantom `display:<name> blueprint` keys (731 keys); quantity prefixes are stripped and no blueprint key is invented |
-| 9 Meso C11 repeated x5 | Fixed in code (both paths), partly in the 20:18 build | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed |
-| 10 "+N more" without rows | Fixed in code, in the 20:18 build, awaiting check | 85 override strings carried "(+N more sources)"; live drop rows replace them |
-| 11 Salvage Conclave-only | Fixed in code; Market and farming sources added after the 20:18 build | Decoration blurb removed; wiki.warframe.com Market and farming sentences added verbatim as separate sources |
+| 8 Orokin Cell Blueprint as enemy drop | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | `dropsParser.js` filed unresolved names such as "2X Orokin Cell" under phantom `display:<name> blueprint` keys (731 keys); quantity prefixes are stripped and no blueprint key is invented |
+| 9 Meso C11 repeated x5 | Fixed in code (both paths), deployed 22:41 (top-level paths also in the 20:18 build) | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed |
+| 10 "+N more" without rows | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | 85 override strings carried "(+N more sources)"; live drop rows replace them |
+| 11 Salvage Conclave-only | Fixed in code, deployed 22:41 (Market and farming sources added after the 20:18 build), awaiting in-app check | Decoration blurb removed; wiki.warframe.com Market and farming sentences added verbatim as separate sources |
 | 12 Foundry drawer outside click | RESOLVED: confirmed by the user in the app 2026-10-02 (build 63121682). See R4 | `RecipeDrawer` got the shared backdrop, click guard and Escape |
-| 13 Extractor Prime Set artwork | Fixed in code, not yet deployed | Set and blueprint images resolved from DE `ExportBundles` (only the 4 intended images changed out of 764) |
-| 14 New UI strings never translated | Fixed in code for all 14 locales, not yet deployed | 104 missing keys translated in every locale plus an enforcement test (completeness, placeholders, leftover-English, script checks). The Circuit title stays English (see 16). Existing real translations were verified unaltered |
+| 13 Extractor Prime Set artwork | Fixed in code, deployed 22:41, awaiting in-app check | Set and blueprint images resolved from DE `ExportBundles` (only the 4 intended images changed out of 764) |
+| 14 New UI strings never translated | Fixed in code for all 14 locales, deployed 22:41, awaiting in-app check | 104 missing keys translated in every locale plus an enforcement test (completeness, placeholders, leftover-English, script checks). The Circuit title stays English (see 16). Existing real translations were verified unaltered |
 | 15 Inventory overscroll | OPEN, not fixed deliberately | Fixed row-height constants; rows are CSS grid rows as tall as their tallest card, so no uniform stride is exact; a correct fix needs a variable-height virtualizer. Waiting for the user's measurement (see section 15) |
 | 16 Circuit title | BLOCKED | No official localized name exists in the repo data or on wiki.warframe.com; title routed through `t()` and kept "The Circuit" |
-| 17 Riven overlay does not appear | Fixed in code (stale close + replay guards), Rust uncompiled, not deployed | See 26 |
-| 18 Raw key in Riven trigger | Fixed in code, in the 20:18 build, awaiting check | Keys moved under `ui` in all locales |
+| 17 Riven overlay does not appear | Fixed in code (stale close + replay guards), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | See 26 |
+| 18 Raw key in Riven trigger | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | Keys moved under `ui` in all locales |
 | 19, 20, 22 | Fixed in an earlier snapshot, never confirmed in the app | Need the user's check |
 | 21 Reward overlay blueprint count | No defect found | The display path and all translation keys are correct for the logged payload; needs an overlay screenshot showing the miss |
-| 23 Relic reward overlay UNRECOGNIZED | Fixed in code (OCR cleanup, tests), Rust compiled and unit-tested in an earlier run, not deployed | `clean_ocr_output` kept only capitalised neighbours |
-| 24 Scanner toast raw keys | Fixed in code, not deployed | Listener and Maps timer read `t` through a ref |
-| 25 Riven banner vanishes on hotkey | Fixed in code, not deployed | Banner hides only on screen close |
-| 26 Riven overlay stuck / replayed log lines | Fixed in code (monotonic guard + bounded dedupe + garbage filter + diagnostics), Rust UNCOMPILED, not deployed | Mechanism partly proven (the scanner reads up to 1 MiB per poll and wiped its whole dedupe set at 16,384 new hashes); diagnostics added to prove it next session |
-| 27 Riven grading per press | Fixed in code, not deployed | Every hotkey press grades once; no timers; new-roll result clears on a new roll and hides on accept |
-| 28 Focus watcher log flood | Fixed in code, Rust UNCOMPILED, not deployed | The main-window exemption remains (documented) |
+| 23 Relic reward overlay UNRECOGNIZED | Fixed in code (OCR cleanup, tests), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | `clean_ocr_output` kept only capitalised neighbours |
+| 24 Scanner toast raw keys | Fixed in code, deployed 22:41, awaiting in-app check | Listener and Maps timer read `t` through a ref |
+| 25 Riven banner vanishes on hotkey | Fixed in code, deployed 22:41, awaiting in-app check | Banner hides only on screen close |
+| 26 Riven overlay stuck / replayed log lines | Fixed in code (monotonic guard + bounded dedupe + garbage filter + diagnostics), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | Mechanism partly proven (the scanner reads up to 1 MiB per poll and wiped its whole dedupe set at 16,384 new hashes); diagnostics added to prove it next session |
+| 27 Riven grading per press | Fixed in code, deployed 22:41, awaiting in-app check | Every hotkey press grades once; no timers; new-roll result clears on a new roll and hides on accept |
+| 28 Focus watcher log flood | Fixed in code, Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | The main-window exemption remains (documented) |
 | 29 Old-tree fixes not ported | Ports done: weekday/month locale, Target Inspector clipping and planet label, drawer image order, Prime ownership via recipe identity (JS) and the DE name/description merge (Rust, uncompiled); riven fixes folded into 25-27 | Re-verified against Preview by code and real-data comparison |
-| 30 Prime Sets OWNED | Fixed in code, not deployed | 62 of 166 sets wrongly owned -> 0 on the real inventory; the overlay part could not be reproduced and needs an example |
-| 31 Prime Sets scroll slowness | Fixed in code (cached part sources, memoized cards; 362 ms -> 1.9 ms simulated), not deployed, NOT measured in the app | Not a leak per the code review |
-| 32 Dual-weapon recipes | Fixed in code, not deployed | Aklex, Akvasto, Akbronco, Akmagnus list their 2 base guns with images |
+| 30 Prime Sets OWNED | Fixed in code, deployed 22:41, awaiting in-app check | 62 of 166 sets wrongly owned -> 0 on the real inventory; the overlay part could not be reproduced and needs an example |
+| 31 Prime Sets scroll slowness | Fixed in code (cached part sources, memoized cards; 362 ms -> 1.9 ms simulated), deployed 22:41, awaiting in-app check, NOT yet measured in the app | Not a leak per the code review |
+| 32 Dual-weapon recipes | Fixed in code, deployed 22:41, awaiting in-app check | Aklex, Akvasto, Akbronco, Akmagnus list their 2 base guns with images |
 
 
 Process lessons from this round (apply to all future fixes):

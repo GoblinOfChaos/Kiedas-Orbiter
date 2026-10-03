@@ -9,7 +9,7 @@ Sources: the pasted list from an earlier chat (statuses there are unverified by 
 - [x] Farming target images (drawer + ledger, blueprints and raw resources)
 - [x] Citrine Prime relics: Relics tab, Relic Planner, Relics screen, Inventory
 - [ ] Relic reward overlay: Citrine Prime not "Unrecognized" (needs game running; uncommitted `relicParser.js` change)
-- [ ] #14 No untranslated UI anywhere (all 14 languages): in German and one other language, Farming Targets (78 strings), Foundry and every other screen show translated text. No English left over, no raw keys. Status: OPEN. 104 keys are missing in all 14 locales; the backfill and the enforcement test are not done yet
+- [ ] #14 No untranslated UI anywhere (all 14 languages): in German and at least one other language, Farming Targets (78 strings), Foundry and every other screen show translated text. No English left over, no raw keys (except game names and "The Circuit", which has no official localized name). Status: fixed in code for all 14 languages, deployed in build 795d0a78; awaiting your check
 
 ## Fixed in code 2026-10-02, verify in the deployed build (tick only when seen in the app)
 
@@ -25,9 +25,9 @@ Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
 - [ ] #17 Riven reroll screen: the overlay appears and stays; closing the screen hides it
 - [ ] #23 Relic mission with Sevagoth Prime: all reward cards are recognized (Sevagoth Prime Neuroptics Blueprint)
 
-## Fixed in code after the 20:18 build: verify after the NEXT build (not in the app yet)
+## Deployed 2026-10-02 22:41 (build 795d0a78): verify these in the app
 
-These were merged to `preview/stage4` after the build you tested. They need a new build (and a Rust test run for the ones marked R) before you can check them. Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
+These were merged after the 20:18 build and are in the build deployed at 22:41 (commit `795d0a78`; the Rust unit tests, 47, passed before the build). The AppImage footer shows the build commit and time: check it says `795d0a78` before testing. Items marked (R) involve the Rust side. If this build is worse than the previous one, the previous build (20:18, commit `63121682`) is kept as `~/AppImages/kiedas_orbiter_preview.appimage.bak-2241`. Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`. Tick a box only when you have seen it work; report anything wrong with a screenshot, the screen name and the language.
 
 - [ ] #9 Acceltra Prime (and any Prime weapon): the "Crafting requirements" part rows show each relic once with (Common/Uncommon/Rare), no repeats, no percentages
 - [ ] #11 Salvage drawer: Conclave drops AND the wiki lines (Market 30 Platinum for 3000, Carme and Olympus farming notes)

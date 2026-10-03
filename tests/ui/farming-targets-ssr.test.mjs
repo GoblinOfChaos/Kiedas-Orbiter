@@ -81,6 +81,23 @@ test('SSR keeps the minimum-chance toggle wrapper separate from its conditional 
   assert.match(on, /<div class="shrink-0"><button[\s\S]*?<\/div><div class="flex items-center gap-2 text-xs text-kronos-dim">[\s\S]*?farming_targets\.min_chance_hidden/)
 })
 
+test('SSR shows the planet for ungrouped ranked places and leaves the inspector dropdown unclipped', async () => {
+  const { PreviewFarmingView, UiContext } = await loadScreen()
+  const { targets, model } = fixtureUiModel()
+  model.ranked[0].place.planet = 'Mars'
+  const html = renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
+    targets, reservations: [], model, t, selectedTarget: targets[0].id, setSelectedTarget: noOp,
+    tab: 'all', setTab: noOp, minChanceOn: false, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
+    hideDone: false, setHideDone: noOp, hideConclave: false, setHideConclave: noOp, groupPlanet: false, setGroupPlanet: noOp,
+    toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp, onTargetChange: noOp, onReserve: noOp,
+  })))
+  assert.match(html, /Mars — (Tuvul Commons|Everview Arc|Oro Works)/)
+  const inspector = html.slice(html.indexOf('farming_targets.target_inspector'))
+  assert.match(inspector, /p-0/)
+  assert.doesNotMatch(inspector.slice(0, inspector.indexOf('farming_targets.ledger')), /p-0 overflow-hidden/)
+  assert.match(inspector, /rounded-b-lg overflow-hidden/)
+})
+
 test('screen model stays under 100ms for 80 targets with an indexed place set', () => {
   const base = fixtureUiModel()
   const targets = Array.from({ length: 80 }, (_, index) => ({ ...base.targets[index % 3], id: `target-${index}` }))

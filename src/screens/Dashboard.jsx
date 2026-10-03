@@ -31,6 +31,7 @@ import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext'
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { formatNumber, toBcp47 } from '../lib/formatNumber';
+import { formatCalendarLabel, formatCalendarMonthKey } from '../lib/calendarFormatting.js';
 import { PageLayout, Card, Button, CardHeader, Tabs, Modal, Tooltip } from '../components/UI';
 import ModCard from '../components/ModCard';
 import ItemImage from '../components/ItemImage';
@@ -302,7 +303,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
       const allDays = (cal.days || []).map((d) => {
         const dDate = new Date(jan1);
         dDate.setDate(d.day);
-        const mName = dDate.toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+        const mName = formatCalendarMonthKey(dDate);
         return { ...d, date: dDate, monthName: mName };
       }).sort((a, b) => a.day - b.day);
 
@@ -318,7 +319,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
         }
       } else {
         // Fallback to current month if no events found at all
-        const currentMonthName = new Date().toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+        const currentMonthName = formatCalendarMonthKey(new Date());
         const mIdx = seasonMonths.indexOf(currentMonthName);
         if (mIdx !== -1) {
           setSelected1999Month(mIdx);
@@ -967,7 +968,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
     const allDays = (cal.days || []).map((d) => {
       const dDate = new Date(jan1);
       dDate.setDate(d.day);
-      const mName = dDate.toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+      const mName = formatCalendarMonthKey(dDate);
       return { ...d, date: dDate, monthName: mName };
     }).sort((a, b) => a.day - b.day);
 
@@ -978,7 +979,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
     const seasonMonths = [...new Set(allDays.map((d) => d.monthName))];
     const monthLabels = seasonMonths.map((m) => {
       const day = allDays.find((d) => d.monthName === m);
-      return day ? new Intl.DateTimeFormat(toBcp47(locale), { month: 'long' }).format(day.date).toUpperCase() : m;
+      return day ? formatCalendarLabel(day.date, locale, { month: 'long' }).toUpperCase() : m;
     });
 
     const nextExpiry = cal.expiry instanceof Date ? cal.expiry : new Date(cal.expiry);
@@ -1110,7 +1111,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                       {selectedDay.date.getDate()}
                     </p>
                     <p className="text-[9px] text-kronos-dim uppercase tracking-widest leading-none pt-0.5">
-                      {selectedDay.date.toLocaleDateString('en-US', { weekday: 'long' })}
+                      {formatCalendarLabel(selectedDay.date, locale, { weekday: 'long' })}
                     </p>
                   </div>
                   <div className="space-y-2">

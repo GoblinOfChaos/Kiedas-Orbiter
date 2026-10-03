@@ -3,10 +3,12 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 const source = fs.readFileSync('src/screens/FarmingTargets.jsx', 'utf8');
+const drawerSource = fs.readFileSync('src/lib/farmingTargets/drawerLookup.js', 'utf8');
 
 test('Preview drawer lookup includes ledger ingredients', () => {
-  assert.match(source, /for \(const entry of screenModel\.ledger\)/);
-  assert.match(source, /map\.set\(entry\.itemType, \{ uniqueName: entry\.itemType/);
+  assert.match(source, /buildFarmingDrawerLookup/);
+  assert.match(drawerSource, /for \(const entry of ledger \?\? \[\]\)/);
+  assert.match(drawerSource, /map\.set\(entry\.itemType, \{ uniqueName: entry\.itemType/);
 });
 
 test('summary telemetry is not keyed to every screen model or filter change', () => {

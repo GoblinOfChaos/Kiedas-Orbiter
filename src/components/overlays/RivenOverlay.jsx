@@ -14,18 +14,17 @@ import {
 '../../lib/rivenOcrI18n';
 import { getRivenStatGrade, loadRivenGoodRolls } from '../../lib/rivenGrader';
 import { getRivenBaseData, computeRivenPerfectness } from '../../lib/rivenPerfectness';
-import { IS_PREVIEW } from '../../lib/buildProfile';
+import { applyRivenArming, createRivenArmingState, RIVEN_ARMING_EVENTS } from '../../lib/rivenArming';
 
 
 export default function RivenOverlay() {
   const label = getCurrentWindow().label;
   const isNew = label === 'overlay-riven-new';
   const [visible, setVisible] = useState(false);
-  const [refreshTick, setRefreshTick] = useState(0);
   const aliveRef = useRef(true);
   const showingRef = useRef(false);
-  const armedRef = useRef(false);
-  const newRollSeenRef = useRef(false);
+  const armingRef = useRef(null);
+  if (!armingRef.current) armingRef.current = createRivenArmingState(isNew);
   // Bumped at the start of every capture (doOcr call or a manual OCR-hotkey
   // riven-ocr-result event) so an async pricing result can check it's still
   // the most recent one before writing state - without this, the manual OCR
@@ -43,6 +42,7 @@ export default function RivenOverlay() {
   // popup and fixed it the same way), the window sits stuck over the game
   // indefinitely. This timer force-hides it if nothing resolves the capture.
   const stuckHideTimerRef = useRef(null);
+  const delayedHideTimerRef = useRef(null);
   const STUCK_HIDE_MS = 8000;
   const knownWeaponsRef = useRef([]);
   const knownWeaponsLowerRef = useRef([]);
@@ -245,6 +245,13 @@ export default function RivenOverlay() {
     }
   }, []);
 
+  const clearDelayedHideTimer = useCallback(() => {
+    if (delayedHideTimerRef.current) {
+      clearTimeout(delayedHideTimerRef.current);
+      delayedHideTimerRef.current = null;
+    }
+  }, []);
+
   const doOcr = useCallback((pos) => {
     if (!aliveRef.current) return;
     captureGenRef.current++;
@@ -300,135 +307,82 @@ export default function RivenOverlay() {
     aliveRef.current = false;
     showingRef.current = false;
     clearStuckHideTimer();
+    clearDelayedHideTimer();
     setVisible(false);
     setParsed(null);
     setEstimatedPrice(null);
     invoke('hide_overlay_window', { label }).catch(() => {});
-  }, [label, clearStuckHideTimer]);
+  }, [label, clearStuckHideTimer, clearDelayedHideTimer]);
+
+  const clearResult = useCallback(() => {
+    setParsed(null);
+    setOcrLoading(false);
+    setEstimatedPrice(null);
+    setRivenInfo(null);
+    setStatGrade(null);
+  }, []);
+
+  const applyArmingEvent = useCallback((event) => {
+    const next = applyRivenArming(armingRef.current, event);
+    armingRef.current = next;
+    if (next.cancelHideTimer) clearDelayedHideTimer();
+    if (next.clearResult) clearResult();
+    if (next.hideAfterMs != null) {
+      clearDelayedHideTimer();
+      delayedHideTimerRef.current = setTimeout(() => {
+        delayedHideTimerRef.current = null;
+        hide();
+      }, next.hideAfterMs);
+    }
+    return next;
+  }, [clearDelayedHideTimer, clearResult, hide]);
 
   useEffect(() => {
-    const unsubs = [
-    listen('riven-ocr-result', (e) => {
-      const payload = typeof e.payload === 'string' ? e.payload : String(e.payload);
-      if (aliveRef.current) {
-        // This global hotkey can fire at any time, independent of doOcr
-        // calls already in flight from the reroll-debounce timers below -
-        // bump the generation so this capture wins over anything older.
-        captureGenRef.current++;
-        const gen = captureGenRef.current;
-        clearStuckHideTimer();
-        setVisible(true);
-        setOcrLoading(false);
-        const p = parseRivenOcr(payload, garbageRe);
-        setParsed(p);
-        doPricing(p);
-        if (!p) {
-          stuckHideTimerRef.current = setTimeout(() => {
-            if (aliveRef.current && captureGenRef.current === gen) hide();
-          }, STUCK_HIDE_MS);
-        }
+    const unsubs = [];
+    const gradeOnce = () => {
+      const next = applyArmingEvent(RIVEN_ARMING_EVENTS.GRADE_ARMED);
+      if (next.startOcr) {
+        show();
+        doOcr(next.position);
       }
-    })];
+    };
 
-
+    unsubs.push(listen('riven-grade-armed', gradeOnce));
     if (isNew) {
-      let timer = null;
       unsubs.push(
-        listen('riven-grade-armed', () => {
-          armedRef.current = true;
-          if (newRollSeenRef.current) {
-            show();
-            doOcr('Middle');
-          }
-        }),
+        listen('riven-screen-open', () => applyArmingEvent(RIVEN_ARMING_EVENTS.SCREEN_OPEN)),
         listen('riven-reroll', () => {
-          newRollSeenRef.current = true;
-          if (IS_PREVIEW && !armedRef.current) return;
-          // A new roll was generated: any earlier pending timer or in-flight
-          // read belongs to a stale roll. Cancel the timer and bump the
-          // capture generation so a late OCR/pricing result is discarded.
-          if (timer) {clearTimeout(timer);timer = null;}
+          applyArmingEvent(RIVEN_ARMING_EVENTS.REROLL);
           captureGenRef.current++;
-          timer = setTimeout(() => {
-            timer = null;
-            show();
-            doOcr('Middle');
-          }, 4000);
         }),
-        listen('riven-reroll-confirmed', () => {
-          if (timer) {clearTimeout(timer);timer = null;}
-          // The pending roll was accepted: there is no "new" roll on screen
-          // any more, so a later re-scan press must not show one.
-          newRollSeenRef.current = false;
-          timer = setTimeout(() => hide(), 2000);
-        }),
+        listen('riven-reroll-confirmed', () => applyArmingEvent(RIVEN_ARMING_EVENTS.REROLL_CONFIRMED)),
         listen('riven-screen-closed', () => {
-          if (timer) {clearTimeout(timer);timer = null;}
-          armedRef.current = false;
-          newRollSeenRef.current = false;
+          applyArmingEvent(RIVEN_ARMING_EVENTS.SCREEN_CLOSED);
           hide();
         })
       );
-      return () => {
-        if (timer) clearTimeout(timer);
-        clearStuckHideTimer();
-        unsubs.forEach((p) => p.then((f) => f()));
-      };
     } else {
-      let refreshTimer = null;
       unsubs.push(
-        listen('riven-linked-open', () => {
-          if (IS_PREVIEW && !armedRef.current) return;
-          show();
-          doOcr('Linked');
-        }),
         listen('riven-screen-open', () => {
-          if (IS_PREVIEW) {
-            armedRef.current = false;
-            hide();
-          } else {
-            show();
-            doOcr('Middle');
-          }
+          applyArmingEvent(RIVEN_ARMING_EVENTS.SCREEN_OPEN);
+          hide();
         }),
-        listen('riven-grade-armed', () => {
-          armedRef.current = true;
-          show();
-          doOcr('Middle');
-        }),
+        listen('riven-linked-open', () => applyArmingEvent(RIVEN_ARMING_EVENTS.SCREEN_OPEN)),
+        listen('riven-reroll', () => applyArmingEvent(RIVEN_ARMING_EVENTS.REROLL)),
+        listen('riven-reroll-confirmed', () => applyArmingEvent(RIVEN_ARMING_EVENTS.REROLL_CONFIRMED)),
         listen('riven-linked-closed', () => hide()),
         listen('riven-screen-closed', () => {
-          if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
-          armedRef.current = false;
+          applyArmingEvent(RIVEN_ARMING_EVENTS.SCREEN_CLOSED);
           hide();
-        }),
-        listen('riven-reroll-confirmed', () => {
-          // Rerolling again before the previous 2s settle timer fires left
-          // two competing OCR calls in flight with no defined winner -
-          // whichever's OCR/pricing round-trip happened to finish last would
-          // silently overwrite the other, showing stale or racing results.
-          // Confirmed live: rapid re-rolling made price/grade flip between
-          // values that didn't match what was actually on screen.
-          if (IS_PREVIEW && !armedRef.current) return;
-          if (refreshTimer) {clearTimeout(refreshTimer);refreshTimer = null;}
-          refreshTimer = setTimeout(() => {
-            // The screen is still open here. If the safety-net auto-hide
-            // already fired (an earlier unreadable capture), doOcr would
-            // bail on aliveRef and this overlay would stay dead for the
-            // rest of the session - bring it back first.
-            if (!aliveRef.current) show();
-            setRefreshTick((t) => t + 1);
-            doOcr('Middle');
-          }, 2000);
         })
       );
-      return () => {
-        if (refreshTimer) clearTimeout(refreshTimer);
-        clearStuckHideTimer();
-        unsubs.forEach((p) => p.then((f) => f()));
-      };
     }
-  }, [isNew, show, hide, doOcr, doPricing, label, garbageRe, clearStuckHideTimer]);
+    return () => {
+      clearStuckHideTimer();
+      clearDelayedHideTimer();
+      unsubs.forEach((p) => p.then((f) => f()));
+    };
+  }, [isNew, show, hide, doOcr, applyArmingEvent, clearStuckHideTimer, clearDelayedHideTimer]);
 
   if (!visible) return null;
 

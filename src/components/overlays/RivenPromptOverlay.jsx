@@ -4,6 +4,7 @@ import { listen } from '@tauri-apps/api/event'
 import { invoke } from '../../lib/logging/tauri'
 import { loadSettings, getSetting, onSettingsChanged } from '../../lib/settings'
 import { useUi } from '../../contexts/UiContext'
+import { rivenPromptVisibility, RIVEN_ARMING_EVENTS } from '../../lib/rivenArming'
 
 export default function RivenPromptOverlay() {
   const { t } = useUi()
@@ -21,11 +22,8 @@ export default function RivenPromptOverlay() {
     refreshHotkey()
     const offSettings = onSettingsChanged(refreshHotkey)
     const events = [
-      listen('riven-screen-open', () => setVisible(true)),
-      listen('riven-grade-activate', () => {
-        setVisible(false)
-      }),
-      listen('riven-screen-closed', () => setVisible(false)),
+      listen('riven-screen-open', () => setVisible((visible) => rivenPromptVisibility(visible, RIVEN_ARMING_EVENTS.SCREEN_OPEN))),
+      listen('riven-screen-closed', () => setVisible((visible) => rivenPromptVisibility(visible, RIVEN_ARMING_EVENTS.SCREEN_CLOSED))),
     ]
     return () => {
       offSettings()

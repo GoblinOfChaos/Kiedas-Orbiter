@@ -15,7 +15,7 @@ Sources: the pasted list from an earlier chat (statuses there are unverified by 
 
 Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
 
-- [ ] #12 Foundry: open a recipe panel, click outside it, it closes; Escape closes it; the close button still works; clicking inside the panel does not close it
+- [x] #12 Foundry: open a recipe panel, click outside it, it closes; Escape closes it; the close button still works; clicking inside the panel does not close it
 - [ ] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`; also check the Riven prompt text in German
 - [ ] #18 Market label in the sidebar is translated in French, Korean, Italian, Japanese, Polish, Traditional Chinese, Thai, Turkish and Ukrainian (a translation was nearly lost in one fix and restored)
 - [ ] #9 Prime part drawers (for example Ash Prime Chassis, Citrine Prime Blueprint): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no raw key like `ui.relic_rarity.rare`
@@ -24,6 +24,28 @@ Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
 - [ ] #11 Salvage drawer: no ship-decoration paragraph; Conclave appears as drop sources. A Market source is NOT added yet
 - [ ] #17 Riven reroll screen: the overlay appears and stays; closing the screen hides it
 - [ ] #23 Relic mission with Sevagoth Prime: all reward cards are recognized (Sevagoth Prime Neuroptics Blueprint)
+
+## Fixed in code after the 20:18 build: verify after the NEXT build (not in the app yet)
+
+These were merged to `preview/stage4` after the build you tested. They need a new build (and a Rust test run for the ones marked R) before you can check them. Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
+
+- [ ] #9 Acceltra Prime (and any Prime weapon): the "Crafting requirements" part rows show each relic once with (Common/Uncommon/Rare), no repeats, no percentages
+- [ ] #11 Salvage drawer: Conclave drops AND the wiki lines (Market 30 Platinum for 3000, Carme and Olympus farming notes)
+- [ ] #13 Inventory: Titan Extractor and Distilling Extractor Prime Sets show real artwork (set and blueprint)
+- [ ] #14 Switch the app to German, then Japanese (and any other): Farming Targets, Foundry, Riven prompt and relic tier labels are fully translated; nothing left in English except game names and "The Circuit"
+- [ ] #24 (R-free) Start the scanner in a non-English language: the "scanner hooked" toast shows real text, not `app.scanner_title`
+- [ ] #25 Riven screen: the "press hotkey" banner stays visible after you press the hotkey and disappears only when you leave the riven screen (R)
+- [ ] #26 Riven screen: leaving the riven screen hides the overlay and it does not reappear on its own later; look at `app-YYYY-MM-DD.log` for `[MEMORY WATCHER] dedupe:` lines (R)
+- [ ] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades; rolling or accepting does not start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R)
+- [ ] #17 Riven overlay appears when it should and stays until you leave the screen (R)
+- [ ] #23 Relic mission with Sevagoth Prime: all reward cards are recognized (R)
+- [ ] #28 The log no longer fills with `[FOCUS_WATCHER] transition: focused -> unfocused` every half second (R)
+- [ ] #29 Dashboard calendar weekday and month names follow the app language; Farming Targets Target Inspector dropdown is not cut off and ranked places show the planet; farming drawer items show their images
+- [ ] #30 Prime Sets tab: OWNED only on sets whose finished item you own (for example Nyx, Vauban, Garuda, Carrier Prime are NOT owned if only the blueprint is held)
+- [ ] #31 Prime Sets tab: scrolling up and down is smooth and does not get slower; if it is still slow, record a 5 second Performance profile and send it (steps in the report, section 31)
+- [ ] #32 Prime Sets tab: Aklex, Akvasto, Akbronco and Akmagnus Prime list their two base guns as well as the Link and Blueprint
+- [ ] #15 Inventory scroll range: open developer tools, click one general inventory card and read its `offsetHeight` and the grid `row-gap`; send me both numbers (the fix waits for them)
+- [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
 
 ## Fixed earlier, needs retest
 

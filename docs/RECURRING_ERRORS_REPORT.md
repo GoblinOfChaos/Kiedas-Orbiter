@@ -19,30 +19,34 @@ Each section details:
 
 ## Status Log (2026-10-02): items 8-23 after the Codex fix round
 
-"Fixed in code" means: root cause identified, regression test added and passing, merged to `preview/stage4` (full suite 139/139). Nothing below is "resolved" until the user confirms it in the deployed Preview AppImage; confirmations are recorded in `docs/APP_CHECKLIST.md`.
+"Fixed in code" means: root cause identified, regression test added and passing, merged to `preview/stage4` (full suite 179/179 as of 2026-10-02 22:30, head `60afb5cc`). Nothing below is "resolved" until the user confirms it in a deployed Preview AppImage; confirmations are recorded in `docs/APP_CHECKLIST.md`. IMPORTANT: the AppImage deployed on 2026-10-02 20:18 does NOT contain most of these fixes (only items 8-12 and 18 from the first round); the later merges need a new build, and the Rust changes (marked uncompiled) need a Rust test run first.
 
 | # | Status | Root cause / what changed |
 |---|---|---|
-| 8 Orokin Cell Blueprint as enemy drop | Fixed in code, awaiting in-app check | `dropsParser.js` `addNamedSource` filed unresolved reward names (e.g. "2X Orokin Cell") under a phantom `display:<name> blueprint` key (731 phantom keys). Quantity prefixes are now stripped and no blueprint key is invented. Test: `tests/farming/acquisitionC1.test.mjs` |
-| 9 Meso C11 repeated x5 | PARTLY fixed: top-level sources deduped; the "Crafting requirements" ingredient rows still show duplicates (user check 2026-10-02). See the update in section 9 | Rows were refinement variants (4 chance-less ExportRelics rows + 4 per-refinement mirror rows). User decision: no refinements shown; each relic once with its Common/Uncommon/Rare tier from ExportRelics `rarity`. Label key fixed to `ui.relic_rarity.*` (C4). Tests: `acquisitionC1.test.mjs`, `tests/relics/acquisitionDrawerLabels.test.mjs` |
-| 10 "+N more" without rows | Fixed in code, awaiting in-app check | 85 override strings in `acquisition_overrides.json` carried "(+N more sources)" and `acquisitionInfo.js` returned only that text. Live drop rows are now used when they exist |
-| 11 Salvage Conclave-only | Partly fixed, awaiting in-app check | Unrelated decoration blurb removed; Conclave kept as a DROP source (DE drop table and wiki.warframe.com list only Conclave under drops). A Market purchase source was NOT added: no verified entry exists in repo data. Needs a wiki-sourced addition |
-| 12 Foundry drawer outside click | Fixed in code, awaiting in-app check | `RecipeDrawer` now has the shared backdrop, click guard and Escape handling. Test: `tests/ui/foundry-drawer-i18n.test.mjs` |
-| 14 New UI strings never translated (reworded from "Farming Targets not localized") | Open: scope measured, NOT fixed | 104 keys missing in all 14 locales plus 73-227 English-identical strings per locale; no test or rule enforced translation. See section 14 |
-| 13, 16, 19, 20, 21, 22 | Not worked in this round | 19, 20, 22 were fixed in code in an earlier snapshot and are still unconfirmed in the app |
-| 15 Inventory overscroll | Investigated, cause unproven | Candidate: hardcoded row strides (`SETS_ROW_STRIDE`, `GENERAL_CARD_HEIGHT`) vs real heights, but a calibration step already exists. Needs a live measurement |
-| 17 Riven overlay does not appear | Partly fixed (stale CLOSE ignored); new log evidence in item 26 shows a replayed OPEN the guard does not cover | Log evidence: "screen opened" and "overlays closed (ClearAgents)" logged in the same millisecond with the close LogTS older than the open. Stale close triggers are now ignored (`log_scanner.rs`, unit test). The replay mechanism of the old line is NOT proven |
-| 18 Raw key in Riven trigger | Fixed in code, awaiting in-app check | `t()` reads only `ui[key]`; six keys sat at the top level of every locale JSON. Moved under `ui` in all 15 locales; all-locale integrity test added |
-| 23 Relic reward overlay "UNRECOGNIZED" (new) | Fixed in code, awaiting in-app check | See section 23 |
-| 24 Scanner toast shows raw i18n keys (new) | Open: root cause found, NOT fixed | See section 24 |
-| 25 Riven prompt banner vanishes when the hotkey is pressed (regression) | Open: cause proven, NOT fixed | The fix exists only in the old root repo and was never ported (`a92b5311`). See section 25 |
-| 26 Riven overlay stuck on screen outside the riven screen (new) | Open: evidence found, mechanism partly proven, NOT fixed | A replayed old "screen opened" log line re-opens the overlay with no later close. Item 17 is only partly fixed. See section 26 |
-| 27 Riven grader runs on every roll after one hotkey press | Open: decision made (one hotkey press per roll), NOT fixed | Code arms per riven-screen session in both old and new trees; automatic timers capture blurry, moving cards. See section 27 |
-| 28 Focus watcher floods the log (new) | Open: root cause verified in code, NOT fixed | The log line sits before the own-window check, so it repeats every 0.52 s while an app window has focus; the same check also stops overlays hiding when the main app window is focused. See section 28 |
-| 29 Fixes made in the old root repo never ported to Preview (process) | Open | Listed commits are missing from the app. See section 29 |
-| 30 Prime Sets show OWNED when only a part or the main blueprint is held (new) | Open: cause verified on real inventory | `Inventory.jsx:407` counts any held part as ownership; 62 of 166 sets affected. See section 30 |
-| 31 Prime Sets tab scrolls very slowly, worst scrolling up (new) | Open: investigation started | Possible memory leak reported; cause unknown. See section 31 |
-| 32 Dual-weapon Prime sets omit the two base guns from their recipe (new) | Open: cause verified | 4 sets (Akbronco, Aklex, Akmagnus, Akvasto) lose the 2 finished guns in `PRIME_PART_PATH_RE` filtering. See section 32 |
+| 8 Orokin Cell Blueprint as enemy drop | Fixed in code, in the 20:18 build, awaiting in-app check | `dropsParser.js` filed unresolved names such as "2X Orokin Cell" under phantom `display:<name> blueprint` keys (731 keys); quantity prefixes are stripped and no blueprint key is invented |
+| 9 Meso C11 repeated x5 | Fixed in code (both paths), partly in the 20:18 build | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed |
+| 10 "+N more" without rows | Fixed in code, in the 20:18 build, awaiting check | 85 override strings carried "(+N more sources)"; live drop rows replace them |
+| 11 Salvage Conclave-only | Fixed in code; Market and farming sources added after the 20:18 build | Decoration blurb removed; wiki.warframe.com Market and farming sentences added verbatim as separate sources |
+| 12 Foundry drawer outside click | Fixed in code, in the 20:18 build, awaiting check | `RecipeDrawer` got the shared backdrop, click guard and Escape |
+| 13 Extractor Prime Set artwork | Fixed in code, not yet deployed | Set and blueprint images resolved from DE `ExportBundles` (only the 4 intended images changed out of 764) |
+| 14 New UI strings never translated | Fixed in code for all 14 locales, not yet deployed | 104 missing keys translated in every locale plus an enforcement test (completeness, placeholders, leftover-English, script checks). The Circuit title stays English (see 16). Existing real translations were verified unaltered |
+| 15 Inventory overscroll | OPEN, not fixed deliberately | Fixed row-height constants; rows are CSS grid rows as tall as their tallest card, so no uniform stride is exact; a correct fix needs a variable-height virtualizer. Waiting for the user's measurement (see section 15) |
+| 16 Circuit title | BLOCKED | No official localized name exists in the repo data or on wiki.warframe.com; title routed through `t()` and kept "The Circuit" |
+| 17 Riven overlay does not appear | Fixed in code (stale close + replay guards), Rust uncompiled, not deployed | See 26 |
+| 18 Raw key in Riven trigger | Fixed in code, in the 20:18 build, awaiting check | Keys moved under `ui` in all locales |
+| 19, 20, 22 | Fixed in an earlier snapshot, never confirmed in the app | Need the user's check |
+| 21 Reward overlay blueprint count | No defect found | The display path and all translation keys are correct for the logged payload; needs an overlay screenshot showing the miss |
+| 23 Relic reward overlay UNRECOGNIZED | Fixed in code (OCR cleanup, tests), Rust compiled and unit-tested in an earlier run, not deployed | `clean_ocr_output` kept only capitalised neighbours |
+| 24 Scanner toast raw keys | Fixed in code, not deployed | Listener and Maps timer read `t` through a ref |
+| 25 Riven banner vanishes on hotkey | Fixed in code, not deployed | Banner hides only on screen close |
+| 26 Riven overlay stuck / replayed log lines | Fixed in code (monotonic guard + bounded dedupe + garbage filter + diagnostics), Rust UNCOMPILED, not deployed | Mechanism partly proven (the scanner reads up to 1 MiB per poll and wiped its whole dedupe set at 16,384 new hashes); diagnostics added to prove it next session |
+| 27 Riven grading per press | Fixed in code, not deployed | Every hotkey press grades once; no timers; new-roll result clears on a new roll and hides on accept |
+| 28 Focus watcher log flood | Fixed in code, Rust UNCOMPILED, not deployed | The main-window exemption remains (documented) |
+| 29 Old-tree fixes not ported | Ports done: weekday/month locale, Target Inspector clipping and planet label, drawer image order, Prime ownership via recipe identity (JS) and the DE name/description merge (Rust, uncompiled); riven fixes folded into 25-27 | Re-verified against Preview by code and real-data comparison |
+| 30 Prime Sets OWNED | Fixed in code, not deployed | 62 of 166 sets wrongly owned -> 0 on the real inventory; the overlay part could not be reproduced and needs an example |
+| 31 Prime Sets scroll slowness | Fixed in code (cached part sources, memoized cards; 362 ms -> 1.9 ms simulated), not deployed, NOT measured in the app | Not a leak per the code review |
+| 32 Dual-weapon recipes | Fixed in code, not deployed | Aklex, Akvasto, Akbronco, Akmagnus list their 2 base guns with images |
+
 
 Process lessons from this round (apply to all future fixes):
 - A passing test is not proof: two Codex changes shipped bugs their own tests missed (9 locales lost `nav.market`; the tier label key lacked the `ui.` prefix, so the app would have printed a raw key). Always render the real label or screen on real data.

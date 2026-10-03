@@ -1177,6 +1177,7 @@
     "farming_targets.summary_targets": "Active targets",
     "farming_targets.summary_needed": "Items still needed",
     "farming_targets.summary_places": "Verified places",
+    "farming_targets.node_count": "{count} nodes",
     "farming_targets.summary_conclave": "Conclave-only items",
     "farming_targets.farm_next": "Farm next",
     "farming_targets.coverage_explanation": "Ranked by distinct needed items covered; chance is shown for every source.",

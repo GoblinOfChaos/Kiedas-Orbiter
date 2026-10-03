@@ -98,6 +98,37 @@ test('SSR shows the planet for ungrouped ranked places and leaves the inspector 
   assert.match(inspector, /rounded-b-lg overflow-hidden/)
 })
 
+test('SSR groups ranked places by planet and keeps node names underneath', async () => {
+  const { PreviewFarmingView, UiContext } = await loadScreen()
+  const { targets, model } = fixtureUiModel()
+  const groupedModel = {
+    ...model,
+    ranked: model.ranked.map((row, index) => ({
+      ...row,
+      place: { ...row.place, planet: index < 2 ? 'Mars' : 'Earth', name: `Node ${index + 1}` },
+    })),
+  }
+  const render = (groupPlanet) => renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
+    targets, reservations: [], model: groupedModel, t, selectedTarget: targets[0].id, setSelectedTarget: noOp,
+    tab: 'all', setTab: noOp, minChanceOn: false, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
+    hideDone: false, setHideDone: noOp, hideConclave: false, setHideConclave: noOp, groupPlanet, setGroupPlanet: noOp,
+    toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp, onTargetChange: noOp, onReserve: noOp,
+  })))
+
+  const grouped = render(true)
+  assert.equal((grouped.match(/<strong class="text-sm">Mars<\/strong>/g) ?? []).length, 1)
+  assert.equal((grouped.match(/<strong class="text-sm">Earth<\/strong>/g) ?? []).length, 1)
+  assert.match(grouped, /Node 1/)
+  assert.match(grouped, /Node 2/)
+  assert.match(grouped, /Node 3/)
+  assert.match(grouped, /farming_targets\.node_count/)
+
+  const ungrouped = render(false)
+  assert.match(ungrouped, /Mars — Node 1/)
+  assert.match(ungrouped, /Mars — Node 2/)
+  assert.match(ungrouped, /Earth — Node 3/)
+})
+
 test('screen model stays under 100ms for 80 targets with an indexed place set', () => {
   const base = fixtureUiModel()
   const targets = Array.from({ length: 80 }, (_, index) => ({ ...base.targets[index % 3], id: `target-${index}` }))

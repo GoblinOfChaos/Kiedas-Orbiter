@@ -1588,6 +1588,7 @@
     "farming_targets.summary_targets": "作用中的目標",
     "farming_targets.summary_needed": "仍需收集的物品",
     "farming_targets.summary_places": "已驗證地點",
+    "farming_targets.node_count": "{count} 個節點",
     "farming_targets.summary_conclave": "Conclave 限定物品",
     "farming_targets.farm_next": "下一步刷取",
     "farming_targets.coverage_explanation": "按涵蓋的不同所需物品數量排序；每個來源都會顯示機率。",

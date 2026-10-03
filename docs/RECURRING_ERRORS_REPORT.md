@@ -17,14 +17,27 @@ Each section details:
 
 ---
 
-## Status Log (2026-10-02): items 8-23 after the Codex fix round
+## Status Log (updated 2026-10-03): items 8-43; items 33-43 are new findings from the user's in-app checks of build 795d0a7
 
 "Fixed in code" means: root cause identified, regression test added and passing, merged to `preview/stage4` (full suite 179/179 as of 2026-10-02 22:30, head `60afb5cc`). Nothing below is "resolved" until the user confirms it in a deployed Preview AppImage; confirmations are recorded in `docs/APP_CHECKLIST.md`. BUILD STATUS: the AppImage deployed on 2026-10-02 22:41 was built from commit `795d0a78` (code identical to `60afb5cc`, the last code merge) and contains every fix marked "fixed in code" below; the Rust unit tests (47) passed before the build. Rows say "deployed 22:41" for these. The previous build (20:18, commit `63121682`) is kept as `~/AppImages/kiedas_orbiter_preview.appimage.bak-2241` for rollback.
+
+
+### Open fix queue and user decisions (2026-10-03). NOTHING below is started; the user says when
+Reopened by the user's own checks of build 795d0a7 (not fixed after all): **8** (Orokin Cell Blueprint row shows the resource drop text), **9** (Ash Prime Warframe drawer still lists refinement rows and percentages), **18** (Grade Rivens untranslated in German; ~1,900 English-identical UI strings are hidden by the test baseline). The earlier "fixed in code" status for those three was wrong for the paths named in their addenda.
+
+User decisions: item 37 badge goes centered above the piece image; item 38 is to be done as a **manual, wiki.warframe.com-verified overhaul for ALL resources**, scheduled after the Prime Sets work; item 41 only the Inventory currency strip may keep a horizontal scrollbar; no per-build preambles in the checklist.
+
+Suggested order (batches that touch the same code):
+1. **Prime Sets card and drawer**: 35 (part labels), 37 (badge position), 36 (Blueprint row with relics), 39 (false Market price), 9 reopened and 8 reopened (same Blueprint row and relic helper).
+2. **Crash and layout quick wins**: 42 (History `locale` plus translated crash screen), 33 (currency strip, draft on `agent/b9-strip`), 41 (Rivens scrollbars), 40 (Market tabs); then recheck 43.
+3. **Resources**: 38 (manual wiki-verified data for every resource), 34 (extractors), the bad decoration-market override.
+4. **Translations**: 18 (English-identical audit, 14 languages).
+Blocked or needs the user: 16, 15 (measurement), 21 and the overlay part of 30 (screenshot), 41 cards (screenshot), 43 (log if it recurs), 19/20/22 (unconfirmed).
 
 | # | Status | Root cause / what changed |
 |---|---|---|
 | 8 Orokin Cell Blueprint as enemy drop | **REOPENED 2026-10-03**: the phantom-key part was fixed, but the Orokin Cell drawer's "1x Blueprint" row still shows the resource's enemy-drop text (user screenshot, build 795d0a7). Cause verified, NO fix started | See section 8 addendum. Earlier fix: `dropsParser.js` filed unresolved names such as "2X Orokin Cell" under phantom `display:<name> blueprint` keys (731 keys); quantity prefixes are stripped and no blueprint key is invented |
-| 9 Meso C11 repeated x5 | Fixed in code (both paths), deployed 22:41 (top-level paths also in the 20:18 build) | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed | **REOPENED 2026-10-03 for Warframe drawers**: Ash Prime Neuroptics still lists (Radiant)/(Flawless) rows with percentages, see section 9 addendum |
+|  9 Meso C11 repeated x5 | **REOPENED 2026-10-03 for Warframe drawers**: Ash Prime Neuroptics still lists (Radiant)/(Flawless) rows with percentages, see section 9 addendum (earlier status: Fixed in code (both paths), deployed 22:41 (top-level paths also in the 20:18 build)) | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed |
 | 10 "+N more" without rows | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | 85 override strings carried "(+N more sources)"; live drop rows replace them |
 | 11 Salvage Conclave-only | Fixed in code, deployed 22:41 (Market and farming sources added after the 20:18 build), awaiting in-app check | Decoration blurb removed; wiki.warframe.com Market and farming sentences added verbatim as separate sources |
 | 12 Foundry drawer outside click | RESOLVED: confirmed by the user in the app 2026-10-02 (build 63121682). See R4 | `RecipeDrawer` got the shared backdrop, click guard and Escape |
@@ -33,7 +46,7 @@ Each section details:
 | 15 Inventory overscroll | OPEN, not fixed deliberately | Fixed row-height constants; rows are CSS grid rows as tall as their tallest card, so no uniform stride is exact; a correct fix needs a variable-height virtualizer. Waiting for the user's measurement (see section 15) |
 | 16 Circuit title | BLOCKED | No official localized name exists in the repo data or on wiki.warframe.com; title routed through `t()` and kept "The Circuit" |
 | 17 Riven overlay does not appear | Fixed in code (stale close + replay guards), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | See 26 |
-| 18 Raw key in Riven trigger | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | Keys moved under `ui` in all locales | **REOPENED 2026-10-03**: "Grade Rivens" is still English in German; see section 18 addendum |
+|  18 Raw key in Riven trigger | **REOPENED 2026-10-03**: "Grade Rivens" is still English in German; see section 18 addendum (earlier status: Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check) | Keys moved under `ui` in all locales |
 | 19, 20, 22 | Fixed in an earlier snapshot, never confirmed in the app | Need the user's check |
 | 21 Reward overlay blueprint count | No defect found | The display path and all translation keys are correct for the logged payload; needs an overlay screenshot showing the miss |
 | 23 Relic reward overlay UNRECOGNIZED | Fixed in code (OCR cleanup, tests), Rust compiled and unit-tested, deployed 22:41, awaiting in-app check | `clean_ocr_output` kept only capitalised neighbours |

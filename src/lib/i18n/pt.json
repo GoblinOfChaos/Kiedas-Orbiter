@@ -1576,6 +1576,7 @@
     "farming_targets.summary_targets": "Alvos ativos",
     "farming_targets.summary_needed": "Itens ainda necessários",
     "farming_targets.summary_places": "Locais verificados",
+    "farming_targets.node_count": "{count} nós",
     "farming_targets.summary_conclave": "Itens necessários apenas para Conclave",
     "farming_targets.farm_next": "Farmar em seguida",
     "farming_targets.coverage_explanation": "Ordenado pela quantidade de itens distintos necessários que cobre; a chance é exibida para cada fonte.",

@@ -30,6 +30,7 @@ import { RELIC_REFINEMENTS } from '../lib/farmingTargets/relicPlaces.js';
 import { event } from '../lib/logging/logger.js';
 import { activeTargets, dueState, targetReservationQuantity } from '../lib/farmingTargets/state.js';
 import { buildFarmingDrawerLookup } from '../lib/farmingTargets/drawerLookup.js';
+import { groupRankedByPlanet } from '../lib/farmingTargets/groupRankedByPlanet.js';
 
 function validLocalDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -66,6 +67,17 @@ function RelicPlaceRow({ row, total, t, onHowToGet }) {
   </div>;
 }
 
+function CoveredItems({ items }) {
+  return <div className="flex flex-wrap gap-2">{items.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>{source.rotation ? <span className="text-kronos-dim"> · Rot {String(source.rotation).replace(/^Rot\s*/i, '')}</span> : null}</span>))}</div>;
+}
+
+function GroupedPlanetRow({ row, t, total }) {
+  return <div className="p-4 space-y-2">
+    <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.planet ?? row.place.name}</strong>{row.planet && <details className="ml-auto text-[10px] text-kronos-dim"><summary className="cursor-pointer list-none rounded-full border border-white/10 px-2 py-0.5 hover:text-kronos-text">{t('farming_targets.node_count', { count: row.members.length })}</summary><div className="mt-2 w-full min-w-[14rem] space-y-3 rounded-md border border-white/5 bg-black/10 p-2">{row.members.map((member) => <div key={member.place.id} className="space-y-1"><div className="flex flex-wrap items-center gap-2"><strong className="text-xs">{member.place.name}</strong><HonestyBadge place={member.place} t={t} />{member.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-[10px] text-kronos-accent">{t('farming_targets.covers', { count: member.coverage, total })}</span></div><CoveredItems items={member.coveredItems} /></div>)}</div></details>}{!row.planet && <HonestyBadge place={row.place} t={t} />}<span className={`${row.planet ? '' : 'ml-auto '}text-xs font-bold text-kronos-accent`}>{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
+    <CoveredItems items={row.coveredItems} />
+  </div>;
+}
+
 export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
@@ -73,6 +85,7 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
     && row.usedBy.some((entry) => String(entry.targetId) === String(target.id))
     && (!hideDone || row.stillNeeded > 0));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
+  const displayRows = groupPlanet && tab !== 'relics' ? groupRankedByPlanet(model.ranked) : model.ranked;
   return (
     <div className="space-y-5" data-preview-farming-targets>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
@@ -106,10 +119,10 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.farm_next')}</h2><p className="text-xs text-kronos-dim mt-1">{t('farming_targets.coverage_explanation')}</p></div>
           <div className="divide-y divide-white/5">
             {model.ranked.length === 0 && <p className="p-5 text-sm text-kronos-dim">{t('farming_targets.no_sources')}</p>}
-            {model.ranked.map((row) => tab === 'relics' ? <RelicPlaceRow key={row.place.id} row={row} total={stillNeededCount} t={t} onHowToGet={toggle} /> : <div key={row.place.id} className="p-4 space-y-2">
-              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupPlanet ? (row.place.planet || row.place.name) : (row.place.planet ? `${row.place.planet} — ${row.place.name}` : row.place.name)}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
+            {displayRows.map((row) => tab === 'relics' ? <RelicPlaceRow key={row.place.id} row={row} total={stillNeededCount} t={t} onHowToGet={toggle} /> : groupPlanet ? <GroupedPlanetRow key={row.place.id} row={row} t={t} total={stillNeededCount} /> : <div key={row.place.id} className="p-4 space-y-2">
+              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.place.planet ? `${row.place.planet} — ${row.place.name}` : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
               {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
-              <div className="flex flex-wrap gap-2">{row.coveredItems.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>{source.rotation ? <span className="text-kronos-dim"> · Rot {String(source.rotation).replace(/^Rot\s*/i, '')}</span> : null}</span>))}</div>
+              <CoveredItems items={row.coveredItems} />
             </div>)}
           </div>
         </Card>

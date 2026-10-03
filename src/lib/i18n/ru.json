@@ -1569,6 +1569,7 @@
     "farming_targets.summary_targets": "Активные цели",
     "farming_targets.summary_needed": "Предметы, которые ещё нужны",
     "farming_targets.summary_places": "Проверенные места",
+    "farming_targets.node_count": "Узлы: {count}",
     "farming_targets.summary_conclave": "Предметы только для конклава",
     "farming_targets.farm_next": "Фармить следующим",
     "farming_targets.coverage_explanation": "Сортировка по числу покрытых уникальных нужных предметов; шанс указан для каждого источника.",

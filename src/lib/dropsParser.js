@@ -158,7 +158,10 @@ function addSource(index, itemUn, source) {
 
 function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint) {
   if (!itemName) return
-  const lc = itemName.toLowerCase().trim()
+  // DropsAll sometimes prefixes a stack quantity (for example `2X Orokin
+  // Cell`). Resolve the item identity without that quantity so a resource
+  // reward cannot fall through into a synthetic `<name> Blueprint` key.
+  const lc = itemName.toLowerCase().trim().replace(/^\d+\s*[xX]\s*/, '')
   // Skip generic credit/endo/affinity caches
   if (/^[\d,]+x?\s*(credits?|endo|affinity|focus)/i.test(lc)) return
 
@@ -218,14 +221,16 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
     }
   }
 
-  // Try with " Blueprint" appended
+  // Try with " Blueprint" appended only when that exact blueprint is a real
+  // indexed item. Never create a display-only blueprint key for a normal
+  // resource reward.
   if (!found && !lc.endsWith(' blueprint')) {
     const withBp = lc + ' blueprint'
     found = tryName(withBp)
-    if (!found) {
-      const fallbackKey = 'display:' + withBp
-      if (!index[fallbackKey]) index[fallbackKey] = []
-      index[fallbackKey].push(source)
+    if (!found && resultTypeToBlueprint?.componentRewardNames?.[withBp]) {
+      const component = resultTypeToBlueprint.componentRewardNames[withBp]
+      addComponentSource(index, component, source, resultTypeToBlueprint)
+      found = true
     }
   }
 

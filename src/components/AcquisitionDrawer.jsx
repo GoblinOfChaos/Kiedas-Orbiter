@@ -71,7 +71,7 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
     case 'drop':
       return [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ') || t('acquisition_drawer.known_drop_source');
     case 'relic':
-      return `${source.relicName || source.relicManifest || t('acquisition_drawer.relic_fallback')}${source.rarity ? ` (${source.rarity})` : ''}`;
+      return `${source.relicName || source.relicManifest || t('acquisition_drawer.relic_fallback')}${source.rarity ? ` (${t(`ui.relic_rarity.${String(source.rarity).toLowerCase()}`)})` : ''}`;
     case 'mission': {
       // source.missionType is usually a raw DE code (e.g. "MT_TAU_WAR") that
       // must go through the same MT_ translation table used elsewhere, or an

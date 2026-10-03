@@ -796,10 +796,19 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // ordering, ~34 items showed a bundle/promo blurb meant for a cosmetic
   // variant instead of their own correct `${displayName}|Blueprint` entry
   // sitting right next to it in the same file.
-  const overrideText = overridesData?.mods?.[displayName]
+  const rawOverrideText = overridesData?.mods?.[displayName]
     ?? overridesData?.components?.[dropIndexKey]
     ?? overridesData?.components?.[`${displayName}|Blueprint`]
     ?? overridesData?.components?.[displayName];
+  const overrideHasMoreSources = typeof rawOverrideText === 'string' && /\+\d+ more sources?/i.test(rawOverrideText);
+  const liveSourceKeys = [canonicalPath(dropIndexKey), dropIndexKey, `display:${normalizeDisplayName(displayName)}`].filter(Boolean);
+  const hasLiveDropSources = liveSourceKeys.some((key) => (dropIndex?.[key] || []).length > 0);
+  const isSalvageResource = canonicalPath(dropIndexKey) === '/Lotus/Types/Items/MiscItems/Salvage';
+  // A hand-written summary is allowed when it is the only route, but its
+  // truncated count must never hide live rows that the drawer can render.
+  const overrideText = (overrideHasMoreSources && hasLiveDropSources) || (isSalvageResource && hasLiveDropSources)
+    ? null
+    : rawOverrideText;
   // Component overrides written for an item's old recipe summary sometimes
   // say "Market purchase" even when the component itself is a resource. If
   // the exact resource has a structured Wiki acquisition record, let that
@@ -974,6 +983,25 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const seenSources = new Set();
   for (const key of sourceKeys) {
     for (const source of dropIndex?.[key] || []) {
+      if (source?.type === 'relic') {
+        const rawName = source.relicName || source.relicManifest || '';
+        const relicName = rawName
+          .replace(/\s*\((?:Intact|Exceptional|Flawless|Radiant)\)/i, '')
+          .replace(/\s+(?:Intact|Exceptional|Flawless|Radiant)$/i, '')
+          .replace(/\s+-\s+.*?\s+\d+(?:\.\d+)?%\s*$/i, '')
+          .trim();
+        const relicSignature = `relic:${relicName.toLowerCase()}`;
+        const existingIndex = dropSources.findIndex((candidate) => candidate.__relicSignature === relicSignature);
+        if (existingIndex >= 0) {
+          const candidate = dropSources[existingIndex];
+          const candidateIsCanonical = candidate.state == null && candidate.chance == null && !candidate.source;
+          const sourceIsCanonical = source.state == null && source.chance == null && !source.source;
+          if (sourceIsCanonical && !candidateIsCanonical) dropSources[existingIndex] = { ...source, __relicSignature: relicSignature };
+          continue;
+        }
+        dropSources.push({ ...source, relicName, state: undefined, chance: undefined, __relicSignature: relicSignature });
+        continue;
+      }
       const signature = JSON.stringify(source);
       if (!seenSources.has(signature)) {
         seenSources.add(signature);
@@ -982,10 +1010,11 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     }
   }
   if (dropSources && dropSources.length > 0) {
+    const sourcesWithoutInternalFields = dropSources.map(({ __relicSignature, state, chance, ...source }) => source);
     const usedBaseRelicFallback = baseRelicDisplay && !dropIndex?.['display:' + displayLower]?.length;
     const sources = usedBaseRelicFallback
-      ? [{ type: 'status', text: `Refined from ${baseRelicDisplay.replace(/\b\w/g, (c) => c.toUpperCase())} using Void Traces - not obtained directly at this quality.`, source: 'Relic refinement mechanic' }, ...dropSources]
-      : dropSources;
+      ? [{ type: 'status', text: `Refined from ${baseRelicDisplay.replace(/\b\w/g, (c) => c.toUpperCase())} using Void Traces - not obtained directly at this quality.`, source: 'Relic refinement mechanic' }, ...sourcesWithoutInternalFields]
+      : sourcesWithoutInternalFields;
     // recipe must travel with drop sources: both drawers hide the whole Crafting
     // Requirements section (a Warframe's Neuroptics/Chassis/Systems parts) when it is missing.
     return { sources, recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };

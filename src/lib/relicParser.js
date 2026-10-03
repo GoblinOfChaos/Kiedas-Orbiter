@@ -760,12 +760,9 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.65) {
   if (!ocrText || !candidates || candidates.length === 0) return null;
 
   const clean = (s) => s.toUpperCase().replace(/[^A-Z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
-  const ocrClean = clean(splitPascal(ocrText));
+  const compact = (s) => s.replace(/\s+/g, '');
+  const ocrVariants = [...new Set([clean(splitPascal(ocrText)), clean(ocrText)])];
 
-  if (ocrClean.length < 3) return null;
-
-  const ocrWords = ocrClean.split(' ');
-  const ocrRoot = ocrWords[0];
   let bestMatch = null;
   let bestScore = -1;
 
@@ -777,63 +774,83 @@ export function fuzzyMatchReward(ocrText, candidates, threshold = 0.65) {
     const itemWords = itemClean.split(' ');
     const itemRoot = itemWords[0];
 
-    // 1. Exact match
-    if (ocrClean === itemClean) {
-      return item;
-    }
+    for (const ocrClean of ocrVariants) {
+      if (ocrClean.length < 3) continue;
 
-    // 2. Root word validation: Root word must match well to avoid cross-item matching
-    const rootDist = levenshteinDistance(ocrRoot, itemRoot);
-    const rootMaxL = Math.max(ocrRoot.length, itemRoot.length);
-    const rootSim = 1.0 - (rootDist / (rootMaxL || 1));
-    if (rootSim < 0.60 && !ocrClean.includes(itemClean) && !itemClean.includes(ocrClean)) {
-      continue; // Discard mismatching roots (e.g. Afentis vs Paris)
-    }
-
-    // 3. Word-by-word similarity
-    let totalSim = 0;
-    let totalWeight = 0;
-
-    for (let i = 0; i < itemWords.length; i++) {
-      const iw = itemWords[i];
-      let bestWordSim = 0;
-      for (const ow of ocrWords) {
-        if (ow.includes(iw) || iw.includes(ow)) {
-          bestWordSim = Math.max(bestWordSim, 0.9);
-        }
-        const d = levenshteinDistance(ow, iw);
-        const maxL = Math.max(ow.length, iw.length);
-        const s = 1.0 - (d / maxL);
-        if (s > bestWordSim) bestWordSim = s;
+      // Exact match, including OCR that omitted all spaces.
+      if (ocrClean === itemClean || compact(ocrClean) === compact(itemClean)) {
+        return item;
       }
 
-      const weight = i === 0 ? 3.0 : 1.0; // Heavily weight root word
-      totalSim += (bestWordSim * weight);
-      totalWeight += weight;
-    }
+      const ocrWords = ocrClean.split(' ');
+      const ocrRoot = ocrWords[0];
 
-    // Penalize a candidate for OCR words it has no counterpart for. Without
-    // this, only itemWords were ever iterated above, so a general/parent
-    // name that's a strict word-subset of a more specific name (e.g.
-    // "Yareli Prime Blueprint" vs OCR "Yareli Prime Chassis Blueprint")
-    // scored an identical perfect match to the correct, longer candidate -
-    // the extra OCR word was never penalized either way, so ties were
-    // broken by candidate array order (DE drop-table manifest position)
-    // rather than by which name actually fits the OCR text better.
-    // Confirmed live: this produced a wrong "Yareli Prime Blueprint" result
-    // when the real reward was "Yareli Prime Chassis Blueprint". Each
-    // unaccounted OCR word counts as zero similarity at the same weight as
-    // any other non-root word.
-    const extraOcrWords = Math.max(0, ocrWords.length - itemWords.length);
-    totalWeight += extraOcrWords;
+      // Root word validation: Root word must match well to avoid cross-item matching
+      const rootDist = levenshteinDistance(ocrRoot, itemRoot);
+      const rootMaxL = Math.max(ocrRoot.length, itemRoot.length);
+      const rootSim = 1.0 - (rootDist / (rootMaxL || 1));
+      if (rootSim < 0.60 && !ocrClean.includes(itemClean) && !itemClean.includes(ocrClean)) {
+        continue; // Discard mismatching roots (e.g. Afentis vs Paris)
+      }
 
-    const finalScore = totalSim / totalWeight;
+      // Word-by-word similarity
+      let totalSim = 0;
+      let totalWeight = 0;
 
-    if (finalScore > bestScore && finalScore >= threshold) {
-      bestScore = finalScore;
-      bestMatch = item;
+      for (let i = 0; i < itemWords.length; i++) {
+        const iw = itemWords[i];
+        let bestWordSim = 0;
+        for (const ow of ocrWords) {
+          if (ow.includes(iw) || iw.includes(ow)) {
+            bestWordSim = Math.max(bestWordSim, 0.9);
+          }
+          const d = levenshteinDistance(ow, iw);
+          const maxL = Math.max(ow.length, iw.length);
+          const s = 1.0 - (d / maxL);
+          if (s > bestWordSim) bestWordSim = s;
+        }
+
+        const weight = i === 0 ? 3.0 : 1.0; // Heavily weight root word
+        totalSim += (bestWordSim * weight);
+        totalWeight += weight;
+      }
+
+      // Penalize a candidate for OCR words it has no counterpart for. Without
+      // this, only itemWords were ever iterated above, so a general/parent
+      // name that's a strict word-subset of a more specific name (e.g.
+      // "Yareli Prime Blueprint" vs OCR "Yareli Prime Chassis Blueprint")
+      // scored an identical perfect match to the correct, longer candidate -
+      // the extra OCR word was never penalized either way, so ties were
+      // broken by candidate array order (DE drop-table manifest position)
+      // rather than by which name actually fits the OCR text better.
+      // Confirmed live: this produced a wrong "Yareli Prime Blueprint" result
+      // when the real reward was "Yareli Prime Chassis Blueprint". Each
+      // unaccounted OCR word counts as zero similarity at the same weight as
+      // any other non-root word.
+      const extraOcrWords = Math.max(0, ocrWords.length - itemWords.length);
+      totalWeight += extraOcrWords;
+
+      const finalScore = totalSim / totalWeight;
+
+      if (finalScore > bestScore && finalScore >= threshold) {
+        bestScore = finalScore;
+        bestMatch = item;
+      }
     }
   }
 
-  return bestMatch;
+  if (bestMatch) return bestMatch;
+
+  const trailingText = clean(ocrText);
+  const trailingWords = trailingText ? trailingText.split(' ') : [];
+  if (trailingWords.length < 2 || trailingText.length < 12) return null;
+
+  const trailingMatches = candidates.filter((item) => {
+    if (!item || !item.name) return false;
+    const itemWords = clean(item.name).split(' ');
+    return itemWords.length > trailingWords.length
+      && itemWords.slice(-trailingWords.length).join(' ') === trailingText;
+  });
+
+  return trailingMatches.length === 1 ? trailingMatches[0] : null;
 }

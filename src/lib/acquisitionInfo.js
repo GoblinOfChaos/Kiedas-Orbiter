@@ -10,6 +10,7 @@ import bundledWarframeAcquisition from '../../src-tauri/data/assets/data/warfram
 import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-page-acquisition.json';
 import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
 import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-relic-drops.json';
+import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wiki-extractor-acquisition.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 import { normalizeRelicSources } from './relicSources.js';
 
@@ -23,6 +24,7 @@ const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map
 const bundledWikiResourceIndex = new Map(Object.entries(bundledWikiResourceAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), typeof entry === 'string' ? { location: entry } : entry]));
 const bundledWikiResourceSourcesIndex = new Map(Object.entries(bundledWikiResourceSources).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
+const bundledWikiExtractorIndex = new Map(Object.entries(bundledWikiExtractorAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replaceAll('/StoreItems/', '/'), text]));
 
 /**
@@ -982,6 +984,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // override for the same DE object. Keep the path match strict: this is not
   // a name/category rule and cannot bleed into similarly named variants.
   const verifiedAggregateWiki = WIKI_VERIFIED_ACQUISITIONS.get(canonicalPath(dropIndexKey));
+  const extractorAcquisition = bundledWikiExtractorIndex.get(normalizeDisplayName(displayName));
+  if (extractorAcquisition?.sources?.length) {
+    return {
+      sources: extractorAcquisition.sources.map((text) => ({ type: 'non-drop', text, source: `Warframe Wiki (${extractorAcquisition.url})` })),
+      recipe: recipe || null,
+      wikiLink: { url: extractorAcquisition.url, isDirect: true },
+    };
+  }
   if (verifiedAggregateWiki && overrideText && !resourceOverrideIsMarketOnly && !researchOverrideHasStructuredRoute) {
     return {
       sources: [{ type: 'non-drop', text: verifiedAggregateWiki.text, source: verifiedAggregateWiki.source }],

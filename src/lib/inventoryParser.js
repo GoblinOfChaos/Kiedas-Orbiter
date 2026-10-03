@@ -443,6 +443,13 @@ const BOOSTER_NAME_MAP = {
 // the localized display name instead (e.g. "Afuris Prime: Lauf") would miss them.
 export const PRIME_PART_PATH_RE = /Prime.*?(Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Helmet|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band|Blueprint)(Component)?$/i;
 
+const EXTRACTOR_IMAGE_PATHS = Object.freeze({
+  '/Lotus/Types/Ship/BasicResourceDrone': '/Lotus/Interface/Icons/StoreIcons/Resources/ResourceDrones/ResourceDrone.png',
+  '/Lotus/Types/Ship/AdvancedResourceDrone': '/Lotus/Interface/Icons/StoreIcons/Resources/ResourceDrones/ResourceDronePrime.png',
+  '/Lotus/Types/Ship/BasicUcResourceDrone': '/Lotus/Interface/Icons/StoreIcons/Resources/ResourceDrones/ResourceDroneUc.png',
+  '/Lotus/Types/Ship/AdvancedUcResourceDrone': '/Lotus/Interface/Icons/StoreIcons/Resources/ResourceDrones/ResourceDroneUcPrime.png',
+});
+
 function nameFromPath(path = '') {
   const parts = path.split('/').filter(Boolean);
   const leaf = parts.at(-1) ?? path;
@@ -1399,7 +1406,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     raw.Suits, raw.LongGuns, raw.Pistols, raw.Melee,
     raw.Sentinels, raw.KubrowPets, raw.MoaPets, raw.ZanukaPets, raw.SentinelWeapons,
     raw.SpaceMelee, raw.SpaceGuns, raw.MechSuits, raw.OperatorAmps,
-    raw.SpaceSuits, raw.Hoverboards
+    raw.SpaceSuits, raw.Hoverboards, raw.Drones
   ].forEach(processList);
 
   const subsumedSet = new Set((raw.InfestedFoundry?.ConsumedSuits ?? []).map(s => s.s).filter(Boolean));
@@ -2807,6 +2814,57 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
+  // Resource Extractors are a four-item DE catalog whose finished instances
+  // live in raw.Drones rather than one of the equipment arrays above. Keep
+  // blueprint/crafted quantities separate, matching the existing Prime Set
+  // and non-Prime part ownership convention: a blueprint is visible and
+  // searchable, but only a finished drone makes the extractor owned.
+  const extractorDefinitions = [
+    ['/Lotus/Types/Ship/BasicResourceDrone', 'Titan Extractor'],
+    ['/Lotus/Types/Ship/AdvancedResourceDrone', 'Titan Extractor Prime'],
+    ['/Lotus/Types/Ship/BasicUcResourceDrone', 'Distilling Extractor'],
+    ['/Lotus/Types/Ship/AdvancedUcResourceDrone', 'Distilling Extractor Prime'],
+  ];
+  const extractorDroneCounts = new Map();
+  for (const entry of raw.Drones ?? []) {
+    if (!EXTRACTOR_IMAGE_PATHS[entry?.ItemType]) continue;
+    const quantity = entry.ItemCount ?? 1;
+    extractorDroneCounts.set(entry.ItemType, (extractorDroneCounts.get(entry.ItemType) ?? 0) + quantity);
+  }
+  const extractorBlueprintCounts = new Map();
+  for (const entry of raw.Recipes ?? []) {
+    const recipe = ERecipe[canonicalUniqueName(entry?.ItemType)] ?? ERecipe[entry?.ItemType];
+    if (!recipe?.resultType || !EXTRACTOR_IMAGE_PATHS[recipe.resultType]) continue;
+    extractorBlueprintCounts.set(recipe.resultType, (extractorBlueprintCounts.get(recipe.resultType) ?? 0) + (entry.ItemCount ?? 1));
+  }
+  const extractors = extractorDefinitions.map(([uniqueName, name]) => {
+    const craftedQuantity = extractorDroneCounts.get(uniqueName) ?? 0;
+    const blueprintQuantity = extractorBlueprintCounts.get(uniqueName) ?? 0;
+    const image = resolveImage(uniqueName, { [uniqueName]: { icon: EXTRACTOR_IMAGE_PATHS[uniqueName] } });
+    const blueprintUniqueName = Object.entries(ERecipe).find(([, recipe]) => recipe?.resultType === uniqueName)?.[0] ?? `${uniqueName}Blueprint`;
+    const item = {
+      unique_name: uniqueName,
+      name,
+      image,
+      category: 'parts',
+      real_unique_name: uniqueName,
+      blueprint_unique_name: blueprintUniqueName,
+      blueprint_quantity: blueprintQuantity,
+      crafted_quantity: craftedQuantity,
+      quantity: craftedQuantity,
+      owned: craftedQuantity > 0,
+      blueprintOwned: blueprintQuantity > 0,
+      description: '',
+      xp: 0,
+      rank: 0,
+      max_rank: 0,
+      mastered: false,
+      is_prime: /Prime$/i.test(name),
+    };
+    parts.push(item);
+    return item;
+  });
+
   // Add non-prime resources
   for (const item of (raw.MiscItems ?? [])) {
     const un = item.ItemType ?? '';
@@ -3579,7 +3637,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     companion_weapons,
     vehicles: [...archwings, ...kdrives], // Compatibility
     archwings, kdrives,
-    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, parts, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, dedupeSummary, intrinsics, starchart, plexus, all,
+    archweapons, necramechs, amps, mods, mods_catalog, peely_pix, arcanes, arcanes_catalog, landing_craft, landing_craft_catalog, relics, resources, components, parts, extractors, consumables, consumables_catalog, appearance_catalog, rivens, prime_parts, primeSets, dedupeSummary, intrinsics, starchart, plexus, all,
     kitgunChambers, zawStrikes, moaHeads, houndHeads,
 
     // ── Comprehensive owned-item-path set ──
@@ -3677,7 +3735,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         raw.Suits, raw.LongGuns, raw.Pistols, raw.Melee,
         raw.Sentinels, raw.KubrowPets, raw.MoaPets, raw.SentinelWeapons,
         raw.SpaceMelee, raw.SpaceGuns, raw.MechSuits, raw.OperatorAmps,
-        raw.SpaceSuits, raw.Hoverboards, raw.Recipes, raw.Consumables
+        raw.SpaceSuits, raw.Hoverboards, raw.Drones, raw.Recipes, raw.Consumables
       ];
 
       for (const arr of inventoryArrays) {

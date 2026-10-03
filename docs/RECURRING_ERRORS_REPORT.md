@@ -31,7 +31,9 @@ Suggested order (batches that touch the same code):
 1. **Prime Sets card and drawer**: 35 (part labels), 37 (badge position), 36 (Blueprint row with relics), 39 (false Market price), 9 reopened and 8 reopened (same Blueprint row and relic helper).
 2. **Crash and layout quick wins**: 42 (History `locale` plus translated crash screen), 33 (currency strip, draft on `agent/b9-strip`), 41 (Rivens scrollbars), 40 (Market tabs); then recheck 43.
 3. **Resources**: 38 (manual wiki-verified data for every resource), 34 (extractors), the bad decoration-market override.
-4. **Translations**: 18 (English-identical audit, 14 languages).
+4. **Translations (last)**: 18 (English-identical audit, 14 languages). The user speaks English, so anything that affects the English side goes first, Prime Sets work outranks translations, and translations come after every English-side fix.
+
+Usage rule (user, 2026-10-03): the user is low on weekly Claude usage. Hold off on intensive Claude work until the very last fixes; do the fixes with Codex (included in ChatGPT Plus) and keep Claude to short reviews, merges and the docs. Provider, exact model and cost category are still disclosed before every delegation.
 Blocked or needs the user: 16, 15 (measurement), 21 and the overlay part of 30 (screenshot), 41 cards (screenshot), 43 (log if it recurs), 19/20/22 (unconfirmed).
 
 | # | Status | Root cause / what changed |

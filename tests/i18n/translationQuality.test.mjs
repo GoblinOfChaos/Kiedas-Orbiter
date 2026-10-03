@@ -9,8 +9,7 @@ const en = JSON.parse(fs.readFileSync(path.join(root, 'en.json'), 'utf8'))
 const baseline = JSON.parse(fs.readFileSync(path.resolve(process.env.I18N_BASELINE || path.join(import.meta.dirname, '../fixtures/i18n-identical-baseline.json')), 'utf8'))
 const allowlist = JSON.parse(fs.readFileSync(path.resolve(process.env.I18N_QUALITY_ALLOWLIST || path.join(import.meta.dirname, '../fixtures/i18n-translation-quality-allowlist.json')), 'utf8'))
 
-const englishFunctionWords = ['the', 'and', 'for', 'you', 'your', 'to', 'of', 'in', 'with', 'from', 'that', 'this', 'any', 'all']
-const functionWordPattern = new RegExp(`\\b(?:${englishFunctionWords.join('|')})\\b`, 'i')
+const englishFunctionWords = ['the', 'and', 'for', 'you', 'your', 'to', 'of', 'in', 'with', 'from', 'that', 'this', 'any', 'all', 'a', 'on', 'son', 'no']
 const tokenPattern = /[A-Za-z][A-Za-z'-]{3,}/g
 const latinLocales = new Set(['de', 'es', 'fr', 'it', 'pl', 'pt', 'tr'])
 const scriptPatterns = {
@@ -42,16 +41,22 @@ const mixedLanguageCheckKeys = new Set([
 const removePlaceholders = (value) => String(value).replace(/\{[A-Za-z0-9_]+\}/g, '')
 const wordsIn = (value) => new Set((removePlaceholders(value).toLowerCase().match(tokenPattern) || []))
 const englishWords = new Set(Object.values(en.ui).flatMap((value) => [...wordsIn(value)]))
+const functionWordPatternFor = (locale) => {
+  const excluded = new Set(allowlist[locale]?.functionWords || [])
+  const words = englishFunctionWords.filter((word) => !excluded.has(word))
+  return words.length ? new RegExp(`\\b(?:${words.join('|')})\\b`, 'i') : null
+}
 
 export function findTranslationQualityIssues(locale, translated, english = en.ui, localeBaseline = new Set(baseline[locale] || []), localeAllowlist = allowlist[locale] || {}) {
   const allowedStrings = new Set(localeAllowlist.strings || [])
   const allowedWords = new Set(localeAllowlist.words || [])
+  const functionWordPattern = functionWordPatternFor(locale)
   const issues = []
   for (const [key, value] of Object.entries(translated)) {
     const text = removePlaceholders(value)
-    if (!text.trim() || allowedStrings.has(value)) continue
+    if (!text.trim() || allowedStrings.has(value) || localeBaseline.has(key)) continue
     if (latinLocales.has(locale)) {
-      if (functionWordPattern.test(text)) issues.push(`${key}: English function word in ${JSON.stringify(value)}`)
+      if (functionWordPattern?.test(text)) issues.push(`${key}: English function word in ${JSON.stringify(value)}`)
       if (english[key] && /[A-Za-z]{3,}/.test(english[key]) && value === english[key] && !localeBaseline.has(key)) {
         issues.push(`${key}: identical to English`) 
       }
@@ -94,4 +99,18 @@ test('quality gate catches the rejected German mixed-language strings', () => {
   }
   const issues = findTranslationQualityIssues('de', rejected, Object.fromEntries(Object.keys(rejected).map((key) => [key, key.endsWith('empty_title') ? 'No farming targets yet' : rejected[key]])), new Set())
   assert.ok(issues.length >= Object.keys(rejected).length, `expected every rejected sample to be caught, got ${issues.join('; ')}`)
+})
+
+test('quality gate catches three deliberate English leftovers in every supported Latin locale', () => {
+  const rejected = {
+    'farming_targets.empty_title': 'No farming targets yet',
+    'farming_targets.empty_detail': 'Search above for a Warframe to track what you need.',
+    'ui.riven_prompt.hint': 'The grading overlay scans the current card.',
+  }
+  for (const locale of ['es', 'fr', 'it', 'pt']) {
+    const issues = findTranslationQualityIssues(locale, rejected, Object.fromEntries(Object.keys(rejected).map((key) => [key, key])))
+    for (const key of Object.keys(rejected)) {
+      assert.ok(issues.some((issue) => issue.startsWith(`${key}:`)), `${locale}: failed to catch English leftover in ${key}`)
+    }
+  }
 })

@@ -1,5 +1,6 @@
 {
   "de": {
+    "functionWords": ["in", "a"],
     "strings": [
       "Digital Extremes hat diese Anwendung nicht ausdrücklich genehmigt und steht in keinem Zusammenhang zu ihr.",
       "Automatisch verfolgen (In Bearbeitung)",
@@ -64,5 +65,25 @@
     "words": [
       "warframe", "riven", "rivens", "conclave", "pvp", "void", "forma", "endo", "platin", "railjack", "incarnon", "duviri", "ayatan", "helminth", "mod", "mods", "farm", "market", "wiki", "preview", "ui", "app", "jwt", "in-game", "digital", "extremes", "github", "discord", "drop", "drops", "planet", "quest", "the", "circuit", "filter", "chance"
     ]
+  },
+  "es": {
+    "functionWords": ["a", "in", "no", "son"],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "preview", "wiki"]
+  },
+  "fr": {
+    "functionWords": ["a", "on", "son"],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "farmer", "farm", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "preview", "wiki", "plans", "session", "version", "rotations", "collection", "action", "chance", "factions", "source", "sources", "contribution", "exact", "boss", "date", "valuation"]
+  },
+  "it": {
+    "functionWords": ["a", "in", "no", "all"],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "preview", "wiki", "live", "boss", "area", "data", "file"]
+  },
+  "pt": {
+    "functionWords": ["a", "in", "no", "for"],
+    "strings": [],
+    "words": ["warframe", "mod", "conclave", "pvp", "drop", "drops", "farming", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "preview", "wiki", "item", "continue", "chance", "local", "data", "card"]
   }
 }

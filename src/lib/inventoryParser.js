@@ -2616,20 +2616,39 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // Add prime components from recipe ingredients (exclude resources like orokin cells).
     // PRIME_PART_PATH_RE is module-scoped (see top of file).
     const isPrimeComponent = (itemType) => PRIME_PART_PATH_RE.test(itemType.split('/').pop());
+    const canonicalIngredient = (itemType) => itemType?.replace('/StoreItems/', '/') ?? itemType;
+    const weaponByUniqueName = new Map(
+      [...primary, ...secondary, ...melee].map((item) => [canonicalIngredient(item.unique_name), item])
+    );
+    const weaponByName = new Map(
+      [...primary, ...secondary, ...melee]
+        .filter((item) => item.owned || (item.quantity ?? 0) > 0)
+        .map((item) => [item.name?.toLowerCase(), item])
+    );
+    const isPrimeWeaponIngredient = (itemType, itemName) => {
+      const weapon = EW[itemType] || EW[canonicalIngredient(itemType)];
+      return Boolean(weapon && /Prime/i.test(`${itemType} ${itemName ?? ''}`));
+    };
     const ingredientMap = new Map();
     for (const ing of (recipe.ingredients ?? [])) {
       const ingName = resolveName(ing.ItemType, dict, locale, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
-      if (!isPrimeComponent(ing.ItemType)) continue;
+      if (!isPrimeComponent(ing.ItemType) && !isPrimeWeaponIngredient(ing.ItemType, ingName)) continue;
       const key = ing.ItemType;
       if (ingredientMap.has(key)) {
         ingredientMap.get(key).need += ing.ItemCount ?? 1;
       } else {
-        ingredientMap.set(key, { ItemType: key, name: ingName, image: resolveImage(key, EW, ER, ERel, primeSetBundleImages), need: ing.ItemCount ?? 1 });
+        ingredientMap.set(key, { ItemType: key, name: ingName, image: resolveImage(key, EW, ER, ERel, primeSetBundleImages), need: ing.ItemCount ?? 1, isWeapon: isPrimeWeaponIngredient(ing.ItemType, ingName) });
       }
     }
     for (const [, data] of ingredientMap) {
       let craftedQty = 0, bpQty = 0;
-      if (data.ItemType.includes('Component')) {
+      if (data.isWeapon) {
+        const ownedWeapon = weaponByUniqueName.get(canonicalIngredient(data.ItemType))
+          || weaponByName.get(data.name?.toLowerCase());
+        bpQty = ownedWeapon?.quantity ?? 0;
+        setParts.push({ unique_name: data.ItemType, name: data.name, image: data.image, quantity: bpQty, owned: bpQty > 0, need: data.need, ducats: EW[data.ItemType]?.primeSellingPrice || 0 });
+        if (bpQty > 0) ownedCount += 1;
+      } else if (data.ItemType.includes('Component')) {
         const bpKey = data.ItemType.replace('Component', 'Blueprint');
         craftedQty = primeItemCounts.get(data.ItemType) ?? 0;
         bpQty = primeItemCounts.get(bpKey) ?? 0;

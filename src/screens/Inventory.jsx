@@ -19,6 +19,7 @@ import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionD
 import ModCard from '../components/ModCard';
 import { getRelicCatalog } from '../lib/relicParser';
 import { OFFICIAL_IMAGE_OVERRIDES } from '../lib/warframeUtils';
+import { isPrimeSetOwned } from '../lib/primeSets.js';
 import { getSetting } from '../lib/settings';
 import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
 import { formatNumber } from '../lib/formatNumber';
@@ -397,13 +398,9 @@ export default function Inventory() {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
         const isVaulted = !(set.parts ?? []).some((p) => unvaultedRewards.has(p.unique_name) || unvaultedRewards.has(p.name?.toLowerCase()));
-        // Every DE Prime set is browsable, owned or not (same full-catalog
-        // rule as every other Inventory tab). Previously sets with no owned
-        // finished item and no leftover part quantity were filtered out, so an
-        // unowned Prime (e.g. Citrine Prime) showed in Warframes but none of
-        // its parts ever appeared. A fully-crafted set's parts are consumed
-        // (quantity 0), so ownership is the finished item OR any part held.
-        const ownedSet = (parent.owned ?? false) || (set.parts ?? []).some((p) => p.quantity > 0);
+        // Part quantities remain available for the completion ring and
+        // part-level indicators; they do not make the finished set owned.
+        const ownedSet = isPrimeSetOwned(parent, set);
         return {
           ...set,
           unique_name: set.unique_name || set.setPath,

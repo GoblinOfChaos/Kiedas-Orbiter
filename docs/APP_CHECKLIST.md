@@ -12,7 +12,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #11 Salvage drawer: no ship-decoration paragraph; Conclave drops are listed AND the wiki lines (Market: 30 Platinum for 3000 Salvage; Carme Mobile Defense and Olympus Disruption farming notes)
 - [ ] #10 Voidgel Orb drawer: the sources listed match the summary; no "+N more sources" text without matching rows (spot-check two other items)
 - [ ] #8 REOPENED 2026-10-03: your check found it is not fixed. The Orokin Cell drawer's "1x Blueprint" row shows the resource's enemy-drop text; it should be the 100 Platinum Market purchase. Cause found, NO fix started; goes with #36 and #38. The Forma Blueprint and Prime part drawers part of this check still stands
-- [ ] #9 Prime part drawers (Ash Prime Chassis, Citrine Prime Blueprint, Acceltra Prime): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no percentages, no raw key like `ui.relic_rarity.rare`. Check BOTH the top "How to obtain" list AND the "Crafting requirements" part rows
+- [ ] #9 REOPENED 2026-10-03 for Warframe drawers: Ash Prime Neuroptics still lists (Radiant)/(Flawless) rows with percentages. Cause partly found, NO fix started. The part-drawer checks for Citrine Prime Blueprint and Acceltra Prime below still stand. Original text: Prime part drawers (Ash Prime Chassis, Citrine Prime Blueprint, Acceltra Prime): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no percentages, no raw key like `ui.relic_rarity.rare`. Check BOTH the top "How to obtain" list AND the "Crafting requirements" part rows
 - [ ] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`
 - [ ] Window under 1050px wide: collapsed sidebar rail scrollbar OK
 
@@ -59,6 +59,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #36 Drawer "Crafting requirements" has no Blueprint row for 92 of 166 Prime items (for example Akarius Prime), although the Prime Sets card lists the Blueprint. Cause found, NO fix started
 - [ ] #37 The "x2" badge on Prime Sets part cells (reported 2026-10-03): decision made, it goes centered directly above the image of the needed piece. NO fix started
 - [ ] #38 Resource drawers (reported 2026-10-03): Alloy Plate lists only some mission drops and none of the planet/container sources the wiki gives; most common resources have no wiki entry in the app data. Cause partly found, NO fix started; needs your decision on a manual wiki-verified overhaul
+- [ ] #39 Prime Warframe drawers (reported 2026-10-03): say the Prime Blueprint costs credits in the Market ("Market Blueprint: 25,000 Credits" on Ash Prime). Cause found on real data (DE marks those blueprints excludeFromMarket), NO fix started; goes with #36, #8 and #9
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

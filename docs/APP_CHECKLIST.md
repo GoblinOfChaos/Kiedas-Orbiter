@@ -2,12 +2,7 @@
 
 Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4-6s per screen before judging (screens render slowly). Numbers like #9 refer to `docs/RECURRING_ERRORS_REPORT.md`. Report anything wrong with a screenshot, the screen name and the app language, and I will trace it and add it to the error file.
 
-**Order: easiest first.** Work top to bottom. Each step needs a bit more than the one before.
-
-## Before you start
-
-- [ ] The footer reads `Build 795d0a7 2026-10-02 22:40` (a 7-character hash and the compile start time). This is the build deployed 2026-10-02 22:41 from commit `795d0a78`; it contains every fix below (the Rust unit tests, 47, passed before the build). If this build is worse than the previous one, the previous build (20:18, commit `63121682`) is kept as `~/AppImages/kiedas_orbiter_preview.appimage.bak-2241`.
-- [ ] The app starts normally; updater and HTTP calls fine on Tauri core 2.12.0 + plugins
+**Order: easiest first.** Work top to bottom. Each step needs a bit more than the one before. This is an evolving list: new items are added to the step that fits their effort, confirmed items move to "Confirmed by you". Build details and the rollback copy are in the BUILD STATUS line of `docs/RECURRING_ERRORS_REPORT.md`.
 
 ## Step 1 - Quick looks (under a minute each, no game needed, English is fine)
 

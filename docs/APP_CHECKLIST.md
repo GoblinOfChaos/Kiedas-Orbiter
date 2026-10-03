@@ -35,7 +35,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #28 After a session with the game open, the log (`~/.local/share/kiedas-orbiter-preview/data/user/logs/app-YYYY-MM-DD.log`) does not fill with `[FOCUS_WATCHER] transition: focused -> unfocused` every half second (R)
 - [ ] #17 / #25 / #26 Riven reroll screen: the grading banner appears and STAYS visible after you press the hotkey, and disappears only when you leave the riven screen; leaving the screen hides everything and nothing reappears on its own later; look in the log for `[MEMORY WATCHER] dedupe:` lines (R)
 - [ ] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R)
-- [ ] #23 Relic mission (Citrine/Sevagoth Prime or any relic): all reward cards are recognized, none say UNRECOGNIZED (R)
+- [ ] #23 Relic mission (Citrine/Sevagoth Prime or any relic): all reward cards are recognized, none say UNRECOGNIZED (R) [PARTLY RE-OPENED 2026-10-03: see #44, one card of a duplicate pair was UNRECOGNIZED twice]
 - [ ] Riven single-card grading (one card only, before any reroll)
 
 ## Step 5 - Needs measuring or sending me something
@@ -65,6 +65,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #41 Rivens page: horizontal scrollbars on the filters (state, sort, weapon type) that cannot be grabbed, plus one under the cards (reported 2026-10-03). Filters found, cards need a screenshot or dev-tools element. Decision: only the Inventory currency strip keeps a horizontal scrollbar. NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build] (the card-area scrollbar was not located; tell me if it is still there)
 - [ ] #42 History crash "Can't find variable: locale" when hovering the chart, and the crash screen shows raw `ERROR_BOUNDARY.*` text (reported 2026-10-03). Both causes verified, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
 - [ ] #43 Wiki tab blank after that crash; only restarting the app fixed it (reported 2026-10-03). Not understood. If it happens again, send me the log file before restarting
+- [ ] #44 Relic reward overlay (reported 2026-10-03): "Yareli Prime Chassis Blueprint" and one "Akbronco Prime Blueprint" were UNRECOGNIZED. Both causes verified in the log and by running the matcher (a hyphen dropped by the native cleaner, and a wrongly capitalized O). NO fix started; the native half needs your explicit yes first
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

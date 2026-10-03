@@ -140,12 +140,14 @@ export default function Maps() {
   const { worldState, inventoryData } = useMonitoring();
   const duviriCycle = worldState?.duviriCycle;
   const [timeLeft, setTimeLeft] = useState('');
+  const mapsTRef = useRef(t);
+  mapsTRef.current = t;
 
   useEffect(() => {
     if (!duviriCycle) return;
     const tick = () => {
       const ms = duviriCycle.expiry - Date.now();
-      if (ms <= 0) {setTimeLeft(t('maps.cycle_expired'));return;}
+      if (ms <= 0) {setTimeLeft(mapsTRef.current('maps.cycle_expired'));return;}
       const m = Math.floor(ms / 60000);
       const s = Math.floor(ms % 60000 / 1000);
       setTimeLeft(`${m}m ${s}s`);

@@ -1096,6 +1096,26 @@ fn is_warframe_focused_diag(app: &AppHandle, diag: bool) -> bool {
     }
 }
 
+#[derive(Debug, PartialEq, Eq)]
+enum FocusDecision {
+    Hide,
+    KeepWaiting,
+    Show,
+    Nothing,
+}
+
+fn focus_decision(focused_now: bool, was_focused: bool, active_window_is_ours: bool) -> FocusDecision {
+    if focused_now && !was_focused {
+        FocusDecision::Show
+    } else if !focused_now && was_focused && active_window_is_ours {
+        FocusDecision::KeepWaiting
+    } else if !focused_now && was_focused {
+        FocusDecision::Hide
+    } else {
+        FocusDecision::Nothing
+    }
+}
+
 /// Start a background thread that monitors Warframe's window position and focus
 /// state.  When Warframe loses focus, all non-notification overlays are hidden;
 /// when it regains focus, previously-tracked overlays are re-shown.
@@ -1120,7 +1140,11 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
             poll_count = poll_count.wrapping_add(1);
             let focused_now = is_warframe_focused_diag(&ah, poll_count.is_multiple_of(60));
 
-            if focused_now && !was_focused {
+            let active_window_is_ours = !focused_now && was_focused && active_win_pos_rs::get_active_window()
+                .map(|w| w.process_id == std::process::id() as u64)
+                .unwrap_or(false);
+            match focus_decision(focused_now, was_focused, active_window_is_ours) {
+                FocusDecision::Show => {
                 crate::logger::log_to_disk(&ah, "[FOCUS_WATCHER] transition: unfocused -> focused, re-showing overlays");
                 for label in std::mem::take(&mut had_visible) {
                     // Skip overlays that have been voluntarily closed (e.g. relic
@@ -1130,23 +1154,20 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                     if !still_expected { continue; }
                     let _ = show_window_internal(&ah, &label);
                 }
-            } else if !focused_now && was_focused {
-                crate::logger::log_to_disk(&ah, "[FOCUS_WATCHER] transition: focused -> unfocused, hiding overlays");
+                }
+                FocusDecision::KeepWaiting => {
                 // Don't hide overlays if focus moved to one of our own overlay
                 // windows (e.g. user clicked the sidebar) — that would trigger a
                 // hide-then-re-show loop when focus falls through to Warframe.
-                let our_pid = std::process::id() as u64;
-                let on_our_overlay = active_win_pos_rs::get_active_window()
-                    .map(|w| w.process_id == our_pid)
-                    .unwrap_or(false);
-                if on_our_overlay {
-                    // Treat focus-on-our-overlay as "still focused" so we don't
-                    // (a) hide anything now, and (b) later suppress the re-show
-                    // branch by leaving was_focused stuck at true.
-                    was_focused = true;
-                    std::thread::sleep(std::time::Duration::from_millis(500));
-                    continue;
+                // Treat focus-on-our-overlay as "still focused" so we don't
+                // (a) hide anything now, and (b) later suppress the re-show
+                // branch by leaving was_focused stuck at true.
+                was_focused = true;
+                std::thread::sleep(std::time::Duration::from_millis(500));
+                continue;
                 }
+                FocusDecision::Hide => {
+                crate::logger::log_to_disk(&ah, "[FOCUS_WATCHER] transition: focused -> unfocused, hiding overlays");
                 had_visible.clear();
                 for label in SHOWN_OVERLAYS.lock().unwrap().iter() {
                     let is_notification = matches!(
@@ -1167,12 +1188,27 @@ pub fn spawn_focus_watcher(app_handle: &AppHandle) {
                         }
                     }
                 }
+                }
+                FocusDecision::Nothing => {}
             }
 
             was_focused = focused_now;
             std::thread::sleep(std::time::Duration::from_millis(500));
         }
     });
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{focus_decision, FocusDecision};
+
+    #[test]
+    fn focus_decision_covers_all_transition_states() {
+        assert_eq!(focus_decision(true, false, false), FocusDecision::Show);
+        assert_eq!(focus_decision(false, true, true), FocusDecision::KeepWaiting);
+        assert_eq!(focus_decision(false, true, false), FocusDecision::Hide);
+        assert_eq!(focus_decision(false, false, false), FocusDecision::Nothing);
+    }
 }
 
 pub fn stop_focus_watcher() {

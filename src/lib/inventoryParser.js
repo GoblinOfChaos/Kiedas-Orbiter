@@ -1087,6 +1087,22 @@ function detectArcaneCategory(un, name) {
 
 export function parseInventory(raw, exports, dict, locale = 'en', i18nData = null) {
   updateActiveExportImages(exports?.ExportImages ?? null);
+  // Prime Set drone bundles are the DE source of their official artwork. The
+  // bundle key is not the recipe/result key used by the inventory model, so
+  // index each official bundle icon by its canonical component identities.
+  const primeSetBundleImages = {};
+  for (const [bundleKey, bundle] of Object.entries(exports?.ExportBundles ?? {})) {
+    // A Prime Set bundle is the item-specific DE artwork source. Broader
+    // vault packs also contain these components but have unrelated pack art.
+    if (!/\/Packages\/(?:[^/]+\/)*[^/]+PrimeSet$/i.test(bundleKey)) continue;
+    if (!bundle?.icon || !Array.isArray(bundle.components)) continue;
+    for (const component of bundle.components) {
+      const typeName = component?.typeName;
+      if (typeof typeName !== 'string') continue;
+      const canonical = typeName.replace('/StoreItems/', '/');
+      primeSetBundleImages[canonical] = { icon: bundle.icon };
+    }
+  }
   if (!raw || typeof raw !== 'object' || !exports) return { all: [] };
   dict = (dict && Object.keys(dict).length > 0) ? dict : (exports?.['dict.en'] || exports?.dict || {})
 
@@ -2589,7 +2605,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     let totalCount = 0;
 
     // Use the result item's image (parent item) not a component's image
-    const parentImage = resolveImage(recipe.resultType, EW, EWf, ER, ES);
+    const parentImage = resolveImage(recipe.resultType, EW, EWf, ER, ES, primeSetBundleImages);
 
     // Add the main item blueprint (always include, even if not owned)
     const bpQty = primeItemCounts.get(bpKey) ?? 0;
@@ -2608,7 +2624,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       if (ingredientMap.has(key)) {
         ingredientMap.get(key).need += ing.ItemCount ?? 1;
       } else {
-        ingredientMap.set(key, { ItemType: key, name: ingName, image: resolveImage(key, EW, ER, ERel), need: ing.ItemCount ?? 1 });
+        ingredientMap.set(key, { ItemType: key, name: ingName, image: resolveImage(key, EW, ER, ERel, primeSetBundleImages), need: ing.ItemCount ?? 1 });
       }
     }
     for (const [, data] of ingredientMap) {

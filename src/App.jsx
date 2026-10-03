@@ -19,6 +19,7 @@ import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
 import { ErrorBoundary, CriticalLoadErrorScreen } from './components/ErrorBoundary';
 import { installUiDelegation, screen as logScreen } from './lib/logging/logger';
 import { WikiNavigationProvider } from './contexts/WikiNavigationContext';
+import { buildScannerHookedNotification } from './lib/scannerNotification';
 
 function useUIIcons(iconNames) {
   const [iconCache, setIconCache] = useState({});
@@ -256,6 +257,8 @@ function AppContent() {
 
   const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
   const { t } = useUi();
+  const scannerTRef = useRef(t);
+  scannerTRef.current = t;
 
   useEffect(() => installUiDelegation(document), []);
   useEffect(() => { logScreen(activeTab, activeTab); }, [activeTab]);
@@ -273,14 +276,7 @@ function AppContent() {
   // Show toast when scanner latches onto Warframe (single notification, main window only)
   useEffect(() => {
     const unsub = listen('scanner-hooked', () => {
-      invoke('show_notification', {
-        title: t('app.scanner_title'),
-        message: t('app.scanner_hooked_message'),
-        image: '',
-        position: 'top-right',
-        no_focus: true,
-        silent: true
-      }).catch(() => {});
+      invoke('show_notification', buildScannerHookedNotification(scannerTRef.current)).catch(() => {});
     });
     return () => {unsub.then((f) => f());};
   }, []);

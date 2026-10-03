@@ -40,6 +40,9 @@ Each section details:
 | 27 Riven grader runs on every roll after one hotkey press | Open: decision made (one hotkey press per roll), NOT fixed | Code arms per riven-screen session in both old and new trees; automatic timers capture blurry, moving cards. See section 27 |
 | 28 Focus watcher floods the log (new) | Open: root cause verified in code, NOT fixed | The log line sits before the own-window check, so it repeats every 0.52 s while an app window has focus; the same check also stops overlays hiding when the main app window is focused. See section 28 |
 | 29 Fixes made in the old root repo never ported to Preview (process) | Open | Listed commits are missing from the app. See section 29 |
+| 30 Prime Sets show OWNED when only a part or the main blueprint is held (new) | Open: cause verified on real inventory | `Inventory.jsx:407` counts any held part as ownership; 62 of 166 sets affected. See section 30 |
+| 31 Prime Sets tab scrolls very slowly, worst scrolling up (new) | Open: investigation started | Possible memory leak reported; cause unknown. See section 31 |
+| 32 Dual-weapon Prime sets omit the two base guns from their recipe (new) | Open: cause verified | 4 sets (Akbronco, Aklex, Akmagnus, Akvasto) lose the 2 finished guns in `PRIME_PART_PATH_RE` filtering. See section 32 |
 
 Process lessons from this round (apply to all future fixes):
 - A passing test is not proof: two Codex changes shipped bugs their own tests missed (9 locales lost `nav.market`; the tier label key lacked the `ui.` prefix, so the app would have printed a raw key). Always render the real label or screen on real data.
@@ -506,6 +509,30 @@ Process lessons from this round (apply to all future fixes):
 * **Frequency**: Recurring cause of "fixed but not fixed" since 2026-09-29; behind items 25 and the riven prompt text problem.
 * **Fact**: `docs/agent-context/HANDOFF.md` section 5 lists root-repo fixes still to port. As of 2026-10-02 these old-tree commits are not in the Preview app: `a92b5311` (keep riven prompt banner up), `042070c1` (riven prompt raw keys), `4820397f` (riven new-roll overlay scanned the wrong region), `3e479918` (riven two-card side mapping) and others in that table. The 2026-10-02 fix round (items 8-24) did not include this list, which was a planning miss.
 * **Required Resolution Protocol**: port each listed commit into the Preview repo, hand-merging conflicts, each with a test and an in-app check; reconcile the HANDOFF table against `git cherry` or equivalent so none are left unaccounted for. Treat any "this was fixed before" report as a prompt to check this list first.
+
+---
+
+## 30. Prime Sets Show "OWNED" When Only A Part Or The Main Blueprint Is Held
+* **Frequency**: Reported 2026-10-02. User: primed items say owned when the main blueprint is owned, not when the completed item is owned; "evident in the overlay and in the Prime Sets tab".
+* **Root cause (Prime Sets tab, verified)**: `src/screens/Inventory.jsx` ~line 407: `const ownedSet = (parent.owned ?? false) || (set.parts ?? []).some((p) => p.quantity > 0)`. Any held part, including the main Blueprint, marks the whole set OWNED. The code comment calls this deliberate ("ownership is the finished item OR any part held"), but the user's rule is: OWNED means the completed item is owned.
+* **Evidence on the user's real inventory (2026-10-02)**: 166 Prime Sets; **62** show OWNED while the finished item is NOT owned, and in **41** of those the held part is the main blueprint (for example Carrier, Garuda, Limbo, Nidus, Nyx, Vauban, Afuris and Akbolto Prime). The Akvasto Prime set in the user's screenshot is NOT one of them: that weapon really is owned and mastered, so its badge was correct.
+* **Overlay (not reproduced)**: `getRewardInventoryContext` in `src/lib/relicParser.js` (used by the relic reward overlay) returns the correct values on the real inventory for Nyx, Vauban, Garuda, Carrier and Akbolto Prime (`isOwned: false`, blueprint counted as a blueprint, `craftedCount: 0`). So the overlay's data is right for those; the user saw something wrong in the overlay that I cannot yet match. NEEDED: a screenshot or the name of an overlay card that wrongly says owned.
+* **Required Resolution Protocol**: make the Prime Sets OWNED badge reflect only the finished item (`parent.owned`); keep the existing completion ring ("1/2 (50%)") and part indicators for held parts; check every other place that derives ownership from parts (Prime Sets sort/filter, overlay badges, Relic Planner); add a real-data test using the user's inventory shape (set with only the main blueprint held -> not owned); recheck in the deployed app. Related: item 21.
+
+---
+
+## 31. Prime Sets Tab Scrolls Very Slowly (Worst Scrolling Up), Possible Memory Leak
+* **Frequency**: Reported 2026-10-02: scrolling through Prime Sets "has already made the app very slow ... it especially hates scrolling back up".
+* **Known facts (code, not yet measured)**: the Prime Sets list is virtualized with a FIXED row height (`SETS_ROW_STRIDE = 320`, two columns on wide windows, `Inventory.jsx` ~lines 38, 1227-1233), but each set card has a variable-height parts grid, many images and price lookups; rows are not memoized, so every accepted scroll update re-renders every windowed card (comment at ~line 712). Row height mismatch is also the leading candidate for item 15.
+* **Unknown**: whether memory actually grows (a leak) or the cost is repeated rendering and image decoding. Nothing has been profiled.
+* **Required Resolution Protocol**: measure first (memory and render time while scrolling down then up in the Prime Sets tab; check image/blob caches, event listeners and timers created per scroll tick, `ItemImage` fallbacks); find the cause; fix with a regression guard where possible; recheck in the deployed app. A read-only Antigravity investigation of the code paths is being run first.
+
+---
+
+## 32. Dual-Weapon Prime Sets Omit The Two Base Guns From Their Recipe
+* **Frequency**: Reported 2026-10-02: "a bunch of the items that require two base primes, like Aklex Prime, are not showing the two prime guns needed for the recipe. It's saying you just need the link and blueprint."
+* **Root cause (verified on real data)**: in `src/lib/inventoryParser.js` ~line 2602 set parts are built from recipe ingredients filtered by `isPrimeComponent` (`PRIME_PART_PATH_RE`, which only accepts part names such as Barrel, Receiver, Link, Blueprint). The dual weapons' recipes use finished single weapons as ingredients, whose paths do not match, so they are dropped: `AklexPrimeBlueprint` = 2x `Weapons/Tenno/Pistols/PrimeLex/PrimeLex` + Aklex Prime Link; `AkvastoPrimeBlueprint` = 2x `PrimeVasto/PrimeVastoPistol` + Link; `AkbroncoPrimeBlueprint` = 2x `Pistol/BroncoPrime` + Link; `AkmagnusPrimeBlueprint` = 2x `PrimeMagnus/PrimeMagnusWeapon` + Link. Only these 4 Prime blueprints have such ingredients in the current export; the other dual Primes (Akarius, Akbolto, Akjagara, Aksomati, Akstiletto) use ordinary parts and are unaffected.
+* **Required Resolution Protocol**: include non-resource weapon ingredients as set parts (named from the export, with the correct count of 2 and ownership from the weapon in inventory); show them in the Prime Sets card and any other recipe views that use the same filter (check the Foundry and acquisition drawers); add a real-data test for the four sets; recheck in the deployed app.
 
 ---
 

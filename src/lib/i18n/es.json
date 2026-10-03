@@ -1219,7 +1219,7 @@
     "ui.notif_mgr.msg_sale": "{item} en oferta por {price}p (antes {original}p)",
     "ui.notif_mgr.msg_syndicate_capped_body": "La reputación de {syndicate} está limitada esta semana",
     "ui.notif_mgr.msg_syndicate_capped_title": "Reputación de sindicato limitada",
-    "ui.notif_mgr.msg_syndicate_risk_body": "Tienes reputación positiva con sindicato{s} rival{s}: {names}",
+    "ui.notif_mgr.msg_syndicate_risk_body": "Tienes reputación positiva con sindicato rival{s}: {names}",
     "ui.notif_mgr.msg_syndicate_risk_title": "Reputación en riesgo",
     "ui.notif_mgr.msg_void_traces": "Rastros del Vacío limitados a {max}",
     "ui.notif_mgr.opt_a_tier": "Nivel A",
@@ -1541,7 +1541,8 @@
     "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
     "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
-    "acquisition_drawer.sources_count_one": "{count} fuente"
+    "acquisition_drawer.sources_count_one": "{count} fuente",
+    "ui.dashboard.circuit_title": "The Circuit"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

@@ -1925,7 +1925,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
             </Card>),
     "circuit": (isVisible('circuit') &&
           <Card glow className="p-3">
-              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title={t('ui.dashboard.the_circuit')} />
+              <CardHeader imageSrc={iconSrc('DuviriMiniMapThrax')} title={t('ui.dashboard.circuit_title')} />
               {renderCircuit()}
             </Card>),
     "1999": (isVisible('1999') &&

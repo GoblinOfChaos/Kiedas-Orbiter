@@ -5,6 +5,13 @@ import { convertFileSrc } from '../lib/logging/tauri'
 import { formatChance } from './AcquisitionDrawer'
 import { getCachedPrimeSetPartSources } from '../lib/primeSetParts'
 
+export function getPrimeSetPartLabel(setName, partName) {
+  const name = partName ?? ''
+  const prefix = setName?.trim()
+  if (prefix && name.startsWith(`${prefix} `)) return name.slice(prefix.length).trim()
+  return name
+}
+
 function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, uiPath, resolveImgFallback, toggle, t }) {
   const isParentOwned = set.owned
   const isParentMastered = set.mastered
@@ -48,10 +55,12 @@ function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, uiPath, res
           const partSources = getCachedPrimeSetPartSources(part, dropIndex)
           const partPrice = primePrices?.[part.unique_name] ?? 0
           return <div key={pi} className={`flex flex-col items-center justify-center gap-1.5 p-3 h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative`}>
-            {part.need > 1 && <span className="absolute top-1 left-1 text-[14px] font-black text-kronos-accent px-1.5 py-0.5 rounded leading-none z-10">×{part.need}</span>}
+            <div className="w-full h-5 flex items-center justify-center">
+              {part.need > 1 && <span className="text-[14px] font-black text-kronos-accent px-1.5 py-0.5 rounded leading-none z-10">×{part.need}</span>}
+            </div>
             {isPriceLoading ? <span className="absolute top-2 right-2 z-10 animate-pulse bg-white/10 rounded w-4 h-2" /> : partPrice > 0 && <span className="absolute top-2 right-2 z-10 text-[9px] font-bold px-1 py-0.5 rounded bg-zinc-800 border border-zinc-600 text-zinc-300">{partPrice}p</span>}
             <div className="w-14 h-14 flex items-center justify-center flex-shrink-0 relative"><ItemImage src={part.image} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-7 h-7 rounded bg-white/5" resolveFallbackSrc={resolveImgFallback} />{part.isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}</div>
-            <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 truncate">{part.name.split(' ').slice(-1)[0]}</p>
+            <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full px-1 whitespace-normal break-words">{getPrimeSetPartLabel(set.name, part.name)}</p>
             {part.crafted !== undefined ? (part.crafted > 0 || part.quantity > 0) && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{part.crafted} crafted ({part.quantity}{t('ui.relic_reward.bp')}{part.quantity > 1 ? 's' : ''})</span> : part.quantity > 0 && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{part.quantity}</span>}
             {partSources.length > 0 && <Tooltip position="bottom" content={<div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1"><p className="text-[9px] font-black uppercase text-kronos-accent">{t('ui.inventory.drop_sources')}</p>{partSources.filter((s) => s.type === 'relic').slice(0, 6).map((s, si) => <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase() : ''})</p>)}{partSources.filter((s) => s.type === 'enemy').slice(0, 3).map((s, si) => <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}</p>)}</div>}><span className="text-[8px] font-black uppercase text-kronos-dim/50 cursor-help hover:text-kronos-accent transition-colors leading-none">{t('ui.inventory.sources')}</span></Tooltip>}
           </div>

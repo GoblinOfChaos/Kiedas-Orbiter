@@ -38,7 +38,7 @@ Each section details:
 | 25 Riven prompt banner vanishes when the hotkey is pressed (regression) | Open: cause proven, NOT fixed | The fix exists only in the old root repo and was never ported (`a92b5311`). See section 25 |
 | 26 Riven overlay stuck on screen outside the riven screen (new) | Open: evidence found, mechanism partly proven, NOT fixed | A replayed old "screen opened" log line re-opens the overlay with no later close. Item 17 is only partly fixed. See section 26 |
 | 27 Riven grader runs on every roll after one hotkey press | Open: decision made (one hotkey press per roll), NOT fixed | Code arms per riven-screen session in both old and new trees; automatic timers capture blurry, moving cards. See section 27 |
-| 28 Focus watcher floods the log (new) | Open: noted, NOT investigated | 706 lines in one session. See section 28 |
+| 28 Focus watcher floods the log (new) | Open: root cause verified in code, NOT fixed | The log line sits before the own-window check, so it repeats every 0.52 s while an app window has focus; the same check also stops overlays hiding when the main app window is focused. See section 28 |
 | 29 Fixes made in the old root repo never ported to Preview (process) | Open | Listed commits are missing from the app. See section 29 |
 
 Process lessons from this round (apply to all future fixes):
@@ -318,6 +318,13 @@ Process lessons from this round (apply to all future fixes):
 * **Frequency**: Reported during live Preview verification on 2026-10-01.
 * **User Symptom**: The Inventory scrollbar can scroll above or below the rendered inventory content into empty space. The last inventory row does not align with the effective bottom of the scrollable content.
 
+### Investigation 2026-10-02 (cause still NOT proven)
+* **Verified in code**: the Inventory list is virtualized with FIXED row heights. `src/screens/Inventory.jsx` lines 38-57 define `SETS_ROW_STRIDE = 320`, `AYATAN_ROW_STRIDE = 144`, `LIST_ROW_STRIDE = 58`, `ARCANE_ROW_STRIDE` and `GENERAL_CARD_HEIGHT = 168` / `GENERAL_ROW_STRIDE = 184`. The virtual root height is `rowCount * rowStride` and each window is placed at `top: firstRow * rowStride` (lines ~1227, 1381, 1451, 787-788). The calibration step (lines ~657-766) only corrects the scroll base offset and the column count; it never measures a rendered row. So any difference between a real card's height and the constant makes the scroll range wrong, and the error grows with the number of rows. This matches the symptom, but the actual amount of drift is unmeasured.
+* **Unproven claims from an Antigravity report (do not rely on them)**: real general cards render at "about 180 px instead of 184 px", and the `pb-4` bottom padding is "consumed" by the fixed height. Both were derived from class names, not from measurement.
+* **Earlier attempt**: an old agent worktree (`agent/inv-scroll`) only added `container.style.overflowAnchor = 'none'` (scroll-anchoring stutter). That change is already in the main tree (`Inventory.jsx` ~664-665) and does not address the range.
+* **Measurement the user can do (about two minutes)**: in the running app open the developer tools, select one rendered general inventory card and read its `offsetHeight`; select the grid wrapper holding the cards and read its computed `row-gap`; the real row stride is `offsetHeight + row-gap`. Compare with 184 (general cards), 320 (Prime sets) and 144 (Ayatan). Do the same for the tab where the empty space appears.
+* **Likely fix once measured**: derive the stride from a measured row (or force the card height to the constant) instead of a hardcoded number, with a pure function for the stride and a test.
+
 ### Required Resolution Protocol
 - Trace the Inventory scroll container, list sizing, bottom padding, and any virtualization or spacer calculations.
 - Ensure the scroll range ends at the actual rendered content rather than an oversized container or stale measured height.
@@ -489,8 +496,9 @@ Process lessons from this round (apply to all future fixes):
 * **Frequency**: Seen while investigating 26 (2026-10-02).
 * **Evidence**: the log has 706 `[FOCUS_WATCHER] transition: focused -> unfocused, hiding overlays` lines in one session, one roughly every 0.52 seconds for long stretches. A transition message should appear once per change, so either the state is not being stored or the message is logged on every poll.
 * **Concerns**: log noise that buries real events, and possible aggressive polling and repeated overlay-hide calls (AGENTS.md rule 1 forbids aggressive polling). It may also be related to overlays appearing or disappearing unexpectedly.
-* **Status**: not investigated.
-* **Required Resolution Protocol**: find where `spawn_focus_watcher` logs, make it log only on a real state change, check the poll interval, and recheck CPU use with Warframe running.
+* **Root cause (verified in code 2026-10-02, found by an Antigravity read-only investigation and re-checked by hand)**: `src-tauri/src/overlay_utils.rs:1134` logs `transition: focused -> unfocused, hiding overlays` at the top of the `else if !focused_now && was_focused` branch, BEFORE the check `on_our_overlay` (is the active window a window of our own process). When it is, the code sets `was_focused = true`, sleeps 500 ms and `continue`s, so the next loop enters the same branch and logs again, about every 0.52 s, for as long as an app window has focus. No hide is issued on those repeats, so it is log noise plus a window-query every half second, not repeated hiding. Only one watcher thread runs (`FOCUS_WATCHER_RUNNING.swap(true)`).
+* **Related finding for item 26**: the same check treats ANY window of the app's own process as "still focused", including the main Orbiter window, not only the overlay windows. So while the user works in the main app window, overlays are never hidden by the focus watcher. This can leave a stale overlay (such as the Riven overlay in item 26) on the monitor. Hypothesis: not yet confirmed as the cause of what the user saw.
+* **Required Resolution Protocol**: move the log line below the own-window check so it logs only on a real transition; exempt only the OVERLAY windows (by label), not the main window, from the "still focused" rule if that does not bring back the hide/re-show loop the comment describes; add a pure decision function with unit tests for the focus states; recheck the log and CPU use with Warframe running.
 
 ---
 

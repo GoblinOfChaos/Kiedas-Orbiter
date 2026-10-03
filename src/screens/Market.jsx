@@ -699,7 +699,7 @@ export default function Market({ onNavigate }) {
       {/* Main Container */}
       <div className="flex-1 p-6 flex flex-col gap-6 overflow-y-auto" data-preview-market-main={IS_PREVIEW ? "" : undefined}>
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-preview-market-metrics={IS_PREVIEW ? "" : undefined}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0" data-preview-market-metrics={IS_PREVIEW ? "" : undefined}>
           <div className="p-4 rounded-xl bg-kronos-panel/40 border border-white/5 flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-kronos-accent/10 border border-kronos-accent/20 flex items-center justify-center text-kronos-accent">
               <Coins className="w-5 h-5" />
@@ -751,10 +751,10 @@ export default function Market({ onNavigate }) {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-white/5 gap-6" data-preview-market-tabs={IS_PREVIEW ? "" : undefined}>
+        <div className="flex flex-shrink-0 border-b border-white/5 gap-6" data-preview-market-tabs={IS_PREVIEW ? "" : undefined}>
           <button
             onClick={() => setActiveTab("active_orders")}
-            className={`pb-3 text-sm font-semibold transition border-b-2 flex items-center gap-2 ${
+            className={`shrink-0 pb-3 text-sm font-semibold transition border-b-2 flex items-center gap-2 ${
               activeTab === "active_orders"
                 ? "border-kronos-accent text-kronos-accent"
                 : "border-transparent text-kronos-dim hover:text-white"
@@ -765,7 +765,7 @@ export default function Market({ onNavigate }) {
           </button>
           <button
             onClick={() => setActiveTab("tradeable_stock")}
-            className={`pb-3 text-sm font-semibold transition border-b-2 flex items-center gap-2 ${
+            className={`shrink-0 pb-3 text-sm font-semibold transition border-b-2 flex items-center gap-2 ${
               activeTab === "tradeable_stock"
                 ? "border-kronos-accent text-kronos-accent"
                 : "border-transparent text-kronos-dim hover:text-white"

@@ -34,30 +34,13 @@ export default function PreviewRivensLayout({ enabled, children }) {
           width: 100%;
           height: auto;
           min-height: 42px;
-          overflow-x: auto;
-        }
-        /* scrollbar-width/-color removed on purpose - WebKitGTK draws
-           elements styled with those standard properties as a native
-           overlay bar above everything once GTK_OVERLAY_SCROLLING=0
-           (see src-tauri/src/main.rs), ignoring ::-webkit-scrollbar CSS. */
-        [data-preview-rivens-state]::-webkit-scrollbar,
-        [data-preview-rivens-sort]::-webkit-scrollbar {
-          height: 8px;
-          width: 8px;
-        }
-        [data-preview-rivens-state]::-webkit-scrollbar-track,
-        [data-preview-rivens-sort]::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        [data-preview-rivens-state]::-webkit-scrollbar-thumb,
-        [data-preview-rivens-sort]::-webkit-scrollbar-thumb {
-          background: rgba(var(--color-accent-rgb), 0.35);
-          border-radius: 10px;
+          flex-wrap: wrap;
+          min-width: 0;
         }
         [data-preview-rivens-state] > div,
         [data-preview-rivens-sort] > div {
-          width: max-content;
-          min-width: 100%;
+          min-width: 0;
+          flex-wrap: wrap;
         }
         [data-preview-rivens-types-row] {
           width: 100%;
@@ -65,22 +48,7 @@ export default function PreviewRivensLayout({ enabled, children }) {
         .preview-rivens-types {
           width: 100%;
           min-width: 0;
-          flex-wrap: nowrap;
-          overflow-x: auto;
-        }
-        .preview-rivens-types::-webkit-scrollbar {
-          height: 8px;
-          width: 8px;
-        }
-        .preview-rivens-types::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .preview-rivens-types::-webkit-scrollbar-thumb {
-          background: rgba(var(--color-accent-rgb), 0.35);
-          border-radius: 10px;
-        }
-        .preview-rivens-types > button {
-          flex-shrink: 0;
+          flex-wrap: wrap;
         }
         [data-preview-rivens-grid] {
           gap: clamp(1.25rem, 4cqi, 3.125rem);
@@ -92,7 +60,7 @@ export default function PreviewRivensLayout({ enabled, children }) {
           }
           [data-preview-rivens-state],
           [data-preview-rivens-sort] {
-            width: max-content;
+            width: 100%;
           }
         }
       `}</style>

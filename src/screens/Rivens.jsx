@@ -340,7 +340,7 @@ export default function Rivens() {
           </Card> :
 
         <div className="grid pb-4" data-preview-rivens-grid={IS_PREVIEW ? '' : undefined} style={{
-          gridTemplateColumns: 'repeat(auto-fill, 200px)',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px, 100%), 200px))',
           gap: IS_PREVIEW ? undefined : '50px',
           justifyContent: 'center'
         }}>

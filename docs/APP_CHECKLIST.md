@@ -55,6 +55,9 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #16 "The Circuit" translation: BLOCKED. No official localized name exists in the repo data or on wiki.warframe.com; the title stays "The Circuit" in every language until an official source is found
 - [ ] #33 Inventory currency strip vertical scrollbar (reported 2026-10-03; this replaces the old backlog line "Currency scrollbar"): cause found, fix drafted on a branch, NOT merged or deployed. When it is deployed it becomes a Step 1 check: the top strip has no vertical scrollbar and hovering Forma still shows the breakdown
 - [ ] #34 Extractors (reported 2026-10-03): Titan Extractor, Titan Extractor Prime, Distilling Extractor and Distilling Extractor Prime are missing from the Inventory (you own a Distilling Extractor and it does not show), and the Prime extractors' "how to obtain" text does not match the wiki. Cause found, NO fix started; waiting for your go-ahead
+- [ ] #35 Prime Sets part labels (reported 2026-10-03): Paris, Ballistica, Cernos and Daikyu Prime show two cards both labelled "Limb" (Upper/Lower Limb), and Akbronco, Aklex, Akmagnus and Akvasto Prime show a card labelled only "Prime". Cause found, NO fix started
+- [ ] #36 Drawer "Crafting requirements" has no Blueprint row for 92 of 166 Prime items (for example Akarius Prime), although the Prime Sets card lists the Blueprint. Cause found, NO fix started
+- [ ] #37 The "x2" badge on Prime Sets part cells is in the top-left and reads as belonging to the cell on its left; needs your decision where it should go (center?). NO change made
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

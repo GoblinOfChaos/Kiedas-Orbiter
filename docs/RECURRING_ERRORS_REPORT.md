@@ -48,6 +48,9 @@ Each section details:
 | 32 Dual-weapon recipes | Fixed in code, deployed 22:41, awaiting in-app check | Aklex, Akvasto, Akbronco, Akmagnus list their 2 base guns with images |
 | 33 Inventory currency strip has a vertical scrollbar that scrolls into blank space (new, reported 2026-10-03) | Open: cause verified in code, fix drafted on a branch (`agent/b9-strip`), NOT merged or deployed | The Forma tooltip hangs below the strip inside an `overflow-x-auto` wrapper (see section 33) |
 | 34 Extractors: not in the Inventory at all; Prime extractors' "how to obtain" is vague and incomplete vs the wiki (new, reported 2026-10-03) | Open: cause verified in code and real data, NO fix started (waiting for the user's go-ahead) | See section 34 |
+| 35 Prime Sets card shows only the last word of a part name ("Limb", "Limb", "Prime") (new, reported 2026-10-03) | Open: cause verified, NO fix started | `PrimeSetCard.jsx:54`; 8 sets affected (see section 35) |
+| 36 Drawer "Crafting requirements" omits the main Blueprint row for most Prime items (new, reported 2026-10-03) | Open: cause verified, 92 of 166 Prime drawers affected, NO fix started | See section 36 |
+| 37 The "xN" part-count badge sits in the top-left of the part cell and reads as belonging to the cell on its left (new, reported 2026-10-03) | Open: placement decision needed from the user, NO fix started | `PrimeSetCard.jsx:51`; see section 37 |
 
 
 Process lessons from this round (apply to all future fixes):
@@ -569,6 +572,32 @@ Process lessons from this round (apply to all future fixes):
   * Replace the vague acquisition text for the two Primes with the wiki's source list (verbatim sentences from wiki.warframe.com, which is an allowed primary source), keep date-limited statements dated, and add the Market price to the Titan Extractor line; add a regression test.
   * Check whether other inventory-owned categories in raw `inventory.json` have no handling (this is the same class as the earlier "missing from the inventory" bugs), and list them.
   * Recheck in the deployed app.
+
+---
+
+## 35. Prime Sets Card Shows Only The Last Word Of A Part's Name
+* **Frequency**: Reported 2026-10-03 while checking item 32 (screenshots of Ballistica Prime Set and Akbronco Prime Set).
+* **User Symptom**: Ballistica Prime Set shows two cards both labelled "Limb" (they are the Upper Limb and the Lower Limb); Akbronco Prime Set shows a card labelled just "Prime" (the Bronco Prime gun it needs twice). "This error might be elsewhere too."
+* **Root cause (verified)**: `src/components/PrimeSetCard.jsx` line 54 renders `part.name.split(' ').slice(-1)[0]`, the LAST word of the part name. "Ballistica Prime Upper Limb" and "Ballistica Prime Lower Limb" both become "Limb"; "Bronco Prime", "Lex Prime", "Magnus Prime" and "Vasto Prime" become "Prime". The dual-weapon parts became visible with item 32; the bows had the problem before.
+* **Scope (measured on the user's real inventory, 166 sets)**: 8 sets: Akbronco, Aklex, Akmagnus and Akvasto Prime (label "Prime") and Paris, Ballistica, Cernos and Daikyu Prime (two cards labelled "Limb"). A pattern search found no other use of the last-word trick in `src`; other places that shorten part names in a different way were not searched.
+* **Required Resolution Protocol (proposal)**: show the part name WITHOUT the set's own name prefix ("Upper Limb", "Lower Limb", "Barrel", "Blueprint") and keep a gun's full name ("Lex Prime"); allow the label to wrap to two lines instead of truncating; keep a safe fallback to the full name when the prefix is not found (other languages order words differently); add a test over all 166 real sets that no two cards in a set share a label and that no label is just "Prime"; recheck in the deployed app.
+
+---
+
+## 36. Drawer "Crafting Requirements" Omits The Main Blueprint Row For Most Prime Items
+* **Frequency**: Reported 2026-10-03 (screenshot of the Akarius Prime drawer): the Prime Sets card lists the Blueprint, but the drawer's "Crafting requirements" list shows 2x Barrel, 2x Receiver and 1x Link and no Blueprint.
+* **Root cause (verified)**: `PreviewAcquisitionDrawer.jsx` (lines ~246-258) renders a "1x Blueprint" row only when `blueprintOrigin` is set, and `resolveBlueprintOrigin` (`src/lib/acquisitionData.js` ~line 14919) returns text only for four cases: clan dojo research, the warframe/weapon registry `blueprint` field, `recipe.blueprintDrops`, or a market blueprint price. A Prime item whose blueprint drops from relics matches none of them, so no row is shown. Where a row does appear it is a single summary line ("Blueprint Drops: A, B, C (+N more)"), not the per-relic list with tiers that the Barrel, Receiver and Link rows have.
+* **Scope (measured on the real export, 166 Prime item drawers)**: 74 have a Blueprint row; **92 do not** (examples: Citrine, Acceltra, Afuris, Akarius, Akbolto, Akjagara, Aksomati, Akstiletto, Alternox, Ankyros, Astilla, Athodai Prime).
+* **Required Resolution Protocol (proposal)**: always show a "1x <Item> Blueprint" requirement row for Prime items, listing the blueprint's relics (one row per relic with its Common/Uncommon/Rare tier, using the shared relic helper from item 9) and falling back to the existing origin text for non-relic blueprints; apply it to both drawers; add a real-data test that no Prime drawer lacks the row; recheck in the deployed app.
+
+---
+
+## 37. The "xN" Part-Count Badge Is Positioned Misleadingly
+* **Frequency**: Reported 2026-10-03 (Akbronco Prime Set screenshot).
+* **User Symptom**: The "x2" shown for parts that are needed more than once sits in the TOP-LEFT of the part cell, so it looks like it belongs to the cell on its left. Almost everything else in the app is centered, or in the top right (like the platinum value).
+* **Cause (verified)**: `src/components/PrimeSetCard.jsx` line 51: `<span className="absolute top-1 left-1 text-[14px] font-black text-kronos-accent ...">x{part.need}</span>`.
+* **Needs a decision from the user**: where it should go. The top-right already holds the platinum price badge, so the user suggested centering. Options: centered above or below the image, or in the label line ("x2 Bronco Prime"). NO change has been made.
+* **Required Resolution Protocol**: after the decision, move the badge, check it with 1, 2 and 3 parts per row and with long labels (item 35), recheck in the deployed app.
 
 ---
 

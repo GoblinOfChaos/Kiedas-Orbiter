@@ -1,4 +1,13 @@
 {
+  "Salvage": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "By purchasing this item you can directly exchange 30 Platinum for 3000 Salvage.", "source": "Warframe Wiki (wiki.warframe.com/w/Salvage)" },
+      { "text": "Carme (Mobile Defense) on Jupiter will possibly drop as much as 3,000 Salvage a run if you loot all of the containers and lockers.", "source": "Warframe Wiki (wiki.warframe.com/w/Salvage)" },
+      { "text": "Olympus (Disruption) on Mars can provide at least 2,000 Salvage.", "source": "Warframe Wiki (wiki.warframe.com/w/Salvage)" }
+    ],
+    "url": "https://wiki.warframe.com/w/Salvage"
+  },
   "Air Support Charges": {
     "section": "Acquisition",
     "text": "The blueprint for 10 Air Support Charges is automatically available in the Foundry after installing a Landing Craft Foundry Segment. Each batch costs 4,000 Credits, 1,200 Ferrite, 2,000 Salvage, 1 Morphics, and 700 Plastids, and takes 1 minute to build.",

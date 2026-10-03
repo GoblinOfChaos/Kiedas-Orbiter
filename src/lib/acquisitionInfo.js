@@ -9,6 +9,7 @@ import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-pa
 import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
 import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-relic-drops.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
+import { normalizeRelicSources } from './relicSources.js';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 // wiki-resources-acquisition.json stores each entry as a plain location
@@ -979,29 +980,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // structured component sources on the recipe resultType, so include both
   // recipe identities here without collapsing their `part` metadata.
   const sourceKeys = [norm, dropIndexKey, recipe?.resultType, recipe?.blueprintUniqueName, recipe?.uniqueName, ...displayKeys].filter(Boolean);
+  const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower) || bundledWikiPageIndex.get(displayLower);
+  const wikiPageSupplementSources = Array.isArray(wikiPageAcquisition?.sources)
+    ? wikiPageAcquisition.sources.map((source) => ({ type: 'non-drop', text: source.text, source: source.source || 'Warframe Wiki' }))
+    : [];
   const dropSources = [];
   const seenSources = new Set();
   for (const key of sourceKeys) {
     for (const source of dropIndex?.[key] || []) {
-      if (source?.type === 'relic') {
-        const rawName = source.relicName || source.relicManifest || '';
-        const relicName = rawName
-          .replace(/\s*\((?:Intact|Exceptional|Flawless|Radiant)\)/i, '')
-          .replace(/\s+(?:Intact|Exceptional|Flawless|Radiant)$/i, '')
-          .replace(/\s+-\s+.*?\s+\d+(?:\.\d+)?%\s*$/i, '')
-          .trim();
-        const relicSignature = `relic:${relicName.toLowerCase()}`;
-        const existingIndex = dropSources.findIndex((candidate) => candidate.__relicSignature === relicSignature);
-        if (existingIndex >= 0) {
-          const candidate = dropSources[existingIndex];
-          const candidateIsCanonical = candidate.state == null && candidate.chance == null && !candidate.source;
-          const sourceIsCanonical = source.state == null && source.chance == null && !source.source;
-          if (sourceIsCanonical && !candidateIsCanonical) dropSources[existingIndex] = { ...source, __relicSignature: relicSignature };
-          continue;
-        }
-        dropSources.push({ ...source, relicName, state: undefined, chance: undefined, __relicSignature: relicSignature });
-        continue;
-      }
+      if (source?.type === 'relic') { dropSources.push(source); continue; }
       const signature = JSON.stringify(source);
       if (!seenSources.has(signature)) {
         seenSources.add(signature);
@@ -1010,14 +997,16 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     }
   }
   if (dropSources && dropSources.length > 0) {
-    const sourcesWithoutInternalFields = dropSources.map(({ __relicSignature, state, chance, ...source }) => source);
+    const sourcesWithoutInternalFields = normalizeRelicSources(dropSources).map(({ __relicSignature, state, chance, ...source }) => source);
     const usedBaseRelicFallback = baseRelicDisplay && !dropIndex?.['display:' + displayLower]?.length;
     const sources = usedBaseRelicFallback
       ? [{ type: 'status', text: `Refined from ${baseRelicDisplay.replace(/\b\w/g, (c) => c.toUpperCase())} using Void Traces - not obtained directly at this quality.`, source: 'Relic refinement mechanic' }, ...sourcesWithoutInternalFields]
       : sourcesWithoutInternalFields;
     // recipe must travel with drop sources: both drawers hide the whole Crafting
     // Requirements section (a Warframe's Neuroptics/Chassis/Systems parts) when it is missing.
-    return { sources, recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
+    return { sources: [...sources, ...wikiPageSupplementSources], recipe: recipe || null, wikiLink: wikiPageAcquisition?.url
+      ? { url: wikiPageAcquisition.url, isDirect: true }
+      : getWikiLink(dropIndexKey, displayName) };
   }
 
   const itemDrops = getItemDrops(dropIndexKey);
@@ -1060,7 +1049,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
 
   // Explicit Wiki acquisition prose is more useful than a generic recipe
   // summary because it can explain how the blueprint is obtained or unlocked.
-  const wikiPageAcquisition = wikiPageAcquisitionIndex?.get(displayLower) || bundledWikiPageIndex.get(displayLower);
+  if (wikiPageSupplementSources.length) {
+    return {
+      sources: wikiPageSupplementSources,
+      recipe: recipe || null,
+      wikiLink: wikiPageAcquisition.url
+        ? { url: wikiPageAcquisition.url, isDirect: true }
+        : getWikiLink(dropIndexKey, displayName),
+    };
+  }
   if (wikiPageAcquisition?.text) {
     if (['Disposition', 'Verification status'].includes(wikiPageAcquisition.section)) {
       return {

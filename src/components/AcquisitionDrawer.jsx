@@ -2,9 +2,8 @@ import { useState, useCallback, useEffect } from 'react';
 import { Info, ExternalLink, Flag } from 'lucide-react';
 import { invoke } from '../lib/logging/tauri';
 import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from '../lib/codexSupplement';
-import { getItemDrops } from '../lib/acquisitionData';
-import { getDropSourcesWithFallback } from '../lib/dropsParser';
 import { sortSourcesByChanceInRotations } from '../lib/chanceSort';
+import { getItemDrops } from '../lib/acquisitionData';
 import { localizeOverrideText } from '../lib/acquisitionTemplates';
 import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
@@ -12,6 +11,7 @@ import { useUi } from '../contexts/UiContext';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 import { event } from '../lib/logging/logger';
+import { buildIngredientSourceRows, getRelicSourceLabel } from '../lib/relicSources';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -71,7 +71,7 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
     case 'drop':
       return [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ') || t('acquisition_drawer.known_drop_source');
     case 'relic':
-      return `${source.relicName || source.relicManifest || t('acquisition_drawer.relic_fallback')}${source.rarity ? ` (${t(`ui.relic_rarity.${String(source.rarity).toLowerCase()}`)})` : ''}`;
+      return getRelicSourceLabel(source, t);
     case 'mission': {
       // source.missionType is usually a raw DE code (e.g. "MT_TAU_WAR") that
       // must go through the same MT_ translation table used elsewhere, or an
@@ -315,8 +315,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
               // pattern, see GitHub #114); fall back to the static warframe-items file
               // only when the live index has no entry, so its isFakeVendorPurchaseDrop
               // filtering still covers any items dropIndex doesn't.
-              const liveDrops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name);
-              const drops = sortSourcesByChanceInRotations(liveDrops.length > 0 ? liveDrops : getItemDrops(ingredient.itemType));
+              const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType));
               return (
               <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
                 <div className="flex items-start justify-between gap-2">

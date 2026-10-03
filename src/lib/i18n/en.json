@@ -148,6 +148,9 @@
     }
   },
   "ui": {
+    "relic_rarity.common": "Common",
+    "relic_rarity.uncommon": "Uncommon",
+    "relic_rarity.rare": "Rare",
     "collectibles.wiki_guide_link": "Open full wiki guide ↗",
     "collectibles.video_guide_link": "Video guide ↗",
     "collectibles.found_total_unverified": "{count} found (total unverified)",

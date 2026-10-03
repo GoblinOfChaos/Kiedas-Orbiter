@@ -66,6 +66,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #42 History crash "Can't find variable: locale" when hovering the chart, and the crash screen shows raw `ERROR_BOUNDARY.*` text (reported 2026-10-03). Both causes verified, NO fix started [FIXED IN CODE 2026-10-03, merged, not in a build yet: check it after the next build]
 - [ ] #43 Wiki tab blank after that crash; only restarting the app fixed it (reported 2026-10-03). Not understood. If it happens again, send me the log file before restarting
 - [ ] #44 Relic reward overlay (reported 2026-10-03): "Yareli Prime Chassis Blueprint" and one "Akbronco Prime Blueprint" were UNRECOGNIZED. Both causes verified in the log and by running the matcher (a hyphen dropped by the native cleaner, and a wrongly capitalized O). NO fix started; the native half needs your explicit yes first
+- [ ] #45 Inventory parse error `Q.startsWith is not a function` in the developer tools (found by you 2026-10-03; 10 times in today's log). Exact line not found yet, NO fix started. If your Inventory ever looks empty or stale after starting the app, tell me when
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
 
 ## Backlog (not part of the 22:41 build; kept from earlier lists)

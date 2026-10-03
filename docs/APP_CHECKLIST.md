@@ -15,7 +15,7 @@ Sources: the pasted list from an earlier chat (statuses there are unverified by 
 
 Numbers refer to `docs/RECURRING_ERRORS_REPORT.md`.
 
-- [x] #12 Foundry: open a recipe panel, click outside it, it closes; Escape closes it; the close button still works; clicking inside the panel does not close it
+- [x] #12 Foundry: open a recipe panel, click outside it, it closes; Escape closes it; the close button still works; clicking inside the panel does not close it (confirmed by the user 2026-10-02, build 63121682)
 - [ ] #18 Settings > Hotkeys: the Riven action reads "Grade Rivens", not `settings.hotkey_action_grade_rivens`; also check the Riven prompt text in German
 - [ ] #18 Market label in the sidebar is translated in French, Korean, Italian, Japanese, Polish, Traditional Chinese, Thai, Turkish and Ukrainian (a translation was nearly lost in one fix and restored)
 - [ ] #9 Prime part drawers (for example Ash Prime Chassis, Citrine Prime Blueprint): each relic appears once with (Common/Uncommon/Rare), no Intact/Exceptional/Flawless/Radiant rows, no raw key like `ui.relic_rarity.rare`

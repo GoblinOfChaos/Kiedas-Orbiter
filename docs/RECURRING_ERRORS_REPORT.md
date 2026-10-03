@@ -27,7 +27,7 @@ Each section details:
 | 9 Meso C11 repeated x5 | Fixed in code (both paths), partly in the 20:18 build | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed |
 | 10 "+N more" without rows | Fixed in code, in the 20:18 build, awaiting check | 85 override strings carried "(+N more sources)"; live drop rows replace them |
 | 11 Salvage Conclave-only | Fixed in code; Market and farming sources added after the 20:18 build | Decoration blurb removed; wiki.warframe.com Market and farming sentences added verbatim as separate sources |
-| 12 Foundry drawer outside click | Fixed in code, in the 20:18 build, awaiting check | `RecipeDrawer` got the shared backdrop, click guard and Escape |
+| 12 Foundry drawer outside click | RESOLVED: confirmed by the user in the app 2026-10-02 (build 63121682). See R4 | `RecipeDrawer` got the shared backdrop, click guard and Escape |
 | 13 Extractor Prime Set artwork | Fixed in code, not yet deployed | Set and blueprint images resolved from DE `ExportBundles` (only the 4 intended images changed out of 764) |
 | 14 New UI strings never translated | Fixed in code for all 14 locales, not yet deployed | 104 missing keys translated in every locale plus an enforcement test (completeness, placeholders, leftover-English, script checks). The Circuit title stays English (see 16). Existing real translations were verified unaltered |
 | 15 Inventory overscroll | OPEN, not fixed deliberately | Fixed row-height constants; rows are CSS grid rows as tall as their tallest card, so no uniform stride is exact; a correct fix needs a variable-height virtualizer. Waiting for the user's measurement (see section 15) |
@@ -571,6 +571,14 @@ Entries move here only after the user confirms the fix in the running app (ticke
 * **Fix**: `src/lib/farmingTargets/screenModel.js` and `src/screens/FarmingTargets.jsx`: raw resources get images, the drawer uses the ledger row's image, and farmable resources are leaves in the ledger.
 * **Tests**: `tests/farming/ledgerImages.test.mjs` (recorded in HANDOFF as failing without the fix).
 * **Lesson**: run every git command from the Preview repo and confirm the fix is in the built AppImage (the footer shows the build commit). Items 8 and 10 are later, separate farming-drawer defects.
+
+### R4. Foundry drawer did not close when clicking outside it (item 12)
+* **Status**: Resolved. Checklist item #12, confirmed by the user in the deployed Preview app on 2026-10-02 (build `63121682`).
+* **Symptom**: The Foundry tab's recipe panel closed only with its close button; clicking outside did nothing, unlike the drawers on other tabs.
+* **Root cause**: `RecipeDrawer` in `src/screens/Foundry.jsx` rendered only the panel. It had no backdrop, no click guard and no Escape handling, while the shared `PreviewAcquisitionDrawer` has all three.
+* **Fix**: the same dismissal pattern reusing the existing `preview-acq-backdrop` class (stylesheet imported in Foundry), `stopPropagation` on the panel and an Escape key listener; the close button and the non-panel variant still work.
+* **Tests**: `tests/ui/foundry-drawer-i18n.test.mjs` (backdrop wiring, Escape handling).
+* **Lesson**: before writing a new dismissal pattern, reuse the shared one; when two screens do the same job, compare them first (this was found by comparing the Foundry panel with the shared drawer).
 
 ---
 

@@ -59,10 +59,12 @@ const assertUiKeyContract = (directory = localesDir, files = fs.readdirSync(dire
       const isEnglishIdenticalBase = base.ui[key] === baseEnglish.ui[key]
       const isSyndicatePlaceholderFix = ['es', 'it', 'pt'].includes(locale)
         && key === 'ui.notif_mgr.msg_syndicate_risk_body'
+      // 2026-10-03 English-text audit: the base value 'EXP DUKATS' was half English; 'BEK. DUKAT' is the real Turkish label.
+      const isTurkishRelicLabelFix = locale === 'tr' && key === 'relics.exp_ducats'
       const isGermanBackfill = locale === 'de'
         && ['ui.riven_overlay.scanning', ...requestedUiKeys.filter((item) => item.startsWith('ui.riven_prompt.'))].includes(key)
       assert.ok(
-        isEnglishIdenticalBase || isMovedKey || isSyndicatePlaceholderFix || isGermanBackfill,
+        isEnglishIdenticalBase || isMovedKey || isSyndicatePlaceholderFix || isGermanBackfill || isTurkishRelicLabelFix,
         `${file} changed existing ui.${key}`,
       )
     }

@@ -17,6 +17,14 @@ globalThis.window.__TAURI_INTERNALS__ = globalThis.__TAURI_INTERNALS__
 const localesDir = path.join(root, 'src/lib/i18n')
 const BASE_COMMIT = '56796f00'
 const requestedUiKeys = [
+  'preview.dashboard.summary_aria',
+  'settings.notifications',
+  'settings.scanner_offline',
+  'settings.ee_log_auto_detect',
+  'settings.ee_log_candidates',
+  'settings.ee_log_found',
+  'settings.ee_log_not_found',
+  'settings.ee_log_not_readable',
   'settings.hotkey_action_grade_rivens',
   'ui.riven_prompt.title',
   'ui.riven_prompt.press',

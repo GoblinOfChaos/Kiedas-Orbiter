@@ -23,7 +23,7 @@ Each section details:
 
 | # | Status | Root cause / what changed |
 |---|---|---|
-| 8 Orokin Cell Blueprint as enemy drop | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | `dropsParser.js` filed unresolved names such as "2X Orokin Cell" under phantom `display:<name> blueprint` keys (731 keys); quantity prefixes are stripped and no blueprint key is invented |
+| 8 Orokin Cell Blueprint as enemy drop | **REOPENED 2026-10-03**: the phantom-key part was fixed, but the Orokin Cell drawer's "1x Blueprint" row still shows the resource's enemy-drop text (user screenshot, build 795d0a7). Cause verified, NO fix started | See section 8 addendum. Earlier fix: `dropsParser.js` filed unresolved names such as "2X Orokin Cell" under phantom `display:<name> blueprint` keys (731 keys); quantity prefixes are stripped and no blueprint key is invented |
 | 9 Meso C11 repeated x5 | Fixed in code (both paths), deployed 22:41 (top-level paths also in the 20:18 build) | Top-level sources fixed in the 20:18 build; the "Crafting requirements" ingredient rows (second path) are fixed after it by the shared `relicSources.js` helper (tier checked against ExportRelics: 101 rows, 0 mismatches). Not yet deployed |
 | 10 "+N more" without rows | Fixed in code, deployed in the 20:18 and 22:41 builds, awaiting in-app check | 85 override strings carried "(+N more sources)"; live drop rows replace them |
 | 11 Salvage Conclave-only | Fixed in code, deployed 22:41 (Market and farming sources added after the 20:18 build), awaiting in-app check | Decoration blurb removed; wiki.warframe.com Market and farming sentences added verbatim as separate sources |
@@ -212,6 +212,12 @@ Process lessons from this round (apply to all future fixes):
 - Represent the 100-Platinum Market blueprint, if shown, as a separate non-farmable purchase source; never as an enemy drop.
 - Add a focused regression test that exercises the same presentation/source path as the live screen, not only the ledger model.
 - Do not mark this issue resolved until it is rechecked in the deployed Preview AppImage.
+
+### Addendum 2026-10-03: NOT fully fixed (user screenshot of the Orokin Cell drawer)
+* **User Symptom**: Orokin Cell drawer (BLUEPRINT + COMPONENTS), "Crafting requirements": Build 15,000 Credits, 1h, Rush 2 Platinum, then "1x Blueprint: Saturn, Ceres, and Deimos missions - Planetary enemy drops, Cell Array deposits, and Boss drops (General Sargas Ruk, Lieutenant Lech Kril, Stalker)." That is where the resource drops, shown as where the blueprint comes from. "Where to start" also features "Level 40 - 60 Orb Vallis Bounty" first, among 136 sources.
+* **Root cause (verified)**: `src/lib/acquisitionData.js` ~line 4356 has an entry `"orokin cell"` in the Warframe/weapon acquisitions table whose `general` AND `blueprint` fields are the resource's drop text. `resolveBlueprintOrigin` (~14919) step 2 returns `Blueprint: <that text>` for any name in that table, and `PreviewAcquisitionDrawer.jsx` (~lines 92, 246-258) prints it in the "1x Blueprint" row. The earlier fix only covered the phantom keys in `dropsParser.js`, not this path.
+* **Real data (user's export, ExportRecipes)**: `/Lotus/Types/Recipes/Components/OrokinCellResourceBlueprint` builds Orokin Cell: 15,000 credits, 1 hour, 100 Platinum market price, ingredients 50,000 Alloy Plate, 50,000 Nano Spores, 25,000 Salvage.
+* **Required Resolution Protocol**: the Blueprint row for Orokin Cell must say it is a 100 Platinum Market purchase (from the recipe's `platinumCost`), not the enemy drop text; keep the drops only under the resource's own sources. Check whether other resources with a recipe have the same wrong `blueprint` field in that table (search every entry whose key is a resource name), fix at the table or in `resolveBlueprintOrigin`, add a test through the drawer path with the real export, and recheck in the app. This also overlaps item 36 (same row) and item 38 (resource data); do them together.
 
 ---
 

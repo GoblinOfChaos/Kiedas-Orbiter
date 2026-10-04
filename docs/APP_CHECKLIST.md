@@ -25,7 +25,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 ## Step 5 - Needs you to send me something
 
 - [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
-- [ ] #48 1999 Calendar upgrade names (reported 2026-10-03; the app showed path text like 'Electric Status Damage And Chance'). FIXED, in your 20:40 and 21:48 builds. Check in German: open the 1999 calendar on the Dashboard; upgrades show the game's names (Abgefüllter Blitz, Dicke Haut, ...) with their description and the type 'Hex-Boost Modifikator'. Tell me if a Hex Factor is labelled as a Boost (the real worldstate has no field to tell them apart, so every upgrade uses the Boost label). Each other upgrade's German name is taken from the game's published strings
+- [x] #48 1999 Calendar upgrade names (reported 2026-10-03; the app showed path text like 'Electric Status Damage And Chance'). FIXED, in your 20:40 and 21:48 builds. Check in German: open the 1999 calendar on the Dashboard; upgrades show the game's names (Abgefüllter Blitz, Dicke Haut, ...) with their description and the type 'Hex-Boost Modifikator'. Tell me if a Hex Factor is labelled as a Boost (the real worldstate has no field to tell them apart, so every upgrade uses the Boost label). Each other upgrade's German name is taken from the game's published strings
 
 ## From your checks of the 18:01 build: all FIXED in the builds you have now, 20:40 and 21:48 (waiting for your in-app check)
 

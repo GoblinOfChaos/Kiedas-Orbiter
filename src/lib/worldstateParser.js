@@ -29,6 +29,8 @@ import {
   resolveChallenge,
   resolveChallengeDesc,
   resolveItemName,
+  resolveCalendarUpgradeDescription,
+  resolveCalendarUpgradeTypeLabel,
   splitPascal
 } from './warframeUtils.js'
 
@@ -669,6 +671,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         let parsedEvents = events.map(ev => {
           let name = '';
           let description = '';
+          let typeLabel = '';
           let type = ev.type || ev.Type || '';
 
           if (type === 'CET_CHALLENGE') {
@@ -676,13 +679,17 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
             description = resolveChallengeDesc(ev.challenge || ev.Challenge, dict, EC, ERg);
             name = resolveItemName(ev.reward || ev.Reward, mergedDict, uniqueNameToName, locale);
           } else if (type === 'CET_UPGRADE') {
-            name = resolveItemName(ev.upgrade || ev.Upgrade, mergedDict, uniqueNameToName, locale);
-            description = resolveChallengeDesc(ev.upgrade || ev.Upgrade, dict, EC, ERg);
+            const upgradePath = ev.upgrade || ev.Upgrade;
+            name = resolveItemName(upgradePath, mergedDict, uniqueNameToName, locale);
+            description = resolveCalendarUpgradeDescription(upgradePath, locale);
+            // Today's CET_UPGRADE payload has no minor/major discriminator;
+            // use the game's minor label until DE supplies one.
+            typeLabel = resolveCalendarUpgradeTypeLabel(locale, false);
           } else if (type === 'CET_BIRTHDAY') {
             name = ev.name || ev.Name || 'Unknown';
           }
 
-          return { type, name, description, raw: ev };
+          return { type, name, description, typeLabel, raw: ev };
         });
 
         // If no events, check if this is a birthday day based on day number

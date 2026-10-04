@@ -1,0 +1,38 @@
+{
+  "KnownCalendarSeasons": [
+    {
+      "Activation": { "$date": { "$numberLong": "1790553600000" } },
+      "Expiry": { "$date": { "$numberLong": "1791158400000" } },
+      "Days": [
+        {
+          "day": 98,
+          "events": [
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/ElectricStatusDamageAndChance" },
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/GasChanceToPrimaryAndSecondary" },
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/Armor" }
+          ]
+        },
+        {
+          "day": 145,
+          "events": [
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/CompanionsRadiationChance" },
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/RadialJavelinOnHeavy" },
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/BlastEveryXShots" }
+          ]
+        },
+        {
+          "day": 180,
+          "events": [
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/EnergyRestoration" },
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/GasChanceToPrimaryAndSecondary" },
+            { "type": "CET_UPGRADE", "upgrade": "/Lotus/Upgrades/Calendar/MeleeAttackSpeed" }
+          ]
+        }
+      ],
+      "Season": "CST_SPRING",
+      "YearIteration": 23,
+      "Version": 19,
+      "UpgradeAvaliabilityRequirements": ["/Lotus/Upgrades/Calendar/1999UpgradeApplicationRequirement"]
+    }
+  ]
+}

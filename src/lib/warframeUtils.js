@@ -23,6 +23,11 @@
  * formatLastUpdate   - format a timestamp as "today HH:MM" or "Jan 1 HH:MM"
  */
 
+import {
+  getCalendarLanguageText,
+  getCalendarUpgradeTypeLabel,
+} from './calendarFormatting.js'
+
 // ─── General Display Overrides ──────────────────────────────────────────
 //
 // Maps internal key strings (ally agents, faction codes, boss/modifier tags)
@@ -647,36 +652,18 @@ function nameFromPath(path = '', locale = 'en') {
     : name;
 }
 
-/**
- * Resolve a 1999 calendar upgrade without matching its short leaf against an
- * unrelated item in the dictionary.  Calendar upgrade paths are not present
- * in the offline DE language/export data, so the path leaf is the documented
- * English fallback until an exact localized entry is supplied.
- */
-export function resolveCalendarUpgradeName(path, dict = {}, uniqueNameToName = {}) {
+/** Resolve a 1999 calendar upgrade from the game's own language strings. */
+export function resolveCalendarUpgradeName(path, dict = {}, uniqueNameToName = {}, locale = 'en') {
   if (!path) return ''
+  return getCalendarLanguageText(path, 'Name', locale) || splitPascal(path.split('/').filter(Boolean).at(-1) || '').trim()
+}
 
-  const pathVariants = [...new Set([
-    path,
-    path.replace('/Types/StoreItems/', '/Types/'),
-    path.replace('/StoreItems/', '/'),
-    path.replace('/Types/StoreItems/', '/'),
-  ])]
+export function resolveCalendarUpgradeDescription(path, locale = 'en') {
+  return getCalendarLanguageText(path, 'Desc', locale)
+}
 
-  for (const candidate of pathVariants) {
-    const locKey = uniqueNameToName?.[candidate]
-    if (locKey) {
-      const mapped = dict[locKey] || dict['/' + locKey]
-      if (mapped && typeof mapped === 'string' && !mapped.startsWith('/Lotus/')) return clean(mapped)
-      if (typeof locKey === 'string' && !locKey.startsWith('/Lotus/')) return clean(locKey)
-    }
-
-    const direct = dict[candidate] || dict['/' + candidate]
-    if (direct && typeof direct === 'string' && !direct.startsWith('/Lotus/')) return clean(direct)
-  }
-
-  const leaf = path.split('/').filter(Boolean).at(-1) || ''
-  return splitPascal(leaf).trim()
+export function resolveCalendarUpgradeTypeLabel(locale = 'en', major = false, fallback = '') {
+  return getCalendarUpgradeTypeLabel(locale, major, fallback)
 }
 
 
@@ -690,7 +677,7 @@ export function resolveItemName(path, dict, uniqueNameToName, locale = 'en') {
   if (!path) return ''
 
   if (path.includes('/Upgrades/Calendar/')) {
-    return resolveCalendarUpgradeName(path, dict, uniqueNameToName)
+    return resolveCalendarUpgradeName(path, dict, uniqueNameToName, locale)
   }
 
   const isBlueprint = path.includes('/Recipes/') || path.endsWith('Blueprint');

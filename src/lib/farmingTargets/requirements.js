@@ -60,22 +60,26 @@ function targetQuantity(target) {
   return positiveInteger(target?.quantity ?? target?.required, 1) || 1;
 }
 
-function addContribution(working, item, targetId, quantity) {
+function addContribution(working, item, targetId, quantity, options = {}) {
   if (!quantity) return;
   const existing = working.get(item.itemType);
   if (existing) {
     if (!existing.image && item.image) existing.image = item.image;
     existing.required += quantity;
     const contribution = existing.contributions.find((entry) => entry.targetId === targetId);
-    if (contribution) contribution.quantity += quantity;
-    else existing.contributions.push({ targetId, quantity });
+    if (contribution) {
+      contribution.quantity += quantity;
+      if (options.countOwned === false) contribution.countOwned = false;
+    } else {
+      existing.contributions.push({ targetId, quantity, ...(options.countOwned === false ? { countOwned: false } : {}) });
+    }
     return;
   }
   working.set(item.itemType, {
     itemType: item.itemType,
     name: item.name || item.itemType,
     required: quantity,
-    contributions: [{ targetId, quantity }],
+    contributions: [{ targetId, quantity, ...(options.countOwned === false ? { countOwned: false } : {}) }],
   });
 }
 
@@ -115,7 +119,7 @@ export function expandTargets(targets = [], ctx = {}) {
       return used;
     };
 
-    const expand = (key, name, amount, path, image = null) => {
+    const expand = (key, name, amount, path, image = null, topLevel = false) => {
       if (!key || !Number.isFinite(amount) || amount < 0) {
         invalidReason = 'missing or invalid item requirement';
         return;
@@ -123,14 +127,15 @@ export function expandTargets(targets = [], ctx = {}) {
       const normalizedKey = recipeKey(key);
       const recipe = lookup.get(normalizedKey);
       if (!recipe) {
-        addContribution(localLeaves, { itemType: normalizedKey, name: name || normalizedKey, image }, targetId, amount);
+        addContribution(localLeaves, { itemType: normalizedKey, name: name || normalizedKey, image }, targetId, amount,
+          topLevel && target.countOwned !== true ? { countOwned: false } : undefined);
         return;
       }
       if (path.includes(normalizedKey)) {
         cyclePath = [...path, normalizedKey];
         return;
       }
-      const remaining = amount - consumeOwned(normalizedKey, amount);
+      const remaining = amount - (topLevel && target.countOwned !== true ? 0 : consumeOwned(normalizedKey, amount));
       if (!remaining) return;
       // A Foundry recipe is a two-step acquisition: the player needs the
       // recipe blueprint before any of its ingredients can be built. Keep
@@ -163,7 +168,7 @@ export function expandTargets(targets = [], ctx = {}) {
       unresolved.push({ targetId, reason: 'no recipe or acquisition data' });
       continue;
     }
-    expand(itemType, target.name, targetQuantity(target), [], target.image);
+    expand(itemType, target.name, targetQuantity(target), [], target.image, true);
 
     if (cyclePath) {
       errors.push({ targetId, kind: 'cycle', path: cyclePath });
@@ -174,7 +179,9 @@ export function expandTargets(targets = [], ctx = {}) {
       continue;
     }
     for (const [key, value] of localLeaves) {
-      addContribution(leaves, value, targetId, value.required);
+      const contribution = value.contributions.find((entry) => entry.targetId === targetId);
+      addContribution(leaves, value, targetId, value.required,
+        contribution?.countOwned === false ? { countOwned: false } : undefined);
     }
     for (const [key, used] of localOwnedUse) remainingOwned.set(key, getOwned(key) - used);
   }

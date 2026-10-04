@@ -1598,6 +1598,7 @@
     "farming_targets.column_source": "Fuente",
     "farming_targets.view_sources": "Ver fuentes",
     "farming_targets.target_quantity": "Cantidad: {count}",
+    "farming_targets.count_owned": "Contar las copias que ya tengo",
     "farming_targets.honesty_node": "Nodo exacto",
     "farming_targets.honesty_boss": "Nodo de jefe fijo",
     "farming_targets.honesty_wiki_area": "Zona indicada por el Wiki",

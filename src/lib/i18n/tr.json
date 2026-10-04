@@ -1591,6 +1591,7 @@
     "farming_targets.column_source": "Kaynak",
     "farming_targets.view_sources": "Kaynakları görüntüle",
     "farming_targets.target_quantity": "Miktar: {count}",
+    "farming_targets.count_owned": "Sahip olduğum kopyaları say",
     "farming_targets.honesty_node": "Kesin düğüm",
     "farming_targets.honesty_boss": "Sabit boss düğümü",
     "farming_targets.honesty_wiki_area": "Wiki'de listelenen alan",

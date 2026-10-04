@@ -1199,6 +1199,7 @@
     "farming_targets.column_source": "Source",
     "farming_targets.view_sources": "View sources",
     "farming_targets.target_quantity": "Quantity: {count}",
+    "farming_targets.count_owned": "Count the copies I already own",
     "farming_targets.honesty_node": "Exact node",
     "farming_targets.honesty_boss": "Fixed boss node",
     "farming_targets.honesty_wiki_area": "Wiki-listed area",

@@ -1591,6 +1591,7 @@
     "farming_targets.column_source": "Źródło",
     "farming_targets.view_sources": "Wyświetl źródła",
     "farming_targets.target_quantity": "Ilość: {count}",
+    "farming_targets.count_owned": "Uwzględniaj posiadane kopie",
     "farming_targets.honesty_node": "Dokładny węzeł",
     "farming_targets.honesty_boss": "Stały węzeł bossa",
     "farming_targets.honesty_wiki_area": "Obszar wskazany na wiki",

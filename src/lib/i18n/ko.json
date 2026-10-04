@@ -1610,6 +1610,7 @@
     "farming_targets.column_source": "출처",
     "farming_targets.view_sources": "출처 보기",
     "farming_targets.target_quantity": "수량: {count}",
+    "farming_targets.count_owned": "이미 보유한 복사본 포함",
     "farming_targets.honesty_node": "정확한 노드",
     "farming_targets.honesty_boss": "고정 보스 노드",
     "farming_targets.honesty_wiki_area": "위키에 기재된 지역",

@@ -1591,6 +1591,7 @@
     "farming_targets.column_source": "Джерело",
     "farming_targets.view_sources": "Переглянути джерела",
     "farming_targets.target_quantity": "Кількість: {count}",
+    "farming_targets.count_owned": "Враховувати вже наявні копії",
     "farming_targets.honesty_node": "Точний вузол",
     "farming_targets.honesty_boss": "Фіксований вузол боса",
     "farming_targets.honesty_wiki_area": "Область, указана у вікі",

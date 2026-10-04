@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { expandTargets } from '../../src/lib/farmingTargets/requirements.js';
+import { buildLedger } from '../../src/lib/farmingTargets/ledger.js';
 
 const recipe = (resultType, ingredients, outputQty = 1) => ({ resultType, ingredients, outputQty });
 const ingredient = (itemType, name, need) => ({ itemType, name, need });
@@ -40,6 +41,24 @@ test('adds an unowned recipe blueprint before expanding its ingredients', () => 
   assert.equal(result.leaves.get('PART_BLUEPRINT').name, 'Narin Chassis Blueprint');
   assert.equal(result.leaves.get('PART_BLUEPRINT').required, 1);
   assert.equal(result.leaves.get('RAW').required, 2);
+});
+
+test('owned craftable targets remain farmable by default, while countOwned restores the old target behavior', () => {
+  const recipes = [recipe('X', [ingredient('A', 'Alloy Plate', 2)])];
+  const defaultResult = expandTargets([{ id: 'x', itemType: 'X', name: 'X', quantity: 1 }], context(recipes, { X: 1 }));
+  assert.equal(defaultResult.leaves.get('A').required, 2);
+  assert.equal(buildLedger({ leaves: defaultResult.leaves, owned: { X: 1, A: 0 } })[0].stillNeeded, 2);
+
+  const countOwnedResult = expandTargets([{ id: 'x', itemType: 'X', name: 'X', quantity: 1, countOwned: true }], context(recipes, { X: 1 }));
+  assert.equal(countOwnedResult.leaves.size, 0);
+});
+
+test('an owned raw target requests its full quantity by default', () => {
+  const result = expandTargets([{ id: 'resource', itemType: 'RAW', name: 'Raw Resource', quantity: 500, isAcquirable: true }], context([], { RAW: 120 }));
+  const [row] = buildLedger({ leaves: result.leaves, owned: { RAW: 120 } });
+  assert.equal(row.required, 500);
+  assert.equal(row.owned, 120);
+  assert.equal(row.stillNeeded, 500);
 });
 
 test('uses owned intermediates once before expanding them', () => {

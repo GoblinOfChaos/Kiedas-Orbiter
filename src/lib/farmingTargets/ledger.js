@@ -23,6 +23,9 @@ export function buildLedger({ leaves = new Map(), owned, reservations = [], prio
     const itemType = leaf.itemType ?? key;
     const required = Math.max(0, quantity(leaf.required));
     const ownedCount = Math.max(0, quantity(typeof owned === 'function' ? owned(itemType) : owned?.[itemType]));
+    const ownedEligibleRequired = (leaf.contributions?.length ?? 0) > 0
+      ? leaf.contributions.reduce((total, contribution) => contribution?.countOwned === false ? total : total + quantity(contribution.quantity), 0)
+      : required;
     const reservedTotal = reservationTotals.get(itemType) ?? 0;
     const usedBy = [...(leaf.contributions ?? [])]
       .filter((entry) => entry?.targetId != null && quantity(entry.quantity) > 0)
@@ -41,7 +44,7 @@ export function buildLedger({ leaves = new Map(), owned, reservations = [], prio
       owned: ownedCount,
       reserved: Math.min(reservedTotal, ownedCount),
       overcommitted: reservedTotal > ownedCount,
-      stillNeeded: Math.max(0, required - ownedCount),
+      stillNeeded: Math.max(0, required - Math.min(ownedCount, ownedEligibleRequired)),
       usedBy,
     };
   }).sort((a, b) =>

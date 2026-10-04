@@ -49,7 +49,7 @@ test('real inventory lists all four extractors with DE images and correct drone 
   assert.equal(blueprint.blueprint_quantity, 2)
 })
 
-test('real extractor acquisition data keeps every wiki source row', async () => {
+test('real extractor acquisition data keeps current routes only', async () => {
   const harness = await loadRealHarness()
   const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import(process.env.P7_ACQUISITION_INFO_PATH || '../../src/lib/acquisitionInfo.js')
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
@@ -83,11 +83,10 @@ test('real extractor acquisition data keeps every wiki source row', async () => 
   const titanPrime = getInfo('/Lotus/Types/Ship/AdvancedResourceDrone', 'Titan Extractor Prime')
   const distillingPrime = getInfo('/Lotus/Types/Ship/AdvancedUcResourceDrone', 'Distilling Extractor Prime')
   for (const [name, info] of [['Titan Extractor Prime', titanPrime], ['Distilling Extractor Prime', distillingPrime]]) {
-    assert.ok(info.sources.length > 1, `${name} should have one row per wiki source`)
+    assert.equal(info.sources.length, 1, `${name} should have one current route row`)
     const text = info.sources.map((source) => source.text).join(' ')
-    for (const phrase of ['Prime Access', 'Prime Vault', 'Prime Resurgence']) {
-      assert.match(text, new RegExp(phrase), `${name} should mention ${phrase}`)
-    }
+    assert.equal(text, 'Vaulted: not sold in the Market. Obtainable through Prime Resurgence when it is in rotation.')
+    assert.doesNotMatch(text, /Prime Access|Prime Vault|originally|formerly|previously|returned|\b(?:19|20)\d{2}\b/i)
   }
 
   const titan = getInfo('/Lotus/Types/Ship/BasicResourceDrone', 'Titan Extractor')

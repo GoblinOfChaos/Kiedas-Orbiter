@@ -136,6 +136,13 @@ export default function MirroredMonitoringProvider({ children }) {
       .then(async result => {
         const exports = result.exports ? { ...result.exports } : null
 
+        if (exports) {
+          try {
+            const manifestBytes = await invoke('read_file_bytes', { relative: 'data/export/de/ExportManifest.json' })
+            if (manifestBytes) exports.ExportManifest = JSON.parse(new TextDecoder().decode(new Uint8Array(manifestBytes)))
+          } catch { /* the DE manifest is optional; mirror images remain usable */ }
+        }
+
         // Apply patched export files (same as main MonitoringContext)
         if (exports) {
           for (const [fname, key] of PATCH_FILES) {

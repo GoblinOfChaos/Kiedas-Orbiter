@@ -11,12 +11,32 @@ const IMAGE_TABLES = [
   'WI_Sigils', 'WI_Glyphs', 'WI_Fish',
 ]
 
-function toBrowseWf(value, exportData) {
+function manifestImageMaps(exportData) {
+  const byUniqueName = new Map()
+  const byPath = new Map()
+  for (const entry of exportData.ExportManifest?.Manifest || exportData.ExportManifest || []) {
+    const texture = entry?.textureLocation
+    const separator = typeof texture === 'string' ? texture.lastIndexOf('!') : -1
+    if (!entry?.uniqueName || separator <= 0 || separator === texture.length - 1) continue
+    const image = { path: texture.slice(0, separator), contentHash: texture.slice(separator + 1) }
+    byUniqueName.set(entry.uniqueName, image)
+    byPath.set(image.path, image)
+  }
+  return { byUniqueName, byPath }
+}
+
+function toBrowseWf(value, exportData, uniqueName, manifestMaps) {
   if (!value) return null
   if (/^(?:https?:|asset-cache:|asset:|data:)/.test(value)) return value
   const clean = value.startsWith('/') ? value : '/' + value
-  const hash = exportData.ExportImages?.[clean]?.contentHash
-  return hash ? `asset-cache://content.warframe.com/PublicExport${clean}!${hash}` : `asset-cache://browse.wf${clean}`
+  const mirrorImage = exportData.ExportImages?.[clean]
+  const manifestImage = manifestMaps?.byUniqueName.get(uniqueName) || manifestMaps?.byPath.get(clean)
+  const image = mirrorImage?.contentHash
+    ? { path: clean, contentHash: mirrorImage.contentHash }
+    : manifestImage
+  return image?.contentHash
+    ? `asset-cache://content.warframe.com/PublicExport${image.path}!${image.contentHash}`
+    : `asset-cache://browse.wf${clean}`
 }
 
 export function buildImageMaps(exportData = {}) {
@@ -24,6 +44,7 @@ export function buildImageMaps(exportData = {}) {
   const nameToImage = {}
   const uniqueNameToName = {}
   const localizedUniqueNameToName = {}
+  const manifestMaps = manifestImageMaps(exportData)
   const dict = exportData.dict ?? exportData['dict.en'] ?? {}
   const indexEntry = (entry, key, table) => {
     const uniqueName = entry.uniqueName || entry.ItemType || key
@@ -49,7 +70,7 @@ export function buildImageMaps(exportData = {}) {
         }
       }
     }
-    const url = toBrowseWf(iconPath ?? '', exportData)
+    const url = toBrowseWf(iconPath ?? '', exportData, uniqueName, manifestMaps)
     const staleWikiThumbnail = typeof url === 'string' && /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
     if (url && (!EI[uniqueName] || !staleWikiThumbnail)) EI[uniqueName] = url
     uniqueNameToName[uniqueName] = nameKey

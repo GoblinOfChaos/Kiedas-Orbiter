@@ -577,6 +577,8 @@ function getSuffixIndex(tbl) {
 
 let activeExportImages = null;
 let activeLeafImageMap = null;
+let activeManifestImages = null;
+let activeManifestImagesByPath = null;
 
 function updateActiveExportImages(images) {
   activeExportImages = images;
@@ -593,11 +595,30 @@ function updateActiveExportImages(images) {
   }
 }
 
+function updateActiveExportManifest(manifest) {
+  const entries = manifest?.Manifest || manifest || [];
+  activeManifestImages = new Map();
+  activeManifestImagesByPath = new Map();
+  for (const entry of entries) {
+    const texture = entry?.textureLocation;
+    if (typeof texture !== 'string' || !entry?.uniqueName) continue;
+    const separator = texture.lastIndexOf('!');
+    if (separator <= 0 || separator === texture.length - 1) continue;
+    const path = texture.slice(0, separator);
+    const contentHash = texture.slice(separator + 1);
+    const image = { path, contentHash };
+    activeManifestImages.set(entry.uniqueName, image);
+    activeManifestImagesByPath.set(path, image);
+  }
+}
+
 // warframe-items currently carries stale wiki thumbnail filenames for these
 // two newer Warframes. Keep the identity-to-icon correction at the shared
 // resolver boundary so inventory cards, category tabs, and any other caller
 // cannot reintroduce the 404 thumbnails.
 const AUTHORITATIVE_ITEM_ICONS = {
+  // If the DE manifest has no entry for this newer icon, use the verified
+  // existing browse.wf cache path only as the LAST-RESORT community fallback.
   '/Lotus/Powersuits/Frumentarius/Frumentarius': '/Lotus/Interface/Icons/StoreIcons/Warframes/Frumentarius.png',
   '/Lotus/Powersuits/Choir/Choir': '/Lotus/Interface/Icons/StoreIcons/Warframes/Jade.png',
   ...OFFICIAL_IMAGE_OVERRIDES,
@@ -617,6 +638,12 @@ function resolveImage(un, ...tables) {
     let hash = imageMap?.[path]?.contentHash;
     let finalPath = path;
 
+    const manifestImage = activeManifestImages?.get(uniqueName) || activeManifestImagesByPath?.get(path);
+    if (manifestImage) {
+      finalPath = manifestImage.path;
+      hash = manifestImage.contentHash;
+    }
+
     if (!hash && activeLeafImageMap) {
       const leaf = path.split("/").pop();
       const match = activeLeafImageMap.get(leaf);
@@ -632,7 +659,7 @@ function resolveImage(un, ...tables) {
   };
 
   const officialOverride = AUTHORITATIVE_ITEM_ICONS[un];
-  if (officialOverride) return officialOverride;
+  if (officialOverride) return imageUrl(officialOverride, un);
   const normalizedNameOverride = typeof un === 'string'
     ? OFFICIAL_IMAGE_OVERRIDES[un.toLowerCase()]
     : null;
@@ -664,6 +691,10 @@ function resolveImage(un, ...tables) {
         return imageUrl(icon, matchKey);
       }
     }
+  }
+  const manifestImage = activeManifestImages?.get(un);
+  if (manifestImage) {
+    return `asset-cache://content.warframe.com/PublicExport${manifestImage.path}!${manifestImage.contentHash}`;
   }
   return null;
 }
@@ -1100,6 +1131,7 @@ function detectArcaneCategory(un, name) {
 
 export function parseInventory(raw, exports, dict, locale = 'en', i18nData = null) {
   updateActiveExportImages(exports?.ExportImages ?? null);
+  updateActiveExportManifest(exports?.ExportManifest ?? null);
   // Prime Set drone bundles are the DE source of their official artwork. The
   // bundle key is not the recipe/result key used by the inventory model, so
   // index each official bundle icon by its canonical component identities.
@@ -2725,7 +2757,17 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // always exist here, with p.owned (already correctly set on each
       // entry) reflecting the real ownership state per item.
       setParts.forEach(p => {
-        prime_parts.push({ ...p, setName: baseName, category: 'prime_parts', mastered: isBaseMastered });
+        const parent = [
+          ...warframes, ...primary, ...secondary, ...melee, ...sentinels,
+          ...beasts, ...archwings, ...archweapons, ...necramechs, ...amps,
+        ].find((item) => item.name === baseName || item.name === `${baseName} Prime`);
+        prime_parts.push({
+          ...p,
+          setName: baseName,
+          category: 'prime_parts',
+          mastered: isBaseMastered,
+          ...(parent && Object.hasOwn(parent, 'masterable') ? { masterable: parent.masterable } : {}),
+        });
       });
     }
   }
@@ -2826,7 +2868,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         xp: 0,
         rank: 0,
         max_rank: 0,
-        mastered: false,
+        mastered: Boolean(parent.mastered),
+        ...(Object.hasOwn(parent, 'masterable') ? { masterable: parent.masterable } : {}),
         is_prime: false,
       });
     }
@@ -3176,7 +3219,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
   const rivens = [
     ...(raw.RawUpgrades ?? []).filter(u => u.ItemType?.includes('Randomized') || u.ItemType?.includes('RandomMod')).map(u => ({
-      unique_name: u.ItemType, image: null, category: 'rivens', weapon_type: rivenWeaponType(u.ItemType),
+      unique_name: u.ItemType, image: resolveImage(u.ItemType, EM), category: 'rivens', weapon_type: rivenWeaponType(u.ItemType),
       name: `Veiled ${splitPascal(rivenWeaponType(u.ItemType)).replace(/^\w/, c => c.toUpperCase())} Riven`, veiled: true, owned: true, quantity: u.ItemCount ?? 1
     })),
     ...(raw.Upgrades ?? []).filter(u => u.ItemType?.includes('Randomized')).map(u => {
@@ -3659,6 +3702,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   // Filled by the craftable builder below so the Foundry can list every DE
   // recipe; each entry carries `foundryGroup`.
   let craftableExtraItems = [];
+
+  const unresolvedImageItems = all.filter((item) => !item.image || isLotusPath(item.image));
+  const hasTauriBridge = typeof globalThis.__TAURI_INTERNALS__?.invoke === 'function'
+    || typeof globalThis.window?.__TAURI_INTERNALS__?.invoke === 'function';
+  if (hasTauriBridge) {
+    logDebug('state.parse.image_audit', {
+      count: unresolvedImageItems.length,
+      names: unresolvedImageItems.slice(0, 10).map((item) => item.name),
+    }, { screen: 'inventory', phase: 'complete' });
+  }
 
   return {
     account: {

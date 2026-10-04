@@ -589,6 +589,12 @@ export function MonitoringProvider({ children }) {
           exportsLoadErrorReason = String(err?.message || err)
         }
       }
+      if (exports) {
+        try {
+          const manifestBytes = await invoke('read_file_bytes', { relative: 'data/export/de/ExportManifest.json' })
+          if (manifestBytes) exports.ExportManifest = JSON.parse(new TextDecoder().decode(new Uint8Array(manifestBytes)))
+        } catch { /* the DE manifest is optional; mirror images remain usable */ }
+      }
       // load_all_exports is the one genuinely critical load in this batch -
       // without it, essentially every screen has nothing to render. A real
       // disk error here used to leave exportData permanently null with no

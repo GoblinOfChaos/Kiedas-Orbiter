@@ -45,6 +45,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #60 Farming Targets (reported 2026-10-03): a target you already own shows nothing and no build requirements. DECIDED by you: a target means "I want N more", owned targets stay farmable and the Target Inspector always lists the full requirements (owned parts ticked), with a per-target switch to count your owned copies. [FIXED IN CODE 2026-10-03, merged, not in a build yet: after the next build pick a target you already own: the Target Inspector lists its full build requirements with owned parts marked; the farming lists rank places for what is still missing; tick 'Count the copies I already own' to get the old behaviour]
 - [ ] #61 Inventory: End goes to the end of the rendered part, not the end of the whole list (reported 2026-10-03). Cause not verified, NO fix started (needs a reproduction approach, see the report) [FIXED IN CODE 2026-10-03, merged, not in a build yet; needs your live check after the next build: press End on the general grid, on Prime Sets and in the list view, right after opening the tab and after maximizing; it should reach the true last row. If it still stops early, send the app log: it now records the target and the final position]
 - [ ] #62 Larger project, later: our own refresh of the game's language strings straight from Digital Extremes' servers (replaces the lagging community dictionary; the calendar names use the published strings for now). Planned, NOT started; see the report, section 62
+- [ ] #63 Hand-written acquisition rows are broken in many drawers (found by the coordinator 2026-10-03, read-only, real data): 457 items show a number cut in half (Grimoire: "for 50" and "000 Standing" as two rows), 155 armor-bundle drawers say "purchaseable from the Market for ." with no price, 142 carry history or update wording, 89 have a row that only says "Blueprint:", 14 show names with underscores. Cause verified (route splitter cuts at the thousands comma; the earlier audit never covered these paths). NO fix started; proposal in the report, section 63, waiting for your go
 
 ## Confirmed by you (kept for the record)
 
@@ -90,7 +91,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 Known, root-caused, not fixed:
 
 - [ ] Which desktop side shows which riven card
-- [ ] "ROATS OBLIVION" (find which widget it is under)
+- [ ] "ROATS OBLIVION" (found by the coordinator 2026-10-03: it is the Descendia boss row on the Dashboard, `ui.dashboard.roathe_oblivion` in `Dashboard.jsx:1204`, shown in capitals; what is wrong with it is still unknown: tell me what you expected)
 
 Untouched:
 
@@ -104,15 +105,15 @@ Untouched:
 Open from the 2026-09-29 walkthrough:
 
 - [ ] Navigation lag of 4-6s per screen (profile before guessing a cause)
-- [ ] Dead `.is-overlay` CSS rule at `src/index.css:309`
-- [ ] Cosmetics "MISSING" pill: confirm it means "not owned"
+- [ ] Dead `.is-overlay` CSS rule at `src/index.css:309` (checked 2026-10-03: NOT dead; `index.html` adds the class for overlay windows and both rules use it; nothing to do, tick if you agree)
+- [ ] Cosmetics "MISSING" pill: confirm it means "not owned" (checked in code 2026-10-03: `Cosmetics.jsx:175` shows Owned when you own it, otherwise Missing, so it means not owned; tick if you agree)
 - [ ] Commit the Tauri dependency updates and `preview:deploy` script (verified 2026-10-03: already committed in `56796f00`, nothing uncommitted; tick if you agree)
 
 Known-good items to re-check after data changes (search Inventory for each):
 
-- [ ] Narin: Warframe + Blueprint, Chassis, Neuroptics, Systems
-- [ ] Citrine Prime: Warframe + 3 Prime parts
-- [ ] Grimoire + Grimoire Blueprint
+- [ ] Narin: Warframe + Blueprint, Chassis, Neuroptics, Systems (coordinator real-data check 2026-10-03: the Narin Warframe drawer lists 11 sources, Zariman Void Flood/Cascade rows; the blueprint parts are not separate catalog names, so the drawer check is yours)
+- [ ] Citrine Prime: Warframe + 3 Prime parts (coordinator real-data check 2026-10-03: the Warframe lists its 4 relics Axi C12, Lith S19, Neo C11, Meso C11)
+- [ ] Grimoire + Grimoire Blueprint (coordinator real-data check 2026-10-03: BROKEN, rows "for 50" / "000 Standing." / "Blueprint:"; see #63)
 
 ## Screen sweep
 

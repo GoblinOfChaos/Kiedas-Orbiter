@@ -1,4 +1,4 @@
-import { getItemDrops, getItemRecipe, getWikiLink, isCraftable } from './acquisitionData.js';
+import { getItemDrops, getItemRecipe, getWikiLink, isCraftable, WARFRAME_ACQUISITIONS } from './acquisitionData.js';
 
 // Keep compact Wiki maps available in the frontend as a last-resort fallback.
 // The AppImage also ships these JSON files as Tauri resources, but a card can
@@ -114,6 +114,81 @@ function normalizeDisplayName(value) {
     : '';
 }
 
+// The Warframe/weapon acquisition table contains concise, verified route
+// fragments such as "Market (35,000 Credits) or Simaris". Keep each fragment
+// as its own source row without inventing a new route description. Separators
+// inside parentheses (for example the comma in "35,000") are deliberately
+// left intact.
+function splitAcquisitionRouteText(value) {
+  if (typeof value !== 'string' || !value.trim()) return [];
+  const routes = [];
+  let start = 0;
+  let depth = 0;
+  const text = value.trim();
+  const push = (end) => {
+    const route = text.slice(start, end).trim().replace(/^[,;]+|[,;]+$/g, '').trim();
+    if (route) routes.push(route);
+    start = end;
+  };
+  for (let i = 0; i < text.length; i += 1) {
+    if (text[i] === '(') depth += 1;
+    else if (text[i] === ')' && depth > 0) depth -= 1;
+    if (depth !== 0) continue;
+    const rest = text.slice(i);
+    const separator = rest.match(/^(?:\s+or\s+|\s+\/\s+|;\s+)/i);
+    if (separator) {
+      push(i);
+      i += separator[0].length - 1;
+      start = i + 1;
+      continue;
+    }
+    if (text[i] === ',' && !/^,\s+or\b/i.test(rest)) {
+      push(i);
+      start = i + 1;
+    }
+  }
+  push(text.length);
+  return routes;
+}
+
+function routeKey(text) {
+  const normalized = normalizeDisplayName(text);
+  const marketPrice = normalized.match(/\bmarket\b[\s\S]*?(\d[\d,]*)\s*(credits|platinum)\b/i)
+    || normalized.match(/(\d[\d,]*)\s*(credits|platinum)\b[\s\S]*?\bmarket\b/i);
+  if (marketPrice) return `market:${marketPrice[2].toLowerCase()}:${Number(marketPrice[1].replaceAll(',', ''))}`;
+  if (/\bmarket\b/i.test(normalized)) return 'market';
+  if (/simaris/i.test(normalized)) return 'simaris';
+  if (/conclave/i.test(normalized)) return 'conclave';
+  if (/dojo|clan/i.test(normalized)) {
+    const lab = normalized.match(/\(([^)]+)\)/)?.[1] || '';
+    return `dojo:${lab}`;
+  }
+  if (/quest/i.test(normalized)) return `quest:${normalized.replace(/.*?quest(?:\s+reward|\s*:)?\s*/i, '')}`;
+  return normalized.replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+}
+
+function findRecipeByBlueprint(recipeResultIndex, blueprintUniqueName) {
+  const target = canonicalPath(blueprintUniqueName);
+  const direct = recipeResultIndex?.blueprintResultIndex?.get(target);
+  if (direct) return direct;
+  if (!target || !recipeResultIndex?.values) return null;
+  for (const recipe of recipeResultIndex.values()) {
+    if (canonicalPath(recipe?.blueprintUniqueName) === target && recipe?.resultType) {
+      return recipe;
+    }
+  }
+  return null;
+}
+
+function isMainBlueprintUniqueName(uniqueName) {
+  return /^\/Lotus\/Types\/Recipes\/(?:WarframeRecipes|Weapons)\/[^/]+Blueprint$/.test(canonicalPath(uniqueName) || '')
+    && !/(?:Chassis|Neuroptics|Systems|Helmet|Harness|Wings)Blueprint$/i.test(uniqueName || '');
+}
+
+function isWarframeOrWeaponUniqueName(uniqueName) {
+  return /\/Powersuits\/|\/Weapons\//.test(canonicalPath(uniqueName) || '');
+}
+
 /**
  * Maps a craftable equipment's own uniqueName (the finished Warframe/weapon)
  * to true if ExportRecipes has a blueprint whose resultType builds it AND
@@ -192,6 +267,10 @@ function parsePrimeComponentLeaf(dropIndexKey) {
 
 export function buildRecipeResultIndex(exportData) {
   const index = new Map();
+  const blueprintIndex = new Map();
+  const resultRecipes = new Map();
+  index.blueprintResultIndex = blueprintIndex;
+  index.resultRecipes = resultRecipes;
   const recipes = exportData?.ExportRecipes;
   if (!recipes || typeof recipes !== 'object') return index;
 
@@ -236,6 +315,25 @@ export function buildRecipeResultIndex(exportData) {
   };
 
   for (const [blueprintName, recipe] of Object.entries(recipes)) {
+    // Keep a reverse identity for every DE Warframe/weapon recipe, including
+    // zero-ingredient conversion/finalization recipes that are intentionally
+    // excluded from the craftable result map below. Their blueprint parts
+    // still need to inherit a verified Market/vendor route from the result.
+    if (recipe?.resultType && /^\/Lotus\/Types\/Recipes\/(?:WarframeRecipes|Weapons)\//.test(blueprintName)) {
+      blueprintIndex.set(canonicalPath(blueprintName), {
+        resultType: canonicalPath(recipe.resultType),
+        blueprintUniqueName: canonicalPath(blueprintName),
+        blueprintCost: recipe.excludeFromMarket ? null : recipe.creditsCost,
+        blueprintPlatinumCost: recipe.excludeFromMarket ? null : recipe.platinumCost,
+        blueprintMarketEligible: recipe.excludeFromMarket !== true,
+        excludeFromMarket: recipe.excludeFromMarket === true,
+        buildCost: recipe.buildPrice,
+        buildTime: recipe.buildTime,
+        rushCost: recipe.skipBuildTimePrice,
+        blueprintOnly: false,
+        ingredients: [],
+      });
+    }
     // Braton and Lato are real blueprint-only Foundry recipes in the export.
     // Other zero-ingredient entries are DE's internal Lich/Tenet/Railjack
     // finalization plumbing and must not be presented as craftable weapons.
@@ -249,7 +347,7 @@ export function buildRecipeResultIndex(exportData) {
           name: resolveName(itemType) || itemType,
         };
       }).filter((ingredient) => ingredient.itemType);
-      index.set(canonicalPath(recipe.resultType), {
+      const indexedRecipe = {
         resultType: canonicalPath(recipe.resultType),
         blueprintUniqueName: canonicalPath(blueprintName),
         blueprintCost: recipe.excludeFromMarket ? null : recipe.creditsCost,
@@ -261,7 +359,12 @@ export function buildRecipeResultIndex(exportData) {
         rushCost: recipe.skipBuildTimePrice,
         blueprintOnly,
         ingredients,
-      });
+      };
+      index.set(canonicalPath(recipe.resultType), indexedRecipe);
+      blueprintIndex.set(canonicalPath(blueprintName), indexedRecipe);
+      const candidates = resultRecipes.get(canonicalPath(recipe.resultType)) || [];
+      candidates.push(indexedRecipe);
+      resultRecipes.set(canonicalPath(recipe.resultType), candidates);
     }
   }
   return index;
@@ -980,6 +1083,114 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   const marketCurrency = marketEntry?.currency || 'Platinum';
   const marketRouteCanBeRendered = marketMentioned && marketAmount > 0
     && (!recipe || (recipe.blueprintMarketEligible !== false && Number(recipe.blueprintCost) > 0) || !/blueprint/i.test(overrideText));
+
+  // A blueprint part is a separate inventory item, but its verified
+  // acquisition routes belong to the Warframe/weapon result that the recipe
+  // builds. Reverse-link only the main blueprint paths; chassis, neuroptics,
+  // systems and other component blueprints retain their existing behavior.
+  const reverseBlueprintRecipe = isMainBlueprintUniqueName(dropIndexKey)
+    ? findRecipeByBlueprint(recipeResultIndex, dropIndexKey)
+    : null;
+  const resultRecipeCandidates = recipeResultIndex?.resultRecipes?.get(canonicalPath(dropIndexKey)) || [];
+  const routeRecipe = reverseBlueprintRecipe
+    || resultRecipeCandidates.find((candidate) => candidate?.blueprintMarketEligible !== false && Number(candidate?.blueprintCost) > 0)
+    || recipe;
+  const routeParentUniqueName = reverseBlueprintRecipe?.resultType || canonicalPath(dropIndexKey);
+  const routeParentName = reverseBlueprintRecipe
+    ? String(displayName || '').replace(/\s+Blueprint$/i, '').trim()
+    : displayName;
+  const routeIsWeaponRecipe = /\/Lotus\/Types\/Recipes\/Weapons\//.test(routeRecipe?.blueprintUniqueName || dropIndexKey || '');
+  const routePathEligible = isWarframeOrWeaponUniqueName(routeParentUniqueName) || routeIsWeaponRecipe;
+  const routeTable = routePathEligible ? WARFRAME_ACQUISITIONS[normalizeDisplayName(routeParentName)] : null;
+  const routeTarget = routePathEligible
+    && (routeRecipe || routeTable)
+    && !/\bPrime\b/i.test(routeParentName || '');
+  const tableRouteText = routeTable?.blueprint || routeTable?.general;
+  const tableRoutes = splitAcquisitionRouteText(tableRouteText);
+
+  if (routeTarget) {
+    const routeSources = [];
+    const addRoute = (source) => {
+      if (!source?.text) return;
+      const key = routeKey(source.text);
+      if (!key) return;
+      // A priced Market row is more precise than a bare "Market" fragment.
+      if (key === 'market' && routeSources.some((row) => routeKey(row.text).startsWith('market:'))) return;
+      if (key.startsWith('market:')) {
+        for (let i = routeSources.length - 1; i >= 0; i -= 1) {
+          if (routeKey(routeSources[i].text) === 'market') routeSources.splice(i, 1);
+        }
+      }
+      if (!routeSources.some((row) => routeKey(row.text) === key)) routeSources.push(source);
+    };
+
+    if (marketEntry && marketAmount > 0) {
+      const text = marketCurrency === 'Credits'
+        ? `Sold in the in-game Market for ${marketAmount.toLocaleString()} Credits.`
+        : `Blueprint purchasable from Market for ${marketAmount.toLocaleString()} ${marketCurrency}.`;
+      addRoute({ type: 'non-drop', text, source: 'DE export Market price' });
+    }
+    if (routeRecipe?.blueprintMarketEligible !== false && Number(routeRecipe?.blueprintCost) > 0) {
+      addRoute({
+        type: 'non-drop',
+        text: `Blueprint purchasable from Market for ${Number(routeRecipe.blueprintCost).toLocaleString()} Credits.`,
+        source: 'DE ExportRecipes blueprint creditsCost',
+      });
+    }
+    for (const text of tableRoutes) {
+      addRoute({ type: 'override', text, source: 'warframe/weapon acquisition table' });
+    }
+
+    // Preserve verified routes already attached to the result item. This is
+    // needed for routes such as Conclave or a quest that are more detailed in
+    // the existing override than in the compact blueprint table.
+    if (reverseBlueprintRecipe) {
+      const parentInfo = getAcquisitionInfo(
+        routeParentUniqueName,
+        routeParentName,
+        dropIndex,
+        overridesData,
+        recipeResultIndex,
+        marketIndex,
+        bundleIndex,
+        syndicateIndex,
+        wikiSigilIndex,
+        wikiVendorIndex,
+        wikiTennoGenIndex,
+        wikiBaroIndex,
+        exportVendorIndex,
+        alwaysAvailableIndex,
+        glyphSupplementIndex,
+        wikiBlueprintIndex,
+        wikiResearchIndex,
+        relicStateIndex,
+        wikiResourceIndex,
+        wikiPageAcquisitionIndex,
+        wikiAcquisitionStatusIndex,
+        exaltedWeaponIndex,
+        undefined,
+      );
+      for (const source of parentInfo.sources || []) {
+        if (!source.part && source.type !== 'status') addRoute(source);
+      }
+    } else if (typeof overrideText === 'string' && !/^UNKNOWN\b/i.test(overrideText.trim())) {
+      const overrideRoutes = splitAcquisitionRouteText(overrideText);
+      for (const text of overrideRoutes) addRoute({ type: 'override', text, source: 'manual override' });
+    }
+
+    // Keep any direct DE/drop rows that are already attached to this exact
+    // result or blueprint key; adding the new blueprint routes must not hide a
+    // separate verified mission or relic acquisition.
+    for (const key of new Set([routeParentUniqueName, canonicalPath(dropIndexKey)])) {
+      for (const source of dropIndex?.[key] || []) {
+        if (!source.part) addRoute(source);
+      }
+    }
+    if (routeSources.length > 0) {
+      return { sources: routeSources, recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
+    }
+  }
+
   // An exact, source-backed acquisition record outranks an older manual
   // override for the same DE object. Keep the path match strict: this is not
   // a name/category rule and cannot bleed into similarly named variants.

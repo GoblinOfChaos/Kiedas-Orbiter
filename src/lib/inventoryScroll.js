@@ -35,9 +35,33 @@ export function getScrollKeyTarget({ key, scrollTop, clientHeight, scrollHeight,
   return Math.min(maximumTop, Math.max(0, target));
 }
 
-export function getVirtualScrollMaximum({ rowCount, rowStride, bottomPadding = 0, rootOffset = 0, clientHeight }) {
+export function getVirtualScrollMaximum({ rowCount, rowStride, bottomPadding = 0, rootHeight = null, rootOffset = 0, clientHeight }) {
+  const measuredRootHeight = rootHeight === null
+    ? getVirtualRootHeight({ rowCount, rowStride, bottomPadding })
+    : Math.max(0, finiteNumber(rootHeight));
+  return Math.max(0, finiteNumber(rootOffset) + measuredRootHeight - Math.max(0, finiteNumber(clientHeight)));
+}
+
+export function getGridColumnCount({ containerWidth, minCardWidth, gap = 0 }) {
+  const width = Math.max(0, finiteNumber(containerWidth));
+  const minimum = Math.max(1, finiteNumber(minCardWidth, 1));
+  const columnGap = Math.max(0, finiteNumber(gap));
+  return Math.max(1, Math.floor((width + columnGap) / (minimum + columnGap)));
+}
+
+export function getVirtualScrollModel({ itemCount, columns, rowStride, bottomPadding = 0 }) {
+  const items = Math.max(0, Math.floor(finiteNumber(itemCount)));
+  const columnCount = Math.max(1, Math.floor(finiteNumber(columns, 1)));
+  const rowCount = Math.ceil(items / columnCount);
   const rootHeight = getVirtualRootHeight({ rowCount, rowStride, bottomPadding });
-  return Math.max(0, finiteNumber(rootOffset) + rootHeight - Math.max(0, finiteNumber(clientHeight)));
+  return {
+    itemCount: items,
+    columns: columnCount,
+    rowCount,
+    rowStride: Math.max(0, finiteNumber(rowStride)),
+    bottomPadding: Math.max(0, finiteNumber(bottomPadding)),
+    rootHeight,
+  };
 }
 
 export function settleScrollJump({ container, getTarget, requestAnimationFrame, maxPasses = 6 }) {

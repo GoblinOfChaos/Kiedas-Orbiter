@@ -29,7 +29,7 @@ import { categoryDisplayLabel } from '../lib/categoryLabels';
 import { sortByChanceDesc, sortSourcesByChanceInRotations } from '../lib/chanceSort';
 import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 import PrimeSetCard from '../components/PrimeSetCard';
-import { getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualRootHeight, getVirtualScrollMaximum, settleScrollJump } from '../lib/inventoryScroll.js';
+import { getGridColumnCount, getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualScrollMaximum, getVirtualScrollModel, settleScrollJump } from '../lib/inventoryScroll.js';
 import { buildRelicRarityIndex, buildRelicTooltipRows } from '../lib/relicSources.js';
 import { compareText, compareTextBase } from '../lib/textCompare';
 
@@ -272,6 +272,8 @@ export default function Inventory() {
   // layouts regardless of this, and Arcanes keeps rendering via the shared
   // ModCard component in both modes rather than a custom list row for it.
   const [viewMode, setViewMode] = useState('grid');
+  const viewModeRef = useRef(viewMode);
+  viewModeRef.current = viewMode;
   const [framesPath, setFramesPath] = useState('');
   const [uiPath, setUiPath] = useState('');
   const [iconsPath, setIconsPath] = useState('');
@@ -300,19 +302,11 @@ export default function Inventory() {
       if (!isJump && !['PageUp', 'PageDown', ' ', 'Spacebar'].includes(key)) return;
       event.preventDefault();
 
-      if (!isJump) {
-        const target = getScrollKeyTarget({
-          key,
-          scrollTop: container.scrollTop,
-          clientHeight: container.clientHeight,
-          scrollHeight: container.scrollHeight,
-          shiftKey: event.shiftKey,
-        });
-        if (target !== null) container.scrollTo({ top: target, behavior: 'auto' });
-        return;
-      }
-
-      jumpInProgressRef.current = true;
+      const readDimensions = () => ({
+        scrollTop: Number.isFinite(Number(container.scrollTop)) ? Number(container.scrollTop) : 0,
+        scrollHeight: Math.max(0, Number(container.scrollHeight) || 0),
+        clientHeight: Math.max(0, Number(container.clientHeight) || 0),
+      });
       const getModelMaximum = (clientHeight) => {
         const root = virtualRootRef.current;
         const model = scrollModelRef.current;
@@ -322,35 +316,69 @@ export default function Inventory() {
         const rootOffset = container.scrollTop - (containerRect.top - rootRect.top);
         return getVirtualScrollMaximum({ ...model, rootOffset, clientHeight });
       };
+      const logKeyJump = ({ before, after, target, passes }) => {
+        const model = scrollModelRef.current;
+        const root = virtualRootRef.current;
+        const rootRect = root?.getBoundingClientRect?.();
+        const modelMaximum = model ? getModelMaximum(after.clientHeight) : null;
+        const ok = key === 'End'
+          ? modelMaximum === null || after.scrollTop >= modelMaximum - 2
+          : key === 'Home'
+          ? after.scrollTop <= 2
+          : Math.abs(after.scrollTop - target) <= 2;
+        const payload = {
+          key,
+          tab: activeTabRef.current,
+          view_mode: viewModeRef.current,
+          row_count: model?.rowCount ?? null,
+          columns: model?.columns ?? null,
+          stride: model?.rowStride ?? null,
+          model_maximum: modelMaximum,
+          root_style_height: root?.style?.height ?? null,
+          root_rect_height: rootRect ? rootRect.height : null,
+          before_scroll_height: before.scrollHeight,
+          before_client_height: before.clientHeight,
+          after_scroll_height: after.scrollHeight,
+          after_client_height: after.clientHeight,
+          passes,
+          target,
+          final_scroll_top: after.scrollTop,
+          final_scroll_height: after.scrollHeight,
+          ok,
+        };
+        logEvent('inventory.scroll.key_jump', payload, { level: 'debug', screen: 'inventory' });
+        if (key === 'End' && !ok) {
+          logEvent('inventory.scroll.key_jump_incomplete', payload, { level: 'warn', screen: 'inventory' });
+        }
+      };
+
+      if (!isJump) {
+        const before = readDimensions();
+        const target = getScrollKeyTarget({
+          key,
+          ...before,
+          shiftKey: event.shiftKey,
+        });
+        if (target !== null) {
+          container.scrollTo({ top: target, behavior: 'auto' });
+          logKeyJump({ before, after: readDimensions(), target, passes: 1 });
+        }
+        return;
+      }
+
+      jumpInProgressRef.current = true;
+      const before = readDimensions();
 
       settleScrollJump({
         container,
         requestAnimationFrame: (callback) => requestAnimationFrame(callback),
-        getTarget: ({ clientHeight, scrollHeight }) => {
+        getTarget: ({ clientHeight }) => {
           if (key === 'Home') return 0;
-          const modelMaximum = getModelMaximum(clientHeight);
-          const domMaximum = Math.max(0, scrollHeight - clientHeight);
-          // A larger DOM maximum means layout has just caught up; include it
-          // on the next pass while keeping the model as the normal target.
-          return Math.max(modelMaximum, domMaximum);
+          return getModelMaximum(clientHeight);
         },
       }).then((result) => {
         jumpInProgressRef.current = false;
-        if (key !== 'End') return;
-        const model = scrollModelRef.current;
-        const modelMaximum = model ? getModelMaximum(container.clientHeight) : result.target;
-        if (result.scrollTop < modelMaximum - 2) {
-          logEvent('inventory.scroll.key_jump_incomplete', {
-            key,
-            target: result.target,
-            model_maximum: modelMaximum,
-            final_scroll_top: result.scrollTop,
-            final_scroll_height: result.scrollHeight,
-            row_count: model?.rowCount ?? null,
-            stride: model?.rowStride ?? null,
-            tab: activeTabRef.current,
-          }, { level: 'warn', screen: 'inventory' });
-        }
+        logKeyJump({ before, after: readDimensions(), target: result.target, passes: result.passes });
       });
     };
 
@@ -781,7 +809,11 @@ export default function Inventory() {
         ? (isLg ? 4 : isMd ? 3 : 2)
         : isListView
         ? 1
-        : Math.max(1, Math.floor((virtualRoot.clientWidth + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
+        : getGridColumnCount({
+          containerWidth: virtualRoot.clientWidth,
+          minCardWidth: GENERAL_CARD_MIN_WIDTH,
+          gap: COL_GAP,
+        });
     };
 
     const applyScrollTop = (columns, normalizedScrollTop = null) => {
@@ -917,20 +949,21 @@ export default function Inventory() {
     ? 1
     : windowMetrics.columns > 1
     ? windowMetrics.columns
-    : Math.max(1, Math.floor(((virtualRoot?.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200)) + COL_GAP) / (GENERAL_CARD_MIN_WIDTH + COL_GAP)));
+    : getGridColumnCount({
+      containerWidth: virtualRoot?.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1200),
+      minCardWidth: GENERAL_CARD_MIN_WIDTH,
+      gap: COL_GAP,
+    });
 
-  const rowCount = Math.ceil(filteredItems.length / currentColumns);
-  virtualRootRef.current = virtualRoot;
-  scrollModelRef.current = {
-    rowCount,
-    rowStride,
-    bottomPadding: VIRTUAL_ROOT_BOTTOM_PADDING,
-  };
-  const virtualRootHeight = getVirtualRootHeight({
-    rowCount,
+  const scrollModel = getVirtualScrollModel({
+    itemCount: filteredItems.length,
+    columns: currentColumns,
     rowStride,
     bottomPadding: VIRTUAL_ROOT_BOTTOM_PADDING,
   });
+  const { rowCount, rootHeight: virtualRootHeight } = scrollModel;
+  virtualRootRef.current = virtualRoot;
+  scrollModelRef.current = scrollModel;
   const firstRow = Math.max(0, Math.floor(windowMetrics.scrollTop / rowStride) - WINDOW_OVERSCAN_ROWS);
   const lastRow = Math.min(rowCount, Math.ceil((windowMetrics.scrollTop + windowMetrics.viewportHeight) / rowStride) + WINDOW_OVERSCAN_ROWS);
   const windowedItems = filteredItems.slice(firstRow * currentColumns, lastRow * currentColumns);
@@ -1371,7 +1404,7 @@ export default function Inventory() {
                   <span className="text-[10px] font-black uppercase text-kronos-accent">{t('ui.inventory.fetching_prices')}</span>
                 </div>
           }
-              <div ref={setVirtualRootRef} data-inventory-list-root className="relative pb-4" style={{ height: `${virtualRootHeight}px` }}>
+              <div ref={setVirtualRootRef} data-inventory-list-root className="relative pb-4 flex-shrink-0" style={{ height: `${virtualRootHeight}px` }}>
                 <div
                   className="absolute inset-x-0 grid grid-cols-1 lg:grid-cols-2 gap-4"
                   style={{ top: `${firstRow * rowStride}px` }}
@@ -1394,7 +1427,7 @@ export default function Inventory() {
               </div>
             </> :
         activeTab === 'ayatan' ?
-        <div ref={setVirtualRootRef} data-inventory-list-root className="relative pb-4" style={{ height: `${virtualRootHeight}px` }}>
+        <div ref={setVirtualRootRef} data-inventory-list-root className="relative pb-4 flex-shrink-0" style={{ height: `${virtualRootHeight}px` }}>
           <div
             className="absolute inset-x-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
             style={{ top: `${firstRow * rowStride}px` }}
@@ -1464,7 +1497,7 @@ export default function Inventory() {
             </div>
         </div> :
 
-        <div ref={setVirtualRootRef} data-inventory-list-root className="relative pb-4" style={{ height: `${virtualRootHeight}px` }}>
+        <div ref={setVirtualRootRef} data-inventory-list-root className="relative pb-4 flex-shrink-0" style={{ height: `${virtualRootHeight}px` }}>
           <div
             data-inventory-general-grid={isGeneralGrid ? '' : undefined}
             className={isListView ? 'absolute inset-x-0 flex flex-col gap-1.5' : 'absolute inset-x-0 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4'}

@@ -1,10 +1,13 @@
+import fs from 'node:fs'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {
+  getGridColumnCount,
   getMeasuredRowStride,
   getScrollKeyTarget,
   getScrollTopForFirstItem,
   getVirtualRootHeight,
+  getVirtualScrollModel,
   getVirtualScrollMaximum,
   settleScrollJump,
 } from '../../src/lib/inventoryScroll.js'
@@ -39,6 +42,48 @@ test('inventory virtual root includes bottom padding only when rows exist', () =
   assert.equal(getVirtualRootHeight({ rowCount: 1, rowStride: 209, bottomPadding: 16 }), 225)
   assert.equal(getVirtualRootHeight({ rowCount: 3, rowStride: 209, bottomPadding: 16 }), 643)
   assert.equal(getVirtualRootHeight({ rowCount: 3, rowStride: 209 }), 627)
+})
+
+test('inventory virtual model uses the same root height for DOM and End across real item counts and widths', () => {
+  const widths = [280, 576, 872, 1168, 1464, 1760]
+  const counts = [1793, 897]
+  const stride = 195
+  const padding = 16
+  const viewport = 800
+
+  for (const containerWidth of widths) {
+    const columns = getGridColumnCount({ containerWidth, minCardWidth: 280, gap: 16 })
+    assert.equal(columns, widths.indexOf(containerWidth) + 1)
+
+    for (const itemCount of counts) {
+      const model = getVirtualScrollModel({
+        itemCount,
+        columns,
+        rowStride: stride,
+        bottomPadding: padding,
+      })
+      const expectedRows = Math.ceil(itemCount / columns)
+      const expectedRootHeight = expectedRows * stride + padding
+      const expectedMaximum = Math.max(0, expectedRootHeight - viewport)
+
+      assert.equal(model.rowCount, expectedRows)
+      assert.equal(model.rootHeight, expectedRootHeight)
+      assert.equal(getVirtualScrollMaximum({ ...model, clientHeight: viewport }), expectedMaximum)
+      assert.equal(getScrollKeyTarget({
+        key: 'End',
+        scrollTop: 0,
+        clientHeight: viewport,
+        scrollHeight: 0,
+        modelMaximumTop: expectedMaximum,
+      }), expectedMaximum)
+    }
+  }
+})
+
+test('inventory virtual roots cannot be compressed by the surrounding column flex layouts', () => {
+  const source = fs.readFileSync(new URL('../../src/screens/Inventory.jsx', import.meta.url), 'utf8')
+  const roots = source.match(/className="relative pb-4 flex-shrink-0"/g) ?? []
+  assert.equal(roots.length, 3)
 })
 
 test('inventory End target uses the virtual model and root offset', () => {

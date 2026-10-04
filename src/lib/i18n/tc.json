@@ -1610,6 +1610,7 @@
     "farming_targets.column_source": "來源",
     "farming_targets.view_sources": "檢視來源",
     "farming_targets.target_quantity": "數量：{count}",
+    "farming_targets.count_owned": "計算我已擁有的複本",
     "farming_targets.honesty_node": "確切節點",
     "farming_targets.honesty_boss": "固定首領節點",
     "farming_targets.honesty_wiki_area": "維基列出的區域",

@@ -63,6 +63,11 @@ test('mutators tolerate missing targets and incomplete reservations', () => {
   assert.equal(setTargetReservation(base, { itemType: 'x', targetId: 'a' }).reservations.length, 0);
 });
 
+test('old stored targets default countOwned to false', () => {
+  const migrated = createFarmingTargetsStore().migrate({ version: 2, targets: [target('legacy')] });
+  assert.equal(migrated.targets[0].countOwned, false);
+});
+
 test('public load and save use the shared adapter', async () => {
   const original = globalThis.__farmingTargetTestIO;
   const writes = [];

@@ -12,6 +12,7 @@ function migrateStore(store) {
   return { ...emptyStore(), ...store, version: CURRENT_VERSION,
     targets: store.targets.map((target) => ({ ...target, status: target.status || 'active',
       priority: Number.isFinite(Number(target.priority)) ? Number(target.priority) : 0,
+      countOwned: target.countOwned === true,
       dueAt: target.dueAt ?? null, reservations: Array.isArray(target.reservations) ? target.reservations : [],
       reminders: Array.isArray(target.reminders) ? target.reminders : [] })),
     reservations: Array.isArray(store.reservations) ? store.reservations : [],
@@ -91,14 +92,15 @@ export function subscribeFarmingTargets(listener) { subscribers.add(listener); i
 export function getFarmingTargetsStore() { return sharedValue; }
 export const CURRENT_FARMING_TARGETS_VERSION = CURRENT_VERSION;
 
-export function createFarmingTarget({ uniqueName, name, image, category, quantity = 1, note = '' }) {
+export function createFarmingTarget({ uniqueName, name, image, category, quantity = 1, note = '', countOwned = false }) {
   return { id: crypto.randomUUID(), uniqueName, name, image: image || null, category: category || null,
-    quantity: Math.max(1, Math.floor(quantity) || 1), note, status: 'active', priority: 0, dueAt: null,
+    quantity: Math.max(1, Math.floor(quantity) || 1), note, countOwned: countOwned === true, status: 'active', priority: 0, dueAt: null,
     createdAt: Date.now(), reservations: [], reminders: [] };
 }
 export function addTarget(store, target) { const next = migrateStore(store); return { ...next, targets: [...next.targets, target] }; }
 export function removeTarget(store, id) { const next = migrateStore(store); return { ...next, targets: next.targets.filter((target) => target.id !== id) }; }
 export function setTargetQuantity(store, id, quantity) { const next = migrateStore(store); const safeQuantity = Math.max(1, Math.floor(quantity) || 1); return { ...next, targets: next.targets.map((target) => target.id === id ? { ...target, quantity: safeQuantity } : target) }; }
+export function setTargetCountOwned(store, id, countOwned) { return updateTarget(store, id, { countOwned: countOwned === true }); }
 export function setTargetNote(store, id, note) { const next = migrateStore(store); return { ...next, targets: next.targets.map((target) => target.id === id ? { ...target, note } : target) }; }
 export function updateTarget(store, id, changes) { const next = migrateStore(store); return { ...next, targets: next.targets.map((target) => target.id === id ? { ...target, ...changes } : target) }; }
 export function setTargetStatus(store, id, status) { return updateTarget(store, id, { status: status === 'archived' || status === 'complete' ? status : 'active' }); }

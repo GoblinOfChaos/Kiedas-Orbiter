@@ -61,6 +61,25 @@ test('SSR shows readable target options, blueprint rows, real mission labels, an
   assert.match(html, /Narin Neuroptics/)
 })
 
+test('SSR keeps an owned target inspector populated and renders the count-owned switch', async () => {
+  const { PreviewFarmingView, UiContext } = await loadScreen()
+  const targets = [{ id: 'owned-x', uniqueName: 'OWNED_X', name: 'Owned X', quantity: 1 }]
+  const inventoryData = {
+    all: [{ unique_name: 'OWNED_X', name: 'Owned X', quantity: 1 }, { unique_name: 'OWNED_RAW', name: 'Owned Raw', quantity: 2 }],
+    craftable: [{ resultType: 'OWNED_X', uniqueName: 'OWNED_X_BLUEPRINT', bpName: 'Owned X Blueprint', ingredients: [{ itemType: 'OWNED_RAW', name: 'Owned Raw', need: 2 }] }],
+  }
+  const model = buildFarmingTargetsScreenModel({ targets, inventoryData, dropIndex: { OWNED_RAW: [{ type: 'mission', nodeName: 'Owned Node', chance: 0.5 }] } })
+  const html = renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
+    targets, reservations: [], model, t, selectedTarget: targets[0].id, setSelectedTarget: noOp,
+    tab: 'all', setTab: noOp, minChanceOn: false, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
+    hideDone: true, setHideDone: noOp, hideConclave: false, setHideConclave: noOp, groupPlanet: false, setGroupPlanet: noOp,
+    toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp, onTargetChange: noOp, onReserve: noOp,
+  })))
+  assert.match(html, /Owned Raw/)
+  assert.match(html, /farming_targets\.count_owned/)
+  assert.doesNotMatch(html, /farming_targets\.inspector_resolved/)
+})
+
 test('SSR keeps the minimum-chance toggle wrapper separate from its conditional note', async () => {
   const { PreviewFarmingView, UiContext } = await loadScreen()
   const { targets, model } = fixtureUiModel()

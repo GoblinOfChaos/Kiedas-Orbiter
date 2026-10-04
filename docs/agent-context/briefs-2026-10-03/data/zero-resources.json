@@ -1,0 +1,1947 @@
+[
+{
+"table": "ExportResources",
+"name": "DNA Stabilizers",
+"uniqueName": "/Lotus/Types/Game/KubrowPet/KubrowPetFood"
+},
+{
+"table": "ExportResources",
+"name": "Lith Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T1VoidProjection"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultABronze"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultAGold"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultAPlatinum"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultASilver"
+},
+{
+"table": "ExportResources",
+"name": "Meso Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjection"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultABronze"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultAGold"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultAPlatinum"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultASilver"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBBronze"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBGold"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBPlatinum"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBSilver"
+},
+{
+"table": "ExportResources",
+"name": "Neo Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjection"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultABronze"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultAGold"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultAPlatinum"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultASilver"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBBronze"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBGold"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBPlatinum"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBSilver"
+},
+{
+"table": "ExportResources",
+"name": "Axi Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T4VoidProjection"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultABronze"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultAGold"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultAPlatinum"
+},
+{
+"table": "ExportResources",
+"name": "|ERA| |CATEGORY| Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultASilver"
+},
+{
+"table": "ExportResources",
+"name": "Requiem Relic",
+"uniqueName": "/Lotus/Types/Game/Projections/T5VoidProjectionImmortal"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> A/V Receiver",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Hockey Table",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Bicycle",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Binder",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Binder"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Deluxe Calculator",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Calculator"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Cardboard Box",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Cellphone",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone"
+},
+{
+"table": "ExportResources",
+"name": "File-A-Style<RETRO_TM> Coffee Cups",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup"
+},
+{
+"table": "ExportResources",
+"name": "KineKitchen<RETRO_TM> Coffee Machine",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine"
+},
+{
+"table": "ExportResources",
+"name": "On-lyne: The Boys R Back",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Digital Phone",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone"
+},
+{
+"table": "ExportResources",
+"name": "File-A-Style<RETRO_TM> Insta-Print Poster",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/EntratiPoster"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Fire Extinguisher",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher"
+},
+{
+"table": "ExportResources",
+"name": "KineMagik!<RETRO_TM> Party Light",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> 256 GPU",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU"
+},
+{
+"table": "ExportResources",
+"name": "KineMagik!<RETRO_TM> Wireless Headphones",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Headphones"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Highlighters",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Gas Can (Large)",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Gas Can (Small)",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Asst. Metal Keychains",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Metal Lunch Box",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Medical Kit",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/MedKit"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Announce",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Microphone"
+},
+{
+"table": "ExportResources",
+"name": "KineKitchen<RETRO_TM> Microwave",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Microwave"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Mouse Pad",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/MousePad"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Coffee Mug",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Mug"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Notepad",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Notepad"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Office Phone",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone"
+},
+{
+"table": "ExportResources",
+"name": "KineMagik!<RETRO_TM> Boom Box",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox"
+},
+{
+"table": "ExportResources",
+"name": "K.A.H.<RETRO_TM> Game System",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole"
+},
+{
+"table": "ExportResources",
+"name": "K.A.H.<RETRO_TM> Game Monitor",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor"
+},
+{
+"table": "ExportResources",
+"name": "KineMagik!<RETRO_TM> Portable TV",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Speaker",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Speaker System",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> Digital Video Camera",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Paper Party Hats",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Pens",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Pen"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Pencils",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Pencil"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Pillows",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Pillow"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Pizza Boxes",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Hanging Planter",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Planter"
+},
+{
+"table": "ExportResources",
+"name": "Green Gorilla<RETRO_TM> Propane Tank",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas"
+},
+{
+"table": "ExportResources",
+"name": "The Scooticle<RETRO_TM>",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Scooter"
+},
+{
+"table": "ExportResources",
+"name": "KineBasik<RETRO_TM> Assorted Roadsigns",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Sign"
+},
+{
+"table": "ExportResources",
+"name": "File-a-Style<RETRO_TM> Sticky Notes",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes"
+},
+{
+"table": "ExportResources",
+"name": "Kinemantik<RETRO_TM> 840HD TV",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Television"
+},
+{
+"table": "ExportResources",
+"name": "KineKitchen<RETRO_TM> Toaster",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/Toaster"
+},
+{
+"table": "ExportResources",
+"name": "KineKitchen<RETRO_TM> Toaster Oven",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven"
+},
+{
+"table": "ExportResources",
+"name": "\"Circle of Comrades\" Series on VHS",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette"
+},
+{
+"table": "ExportResources",
+"name": "Loaned Weapons",
+"uniqueName": "/Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem"
+},
+{
+"table": "ExportResources",
+"name": "Tertium",
+"uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem"
+},
+{
+"table": "ExportResources",
+"name": "Tasoma Spore",
+"uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed"
+},
+{
+"table": "ExportResources",
+"name": "Xiran",
+"uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishBItem"
+},
+{
+"table": "ExportResources",
+"name": "Flawless Sentient Core",
+"uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsRareDogTag"
+},
+{
+"table": "ExportResources",
+"name": "Hemocyte Cystolith",
+"uniqueName": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/LephantisShardItem"
+},
+{
+"table": "ExportResources",
+"name": "Jahu Gargoyle",
+"uniqueName": "/Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem"
+},
+{
+"table": "ExportResources",
+"name": "Moonflesh",
+"uniqueName": "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+},
+{
+"table": "ExportResources",
+"name": "Bioplasma",
+"uniqueName": "/Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem"
+},
+{
+"table": "ExportResources",
+"name": "Orokin Monitor",
+"uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem"
+},
+{
+"table": "ExportResources",
+"name": "Frostcap",
+"uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem"
+},
+{
+"table": "ExportResources",
+"name": "The Citadel Simulacrum",
+"uniqueName": "/Lotus/Types/Items/DangerRoom/DangerRoomTileDefault"
+},
+{
+"table": "ExportResources",
+"name": "Roathe's Oblivion Arena",
+"uniqueName": "/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena"
+},
+{
+"table": "ExportResources",
+"name": "Emperor Condroc Tag",
+"uniqueName": "/Lotus/Types/Items/Eidolon/AnimalTagCondrocRare"
+},
+{
+"table": "ExportResources",
+"name": "Splendid Mergoo Tag",
+"uniqueName": "/Lotus/Types/Items/Eidolon/AnimalTagMergooRare"
+},
+{
+"table": "ExportResources",
+"name": "Woodland Mergoo Tag",
+"uniqueName": "/Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon"
+},
+{
+"table": "ExportResources",
+"name": "Scarlet Credits",
+"uniqueName": "/Lotus/Types/Items/Events/OperationsCredits"
+},
+{
+"table": "ExportResources",
+"name": "Xiran",
+"uniqueName": "/Lotus/Types/Items/Fish/Duviri/DuviriFishBItem"
+},
+{
+"table": "ExportResources",
+"name": "STOCKING",
+"uniqueName": "/Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem"
+},
+{
+"table": "ExportResources",
+"name": "Ayatan Hemakara Sculpture",
+"uniqueName": "/Lotus/Types/Items/FusionTreasures/OroFusexJ"
+},
+{
+"table": "ExportResources",
+"name": "SENTIENT APPETITE",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer"
+},
+{
+"table": "ExportResources",
+"name": "Bile",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthBile"
+},
+{
+"table": "ExportResources",
+"name": "Biotics",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthBiotics"
+},
+{
+"table": "ExportResources",
+"name": "Calx",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthCalx"
+},
+{
+"table": "ExportResources",
+"name": "Oxides",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthOxides"
+},
+{
+"table": "ExportResources",
+"name": "Pheromones",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthPheromones"
+},
+{
+"table": "ExportResources",
+"name": "Synthetics",
+"uniqueName": "/Lotus/Types/Items/InfestedFoundry/HelminthSynthetics"
+},
+{
+"table": "ExportResources",
+"name": "Owned Peely Pak",
+"uniqueName": "/Lotus/Types/Items/MiscItems/1999FixedStickersPack"
+},
+{
+"table": "ExportResources",
+"name": "Zealot Derelict Code",
+"uniqueName": "/Lotus/Types/Items/MiscItems/AntiSerumInjector"
+},
+{
+"table": "ExportResources",
+"name": "additional appearance config slot for this item",
+"uniqueName": "/Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker"
+},
+{
+"table": "ExportResources",
+"name": "Vay Hek Nav Coordinate",
+"uniqueName": "/Lotus/Types/Items/MiscItems/HekNavCode"
+},
+{
+"table": "ExportResources",
+"name": "Phasic Cells",
+"uniqueName": "/Lotus/Types/Items/MiscItems/MechSurvivalEventCreds"
+},
+{
+"table": "ExportResources",
+"name": "additional mod config slot for this item",
+"uniqueName": "/Lotus/Types/Items/MiscItems/ModSlotUnlocker"
+},
+{
+"table": "ExportResources",
+"name": "Emissary Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraInfestedCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 4 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionEightCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 7 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionElevenCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix: Time Tempests Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 1 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionFiveCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Choice Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix:\r\nDreams of the Dead Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionFourteenCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 5 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionNineCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 3 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionSevenCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 2 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionSixCreds"
+},
+{
+"table": "ExportResources",
+"name": "Amir's Shockwave Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 6 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionTenCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 9 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionThirteenCreds"
+},
+{
+"table": "ExportResources",
+"name": "INTERMISSION III CRED",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionThreeCreds"
+},
+{
+"table": "ExportResources",
+"name": "Nora's Mix Vol. 8 Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionTwelveCreds"
+},
+{
+"table": "ExportResources",
+"name": "Intermission II Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraIntermissionTwoCreds"
+},
+{
+"table": "ExportResources",
+"name": "Crystal Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraSeasonThreeCreds"
+},
+{
+"table": "ExportResources",
+"name": "Wolf Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraWolfCreds"
+},
+{
+"table": "ExportResources",
+"name": "Intermission I Cred",
+"uniqueName": "/Lotus/Types/Items/MiscItems/NoraWolfTwoCreds"
+},
+{
+"table": "ExportResources",
+"name": "Artillery Battery Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileCorpusShipMedCargoRoom"
+},
+{
+"table": "ExportResources",
+"name": "Lyon's Temple Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonHarrowRedVeilTemple"
+},
+{
+"table": "ExportResources",
+"name": "Lyon's Lua Circulus Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonLuasPrey"
+},
+{
+"table": "ExportResources",
+"name": "Lyon's Umbra Courtyard Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonUmbraShrine"
+},
+{
+"table": "ExportResources",
+"name": "Lyon's Cold Below Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonWraithQuestVallaGlariosArena"
+},
+{
+"table": "ExportResources",
+"name": "Lyon's Chrysalith Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonZarParkHub"
+},
+{
+"table": "ExportResources",
+"name": "Marie's Sanctum Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieCapRoomNarrow"
+},
+{
+"table": "ExportResources",
+"name": "Marie's Cetus Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieCetusTown"
+},
+{
+"table": "ExportResources",
+"name": "Marie's Drifter Camp Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieDrifterCamp"
+},
+{
+"table": "ExportResources",
+"name": "Marie's Amphitheater Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieDuviriIsleSignatureAmphitheatre"
+},
+{
+"table": "ExportResources",
+"name": "Marie's Ventkid Clubhouse Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieVentKids"
+},
+{
+"table": "ExportResources",
+"name": "Roathe's Orokin Ruins Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDerelictHub"
+},
+{
+"table": "ExportResources",
+"name": "Roathe's Duviri Throneroom Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDuviriThroneRoom"
+},
+{
+"table": "ExportResources",
+"name": "Roathe's Murex Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheSentientConTallJunctionOne"
+},
+{
+"table": "ExportResources",
+"name": "Roathe's Lua Containment Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheUmbraChamber"
+},
+{
+"table": "ExportResources",
+"name": "Roathe's Zariman Park Date",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheZarParkA"
+},
+{
+"table": "ExportResources",
+"name": "Deimos Cenote Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosCenote"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Alad's Laboratory Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityAssassinate"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Upper Logistics Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConCornerA"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Dead Exit Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConCornerEOpen"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Central Drop Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConPlusDOpen"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Walkway Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConStraightEOpen"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Lifts Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConVerticalA"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Cloud Vista Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnector14Alt"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Corridors Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnectorTwo"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Lower Foyer Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityExitFour"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Element Distribution Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityGasConPlusC"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Regulators Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityIntermediateFive"
+},
+{
+"table": "ExportResources",
+"name": "Gas City Elemental Refinement Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityIntermediateSix"
+},
+{
+"table": "ExportResources",
+"name": "Grineer Galleon Cargo Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileGrineerGalleonDefense"
+},
+{
+"table": "ExportResources",
+"name": "Infested Ship Hologram Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileInfestedPurify02Objective"
+},
+{
+"table": "ExportResources",
+"name": "Orbiter Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTilePlayerShip"
+},
+{
+"table": "ExportResources",
+"name": "Yuvan Peak Scene",
+"uniqueName": "/Lotus/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub"
+},
+{
+"table": "ExportResources",
+"name": "Delta Beacon",
+"uniqueName": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA"
+},
+{
+"table": "ExportResources",
+"name": "Gamma Beacon",
+"uniqueName": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB"
+},
+{
+"table": "ExportResources",
+"name": "Kappa Beacon",
+"uniqueName": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC"
+},
+{
+"table": "ExportResources",
+"name": "Omega Beacon",
+"uniqueName": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD"
+},
+{
+"table": "ExportResources",
+"name": "Technocyte Coda Stadium Scene",
+"uniqueName": "/Lotus/Types/Items/PhotoBooth/PhotoboothTileRJLasXStadiumBossArena"
+},
+{
+"table": "ExportResources",
+"name": "Perita Manifestation Scene",
+"uniqueName": "/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena"
+},
+{
+"table": "ExportResources",
+"name": "Dominion of Höllvandeim Scene",
+"uniqueName": "/Lotus/Types/Items/PhotoBooth/Vania/PhotoboothTileMallHubTennoProtoRelayBase"
+},
+{
+"table": "ExportResources",
+"name": "Melica's Laboratory Scene",
+"uniqueName": "/Lotus/Types/Items/PhotoBooth/Zariman/PhotoboothTileZarMelicaLab"
+},
+{
+"table": "ExportResources",
+"name": "Skateweed Extract",
+"uniqueName": "/Lotus/Types/Items/Plants/MiscItems/IresPlantItem"
+},
+{
+"table": "ExportResources",
+"name": "Cerulean Fungus Extract",
+"uniqueName": "/Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem"
+},
+{
+"table": "ExportResources",
+"name": "Ghost Brush Extract",
+"uniqueName": "/Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem"
+},
+{
+"table": "ExportResources",
+"name": "Corpus Cipher",
+"uniqueName": "/Lotus/Types/Items/Research/CipherPlus"
+},
+{
+"table": "ExportResources",
+"name": "Corpus Datamass",
+"uniqueName": "/Lotus/Types/Items/Research/DataMassPlus"
+},
+{
+"table": "ExportResources",
+"name": "Festive Interior Decorations",
+"uniqueName": "/Lotus/Types/Items/ShipChristmasifier"
+},
+{
+"table": "ExportResources",
+"name": "On-lyne Poster Collage",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/1999OnlyneWallPoster"
+},
+{
+"table": "ExportResources",
+"name": "Centurion Commando Toy",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExArmyManWinterTennoBaumToyDeco"
+},
+{
+"table": "ExportResources",
+"name": "Astro Fella Toy",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExPlushAstronautRayTennoBaumToyDeco"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Conquera2021Deco"
+},
+{
+"table": "ExportResources",
+"name": "Conquera 2025 Community Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Conquera2025Display"
+},
+{
+"table": "ExportResources",
+"name": "Conquera 2026 Community Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Conquera2026Display"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Valkyr Community Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/ConqueraValkyrDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Voruna Community Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/ConqueraVorunaDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Orowyrm's Sanctum Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Duviri/DuviriDragonDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Neon Pride Wings",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Events/NeonPrideWings"
+},
+{
+"table": "ExportResources",
+"name": "Noggle Statue - Excalibur Dex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/ExcaliburDexBobbleHead"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2019 Grineer Security",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Gamification2019Display"
+},
+{
+"table": "ExportResources",
+"name": "Noggle Statue - Arid Lancer",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/GrineerMarineArcticBobbleHead"
+},
+{
+"table": "ExportResources",
+"name": "Sirius vs. Orion Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Halloween2026SiriusOrionPoster"
+},
+{
+"table": "ExportResources",
+"name": "Pride Oro Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/HeartOroRainbowDeco"
+},
+{
+"table": "ExportResources",
+"name": "Domestik Daybreak Drone",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneDaybreak"
+},
+{
+"table": "ExportResources",
+"name": "Onkko's Coffer",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropGlassTreasureBox"
+},
+{
+"table": "ExportResources",
+"name": "Grineer Crewship Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropGrineerCrewship"
+},
+{
+"table": "ExportResources",
+"name": "Solaris Industrial Strip",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropSUPosters"
+},
+{
+"table": "ExportResources",
+"name": "Iridos Shawzin",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropShawzinTwitch"
+},
+{
+"table": "ExportResources",
+"name": "Scrolling Sign Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/LisetTickerSign"
+},
+{
+"table": "ExportResources",
+"name": "Movember Sirius and Orion Community Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Movember2026SiriusOrionDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemA"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemB"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemC"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemD"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemE"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemF"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemG"
+},
+{
+"table": "ExportResources",
+"name": "Tethyan Parchment Tatter",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/NarinPoem/NarinPoemH"
+},
+{
+"table": "ExportResources",
+"name": "On-lyne Running Late Promo Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Nightwave1999OnLyneRunningLate2Poster"
+},
+{
+"table": "ExportResources",
+"name": "On-lyne Running Late Album Cover Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Nightwave1999OnLyneRunningLatePoster"
+},
+{
+"table": "ExportResources",
+"name": "The New War Orbiter Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/OculystStatue"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Kuaka Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/Plushy2021QTCC"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Sawgaw Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/Plushy2022QTCC"
+},
+{
+"table": "ExportResources",
+"name": "Neolyst Natah Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyBabyNatah"
+},
+{
+"table": "ExportResources",
+"name": "Eskhatos Ki'Teer Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyBaroEvil"
+},
+{
+"table": "ExportResources",
+"name": "Valkyr Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyValkyr"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Virmink Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyVirminkQTCC"
+},
+{
+"table": "ExportResources",
+"name": "Voruna Floof",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Plushies/PlushyVoruna"
+},
+{
+"table": "ExportResources",
+"name": "Prismatic Gem Prime Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/LisetPropCitrinePrimeCrystal"
+},
+{
+"table": "ExportResources",
+"name": "Kitchen Bowl",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/LisetPropDUVxKitchenBowlA"
+},
+{
+"table": "ExportResources",
+"name": "Icebound Neote Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/LisetPropIceblade"
+},
+{
+"table": "ExportResources",
+"name": "Movember Master Moustache Display Frame",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/Movember2026MasterMustacheFrame"
+},
+{
+"table": "ExportResources",
+"name": "Movember Shopkeep Moustache Display Frame",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/Movember2026ShopkeepMustacheFrame"
+},
+{
+"table": "ExportResources",
+"name": "Movember Tusker Moustache Display Frame",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/Movember2026TuskerMustacheFrame"
+},
+{
+"table": "ExportResources",
+"name": "Festive Domestik Ornament",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentDomestikDrone"
+},
+{
+"table": "ExportResources",
+"name": "Festive Endosphere Ornament",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentEndosphere"
+},
+{
+"table": "ExportResources",
+"name": "Festive Cychel Glaive Ornament",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentGlaive"
+},
+{
+"table": "ExportResources",
+"name": "Festive Relic Ornament",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentRelic"
+},
+{
+"table": "ExportResources",
+"name": "Conquera Cateura Frame Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/QTCC2026CatEarFrame"
+},
+{
+"table": "ExportResources",
+"name": "Star Days Heart Frame Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/Seasonal/StarDays2026HeartPictureFrame"
+},
+{
+"table": "ExportResources",
+"name": "Follie's Shadowgraph",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Props/ShadowgrapherEaselShipDeco"
+},
+{
+"table": "ExportResources",
+"name": "Level Up for St. Jude",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/StJudePoster"
+},
+{
+"table": "ExportResources",
+"name": "Tennotober 2021 Prex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCard2021Tennotober"
+},
+{
+"table": "ExportResources",
+"name": "Tennotober 2022 Prex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCard2022Tennotober"
+},
+{
+"table": "ExportResources",
+"name": "Tennotober 2023 Prex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCard2023Tennotober"
+},
+{
+"table": "ExportResources",
+"name": "Tennotober 2024 Prex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCard2024Tennotober"
+},
+{
+"table": "ExportResources",
+"name": "Tennotober 2025 Prex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCard2025Tennotober"
+},
+{
+"table": "ExportResources",
+"name": "Narin Prex",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TarotCardNarin"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2021",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021BallasPortrait"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2021 - Art Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBaseTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2021 - Best In Show Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestInShowTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2021 - Master Teasonai Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestPetTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2021 - Solaris Worksmanship Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestWorkmanshipTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2021 - Ordis Punny Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayFunniestTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2021 - Clem's Choice Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayTrophy"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2021 Merch",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2021MerchDisplay"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2022 - Art Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBaseTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2022 - Best In Show Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestInShowTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2022 - Master Teasonai Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestPetTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2022 - Solaris Worksmanship Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestWorkmanshipTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2022 - Ordis Punny Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayFunniestTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2022 - Clem's Choice Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayTrophy"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2022 Merch",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022MerchDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2022 Duviri",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2022OrokinPortrait"
+},
+{
+"table": "ExportResources",
+"name": "Display - 2023 Soundtrack",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2023SoundtrackADisplay"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2024 - Orokin Gold Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestInShowTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2024 - Master Teasonai Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestPetTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2024 - Solaris Worksmanship Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestWorkmanshipTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2024 - Ordis Punny Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayFunniestTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2024 - Floofy Cuteness Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - Solaris Worksmanship Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayBestWorkmanshipTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - Bombastic Performance Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayBombasticTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - 1st Place",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayFirstPlaceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - Lotus' Choice Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayLotusChoiceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - Orokin Gold Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayOrokinGoldTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - Ostron Ingenuity Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayOstronIngenuityTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - 2nd Place",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplaySecondPlaceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 - 3rd Place",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayThirdPlaceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 Community Art Showcase Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CommunityArtShowcaseTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - Solaris Worksmanship Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayBestWorkmanshipTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - Bombastic Performance Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayBombasticTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - 1st Place",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayFirstPlaceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - Lotus' Choice Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayLotusChoiceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - Orokin Gold Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayOrokinGoldTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - Ostron Ingenuity Award",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayOstronIngenuityTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - 2nd Place",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplaySecondPlaceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 - 3rd Place",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayThirdPlaceTrophy"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2017",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2017Display"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2018",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2018Display"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2019",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2019Display"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2019 Sanctuary Showcase",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2019SimarisDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2020",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2020Display"
+},
+{
+"table": "ExportResources",
+"name": "Display - Tennotrivia 2020",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2020SimarisDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2023",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2023Display"
+},
+{
+"table": "ExportResources",
+"name": "Display - 2023 Soundtrack",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2023SoundtrackBDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2024",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2024Display"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2025 Pin Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2025DigitalItemDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Display - TennoCon 2025",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2025Display"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 Pin Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2026DigitalItemDisplay"
+},
+{
+"table": "ExportResources",
+"name": "TennoCon 2026 Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Tennocon2026Display"
+},
+{
+"table": "ExportResources",
+"name": "Dashing Through the Vallis Display",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/ClemTennobaumDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Pride Display I",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/PrideCommunityDisplay"
+},
+{
+"table": "ExportResources",
+"name": "Fortuna-Model Coolant Pod Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/SUCoolantPodA"
+},
+{
+"table": "ExportResources",
+"name": "Solaris Canteen Tray Decoration",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/SUFoodSet"
+},
+{
+"table": "ExportResources",
+"name": "Let's Go Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterA"
+},
+{
+"table": "ExportResources",
+"name": "Zanuka?! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterB"
+},
+{
+"table": "ExportResources",
+"name": "Silence! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterC"
+},
+{
+"table": "ExportResources",
+"name": "Error! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterD"
+},
+{
+"table": "ExportResources",
+"name": "Kill Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterE"
+},
+{
+"table": "ExportResources",
+"name": "Justice Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterF"
+},
+{
+"table": "ExportResources",
+"name": "Worm! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterG"
+},
+{
+"table": "ExportResources",
+"name": "Cicero Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterH"
+},
+{
+"table": "ExportResources",
+"name": "Kill It! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterI"
+},
+{
+"table": "ExportResources",
+"name": "Get Them! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterJ"
+},
+{
+"table": "ExportResources",
+"name": "Get Rekt Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterK"
+},
+{
+"table": "ExportResources",
+"name": "Destroy All! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterL"
+},
+{
+"table": "ExportResources",
+"name": "Exterminate Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterM"
+},
+{
+"table": "ExportResources",
+"name": "What The...? Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterN"
+},
+{
+"table": "ExportResources",
+"name": "Slippery Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterO"
+},
+{
+"table": "ExportResources",
+"name": "Sssick!!!! Poster",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterP"
+},
+{
+"table": "ExportResources",
+"name": "Ropalolyst Articula",
+"uniqueName": "/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/RopalolystAFItem"
+},
+{
+"table": "ExportResources",
+"name": "Advanced Cephalon Segment",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/AdvancedOrdisFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "ALERTS SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/AlertsFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "Arsenal Segment",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/ArsenalFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "MELEE UPGRADE SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/ArsenalMeleeFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "CERES NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/CeresNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "CLAN SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/ClanFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "EARTH NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/EarthNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "ERIS NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/ErisNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "AUXILIARY FORMA CRUCIBLE",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/FoundryConcurrentBuildFormaFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "FOUNDRY SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/FoundryFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "JUPITER NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/JupiterNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "MARKET TIER 1 SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/MarketTierOneFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "MARKET TIER 2 SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/MarketTierTwoFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "GALLEON NAV COORDINATES",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/MercuryNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "Mod Fusion Segment",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/ModsFusionFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "Mod Transmute Segment",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/ModsTransmuteFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "NEPTUNE NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/NeptuneNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "PLUTO NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/PlutoNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "PROPULSION SYSTEMS REPAIRS",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodBraceFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "ENGINE COWLING REPAIRS",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "FUSELAGE REPAIRS",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHullFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "PORT NACELLE REPAIRS",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleLeftFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "STARBOARD NACELLE REPAIRS",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleRightFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "TAIL SECTION REPAIRS",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackTailFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "RELIQUARY KEY",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/RailjackKeyShipFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "SEDNA NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/SednaNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "COMMS SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/SocialMenuFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "STAR CHART SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/SolarChartFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "URANUS NAV SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/UranusNavigationFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "VOID RELIC SEGMENT",
+"uniqueName": "/Lotus/Types/Items/ShipFeatureItems/VoidProjectionFeatureItem"
+},
+{
+"table": "ExportResources",
+"name": "Spring Festival Interior Decorations",
+"uniqueName": "/Lotus/Types/Items/ShipLayerCNY"
+},
+{
+"table": "ExportResources",
+"name": "Thorny Bolarola Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagBolarolaRare"
+},
+{
+"table": "ExportResources",
+"name": "Black-Banded Bolarola Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon"
+},
+{
+"table": "ExportResources",
+"name": "Horrasque Stormer Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare"
+},
+{
+"table": "ExportResources",
+"name": "Kubrodon Incarnadine Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagKubrodonRare"
+},
+{
+"table": "ExportResources",
+"name": "Vallis Kubrodon Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon"
+},
+{
+"table": "ExportResources",
+"name": "Delicate Pobber Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon"
+},
+{
+"table": "ExportResources",
+"name": "Frogmouthed Sawgaw Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagSawgawRare"
+},
+{
+"table": "ExportResources",
+"name": "Fire-Veined Stover Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagStoverRare"
+},
+{
+"table": "ExportResources",
+"name": "Red-Crested Virmink Tag",
+"uniqueName": "/Lotus/Types/Items/Solaris/AnimalTagVirminkRare"
+},
+{
+"table": "ExportResources",
+"name": "Devourer",
+"uniqueName": "/Lotus/Types/Items/SongItems/DevourerSongItem"
+},
+{
+"table": "ExportResources",
+"name": "Ice Speaker",
+"uniqueName": "/Lotus/Types/Items/SongItems/IceSpeakerSongItem"
+},
+{
+"table": "ExportResources",
+"name": "Neote's Dance",
+"uniqueName": "/Lotus/Types/Items/SongItems/NeotesDanceSongItem"
+},
+{
+"table": "ExportResources",
+"name": "A Byte-sized Adventure",
+"uniqueName": "/Lotus/Types/Items/SongItems/NightwaveFablesSongItem"
+},
+{
+"table": "ExportResources",
+"name": "Running Late",
+"uniqueName": "/Lotus/Types/Items/SongItems/NightwaveRunningLateSongItem"
+},
+{
+"table": "ExportResources",
+"name": "Protea Prime Theme",
+"uniqueName": "/Lotus/Types/Items/SongItems/ProteaPrimeSongItem"
+},
+{
+"table": "ExportResources",
+"name": "Yareli Prime Theme 'Waverider'",
+"uniqueName": "/Lotus/Types/Items/SongItems/YareliPrimeSongItem"
+},
+{
+"table": "ExportResources",
+"name": "Genius Datum",
+"uniqueName": "/Lotus/Types/Items/SyndicateDogTags/CephalonRareDogTag"
+},
+{
+"table": "ExportResources",
+"name": "Rathuum Prisoner Coordinates",
+"uniqueName": "/Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag"
+},
+{
+"table": "ExportResources",
+"name": "GLASSMAKER <REPUTATION_SMALL> STANDING",
+"uniqueName": "/Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag"
+},
+{
+"table": "ExportResources",
+"name": "EMISSARY <REPUTATION_SMALL> STANDING",
+"uniqueName": "/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag"
+},
+{
+"table": "ExportResources",
+"name": "NIGHTWAVE <REPUTATION_SMALL> STANDING",
+"uniqueName": "/Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag"
+},
+{
+"table": "ExportResources",
+"name": "Exalted Mark",
+"uniqueName": "/Lotus/Types/Items/SyndicateDogTags/RedVeilRareDogTag"
+},
+{
+"table": "ExportResources",
+"name": "Ember Prex",
+"uniqueName": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem"
+},
+{
+"table": "ExportResources",
+"name": "Garuda Prex",
+"uniqueName": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem"
+},
+{
+"table": "ExportResources",
+"name": "Protea Prex",
+"uniqueName": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem"
+},
+{
+"table": "ExportResources",
+"name": "Titania Prex",
+"uniqueName": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem"
+},
+{
+"table": "ExportResources",
+"name": "Vauban Prex",
+"uniqueName": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem"
+},
+{
+"table": "ExportResources",
+"name": "Cephalite Resonance",
+"uniqueName": "/Lotus/Types/PickUps/Nightwave/CephalonFissureTimePointItem"
+},
+{
+"table": "ExportResources",
+"name": "Dera Vandal Barrel",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalBarrel"
+},
+{
+"table": "ExportResources",
+"name": "Dera Vandal Receiver",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Dera Vandal Stock",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalStock"
+},
+{
+"table": "ExportResources",
+"name": "Karak Wraith Receiver",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Karak Wraith Stock",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithStock"
+},
+{
+"table": "ExportResources",
+"name": "Latron Wraith Barrel",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithBarrel"
+},
+{
+"table": "ExportResources",
+"name": "Latron Wraith Receiver",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Latron Wraith Stock",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithStock"
+},
+{
+"table": "ExportResources",
+"name": "Sagek Prime Stock",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/SagekPrimeStock"
+},
+{
+"table": "ExportResources",
+"name": "Snipetron Vandal Barrel",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalBarrel"
+},
+{
+"table": "ExportResources",
+"name": "Snipetron Vandal Receiver",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Snipetron Vandal Stock",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalStock"
+},
+{
+"table": "ExportResources",
+"name": "Strun Wraith Barrel",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithBarrel"
+},
+{
+"table": "ExportResources",
+"name": "Strun Wraith Receiver",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Twin Vipers Wraith Barrels",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel"
+},
+{
+"table": "ExportResources",
+"name": "Twin Vipers Wraith Receivers",
+"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver"
+},
+{
+"table": "ExportResources",
+"name": "Last Chance Offerings",
+"uniqueName": "/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemA"
+},
+{
+"table": "ExportResources",
+"name": "Varzia's Offerings - Part 2",
+"uniqueName": "/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemB"
+},
+{
+"table": "ExportResources",
+"name": "Varzia's Offerings",
+"uniqueName": "/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemC"
+}
+]

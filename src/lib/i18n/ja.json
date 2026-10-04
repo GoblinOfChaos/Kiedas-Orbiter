@@ -1653,6 +1653,7 @@
     "foundry.group_keys_quest": "キーとクエストアイテム",
     "foundry.group_other": "その他",
     "foundry.blueprints_owned": "設計図 {count}枚",
+    "foundry.being_built": "製作中",
     "acquisition_drawer.sources_count_one": "{count}件の入手先",
     "ui.dashboard.circuit_title": "The Circuit"
   },

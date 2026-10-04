@@ -23,6 +23,7 @@
  */
 import { BLUEPRINT_SUFFIX, OFFICIAL_IMAGE_OVERRIDES } from './warframeUtils.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
+import { debug as logDebug } from './logging/logger.js'
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -2758,6 +2759,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   for (const entry of raw.MiscItems ?? []) {
     if (entry?.ItemType) ownedCraftedCounts.set(entry.ItemType, (ownedCraftedCounts.get(entry.ItemType) ?? 0) + (entry.ItemCount ?? 1));
   }
+  const pendingCraftedCounts = new Map();
+  for (const entry of raw.PendingRecipes ?? []) {
+    const pendingRecipe = ERecipe?.[entry?.ItemType] ?? ERecipe?.[entry?.ItemType?.replace('/StoreItems/', '/')];
+    const resultType = pendingRecipe?.resultType;
+    if (resultType) pendingCraftedCounts.set(resultType, (pendingCraftedCounts.get(resultType) ?? 0) + 1);
+  }
   const seenPartUniqueNames = new Set();
   for (const parent of equipmentByUniqueName.values()) {
     const parentRecipe = recipeByResult.get(parent.unique_name);
@@ -2808,7 +2815,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         blueprint_quantity: blueprintQuantity,
         quantity: resultType === parent.unique_name ? blueprintQuantity : craftedQuantity,
         crafted_quantity: craftedQuantity,
-        owned: blueprintQuantity > 0 || craftedQuantity > 0,
+        // A component blueprint remains in Recipes while its component is in
+        // PendingRecipes, but the component is not built until that job is
+        // collected. Keep the blueprint quantity for the BP badge while
+        // leaving the component itself unowned during the build.
+        owned: resultType !== parent.unique_name && pendingCraftedCounts.has(resultType) && craftedQuantity === 0
+          ? false
+          : blueprintQuantity > 0 || craftedQuantity > 0,
         description: '',
         xp: 0,
         rank: 0,
@@ -3760,6 +3773,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
       // Build ingredient inventory map for quick lookup
       const resourceCounts = {};
+      const miscComponentCounts = {};
 
       // Count resources from the raw inventory. Current exporter payloads put
       // ordinary resources (including Orokin Cells) in MiscItems, while older
@@ -3771,8 +3785,25 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           if (!resource?.ItemType) continue;
           const key = canonicalInventoryType(resource.ItemType);
           resourceCounts[key] = (resourceCounts[key] ?? 0) + (resource.ItemCount ?? 1);
+          if (arr === raw.MiscItems && key.includes('Component')) {
+            miscComponentCounts[key] = (miscComponentCounts[key] ?? 0) + (resource.ItemCount ?? 1);
+          }
         }
       }
+
+      // PendingRecipes contains blueprints, while recipe ingredients use the
+      // finished component result type. Resolve that relationship once so an
+      // in-progress component can be shown without treating it as built.
+      const pendingBuildCounts = {};
+      for (const pending of raw.PendingRecipes ?? []) {
+        const pendingRecipe = ERecipe?.[pending?.ItemType] ?? ERecipe?.[canonicalInventoryType(pending?.ItemType)];
+        const resultType = pendingRecipe?.resultType;
+        if (!resultType) continue;
+        const key = canonicalInventoryType(resultType);
+        pendingBuildCounts[key] = (pendingBuildCounts[key] ?? 0) + 1;
+      }
+      const pendingBuildCount = Object.values(pendingBuildCounts).reduce((sum, count) => sum + count, 0);
+      let recipesWithBuiltComponents = 0;
 
       // Get player's owned blueprints from inventory (with counts)
       // Note: raw.Recipes is included in inventoryArrays below, so we use ownedItemCounts
@@ -3944,7 +3975,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           const isComponent = ing.ItemType.includes('Component');
           if (isComponent) {
             // Crafted component count
-            have = ownedItemCounts[canonicalInventoryType(ing.ItemType)] ?? 0;
+            const componentKey = canonicalInventoryType(ing.ItemType);
+            have = (resourceCounts[componentKey] ?? 0) + (ownedItemCounts[componentKey] ?? 0);
             // Blueprint count (separate)
             const bpKey = ing.ItemType.replace('Component', 'Blueprint');
             bpOwned = ownedItemCounts[canonicalInventoryType(bpKey)] ?? 0;
@@ -3993,8 +4025,13 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           have = Math.max(0, have - alreadyAllocated);
           ingredientUsage[ingredientKey] = alreadyAllocated + need;
           const image = resolveImage(ing.ItemType, EW, ES, ER, EWf, EA, EM, ECust, EGear, ERecipe);
-          return { name: ingName, have, need, itemType: ing.ItemType, image, bpOwned, isComponent, bpReady, subIngredients };
+          const building = pendingBuildCounts[ingredientKey] ?? 0;
+          return { name: ingName, have, need, itemType: ing.ItemType, image, bpOwned, isComponent, bpReady, subIngredients, building };
         });
+
+        if (ingredients.some((ingredient) => ingredient.isComponent && (miscComponentCounts[canonicalInventoryType(ingredient.itemType)] ?? 0) > 0)) {
+          recipesWithBuiltComponents += 1;
+        }
 
         const allIngredientsMet = ingredients.every(ing => ing.have >= ing.need);
         const readyToCraft = bpCount > 0 && allIngredientsMet;
@@ -4022,6 +4059,21 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
           outputQty: recipe.num === undefined ? 1 : recipe.num
         });
       });
+
+      // The parser also runs in plain Node test processes and in contexts
+      // where Tauri's invoke bridge is not installed (notably the data
+      // worker's isolated runtime). Avoid creating an unflushable retry
+      // queue there; the desktop runtime has the bridge and records this
+      // summary through the existing logger.
+      const hasTauriBridge = typeof globalThis.__TAURI_INTERNALS__?.invoke === 'function'
+        || typeof globalThis.window?.__TAURI_INTERNALS__?.invoke === 'function';
+      if (hasTauriBridge) {
+        logDebug('state.parse.foundry_counts', {
+          recipes: craftableItems.length + extraItems.length,
+          recipes_with_built_components: recipesWithBuiltComponents,
+          in_progress_builds: pendingBuildCount,
+        }, { screen: 'foundry', phase: 'complete' });
+      }
 
       craftableExtraItems = extraItems;
       return craftableItems;

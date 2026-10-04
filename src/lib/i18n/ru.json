@@ -1634,6 +1634,7 @@
     "foundry.group_keys_quest": "Ключи",
     "foundry.group_other": "Другое",
     "foundry.blueprints_owned": "{count} чертежей",
+    "foundry.being_built": "Строится",
     "settings.vision_deuteranopia": "Дейтеранопия",
     "settings.vision_protanopia": "Протанопия",
     "settings.ee_log_auto_detect": "Автоопределение",

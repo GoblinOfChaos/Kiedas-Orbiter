@@ -1634,6 +1634,7 @@
     "foundry.group_keys_quest": "Anahtarlar",
     "foundry.group_other": "Diğer",
     "foundry.blueprints_owned": "{count} Şema",
+    "foundry.being_built": "Üretiliyor",
     "settings.vision_deuteranopia": "Deuteranopi",
     "settings.vision_protanopia": "Protanopi",
     "settings.ee_log_auto_detect": "Otomatik algıla",

@@ -1653,6 +1653,7 @@
     "foundry.group_keys_quest": "키 및 퀘스트 아이템",
     "foundry.group_other": "기타",
     "foundry.blueprints_owned": "설계도 {count}개",
+    "foundry.being_built": "제작 중",
     "acquisition_drawer.sources_count_one": "{count}개의 출처",
     "ui.dashboard.circuit_title": "The Circuit"
   },

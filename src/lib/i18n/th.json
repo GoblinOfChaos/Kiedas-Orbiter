@@ -1653,6 +1653,7 @@
     "foundry.group_keys_quest": "คีย์และไอเทมภารกิจ",
     "foundry.group_other": "อื่นๆ",
     "foundry.blueprints_owned": "พิมพ์เขียว {count} ใบ",
+    "foundry.being_built": "กำลังก่อสร้าง",
     "acquisition_drawer.sources_count_one": "{count} แหล่งที่มา",
     "ui.dashboard.circuit_title": "The Circuit"
   },

@@ -1641,6 +1641,7 @@
     "foundry.group_keys_quest": "Clés",
     "foundry.group_other": "Autres",
     "foundry.blueprints_owned": "{count} BP",
+    "foundry.being_built": "En construction",
     "settings.hotkey_action_grade_rivens": "Évaluer les Rivens",
     "ui.riven_prompt.title": "ÉVALUATION DE RIVEN PRÊTE",
     "ui.riven_prompt.press": "Appuyez",

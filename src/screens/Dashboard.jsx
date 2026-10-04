@@ -1119,7 +1119,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
                     <div key={type} className="bg-kronos-panel/40 rounded-lg p-2 border border-white/5">
                         <div className="flex items-center gap-1.5 mb-1.5">
                           <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${typeColors[type] || 'bg-kronos-accent'}`} />
-                          <span className="text-[9px] font-black uppercase tracking-wider text-kronos-dim">{typeLabels[type] || type}</span>
+                          <span className="text-[9px] font-black uppercase tracking-wider text-kronos-dim">{events.find((ev) => ev.typeLabel)?.typeLabel || typeLabels[type] || type}</span>
                         </div>
                         <div className="space-y-1 pl-1">
                           {events.map((ev, ei) =>

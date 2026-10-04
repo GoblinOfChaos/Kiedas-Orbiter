@@ -9,6 +9,7 @@ import { renderToString } from 'react-dom/server'
 import React from 'react'
 import { fixtureUiModel } from './helpers.mjs'
 import { buildFarmingTargetsScreenModel } from '../../src/lib/farmingTargets/screenModel.js'
+import { catalogTarget } from '../helpers/real-data-fixtures.mjs'
 
 // esbuild is only a dependency of vite under pnpm: resolve it from vite's own location.
 const viteRequire = createRequire(createRequire(import.meta.url).resolve('vite'))
@@ -171,28 +172,31 @@ test('screen model stays under 100ms for 80 targets with an indexed place set', 
   assert.ok(performance.now() - start < 100)
 })
 
-test('SSR pages the real 31-target farming view at forty places and offers show more', { skip: !fs.existsSync(path.join(process.env.HOME || '', '.local/share/kiedas-orbiter-preview/data/user/farming-targets.json')) }, async () => {
-  const { loadRealHarness, DEFAULT_DATA_DIR } = await import('../../scripts/lib/real-data-harness.mjs');
+test('SSR pages a catalog-derived farming fixture at forty places and offers show more', async () => {
+  const { loadRealHarness } = await import('../../scripts/lib/real-data-harness.mjs');
   const { parseInventory } = await import('../../src/lib/inventoryParser.js');
   const { buildDropIndex } = await import('../../src/lib/dropsParser.js');
   const harness = await loadRealHarness();
-  const targetsStore = JSON.parse(fs.readFileSync(path.join(DEFAULT_DATA_DIR, 'user/farming-targets.json'), 'utf8'));
-  const rawInventory = JSON.parse(fs.readFileSync(path.join(DEFAULT_DATA_DIR, 'user/inventory.json'), 'utf8'));
-  const targets = targetsStore.targets ?? [];
-  const inventoryData = parseInventory(rawInventory, harness.exportsBundle, harness.dict, 'en', null);
+  const targetNames = [
+    'Orokin Cell', 'Alloy Plate', 'Ferrite', 'Rubedo', 'Neurodes', 'Gallium', 'Salvage',
+    'Control Module', 'Nano Spores', 'Morphics', 'Argon Crystal', 'Tellurium', 'Kuva',
+    'Cryotic', 'Oxium', 'Fieldron', 'Detonite Injector', 'Mutagen Mass', 'Neural Sensors',
+    'Plastids', 'Polymer Bundle', 'Circuits', 'Scrap', 'Entrati Obols', 'Voidgel Orb', 'Isos', 'Stela',
+  ];
+  const targets = targetNames.map((name, index) => catalogTarget(harness.exportsBundle, harness.uniqueNameToName, name, `catalog-${index}`));
+  const inventoryData = parseInventory({}, harness.exportsBundle, harness.dict, 'en', null);
   const model = buildFarmingTargetsScreenModel({
     targets,
-    reservations: targetsStore.reservations,
+    reservations: [],
     inventoryData,
     exportData: harness.exportsBundle,
     dropIndex: buildDropIndex(harness.exportsBundle),
     imageMaps: { EI: harness.EI, nameToImage: harness.nameToImage, uniqueNameToName: harness.uniqueNameToName },
   });
-  assert.equal(targets.length, 31);
   assert.ok(model.ranked.length > 40, `expected more than 40 ranked places, got ${model.ranked.length}`);
   const { PreviewFarmingView, UiContext } = await loadScreen();
   const html = renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
-    targets, reservations: targetsStore.reservations ?? [], model, t, selectedTarget: targets[0]?.id, setSelectedTarget: noOp,
+    targets, reservations: [], model, t, selectedTarget: targets[0]?.id, setSelectedTarget: noOp,
     tab: 'all', setTab: noOp, minChanceOn: false, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
     hideDone: false, setHideDone: noOp, hideConclave: true, setHideConclave: noOp, groupPlanet: false, setGroupPlanet: noOp,
     toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp, onTargetChange: noOp, onReserve: noOp,

@@ -5,6 +5,7 @@ import path from 'node:path';
 import { loadRealHarness, DEFAULT_DATA_DIR } from '../../scripts/lib/real-data-harness.mjs';
 import { buildLedger } from '../../src/lib/farmingTargets/ledger.js';
 import { rankPlaces } from '../../src/lib/farmingTargets/farmNext.js';
+import { catalogTarget } from '../helpers/real-data-fixtures.mjs';
 
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'));
 
@@ -99,14 +100,20 @@ test('syndicate sources are vendors, not missions, and strict Market purchases a
   assert.equal(placeIndex.places.get(placeIndex.byItem.get('ambassador')?.find((row) => row.price).placeId).name, 'Market');
 });
 
-test('real data: the seven current targets place syndicate and Market acquisitions under Vendors only', { skip: !haveRealData }, async () => {
-  const { exportsBundle, dict, repo } = await loadRealHarness();
-  const { parseInventory } = await import(path.join(repo, 'src/lib/inventoryParser.js'));
+test('real data: catalog targets place syndicate and Market acquisitions under Vendors only', { skip: !haveRealData }, async () => {
+  const harness = await loadRealHarness();
+  const { exportsBundle, dict, repo } = harness;
   const { buildDropIndex } = await import(path.join(repo, 'src/lib/dropsParser.js'));
   const { buildAllAcquisitionIndexes } = await import(path.join(repo, 'src/lib/acquisitionInfo.js'));
-  const { buildFarmingTargetsScreenModel, buildPreviewPlaceIndex } = await import(path.join(repo, 'src/lib/farmingTargets/screenModel.js'));
-  const store = JSON.parse(fs.readFileSync(path.join(DEFAULT_DATA_DIR, 'user/farming-targets.json'), 'utf8'));
-  const inventoryData = parseInventory(JSON.parse(fs.readFileSync(path.join(DEFAULT_DATA_DIR, 'user/inventory.json'), 'utf8')), exportsBundle, dict, 'en', null);
+  const screenModelPath = process.env.P31_SCREEN_MODEL_PATH || path.join(repo, 'src/lib/farmingTargets/screenModel.js');
+  const { buildFarmingTargetsScreenModel, buildPreviewPlaceIndex } = await import(screenModelPath);
+  const targets = ['Rahn Prism', 'Klamora Prism', 'Ambassador'].map((name) => {
+    const item = catalogTarget(exportsBundle, harness.uniqueNameToName, name);
+    const blueprint = Object.entries(exportsBundle.ExportRecipes ?? {})
+      .find(([, recipe]) => recipe?.resultType === item.uniqueName)?.[0];
+    return { ...item, uniqueName: blueprint ?? item.uniqueName };
+  });
+  const inventoryData = { all: [], craftable: [] };
   const indexes = buildAllAcquisitionIndexes(exportsBundle);
   const overrides = JSON.parse(fs.readFileSync(path.join(repo, 'src-tauri/data/assets/data/acquisition_overrides.json'), 'utf8'));
   const dropIndex = buildDropIndex(exportsBundle);
@@ -122,8 +129,8 @@ test('real data: the seven current targets place syndicate and Market acquisitio
     regions: exportsBundle.ExportRegions,
   });
   const modelFor = (tab) => buildFarmingTargetsScreenModel({
-    targets: store.targets,
-    reservations: store.reservations,
+    targets,
+    reservations: [],
     inventoryData,
     exportData: exportsBundle,
     dropIndex,

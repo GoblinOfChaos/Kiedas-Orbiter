@@ -1,3 +1,7 @@
+/*
+ * Rule: real-data tests may read the user's files but must never assert numbers or states that depend on them.
+ */
+
 import fs from 'fs'
 import os from 'os'
 import path from 'path'

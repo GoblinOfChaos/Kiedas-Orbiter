@@ -9,12 +9,27 @@ const inventoryFile = path.join(
   '.local/share/kiedas-orbiter-preview/data/user/inventory.json',
 )
 
+const EXTRACTOR_TYPES = new Set([
+  '/Lotus/Types/Ship/BasicResourceDrone',
+  '/Lotus/Types/Ship/AdvancedResourceDrone',
+  '/Lotus/Types/Ship/BasicUcResourceDrone',
+  '/Lotus/Types/Ship/AdvancedUcResourceDrone',
+])
+
+function buildExtractorFixture(liveInventory) {
+  const fixture = structuredClone(liveInventory)
+  fixture.Drones = (fixture.Drones ?? []).filter((entry) => !EXTRACTOR_TYPES.has(entry?.ItemType))
+  fixture.Drones.push({ ItemType: '/Lotus/Types/Ship/BasicResourceDrone', ItemCount: 1 })
+  fixture.Recipes = (fixture.Recipes ?? []).filter((entry) => !String(entry?.ItemType ?? '').includes('ResourceDrone'))
+  return fixture
+}
+
 test('real inventory lists all four extractors with DE images and correct drone ownership', async () => {
   const { exportsBundle, dict, repo } = await loadRealHarness()
   const { parseInventory } = await import(process.env.P7_PARSER_PATH || path.join(repo, 'src/lib/inventoryParser.js'))
   assert.ok(fs.existsSync(inventoryFile), 'real inventory is required for this regression')
 
-  const parsed = parseInventory(JSON.parse(fs.readFileSync(inventoryFile, 'utf8')), exportsBundle, dict, 'en', null)
+  const parsed = parseInventory(buildExtractorFixture(JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))), exportsBundle, dict, 'en', null)
   assert.equal(parsed.extractors.length, 4)
   const extractorNames = [
     'Distilling Extractor',
@@ -31,10 +46,10 @@ test('real inventory lists all four extractors with DE images and correct drone 
     'Titan Extractor',
     'Titan Extractor Prime',
   ])
-  assert.equal(byName.get('Distilling Extractor')?.owned, true)
-  assert.equal(byName.get('Distilling Extractor')?.quantity, 1)
-  for (const name of ['Titan Extractor', 'Titan Extractor Prime', 'Distilling Extractor Prime']) {
-    assert.equal(byName.get(name)?.owned, false, `${name} should be unowned in the real inventory`)
+  assert.equal(byName.get('Titan Extractor')?.owned, true)
+  assert.equal(byName.get('Titan Extractor')?.quantity, 1)
+  for (const name of ['Distilling Extractor', 'Titan Extractor Prime', 'Distilling Extractor Prime']) {
+    assert.equal(byName.get(name)?.owned, false, `${name} should be unowned in the fixture`)
   }
   for (const item of byName.values()) {
     assert.match(item.image, /^asset-cache:\/\/content\.warframe\.com\/PublicExport/)

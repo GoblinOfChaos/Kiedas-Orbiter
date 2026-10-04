@@ -2,10 +2,13 @@ function finiteNumber(value, fallback = 0) {
   return Number.isFinite(Number(value)) ? Number(value) : fallback;
 }
 
-export function getScrollKeyTarget({ key, scrollTop, clientHeight, scrollHeight, shiftKey = false }) {
+export function getScrollKeyTarget({ key, scrollTop, clientHeight, scrollHeight, shiftKey = false, modelMaximumTop = null }) {
   const currentTop = Math.max(0, finiteNumber(scrollTop));
   const viewportHeight = Math.max(0, finiteNumber(clientHeight));
-  const maximumTop = Math.max(0, finiteNumber(scrollHeight) - viewportHeight);
+  const domMaximumTop = Math.max(0, finiteNumber(scrollHeight) - viewportHeight);
+  const maximumTop = key === 'End' && modelMaximumTop !== null && Number.isFinite(Number(modelMaximumTop))
+    ? Math.max(0, finiteNumber(modelMaximumTop))
+    : domMaximumTop;
 
   let target;
   switch (key) {
@@ -30,6 +33,58 @@ export function getScrollKeyTarget({ key, scrollTop, clientHeight, scrollHeight,
   }
 
   return Math.min(maximumTop, Math.max(0, target));
+}
+
+export function getVirtualScrollMaximum({ rowCount, rowStride, bottomPadding = 0, rootOffset = 0, clientHeight }) {
+  const rootHeight = getVirtualRootHeight({ rowCount, rowStride, bottomPadding });
+  return Math.max(0, finiteNumber(rootOffset) + rootHeight - Math.max(0, finiteNumber(clientHeight)));
+}
+
+export function settleScrollJump({ container, getTarget, requestAnimationFrame, maxPasses = 6 }) {
+  const schedule = requestAnimationFrame ?? globalThis.requestAnimationFrame;
+  const passLimit = Math.max(1, Math.floor(finiteNumber(maxPasses, 6)));
+
+  return new Promise((resolve) => {
+    if (!container || typeof container.scrollTo !== 'function' || typeof schedule !== 'function') {
+      resolve({ passes: 0, target: 0, scrollTop: 0, scrollHeight: 0 });
+      return;
+    }
+
+    let passes = 0;
+    let previous = null;
+    let lastTarget = 0;
+
+    const runPass = () => {
+      const dimensions = {
+        scrollTop: finiteNumber(container.scrollTop),
+        clientHeight: Math.max(0, finiteNumber(container.clientHeight)),
+        scrollHeight: Math.max(0, finiteNumber(container.scrollHeight)),
+        pass: passes,
+      };
+      lastTarget = Math.max(0, finiteNumber(getTarget(dimensions)));
+      container.scrollTo({ top: lastTarget, behavior: 'auto' });
+      passes += 1;
+
+      schedule(() => {
+        const snapshot = {
+          scrollTop: finiteNumber(container.scrollTop),
+          scrollHeight: Math.max(0, finiteNumber(container.scrollHeight)),
+        };
+        const stableFramePair = previous !== null &&
+          previous.scrollTop === snapshot.scrollTop &&
+          previous.scrollHeight === snapshot.scrollHeight;
+        previous = snapshot;
+
+        if (stableFramePair || passes >= passLimit) {
+          resolve({ ...snapshot, passes, target: lastTarget });
+          return;
+        }
+        runPass();
+      });
+    };
+
+    runPass();
+  });
 }
 
 export function getMeasuredRowStride(measuredCardHeight, rowGap, fallback) {

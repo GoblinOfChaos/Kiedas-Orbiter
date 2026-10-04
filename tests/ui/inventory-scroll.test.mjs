@@ -5,6 +5,8 @@ import {
   getScrollKeyTarget,
   getScrollTopForFirstItem,
   getVirtualRootHeight,
+  getVirtualScrollMaximum,
+  settleScrollJump,
 } from '../../src/lib/inventoryScroll.js'
 
 test('inventory keyboard targets handle paging, Home, End, Space, and unknown keys', () => {
@@ -37,4 +39,71 @@ test('inventory virtual root includes bottom padding only when rows exist', () =
   assert.equal(getVirtualRootHeight({ rowCount: 1, rowStride: 209, bottomPadding: 16 }), 225)
   assert.equal(getVirtualRootHeight({ rowCount: 3, rowStride: 209, bottomPadding: 16 }), 643)
   assert.equal(getVirtualRootHeight({ rowCount: 3, rowStride: 209 }), 627)
+})
+
+test('inventory End target uses the virtual model and root offset', () => {
+  const modelMaximum = getVirtualScrollMaximum({
+    rowCount: 20,
+    rowStride: 209,
+    bottomPadding: 16,
+    rootOffset: 120,
+    clientHeight: 300,
+  })
+  assert.equal(modelMaximum, 4016)
+  assert.equal(getScrollKeyTarget({
+    key: 'End',
+    scrollTop: 0,
+    clientHeight: 300,
+    scrollHeight: 500,
+    modelMaximumTop: modelMaximum,
+  }), 4016)
+})
+
+test('inventory jump settles after a virtual height change and is bounded to six passes', async () => {
+  const container = {
+    scrollTop: 0,
+    scrollHeight: 500,
+    clientHeight: 100,
+    scrollTo({ top }) {
+      this.scrollTop = Math.min(top, this.scrollHeight - this.clientHeight)
+      if (this.scrollHeight === 500) this.scrollHeight += 60
+    },
+  }
+  let frameCount = 0
+  const result = await settleScrollJump({
+    container,
+    requestAnimationFrame(callback) {
+      frameCount += 1
+      callback()
+    },
+    getTarget: ({ scrollHeight, clientHeight }) => scrollHeight - clientHeight,
+  })
+
+  assert.equal(result.scrollTop, 460)
+  assert.equal(result.scrollHeight, 560)
+  assert.equal(result.passes, 3)
+  assert.equal(frameCount, 3)
+  assert.ok(result.passes <= 6)
+})
+
+test('inventory jump stops at six passes when layout never stabilizes', async () => {
+  const container = {
+    scrollTop: 0,
+    scrollHeight: 500,
+    clientHeight: 100,
+    scrollTo({ top }) {
+      this.scrollTop = top
+      if (this.scrollHeight < 505) this.scrollHeight += 1
+    },
+  }
+  const result = await settleScrollJump({
+    container,
+    requestAnimationFrame(callback) {
+      callback()
+    },
+    getTarget: ({ scrollHeight, clientHeight }) => scrollHeight - clientHeight,
+  })
+
+  assert.equal(result.passes, 6)
+  assert.equal(result.scrollTop, result.scrollHeight - container.clientHeight)
 })

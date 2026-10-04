@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { X, AlertCircle, RefreshCw, ChevronDown } from 'lucide-react';
 import { useUi } from '../contexts/UiContext';
 import { setLogContext, startSpan, warn } from '../lib/logging/logger.js';
-import { beginScreenMount } from '../lib/logging/screenInstrumentation.js';
+import { beginScreenMount, completeScreenMount } from '../lib/logging/screenInstrumentation.js';
 
 // Portal tooltip that follows trigger during scroll/resize
 export function TooltipPortal({ children, triggerRef, visible, position = 'right' }) {
@@ -203,7 +203,7 @@ export function PageLayout({ title, titleKey, subtitle, children, extra, headerP
       tracker: beginScreenMount({ screen: route, route, startSpanFn: startSpan, warnFn: warn, setContextFn: setLogContext }),
     };
   }
-  useEffect(() => screenMountRef.current?.tracker.complete(), [route]);
+  useEffect(() => { completeScreenMount(screenMountRef); }, [route]);
   // Default expanded - matches every screen's existing behavior exactly
   // until someone actually clicks the toggle. Not persisted across
   // navigation/restarts (resets to expanded each mount) - deliberately

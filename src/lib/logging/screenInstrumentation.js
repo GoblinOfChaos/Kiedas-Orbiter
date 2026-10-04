@@ -1,5 +1,9 @@
 export const SCREEN_SLOW_THRESHOLD_MS = 750;
 
+export function completeScreenMount(ref) {
+  ref?.current?.tracker?.complete();
+}
+
 export function beginScreenMount({
   screen,
   route = screen,

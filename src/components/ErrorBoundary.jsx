@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { UiContext, useUi } from '../contexts/UiContext';
+import { error as logError } from '../lib/logging/logger.js';
 
 const ENGLISH_ERROR_TEXT = {
   'error_boundary.title': 'Something went wrong',
@@ -34,6 +35,11 @@ export class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     console.error('Unhandled render error:', error, info);
+    logError('app.render_error', {
+      message: String(error?.message || error),
+      stack: String(error?.stack || '').split('\n').slice(0, 20).join('\n'),
+      component_stack: String(info?.componentStack || ''),
+    }, { component: 'ErrorBoundary', error });
   }
 
   render() {

@@ -17,7 +17,7 @@ import { IS_PREVIEW } from './lib/buildProfile';
 import PreviewAppShell from './preview/shell/PreviewAppShell';
 import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
 import { ErrorBoundary, CriticalLoadErrorScreen } from './components/ErrorBoundary';
-import { installUiDelegation, screen as logScreen } from './lib/logging/logger';
+import { installUiDelegation } from './lib/logging/logger';
 import { WikiNavigationProvider } from './contexts/WikiNavigationContext';
 import { buildScannerHookedNotification } from './lib/scannerNotification';
 
@@ -261,8 +261,6 @@ function AppContent() {
   scannerTRef.current = t;
 
   useEffect(() => installUiDelegation(document), []);
-  useEffect(() => { logScreen(activeTab, activeTab); }, [activeTab]);
-
   useEffect(() => {
     // Poll scanner status every 2s so sidebar dot stays in sync
     const checkScanner = () => {

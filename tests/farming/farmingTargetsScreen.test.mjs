@@ -17,7 +17,7 @@ test('summary telemetry is not keyed to every screen model or filter change', ()
 });
 
 test('place index is memoized separately from filter-dependent ranking', () => {
-  assert.match(source, /const previewPlaceIndex = useMemo\(\(\) => IS_PREVIEW \? buildPreviewPlaceIndex/);
+  assert.match(source, /const previewPlaceIndex = useMemo\(\(\) => IS_PREVIEW \? runFarmingSpan\('farming\.place_index\.build'/);
   assert.match(source, /\[dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData\]\);/);
   assert.match(source, /placeIndex: previewPlaceIndex/);
 });

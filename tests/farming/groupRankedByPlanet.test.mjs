@@ -42,3 +42,12 @@ test('does not create a shared null-planet group', () => {
   assert.equal(grouped.length, 2);
   assert.deepEqual(grouped.map((entry) => entry.members[0]), [first, second]);
 });
+
+test('groups non-node places by an explicit kind with a non-empty group label', () => {
+  const first = { ...row('event-one', 'Event One', null, [{ itemType: 'a', name: 'A' }]), place: { id: 'event-one', name: 'Event One', kind: 'event' } };
+  const second = { ...row('event-two', 'Event Two', null, [{ itemType: 'b', name: 'B' }]), place: { id: 'event-two', name: 'Event Two', kind: 'event' } };
+  const grouped = groupRankedByPlanet([first, second]);
+  assert.equal(grouped.length, 1);
+  assert.equal(grouped[0].kind, 'event');
+  assert.equal(grouped[0].place.name, 'Event One');
+});

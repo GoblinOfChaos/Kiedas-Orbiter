@@ -4,7 +4,8 @@ import { invoke } from './lib/logging/tauri'
 import App from './App'
 import { IS_PREVIEW } from './lib/buildProfile'
 import './index.css'
-import { debug, installFetchLogging } from './lib/logging/logger'
+import { debug, event, getFarmingModelBuildCount, getLogContext, getRecentEventNames, installFetchLogging, installLoggerFlush } from './lib/logging/logger'
+import { createMainThreadStallDetector } from './lib/logging/stallDetector'
 
 import "@fontsource/outfit/400.css";
 import "@fontsource/outfit/600.css";
@@ -14,6 +15,7 @@ import "@fontsource/jetbrains-mono/400.css";
 // Forward frontend errors and warnings to Rust stderr (captured by run logs)
 if (typeof window !== 'undefined') {
   installFetchLogging();
+  installLoggerFlush();
   if (globalThis.__kiedasMainInstrumentationInstalled) {
     // HMR can re-evaluate this module; listeners and console wrappers must be singleton.
   } else {
@@ -88,16 +90,37 @@ if (typeof window !== 'undefined') {
           });
         }, true);
       }
+      globalThis.__kiedasPreviewStallCleanup = createMainThreadStallDetector({
+        onStall: ({ late_ms }) => {
+          const current = getLogContext();
+          event('ui.main_thread.stall', {
+            late_ms,
+            current_screen: current.screen,
+            route: current.route,
+            last_event_names: getRecentEventNames(),
+          }, { source: 'frontend', screen: current.screen, route: current.route });
+        },
+      });
       globalThis.__kiedasPreviewHeartbeat = setInterval(() => {
         const memory = performance.memory;
+        const current = getLogContext();
         debug('preview.heartbeat', {
           heap_used_bytes: memory?.usedJSHeapSize,
           heap_total_bytes: memory?.totalJSHeapSize,
+          farming_model_builds: getFarmingModelBuildCount(),
+          current_screen: current.screen,
           dom_elements: document.getElementsByTagName('*').length,
           dom_images: document.images.length,
           window_width: window.innerWidth,
           window_height: window.innerHeight
         }, { source: 'frontend' });
+        if (typeof performance.measureUserAgentSpecificMemory === 'function') {
+          try {
+            Promise.resolve(performance.measureUserAgentSpecificMemory()).then((sample) => {
+              if (sample?.bytes != null) debug('preview.memory.measure', { bytes: sample.bytes }, { source: 'frontend' });
+            }).catch(() => {});
+          } catch {}
+        }
       }, 60000);
     }
   }

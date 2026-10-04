@@ -3,14 +3,16 @@ import { LOG_SCHEMA } from './eventEnvelope.js';
 
 const MAX_QUEUE = 500;
 const BATCH_SIZE = 25;
-const FLUSH_MS = 250;
+const FLUSH_INTERVAL_MS = 2000;
 const REDACTED = '[REDACTED]';
 const sessionId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 const startedAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
 const nativeFetch = globalThis.fetch?.bind(globalThis);
 let sequence = 0;
 let queue = [];
-let flushTimer = null;
+let periodicFlushTimer = null;
+let visibilityTarget = null;
+let visibilityHandler = null;
 let retryTimer = null;
 let retryDelay = 1000;
 let retryUntil = 0;
@@ -18,10 +20,12 @@ let flushing = false;
 let reloading = false;
 const inFlightInvokes = new Set();
 let context = { window: 'main', screen: undefined, route: undefined, component: undefined };
+const recentEventNames = [];
+let farmingModelBuilds = 0;
 
 const SENSITIVE_KEYS = /token|authorization|password|account.?id|chat|typed|credential|secret|cookie/i;
 const PATH_KEYS = /path|filename|file_name|directory|filesystem/i;
-const ALLOWED_KEYS = /^(count|size|status|method|host|route|screen|item|item_unique_name|type|kind|phase|outcome|duration_ms|threshold|axis|source|direction|position|extent|viewport|visible_range|hash|cache|redacted|length|command|request_id|result_type|error_type)$/;
+const ALLOWED_KEYS = /^(count|size|status|method|host|route|screen|item|item_unique_name|type|kind|phase|outcome|duration_ms|threshold|threshold_ms|axis|source|direction|position|extent|viewport|visible_range|hash|cache|redacted|length|command|request_id|result_type|error_type|last_event_names|current_screen|heap_used_bytes|heap_total_bytes|dom_elements|dom_images|window_width|window_height|farming_model_builds|bytes)$/;
 
 function id() { return globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
 
@@ -58,8 +62,6 @@ function enqueue(record) {
   queue.push(record);
   if (record.level === 'error' || record.level === 'fatal' || queue.length >= BATCH_SIZE) {
     void flush();
-  } else if (!flushTimer) {
-    flushTimer = setTimeout(() => { flushTimer = null; void flush(); }, FLUSH_MS);
   }
 }
 
@@ -99,6 +101,31 @@ export async function flush() {
 
 export function setLogContext(next = {}) { context = { ...context, ...next }; }
 export function getSessionId() { return sessionId; }
+export function getLogContext() { return { ...context }; }
+export function getRecentEventNames() { return recentEventNames.slice(-5); }
+export function getFarmingModelBuildCount() { return farmingModelBuilds; }
+
+export function installLoggerFlush() {
+  if (!periodicFlushTimer && typeof globalThis.setInterval === 'function') {
+    periodicFlushTimer = globalThis.setInterval(() => { void flush(); }, FLUSH_INTERVAL_MS);
+  }
+  if (!visibilityTarget && typeof document !== 'undefined' && document.addEventListener) {
+    visibilityTarget = document;
+    visibilityHandler = () => { void flush(); };
+    document.addEventListener('visibilitychange', visibilityHandler);
+  }
+  return () => {
+    if (periodicFlushTimer && typeof globalThis.clearInterval === 'function') {
+      globalThis.clearInterval(periodicFlushTimer);
+      periodicFlushTimer = null;
+    }
+    if (visibilityTarget?.removeEventListener && visibilityHandler) {
+      visibilityTarget.removeEventListener('visibilitychange', visibilityHandler);
+      visibilityTarget = null;
+      visibilityHandler = null;
+    }
+  };
+}
 
 export function event(name, payload = {}, metadata = {}) {
   const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -113,6 +140,9 @@ export function event(name, payload = {}, metadata = {}) {
     outcome: metadata.outcome, payload: redact(payload), error: normalizeError(metadata.error),
     build: { app_version: '1.3.3', platform: typeof navigator !== 'undefined' ? navigator.platform : 'unknown', locale: typeof navigator !== 'undefined' ? navigator.language : 'unknown' }
   };
+  recentEventNames.push(name);
+  if (recentEventNames.length > 20) recentEventNames.shift();
+  if (name === 'farming.model.build.completed') farmingModelBuilds += 1;
   enqueue(Object.fromEntries(Object.entries(record).filter(([, value]) => value !== undefined)));
   return record;
 }

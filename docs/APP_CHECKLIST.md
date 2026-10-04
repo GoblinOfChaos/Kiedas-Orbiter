@@ -15,6 +15,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #54 Wiki text with unresolved templates, e.g. Alloy Plate "Beginning in 9 materials could be purchased ... for Platinum." (reported 2026-10-03). Cause verified, NO fix started
 - [ ] #55 Prime extractors appear twice with different information (item as a part, Blueprint as a prime part) (reported 2026-10-03). Verified on real data, NO fix started
 - [ ] #56 Consistency across all drawers (your principle, 2026-10-03): proposal for one shared contract plus an audit test over every item; waiting for your go
+- [ ] #57 Acquisition text must say how to get the item NOW, never its history or update numbers (your rule, 2026-10-03). Applies to the extractor Primes, Alloy Plate, Forma and every wiki-derived entry. NO work started; part of the consistency plan (#56)
 - [x] #36 / #39 Prime drawers (Akarius Prime, Ash Prime, Citrine Prime): "Crafting requirements" has a "1x ... Blueprint" row listing its relics once each with (Common/Uncommon/Rare); Ash Prime no longer says "Market Blueprint: 25,000 Credits"
 - [x] #9 Ash Prime Neuroptics / Chassis / Systems rows and Citrine Prime Blueprint, Acceltra Prime: each relic once with its tier, no Intact/Exceptional/Flawless/Radiant, no percentages, no raw key like `ui.relic_rarity.rare`
 - [ ] #8 Orokin Cell drawer: the Blueprint row says it is a Market purchase for 100 Platinum, not the enemy-drop text; Forma Blueprint and Prime part drawers still list their drops

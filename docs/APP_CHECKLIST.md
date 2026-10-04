@@ -31,7 +31,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 ## Step 5 - Needs you to send me something
 
 - [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
-- [ ] #48 1999 Calendar in German: the upgrade names ("Electric Status Damage And Chance", "Armor", ...) stay English. My earlier claim that the German text is not in the data was too strong: the German words exist in the game (your Voltaischer Schlag screenshot), but I do not know the exact in-game phrase. A screenshot of the in-game 1999 calendar in German, or your OK to build the name from the game's own German stat labels, would settle it
+- [ ] #48 1999 Calendar upgrade names (reported 2026-10-03): the app shows path-derived English text; the real names are the Hex Boosts (Bottled Lightning = "Abgefüllter Blitz", Thick Skin = "Dicke Haut", Toxic Shot, ...). Your German screenshot and the official wiki settled it; fix proposed (verified name file, English wiki name when no German text is verified yet, type label "Hex Boost" / "Hex-Boost Modifikator"), NOT started. Each other upgrade's German name needs one screenshot from you when you see it
 - [x] #43 Wiki tab blank after a crash: if it happens again, send me the log file before restarting the app
 
 ## New findings from your checks of the 18:01 build (not fixed yet; waiting for your go)

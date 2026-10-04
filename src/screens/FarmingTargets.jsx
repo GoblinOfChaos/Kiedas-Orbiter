@@ -213,12 +213,12 @@ export default function FarmingTargets() {
   }, [catalog, search, targets]);
 
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
-  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportData]);
+  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, exportData]);
   const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
-    targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
+    targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
     placeIndex: previewPlaceIndex,
     filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave]);
+  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;

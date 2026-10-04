@@ -7,6 +7,61 @@ import { buildRelicPlaces } from './relicPlaces.js';
 import { resolveAnyImage, resolveMissionType, resolveNode } from '../warframeUtils.js';
 
 const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
+const vendorKey = (value) => lower(value).replaceAll('’', "'").replace(/\s+/g, ' ');
+
+const canonicalPath = (value) => typeof value === 'string' ? value.replaceAll('/StoreItems/', '/') : value;
+
+function resolvedExportName(value, dict) {
+  const resolved = dict?.[value] ?? dict?.[`/${value}`] ?? value;
+  return typeof resolved === 'string' ? resolved.trim() : '';
+}
+
+function exportItemNames(exportData, dict) {
+  const names = new Map();
+  for (const tableName of ['ExportResources', 'ExportMisc', 'ExportGear', 'ExportCustoms', 'ExportUpgrades']) {
+    for (const [uniqueName, entry] of Object.entries(exportData?.[tableName] ?? {})) {
+      const name = resolvedExportName(entry?.name, dict);
+      if (name && !name.startsWith('/')) names.set(canonicalPath(uniqueName), name);
+    }
+  }
+  return names;
+}
+
+function routeVendorName(route) {
+  const match = typeof route?.text === 'string' ? route.text.match(/^Listed by (.+?)(?:\.|$)/i) : null;
+  return match?.[1]?.trim() || null;
+}
+
+function routePrice(route) {
+  const match = typeof route?.text === 'string'
+    ? route.text.match(/\bPrice listed in the export:\s*(.+?)(?:\.|$)/i)
+    : null;
+  return match?.[1]?.trim() || null;
+}
+
+function canonicalVendorName(value, wikiVendorNames) {
+  const name = String(value ?? '').trim();
+  if (!name) return null;
+  const nameKey = vendorKey(name);
+  const exact = wikiVendorNames.find((candidate) => vendorKey(candidate) === nameKey);
+  if (exact) return exact;
+  const prefixAliases = wikiVendorNames.filter((candidate) => nameKey.startsWith(`${vendorKey(candidate)} `));
+  if (prefixAliases.length === 1) return prefixAliases[0];
+  const aliases = wikiVendorNames.filter((candidate) => {
+    const candidateKey = vendorKey(candidate);
+    return nameKey.startsWith(`${candidateKey} in `)
+      || nameKey.startsWith(`${candidateKey}'s `)
+      || nameKey.startsWith(`${candidateKey} (`)
+      || nameKey.startsWith(`${candidateKey} - `);
+  });
+  if (aliases.length === 1) return aliases[0];
+  const searchableName = ` ${nameKey.replace(/[^a-z0-9]+/g, ' ').trim()} `;
+  const contained = wikiVendorNames.filter((candidate) => {
+    const searchableCandidate = ` ${vendorKey(candidate).replace(/[^a-z0-9]+/g, ' ').trim()} `;
+    return searchableName.includes(searchableCandidate);
+  });
+  return contained.length === 1 ? contained[0] : name;
+}
 
 function ownedMap(inventoryData) {
   const result = {};
@@ -160,7 +215,7 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   const region = regionForSource(source, regions, dict);
   const faction = region?.faction ? resolveNode(region.faction, dict, regions) : null;
   return {
-    id: `${type}:${lower(name)}`,
+    id: `${type}:${type === 'vendor' ? vendorKey(name) : lower(name)}`,
     name,
     type: pvp ? 'conclave' : type,
     pvp,
@@ -173,9 +228,15 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   };
 }
 
-export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, dict = {}, regions } = {}) {
+export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, exportData, dict = {}, regions } = {}) {
   const byItem = new Map();
   const places = new Map();
+  const exportNames = exportItemNames(exportData, dict);
+  const wikiVendorNames = [...new Set(
+    wikiVendorIndex instanceof Map
+      ? [...wikiVendorIndex.values()].flatMap((entries) => Array.isArray(entries) ? entries : [entries]).filter((entry) => typeof entry === 'string')
+      : [],
+  )];
   const add = (item, source) => {
     if (!item || !source) return;
     const place = sourcePlace(source, item, { dict, regions });
@@ -183,14 +244,28 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
     if (!places.has(place.id)) places.set(place.id, place);
     const key = lower(item);
     if (!byItem.has(key)) byItem.set(key, []);
-    byItem.get(key).push({
+    const row = {
       placeId: place.id,
       item,
       chance: source.chance == null ? null : Number(source.chance),
       rotation: source.rotation ?? null,
       missionType: source.missionType ?? null,
       source: sourceName(source),
-    });
+      ...(source.vendor ? { vendor: source.vendor } : {}),
+      ...(source.price ? { price: source.price } : {}),
+      ...(source.text ? { text: source.text } : {}),
+      ...(source.provenance ? { provenance: source.provenance } : {}),
+    };
+    const existing = source.type === 'vendor'
+      ? byItem.get(key).find((entry) => entry.placeId === row.placeId && entry.item === row.item)
+      : null;
+    if (!existing) byItem.get(key).push(row);
+    else {
+      if (!existing.vendor && row.vendor) existing.vendor = row.vendor;
+      if (!existing.price && row.price) existing.price = row.price;
+      if (!existing.text && row.text) existing.text = row.text;
+      if (!existing.provenance && row.provenance) existing.provenance = row.provenance;
+    }
   };
   for (const [itemType, sources] of Object.entries(dropIndex ?? {})) {
     if (itemType.startsWith('display:') || !Array.isArray(sources)) continue;
@@ -201,7 +276,28 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
     for (const planet of Array.isArray(planets) ? planets : []) add(entry.Name ?? item, { type: 'planet', source: planet, name: planet });
   }
   for (const [item, entries] of wikiVendorIndex instanceof Map ? wikiVendorIndex : []) {
-    for (const entry of Array.isArray(entries) ? entries : [entries]) add(entry.itemName ?? item, { type: 'vendor', source: entry.vendor ?? entry.name ?? 'Vendor' });
+    for (const vendor of Array.isArray(entries) ? entries : [entries]) {
+      if (typeof vendor !== 'string' || !vendor.trim()) continue;
+      const name = canonicalVendorName(vendor, wikiVendorNames);
+      add(item, { type: 'vendor', source: name, vendor: name });
+    }
+  }
+  for (const [itemType, routes] of exportVendorIndex instanceof Map ? exportVendorIndex : []) {
+    const item = exportNames.get(canonicalPath(itemType));
+    if (!item) continue;
+    for (const route of Array.isArray(routes) ? routes : [routes]) {
+      const rawVendor = routeVendorName(route);
+      if (!rawVendor) continue;
+      const vendor = canonicalVendorName(rawVendor, wikiVendorNames);
+      add(item, {
+        type: 'vendor',
+        source: vendor,
+        vendor,
+        price: routePrice(route),
+        text: route.text,
+        provenance: route.source,
+      });
+    }
   }
   for (const sources of byItem.values()) sources.sort((a, b) => a.placeId.localeCompare(b.placeId));
   return { byItem, places };
@@ -218,7 +314,7 @@ function sourceRowsFor(placeIndex, coveredItems) {
   }));
 }
 
-export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, filters = {}, placeIndex, imageMaps } = {}) {
+export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, filters = {}, placeIndex, imageMaps } = {}) {
   const activeTargetIds = new Set(targets.filter((target) => target?.status !== 'archived' && target?.status !== 'complete').map((target) => target.id));
   const owned = ownedMap(inventoryData);
   const recipes = recipeList(inventoryData, exportData, imageMaps);
@@ -242,7 +338,7 @@ export function buildFarmingTargetsScreenModel({ targets = [], reservations = []
     ...(reservations ?? []).filter((reservation) => activeTargetIds.has(reservation?.targetId)),
     ...targets.filter((target) => activeTargetIds.has(target.id)).flatMap((target) => target.reservations ?? []),
   ] });
-  const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions });
+  const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions });
   const rankingResult = rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters });
   const relicPlaces = buildRelicPlaces({ ledger, inventoryData, exportData, dropIndex });
   const ranked = filters.tab === 'relics' ? relicPlaces : rankingResult.ranked;

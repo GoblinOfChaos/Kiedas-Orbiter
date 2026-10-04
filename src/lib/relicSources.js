@@ -206,3 +206,10 @@ export function getRelicSourceLabel(source, t = (key) => key) {
   const name = source?.relicName || source?.relicManifest || t('acquisition_drawer.relic_fallback')
   return `${name}${source?.rarity ? ` (${t(`ui.relic_rarity.${String(source.rarity).toLowerCase()}`)})` : ''}`
 }
+
+/** Build translated, DE-tiered relic rows for compact tooltip consumers. */
+export function buildRelicTooltipRows(sources = [], { rarityIndex = null, itemType = '', t = (key) => key } = {}) {
+  return normalizeRelicSources(sources, { rarityIndex, itemType })
+    .filter((source) => source?.type === 'relic')
+    .map((source) => ({ source, label: getRelicSourceLabel(source, t) }))
+}

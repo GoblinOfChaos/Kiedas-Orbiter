@@ -16,11 +16,12 @@ export function getCachedPrimeSetPartSources(part, dropIndex, sorter = sortSourc
     sourceCacheByDropIndex.set(dropIndex, cache)
   }
   const partNorm = part?.unique_name ? part.unique_name.replace('/StoreItems/', '/') : ''
+  const blueprintNorm = partNorm.replace(/Component$/i, 'Blueprint')
   const displayKey = 'display:' + (part?.name || '').toLowerCase().trim()
   const key = partNorm || displayKey
   if (cache.has(key)) return cache.get(key)
 
-  const raw = dropIndex[partNorm] || dropIndex[displayKey] || []
+  const raw = dropIndex[partNorm] || dropIndex[blueprintNorm] || dropIndex[displayKey] || []
   const seen = new Set()
   const sources = sorter(raw).filter((source) => {
     const key = sourceKey(source)

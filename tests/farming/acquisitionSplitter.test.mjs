@@ -18,6 +18,13 @@ test('splitter keeps comma-formatted prices in one route', async () => {
     await splitAcquisitionRouteText('Syndicate: Cavia (Rank 4 Scholar), 50,000 Standing'),
     ['Syndicate: Cavia (Rank 4 Scholar), 50,000 Standing'],
   )
+  assert.deepEqual(
+    await splitAcquisitionRouteText('Blueprints and components are a potential reward from Invasions. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.'),
+    [
+      'Blueprints and components are a potential reward from Invasions.',
+      'All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.',
+    ],
+  )
 })
 
 test('splitter handles or and semicolon route separators', async () => {

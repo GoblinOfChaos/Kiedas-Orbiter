@@ -30,6 +30,20 @@ test('historical clauses are excluded from current route text', () => {
   )
 })
 
+test('wiki residue is removed without dropping a clean neighboring route', () => {
+  assert.deepEqual(
+    toCurrentSourceSentences('Blueprints and components are a potential reward from Invasions. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint. type=Weapon'),
+    [
+      'Blueprints and components are a potential reward from Invasions.',
+      'All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.',
+    ],
+  )
+  assert.deepEqual(
+    toCurrentSourceSentences('The blueprint is available. {| class="wikitable" |- | Blueprint || Market |} type=Weapon'),
+    ['The blueprint is available.'],
+  )
+})
+
 test('real wiki strings produce current Alloy Plate and Forma routes', () => {
   const alloyText = 'Beginning in {{ver|9}} materials could be purchased directly from the market for {{Resource|Platinum}}. {{pc|30}} for 1500 [[Alloy Plate]].'
   const alloyRoutes = toCurrentSourceSentences(alloyText)

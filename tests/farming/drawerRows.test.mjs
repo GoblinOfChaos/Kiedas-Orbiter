@@ -32,7 +32,7 @@ let harnessPromise
 let contextPromise
 
 async function context() {
-  const harness = await (harnessPromise ||= loadRealHarness())
+  const harness = await (harnessPromise ||= loadRealHarness({ locale: 'en' }))
   const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import('../../src/lib/acquisitionInfo.js')
   const indexes = await (contextPromise ||= buildAllAcquisitionIndexes(harness.exportsBundle))
   const dropIndex = buildDropIndex(harness.exportsBundle)

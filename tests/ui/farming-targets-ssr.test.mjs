@@ -176,7 +176,7 @@ test('SSR pages a catalog-derived farming fixture at forty places and offers sho
   const { loadRealHarness } = await import('../../scripts/lib/real-data-harness.mjs');
   const { parseInventory } = await import('../../src/lib/inventoryParser.js');
   const { buildDropIndex } = await import('../../src/lib/dropsParser.js');
-  const harness = await loadRealHarness();
+  const harness = await loadRealHarness({ locale: 'en' });
   const targetNames = [
     'Orokin Cell', 'Alloy Plate', 'Ferrite', 'Rubedo', 'Neurodes', 'Gallium', 'Salvage',
     'Control Module', 'Nano Spores', 'Morphics', 'Argon Crystal', 'Tellurium', 'Kuva',

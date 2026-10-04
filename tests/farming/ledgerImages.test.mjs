@@ -8,7 +8,7 @@ import { catalogTarget } from '../helpers/real-data-fixtures.mjs';
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'));
 
 test('real data: every ledger row for a catalog-derived target has an image', { skip: !haveRealData }, async () => {
-  const { exportsBundle, EI, nameToImage, uniqueNameToName, repo } = await loadRealHarness();
+  const { exportsBundle, EI, nameToImage, uniqueNameToName, repo } = await loadRealHarness({ locale: 'en' });
   const { parseInventory } = await import(path.join(repo, 'src/lib/inventoryParser.js'));
   const { buildFarmingTargetsScreenModel } = await import(path.join(repo, 'src/lib/farmingTargets/screenModel.js'));
   const targets = [catalogTarget(exportsBundle, uniqueNameToName, 'Orokin Cell')];
@@ -22,7 +22,7 @@ test('real data: every ledger row for a catalog-derived target has an image', { 
 });
 
 test('real data: farmable resources are plain ledger leaves, never a made-in-Foundry "<Resource> Blueprint" row', { skip: !haveRealData }, async () => {
-  const { exportsBundle, dict, EI, nameToImage, uniqueNameToName, repo } = await loadRealHarness();
+  const { exportsBundle, dict, EI, nameToImage, uniqueNameToName, repo } = await loadRealHarness({ locale: 'en' });
   const { parseInventory } = await import(path.join(repo, 'src/lib/inventoryParser.js'));
   const { buildFarmingTargetsScreenModel } = await import(path.join(repo, 'src/lib/farmingTargets/screenModel.js'));
   const inventoryData = parseInventory({}, exportsBundle, dict, 'en', null);

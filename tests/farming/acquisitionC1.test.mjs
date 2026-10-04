@@ -14,7 +14,7 @@ let sharedIndexesPromise
 let sharedDropIndex
 
 async function sharedHarness() {
-  sharedHarnessPromise ||= loadRealHarness()
+  sharedHarnessPromise ||= loadRealHarness({ locale: 'en' })
   return sharedHarnessPromise
 }
 

@@ -33,7 +33,7 @@ test('real merged exports contain Narin parts and do not duplicate Volt Prime pa
       out: root,
       cacheDir: process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export',
     })
-    const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root })
+    const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root, locale: 'en' })
     const { parseInventory } = await import('../../src/lib/inventoryParser.js')
     const parsed = parseInventory({}, harness.exportsBundle, harness.dict, 'en', null)
     const narin = parsed.parts.filter((item) => item.parent_name === 'Narin')

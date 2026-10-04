@@ -86,7 +86,7 @@ test('relic caches keep locale-sensitive results separate', () => {
 const haveRealData = fs.existsSync(`${DEFAULT_DATA_DIR}/export/ExportRelics.json`);
 
 test('real export: every relic resolves era, category, icon and rewards; Citrine reaches the catalog', { skip: !haveRealData }, async () => {
-  const { exportsBundle } = await loadRealHarness();
+  const { exportsBundle } = await loadRealHarness({ locale: 'en' });
   const relics = Object.entries(exportsBundle.ExportRelics);
   const bad = [];
   for (const [un, entry] of relics) {

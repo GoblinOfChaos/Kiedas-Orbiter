@@ -9,7 +9,7 @@ const inventoryFile = path.join(DEFAULT_DATA_DIR, 'user/inventory.json');
 const haveRealData = fs.existsSync(inventoryFile);
 
 test('real data: two owned targets remain non-empty under the default additional-copies semantics', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness();
+  const harness = await loadRealHarness({ locale: 'en' });
   const { exportsBundle, dict, repo } = harness;
   const { parseInventory } = await import(path.join(repo, 'src/lib/inventoryParser.js'));
   const { buildFarmingTargetsScreenModel } = await import(path.join(repo, 'src/lib/farmingTargets/screenModel.js'));

@@ -36,7 +36,7 @@ test('relic reward counts keep blueprint copies separate from completed ownershi
 });
 
 test('real DE data: Prime Set and blueprint images resolve for both extractor sets', async () => {
-  const { exportsBundle, dict, repo } = await loadRealHarness();
+  const { exportsBundle, dict, repo } = await loadRealHarness({ locale: 'en' });
   const { parseInventory } = await import(path.join(repo, 'src/lib/inventoryParser.js'));
   const inventory = parseInventory({}, exportsBundle, dict, 'en', null);
   for (const name of ['Titan Extractor Prime', 'Distilling Extractor Prime']) {

@@ -22,7 +22,7 @@ function realLedger(names) {
 }
 
 test('real data: vendor places keep distinct names from both acquisition indexes', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness();
+  const harness = await loadRealHarness({ locale: 'en' });
   const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js');
   const { buildPreviewPlaceIndex } = await import('../../src/lib/farmingTargets/screenModel.js');
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle);
@@ -51,7 +51,7 @@ test('real data: vendor places keep distinct names from both acquisition indexes
 });
 
 test('real data: the vendors tab ranks wiki vendor targets under their named vendor', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness();
+  const harness = await loadRealHarness({ locale: 'en' });
   const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js');
   const { buildPreviewPlaceIndex } = await import('../../src/lib/farmingTargets/screenModel.js');
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle);
@@ -101,7 +101,7 @@ test('syndicate sources are vendors, not missions, and strict Market purchases a
 });
 
 test('real data: catalog targets place syndicate and Market acquisitions under Vendors only', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness();
+  const harness = await loadRealHarness({ locale: 'en' });
   const { exportsBundle, dict, repo } = harness;
   const { buildDropIndex } = await import(path.join(repo, 'src/lib/dropsParser.js'));
   const { buildAllAcquisitionIndexes } = await import(path.join(repo, 'src/lib/acquisitionInfo.js'));

@@ -25,7 +25,7 @@ function buildExtractorFixture(liveInventory) {
 }
 
 test('real inventory lists all four extractors with DE images and correct drone ownership', async () => {
-  const { exportsBundle, dict, repo } = await loadRealHarness()
+  const { exportsBundle, dict, repo } = await loadRealHarness({ locale: 'en' })
   const { parseInventory } = await import(process.env.P7_PARSER_PATH || path.join(repo, 'src/lib/inventoryParser.js'))
   assert.ok(fs.existsSync(inventoryFile), 'real inventory is required for this regression')
 
@@ -65,7 +65,7 @@ test('real inventory lists all four extractors with DE images and correct drone 
 })
 
 test('real extractor acquisition data keeps current routes only', async () => {
-  const harness = await loadRealHarness()
+  const harness = await loadRealHarness({ locale: 'en' })
   const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import(process.env.P7_ACQUISITION_INFO_PATH || '../../src/lib/acquisitionInfo.js')
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
   const overrides = JSON.parse(fs.readFileSync(new URL('../../src-tauri/data/assets/data/acquisition_overrides.json', import.meta.url), 'utf8'))

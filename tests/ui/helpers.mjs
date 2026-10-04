@@ -14,7 +14,7 @@ export function readInventoryReadOnly(file = process.env.KIEDAS_PREVIEW_INVENTOR
 }
 
 export async function realUiModel() {
-  const harness = await loadRealHarness()
+  const harness = await loadRealHarness({ locale: 'en' })
   const inventoryData = readInventoryReadOnly()
   const all = inventoryData.all ?? []
   const parts = all.filter((item) => /^Narin (?:Neuroptics|Chassis|Systems)$/.test(item.name ?? ''))

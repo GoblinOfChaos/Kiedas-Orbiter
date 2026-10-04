@@ -104,7 +104,7 @@ test('calendar upgrade type uses the game minor label when the event has no disc
 
 for (const locale of ['de', 'en']) {
   test(`real worldstate calendar fixture resolves every upgrade name in ${locale}`, async () => {
-    const harness = await loadRealHarness()
+    const harness = await loadRealHarness({ locale: 'en' })
     const parsed = parseWorldstate(rawCalendar, parserOptions(harness, locale))
     const events = parsed.calendar1999[0].days.flatMap((day) => day.events)
 

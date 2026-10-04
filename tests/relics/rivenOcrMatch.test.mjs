@@ -8,7 +8,7 @@ const haveRealData = fs.existsSync(`${DEFAULT_DATA_DIR}/export/ExportRelics.json
 const candidate = (name) => ({ name });
 
 test('real relic rewards match the repaired Sevagoth Prime OCR phrase', { skip: !haveRealData }, async () => {
-  const { exportsBundle } = await loadRealHarness();
+  const { exportsBundle } = await loadRealHarness({ locale: 'en' });
   const candidates = getAllRelicRewards(exportsBundle);
   const match = fuzzyMatchReward('Sevagoth prime NeuropticsBlueprint', candidates);
 
@@ -17,7 +17,7 @@ test('real relic rewards match the repaired Sevagoth Prime OCR phrase', { skip: 
 });
 
 test('a Neuroptics-only OCR fragment remains unmatched', { skip: !haveRealData }, async () => {
-  const { exportsBundle } = await loadRealHarness();
+  const { exportsBundle } = await loadRealHarness({ locale: 'en' });
   const candidates = getAllRelicRewards(exportsBundle);
 
   assert.equal(fuzzyMatchReward('NeuropticsBlueprint', candidates), null);

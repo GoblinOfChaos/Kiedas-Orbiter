@@ -59,7 +59,7 @@ function violationKind(text) {
 }
 
 test('real data: every catalog acquisition source row is current and renderable', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness()
+  const harness = await loadRealHarness({ locale: 'en' })
   const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import('../../src/lib/acquisitionInfo.js')
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
   const dropIndex = buildDropIndex(harness.exportsBundle)
@@ -90,7 +90,7 @@ test('real data: every catalog acquisition source row is current and renderable'
 })
 
 test('real data: Grimoire routes keep their labels and formatted Standing amount', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness()
+  const harness = await loadRealHarness({ locale: 'en' })
   const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import('../../src/lib/acquisitionInfo.js')
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
   const dropIndex = buildDropIndex(harness.exportsBundle)

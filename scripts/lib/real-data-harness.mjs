@@ -30,6 +30,95 @@ const DEFAULT_DATA_DIR = path.join(os.homedir(), '.local/share/kiedas-orbiter-pr
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'))
 const canonicalPath = (value) => value?.replaceAll('/StoreItems/', '/') || value
 
+const DICT_LOCALE_PROBES = [
+  ['/Lotus/Language/Locations/Mars', 'Mars'],
+  ['/Lotus/Language/Locations/Earth', 'Earth'],
+  ['/Lotus/Language/Items/BlueprintAndItem', '|ITEM| Blueprint'],
+  ['/Lotus/Language/Game/Faction_GrineerUC', 'Grineer'],
+  ['/Lotus/Language/Game/Faction_CorpusUC', 'Corpus'],
+  ['/Lotus/Language/Menu/ItemInventory_SlotsSuit', 'Warframe Slot'],
+]
+
+export function detectDictLocale(dict = {}) {
+  const evidence = DICT_LOCALE_PROBES.map(([key, expected]) => {
+    const actual = dict?.[key]
+    return { key, actual, expected, match: typeof actual === 'string' && actual === expected }
+  })
+  const present = evidence.filter((probe) => typeof probe.actual === 'string')
+  const locale = present.length >= 3 && present.every((probe) => probe.match) ? 'en' : 'other'
+  return { locale, evidence }
+}
+
+function recordsIn(value) {
+  if (!value || typeof value !== 'object') return []
+  if (Array.isArray(value)) return value.filter((entry) => entry && typeof entry === 'object')
+  return Object.values(value).flatMap((child) => Array.isArray(child) ? child.filter((entry) => entry && typeof entry === 'object') : [])
+}
+
+function exportEntries(table) {
+  if (Array.isArray(table)) return table.map((entry) => [entry?.uniqueName || entry?.ItemType, entry]).filter(([key]) => key)
+  return Object.entries(table ?? {})
+}
+
+function loadEnglishRecords(exportDir) {
+  const directories = [exportDir, path.join(exportDir, 'de')]
+  const records = new Map()
+  for (const directory of directories) {
+    if (!fs.existsSync(directory)) continue
+    for (const file of fs.readdirSync(directory).filter((name) => /_en\.json$/.test(name))) {
+      const value = readJson(path.join(directory, file))
+      for (const record of recordsIn(value)) {
+        const uniqueName = canonicalPath(record.uniqueName || record.ItemType)
+        if (uniqueName && !records.has(uniqueName)) records.set(uniqueName, record)
+      }
+    }
+  }
+  return records
+}
+
+function mapEnglishFields(source, english, dict) {
+  if (!source || !english || typeof source !== 'object' || typeof english !== 'object') return
+  for (const [key, value] of Object.entries(source)) {
+    const englishValue = english[key]
+    if (typeof value === 'string' && value.startsWith('/Lotus/Language/') && typeof englishValue === 'string' && !englishValue.startsWith('/Lotus/')) {
+      dict[value] = englishValue
+    }
+  }
+}
+
+function englishBundle(exportsBundle, exportDir) {
+  const englishRecords = loadEnglishRecords(exportDir)
+  const liveDict = exportsBundle.dict ?? exportsBundle['dict.en'] ?? {}
+  const liveLocale = detectDictLocale(liveDict).locale
+  const englishDict = {
+    ...(exportsBundle['supp-dict'] ?? {}),
+    ...(liveLocale === 'en' ? liveDict : {}),
+  }
+  const overlay = { ...exportsBundle, dict: englishDict }
+
+  for (const [tableName, table] of Object.entries(exportsBundle)) {
+    if (!tableName.startsWith('Export')) continue
+    const entries = exportEntries(table)
+    if (!entries.length) continue
+    const cloned = Array.isArray(table) ? [...table] : { ...table }
+    for (const [key, entry] of entries) {
+      if (!entry || typeof entry !== 'object') continue
+      const english = englishRecords.get(canonicalPath(entry.uniqueName || entry.ItemType || key))
+      if (!english) continue
+      mapEnglishFields(entry, english, englishDict)
+      const englishName = typeof english.name === 'string' && !english.name.startsWith('/Lotus/') ? english.name : null
+      const replacement = englishName && (entry.name == null || (typeof entry.name === 'string' && entry.name.startsWith('/Lotus/')))
+        ? { ...entry, name: englishName }
+        : { ...entry }
+      if (Array.isArray(table)) cloned[table.indexOf(entry)] = replacement
+      else cloned[key] = replacement
+    }
+    overlay[tableName] = cloned
+  }
+
+  return overlay
+}
+
 // Every asset-data supplement file MonitoringContext.jsx/
 // MirroredMonitoringProvider.jsx read via `invoke('read_file_bytes', ...)`
 // and fold into `exportData`, keyed exactly as `buildAllAcquisitionIndexes`
@@ -53,7 +142,7 @@ export const HARNESS_SUPPLEMENT_FILES = [
   ['wiki-acquisition-status.json', 'WikiAcquisitionStatus'],
 ]
 
-export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exportDir, assetData, wfcd } = {}) {
+export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exportDir, assetData, wfcd, locale } = {}) {
   const resolvedExportDir = exportDir || path.join(dataDir, 'export')
   const resolvedAssetData = assetData || path.join(repo, 'src-tauri/data/assets/data')
   const resolvedWfcd = wfcd || path.join(repo, 'src-tauri/data/assets/wfcd/wfcd-combined.json')
@@ -71,22 +160,24 @@ export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exp
     const candidate = path.join(resolvedAssetData, file)
     if (fs.existsSync(candidate)) exportsBundle[key] = readJson(candidate)
   }
+  const harnessExports = locale === 'en' ? englishBundle(exportsBundle, resolvedExportDir) : exportsBundle
   const { transformWarframeItems } = await import(path.join(repo, 'src/lib/warframeItemsTransform.js'))
   const { maps, supplement } = transformWarframeItems(readJson(resolvedWfcd))
   const additionsFile = path.join(resolvedAssetData, 'cosmetic-catalog-additions.json')
   const runtimeExports = buildRuntimeExportBundle({
-    exports: exportsBundle,
+    exports: harnessExports,
     wiMaps: maps,
     wiSupplement: supplement,
     cosmeticAdditions: fs.existsSync(additionsFile) ? readJson(additionsFile) : null,
   })
-  return makeHarness(runtimeExports, { dataDir, repo })
+  return makeHarness(runtimeExports, { dataDir, repo, sourceDictLocale: detectDictLocale(exportsBundle.dict ?? exportsBundle['dict.en'] ?? {}).locale })
 }
 
-export function makeHarness(exportsBundle, { dataDir = null, repo = REPO } = {}) {
+export function makeHarness(exportsBundle, { dataDir = null, repo = REPO, sourceDictLocale } = {}) {
   const dict = exportsBundle.dict ?? exportsBundle['dict.en'] ?? {}
   const maps = buildImageMaps(exportsBundle)
-  return { exportsBundle, dict, ...maps, dataDir, repo }
+  const dictLocale = detectDictLocale(dict)
+  return { exportsBundle, dict, ...maps, dictLocale, sourceDictLocale: sourceDictLocale ?? dictLocale.locale, isEnglishDict: dictLocale.locale === 'en', dataDir, repo }
 }
 
 export async function loadRealHarness(options = {}) {

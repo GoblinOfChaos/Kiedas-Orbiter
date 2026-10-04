@@ -31,7 +31,7 @@ function manifestEntries(exportsBundle) {
 }
 
 test('real data: recipe-linked part mastery mirrors its finished item', { skip: !haveRealData }, async () => {
-  const { exportsBundle, dict } = await loadRealHarness()
+  const { exportsBundle, dict } = await loadRealHarness({ locale: 'en' })
   const { parseInventory } = await getParser()
   const raw = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const parsed = parseInventory(raw, exportsBundle, dict, 'en', null)
@@ -45,7 +45,7 @@ test('real data: recipe-linked part mastery mirrors its finished item', { skip: 
 })
 
 test('fixture: injected Atlas mastery removes its unmastered + unowned parts', { skip: !haveRealData }, async () => {
-  const { exportsBundle, dict } = await loadRealHarness()
+  const { exportsBundle, dict } = await loadRealHarness({ locale: 'en' })
   const { parseInventory } = await getParser()
   const live = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const baseline = parseInventory(live, exportsBundle, dict, 'en', null)
@@ -69,7 +69,7 @@ test('fixture: injected Atlas mastery removes its unmastered + unowned parts', {
 })
 
 test('real data: every parsed inventory entry has a resolved image', { skip: !haveRealData }, async () => {
-  const { exportsBundle, dict } = await loadRealHarness()
+  const { exportsBundle, dict } = await loadRealHarness({ locale: 'en' })
   const { parseInventory } = await getParser()
   const raw = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const parsed = parseInventory(raw, exportsBundle, dict, 'en', null)
@@ -86,7 +86,7 @@ test('real data: every parsed inventory entry has a resolved image', { skip: !ha
 })
 
 test('real data: known new Warframe and veiled Riven images use verified sources', { skip: !haveRealData }, async () => {
-  const { exportsBundle, dict } = await loadRealHarness()
+  const { exportsBundle, dict } = await loadRealHarness({ locale: 'en' })
   const { parseInventory } = await getParser()
   const raw = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const entries = manifestEntries(exportsBundle)

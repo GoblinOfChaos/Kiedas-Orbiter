@@ -50,7 +50,7 @@ export function buildFollieFixture(liveInventory) {
 }
 
 async function loadParserContext() {
-  const harness = await loadRealHarness()
+  const harness = await loadRealHarness({ locale: 'en' })
   const parserPath = process.env.P29_INVENTORY_PARSER || path.join(harness.repo, 'src/lib/inventoryParser.js')
   const { parseInventory } = await import(pathToFileURL(parserPath).href)
   return { ...harness, parseInventory }

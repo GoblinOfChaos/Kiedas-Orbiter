@@ -15,7 +15,7 @@ const STRING_OPERATION_MEASUREMENT = {
 const MAX_STRING_OPERATIONS = (Object.values(STRING_OPERATION_MEASUREMENT).reduce((sum, count) => sum + count, 0)) * 3;
 
 test('real data: place index avoids locale normalization and stays within the measured cost bound', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness();
+  const harness = await loadRealHarness({ locale: 'en' });
   const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js');
   const { buildDropIndex } = await import('../../src/lib/dropsParser.js');
   const { buildPreviewPlaceIndex } = await import('../../src/lib/farmingTargets/screenModel.js');

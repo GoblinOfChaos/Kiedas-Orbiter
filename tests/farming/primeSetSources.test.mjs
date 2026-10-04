@@ -20,7 +20,7 @@ async function realDropIndex() {
       out: root,
       cacheDir: process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export',
     })
-    const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root })
+    const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root, locale: 'en' })
     return buildDropIndex(harness.exportsBundle)
   } finally {
     await fs.rm(root, { recursive: true, force: true })
@@ -87,7 +87,7 @@ async function realPrimeSetTooltipContext() {
       out: root,
       cacheDir: process.env.KIEDAS_DE_EXPORT_CACHE || '/home/jedwards/.cache/kiedas-de-export',
     })
-    const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root })
+    const harness = await loadRealHarness({ exportDir: merged.exportDir, dataDir: root, locale: 'en' })
     const { parseInventory } = await import('../../src/lib/inventoryParser.js')
     return {
       parsed: parseInventory({}, harness.exportsBundle, harness.dict, 'en', null),

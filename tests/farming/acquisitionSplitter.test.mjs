@@ -4,7 +4,7 @@ import { loadRealHarness } from '../../scripts/lib/real-data-harness.mjs'
 
 let splitterPromise
 async function splitAcquisitionRouteText(...args) {
-  await (splitterPromise ||= loadRealHarness())
+  await (splitterPromise ||= loadRealHarness({ locale: 'en' }))
   const { splitAcquisitionRouteText: split } = await import('../../src/lib/acquisitionInfo.js')
   return split(...args)
 }

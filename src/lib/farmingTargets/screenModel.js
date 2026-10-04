@@ -6,8 +6,48 @@ import { sortSourcesByChanceInRotations } from '../chanceSort.js';
 import { buildRelicPlaces } from './relicPlaces.js';
 import { resolveAnyImage, resolveMissionType, resolveNode } from '../warframeUtils.js';
 
-const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
-const vendorKey = (value) => lower(value).replaceAll('’', "'").replace(/\s+/g, ' ');
+const CACHE_LIMIT = 8192;
+
+function cacheSet(cache, key, value) {
+  if (cache.size >= CACHE_LIMIT) cache.delete(cache.keys().next().value);
+  cache.set(key, value);
+}
+
+const lower = (value, normalizer) => {
+  if (!normalizer) return String(value ?? '').trim().toLowerCase();
+  normalizer.normalize_calls += 1;
+  const raw = String(value ?? '').trim();
+  if (normalizer.lowerCache.has(raw)) {
+    normalizer.cache_hits += 1;
+    return normalizer.lowerCache.get(raw);
+  }
+  const result = raw.toLowerCase();
+  cacheSet(normalizer.lowerCache, raw, result);
+  return result;
+};
+
+const vendorKey = (value, normalizer) => {
+  if (!normalizer) return lower(value).replaceAll('’', "'").replace(/\s+/g, ' ');
+  normalizer.normalize_calls += 1;
+  const raw = String(value ?? '').trim();
+  if (normalizer.vendorCache.has(raw)) {
+    normalizer.cache_hits += 1;
+    return normalizer.vendorCache.get(raw);
+  }
+  const result = lower(raw, normalizer).replaceAll('’', "'").replace(/\s+/g, ' ');
+  cacheSet(normalizer.vendorCache, raw, result);
+  return result;
+};
+
+function createNormalizer() {
+  return { lowerCache: new Map(), vendorCache: new Map(), normalize_calls: 0, cache_hits: 0 };
+}
+
+const compareText = (a, b) => {
+  const left = String(a ?? '');
+  const right = String(b ?? '');
+  return left < right ? -1 : left > right ? 1 : 0;
+};
 
 const canonicalPath = (value) => typeof value === 'string' ? value.replaceAll('/StoreItems/', '/') : value;
 
@@ -48,28 +88,39 @@ export function parseMarketPurchaseText(text) {
   return { amount, currency: match[2], label: `${amount.toLocaleString('en-US')} ${match[2]}` };
 }
 
-function canonicalVendorName(value, wikiVendorNames) {
+function canonicalVendorName(value, wikiVendors, normalizer, cache) {
   const name = String(value ?? '').trim();
   if (!name) return null;
-  const nameKey = vendorKey(name);
-  const exact = wikiVendorNames.find((candidate) => vendorKey(candidate) === nameKey);
-  if (exact) return exact;
-  const prefixAliases = wikiVendorNames.filter((candidate) => nameKey.startsWith(`${vendorKey(candidate)} `));
-  if (prefixAliases.length === 1) return prefixAliases[0];
-  const aliases = wikiVendorNames.filter((candidate) => {
-    const candidateKey = vendorKey(candidate);
+  if (cache.has(name)) return cache.get(name);
+  const nameKey = vendorKey(name, normalizer);
+  const exact = wikiVendors.find((candidate) => candidate.key === nameKey);
+  if (exact) {
+    cacheSet(cache, name, exact.name);
+    return exact.name;
+  }
+  const prefixAliases = wikiVendors.filter((candidate) => nameKey.startsWith(`${candidate.key} `));
+  if (prefixAliases.length === 1) {
+    cacheSet(cache, name, prefixAliases[0].name);
+    return prefixAliases[0].name;
+  }
+  const aliases = wikiVendors.filter((candidate) => {
+    const candidateKey = candidate.key;
     return nameKey.startsWith(`${candidateKey} in `)
       || nameKey.startsWith(`${candidateKey}'s `)
       || nameKey.startsWith(`${candidateKey} (`)
       || nameKey.startsWith(`${candidateKey} - `);
   });
-  if (aliases.length === 1) return aliases[0];
+  if (aliases.length === 1) {
+    cacheSet(cache, name, aliases[0].name);
+    return aliases[0].name;
+  }
   const searchableName = ` ${nameKey.replace(/[^a-z0-9]+/g, ' ').trim()} `;
-  const contained = wikiVendorNames.filter((candidate) => {
-    const searchableCandidate = ` ${vendorKey(candidate).replace(/[^a-z0-9]+/g, ' ').trim()} `;
-    return searchableName.includes(searchableCandidate);
+  const contained = wikiVendors.filter((candidate) => {
+    return searchableName.includes(candidate.searchable);
   });
-  return contained.length === 1 ? contained[0] : name;
+  const result = contained.length === 1 ? contained[0].name : name;
+  cacheSet(cache, name, result);
+  return result;
 }
 
 function ownedMap(inventoryData) {
@@ -163,8 +214,8 @@ export function sourceType(source) {
   return 'mission';
 }
 
-function sourceName(source) {
-  const provenance = lower(source.source);
+function sourceName(source, normalizer) {
+  const provenance = lower(source.source, normalizer);
   const sourceIsProvenance = provenance === 'drops.wf' || provenance === 'browse.wf' || provenance.endsWith('.wf');
   return source.nodeName ?? source.node ?? source.relicName ?? source.enemyName ?? source.bountyName ??
     source.objectiveName ?? source.syndicateName ?? source.sourceName ?? source.place ?? source.keyName ??
@@ -185,14 +236,14 @@ function regionEntries(regions) {
 // to claim a given lowercased candidate string wins, matching the original
 // `.find()`'s first-match semantics.
 const regionLookupCache = new WeakMap();
-function regionLookup(regions, dict) {
+function regionLookup(regions, dict, normalizer) {
   const cached = regionLookupCache.get(regions);
   if (cached) return cached;
   const map = new Map();
   for (const region of regionEntries(regions)) {
     for (const value of [region.uniqueName, region.name, dict[region.name], dict[`/${region.name}`]]) {
       if (!value) continue;
-      const key = lower(value);
+      const key = lower(value, normalizer);
       if (!map.has(key)) map.set(key, region);
     }
   }
@@ -200,12 +251,12 @@ function regionLookup(regions, dict) {
   return map;
 }
 
-function regionForSource(source, regions, dict) {
+function regionForSource(source, regions, dict, normalizer) {
   if (source?.type !== 'mission') return null;
-  const lookup = regionLookup(regions, dict);
+  const lookup = regionLookup(regions, dict, normalizer);
   for (const candidate of [source.node, source.nodeName, source.name]) {
     if (!candidate) continue;
-    const region = lookup.get(lower(candidate));
+    const region = lookup.get(lower(candidate, normalizer));
     if (region) return region;
   }
   return null;
@@ -230,8 +281,8 @@ function sourceKind(source, type, name, isNode) {
   return 'source-only';
 }
 
-export function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
-  const name = sourceName(source);
+export function sourcePlace(source, itemName, { dict = {}, regions = {}, normalizer } = {}) {
+  const name = sourceName(source, normalizer);
   if (!name) return null;
   const type = sourceType(source);
   const isPlanet = type === 'planet';
@@ -241,7 +292,7 @@ export function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) 
   // regionForSource caches its lookup Map by `regions`' own object identity
   // (regionLookupCache), so this must be the stable object, not a freshly
   // built array per call - otherwise every call misses the cache.
-  const region = regionForSource(source, regions, dict);
+  const region = regionForSource(source, regions, dict, normalizer);
   const isNode = type === 'mission' && Boolean(source.nodeName || source.node || region);
   const kind = sourceKind(source, type, name, isNode);
   const faction = region?.faction ? resolveNode(region.faction, dict, regions) : null;
@@ -249,7 +300,7 @@ export function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) 
     ? resolvedNodeLiteral(source.region ?? source.planet ?? region?.systemName, dict, regions)
     : null;
   return {
-    id: `${type}:${type === 'vendor' ? vendorKey(name) : lower(name)}`,
+    id: `${type}:${type === 'vendor' ? vendorKey(name, normalizer) : lower(name, normalizer)}`,
     name,
     type: pvp ? 'conclave' : type,
     pvp,
@@ -266,22 +317,33 @@ export function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) 
 export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict = {}, regions } = {}) {
   const byItem = new Map();
   const places = new Map();
+  const normalizer = createNormalizer();
   const exportNames = exportItemNames(exportData, dict);
   const wikiVendorNames = [...new Set(
     wikiVendorIndex instanceof Map
       ? [...wikiVendorIndex.values()].flatMap((entries) => Array.isArray(entries) ? entries : [entries]).filter((entry) => typeof entry === 'string')
       : [],
   )];
-  const nameKey = (value) => vendorKey(value).replace(/\s*\|\s*blueprint$/i, '');
+  const wikiVendors = wikiVendorNames.map((name) => {
+    const key = vendorKey(name, normalizer);
+    return { name, key, searchable: ` ${key.replace(/[^a-z0-9]+/g, ' ').trim()} ` };
+  });
+  const vendorNameCache = new Map();
+  const exportNamesByKey = new Map();
+  const nameKey = (value) => vendorKey(value, normalizer).replace(/\s*\|\s*blueprint$/i, '');
+  for (const name of exportNames.values()) {
+    const key = nameKey(name);
+    if (!exportNamesByKey.has(key)) exportNamesByKey.set(key, name);
+  }
   const itemNameForKey = (value) => {
     const canonical = canonicalPath(value);
     if (exportNames.has(canonical)) return exportNames.get(canonical);
     const key = nameKey(value);
-    return [...exportNames.values()].find((name) => vendorKey(name) === key) || null;
+    return exportNamesByKey.get(key) || null;
   };
   const normalizeVendorSource = (source) => {
     if (source?.type !== 'syndicate') return source;
-    const vendor = canonicalVendorName(source.syndicateName, wikiVendorNames);
+    const vendor = canonicalVendorName(source.syndicateName, wikiVendors, normalizer, vendorNameCache);
     return {
       ...source,
       type: 'vendor',
@@ -293,10 +355,10 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
   const add = (item, source) => {
     if (!item || !source) return;
     const normalizedSource = normalizeVendorSource(source);
-    const place = sourcePlace(normalizedSource, item, { dict, regions });
+    const place = sourcePlace(normalizedSource, item, { dict, regions, normalizer });
     if (!place) return;
     if (!places.has(place.id)) places.set(place.id, place);
-    const key = lower(item);
+    const key = lower(item, normalizer);
     if (!byItem.has(key)) byItem.set(key, []);
     const row = {
       placeId: place.id,
@@ -304,7 +366,7 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
       chance: normalizedSource.chance == null ? null : Number(normalizedSource.chance),
       rotation: normalizedSource.rotation ?? null,
       missionType: normalizedSource.missionType ?? null,
-      source: sourceName(normalizedSource),
+      source: sourceName(normalizedSource, normalizer),
       ...(normalizedSource.vendor ? { vendor: normalizedSource.vendor } : {}),
       ...(normalizedSource.price ? { price: normalizedSource.price } : {}),
       ...(normalizedSource.text ? { text: normalizedSource.text } : {}),
@@ -332,7 +394,7 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
   for (const [item, entries] of wikiVendorIndex instanceof Map ? wikiVendorIndex : []) {
     for (const vendor of Array.isArray(entries) ? entries : [entries]) {
       if (typeof vendor !== 'string' || !vendor.trim()) continue;
-      const name = canonicalVendorName(vendor, wikiVendorNames);
+      const name = canonicalVendorName(vendor, wikiVendors, normalizer, vendorNameCache);
       add(item, { type: 'vendor', source: name, vendor: name });
     }
   }
@@ -342,7 +404,7 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
     for (const route of Array.isArray(routes) ? routes : [routes]) {
       const rawVendor = routeVendorName(route);
       if (!rawVendor) continue;
-      const vendor = canonicalVendorName(rawVendor, wikiVendorNames);
+      const vendor = canonicalVendorName(rawVendor, wikiVendors, normalizer, vendorNameCache);
       add(item, {
         type: 'vendor',
         source: vendor,
@@ -383,15 +445,17 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
       });
     }
   }
-  for (const sources of byItem.values()) sources.sort((a, b) => a.placeId.localeCompare(b.placeId));
-  return { byItem, places };
+  for (const sources of byItem.values()) sources.sort((a, b) => compareText(a.placeId, b.placeId));
+  const result = { byItem, places };
+  Object.defineProperty(result, 'stats', { value: { normalize_calls: normalizer.normalize_calls, cache_hits: normalizer.cache_hits }, enumerable: false });
+  return result;
 }
 
 function sourceRowsFor(placeIndex, coveredItems) {
   return coveredItems.map((item) => ({
     ...item,
     sources: sortSourcesByChanceInRotations(
-      [...new Set([item.itemType, item.name].map(lower).filter(Boolean))]
+      [...new Set([item.itemType, item.name].map((value) => lower(value)).filter(Boolean))]
         .flatMap((key) => placeIndex.byItem.get(key) ?? [])
         .filter((source) => source.placeId === item.placeId),
     ),

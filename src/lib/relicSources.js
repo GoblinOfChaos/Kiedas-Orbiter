@@ -1,6 +1,7 @@
 import { getDropSourcesWithFallback } from './dropsParser.js'
 import { chanceValue, sortSourcesByChanceInRotations } from './chanceSort.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
+import { compareText } from './textCompare.js'
 
 const REFINEMENT_SUFFIX = /\s*\((?:Intact|Exceptional|Flawless|Radiant)\)|\s+(?:Intact|Exceptional|Flawless|Radiant)$/i
 const RELIC_NAME = /\b(Lith|Meso|Neo|Axi|Requiem)\s+([A-Z]\d+)\s+Relic\b/i
@@ -132,7 +133,7 @@ function tierSummary(sources) {
     counts.set(source.rarity, (counts.get(source.rarity) || 0) + 1)
   }
   return [...counts.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .sort((a, b) => b[1] - a[1] || compareText(a[0], b[0]))
     .map(([rarity]) => rarity)
 }
 

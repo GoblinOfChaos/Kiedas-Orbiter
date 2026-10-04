@@ -1,7 +1,11 @@
 /** Pure Farm-next coverage ranking.  It makes no yield or time assumptions. */
 
-const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
-const textCompare = (a, b) => String(a).localeCompare(String(b));
+const lower = (value) => String(value ?? '').trim().toLowerCase();
+const textCompare = (a, b) => {
+  const left = String(a);
+  const right = String(b);
+  return left < right ? -1 : left > right ? 1 : 0;
+};
 const tabTypes = {
   missions: new Set(['mission', 'bounty']),
   enemies: new Set(['enemy']),

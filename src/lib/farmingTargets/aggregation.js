@@ -100,7 +100,7 @@ export function buildShoppingList(targets, inventoryData) {
 
   return [...merged.values()]
     .map((entry) => ({ ...entry, remaining: Math.max(0, entry.totalNeed - entry.have) }))
-    .sort((a, b) => b.remaining - a.remaining || a.name.localeCompare(b.name));
+    .sort((a, b) => b.remaining - a.remaining || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
 }
 
 /**

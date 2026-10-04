@@ -10,6 +10,7 @@ import { IS_PREVIEW } from '../lib/buildProfile'
 import { categoryDisplayLabel } from '../lib/categoryLabels'
 import FarmingTargetAction from '../components/FarmingTargetAction'
 import '../preview/acquisition/preview-acquisition.css'
+import { compareText } from '../lib/textCompare'
 
 const CATEGORIES = [
   { id: 'all', labelKey: 'foundry.cat_all', keys: null },
@@ -385,7 +386,7 @@ export default function Foundry() {
       // body/legs/tail parts) belong in every ownership view but never in a
       // mastery-based filter - they can't be "mastered" or "unmastered".
       (masteryFilter === 'all' || (item.masterable === false ? false : (masteryFilter === 'mastered' ? item.mastered : !item.mastered)))
-    )).sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+    )).sort((a, b) => compareText(a.name, b.name))
   }, [items, search, ownershipFilter, readyOnly, masteryFilter])
   // Diagnostic (2026-09-24, Narin parts missing report).
   useEffect(() => {
@@ -419,8 +420,8 @@ export default function Foundry() {
       byGroup.get(group).push(recipe)
     }
     return [...byGroup.entries()]
-      .map(([group, recipes]) => [group, recipes.sort((a, b) => (a.bpName || '').localeCompare(b.bpName || ''))])
-      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([group, recipes]) => [group, recipes.sort((a, b) => compareText(a.bpName, b.bpName))])
+      .sort((a, b) => compareText(a[0], b[0]))
   }, [inventoryData, search])
 
   if (isInventoryLoading) return <PageLayout title={t('nav.foundry')}><MonitorState isLoading className="py-20" /></PageLayout>

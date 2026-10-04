@@ -6,8 +6,12 @@ import {
 
 export const RELIC_REFINEMENTS = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
-const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
-const textCompare = (a, b) => String(a ?? '').localeCompare(String(b ?? ''));
+const lower = (value) => String(value ?? '').trim().toLowerCase();
+const textCompare = (a, b) => {
+  const left = String(a ?? '');
+  const right = String(b ?? '');
+  return left < right ? -1 : left > right ? 1 : 0;
+};
 const canonical = (value) => lower(value).replace('/storeitems/', '/');
 
 function ownedByKey(inventoryData) {

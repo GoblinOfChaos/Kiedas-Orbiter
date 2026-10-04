@@ -7,7 +7,7 @@ export default function PreviewRouteSearch({ activeRouteId, onNavigate, t, uiIco
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(0);
   const inputRef = useRef(null);
-  const normalized = query.trim().toLocaleLowerCase();
+  const normalized = query.trim().toLowerCase();
   const groups = useMemo(() => new Map(PREVIEW_GROUPED_NAV.map((group) => [group.id, group.label])), []);
   const results = useMemo(() => {
     if (!normalized) return [];

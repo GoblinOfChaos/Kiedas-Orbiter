@@ -10,6 +10,7 @@ import { ensureWfmItems, lookupWfmItem, getPriceState } from "../lib/wfmCache";
 import { IS_PREVIEW } from "../lib/buildProfile";
 import { formatNumber } from "../lib/formatNumber";
 import PreviewMarketLayout from "../components/PreviewMarketLayout";
+import { compareText } from "../lib/textCompare";
 import {
   TrendingUp,
   Package,
@@ -559,7 +560,7 @@ export default function Market({ onNavigate }) {
       if (stockSort === "plat_desc") return (b.platPrice || 0) - (a.platPrice || 0);
       if (stockSort === "owned_desc") return (b.quantity || 0) - (a.quantity || 0);
       if (stockSort === "ducats_desc") return (b.ducats || 0) - (a.ducats || 0);
-      if (stockSort === "name_asc") return a.name.localeCompare(b.name);
+      if (stockSort === "name_asc") return compareText(a.name, b.name);
       return 0;
     });
 

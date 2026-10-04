@@ -26,6 +26,7 @@ import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import { formatNumber } from '../lib/formatNumber';
 import PreviewMasteryLayout from '../components/PreviewMasteryLayout';
+import { compareText } from '../lib/textCompare';
 
 // Each MR1–30 rank costs a flat 75,000 XP. Cumulative at MR30 = 2,250,000.
 // Legendary ranks (MR31+) each cost 147,500 XP.
@@ -556,7 +557,7 @@ export default function Mastery() {
                 if (!bySystem[n.system]) bySystem[n.system] = [];
                 bySystem[n.system].push(n);
               });
-              return Object.entries(bySystem).sort(([a], [b]) => a.localeCompare(b)).map(([sys, sysNodes]) => {
+              return Object.entries(bySystem).sort(([a], [b]) => compareText(a, b)).map(([sys, sysNodes]) => {
                 const done = selectedCategory.nodeType === 'sp' ?
                 sysNodes.filter((n) => n.sp_played).length :
                 sysNodes.filter((n) => n.played).length;
@@ -565,7 +566,7 @@ export default function Mastery() {
                         <p className="text-[10px] font-black text-kronos-accent uppercase tracking-widest mt-4 mb-1">
                           {sys} <span className="text-kronos-dim font-normal normal-case">({done}/{sysNodes.length})</span>
                         </p>
-                        {sysNodes.sort((a, b) => a.name.localeCompare(b.name)).map((node) => {
+                        {sysNodes.sort((a, b) => compareText(a.name, b.name)).map((node) => {
                       const completed = selectedCategory.nodeType === 'sp' ? node.sp_played : node.played;
                       const hasXP = node.mastery_xp > 0;
                       return (
@@ -601,7 +602,7 @@ export default function Mastery() {
             selectedCategory.items && selectedCategory.items.length > 0 ?
             selectedCategory.items.
             slice().
-            sort((a, b) => a.mastered === b.mastered ? a.name.localeCompare(b.name) : a.mastered ? 1 : -1).
+            sort((a, b) => a.mastered === b.mastered ? compareText(a.name, b.name) : a.mastered ? 1 : -1).
             map((item, idx) =>
             <div
               key={item.unique_name || item.name || idx}

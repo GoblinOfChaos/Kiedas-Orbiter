@@ -11,6 +11,7 @@ import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionD
 import ItemImage from '../components/ItemImage'
 import { IS_PREVIEW } from '../lib/buildProfile'
 import PreviewCosmeticsLayout from '../components/PreviewCosmeticsLayout'
+import { compareText } from '../lib/textCompare'
 
 const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
@@ -318,7 +319,7 @@ export default function Cosmetics() {
     const dir = sortDirection === 'desc' ? -1 : 1
     return items
       .filter((item) => (!q || item.name.toLowerCase().includes(q)) && (kindFilter === 'all' || item.type.toLowerCase() === kindFilter) && (ownershipFilter === 'all' || (ownershipFilter === 'owned' ? item.owned : !item.owned)) && (kindFilter !== 'animation' || animationTierFilter === 'all' || item.ownershipTier === animationTierFilter))
-      .sort((a, b) => a.name.localeCompare(b.name) * dir)
+      .sort((a, b) => compareText(a.name, b.name) * dir)
   }, [items, search, kindFilter, ownershipFilter, animationTierFilter, sortCriteria, sortDirection])
 
   // The page scroll area is shared with the header controls, so measure the

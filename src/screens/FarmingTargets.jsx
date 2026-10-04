@@ -271,7 +271,7 @@ export default function FarmingTargets() {
   const previewPlaceIndex = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.place_index.build', () => buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }), {
     startSpanFn: startSpan,
     payload: { source_items: Object.keys(dropIndex ?? {}).length },
-    size: (index) => ({ places: index.places.size, sources: [...index.byItem.values()].reduce((count, rows) => count + rows.length, 0) }),
+    size: (index) => ({ places: index.places.size, sources: [...index.byItem.values()].reduce((count, rows) => count + rows.length, 0), ...index.stats }),
   }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData]);
   const screenModel = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.model.build', () => buildFarmingTargetsScreenModel({
       targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },

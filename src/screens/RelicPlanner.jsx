@@ -8,6 +8,7 @@ import { useUi } from '../contexts/UiContext';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewRelicPlannerLayout from '../components/PreviewRelicPlannerLayout';
 import FarmingTargetAction from '../components/FarmingTargetAction';
+import { compareText } from '../lib/textCompare';
 
 export default function RelicPlanner() {
   const { t, locale } = useUi();
@@ -41,7 +42,7 @@ export default function RelicPlanner() {
     if (!exportData) return [];
     return getAllRelicRewards(exportData, locale)
       .filter((part) => part.isPrimePart || /Forma(?:Blueprint)?$/i.test(part.uniqueName || ''))
-      .sort((a, b) => a.name.localeCompare(b.name));
+      .sort((a, b) => compareText(a.name, b.name));
   }, [exportData, locale]);
 
   const relicCatalog = useMemo(() => getRelicCatalog(exportData, locale), [exportData, locale]);

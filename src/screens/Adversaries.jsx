@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useUi } from '../contexts/UiContext'
 import { PageLayout, Card } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
+import { compareText } from '../lib/textCompare';
 import { convertFileSrc, invoke } from '../lib/logging/tauri';
 import { resolveItemName } from '../lib/warframeUtils';
 
@@ -95,7 +96,7 @@ export default function Adversaries() {
         seen.add(key);
         return true;
       })
-      .sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      .sort((a, b) => compareText(a.name, b.name));
   }, [inventoryData]);
 
   const displayed = useMemo(() => {

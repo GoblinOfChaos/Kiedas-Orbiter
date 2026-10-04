@@ -54,5 +54,5 @@ export function routeSearchText(item, translatedLabel, groupLabel) {
   return [translatedLabel, item.label, item.id.replaceAll('-', ' '), groupLabel]
     .filter(Boolean)
     .join(' ')
-    .toLocaleLowerCase();
+    .toLowerCase();
 }

@@ -16,16 +16,19 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #55 Prime extractors appear twice with different information (item as a part, Blueprint as a prime part) (reported 2026-10-03). Verified on real data, NO fix started
 - [ ] #56 Consistency across all drawers (your principle, 2026-10-03): proposal for one shared contract plus an audit test over every item; waiting for your go
 - [ ] #57 Acquisition text must say how to get the item NOW, never its history or update numbers (your rule, 2026-10-03). Applies to the extractor Primes, Alloy Plate, Forma and every wiki-derived entry. NO work started; part of the consistency plan (#56)
+- [ ] #58 Rivens filters at a small width: the funnel and sort icons sit alone on their own line, the buttons wrap below (reported 2026-10-03, from the #41 change). Cause verified, NO fix started
+- [ ] #59 Farming Targets: the Vendor tab shows nothing; the place list builds only one generic "Vendor" place because the wiki vendor list holds names, not objects (reported 2026-10-03). Verified on real data, NO fix started
+- [ ] #60 Farming Targets Target Inspector: for a target you already own it shows nothing and does not list what is needed to build it (reported 2026-10-03). Needs your decision (my recommendation: always list the full requirements, owned ones ticked)
 - [x] #36 / #39 Prime drawers (Akarius Prime, Ash Prime, Citrine Prime): "Crafting requirements" has a "1x ... Blueprint" row listing its relics once each with (Common/Uncommon/Rare); Ash Prime no longer says "Market Blueprint: 25,000 Credits"
 - [x] #9 Ash Prime Neuroptics / Chassis / Systems rows and Citrine Prime Blueprint, Acceltra Prime: each relic once with its tier, no Intact/Exceptional/Flawless/Radiant, no percentages, no raw key like `ui.relic_rarity.rare`
 - [ ] #8 Orokin Cell drawer: the Blueprint row says it is a Market purchase for 100 Platinum, not the enemy-drop text; Forma Blueprint and Prime part drawers still list their drops
 - [ ] #38 Resource drawers: Alloy Plate lists all 10 mission rows and the line "found on Venus, Jupiter, Sedna, Ceres, Phobos, Pluto and the Zariman Ten Zero"; spot-check two or three other resources (Ferrite, Nano Spores, Plastids)
 - [ ] #34 Inventory: search "Extractor": four entries (Titan, Titan Prime, Distilling, Distilling Prime), the Distilling Extractor marked owned, each with an image; the two Prime extractor drawers list several wiki source rows
 - [x] #33 Inventory top strip: no vertical scrollbar; hovering Forma still shows the breakdown (Forma, Aura, Stance, Umbra)
-- [ ] #41 Rivens page: the state, sort and weapon-type filters wrap onto more lines and have NO horizontal scrollbar; tell me if a scrollbar is still under the cards
-- [ ] #40 Market page with the window under 1050px wide: the "Active Orders" and "Tradeable Stock" tabs are fully visible
-- [ ] #42 History: hover over the chart points; the screen no longer crashes
-- [ ] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes
+- [x] #41 Rivens page: the state, sort and weapon-type filters wrap onto more lines and have NO horizontal scrollbar; tell me if a scrollbar is still under the cards
+- [x] #40 Market page with the window under 1050px wide: the "Active Orders" and "Tradeable Stock" tabs are fully visible
+- [x] #42 History: hover over the chart points; the screen no longer crashes
+- [x] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes
 
 ## Step 2 - Switch the app language (about 5 minutes)
 

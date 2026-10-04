@@ -1660,6 +1660,7 @@
     "foundry.group_keys_quest": "鑰匙和任務物品",
     "foundry.group_other": "其他",
     "foundry.blueprints_owned": "{count} 張藍圖",
+    "foundry.being_built": "建造中",
     "acquisition_drawer.sources_count_one": "{count} 個來源",
     "ui.dashboard.circuit_title": "The Circuit"
   },

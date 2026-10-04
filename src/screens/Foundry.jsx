@@ -293,6 +293,7 @@ export function RecipeDrawer({ item, recipe, onClose, t, variant = 'drawer' }) {
                 <span className="text-[11px] flex-1 whitespace-normal break-words">{ingredient.name}</span>
                 <span className="flex flex-col items-end shrink-0">
                   <span className={`text-[10px] font-black ${complete ? 'text-emerald-400' : 'text-red-400'}`}>{formatCount(ingredient.have)}/{formatCount(ingredient.need)}</span>
+                  {ingredient.building > 0 && <span className="text-[9px] font-black text-kronos-accent">{t('foundry.being_built')}</span>}
                   {ingredient.isComponent && ingredient.have < ingredient.need && ingredient.bpOwned > 0 && <span className="text-[9px] font-black text-amber-300">{t('foundry.blueprints_owned', { count: formatCount(ingredient.bpOwned) })}</span>}
                 </span>
               </div>

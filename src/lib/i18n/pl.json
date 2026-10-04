@@ -1641,6 +1641,7 @@
     "foundry.group_keys_quest": "Klucze",
     "foundry.group_other": "Inne",
     "foundry.blueprints_owned": "{count} schematów",
+    "foundry.being_built": "W trakcie budowy",
     "settings.vision_deuteranopia": "Ślepota na zieleń (deuteranopia)",
     "settings.vision_protanopia": "Ślepota na czerwień (protanopia)",
     "settings.ee_log_auto_detect": "Automatyczne wykrywanie",

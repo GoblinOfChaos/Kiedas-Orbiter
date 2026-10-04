@@ -1648,6 +1648,7 @@
     "foundry.group_keys_quest": "Chaves",
     "foundry.group_other": "Outros",
     "foundry.blueprints_owned": "{count} BP",
+    "foundry.being_built": "Em construção",
     "settings.hotkey_action_grade_rivens": "Avaliar Rivens",
     "ui.riven_prompt.title": "AVALIAÇÃO DE RIVEN PRONTA",
     "ui.riven_prompt.press": "Pressione",

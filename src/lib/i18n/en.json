@@ -1273,6 +1273,7 @@
     "foundry.recipe_requirements": "Recipe requirements",
     "foundry.main_blueprint": "Main Blueprint",
     "foundry.blueprints_owned": "{count} BP",
+    "foundry.being_built": "Being built",
     "foundry.ready_to_craft": "Ready to craft",
     "foundry.missing_ingredients": "Missing ingredients",
     "foundry.missing_blueprint": "Missing blueprint",

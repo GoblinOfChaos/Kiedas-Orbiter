@@ -4,6 +4,7 @@ import { Tooltip } from './UI'
 import { convertFileSrc } from '../lib/logging/tauri'
 import { formatChance } from './AcquisitionDrawer'
 import { getCachedPrimeSetPartSources } from '../lib/primeSetParts'
+import { buildRelicTooltipRows } from '../lib/relicSources'
 
 export function getPrimeSetPartLabel(setName, partName) {
   const name = partName ?? ''
@@ -12,7 +13,7 @@ export function getPrimeSetPartLabel(setName, partName) {
   return name
 }
 
-function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, uiPath, resolveImgFallback, toggle, t }) {
+function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, relicRarityIndex, uiPath, resolveImgFallback, toggle, t }) {
   const isParentOwned = set.owned
   const isParentMastered = set.mastered
   const partsMet = set.parts.filter((p) => (p.crafted !== undefined ? p.crafted >= (p.need ?? 1) : p.quantity >= (p.need ?? 1))).length
@@ -54,6 +55,7 @@ function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, uiPath, res
           const need = part.need ?? 1
           const met = part.crafted !== undefined ? part.crafted >= need : part.quantity >= need
           const partSources = getCachedPrimeSetPartSources(part, dropIndex)
+          const relicRows = buildRelicTooltipRows(partSources, { rarityIndex: relicRarityIndex, itemType: part.unique_name, t })
           const partPrice = primePrices?.[part.unique_name] ?? 0
           return <div key={pi} className={`flex min-w-0 flex-col items-center justify-center gap-1.5 ${partCellPadding} h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative break-words`}>
             <div className="w-full h-5 flex items-center justify-center">
@@ -63,7 +65,7 @@ function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, uiPath, res
             <div className="w-14 max-w-full h-14 flex items-center justify-center flex-shrink-0 relative"><ItemImage src={part.image} alt="" className="max-w-full max-h-full object-contain" placeholderClassName="w-7 h-7 rounded bg-white/5" resolveFallbackSrc={resolveImgFallback} />{part.isBlueprint && <img src={uiPath ? convertFileSrc(`${uiPath}/BlueprintOverlay.png`) : ''} alt="" className="absolute inset-0 w-full h-full object-contain" />}</div>
             <p className="text-[12px] font-medium text-kronos-dim text-center leading-tight w-full min-w-0 px-1 whitespace-normal break-words">{getPrimeSetPartLabel(set.name, part.name)}</p>
             {part.crafted !== undefined ? (part.crafted > 0 || part.quantity > 0) && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{part.crafted} crafted ({part.quantity}{t('ui.relic_reward.bp')}{part.quantity > 1 ? 's' : ''})</span> : part.quantity > 0 && <span className={`text-[10px] font-black ${met ? 'text-green-400' : 'text-red-400'}`}>{part.quantity}</span>}
-            {partSources.length > 0 && <Tooltip position="bottom" content={<div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1"><p className="text-[9px] font-black uppercase text-kronos-accent">{t('ui.inventory.drop_sources')}</p>{partSources.filter((s) => s.type === 'relic').slice(0, 6).map((s, si) => <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase() : ''})</p>)}{partSources.filter((s) => s.type === 'enemy').slice(0, 3).map((s, si) => <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}</p>)}</div>}><span className="min-w-0 max-w-full break-words text-[8px] font-black uppercase text-kronos-dim/50 cursor-help hover:text-kronos-accent transition-colors leading-none">{t('ui.inventory.sources')}</span></Tooltip>}
+            {(relicRows.length > 0 || partSources.some((source) => source.type === 'enemy')) && <Tooltip position="bottom" content={<div className="max-w-[260px] max-h-[200px] overflow-y-auto space-y-1"><p className="text-[9px] font-black uppercase text-kronos-accent">{t('ui.inventory.drop_sources')}</p>{relicRows.slice(0, 6).map((row, si) => <p key={`r-${si}`} className="text-[9px] text-kronos-text leading-tight">{row.label}</p>)}{partSources.filter((s) => s.type === 'enemy').slice(0, 3).map((s, si) => <p key={`e-${si}`} className="text-[9px] text-kronos-text leading-tight">{s.enemyName}{s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}</p>)}</div>}><span className="min-w-0 max-w-full break-words text-[8px] font-black uppercase text-kronos-dim/50 cursor-help hover:text-kronos-accent transition-colors leading-none">{t('ui.inventory.sources')}</span></Tooltip>}
           </div>
         })}
       </div>

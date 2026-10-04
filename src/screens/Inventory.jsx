@@ -30,6 +30,7 @@ import { sortByChanceDesc, sortSourcesByChanceInRotations } from '../lib/chanceS
 import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 import PrimeSetCard from '../components/PrimeSetCard';
 import { getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualRootHeight, getVirtualScrollMaximum, settleScrollJump } from '../lib/inventoryScroll.js';
+import { buildRelicRarityIndex, buildRelicTooltipRows } from '../lib/relicSources.js';
 
 
 
@@ -214,6 +215,7 @@ export default function Inventory() {
     ayatan: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'quantity', label: t('ui.inventory.sort_count') }]
   };
   const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
+  const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
@@ -1380,6 +1382,7 @@ export default function Inventory() {
                 primePrices={primePrices}
                 isPriceLoading={isPriceLoading}
                 dropIndex={dropIndex}
+                relicRarityIndex={relicRarityIndex}
                 uiPath={uiPath}
                 resolveImgFallback={resolveImgFallback}
                 toggle={toggle}
@@ -1716,7 +1719,8 @@ export default function Inventory() {
                         {/* Drop sources */}
                         {(() => {
                       const itemNorm = item.unique_name ? item.unique_name.replace('/StoreItems/', '/') : '';
-                      const itemSources = dropIndex?.[itemNorm] || dropIndex?.['display:' + (item.name || '').toLowerCase().trim()] || [];
+                      const itemBlueprintNorm = itemNorm.replace(/Component$/i, 'Blueprint');
+                      const itemSources = dropIndex?.[itemNorm] || dropIndex?.[itemBlueprintNorm] || dropIndex?.['display:' + (item.name || '').toLowerCase().trim()] || [];
                       if (itemSources.length === 0) return null;
                       const dedupKey = (s) => {
                         if (s.type === 'mission') return 'm:' + s.nodeName + '|' + (s.rotation || '');
@@ -1728,7 +1732,7 @@ export default function Inventory() {
                       const seen = {};
                       const uniq = itemSources.filter((s) => {const k = dedupKey(s);if (seen[k]) return false;seen[k] = true;return true;});
                       const missionSources = sortMissionRotationGroups(uniq.filter((s) => s.type === 'mission')).slice(0, 5);
-                      const relicSources = sortByChanceDesc(uniq.filter((s) => s.type === 'relic')).slice(0, 5);
+                      const relicSources = buildRelicTooltipRows(sortByChanceDesc(uniq.filter((s) => s.type === 'relic')), { rarityIndex: relicRarityIndex, itemType: item.unique_name, t }).slice(0, 5);
                       const enemySources = sortByChanceDesc(uniq.filter((s) => s.type === 'enemy')).slice(0, 4);
                       const bountySources = sortByChanceDesc(uniq.filter((s) => s.type === 'bounty')).slice(0, 3);
                       const otherSources = sortByChanceDesc(uniq.filter((s) => !['mission', 'relic', 'enemy', 'bounty'].includes(s.type))).slice(0, 3);
@@ -1753,8 +1757,8 @@ export default function Inventory() {
                                   {relicSources.length > 0 &&
                             <div>
                                       <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">{t('nav.relics')}</p>
-                                      {relicSources.map((s, i) =>
-                              <p key={`r-${i}`} className="text-[10px] text-kronos-text leading-tight">{s.relicName || s.relicManifest} ({s.rarity ? s.rarity.charAt(0).toUpperCase() + s.rarity.slice(1).toLowerCase() : ''})</p>
+                                      {relicSources.map((row, i) =>
+                              <p key={`r-${i}`} className="text-[10px] text-kronos-text leading-tight">{row.label}</p>
                               )}
                                     </div>
                             }

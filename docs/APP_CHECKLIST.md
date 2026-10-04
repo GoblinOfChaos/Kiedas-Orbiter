@@ -33,7 +33,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## From your checks of the 18:01 build: all FIXED in the 20:40 build you have now (waiting for your in-app check)
 
-- [ ] #51 Prime part drawers: Common/Uncommon/Rare tier per relic. FIXED, in your 20:40 build. Check: Nidus Prime and Nyx Prime show each part's real tier (Nidus Prime Chassis: Rare); also hover a part on a Prime Sets card and tell me if its tier looks wrong (that tooltip uses a different path)
+- [ ] #51 Prime part drawers: Common/Uncommon/Rare tier per relic. FIXED, in your 20:40 build. Check: Nidus Prime and Nyx Prime show each part's real tier (Nidus Prime Chassis: Rare); also hover a part on a Prime Sets card (Sources) and an item's Drop sources: the tiers now match the drawer and are in your language (merged after the 20:40 build, in the next build)
 - [ ] #52 Orokin Cell and other resource drawers: no bare "Mission" rows. FIXED, in your 20:40 build. Check: Orokin Cell and Alloy Plate show named nodes with rotation and chance, at most 40 rows, and a collapsed 'more places' group
 - [ ] #53 Forma drawer. FIXED, in your 20:40 build. Check: Forma and Forma Blueprint show about 20 rows, a '565 relics' group, and clean Blueprint sentences with prices
 - [ ] #54 Wiki text with template residue. FIXED, in your 20:40 build. Check: Alloy Plate has clean sentences, no 'Beginning in 9', no sentence with a missing price

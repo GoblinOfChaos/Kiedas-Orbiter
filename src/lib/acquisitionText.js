@@ -6,11 +6,16 @@ const HISTORICAL_PATTERNS = [
   /\b(?:originally|first\s+available|formerly|previously|returned|came\s+back|was\s+first|were\s+first)\b/i,
   /\b(?:was|were)\s+(?:available|awarded|offered|rewarded|introduced|given|received|obtained|sold|included|a\s+reward)\b/i,
   /\b(?:until|since)\s+(?:the\s+)?(?:date|\d|january|february|march|april|may|june|july|august|september|october|november|december)/i,
+  /\b(?:offered|available)\s+on\s+\d+\s+(?:recorded\s+)?visits\b/i,
+  /\b(?:was|were)\b/i,
+  /\b(?:initially|retired|unreleased)\b/i,
+  /\b(?:limited-time|limited time)\b/i,
+  /\b(?:released|introduced)\s+in\s+commemoration\b/i,
+  /\b(?:nora['’]s\s+mix|nightwave)\b[\s\S]*\brank\s+\d+/i,
   /\bbeginning\s+(?:in|with)\b/i,
   /\bupdate\s*\d+/i,
   /\bversion\s*\d+/i,
   /\boperation\s*:/i,
-  /\branks?\s+\d+/i,
   /\b(?:series\s+\d|intermission\s+[ivx]+)\b/i,
 ]
 
@@ -99,6 +104,7 @@ function stripWikiMarkup(value) {
     .replace(/\[\[([^\]]+)\]\]/g, '$1')
     .replace(/\[https?:\/\/\S+\s+([^\]]+)\]/g, '$1')
     .replace(/\[https?:\/\/[^\]]+\]/g, '')
+    .replace(/(?<=[A-Za-z])_+(?=[A-Za-z])/g, ' ')
     .replace(/'''?/g, '')
     .replace(/''/g, '')
     .replace(/__[A-Z]+__/g, '')
@@ -128,7 +134,7 @@ function splitSentences(rawText) {
 }
 
 function isUnclean(sentence) {
-  return /{{|}}|\[\[|\]\]|\bfor\s*[.,]|\b(?:and|or)\s+(?:and|or)\s*[.,]/i.test(sentence)
+  return /{{|}}|\[\[|\]\]|\bfor\s*[.,]|\bfor\s*$|\b(?:price|costs?)\s*[.]$|\b(?:and|or)\s+(?:and|or)\s*[.,]|^[^.!?]{1,60}:$|^Mission$|\b(?:the\s+)?contents?\s+of\s+the\s+[^.?!:]{1,80}\s+(?:are|is)\s+as\s+follows:?$/i.test(sentence)
 }
 
 export function toCurrentSourceSentences(rawText) {

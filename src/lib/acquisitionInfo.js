@@ -13,7 +13,8 @@ import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-
 import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wiki-extractor-acquisition.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 import { normalizeRelicSources } from './relicSources.js';
-import { toCurrentSourceSentences } from './acquisitionText.js';
+import { bareAcquisitionCategoryKey, getAcquisitionTextAuditCounts, isBareAcquisitionCategory, toCurrentSourceSentences } from './acquisitionText.js';
+import { debug } from './logging/logger.js';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 // wiki-resources-acquisition.json stores each entry as a plain location
@@ -117,9 +118,9 @@ function normalizeDisplayName(value) {
 
 // The Warframe/weapon acquisition table contains concise, verified route
 // fragments such as "Market (35,000 Credits) or Simaris". Keep each fragment
-// as its own source row without inventing a new route description. Separators
-// inside parentheses (for example the comma in "35,000") are deliberately
-// left intact.
+// as its own source row without inventing a new route description. Commas are
+// never route separators: they commonly belong to prices or to the continuation
+// of the same sentence ("..., although ...").
 export function splitAcquisitionRouteText(value) {
   if (typeof value !== 'string' || !value.trim()) return [];
   const routes = [];
@@ -135,17 +136,17 @@ export function splitAcquisitionRouteText(value) {
     if (text[i] === '(') depth += 1;
     else if (text[i] === ')' && depth > 0) depth -= 1;
     if (depth !== 0) continue;
+    if (/[.!?]/.test(text[i]) && /\s/.test(text[i + 1] || '')) {
+      push(i + 1);
+      continue;
+    }
     const rest = text.slice(i);
-    const separator = rest.match(/^(?:\s+or\s+|\s+\/\s+|;\s+)/i);
+    const separator = rest.match(/^(?:\s+or\s+|\s*;\s*|\s*\/\s+)/i);
     if (separator) {
       push(i);
       i += separator[0].length - 1;
       start = i + 1;
       continue;
-    }
-    if (text[i] === ',' && !/^,\s*(?:or\b|\d)/i.test(rest)) {
-      push(i);
-      start = i + 1;
     }
   }
   push(text.length);
@@ -172,10 +173,26 @@ function routeKey(text) {
 }
 
 function cleanSourceRows(sources) {
-  return (sources || []).flatMap((source) => {
+  const cleaned = (sources || []).flatMap((source) => {
     if (typeof source?.text !== 'string') return [source];
     const text = toCurrentSourceSentences(source.text).join(' ');
     return text ? [{ ...source, text }] : [];
+  });
+  // A compact table can say only "Invasions" while the same drawer also has
+  // a verified sentence naming the reward. Keep the sentence and remove the
+  // redundant category row so the first route answers "how" immediately.
+  const fullerCategories = new Set();
+  for (const source of cleaned) {
+    if (isBareAcquisitionCategory(source?.text)) continue;
+    for (const category of ['invasions', 'syndicate', 'glyph', 'sigil', 'simaris']) {
+      const pattern = category === 'invasions' ? /\binvasion(?:s)?\b/i : new RegExp(`\\b${category}\\b`, 'i');
+      if (pattern.test(source?.text || '')) fullerCategories.add(category);
+    }
+  }
+  return cleaned.filter((source, index) => {
+    if (!isBareAcquisitionCategory(source?.text)) return true;
+    const category = bareAcquisitionCategoryKey(source.text);
+    return !fullerCategories.has(category);
   });
 }
 
@@ -1040,6 +1057,10 @@ export function buildExportComponentIndex(exportData) {
 // consumer (the completeness harness) should call this instead of
 // duplicating the useMemo list.
 export function buildAllAcquisitionIndexes(exportData) {
+  const textAudit = getAcquisitionTextAuditCounts();
+  // The real frontend has the Tauri logging transport; headless real-data
+  // tests intentionally run without that transport.
+  if (typeof window !== 'undefined') debug('state.parse.acquisition_audit', textAudit, { phase: 'complete', source: 'frontend' });
   return {
     recipeResultIndex: buildRecipeResultIndex(exportData),
     exaltedWeaponIndex: buildExaltedWeaponIndex(exportData),

@@ -20,33 +20,31 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 3 - A little scrolling and clicking (about 5 minutes)
 
-- [x] #46 / #15 Inventory list: click in the list and press End, Home, Page Down, Page Up (they scroll; typing in the search box still works); scroll down and maximize the window (the list stays where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it, a small one-time shift when the first row is measured is expected)
 - [ ] #45 After using the app for a while open the log and search for `parseInventory worker call failed`: it should be gone; tell me if the Inventory ever looks empty or stale after starting
 
 ## Step 4 - Needs Warframe running
 
 - [ ] #44 / #23 Relic mission with duplicate rewards (two of the same item): every card is recognized, none say UNRECOGNIZED (the Yareli Prime Chassis and Akbronco cases) (R)
-- [x] #28 After a session with the game open, the log does not fill with `[FOCUS_WATCHER] transition` lines every half second (coordinator count 2026-10-03: 26 in 1.5 hours with the old build 795d0a7, versus 459 in a day before; your call to tick)
 
 ## Step 5 - Needs you to send me something
 
 - [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
-- [ ] #48 1999 Calendar upgrade names (reported 2026-10-03): the app shows path-derived English text; the real names are the Hex Boosts (Bottled Lightning = "Abgefüllter Blitz", Thick Skin = "Dicke Haut", Toxic Shot, ...). Your German screenshot and the official wiki settled it; fix proposed (verified name file, English wiki name when no German text is verified yet, type label "Hex Boost" / "Hex-Boost Modifikator"), NOT started. Each other upgrade's German name needs one screenshot from you when you see it
-- [x] #43 Wiki tab blank after a crash: if it happens again, send me the log file before restarting the app
+- [ ] #48 1999 Calendar upgrade names (reported 2026-10-03): the app shows path-derived English text; the real names are the Hex Boosts (Bottled Lightning = "Abgefüllter Blitz", Thick Skin = "Dicke Haut", Toxic Shot, ...). Your German screenshot and the official wiki settled it; fix proposed (verified name file, English wiki name when no German text is verified yet, type label "Hex Boost" / "Hex-Boost Modifikator"), NOT started. Each other upgrade's German name needs one screenshot from you when you see it [IN PROGRESS 2026-10-03 20:13: Codex job P15 is writing the fix; it will be in the next build, not the 18:01 one]
 
 ## New findings from your checks of the 18:01 build (not fixed yet; waiting for your go)
 
-- [ ] #51 Prime part drawers show wrong Common/Uncommon/Rare tiers (Nidus Prime all Uncommon, Nyx Prime wrong) (reported 2026-10-03, build 18:01). Cause verified on real data (lookup key mismatch, then an unreliable bundled label), NO fix started
-- [ ] #52 Orokin Cell (and other resource) drawers: hundreds of rows that just say "Mission" (reported 2026-10-03; regression from the resource job). Cause partly verified, NO fix started
-- [ ] #53 Forma drawer: 4,593 other sources, a wall of wiki text with missing prices in the Blueprint row (reported 2026-10-03). Measured, NO fix started
-- [ ] #54 Wiki text with unresolved templates, e.g. Alloy Plate "Beginning in 9 materials could be purchased ... for Platinum." (reported 2026-10-03). Cause verified, NO fix started
-- [ ] #55 Prime extractors appear twice with different information (item as a part, Blueprint as a prime part) (reported 2026-10-03). Verified on real data, NO fix started
+- [ ] #51 Prime part drawers show wrong Common/Uncommon/Rare tiers (Nidus Prime all Uncommon, Nyx Prime wrong) (reported 2026-10-03, build 18:01). Cause verified on real data (lookup key mismatch, then an unreliable bundled label), NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P19 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #52 Orokin Cell (and other resource) drawers: hundreds of rows that just say "Mission" (reported 2026-10-03; regression from the resource job). Cause partly verified, NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P19 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #53 Forma drawer: 4,593 other sources, a wall of wiki text with missing prices in the Blueprint row (reported 2026-10-03). Measured, NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P19 + P20 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #54 Wiki text with unresolved templates, e.g. Alloy Plate "Beginning in 9 materials could be purchased ... for Platinum." (reported 2026-10-03). Cause verified, NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P20 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #55 Prime extractors appear twice with different information (item as a part, Blueprint as a prime part) (reported 2026-10-03). Verified on real data, NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P19 is writing the fix; it will be in the next build, not the 18:01 one]
 - [ ] #56 Consistency across all drawers (your principle, 2026-10-03): proposal for one shared contract plus an audit test over every item; waiting for your go
-- [ ] #57 Acquisition text must say how to get the item NOW, never its history or update numbers (your rule, 2026-10-03). Applies to the extractor Primes, Alloy Plate, Forma and every wiki-derived entry. NO work started; part of the consistency plan (#56)
-- [ ] #58 Rivens filters at a small width: the funnel and sort icons sit alone on their own line, the buttons wrap below (reported 2026-10-03, from the #41 change). Cause verified, NO fix started
-- [ ] #59 Farming Targets: the Vendor tab shows nothing; the place list builds only one generic "Vendor" place because the wiki vendor list holds names, not objects (reported 2026-10-03). Verified on real data, NO fix started
+- [ ] #57 Acquisition text must say how to get the item NOW, never its history or update numbers (your rule, 2026-10-03). Applies to the extractor Primes, Alloy Plate, Forma and every wiki-derived entry. NO work started; part of the consistency plan (#56) [IN PROGRESS 2026-10-03 20:13: Codex job P20 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #58 Rivens filters at a small width: the funnel and sort icons sit alone on their own line, the buttons wrap below (reported 2026-10-03, from the #41 change). Cause verified, NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P16 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #59 Farming Targets: the Vendor tab shows nothing; the place list builds only one generic "Vendor" place because the wiki vendor list holds names, not objects (reported 2026-10-03). Verified on real data, NO fix started [IN PROGRESS 2026-10-03 20:13: Codex job P17 is writing the fix; it will be in the next build, not the 18:01 one]
 - [ ] #60 Farming Targets Target Inspector: for a target you already own it shows nothing and does not list what is needed to build it (reported 2026-10-03). Needs your decision (my recommendation: always list the full requirements, owned ones ticked)
-- [ ] #61 Inventory: End goes to the end of the rendered part, not the end of the whole list (reported 2026-10-03). Cause not verified, NO fix started (needs a reproduction approach, see the report)
+- [ ] #61 Inventory: End goes to the end of the rendered part, not the end of the whole list (reported 2026-10-03). Cause not verified, NO fix started (needs a reproduction approach, see the report) [IN PROGRESS 2026-10-03 20:13: Codex job P18 is writing the fix; it will be in the next build, not the 18:01 one]
+- [ ] #62 Larger project, later: our own refresh of the game's language strings straight from Digital Extremes' servers (replaces the lagging community dictionary; the calendar names use the published strings for now). Planned, NOT started; see the report, section 62
 
 ## Confirmed by you (kept for the record)
 
@@ -77,6 +75,9 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [x] #42 History: hover over the chart points; the screen no longer crashes (confirmed by you 2026-10-03, build 18:01)
 - [x] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes (confirmed by you 2026-10-03, build 18:01)
 - [x] #31 Prime Sets tab scrolling smoothness (closed by you 2026-10-03: no practical way to test it, no profile was taken)
+- [x] #46 / #15 Inventory list: click in the list and press End, Home, Page Down, Page Up (they scroll; typing in the search box still works); scroll down and maximize the window (the list stays where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it, a small one-time shift when the first row is measured is expected) (confirmed by you 2026-10-03, build 18:01; End still stops early: #61)
+- [x] #28 After a session with the game open, the log does not fill with `[FOCUS_WATCHER] transition` lines every half second (coordinator count 2026-10-03: 26 in 1.5 hours with the old build 795d0a7, versus 459 in a day before; your call to tick) (confirmed by you 2026-10-03, build 18:01)
+- [x] #43 Wiki tab blank after a crash (closed by you 2026-10-03: not seen again; reopen and send the log if it happens again)
 
 ## Blocked or waiting on something other than a check
 

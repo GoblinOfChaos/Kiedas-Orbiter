@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { buildFarmingTargetsScreenModel } from '../../src/lib/farmingTargets/screenModel.js';
+import { availableSourceTabs, buildFarmingTargetsScreenModel } from '../../src/lib/farmingTargets/screenModel.js';
 import { buildImageMaps } from '../../src/lib/exportBundle.js';
 
 const fixture = JSON.parse(fs.readFileSync(path.resolve('tests/farming/fixtures/screen-model-defects.json'), 'utf8'));
@@ -143,4 +143,12 @@ test('completed target reservations stay stored but do not enter the ledger', ()
     dropIndex: {},
   });
   assert.equal(model.ledger.find((row) => row.itemType === 'O').reserved, 2);
+});
+
+test('empty source guidance lists other tabs with verified results', () => {
+  assert.deepEqual(availableSourceTabs({ missions: 9, relics: 4, vendors: 0 }, 'vendors'), [
+    { tab: 'missions', count: 9 },
+    { tab: 'relics', count: 4 },
+  ]);
+  assert.deepEqual(availableSourceTabs({ missions: 0, relics: 0, vendors: 0 }, 'enemies'), []);
 });

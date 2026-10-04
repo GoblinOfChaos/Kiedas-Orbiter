@@ -1581,6 +1581,7 @@
     "farming_targets.farm_next": "Farma il prossimo",
     "farming_targets.coverage_explanation": "Ordinato in base al numero di oggetti distinti necessari coperti; la probabilità è mostrata per ogni fonte.",
     "farming_targets.no_sources": "Nessuna fonte verificata corrisponde a questi filtri.",
+    "farming_targets.no_sources_with_results": "Nessuna fonte verificata corrisponde a questi filtri. Le fonti sono disponibili in: {tabs}.",
     "farming_targets.covers": "Copre {count} di {total}",
     "farming_targets.pvp": "PvP",
     "farming_targets.target_inspector": "Ispettore dell’obiettivo",

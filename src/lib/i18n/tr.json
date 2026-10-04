@@ -1574,6 +1574,7 @@
     "farming_targets.farm_next": "Sıradaki farm",
     "farming_targets.coverage_explanation": "Kapsanan farklı gerekli eşya sayısına göre sıralanır; her kaynak için şans gösterilir.",
     "farming_targets.no_sources": "Bu filtrelerle eşleşen doğrulanmış kaynak yok.",
+    "farming_targets.no_sources_with_results": "Bu filtrelerle eşleşen doğrulanmış kaynak yok. Kaynak bulunan sekmeler: {tabs}.",
     "farming_targets.covers": "{total} öğenin {count} tanesini kapsıyor",
     "farming_targets.pvp": "PvP",
     "farming_targets.target_inspector": "Hedef denetçisi",

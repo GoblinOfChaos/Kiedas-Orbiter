@@ -122,6 +122,13 @@ export function isHistoricalClause(sentence) {
   return HISTORICAL_PATTERNS.some((pattern) => pattern.test(text))
 }
 
+function removeHistoricalClauses(sentence) {
+  return String(sentence ?? '')
+    .replace(/(?:^|\s+)\b(?:rank|ranks)\s+\d+(?:\s*,\s*\d+)*(?:\s*,?\s*and\s*\d+)?\s+from\s+(?:nora['’]s|nightwave|amir['’]s)[\s\S]*?(?=\s+\b(?:purchased|can be|occasionally awarded|awarded|found|obtained|dropped|sold)\b|$)/i, '')
+    .replace(/(?:^|\s+)\branks?\s+\d+(?:\s*,\s*\d+)*(?:\s*,?\s*and\s*\d+)?\s+from\s+(?:nora['’]s|nightwave|amir['’]s)[\s\S]*$/i, '')
+    .trim()
+}
+
 function splitSentences(rawText) {
   return String(rawText ?? '')
     .replace(/<\/p\s*>/gi, '\n')
@@ -134,7 +141,7 @@ function splitSentences(rawText) {
 }
 
 function isUnclean(sentence) {
-  return /{{|}}|\[\[|\]\]|\bfor\s*[.,]|\bfor\s*$|\b(?:price|costs?)\s*[.]$|\b(?:and|or)\s+(?:and|or)\s*[.,]|^[^.!?]{1,60}:$|^Mission$|\b(?:the\s+)?contents?\s+of\s+the\s+[^.?!:]{1,80}\s+(?:are|is)\s+as\s+follows:?$/i.test(sentence)
+  return /{{|}}|\[\[|\]\]|\bfor\s*[.,]|\bfor\s*$|\b(?:price|costs?)\s*[.]$|\b(?:and|or)\s+(?:and|or)\s*[.,]|^[^.!?]{1,60}:$|^Mission$|\b(?:the\s+)?contents?\s+of\s+the\s+[^.?!:]{1,80}\s+(?:are|is)\s+as\s+follows:?$|\b(?:this section is transcluded from|to change it, please edit the transcluded page)\b|^\s*(?:this|that) is for\b|^\s*note that Baro Ki['’]Teer['’]s stock changes\b|^\s*the beacon cannot be traded\b|\b(?:for|cost(?:s|ing)?|priced\s+at)\s+\d[\d,]*(?![\d,])\s*(?:[.,]|$|,?\s+(?:requiring|at\s+rank|upon|when|to\s+purchase)\b)|\b(?:for|cost(?:s|ing)?|priced\s+at)\s+\d[\d,]*(?![\d,])\s+and\s+\d[\d,]*(?=\s*(?:[.,]|$|\s+(?:platinum|credits|standing|ducats)\b))|\b(?:for|cost(?:s|ing)?|priced\s+at)\s+\d[\d,]*(?![\d,])\s+(?:platinum|credits|standing|ducats)\s+and\s+\d[\d,]*(?=\s*[.,]|$)/i.test(sentence)
 }
 
 export function toCurrentSourceSentences(rawText) {
@@ -142,7 +149,7 @@ export function toCurrentSourceSentences(rawText) {
   for (const candidate of splitSentences(rawText)) {
     const expanded = expandWikiTemplates(candidate)
     if (expanded == null) continue
-    const sentence = stripWikiMarkup(expanded)
+    const sentence = removeHistoricalClauses(stripWikiMarkup(expanded))
       .replace(/\s+([,.;:!?])/g, '$1')
       .replace(/\s{2,}/g, ' ')
       .trim()

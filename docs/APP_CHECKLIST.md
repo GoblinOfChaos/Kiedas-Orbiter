@@ -6,29 +6,9 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 1 - Quick looks (under a minute each, no game needed, English is fine)
 
-- [x] #35 / #37 / #32 Prime Sets tab: Paris, Ballistica, Cernos, Daikyu Prime show "Upper Limb" and "Lower Limb" (not two "Limb"); Akbronco, Aklex, Akmagnus, Akvasto Prime show their two base guns with real names (for example "Lex Prime", not "Prime") plus Link and Blueprint; the "x2" badge sits centered directly above the part's image
-- [x] #49 Prime Sets at a medium window width: the last part cell of a 5-part set (the String of Paris Prime) is cut off by the card (reported 2026-10-03 in the 16:57 build). Cause probable (the parts columns cannot shrink below about 80px), NO fix started [FIXED IN CODE 2026-10-03 after the 16:57 build, merged, not in a build yet: after the next build check Paris Prime at small, medium and full-screen widths; all five parts visible, nothing cut off]
-- [x] #50 Ash drawer (reported 2026-10-03): "Where to start" shows only "Market for 375 Platinum"; the credits price (35,000) and Simaris appear only in the Blueprint row further down. Cause verified, NO fix started [Addendum 17:08: the part "Ash Blueprint" shows 0 sources; 35 of 71 main Warframe blueprints do, measured on your real data] [FIXED IN CODE 2026-10-03 after the 16:57 build, merged, not in a build yet: after the next build open Ash (Warframe) and Ash Blueprint (part): both list Market for 375 Platinum, Market for 35,000 Credits and Simaris; spot-check Excalibur, Mag, Volt and two weapons' blueprint parts: none says '0 sources']
-- [ ] #51 Prime part drawers show wrong Common/Uncommon/Rare tiers (Nidus Prime all Uncommon, Nyx Prime wrong) (reported 2026-10-03, build 18:01). Cause verified on real data (lookup key mismatch, then an unreliable bundled label), NO fix started
-- [ ] #52 Orokin Cell (and other resource) drawers: hundreds of rows that just say "Mission" (reported 2026-10-03; regression from the resource job). Cause partly verified, NO fix started
-- [ ] #53 Forma drawer: 4,593 other sources, a wall of wiki text with missing prices in the Blueprint row (reported 2026-10-03). Measured, NO fix started
-- [ ] #54 Wiki text with unresolved templates, e.g. Alloy Plate "Beginning in 9 materials could be purchased ... for Platinum." (reported 2026-10-03). Cause verified, NO fix started
-- [ ] #55 Prime extractors appear twice with different information (item as a part, Blueprint as a prime part) (reported 2026-10-03). Verified on real data, NO fix started
-- [ ] #56 Consistency across all drawers (your principle, 2026-10-03): proposal for one shared contract plus an audit test over every item; waiting for your go
-- [ ] #57 Acquisition text must say how to get the item NOW, never its history or update numbers (your rule, 2026-10-03). Applies to the extractor Primes, Alloy Plate, Forma and every wiki-derived entry. NO work started; part of the consistency plan (#56)
-- [ ] #58 Rivens filters at a small width: the funnel and sort icons sit alone on their own line, the buttons wrap below (reported 2026-10-03, from the #41 change). Cause verified, NO fix started
-- [ ] #59 Farming Targets: the Vendor tab shows nothing; the place list builds only one generic "Vendor" place because the wiki vendor list holds names, not objects (reported 2026-10-03). Verified on real data, NO fix started
-- [ ] #60 Farming Targets Target Inspector: for a target you already own it shows nothing and does not list what is needed to build it (reported 2026-10-03). Needs your decision (my recommendation: always list the full requirements, owned ones ticked)
-- [x] #36 / #39 Prime drawers (Akarius Prime, Ash Prime, Citrine Prime): "Crafting requirements" has a "1x ... Blueprint" row listing its relics once each with (Common/Uncommon/Rare); Ash Prime no longer says "Market Blueprint: 25,000 Credits"
-- [x] #9 Ash Prime Neuroptics / Chassis / Systems rows and Citrine Prime Blueprint, Acceltra Prime: each relic once with its tier, no Intact/Exceptional/Flawless/Radiant, no percentages, no raw key like `ui.relic_rarity.rare`
 - [ ] #8 Orokin Cell drawer: the Blueprint row says it is a Market purchase for 100 Platinum, not the enemy-drop text; Forma Blueprint and Prime part drawers still list their drops
 - [ ] #38 Resource drawers: Alloy Plate lists all 10 mission rows and the line "found on Venus, Jupiter, Sedna, Ceres, Phobos, Pluto and the Zariman Ten Zero"; spot-check two or three other resources (Ferrite, Nano Spores, Plastids)
 - [ ] #34 Inventory: search "Extractor": four entries (Titan, Titan Prime, Distilling, Distilling Prime), the Distilling Extractor marked owned, each with an image; the two Prime extractor drawers list several wiki source rows
-- [x] #33 Inventory top strip: no vertical scrollbar; hovering Forma still shows the breakdown (Forma, Aura, Stance, Umbra)
-- [x] #41 Rivens page: the state, sort and weapon-type filters wrap onto more lines and have NO horizontal scrollbar; tell me if a scrollbar is still under the cards
-- [x] #40 Market page with the window under 1050px wide: the "Active Orders" and "Tradeable Stock" tabs are fully visible
-- [x] #42 History: hover over the chart points; the screen no longer crashes
-- [x] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes
 
 ## Step 2 - Switch the app language (about 5 minutes)
 
@@ -55,6 +35,19 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #48 1999 Calendar in German: the upgrade names ("Electric Status Damage And Chance", "Armor", ...) stay English because no German text exists in the data; send a screenshot of the in-game 1999 calendar with the game set to German so I can use the real names
 - [ ] #43 Wiki tab blank after a crash: if it happens again, send me the log file before restarting the app
 
+## New findings from your checks of the 18:01 build (not fixed yet; waiting for your go)
+
+- [ ] #51 Prime part drawers show wrong Common/Uncommon/Rare tiers (Nidus Prime all Uncommon, Nyx Prime wrong) (reported 2026-10-03, build 18:01). Cause verified on real data (lookup key mismatch, then an unreliable bundled label), NO fix started
+- [ ] #52 Orokin Cell (and other resource) drawers: hundreds of rows that just say "Mission" (reported 2026-10-03; regression from the resource job). Cause partly verified, NO fix started
+- [ ] #53 Forma drawer: 4,593 other sources, a wall of wiki text with missing prices in the Blueprint row (reported 2026-10-03). Measured, NO fix started
+- [ ] #54 Wiki text with unresolved templates, e.g. Alloy Plate "Beginning in 9 materials could be purchased ... for Platinum." (reported 2026-10-03). Cause verified, NO fix started
+- [ ] #55 Prime extractors appear twice with different information (item as a part, Blueprint as a prime part) (reported 2026-10-03). Verified on real data, NO fix started
+- [ ] #56 Consistency across all drawers (your principle, 2026-10-03): proposal for one shared contract plus an audit test over every item; waiting for your go
+- [ ] #57 Acquisition text must say how to get the item NOW, never its history or update numbers (your rule, 2026-10-03). Applies to the extractor Primes, Alloy Plate, Forma and every wiki-derived entry. NO work started; part of the consistency plan (#56)
+- [ ] #58 Rivens filters at a small width: the funnel and sort icons sit alone on their own line, the buttons wrap below (reported 2026-10-03, from the #41 change). Cause verified, NO fix started
+- [ ] #59 Farming Targets: the Vendor tab shows nothing; the place list builds only one generic "Vendor" place because the wiki vendor list holds names, not objects (reported 2026-10-03). Verified on real data, NO fix started
+- [ ] #60 Farming Targets Target Inspector: for a target you already own it shows nothing and does not list what is needed to build it (reported 2026-10-03). Needs your decision (my recommendation: always list the full requirements, owned ones ticked)
+
 ## Confirmed by you (kept for the record)
 
 - [x] #12 Foundry: open a recipe panel, click outside it, it closes; Escape closes it; the close button still works; clicking inside the panel does not close it (confirmed by the user 2026-10-02, build 63121682)
@@ -73,6 +66,16 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [x] #27 Riven reroll: grading starts ONLY when you press the hotkey, once per press; pressing again re-grades the same roll; rolling a new card or accepting does NOT start grading by itself; the new-roll window clears when a new roll appears and hides about 2 seconds after you accept (R) (confirmed by you 2026-10-03, build 795d0a7)
 - [x] Riven single-card grading (one card only, before any reroll) (confirmed by you 2026-10-03, build 795d0a7)
 - [x] #15 measurement step in the developer tools (done by you 2026-10-03; it is replaced by the live check in Step 3, item #46 / #15)
+- [x] #35 / #37 / #32 Prime Sets tab: Paris, Ballistica, Cernos, Daikyu Prime show "Upper Limb" and "Lower Limb" (not two "Limb"); Akbronco, Aklex, Akmagnus, Akvasto Prime show their two base guns with real names (for example "Lex Prime", not "Prime") plus Link and Blueprint; the "x2" badge sits centered directly above the part's image (confirmed by you 2026-10-03, build 18:01)
+- [x] #49 Prime Sets at a medium window width: the last part cell of a 5-part set (the String of Paris Prime) is cut off by the card (reported 2026-10-03 in the 16:57 build). Cause probable (the parts columns cannot shrink below about 80px), NO fix started [FIXED IN CODE 2026-10-03 after the 16:57 build, merged, not in a build yet: after the next build check Paris Prime at small, medium and full-screen widths; all five parts visible, nothing cut off] (confirmed by you 2026-10-03, build 18:01)
+- [x] #50 Ash drawer (reported 2026-10-03): "Where to start" shows only "Market for 375 Platinum"; the credits price (35,000) and Simaris appear only in the Blueprint row further down. Cause verified, NO fix started [Addendum 17:08: the part "Ash Blueprint" shows 0 sources; 35 of 71 main Warframe blueprints do, measured on your real data] [FIXED IN CODE 2026-10-03 after the 16:57 build, merged, not in a build yet: after the next build open Ash (Warframe) and Ash Blueprint (part): both list Market for 375 Platinum, Market for 35,000 Credits and Simaris; spot-check Excalibur, Mag, Volt and two weapons' blueprint parts: none says '0 sources'] (confirmed by you 2026-10-03, build 18:01)
+- [x] #36 / #39 Prime drawers (Akarius Prime, Ash Prime, Citrine Prime): "Crafting requirements" has a "1x ... Blueprint" row listing its relics once each with (Common/Uncommon/Rare); Ash Prime no longer says "Market Blueprint: 25,000 Credits" (confirmed by you 2026-10-03, build 18:01)
+- [x] #9 Ash Prime Neuroptics / Chassis / Systems rows and Citrine Prime Blueprint, Acceltra Prime: each relic once with its tier, no Intact/Exceptional/Flawless/Radiant, no percentages, no raw key like `ui.relic_rarity.rare` (confirmed by you 2026-10-03, build 18:01)
+- [x] #33 Inventory top strip: no vertical scrollbar; hovering Forma still shows the breakdown (Forma, Aura, Stance, Umbra) (confirmed by you 2026-10-03, build 18:01)
+- [x] #41 Rivens page: the state, sort and weapon-type filters wrap onto more lines and have NO horizontal scrollbar; tell me if a scrollbar is still under the cards (confirmed by you 2026-10-03, build 18:01)
+- [x] #40 Market page with the window under 1050px wide: the "Active Orders" and "Tradeable Stock" tabs are fully visible (confirmed by you 2026-10-03, build 18:01)
+- [x] #42 History: hover over the chart points; the screen no longer crashes (confirmed by you 2026-10-03, build 18:01)
+- [x] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes (confirmed by you 2026-10-03, build 18:01)
 
 ## Blocked or waiting on something other than a check
 

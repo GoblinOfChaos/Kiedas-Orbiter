@@ -2,6 +2,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { toCurrentSourceSentences } from '../src/lib/acquisitionText.js'
 
 const ROOT = path.resolve(new URL('.', import.meta.url).pathname, '..')
 const inputPages = path.join(ROOT, 'scratchwiki/wiki-resource-pages.json')
@@ -67,8 +68,7 @@ function foundTextFromIntro(wikitext) {
   const paragraph = intro.split(/\n\s*\n/).find((part) =>
     /\b(?:found|obtained|acquired|harvested|dropped|rewarded|purchased|retrieved|collected|earned|mined|gathered)\b/i.test(part),
   ) || intro
-  const plain = stripWikiMarkup(paragraph)
-  const found = sentences(plain).filter((sentence) =>
+  const found = toCurrentSourceSentences(paragraph).filter((sentence) =>
     /\b(?:found|obtained|acquired|harvested|dropped|rewarded|purchased|retrieved|collected|earned|mined|gathered)\b/i.test(sentence),
   )
   return found.join(' ')
@@ -81,7 +81,7 @@ function headerText(section) {
 
 function sectionBody(section) {
   const match = String(section || '').match(/<h[23][^>]*>[\s\S]*?<\/h[23]>/i)
-  return match ? plainHtml(String(section).slice(match[0].length)) : plainHtml(section)
+  return match ? String(section).slice(match[0].length) : String(section)
 }
 
 function cells(row, tag) {
@@ -151,8 +151,8 @@ function sourceLikeHeading(heading) {
 
 function parseWikitextSections(wikitext) {
   return [...String(wikitext || '').matchAll(/^(={2,3})\s*([^=]+?)\s*\1\s*\n([\s\S]*?)(?=^={2,3}\s*[^=].*?\s*\1\s*$|$)/gmi)]
-    .map((match) => ({ heading: stripWikiMarkup(match[2]), text: stripWikiMarkup(match[3]) }))
-    .filter((section) => section.heading && section.text && sourceLikeHeading(section.heading))
+    .map((match) => ({ heading: stripWikiMarkup(match[2]), text: match[3] }))
+    .filter((section) => section.heading && section.text.trim() && sourceLikeHeading(section.heading))
 }
 
 function collectOtherSections(page, renderedSections) {
@@ -161,7 +161,7 @@ function collectOtherSections(page, renderedSections) {
   for (const rendered of renderedSections || []) {
     const heading = headerText(rendered)
     if (!heading || /mission drop tables/i.test(heading) || !sourceLikeHeading(heading)) continue
-    const text = sectionBody(rendered)
+    const text = toCurrentSourceSentences(sectionBody(rendered)).join(' ')
     if (!text) continue
     const key = `${heading}\n${text}`
     if (!seen.has(key)) {
@@ -170,10 +170,12 @@ function collectOtherSections(page, renderedSections) {
     }
   }
   for (const section of parseWikitextSections(page.wikitext)) {
-    const key = `${section.heading}\n${section.text}`
+    const text = toCurrentSourceSentences(section.text).join(' ')
+    if (!text) continue
+    const key = `${section.heading}\n${text}`
     if (!seen.has(key)) {
       seen.add(key)
-      sections.push(section)
+      sections.push({ heading: section.heading, text })
     }
   }
   return sections

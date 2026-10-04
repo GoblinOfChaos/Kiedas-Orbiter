@@ -1,6 +1,7 @@
 // High-Performance Acquisition Data Module for Kiedas Orbiter (O(1) Indexed)
 import { invoke } from './logging/tauri';
 import { sortSourcesByChanceInRotations } from './chanceSort';
+import { toCurrentSourceSentences } from './acquisitionText.js';
 
 let itemIndex = null;
 let itemNameIndex = null;
@@ -7233,6 +7234,32 @@ export const WARFRAME_ACQUISITIONS = {
     "blueprint": "Cephalon Simaris (Sanctuary - Standing) / Included with Companion."
   }
 };
+
+const FORMA_CURRENT_ROUTES = 'Blueprint drops from certain Relics (1x from Common and 2x from Uncommon). Purchased blueprint from Acrithis\'s shop for 10 Pathos Clamp. Blueprint received as a Daily Tribute. Found very rarely in Rare or Reinforced Storage Containers in Zariman Ten Zero, Void, and Lua. One rare storage container is guaranteed from the Lua Music Puzzle. Sometimes acquired from the 1999 Calendar. Sometimes available for purchase as a three-Forma bundle from Teshin for Steel Essence. Purchased complete from Nakak in Cetus for 3,000 Operational Supply Standing and 5,000 Credits. Purchased complete from the Market for 20 Platinum. Purchased complete from the Market as a three-Forma bundle for 35 Platinum.';
+WARFRAME_ACQUISITIONS.forma.general = FORMA_CURRENT_ROUTES;
+WARFRAME_ACQUISITIONS.forma.blueprint = FORMA_CURRENT_ROUTES;
+
+function sanitizeRouteTable(table) {
+  for (const entry of Object.values(table)) {
+    if (typeof entry === 'string') continue;
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue;
+    for (const [key, value] of Object.entries(entry)) {
+      if (typeof value !== 'string') continue;
+      const sentences = toCurrentSourceSentences(value);
+      entry[key] = sentences.length ? sentences.join(' ') : null;
+    }
+  }
+}
+
+function sanitizeRouteMap(map) {
+  for (const [key, value] of Object.entries(map)) {
+    if (typeof value !== 'string') continue;
+    const sentences = toCurrentSourceSentences(value);
+    map[key] = sentences.length ? sentences.join(' ') : null;
+  }
+}
+
+sanitizeRouteTable(WARFRAME_ACQUISITIONS);
 export const RESOURCE_LOCATIONS = {
   // 5 gear-wheel Specters with no acquisition info anywhere in the app's
   // data layers (RESOURCE_LOCATIONS, wiki fallback JSONs, DropsAll.json) -
@@ -7751,6 +7778,7 @@ export const RESOURCE_LOCATIONS = {
   "neutralize": "Cephalon Simaris (Sanctuary - Standing) / Included with Companion.",
   "prey of dynar": "Cephalon Simaris (Sanctuary - Standing) / Included with Companion."
 };
+sanitizeRouteMap(RESOURCE_LOCATIONS);
 export const WIKI_RESEARCH = {
   "Acrid": {
     "lab": "Bio Lab",

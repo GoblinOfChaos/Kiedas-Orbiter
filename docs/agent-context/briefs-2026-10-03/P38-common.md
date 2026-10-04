@@ -15,3 +15,5 @@ Write `scripts/verify-verified-routes.py` (Python 3, pypdf): for every route, re
 
 ## Working rules
 Work in rounds and WRITE THE OUTPUT FILES AFTER EACH ROUND so progress is never lost (a session limit can kill the job). Prioritise breadth: first the items whose own page exists or whose group page is obvious, then the long tail. Be conservative: 'resolved' means the quote clearly states how to obtain THIS item. Do not merge two different items from one sentence unless the sentence names both. Run tests under `nice -n 19` (`node --test tests/data/...`). Finish with AGENT_REPORT.md.
+
+## THROTTLE (user rule, 2026-10-04, after a machine freeze): never saturate the computer. Run ONE test process at a time (`node --test --test-concurrency=1 ...`), never more than two full-suite runs in total, no parallel Python/Node workers, extract PDF text one file at a time (cache it), and use only the LOCAL wiki archive (no network, no web search).

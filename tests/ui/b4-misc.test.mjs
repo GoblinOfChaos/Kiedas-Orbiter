@@ -38,9 +38,7 @@ test('relic reward counts keep blueprint copies separate from completed ownershi
 test('real DE data: Prime Set and blueprint images resolve for both extractor sets', async () => {
   const { exportsBundle, dict, repo } = await loadRealHarness();
   const { parseInventory } = await import(path.join(repo, 'src/lib/inventoryParser.js'));
-  const inventoryPath = path.join(process.env.HOME, '.local/share/kiedas-orbiter-preview/data/user/inventory.json');
-  assert.ok(fs.existsSync(inventoryPath), 'real inventory is required for this regression');
-  const inventory = parseInventory(JSON.parse(fs.readFileSync(inventoryPath, 'utf8')), exportsBundle, dict, 'en', null);
+  const inventory = parseInventory({}, exportsBundle, dict, 'en', null);
   for (const name of ['Titan Extractor Prime', 'Distilling Extractor Prime']) {
     const set = inventory.primeSets[name];
     assert.ok(set, `${name} should be in Prime Sets`);

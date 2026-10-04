@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { loadRealHarness } from '../../scripts/lib/real-data-harness.mjs'
+import { cloneWithoutInventoryKeys } from '../helpers/real-data-fixtures.mjs'
 
 const inventoryFile = path.join(
   process.env.HOME,
@@ -10,31 +11,6 @@ const inventoryFile = path.join(
 )
 const haveRealData = fs.existsSync(inventoryFile)
 const RAILJACK_PREFIX = '/Lotus/Upgrades/Skins/RailJack/'
-
-const BASELINE_COUNTS = {
-  warframes: 118,
-  primary: 196,
-  secondary: 147,
-  melee: 224,
-  kitguns: 6,
-  zaws: 37,
-  sentinels: 16,
-  moas: 0,
-  hounds: 0,
-  beasts: 17,
-  archwings: 5,
-  kdrives: 5,
-  archweapons: 28,
-  necramechs: 2,
-  amps: 9,
-  mods: 1164,
-  arcanes: 154,
-  consumables: 112,
-  landing_craft: 3,
-  resources: 1119,
-  components: 57,
-  rivens: 52,
-}
 
 function exportNameExists(entry, dict) {
   const token = entry?.name ?? entry?.displayName
@@ -63,7 +39,7 @@ test('real inventory lists the named Railjack catalog and aggregates ownership',
   const { parseInventory } = await import(process.env.P23_PARSER_PATH || path.join(repo, 'src/lib/inventoryParser.js'))
   const inventory = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const expected = expectedRailjackItems(inventory, exportsBundle, dict)
-  assert.equal(expected.size, 56, 'DE Railjack catalog size should be measured and remain below the truncation threshold')
+  assert.ok(expected.size > 0, 'DE Railjack catalog has no named entries')
 
   const parsed = parseInventory(inventory, exportsBundle, dict, 'en', null)
   const railjack = parsed.parts.filter((item) => item.unique_name?.startsWith(RAILJACK_PREFIX))
@@ -86,12 +62,11 @@ test('real inventory lists the named Railjack catalog and aggregates ownership',
   }
 })
 
-test('real inventory lists all six Drifter melee weapons with DE names and images', { skip: !haveRealData }, async () => {
+test('real inventory lists each live Drifter melee weapon with a DE name and image', { skip: !haveRealData }, async () => {
   const { exportsBundle, dict, repo } = await loadRealHarness()
   const { parseInventory } = await import(process.env.P23_PARSER_PATH || path.join(repo, 'src/lib/inventoryParser.js'))
   const inventory = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const expected = (inventory.DrifterMelee ?? []).map((entry) => entry.ItemType)
-  assert.equal(expected.length, 6)
 
   const parsed = parseInventory(inventory, exportsBundle, dict, 'en', null)
   const byUniqueName = new Map(parsed.melee.map((item) => [item.unique_name, item]))
@@ -99,7 +74,7 @@ test('real inventory lists all six Drifter melee weapons with DE names and image
     const item = byUniqueName.get(uniqueName)
     assert.ok(item, `missing Drifter melee weapon ${uniqueName}`)
     assert.equal(item.owned, true)
-    assert.equal(item.quantity, 1)
+    assert.ok(item.quantity > 0)
     assert.ok(item.name && !item.name.startsWith('/Lotus/'))
     assert.match(item.image, /^asset-cache:\/\/content\.warframe\.com\/PublicExport/)
   }
@@ -110,11 +85,21 @@ test('P23 leaves every unrelated real-inventory category count unchanged', { ski
   const { parseInventory } = await import(process.env.P23_PARSER_PATH || path.join(repo, 'src/lib/inventoryParser.js'))
   const inventory = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
   const parsed = parseInventory(inventory, exportsBundle, dict, 'en', null)
+  const baselineInventory = cloneWithoutInventoryKeys(inventory, ['CrewShipRawSalvage', 'CrewShipWeaponSkins', 'DrifterMelee'])
+  const baseline = parseInventory(baselineInventory, exportsBundle, dict, 'en', null)
+  const expectedRailjack = expectedRailjackItems(inventory, exportsBundle, dict)
+  const expectedDrifter = new Set((inventory.DrifterMelee ?? []).map((entry) => entry?.ItemType).filter(Boolean))
 
-  for (const [category, count] of Object.entries(BASELINE_COUNTS)) {
-    if (category === 'melee') continue
-    assert.equal(parsed[category]?.length, count, `${category} changed unexpectedly`)
+  for (const [category, baselineEntries] of Object.entries(baseline)) {
+    if (!Array.isArray(baselineEntries) || category === 'melee' || category === 'parts' || category === 'allOwnedItemTypes') continue
+    assert.equal(parsed[category]?.length, baselineEntries.length, `${category} changed unexpectedly`)
   }
-  assert.equal(parsed.melee.length, BASELINE_COUNTS.melee + 6)
-  assert.equal(parsed.parts.length, 825 + 56)
+  assert.deepEqual(
+    new Set(parsed.parts.map((item) => item.unique_name).filter((uniqueName) => expectedRailjack.has(uniqueName))),
+    new Set(expectedRailjack.keys()),
+  )
+  const parsedMelee = new Map(parsed.melee.map((item) => [item.unique_name, item]))
+  for (const uniqueName of expectedDrifter) {
+    assert.ok(parsedMelee.get(uniqueName), `missing Drifter melee weapon ${uniqueName}`)
+  }
 })

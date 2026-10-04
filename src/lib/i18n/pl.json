@@ -1574,6 +1574,7 @@
     "farming_targets.farm_next": "Farmuj następne",
     "farming_targets.coverage_explanation": "Ranking według liczby pokrytych różnych potrzebnych przedmiotów; szansa jest pokazana dla każdego źródła.",
     "farming_targets.no_sources": "Żadne zweryfikowane źródła nie pasują do tych filtrów.",
+    "farming_targets.no_sources_with_results": "Żadne zweryfikowane źródła nie pasują do tych filtrów. Źródła są dostępne w: {tabs}.",
     "farming_targets.covers": "Obejmuje {count} z {total}",
     "farming_targets.pvp": "PvP",
     "farming_targets.target_inspector": "Inspektor celu",

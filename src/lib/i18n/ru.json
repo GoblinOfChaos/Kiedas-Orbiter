@@ -1574,6 +1574,7 @@
     "farming_targets.farm_next": "Фармить следующим",
     "farming_targets.coverage_explanation": "Сортировка по числу покрытых уникальных нужных предметов; шанс указан для каждого источника.",
     "farming_targets.no_sources": "Нет проверенных источников, соответствующих этим фильтрам.",
+    "farming_targets.no_sources_with_results": "Нет проверенных источников, соответствующих этим фильтрам. Источники есть во вкладках: {tabs}.",
     "farming_targets.covers": "Покрывает {count} из {total}",
     "farming_targets.pvp": "PvP",
     "farming_targets.target_inspector": "Инспектор цели",

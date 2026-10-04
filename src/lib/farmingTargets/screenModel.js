@@ -18,7 +18,7 @@ function resolvedExportName(value, dict) {
 
 function exportItemNames(exportData, dict) {
   const names = new Map();
-  for (const tableName of ['ExportResources', 'ExportMisc', 'ExportGear', 'ExportCustoms', 'ExportUpgrades']) {
+  for (const tableName of ['ExportResources', 'ExportMisc', 'ExportGear', 'ExportCustoms', 'ExportUpgrades', 'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportFlavour']) {
     for (const [uniqueName, entry] of Object.entries(exportData?.[tableName] ?? {})) {
       const name = resolvedExportName(entry?.name, dict);
       if (name && !name.startsWith('/')) names.set(canonicalPath(uniqueName), name);
@@ -37,6 +37,15 @@ function routePrice(route) {
     ? route.text.match(/\bPrice listed in the export:\s*(.+?)(?:\.|$)/i)
     : null;
   return match?.[1]?.trim() || null;
+}
+
+export function parseMarketPurchaseText(text) {
+  if (typeof text !== 'string') return null;
+  const match = text.match(/\b(?:bought|buy|purchas(?:e|ed|able)|sold|available)\b[\s\S]{0,100}\b(?:the\s+)?(?:in-game\s+)?Market\b[\s\S]{0,50}\bfor\s+([\d,]+)\s+(Platinum|Credits)\b/i);
+  if (!match) return null;
+  const amount = Number(match[1].replaceAll(',', ''));
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return { amount, currency: match[2], label: `${amount.toLocaleString('en-US')} ${match[2]}` };
 }
 
 function canonicalVendorName(value, wikiVendorNames) {
@@ -144,10 +153,11 @@ function recipeList(inventoryData, exportData, imageMaps) {
   return [...byItemType.values()].filter((recipe) => !(resources[recipe.itemType] && !/Component$/.test(recipe.itemType)));
 }
 
-function sourceType(source) {
+export function sourceType(source) {
   if (source?.type === 'relic') return 'relic';
   if (source?.type === 'enemy') return 'enemy';
   if (source?.type === 'bounty') return 'bounty';
+  if (source?.type === 'syndicate') return 'vendor';
   if (source?.type === 'vendor') return 'vendor';
   if (source?.type === 'conclave') return 'conclave';
   return 'mission';
@@ -228,7 +238,7 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   };
 }
 
-export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, exportData, dict = {}, regions } = {}) {
+export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict = {}, regions } = {}) {
   const byItem = new Map();
   const places = new Map();
   const exportNames = exportItemNames(exportData, dict);
@@ -237,9 +247,28 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
       ? [...wikiVendorIndex.values()].flatMap((entries) => Array.isArray(entries) ? entries : [entries]).filter((entry) => typeof entry === 'string')
       : [],
   )];
+  const nameKey = (value) => vendorKey(value).replace(/\s*\|\s*blueprint$/i, '');
+  const itemNameForKey = (value) => {
+    const canonical = canonicalPath(value);
+    if (exportNames.has(canonical)) return exportNames.get(canonical);
+    const key = nameKey(value);
+    return [...exportNames.values()].find((name) => vendorKey(name) === key) || null;
+  };
+  const normalizeVendorSource = (source) => {
+    if (source?.type !== 'syndicate') return source;
+    const vendor = canonicalVendorName(source.syndicateName, wikiVendorNames);
+    return {
+      ...source,
+      type: 'vendor',
+      source: vendor,
+      vendor,
+      price: source.price || (source.standing != null ? `${Number(source.standing).toLocaleString('en-US')} Standing` : undefined),
+    };
+  };
   const add = (item, source) => {
     if (!item || !source) return;
-    const place = sourcePlace(source, item, { dict, regions });
+    const normalizedSource = normalizeVendorSource(source);
+    const place = sourcePlace(normalizedSource, item, { dict, regions });
     if (!place) return;
     if (!places.has(place.id)) places.set(place.id, place);
     const key = lower(item);
@@ -247,16 +276,16 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
     const row = {
       placeId: place.id,
       item,
-      chance: source.chance == null ? null : Number(source.chance),
-      rotation: source.rotation ?? null,
-      missionType: source.missionType ?? null,
-      source: sourceName(source),
-      ...(source.vendor ? { vendor: source.vendor } : {}),
-      ...(source.price ? { price: source.price } : {}),
-      ...(source.text ? { text: source.text } : {}),
-      ...(source.provenance ? { provenance: source.provenance } : {}),
+      chance: normalizedSource.chance == null ? null : Number(normalizedSource.chance),
+      rotation: normalizedSource.rotation ?? null,
+      missionType: normalizedSource.missionType ?? null,
+      source: sourceName(normalizedSource),
+      ...(normalizedSource.vendor ? { vendor: normalizedSource.vendor } : {}),
+      ...(normalizedSource.price ? { price: normalizedSource.price } : {}),
+      ...(normalizedSource.text ? { text: normalizedSource.text } : {}),
+      ...(normalizedSource.provenance ? { provenance: normalizedSource.provenance } : {}),
     };
-    const existing = source.type === 'vendor'
+    const existing = normalizedSource.type === 'vendor'
       ? byItem.get(key).find((entry) => entry.placeId === row.placeId && entry.item === row.item)
       : null;
     if (!existing) byItem.get(key).push(row);
@@ -299,6 +328,36 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
       });
     }
   }
+  for (const [itemType, market] of marketIndex instanceof Map ? marketIndex : []) {
+    const item = itemNameForKey(itemType);
+    const amount = Number(market?.amount);
+    const currency = market?.currency || 'Platinum';
+    if (!item || !Number.isFinite(amount) || amount <= 0 || !/^(?:Platinum|Credits)$/i.test(currency)) continue;
+    add(item, {
+      type: 'vendor',
+      source: 'Market',
+      vendor: 'Market',
+      price: `${amount.toLocaleString('en-US')} ${currency}`,
+      text: `Purchased from the Market for ${amount.toLocaleString('en-US')} ${currency}.`,
+      provenance: 'DE export Market index',
+    });
+  }
+  const overrideGroups = [acquisitionOverrides?.components, acquisitionOverrides?.mods];
+  for (const group of overrideGroups) {
+    for (const [key, text] of Object.entries(group ?? {})) {
+      const item = itemNameForKey(key);
+      const price = parseMarketPurchaseText(text);
+      if (!item || !price) continue;
+      add(item, {
+        type: 'vendor',
+        source: 'Market',
+        vendor: 'Market',
+        price: price.label,
+        text,
+        provenance: 'verified acquisition override',
+      });
+    }
+  }
   for (const sources of byItem.values()) sources.sort((a, b) => a.placeId.localeCompare(b.placeId));
   return { byItem, places };
 }
@@ -314,7 +373,7 @@ function sourceRowsFor(placeIndex, coveredItems) {
   }));
 }
 
-export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, filters = {}, placeIndex, imageMaps } = {}) {
+export function buildFarmingTargetsScreenModel({ targets = [], reservations = [], inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, filters = {}, placeIndex, imageMaps } = {}) {
   const activeTargetIds = new Set(targets.filter((target) => target?.status !== 'archived' && target?.status !== 'complete').map((target) => target.id));
   const owned = ownedMap(inventoryData);
   const recipes = recipeList(inventoryData, exportData, imageMaps);
@@ -338,9 +397,18 @@ export function buildFarmingTargetsScreenModel({ targets = [], reservations = []
     ...(reservations ?? []).filter((reservation) => activeTargetIds.has(reservation?.targetId)),
     ...targets.filter((target) => activeTargetIds.has(target.id)).flatMap((target) => target.reservations ?? []),
   ] });
-  const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions });
+  const resolvedPlaceIndex = placeIndex ?? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions });
   const rankingResult = rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters });
   const relicPlaces = buildRelicPlaces({ ledger, inventoryData, exportData, dropIndex });
+  const tabResultCounts = {
+    all: rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters: { ...filters, tab: 'all' } }).ranked.length,
+    missions: rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters: { ...filters, tab: 'missions' } }).ranked.length,
+    enemies: rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters: { ...filters, tab: 'enemies' } }).ranked.length,
+    planets: rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters: { ...filters, tab: 'planets' } }).ranked.length,
+    relics: relicPlaces.length,
+    vendors: rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters: { ...filters, tab: 'vendors' } }).ranked.length,
+    conclave: rankPlaces({ ledger, placeIndex: resolvedPlaceIndex, filters: { ...filters, tab: 'conclave' } }).ranked.length,
+  };
   const ranked = filters.tab === 'relics' ? relicPlaces : rankingResult.ranked;
   const rankedRows = ranked.map((row) => ({
     ...row,
@@ -360,6 +428,13 @@ export function buildFarmingTargetsScreenModel({ targets = [], reservations = []
     targetUnresolved: expanded.unresolved.filter((entry) => targets.some((target) => String(target.id) === String(entry.targetId))),
     errors: expanded.errors,
     placeCount: resolvedPlaceIndex.places.size,
+    tabResultCounts,
     placeIndex: resolvedPlaceIndex,
   };
+}
+
+export function availableSourceTabs(tabResultCounts = {}, activeTab) {
+  return ['missions', 'enemies', 'planets', 'relics', 'vendors', 'conclave']
+    .filter((tab) => tab !== activeTab && Number(tabResultCounts[tab]) > 0)
+    .map((tab) => ({ tab, count: Number(tabResultCounts[tab]) }));
 }

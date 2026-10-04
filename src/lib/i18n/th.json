@@ -1593,6 +1593,7 @@
     "farming_targets.farm_next": "ฟาร์มถัดไป",
     "farming_targets.coverage_explanation": "จัดอันดับตามจำนวนไอเทมที่ต้องการแตกต่างกันซึ่งครอบคลุม และแสดงโอกาสสำหรับทุกแหล่งที่มา",
     "farming_targets.no_sources": "ไม่มีแหล่งที่มาที่ตรวจสอบแล้วตรงกับตัวกรองเหล่านี้",
+    "farming_targets.no_sources_with_results": "ไม่มีแหล่งที่มาที่ตรวจสอบแล้วตรงกับตัวกรองเหล่านี้ แท็บที่มีผลลัพธ์: {tabs}",
     "farming_targets.covers": "ครอบคลุม {count} จาก {total} รายการ",
     "farming_targets.pvp": "การต่อสู้ระหว่างผู้เล่น (PvP)",
     "farming_targets.target_inspector": "ตัวตรวจสอบเป้าหมาย",

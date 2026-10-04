@@ -1593,6 +1593,7 @@
     "farming_targets.farm_next": "下一步刷取",
     "farming_targets.coverage_explanation": "按覆盖的不同所需物品数量排序；每个来源都会显示概率。",
     "farming_targets.no_sources": "没有符合这些筛选条件的已验证来源。",
+    "farming_targets.no_sources_with_results": "没有符合这些筛选条件的已验证来源。有结果的标签页：{tabs}。",
     "farming_targets.covers": "覆盖 {count}/{total} 个",
     "farming_targets.pvp": "玩家对战（PvP）",
     "farming_targets.target_inspector": "目标检查器",

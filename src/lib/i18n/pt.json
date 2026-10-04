@@ -1581,6 +1581,7 @@
     "farming_targets.farm_next": "Farmar em seguida",
     "farming_targets.coverage_explanation": "Ordenado pela quantidade de itens distintos necessários que cobre; a chance é exibida para cada fonte.",
     "farming_targets.no_sources": "Nenhuma fonte verificada corresponde a estes filtros.",
+    "farming_targets.no_sources_with_results": "Nenhuma fonte verificada corresponde a estes filtros. Existem fontes em: {tabs}.",
     "farming_targets.covers": "Cobre {count} de {total}",
     "farming_targets.pvp": "PvP",
     "farming_targets.target_inspector": "Inspetor do alvo",

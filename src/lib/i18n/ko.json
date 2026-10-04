@@ -1593,6 +1593,7 @@
     "farming_targets.farm_next": "다음 파밍",
     "farming_targets.coverage_explanation": "필요한 서로 다른 아이템을 얼마나 포함하는지에 따라 정렬하며, 모든 출처의 확률을 표시합니다.",
     "farming_targets.no_sources": "이 필터와 일치하는 확인된 출처가 없습니다.",
+    "farming_targets.no_sources_with_results": "이 필터와 일치하는 확인된 출처가 없습니다. 결과가 있는 탭: {tabs}.",
     "farming_targets.covers": "{count}/{total}개 포함",
     "farming_targets.pvp": "대인전(PvP)",
     "farming_targets.target_inspector": "목표 검사기",

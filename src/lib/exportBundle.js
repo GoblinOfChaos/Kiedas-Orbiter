@@ -23,6 +23,7 @@ export function buildImageMaps(exportData = {}) {
   const EI = {}
   const nameToImage = {}
   const uniqueNameToName = {}
+  const localizedUniqueNameToName = {}
   const dict = exportData.dict ?? exportData['dict.en'] ?? {}
   const indexEntry = (entry, key, table) => {
     const uniqueName = entry.uniqueName || entry.ItemType || key
@@ -52,6 +53,9 @@ export function buildImageMaps(exportData = {}) {
     const staleWikiThumbnail = typeof url === 'string' && /^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(url)
     if (url && (!EI[uniqueName] || !staleWikiThumbnail)) EI[uniqueName] = url
     uniqueNameToName[uniqueName] = nameKey
+    if (table.startsWith('Export') && typeof nameKey === 'string' && nameKey.trim() && !nameKey.startsWith('/')) {
+      localizedUniqueNameToName[uniqueName] = nameKey
+    }
     const resolved = (dict[nameKey] || dict['/' + nameKey] || nameKey || '').replace(/<[^>]*>/g, '').trim()
     if (resolved && !resolved.startsWith('/') && (!nameToImage[resolved.toLowerCase()] || !staleWikiThumbnail) && url) {
       nameToImage[resolved.toLowerCase()] = url
@@ -72,6 +76,9 @@ export function buildImageMaps(exportData = {}) {
   }
   for (const [key, value] of Object.entries(exportData.WI_Supplement?.uniqueNameToName || exportData.uniqueNameToName || {})) {
     if (uniqueNameToName[key] === undefined) uniqueNameToName[key] = value
+  }
+  for (const [key, value] of Object.entries(localizedUniqueNameToName)) {
+    uniqueNameToName[key] = value
   }
   return { EI, nameToImage, uniqueNameToName }
 }

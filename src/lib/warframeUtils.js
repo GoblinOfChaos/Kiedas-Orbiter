@@ -105,6 +105,19 @@ export const GeneralOverrides = {
   'SORTIE_MODIFIER_HAZARD_MAGNETIC': 'Magnetic Storm',
 }
 
+const FACTION_DICT_KEYS = {
+  FC_CORPUS: ['/Lotus/Language/Game/Faction_CorpusUC'],
+  FC_GRINEER: ['/Lotus/Language/Game/Faction_GrineerUC'],
+  FC_INFESTED: ['/Lotus/Language/Game/Faction_InfestedUC', '/Lotus/Language/Game/Faction_InfestationUC'],
+  FC_INFESTATION: ['/Lotus/Language/Game/Faction_InfestedUC', '/Lotus/Language/Game/Faction_InfestationUC'],
+  FC_MURMUR: ['/Lotus/Language/Game/Faction_MITW'],
+  FC_MITW: ['/Lotus/Language/Game/Faction_MITW'],
+  FC_NARMER: ['/Lotus/Language/Game/Faction_NarmerUC'],
+  FC_NARMON: ['/Lotus/Language/Game/Faction_NarmerUC'],
+  FC_OROKIN: ['/Lotus/Language/Game/Faction_OrokinUC'],
+  FC_SENTIENT: ['/Lotus/Language/Game/Faction_SentientUC'],
+}
+
 // ─── Mission Type Lookup ─────────────────────────────────────────────────
 //
 // Maps MT_ mission type codes to display names.
@@ -226,9 +239,17 @@ export function resolveNode(node, dict, ERg) {
   if (entry && entry.name) {
     const res = dict[entry.name] || dict['/' + entry.name]
     if (res) return clean(res)
+    const literal = typeof entry.name === 'string' ? entry.name.trim() : ''
+    if (literal && !literal.startsWith('/') && !/^(?:SolNode|ClanNode|SettlementNode|HubNode|[A-Za-z]+Node)\d+$/.test(literal)) {
+      return clean(literal)
+    }
   }
 
   const last = node.split('/').at(-1)
+  for (const key of FACTION_DICT_KEYS[last] || []) {
+    const faction = dict[key] || dict['/' + key]
+    if (faction) return clean(faction)
+  }
   if (GeneralOverrides[last]) return GeneralOverrides[last]
   if (DescriptionOverrides[last]) return DescriptionOverrides[last]
   if (MAPPING_TYPES[last]) return MAPPING_TYPES[last]
@@ -482,7 +503,7 @@ export function resolveChallengeFlavour(path, dict, EC, ERg, allyPath = '') {
  * human-readable comma-separated string (or the chosen separator).
  * Returns null if the reward object is empty / unresolvable.
  */
-export function resolveRewardText(reward, dict, ERg, uniqueNameToName = {}, sep = ', ') {
+export function resolveRewardText(reward, dict, ERg, uniqueNameToName = {}, sep = ', ', locale = 'en') {
   if (!reward) return null
   const cItems = reward.countedItems ?? reward.CountedItems ?? []
   const rawItems = reward.items ?? reward.Items ?? []
@@ -490,7 +511,7 @@ export function resolveRewardText(reward, dict, ERg, uniqueNameToName = {}, sep 
   const resolveNameStr = (name) => {
     if (!name) return ''
     if (name.startsWith('/Lotus/')) {
-      const resolved = resolveItemName(name, dict, uniqueNameToName)
+      const resolved = resolveItemName(name, dict, uniqueNameToName, locale)
       if (resolved && !resolved.startsWith('/Lotus/')) return resolved
       return resolveNode(name, dict, ERg)
     }
@@ -515,7 +536,7 @@ export function resolveRewardText(reward, dict, ERg, uniqueNameToName = {}, sep 
 
   let fb = reward.itemString || reward.asString || null
   if (fb && fb.startsWith('/Lotus/')) {
-    const resolved = resolveItemName(fb, dict, uniqueNameToName)
+    const resolved = resolveItemName(fb, dict, uniqueNameToName, locale)
     if (resolved && !resolved.startsWith('/Lotus/')) return resolved
     fb = resolveNode(fb, dict, ERg)
   }
@@ -754,7 +775,11 @@ export function resolveItemName(path, dict, uniqueNameToName, locale = 'en') {
   if (!resolved) resolved = clean(path);
 
   if (isBlueprint && !resolved.toLowerCase().includes('blueprint') && !resolved.toLowerCase().includes(bpSuffix.trim().toLowerCase())) {
-    return resolved + bpSuffix;
+    const template = dict['/Lotus/Language/Items/BlueprintAndItem'] || dict['Lotus/Language/Items/BlueprintAndItem']
+    if (typeof template === 'string' && template.includes('|ITEM|')) {
+      return clean(template.replaceAll('|ITEM|', resolved))
+    }
+    return resolved + bpSuffix
   }
 
   return resolved;

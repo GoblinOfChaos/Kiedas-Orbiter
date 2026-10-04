@@ -585,7 +585,10 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
 
       const attFaction = resolveNode(i.AttackerMissionInfo?.faction, dict, ERg)
       const defFaction = resolveNode(i.DefenderMissionInfo?.faction, dict, ERg)
-      const isInfested = attFaction === 'Infested' || defFaction === 'Infested'
+      const isInfestedCode = (faction) => faction === 'FC_INFESTED' || faction === 'FC_INFESTATION'
+      const attackerInfested = isInfestedCode(i.AttackerMissionInfo?.faction)
+      const defenderInfested = isInfestedCode(i.DefenderMissionInfo?.faction)
+      const isInfested = attackerInfested || defenderInfested || attFaction === 'Infested' || defFaction === 'Infested'
 
       let attReward = i.AttackerReward
       let defReward = i.DefenderReward
@@ -593,10 +596,10 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
       // Infested logic: Infested side should not have rewards. 
       // Sometimes worldstate puts the reward meant for the player on the infested side's field.
       if (isInfested) {
-        if (attFaction === 'Infested' && attReward && (!defReward || (!defReward.CountedItems?.length && !defReward.Items?.length))) {
+        if (attackerInfested && attReward && (!defReward || (!defReward.CountedItems?.length && !defReward.Items?.length))) {
           defReward = attReward
           attReward = null
-        } else if (defFaction === 'Infested' && defReward && (!attReward || (!attReward.CountedItems?.length && !attReward.Items?.length))) {
+        } else if (defenderInfested && defReward && (!attReward || (!attReward.CountedItems?.length && !attReward.Items?.length))) {
           attReward = defReward
           defReward = null
         }
@@ -608,12 +611,12 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         completion: pct,
         attacker: {
           reward: attReward,
-          rewardText: resolveRewardText(attReward, dict, ERg, uniqueNameToName),
+          rewardText: resolveRewardText(attReward, dict, ERg, uniqueNameToName, ', ', locale),
           faction: attFaction
         },
         defender: {
           reward: defReward,
-          rewardText: resolveRewardText(defReward, dict, ERg, uniqueNameToName),
+          rewardText: resolveRewardText(defReward, dict, ERg, uniqueNameToName, ', ', locale),
           faction: defFaction
         }
       }
@@ -707,7 +710,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
 
         // Fallback for legacy structure if any
         let legacyChallenge = d.Challenge ? resolveChallenge(d.Challenge, dict, EC) : (d.challenge ? resolveChallenge(d.challenge, dict, EC) : null);
-        let legacyReward = d.Reward ? resolveRewardText(d.Reward, dict, ERg, uniqueNameToName) : (d.reward ? resolveRewardText(d.reward, dict, ERg, uniqueNameToName) : null);
+        let legacyReward = d.Reward ? resolveRewardText(d.Reward, dict, ERg, uniqueNameToName, ', ', locale) : (d.reward ? resolveRewardText(d.reward, dict, ERg, uniqueNameToName, ', ', locale) : null);
 
         return {
           day: d.day,
@@ -988,7 +991,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
       faction: resolveNode(a.MissionInfo?.faction, dict, ERg),
       minLevel: a.MissionInfo?.minEnemyLevel,
       maxLevel: a.MissionInfo?.maxEnemyLevel,
-      rewardText: resolveRewardText(a.MissionInfo?.missionReward, dict, ERg, uniqueNameToName),
+      rewardText: resolveRewardText(a.MissionInfo?.missionReward, dict, ERg, uniqueNameToName, ', ', locale),
       expiry: a.Expiry,
       activation: a.Activation
     })),
@@ -1016,8 +1019,8 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
         targetScore: g.VictoryThreshold,
         currentScore: g.Count,
         percent: Math.min(100, Math.max(0, (g.Count / g.VictoryThreshold) * 100)),
-        rewards: (g.RewardTierItems || []).map(rt => resolveRewardText(rt, dict, ERg, uniqueNameToName)),
-        mainReward: resolveRewardText(g.Reward, dict, ERg, uniqueNameToName),
+        rewards: (g.RewardTierItems || []).map(rt => resolveRewardText(rt, dict, ERg, uniqueNameToName, ', ', locale)),
+        mainReward: resolveRewardText(g.Reward, dict, ERg, uniqueNameToName, ', ', locale),
         expiry: g.Expiry,
         activation: g.Activation
       }

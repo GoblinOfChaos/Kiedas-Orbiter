@@ -181,12 +181,16 @@ function findRecipeByBlueprint(recipeResultIndex, blueprintUniqueName) {
 }
 
 function isMainBlueprintUniqueName(uniqueName) {
-  return /^\/Lotus\/Types\/Recipes\/(?:WarframeRecipes|Weapons)\/[^/]+Blueprint$/.test(canonicalPath(uniqueName) || '')
+  return /^\/Lotus\/Types\/Recipes\/(?:WarframeRecipes|Weapons|Drones)\/[^/]+Blueprint$/.test(canonicalPath(uniqueName) || '')
     && !/(?:Chassis|Neuroptics|Systems|Helmet|Harness|Wings)Blueprint$/i.test(uniqueName || '');
 }
 
 function isWarframeOrWeaponUniqueName(uniqueName) {
   return /\/Powersuits\/|\/Weapons\//.test(canonicalPath(uniqueName) || '');
+}
+
+function isExtractorUniqueName(uniqueName) {
+  return /^\/Lotus\/Types\/Ship\/(?:AdvancedResourceDrone|AdvancedUcResourceDrone)$/.test(canonicalPath(uniqueName) || '');
 }
 
 /**
@@ -807,17 +811,30 @@ function formatWikiResourceDrop(wikiDrop) {
   return `${wikiDrop.source || wikiDrop.missionType}${rotation}${quantity}${nodes}`;
 }
 
+function normalizeResourceMissionRow(row) {
+  const normalized = { ...row }
+  const location = String(normalized.location || normalized.nodeName || '')
+  const match = location.match(/^([^/]+)\/(.+?)(?:,\s*Rotation\s*([A-D]))?$/i)
+  if (match) {
+    normalized.region = normalized.region || match[1]
+    normalized.nodeName = match[2]
+    normalized.node = normalized.node || match[2]
+    normalized.rotation = normalized.rotation || match[3] || null
+  }
+  return normalized
+}
+
 function buildResourceSources(displayName, wikiResource, deSources, supplementalSources = []) {
   const sources = [];
   if (wikiResource?.foundText) {
     sources.push({ type: 'non-drop', text: wikiResource.foundText, source: `Warframe Wiki (${wikiResource.url})`, resourceWiki: true });
   }
 
-  const deRows = Array.isArray(deSources) ? deSources.map((source) => ({ ...source })) : [];
+  const deRows = Array.isArray(deSources) ? deSources.map((source) => normalizeResourceMissionRow({ ...source })) : [];
   const wikiDrops = Array.isArray(wikiResource?.drops) ? wikiResource.drops : [];
   for (const deRow of deRows) {
     deRow.type = 'mission';
-    deRow.nodeName = deRow.location || deRow.nodeName;
+    deRow.nodeName = deRow.nodeName || deRow.location;
     deRow.source = deRow.source || 'warframe-items';
     const wikiDrop = wikiDrops.find((candidate) => wikiDropMatchesDeRow(candidate, deRow));
     if (!wikiDrop) continue;
@@ -826,7 +843,7 @@ function buildResourceSources(displayName, wikiResource, deSources, supplemental
     deRow.rotationOrTable = wikiDrop.rotationOrTable || deRow.rotationOrTable;
     deRow.resourceSource = wikiDrop.source || deRow.resourceSource;
   }
-  sources.push(...deRows);
+  sources.push(...normalizeRelicSources(deRows));
 
   const unmatchedWikiDrops = wikiDrops.filter((wikiDrop) => !deRows.some((deRow) => wikiDropMatchesDeRow(wikiDrop, deRow)));
   for (const wikiDrop of unmatchedWikiDrops) {
@@ -1100,11 +1117,15 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     ? String(displayName || '').replace(/\s+Blueprint$/i, '').trim()
     : displayName;
   const routeIsWeaponRecipe = /\/Lotus\/Types\/Recipes\/Weapons\//.test(routeRecipe?.blueprintUniqueName || dropIndexKey || '');
-  const routePathEligible = isWarframeOrWeaponUniqueName(routeParentUniqueName) || routeIsWeaponRecipe;
+  const routeIsExtractorRecipe = /\/Lotus\/Types\/Recipes\/Drones\/Advanced(?:Uc)?ResourceDroneBlueprint$/.test(routeRecipe?.blueprintUniqueName || dropIndexKey || '');
+  const routePathEligible = isWarframeOrWeaponUniqueName(routeParentUniqueName)
+    || routeIsWeaponRecipe
+    || routeIsExtractorRecipe
+    || isExtractorUniqueName(routeParentUniqueName);
   const routeTable = routePathEligible ? WARFRAME_ACQUISITIONS[normalizeDisplayName(routeParentName)] : null;
   const routeTarget = routePathEligible
     && (routeRecipe || routeTable)
-    && !/\bPrime\b/i.test(routeParentName || '');
+    && (!/\bPrime\b/i.test(routeParentName || '') || isExtractorUniqueName(routeParentUniqueName));
   const tableRouteText = routeTable?.blueprint || routeTable?.general;
   const tableRoutes = splitAcquisitionRouteText(tableRouteText);
 

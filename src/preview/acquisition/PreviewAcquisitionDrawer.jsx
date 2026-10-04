@@ -9,7 +9,7 @@ import {
   formatDuration,
 } from '../../components/AcquisitionDrawer';
 import { resolveBlueprintOrigin, getItemDrops } from '../../lib/acquisitionData';
-import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex } from '../../lib/relicSources';
+import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, prepareAcquisitionSources } from '../../lib/relicSources';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
 import { useUi } from '../../contexts/UiContext';
@@ -29,6 +29,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
   const [showReportModal, setShowReportModal] = useState(false);
   const [altsExpanded, setAltsExpanded] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState({});
   const drawerRef = useRef(null);
   const previousFocusRef = useRef(null);
   const headingId = 'preview-acq-drawer-title';
@@ -39,6 +40,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
   // collapsed section from the previous item doesn't leak into the new one.
   useEffect(() => {
     setAltsExpanded(false);
+    setExpandedGroups({});
     if (drawerRef.current) {
       const body = drawerRef.current.querySelector('[data-preview-acq-body]');
       if (body) body.scrollTop = 0;
@@ -87,10 +89,18 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
 
   if (!item) return null;
 
-  const featured = sources[0] || null;
-  const alternatives = sources.slice(1);
-  const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t, i18nData)) : null;
   const isPrimeItem = /\bPrime\b/i.test(displayName || '');
+  const displaySources = prepareAcquisitionSources(sources, {
+    rarityIndex: relicRarityIndex,
+    itemType: recipe?.blueprintUniqueName || uniqueName,
+  });
+  const displayComponentSources = prepareAcquisitionSources(componentSources, {
+    rarityIndex: relicRarityIndex,
+    itemType: recipe?.blueprintUniqueName || uniqueName,
+  });
+  const featured = displaySources[0] || null;
+  const alternatives = displaySources.slice(1);
+  const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t, i18nData)) : null;
   const blueprintSources = recipe && isPrimeItem
     ? buildBlueprintSourceRows(displayName, recipe, dropIndex, getItemDrops(recipe.blueprintUniqueName), relicRarityIndex)
     : [];
@@ -142,11 +152,11 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
           {/* A pure recipe-only item (no sources at all) leads with the
               recipe instead of an empty "Where to start / 0 sources"
               heading - per the handoff spec's required-states table. */}
-          {(sources.length > 0 || !recipe) &&
+          {(displaySources.length > 0 || !recipe) &&
             <>
               <div className="preview-acq-section-head">
                 <h3>{t('acquisition_drawer.where_to_start')}</h3>
-                <span className="preview-acq-muted">{t(sources.length === 1 ? 'acquisition_drawer.sources_count_one' : 'acquisition_drawer.sources_count', { count: sources.length })}</span>
+                <span className="preview-acq-muted">{t(displaySources.length === 1 ? 'acquisition_drawer.sources_count_one' : 'acquisition_drawer.sources_count', { count: displaySources.length })}</span>
               </div>
 
               {featured ?
@@ -194,6 +204,21 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 <div className="preview-acq-alt-rows">
                   {alternatives.map((s, i) => {
                     const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t, i18nData));
+                    const groupKey = `${s.type}-${i}`;
+                    if (s.type.endsWith('-group')) {
+                      return <div key={groupKey} className="preview-acq-alt-row preview-acq-source-group">
+                        <button type="button" className="preview-acq-disclosure-toggle" aria-expanded={!!expandedGroups[groupKey]} onClick={() => setExpandedGroups((current) => ({ ...current, [groupKey]: !current[groupKey] }))}>
+                          <ChevronDown size={14} className={`preview-acq-chevron ${expandedGroups[groupKey] ? 'is-open' : ''}`} />
+                          <span>{text}</span>
+                        </button>
+                        {expandedGroups[groupKey] && <div className="preview-acq-alt-rows">
+                          {s.sources.map((child, childIndex) => <div key={`${groupKey}-${childIndex}`} className="preview-acq-alt-row">
+                            <span className="preview-acq-alt-row-text">{getSourceLabel(child, t, i18nData)}</span>
+                            {typeof child.chance === 'number' && <span className="preview-acq-chance-sm">{formatChance(child.chance)}</span>}
+                          </div>)}
+                        </div>}
+                      </div>;
+                    }
                     return (
                       <div key={i} className="preview-acq-alt-row">
                         <div className="preview-acq-alt-row-text">
@@ -213,14 +238,17 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
             </div>
           }
 
-          {componentSources.length > 0 &&
+          {displayComponentSources.length > 0 &&
             <div className="preview-acq-alternatives">
               <div className="preview-acq-section-head">
                 <h3>{t('acquisition_drawer.component_sources')}</h3>
-                <span className="preview-acq-muted">{t(componentSources.length === 1 ? 'acquisition_drawer.sources_count_one' : 'acquisition_drawer.sources_count', { count: componentSources.length })}</span>
+                <span className="preview-acq-muted">{t(displayComponentSources.length === 1 ? 'acquisition_drawer.sources_count_one' : 'acquisition_drawer.sources_count', { count: displayComponentSources.length })}</span>
               </div>
               <div className="preview-acq-alt-rows">
-                {componentSources.map((s, i) => {
+                {displayComponentSources.map((s, i) => {
+                  if (s.type.endsWith('-group')) {
+                    return <div key={`${s.type}-${i}`} className="preview-acq-alt-row"><span className="preview-acq-alt-row-text">{getSourceLabel(s, t, i18nData)}</span></div>;
+                  }
                   const { text, unconfirmed } = splitUnconfirmed(`${s.part} - ${getSourceLabel(s, t, i18nData)}`);
                   return (
                     <div key={i} className="preview-acq-alt-row">
@@ -236,7 +264,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
             </div>
           }
 
-          {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&
+          {displaySources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&
             <p className="preview-acq-unconfirmed-note">{t('acquisition_drawer.unconfirmed_price_note')}</p>
           }
 

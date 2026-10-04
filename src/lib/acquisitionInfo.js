@@ -13,6 +13,7 @@ import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-
 import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wiki-extractor-acquisition.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 import { normalizeRelicSources } from './relicSources.js';
+import { toCurrentSourceSentences } from './acquisitionText.js';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
 // wiki-resources-acquisition.json stores each entry as a plain location
@@ -119,7 +120,7 @@ function normalizeDisplayName(value) {
 // as its own source row without inventing a new route description. Separators
 // inside parentheses (for example the comma in "35,000") are deliberately
 // left intact.
-function splitAcquisitionRouteText(value) {
+export function splitAcquisitionRouteText(value) {
   if (typeof value !== 'string' || !value.trim()) return [];
   const routes = [];
   let start = 0;
@@ -142,13 +143,16 @@ function splitAcquisitionRouteText(value) {
       start = i + 1;
       continue;
     }
-    if (text[i] === ',' && !/^,\s+or\b/i.test(rest)) {
+    if (text[i] === ',' && !/^,\s*(?:or\b|\d)/i.test(rest)) {
       push(i);
       start = i + 1;
     }
   }
   push(text.length);
-  return routes;
+  return routes.map((route) => route
+    .replace(/^(?:or|and)\b[:.,; ]*/i, '')
+    .trim())
+    .filter((route) => route && !/^[^:]{1,48}:$/.test(route));
 }
 
 function routeKey(text) {
@@ -165,6 +169,40 @@ function routeKey(text) {
   }
   if (/quest/i.test(normalized)) return `quest:${normalized.replace(/.*?quest(?:\s+reward|\s*:)?\s*/i, '')}`;
   return normalized.replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+}
+
+function cleanSourceRows(sources) {
+  return (sources || []).flatMap((source) => {
+    if (typeof source?.text !== 'string') return [source];
+    const text = toCurrentSourceSentences(source.text).join(' ');
+    return text ? [{ ...source, text }] : [];
+  });
+}
+
+function getBundleInfo(bundleIndex, uniqueName) {
+  const value = bundleIndex?.get(canonicalPath(uniqueName));
+  if (!value) return null;
+  return typeof value === 'string' ? { name: value, amount: null, currency: null, available: true } : value;
+}
+
+function formatArmorBundleOverride(rawText, bundleIndex, uniqueName, marketEntry) {
+  const searchableText = typeof rawText === 'string' ? rawText.replaceAll('_', ' ') : '';
+  if (!searchableText || !/\bmarket\b/i.test(searchableText) || !/\b(?:armor|armour)\b/i.test(searchableText)) return null;
+  const bundle = getBundleInfo(bundleIndex, uniqueName);
+  if (bundle?.available === false) return null;
+  if (!bundle && !(marketEntry?.amount > 0)) return null;
+  const individual = marketEntry?.amount > 0
+    ? `Purchased individually from the Market for ${Number(marketEntry.amount).toLocaleString()} ${marketEntry.currency || 'Platinum'}.`
+    : null;
+  const bundleText = bundle?.amount > 0
+    ? `Also available as the "${bundle.name}" armor bundle for ${Number(bundle.amount).toLocaleString()} ${bundle.currency || 'Platinum'}.`
+    : `Also available from the Market as an armor bundle${bundle?.name ? ` ("${bundle.name}")` : ''}.`;
+  return [individual, bundleText].filter(Boolean).join(' ');
+}
+
+export function getAcquisitionInfo(...args) {
+  const result = getAcquisitionInfoRaw(...args);
+  return { ...result, sources: cleanSourceRows(result.sources) };
 }
 
 function findRecipeByBlueprint(recipeResultIndex, blueprintUniqueName) {
@@ -532,9 +570,19 @@ export function buildBundleIndex(exportData) {
     if (!Array.isArray(bundle?.components)) continue;
     const bundleName = dict[bundle.name] || bundle.name;
     if (!bundleName) continue;
+    const bundleInfo = {
+      name: bundleName,
+      amount: Number(bundle.platinumCost) > 0 ? Number(bundle.platinumCost) : null,
+      currency: Number(bundle.platinumCost) > 0 ? 'Platinum' : null,
+      available: bundle.excludeFromMarket !== true,
+    };
     for (const component of bundle.components) {
       const key = canonicalPath(component?.typeName);
-      if (key && !index.has(key)) index.set(key, bundleName);
+      if (!key) continue;
+      const existing = index.get(key);
+      if (!existing || (!existing.amount && bundleInfo.amount) || (!existing.available && bundleInfo.available)) {
+        index.set(key, bundleInfo);
+      }
     }
   }
   return index;
@@ -1015,7 +1063,7 @@ export function buildAllAcquisitionIndexes(exportData) {
   };
 }
 
-export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
+function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
   const resourceRoute = isResourceItem(dropIndexKey, displayName, wikiResourceIndex, exportComponentIndex);
   // The bare-displayName key is unsafe on its own: it's shared across every
@@ -1029,6 +1077,13 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     ?? overridesData?.components?.[dropIndexKey]
     ?? overridesData?.components?.[`${displayName}|Blueprint`]
     ?? overridesData?.components?.[displayName];
+  const cleanedOverrideText = typeof rawOverrideText === 'string'
+    ? toCurrentSourceSentences(rawOverrideText).join(' ')
+    : null;
+  const marketArmorOverride = typeof rawOverrideText === 'string'
+    && /\bmarket\b/i.test(rawOverrideText)
+    && /\b(?:armor|armour)\b/i.test(rawOverrideText)
+    && /\bfor\s*[.,]/i.test(rawOverrideText);
   const overrideHasMoreSources = typeof rawOverrideText === 'string' && /\+\d+ more sources?/i.test(rawOverrideText);
   const liveSourceKeys = [canonicalPath(dropIndexKey), dropIndexKey, `display:${normalizeDisplayName(displayName)}`].filter(Boolean);
   const hasLiveDropSources = liveSourceKeys.some((key) => (dropIndex?.[key] || []).length > 0);
@@ -1037,7 +1092,7 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // truncated count must never hide live rows that the drawer can render.
   const overrideText = (overrideHasMoreSources && hasLiveDropSources) || (isSalvageResource && hasLiveDropSources)
     ? null
-    : rawOverrideText;
+    : cleanedOverrideText || (marketArmorOverride ? rawOverrideText : null);
   // Component overrides written for an item's old recipe summary sometimes
   // say "Market purchase" even when the component itself is a resource. If
   // the exact resource has a structured Wiki acquisition record, let that
@@ -1235,6 +1290,14 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
   // `UNKNOWN (...)`. That is audit evidence, not an acquisition route, and
   // must not be rendered as if it tells the player how to obtain the item.
   if (overrideText && !resourceOverrideIsMarketOnly && !researchOverrideHasStructuredRoute && !/^UNKNOWN\b/i.test(overrideText.trim())) {
+    const armorBundleText = formatArmorBundleOverride(rawOverrideText, bundleIndex, dropIndexKey, marketEntry);
+    if (armorBundleText) {
+      return {
+        sources: [{ type: 'non-drop', text: armorBundleText, source: 'DE ExportBundles + DE export Market price' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
     if (marketOverrideIsExportVerified) {
       return {
         sources: [{ type: 'non-drop', text: overrideText, source: 'DE ExportRecipes exact blueprint cost + DE Market price' }],
@@ -1275,7 +1338,12 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
-    return { sources: [{ type: 'override', text: overrideText, source: 'manual override' }], recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
+    const overrideRoutes = splitAcquisitionRouteText(overrideText);
+    return {
+      sources: overrideRoutes.map((text) => ({ type: 'override', text, source: 'manual override' })),
+      recipe: recipe || null,
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
   }
 
   const exaltedFrames = exaltedWeaponIndex?.get(canonicalPath(dropIndexKey));
@@ -1503,10 +1571,12 @@ export function getAcquisitionInfo(dropIndexKey, displayName, dropIndex, overrid
     };
   }
 
-  const bundleName = bundleIndex?.get(canonicalPath(dropIndexKey));
-  if (bundleName && !wikiResearchIndex?.has(displayLower)) {
+  const bundleInfo = getBundleInfo(bundleIndex, dropIndexKey);
+  if (bundleInfo?.name && bundleInfo.available !== false && !wikiResearchIndex?.has(displayLower)) {
     return {
-      sources: [{ type: 'non-drop', text: `Sold as part of the "${bundleName}" Market bundle.`, source: 'DE export' }],
+      sources: [{ type: 'non-drop', text: bundleInfo.amount > 0
+        ? `Sold as part of the "${bundleInfo.name}" Market bundle for ${Number(bundleInfo.amount).toLocaleString()} ${bundleInfo.currency || 'Platinum'}.`
+        : `Sold as part of the "${bundleInfo.name}" Market bundle.`, source: 'DE export' }],
       recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };

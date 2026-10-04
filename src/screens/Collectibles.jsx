@@ -5,6 +5,7 @@ import { PageLayout } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
 import ItemImage from '../components/ItemImage'
 import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext'
+import { compareText, compareTextNumeric } from '../lib/textCompare'
 
 // The newer /SongItems/ Somachord tracks have no entries in
 // collectible-locations.json (that file only covers the classic
@@ -335,7 +336,7 @@ export default function Collectibles() {
             location: data?.location,
             found: isFound,
           }
-        }).sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.found ? 1 : -1))
+        }).sort((a, b) => (a.found === b.found ? compareTextNumeric(a.name, b.name) : a.found ? 1 : -1))
       }),
     }
   }), [collectibleSeries, collectibleLocations, uiPath, openSubpanel])
@@ -394,7 +395,7 @@ export default function Collectibles() {
           }
         })
         return items.length
-          ? items.sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.found ? 1 : -1))
+          ? items.sort((a, b) => (a.found === b.found ? compareTextNumeric(a.name, b.name) : a.found ? 1 : -1))
           : [{ key: 'placeholder', name: t('ui.collectibles.none_discovered'), found: false }]
       }),
     }
@@ -473,7 +474,7 @@ export default function Collectibles() {
                 found: foundSet.has(it.itemType),
               }
             })
-            .sort((a, b) => (a.found === b.found ? a.name.localeCompare(b.name) : a.found ? 1 : -1))
+            .sort((a, b) => (a.found === b.found ? compareText(a.name, b.name) : a.found ? 1 : -1))
         }),
       }
     })

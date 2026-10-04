@@ -99,9 +99,13 @@ export function expandTargets(targets = [], ctx = {}) {
   const unresolved = [];
   const errors = [];
 
+  const compareText = (a, b) => {
+    const left = String(a ?? '');
+    const right = String(b ?? '');
+    return left < right ? -1 : left > right ? 1 : 0;
+  };
   const orderedTargets = [...targets].sort((a, b) =>
-    String(a?.id ?? '').localeCompare(String(b?.id ?? '')) ||
-    String(a?.itemType ?? a?.uniqueName ?? '').localeCompare(String(b?.itemType ?? b?.uniqueName ?? ''))
+    compareText(a?.id, b?.id) || compareText(a?.itemType ?? a?.uniqueName, b?.itemType ?? b?.uniqueName)
   );
 
   for (const target of orderedTargets) {
@@ -187,7 +191,7 @@ export function expandTargets(targets = [], ctx = {}) {
   }
 
   for (const value of leaves.values()) {
-    value.contributions.sort((a, b) => String(a.targetId).localeCompare(String(b.targetId)));
+    value.contributions.sort((a, b) => compareText(a.targetId, b.targetId));
   }
   return { leaves, unresolved, errors };
 }

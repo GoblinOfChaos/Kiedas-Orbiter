@@ -1,7 +1,7 @@
 const text = (value) => String(value ?? '').trim();
 
 function rotationKey(value) {
-  const rotation = text(value).replace(/^Rot\s*/i, '').toLocaleLowerCase();
+  const rotation = text(value).replace(/^Rot\s*/i, '').toLowerCase();
   return rotation || '__base__';
 }
 
@@ -39,10 +39,10 @@ function mergeCoveredItems(members) {
 
 function placeGroupKey(row, index) {
   const planet = text(row?.place?.planet);
-  if (planet) return `planet:${planet.toLocaleLowerCase()}`;
+  if (planet) return `planet:${planet.toLowerCase()}`;
   const kind = text(row?.place?.kind) || text(row?.place?.level) || text(row?.place?.type);
   if (!kind) return `place:${index}`;
-  return `kind:${kind.toLocaleLowerCase()}`;
+  return `kind:${kind.toLowerCase()}`;
 }
 
 export function groupRankedByPlanet(ranked = []) {
@@ -63,7 +63,7 @@ export function groupRankedByPlanet(ranked = []) {
     const planet = group.planet;
     const coveredItems = mergeCoveredItems(group.members);
     const place = planet
-      ? { ...first.place, id: `planet:${planet.toLocaleLowerCase()}`, name: planet, planet }
+      ? { ...first.place, id: `planet:${planet.toLowerCase()}`, name: planet, planet }
       : first.place;
 
     return {

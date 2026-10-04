@@ -31,6 +31,7 @@ import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 import PrimeSetCard from '../components/PrimeSetCard';
 import { getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualRootHeight, getVirtualScrollMaximum, settleScrollJump } from '../lib/inventoryScroll.js';
 import { buildRelicRarityIndex, buildRelicTooltipRows } from '../lib/relicSources.js';
+import { compareText, compareTextBase } from '../lib/textCompare';
 
 
 
@@ -676,9 +677,9 @@ export default function Inventory() {
       if (a.isStars) return -1;
       if (b.isStars) return 1;
       if (activeTab === 'parts') {
-        const parentCompare = (a.parent_name ?? '').localeCompare(b.parent_name ?? '', undefined, { sensitivity: 'base' });
+        const parentCompare = compareTextBase(a.parent_name, b.parent_name);
         if (parentCompare !== 0) return sortDirection === 'asc' ? parentCompare : -parentCompare;
-        const partCompare = (a.name ?? '').localeCompare(b.name ?? '', undefined, { sensitivity: 'base' });
+        const partCompare = compareTextBase(a.name, b.name);
         return sortDirection === 'asc' ? partCompare : -partCompare;
       }
       // Special handling for prime_parts completion sort
@@ -1040,7 +1041,7 @@ export default function Inventory() {
       {activeTab === 'resources' &&
       <div className="flex items-center gap-2 overflow-x-auto p-1 bg-black/20 rounded-xl border border-white/5" role="group" aria-label={t('ui.inventory.resource_family_label')}>
         {[...new Set((inventoryData?.resources ?? []).map((item) => item.resource_family ?? 'other'))]
-          .sort((a, b) => a.localeCompare(b))
+          .sort(compareText)
           .map((family) => {
             const label = family === 'all'
               ? t('ui.inventory.tab_all')

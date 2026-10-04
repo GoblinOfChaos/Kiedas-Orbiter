@@ -6,7 +6,9 @@ function quantity(value) {
 }
 
 function compareText(a, b) {
-  return String(a).localeCompare(String(b));
+  const left = String(a ?? '');
+  const right = String(b ?? '');
+  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 export function buildLedger({ leaves = new Map(), owned, reservations = [], priorities = {} } = {}) {

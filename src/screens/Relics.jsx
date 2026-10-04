@@ -30,6 +30,7 @@ import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionD
 import ItemImage from '../components/ItemImage';
 import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewRelicsLayout from '../components/PreviewRelicsLayout';
+import { compareText } from '../lib/textCompare';
 
 const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
@@ -187,7 +188,7 @@ export default function Relics() {
       if (sortMode === 'plat') res = b.evPlat - a.evPlat;else
       if (sortMode === 'ducat_gain') res = b.ducatGain - a.ducatGain;else
       if (sortMode === 'plat_gain') res = b.platGain - a.platGain;else
-      res = a.name.localeCompare(b.name);
+      res = compareText(a.name, b.name);
 
       return sortOrder === 'desc' ? res : -res;
     });

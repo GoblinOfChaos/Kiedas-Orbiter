@@ -26,7 +26,12 @@ const SOURCE_CATEGORIES = {
   blueprintByDrop: 'enemy', resourceByDrop: 'enemy',
 };
 
-const lower = (value) => String(value ?? '').trim().toLocaleLowerCase();
+const lower = (value) => String(value ?? '').trim().toLowerCase();
+const textCompare = (a, b) => {
+  const left = String(a ?? '');
+  const right = String(b ?? '');
+  return left < right ? -1 : left > right ? 1 : 0;
+};
 const asArray = (value) => Array.isArray(value) ? value : [];
 const moduleEntries = (module) => Object.entries(module ?? {}).flatMap(([name, value]) => {
   if (value?.General && typeof value.General === 'object') return [[name, value.General]];
@@ -183,6 +188,6 @@ export function buildPlaceIndex({ dropTables, wiki = {}, regions = [] } = {}) {
       byItem.get(key).push(source);
     }
   }
-  for (const sources of byItem.values()) sources.sort((a, b) => a.placeId.localeCompare(b.placeId) || (a.rotation ?? '').localeCompare(b.rotation ?? '') || (b.chance ?? -1) - (a.chance ?? -1));
+  for (const sources of byItem.values()) sources.sort((a, b) => textCompare(a.placeId, b.placeId) || textCompare(a.rotation, b.rotation) || (b.chance ?? -1) - (a.chance ?? -1));
   return { byItem, places, audit: { ...auditWiki(wiki.enemies, wiki.missions, regions), byDrop: byDropAudit(dropTables), displayNameCollisions: displayNameCollisionCount(resourceList) } };
 }

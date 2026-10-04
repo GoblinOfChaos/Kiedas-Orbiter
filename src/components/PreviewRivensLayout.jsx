@@ -34,11 +34,18 @@ export default function PreviewRivensLayout({ enabled, children }) {
           width: 100%;
           height: auto;
           min-height: 42px;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           min-width: 0;
+        }
+        [data-preview-rivens-state] > svg,
+        [data-preview-rivens-sort] > svg {
+          flex: 0 0 auto;
+          align-self: flex-start;
+          margin-top: .25rem;
         }
         [data-preview-rivens-state] > div,
         [data-preview-rivens-sort] > div {
+          flex: 1 1 0;
           min-width: 0;
           flex-wrap: wrap;
         }

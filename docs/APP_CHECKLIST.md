@@ -2,7 +2,7 @@
 
 Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4-6s per screen before judging (screens render slowly). Numbers like #9 refer to `docs/RECURRING_ERRORS_REPORT.md`. Report anything wrong with a screenshot, the screen name and the app language, and I will trace it and add it to the error file.
 
-**Order: easiest first.** Work top to bottom. Each step needs a bit more than the one before. This is an evolving list: new items are added to the step that fits their effort, confirmed items move to "Confirmed by you". Build details and the rollback copy are in the BUILD STATUS line of `docs/RECURRING_ERRORS_REPORT.md`. Everything below marked "fixed in code" is in the build deployed on 2026-10-03 at 18:01 (not in build 795d0a7, which you tested before). Items #49 and #50 were added after the 16:57 build and are only in the 18:01 build.
+**Order: easiest first.** Work top to bottom. Each step needs a bit more than the one before. This is an evolving list: new items are added to the step that fits their effort, confirmed items move to "Confirmed by you". Build details and the rollback copy are in the BUILD STATUS line of `docs/RECURRING_ERRORS_REPORT.md`. Everything below marked "fixed in code" is in the build deployed on 2026-10-03 at 20:40 (not in the 18:01 build you tested before). The 20:40 build adds #48, #51 to #55, #57 to #61 on top of everything from the 18:01 build; the new checks are in the "New findings" section below, each with what to look at.
 
 ## Step 1 - Quick looks (under a minute each, no game needed, English is fine)
 

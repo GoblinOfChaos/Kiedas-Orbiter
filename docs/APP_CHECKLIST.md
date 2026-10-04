@@ -20,20 +20,19 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Step 3 - A little scrolling and clicking (about 5 minutes)
 
-- [ ] #46 / #15 Inventory list: click in the list and press End, Home, Page Down, Page Up (they scroll; typing in the search box still works); scroll down and maximize the window (the list stays where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it, a small one-time shift when the first row is measured is expected)
-- [ ] #31 Prime Sets tab: scroll down and then UP quickly; it should feel smooth and not get slower over time. If it is still slow, record a 5 second Performance profile and send it (steps in the report, section 31)
+- [x] #46 / #15 Inventory list: click in the list and press End, Home, Page Down, Page Up (they scroll; typing in the search box still works); scroll down and maximize the window (the list stays where it was); scroll to the very end of a tab (the last row fully visible, nothing blank under it, a small one-time shift when the first row is measured is expected)
 - [ ] #45 After using the app for a while open the log and search for `parseInventory worker call failed`: it should be gone; tell me if the Inventory ever looks empty or stale after starting
 
 ## Step 4 - Needs Warframe running
 
 - [ ] #44 / #23 Relic mission with duplicate rewards (two of the same item): every card is recognized, none say UNRECOGNIZED (the Yareli Prime Chassis and Akbronco cases) (R)
-- [ ] #28 After a session with the game open, the log does not fill with `[FOCUS_WATCHER] transition` lines every half second (coordinator count 2026-10-03: 26 in 1.5 hours with the old build 795d0a7, versus 459 in a day before; your call to tick)
+- [x] #28 After a session with the game open, the log does not fill with `[FOCUS_WATCHER] transition` lines every half second (coordinator count 2026-10-03: 26 in 1.5 hours with the old build 795d0a7, versus 459 in a day before; your call to tick)
 
 ## Step 5 - Needs you to send me something
 
 - [ ] #21 / #30 overlay: if a relic reward card says OWNED wrongly or misses a blueprint count, send a screenshot with the item name (I could not reproduce either)
-- [ ] #48 1999 Calendar in German: the upgrade names ("Electric Status Damage And Chance", "Armor", ...) stay English because no German text exists in the data; send a screenshot of the in-game 1999 calendar with the game set to German so I can use the real names
-- [ ] #43 Wiki tab blank after a crash: if it happens again, send me the log file before restarting the app
+- [ ] #48 1999 Calendar in German: the upgrade names ("Electric Status Damage And Chance", "Armor", ...) stay English. My earlier claim that the German text is not in the data was too strong: the German words exist in the game (your Voltaischer Schlag screenshot), but I do not know the exact in-game phrase. A screenshot of the in-game 1999 calendar in German, or your OK to build the name from the game's own German stat labels, would settle it
+- [x] #43 Wiki tab blank after a crash: if it happens again, send me the log file before restarting the app
 
 ## New findings from your checks of the 18:01 build (not fixed yet; waiting for your go)
 
@@ -47,6 +46,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [ ] #58 Rivens filters at a small width: the funnel and sort icons sit alone on their own line, the buttons wrap below (reported 2026-10-03, from the #41 change). Cause verified, NO fix started
 - [ ] #59 Farming Targets: the Vendor tab shows nothing; the place list builds only one generic "Vendor" place because the wiki vendor list holds names, not objects (reported 2026-10-03). Verified on real data, NO fix started
 - [ ] #60 Farming Targets Target Inspector: for a target you already own it shows nothing and does not list what is needed to build it (reported 2026-10-03). Needs your decision (my recommendation: always list the full requirements, owned ones ticked)
+- [ ] #61 Inventory: End goes to the end of the rendered part, not the end of the whole list (reported 2026-10-03). Cause not verified, NO fix started (needs a reproduction approach, see the report)
 
 ## Confirmed by you (kept for the record)
 
@@ -76,6 +76,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 - [x] #40 Market page with the window under 1050px wide: the "Active Orders" and "Tradeable Stock" tabs are fully visible (confirmed by you 2026-10-03, build 18:01)
 - [x] #42 History: hover over the chart points; the screen no longer crashes (confirmed by you 2026-10-03, build 18:01)
 - [x] #47 Farming Targets: turn on "Group by planet": each planet appears once with "N nodes" and its nodes underneath; off, nothing changes (confirmed by you 2026-10-03, build 18:01)
+- [x] #31 Prime Sets tab scrolling smoothness (closed by you 2026-10-03: no practical way to test it, no profile was taken)
 
 ## Blocked or waiting on something other than a check
 

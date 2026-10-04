@@ -46,9 +46,9 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 ## Open: NOT fixed, waiting for your go
 
-- [ ] #56 Consistency across all drawers (your principle, 2026-10-03): proposal for one shared contract plus an audit test over every item; waiting for your go
+- [ ] #56 Consistency across all drawers (your principle, 2026-10-03): FIRST VERSION DONE (a whole-catalog audit test over every item's rows, 0 violations; see #63). The full contract (one assembler for every path) is not built; say go if you want it
 - [ ] #62 Larger project, later: our own refresh of the game's language strings straight from Digital Extremes' servers (replaces the lagging community dictionary; the calendar names use the published strings for now). Planned, NOT started; see the report, section 62
-- [ ] #63 Hand-written acquisition rows are broken in many drawers (found by the coordinator 2026-10-03, read-only, real data): 457 items show a number cut in half (Grimoire: "for 50" and "000 Standing" as two rows), 155 armor-bundle drawers say "purchaseable from the Market for ." with no price, 142 carry history or update wording, 89 have a row that only says "Blueprint:", 14 show names with underscores. Cause verified (route splitter cuts at the thousands comma; the earlier audit never covered these paths). NO fix started; proposal in the report, section 63, waiting for your go
+- [ ] #63 Hand-written acquisition rows broken in many drawers. FIXED (merged, not built yet; coordinator real-data counts 13,235 entries: cut numbers, missing prices, history, 'Blueprint:' rows all 0). Check after the next build: Grimoire (Bird 3 for 50,000 Standing, one row), Cirrus and Arca armor (prices, no 'for .'), Galariak Prime (3 clean Recall rows), Daybreak armor. Honest gaps to tell me about if you notice: 279 items (Obsidian skins, Ephemeras) now show no hand-written text because it was only history; 11 resources lost wiki text (Stalker Beacon, Wolf Beacon, Omni Forma ...); Diriga Desert-Camo Skin no longer shows its Baro price
 
 ## Confirmed by you (kept for the record)
 
@@ -87,7 +87,7 @@ Edit freely. Tick `[x]` only when you have SEEN it work in the live app. Allow 4
 
 - [ ] #16 "The Circuit" translation: BLOCKED. No official localized name exists in the repo data or on wiki.warframe.com; the title stays "The Circuit" in every language until an official source is found
 - [ ] #19, #20, #22 (relic picker translations, relic planner names in German, picker layout): fixed in an earlier snapshot, never confirmed in the app. Check them during Step 2 and Step 4 when you are on those screens
-- [ ] Other owned items the Inventory parser does not read yet. Checked on your real inventory 2026-10-03 (read-only). Items with real names in the repo's DE exports: Railjack parts and plating (A+H: 74, e.g. Vidar Engines MK I, Zetki Plating MK I), Drifter melee (F: 6, Sun & Moon, Edun, Azothane, Syam), quests (C: 43, Vor's Prize, Once Awake), level keys (J: 4, Clan Key, Abyssal Beacon x7). NO name in the exports (would need #62's language strings first, never path-derived text): Focus upgrades (B: 60), email items (D: 22), boosters (E: 12), crew members, Kubrow prints, Railjack weapons, harness, data knife, horse, motorcycle, scoops. Not items at all: the Operator suits (your saved outfits). You agreed to A, B, D, E, F, H, K; B, D, E and K have to wait for #62 because they have no names. Decision for you: do you also want C (quests) and J (level keys)?
+- [ ] Other owned items the Inventory parser does not read yet: DONE for the ones with real names (merged, not built yet): Inventory > Parts now has 56 Railjack parts and plating (31 owned, 25 not owned) and Melee has your 6 Drifter weapons (Sun & Moon, Edun, Azothane, Syam, ...). Left out on purpose because the DE exports have no name for them (waits for #62): Focus upgrades, email items, boosters, Railjack weapons, crew, Kubrow prints, harness, data knife, horse, motorcycle, scoops; quest keys and level keys (not farmable) and Operator suits (your saved outfits) are not items
 
 ## Backlog (kept from earlier lists)
 

@@ -17,7 +17,7 @@ import { fillDataGaps, logGapFillAudit, fillModGaps, logModGapFillAudit } from '
 import { buildImageMaps, buildRuntimeExportBundle } from '../lib/exportBundle'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
-import { event as logEvent, startSpan } from '../lib/logging/logger'
+import { event as logEvent, startSpan, warn } from '../lib/logging/logger'
 
 
 const OFFICIAL_API = 'https://api.warframe.com/cdn/worldState.php'
@@ -497,6 +497,7 @@ export function MonitoringProvider({ children }) {
   const applyRaw = useCallback((raw, ts, exports) => {
     if (!raw) return
     const parseSpan = startSpan('state.parse', { screen: 'inventory', payload: { type: 'inventory', count: Array.isArray(raw) ? raw.length : undefined } })
+    const parseStartedAt = typeof performance !== 'undefined' ? performance.now() : Date.now()
     setRawInventory(raw)
     rawInventoryRef.current = raw
     const ed = exports || exportDataRef.current || exportData
@@ -506,12 +507,16 @@ export function MonitoringProvider({ children }) {
     // as a partial mitigation; the actual parse could still block the main
     // thread for its full duration once it started).
     getDataWorker().parseInventory(raw, ed, dict, localeRef.current, i18nRef.current).then((parsed) => {
+      const durationMs = (typeof performance !== 'undefined' ? performance.now() : Date.now()) - parseStartedAt
       setInventoryData(parsed || null)
-      parseSpan.complete({ result_type: parsed ? 'inventory_summary' : 'empty' })
+      parseSpan.complete({ result_type: parsed ? 'inventory_summary' : 'empty', duration_ms: durationMs })
+      if (durationMs > 3000) warn('state.parse.slow', { state: 'inventory', duration_ms: durationMs, threshold_ms: 3000 }, { screen: 'inventory', durationMs })
       logEvent('state.update.completed', { state: 'inventory', result_type: parsed ? 'inventory_summary' : 'empty' }, { phase: 'complete', outcome: 'success' })
     }).catch((err) => {
+      const durationMs = (typeof performance !== 'undefined' ? performance.now() : Date.now()) - parseStartedAt
       console.error('parseInventory worker call failed:', err)
-      parseSpan.fail(err, { state: 'inventory' })
+      parseSpan.fail(err, { state: 'inventory', duration_ms: durationMs })
+      warn('state.parse.worker_failed', { state: 'inventory', duration_ms: durationMs, error_type: err?.name || 'Error' }, { screen: 'inventory', error: err })
       logEvent('state.parse.failed', { state: 'inventory' }, { phase: 'failed', outcome: 'failure', error: err })
       setInventoryData(prev => nextInventoryAfterParseFailure(prev))
     }).finally(() => {

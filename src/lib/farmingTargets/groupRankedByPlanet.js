@@ -40,7 +40,9 @@ function mergeCoveredItems(members) {
 function placeGroupKey(row, index) {
   const planet = text(row?.place?.planet);
   if (planet) return `planet:${planet.toLocaleLowerCase()}`;
-  return `place:${index}`;
+  const kind = text(row?.place?.kind) || text(row?.place?.level) || text(row?.place?.type);
+  if (!kind) return `place:${index}`;
+  return `kind:${kind.toLocaleLowerCase()}`;
 }
 
 export function groupRankedByPlanet(ranked = []) {
@@ -48,7 +50,11 @@ export function groupRankedByPlanet(ranked = []) {
 
   ranked.forEach((row, index) => {
     const key = placeGroupKey(row, index);
-    if (!groups.has(key)) groups.set(key, { planet: text(row?.place?.planet) || null, members: [] });
+    if (!groups.has(key)) groups.set(key, {
+      planet: text(row?.place?.planet) || null,
+      kind: text(row?.place?.planet) ? null : (text(row?.place?.kind) || text(row?.place?.level) || text(row?.place?.type) || null),
+      members: [],
+    });
     groups.get(key).members.push(row);
   });
 
@@ -64,6 +70,7 @@ export function groupRankedByPlanet(ranked = []) {
       ...first,
       place,
       planet,
+      kind: group.kind,
       members: group.members,
       coveredItems,
       coverage: coveredItems.length,

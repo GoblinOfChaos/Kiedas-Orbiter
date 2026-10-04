@@ -9,7 +9,7 @@
  * Preview adds reservations, target lifecycle metadata, due-date badges, and
  * shared entry points while keeping Stable on its existing path.
  */
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, memo } from 'react';
 import { Search, Plus, Minus, Trash2, Target as TargetIcon, ChevronRight, Archive, CheckCircle2 } from 'lucide-react';
 import { invoke } from '../lib/logging/tauri';
 import { PageLayout, Card, Input, Button, MonitorState, Tabs, Select, Toggle } from '../components/UI';
@@ -27,10 +27,11 @@ import {
 import { computeFarmingTargetsView } from '../lib/farmingTargets/aggregation';
 import { availableSourceTabs, buildFarmingTargetsScreenModel, buildPreviewPlaceIndex } from '../lib/farmingTargets/screenModel.js';
 import { RELIC_REFINEMENTS } from '../lib/farmingTargets/relicPlaces.js';
-import { event } from '../lib/logging/logger.js';
+import { event, startSpan } from '../lib/logging/logger.js';
 import { activeTargets, dueState, targetReservationQuantity } from '../lib/farmingTargets/state.js';
 import { buildFarmingDrawerLookup } from '../lib/farmingTargets/drawerLookup.js';
 import { groupRankedByPlanet } from '../lib/farmingTargets/groupRankedByPlanet.js';
+import { runFarmingSpan } from '../lib/farmingTargets/logging.js';
 
 function validLocalDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -55,36 +56,89 @@ function chanceLabel(chance) {
 }
 
 function HonestyBadge({ place, t }) {
-  const labels = { node: t('farming_targets.honesty_node'), 'fixed-boss': t('farming_targets.honesty_boss'), 'wiki-area': t('farming_targets.honesty_wiki_area'), planet: t('farming_targets.honesty_planet'), 'source-only': t('farming_targets.honesty_source'), vaulted: t('farming_targets.relic_vaulted'), unknown: t('farming_targets.honesty_unknown') };
+  const labels = {
+    node: t('farming_targets.honesty_node'),
+    'fixed-boss': t('farming_targets.honesty_boss'),
+    boss: t('farming_targets.honesty_boss_source'),
+    'wiki-area': t('farming_targets.honesty_wiki_area'),
+    planet: t('farming_targets.honesty_planet'),
+    cache: t('farming_targets.honesty_cache'),
+    event: t('farming_targets.honesty_event'),
+    enemy: t('farming_targets.honesty_enemy'),
+    relic: t('farming_targets.honesty_relic'),
+    vendor: t('farming_targets.honesty_vendor'),
+    'source-only': t('farming_targets.honesty_source'),
+    vaulted: t('farming_targets.relic_vaulted'),
+    unknown: t('farming_targets.honesty_unknown'),
+  };
   return <span className="rounded-full border border-kronos-accent/30 bg-kronos-accent/10 px-2 py-0.5 text-[9px] text-kronos-accent">{labels[place?.level] ?? labels.unknown}</span>;
 }
 
-function RelicPlaceRow({ row, total, t, onHowToGet }) {
-  return <div className="p-4 space-y-2">
+const RelicPlaceRow = memo(function RelicPlaceRow({ row, total, t, onHowToGet }) {
+  const [expanded, setExpanded] = useState(false);
+  const hiddenCount = Math.max(0, row.coveredItems.length - 6);
+  const visibleItems = expanded ? row.coveredItems : row.coveredItems.slice(0, 6);
+  return <div data-farming-place-row className="p-4 space-y-2">
     <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.place.name}</strong><HonestyBadge place={row.place.vaulted ? { ...row.place, level: 'vaulted' } : row.place} t={t} /><span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
     <div className="flex flex-wrap gap-2 text-[10px] text-kronos-dim"><span>{t('farming_targets.relic_owned', { count: row.place.ownedCount })}</span>{RELIC_REFINEMENTS.map((refinement) => <span key={refinement}>{refinement}: {row.place.refinements[refinement] ?? 0}</span>)}{!row.place.vaulted && row.place.sources.length > 0 && <button type="button" onClick={() => onHowToGet(row.place.uniqueName)} className="text-kronos-accent hover:underline">{t('farming_targets.relic_how_to_get')}</button>}</div>
-    <div className="flex flex-wrap gap-2">{row.coveredItems.map((item) => <span key={item.itemType} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span>{RELIC_REFINEMENTS.map((refinement) => <span key={refinement} className="ml-2 text-kronos-accent">{refinement[0]} {item.chances[refinement] == null ? '—' : `${(item.chances[refinement] * 100).toFixed(2)}%`}</span>)}</span>)}</div>
+    <div className="flex flex-wrap gap-2">{visibleItems.map((item) => <span key={item.itemType} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span>{RELIC_REFINEMENTS.map((refinement) => <span key={refinement} className="ml-2 text-kronos-accent">{refinement[0]} {item.chances[refinement] == null ? '—' : `${(item.chances[refinement] * 100).toFixed(2)}%`}</span>)}</span>)}{hiddenCount > 0 && <button type="button" className="rounded-md bg-black/30 px-2 py-1 text-[10px] text-kronos-accent" onClick={() => setExpanded((value) => !value)} aria-label={expanded ? 'Collapse items' : `Show ${hiddenCount} more items`}>{expanded ? '−' : `+${hiddenCount}`}</button>}</div>
   </div>;
-}
+});
 
-function CoveredItems({ items }) {
-  return <div className="flex flex-wrap gap-2">{items.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> {source.chance == null ? null : <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>}{source.price ? <span className="text-kronos-accent"> · {source.price}</span> : null}{source.rotation ? <span className="text-kronos-dim"> · Rot {String(source.rotation).replace(/^Rot\s*/i, '')}</span> : null}</span>))}</div>;
-}
+const CoveredItems = memo(function CoveredItems({ items }) {
+  const [expanded, setExpanded] = useState(false);
+  const hiddenCount = Math.max(0, items.length - 6);
+  const visibleItems = expanded ? items : items.slice(0, 6);
+  return <div className="flex flex-wrap gap-2">{visibleItems.flatMap((item) => (item.sources?.length ? item.sources : [item]).map((source, index) => <span key={`${item.itemType}-${source.rotation ?? 'base'}-${index}`} className="rounded-md bg-black/20 px-2 py-1 text-[10px]"><span className="text-kronos-text">{item.name}</span> {source.chance == null ? null : <span className="text-kronos-accent">{chanceLabel(source.chance)}</span>}{source.price ? <span className="text-kronos-accent"> · {source.price}</span> : null}{source.rotation ? <span className="text-kronos-dim"> · Rot {String(source.rotation).replace(/^Rot\s*/i, '')}</span> : null}</span>))}{hiddenCount > 0 && <button type="button" className="rounded-md bg-black/30 px-2 py-1 text-[10px] text-kronos-accent" onClick={() => setExpanded((value) => !value)} aria-label={expanded ? 'Collapse items' : `Show ${hiddenCount} more items`}>{expanded ? '−' : `+${hiddenCount}`}</button>}</div>;
+});
 
-function GroupedPlanetRow({ row, t, total }) {
-  return <div className="p-4 space-y-2">
-    <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.planet ?? row.place.name}</strong>{row.planet && <details className="ml-auto text-[10px] text-kronos-dim"><summary className="cursor-pointer list-none rounded-full border border-white/10 px-2 py-0.5 hover:text-kronos-text">{t('farming_targets.node_count', { count: row.members.length })}</summary><div className="mt-2 w-full min-w-[14rem] space-y-3 rounded-md border border-white/5 bg-black/10 p-2">{row.members.map((member) => <div key={member.place.id} className="space-y-1"><div className="flex flex-wrap items-center gap-2"><strong className="text-xs">{member.place.name}</strong><HonestyBadge place={member.place} t={t} />{member.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-[10px] text-kronos-accent">{t('farming_targets.covers', { count: member.coverage, total })}</span></div><CoveredItems items={member.coveredItems} /></div>)}</div></details>}{!row.planet && <HonestyBadge place={row.place} t={t} />}<span className={`${row.planet ? '' : 'ml-auto '}text-xs font-bold text-kronos-accent`}>{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
+const GroupedPlanetRow = memo(function GroupedPlanetRow({ row, t, total }) {
+  const kindLabels = {
+    'fixed-boss': t('farming_targets.honesty_boss'),
+    boss: t('farming_targets.honesty_boss_source'),
+    cache: t('farming_targets.honesty_cache'),
+    event: t('farming_targets.honesty_event'),
+    enemy: t('farming_targets.honesty_enemy'),
+    relic: t('farming_targets.honesty_relic'),
+    vendor: t('farming_targets.honesty_vendor'),
+    'source-only': t('farming_targets.honesty_source'),
+  };
+  const groupTitle = row.planet ?? kindLabels[row.kind] ?? row.place.name;
+  return <div data-farming-place-row className="p-4 space-y-2">
+    <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{groupTitle}</strong>{row.planet && <details className="ml-auto text-[10px] text-kronos-dim"><summary className="cursor-pointer list-none rounded-full border border-white/10 px-2 py-0.5 hover:text-kronos-text">{t('farming_targets.node_count', { count: row.members.length })}</summary><div className="mt-2 w-full min-w-[14rem] space-y-3 rounded-md border border-white/5 bg-black/10 p-2">{row.members.map((member) => <div key={member.place.id} className="space-y-1"><div className="flex flex-wrap items-center gap-2"><strong className="text-xs">{member.place.name}</strong><HonestyBadge place={member.place} t={t} />{member.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-[10px] text-kronos-accent">{t('farming_targets.covers', { count: member.coverage, total })}</span></div><CoveredItems items={member.coveredItems} /></div>)}</div></details>}{!row.planet && <HonestyBadge place={row.place} t={t} />}<span className={`${row.planet ? '' : 'ml-auto '}text-xs font-bold text-kronos-accent`}>{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
     <CoveredItems items={row.coveredItems} />
   </div>;
-}
+});
+
+const RankedPlaceRow = memo(function RankedPlaceRow({ row, t, total }) {
+  return <div data-farming-place-row className="p-4 space-y-2">
+    <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.place.planet ? `${row.place.planet} — ${row.place.name}` : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
+    {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
+    <CoveredItems items={row.coveredItems} />
+  </div>;
+});
 
 export function PreviewFarmingView({ targets, reservations, model, t, selectedTarget, setSelectedTarget, tab, setTab, minChanceOn, setMinChanceOn, minChancePct, setMinChancePct, hideDone, setHideDone, hideConclave, setHideConclave, groupPlanet, setGroupPlanet, toggle, onRemoveTarget, onQuantityChange, onTargetChange, onReserve }) {
+  const [visiblePlaceCount, setVisiblePlaceCount] = useState(40);
+  const pageRenderStartedAt = useMemo(() => (typeof performance !== 'undefined' ? performance.now() : Date.now()), [model, visiblePlaceCount, groupPlanet]);
+  useEffect(() => { setVisiblePlaceCount(40); }, [tab, minChanceOn, minChancePct, hideDone, hideConclave, groupPlanet]);
   const target = targets.find((item) => item.id === selectedTarget) ?? targets[0];
   const effectiveTargetId = target?.id ?? null;
   const targetRows = model.ledger.filter((row) => target?.id != null
     && row.usedBy.some((entry) => String(entry.targetId) === String(target.id)));
   const stillNeededCount = model.ledger.filter((row) => row.stillNeeded > 0).length;
-  const displayRows = groupPlanet && tab !== 'relics' ? groupRankedByPlanet(model.ranked) : model.ranked;
+  const pageRanked = useMemo(() => model.ranked.slice(0, visiblePlaceCount), [model.ranked, visiblePlaceCount]);
+  const displayRows = groupPlanet && tab !== 'relics' ? groupRankedByPlanet(pageRanked) : pageRanked;
+  const remainingPlaceCount = Math.max(0, model.ranked.length - visiblePlaceCount);
+  useEffect(() => {
+    const durationMs = (typeof performance !== 'undefined' ? performance.now() : Date.now()) - pageRenderStartedAt;
+    event('farming.render.page', {
+      rows_rendered: pageRanked.length,
+      rows_total: model.ranked.length,
+      chips_rendered: pageRanked.reduce((count, row) => count + row.coveredItems.length, 0),
+      duration_ms: durationMs,
+    }, { screen: 'farming-targets', durationMs });
+  }, [pageRanked, model.ranked.length, pageRenderStartedAt]);
   const otherResultTabs = availableSourceTabs(model.tabResultCounts, tab);
   const tabLabels = Object.fromEntries(FARM_TABS.map(([id, key]) => [id, t(key)]));
   const emptySourcesMessage = otherResultTabs.length > 0
@@ -123,12 +177,9 @@ export function PreviewFarmingView({ targets, reservations, model, t, selectedTa
           <div className="p-4 border-b border-white/5"><h2 className="text-sm font-black uppercase">{t('farming_targets.farm_next')}</h2><p className="text-xs text-kronos-dim mt-1">{t('farming_targets.coverage_explanation')}</p></div>
           <div className="divide-y divide-white/5">
             {model.ranked.length === 0 && <p className="p-5 text-sm text-kronos-dim">{emptySourcesMessage}</p>}
-            {displayRows.map((row) => tab === 'relics' ? <RelicPlaceRow key={row.place.id} row={row} total={stillNeededCount} t={t} onHowToGet={toggle} /> : groupPlanet ? <GroupedPlanetRow key={row.place.id} row={row} t={t} total={stillNeededCount} /> : <div key={row.place.id} className="p-4 space-y-2">
-              <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.place.planet ? `${row.place.planet} — ${row.place.name}` : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total: stillNeededCount })}</span></div>
-              {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
-              <CoveredItems items={row.coveredItems} />
-            </div>)}
+            {displayRows.map((row) => tab === 'relics' ? <RelicPlaceRow key={row.place.id} row={row} total={stillNeededCount} t={t} onHowToGet={toggle} /> : groupPlanet ? <GroupedPlanetRow key={row.place.id} row={row} t={t} total={stillNeededCount} /> : <RankedPlaceRow key={row.place.id} row={row} t={t} total={stillNeededCount} />)}
           </div>
+          {remainingPlaceCount > 0 && <button type="button" className="w-full border-t border-white/5 px-4 py-3 text-xs font-bold text-kronos-accent hover:bg-white/5" onClick={() => setVisiblePlaceCount((count) => count + 40)}>{t('farming_targets.show_more', { count: remainingPlaceCount })}</button>}
         </Card>
 
         <Card className="p-0">
@@ -217,12 +268,20 @@ export default function FarmingTargets() {
   }, [catalog, search, targets]);
 
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
-  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData]);
-  const screenModel = useMemo(() => IS_PREVIEW ? buildFarmingTargetsScreenModel({
-    targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
-    placeIndex: previewPlaceIndex,
-    filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave },
-  }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave]);
+  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.place_index.build', () => buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }), {
+    startSpanFn: startSpan,
+    payload: { source_items: Object.keys(dropIndex ?? {}).length },
+    size: (index) => ({ places: index.places.size, sources: [...index.byItem.values()].reduce((count, rows) => count + rows.length, 0) }),
+  }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData]);
+  const screenModel = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.model.build', () => buildFarmingTargetsScreenModel({
+      targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
+      placeIndex: previewPlaceIndex,
+      filters: { tab: farmTab, minChance: minChanceOn && minChancePct !== '' && Number.isFinite(Number(minChancePct)) ? Number(minChancePct) / 100 : undefined, hideConclave },
+    }), {
+      startSpanFn: startSpan,
+      payload: { targets: targets.length },
+      size: (result) => ({ targets: targets.length, ledger_rows: result.ledger.length, ranked_places: result.ranked.length, chips: result.ranked.reduce((count, row) => count + row.coveredItems.length, 0) }),
+    }) : { ledger: [], ranked: [], relicPlaces: [], conclaveOnlyItems: [] }, [targets, store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, previewPlaceIndex, EI, nameToImage, uniqueNameToName, farmTab, minChanceOn, minChancePct, hideConclave]);
 
   useEffect(() => {
     if (!IS_PREVIEW || isInventoryLoading || !store) return;
@@ -264,7 +323,11 @@ export default function FarmingTargets() {
   // A single key namespace for the shared acquisition drawer - either a
   // target's own uniqueName, or a shopping-list ingredient's itemType.
   const drawerLookup = useMemo(() => {
-    return buildFarmingDrawerLookup({ perTarget: view.perTarget, shoppingList: view.shoppingList, ledger: screenModel.ledger, relicPlaces: screenModel.relicPlaces, isPreview: IS_PREVIEW });
+    return runFarmingSpan('farming.drawer_lookup.build', () => buildFarmingDrawerLookup({ perTarget: view.perTarget, shoppingList: view.shoppingList, ledger: screenModel.ledger, relicPlaces: screenModel.relicPlaces, isPreview: IS_PREVIEW }), {
+      startSpanFn: startSpan,
+      payload: { targets: targets.length },
+      size: (lookup) => ({ items: lookup.size }),
+    });
   }, [view, screenModel]);
 
   const openItem = useMemo(() => {

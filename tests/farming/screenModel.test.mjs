@@ -67,6 +67,31 @@ test('attaches ExportRegions faction names to matched mission nodes only', () =>
   assert.equal(model.ranked.find((row) => row.place.name === 'Unknown Node').place.faction, undefined);
 });
 
+test('takes a node planet from ExportRegions.systemName and labels non-node source kinds', () => {
+  const model = buildFarmingTargetsScreenModel({
+    targets: [{ id: 'target', uniqueName: 'T', name: 'Target', quantity: 1 }],
+    inventoryData: { all: [], craftable: [{ resultType: 'T', ingredients: [{ itemType: 'O', name: 'Ore', need: 1 }] }] },
+    exportData: {
+      dict: { '/Lotus/Language/Locations/Ceres': 'Ceres' },
+      ExportRegions: [{ uniqueName: 'SolNodeTest', name: 'Test Node', systemName: '/Lotus/Language/Locations/Ceres' }],
+    },
+    dropIndex: {
+      O: [
+        { type: 'mission', node: 'SolNodeTest', nodeName: 'Test Node', chance: 0.5 },
+        { type: 'mission', sourceName: 'Hallowed Flame Mission Caches', chance: 0.4 },
+        { type: 'avatar', sourceName: 'Alad V', chance: 0.3 },
+        { type: 'enemy', enemyName: 'Corrupted Vor', chance: 0.2 },
+      ],
+    },
+  });
+  const node = model.ranked.find((row) => row.place.name === 'Test Node').place;
+  assert.equal(node.level, 'node');
+  assert.equal(node.planet, 'Ceres');
+  assert.equal(model.ranked.find((row) => row.place.name === 'Hallowed Flame Mission Caches').place.level, 'cache');
+  assert.equal(model.ranked.find((row) => row.place.name === 'Alad V').place.level, 'boss');
+  assert.equal(model.ranked.find((row) => row.place.name === 'Corrupted Vor').place.level, 'enemy');
+});
+
 test('blueprint leaves use DE image maps and fall back to the component image', () => {
   const component = '/Lotus/Types/WarframeRecipes/TestChassisComponent';
   const exportData = { dict: {}, ExportImages: { [component]: { contentHash: 'component-hash' } }, ExportWarframes: [{ uniqueName: component, name: 'Test Frame Chassis', icon: component }] };

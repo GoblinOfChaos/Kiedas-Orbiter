@@ -148,6 +148,21 @@ test('SSR groups ranked places by planet and keeps node names underneath', async
   assert.match(ungrouped, /Earth — Node 3/)
 })
 
+test('SSR collapses a place with more than six item chips behind a plus count', async () => {
+  const { PreviewFarmingView, UiContext } = await loadScreen()
+  const { targets, model } = fixtureUiModel()
+  const sourceItems = Array.from({ length: 7 }, (_, index) => ({ itemType: `item-${index}`, name: `Item ${index}`, chance: 0.1 }))
+  const chipModel = { ...model, ranked: [{ ...model.ranked[0], coveredItems: sourceItems }] }
+  const html = renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
+    targets, reservations: [], model: chipModel, t, selectedTarget: targets[0].id, setSelectedTarget: noOp,
+    tab: 'all', setTab: noOp, minChanceOn: false, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
+    hideDone: false, setHideDone: noOp, hideConclave: false, setHideConclave: noOp, groupPlanet: false, setGroupPlanet: noOp,
+    toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp, onTargetChange: noOp, onReserve: noOp,
+  })));
+  assert.match(html, />\+1<\/button>/)
+  assert.doesNotMatch(html, /Item 6/)
+})
+
 test('screen model stays under 100ms for 80 targets with an indexed place set', () => {
   const base = fixtureUiModel()
   const targets = Array.from({ length: 80 }, (_, index) => ({ ...base.targets[index % 3], id: `target-${index}` }))
@@ -155,3 +170,33 @@ test('screen model stays under 100ms for 80 targets with an indexed place set', 
   buildFarmingTargetsScreenModel({ targets, inventoryData: base.inventoryData, dropIndex: base.model.placeIndex ? {} : undefined, placeIndex: base.model.placeIndex })
   assert.ok(performance.now() - start < 100)
 })
+
+test('SSR pages the real 31-target farming view at forty places and offers show more', { skip: !fs.existsSync(path.join(process.env.HOME || '', '.local/share/kiedas-orbiter-preview/data/user/farming-targets.json')) }, async () => {
+  const { loadRealHarness, DEFAULT_DATA_DIR } = await import('../../scripts/lib/real-data-harness.mjs');
+  const { parseInventory } = await import('../../src/lib/inventoryParser.js');
+  const { buildDropIndex } = await import('../../src/lib/dropsParser.js');
+  const harness = await loadRealHarness();
+  const targetsStore = JSON.parse(fs.readFileSync(path.join(DEFAULT_DATA_DIR, 'user/farming-targets.json'), 'utf8'));
+  const rawInventory = JSON.parse(fs.readFileSync(path.join(DEFAULT_DATA_DIR, 'user/inventory.json'), 'utf8'));
+  const targets = targetsStore.targets ?? [];
+  const inventoryData = parseInventory(rawInventory, harness.exportsBundle, harness.dict, 'en', null);
+  const model = buildFarmingTargetsScreenModel({
+    targets,
+    reservations: targetsStore.reservations,
+    inventoryData,
+    exportData: harness.exportsBundle,
+    dropIndex: buildDropIndex(harness.exportsBundle),
+    imageMaps: { EI: harness.EI, nameToImage: harness.nameToImage, uniqueNameToName: harness.uniqueNameToName },
+  });
+  assert.equal(targets.length, 31);
+  assert.ok(model.ranked.length > 40, `expected more than 40 ranked places, got ${model.ranked.length}`);
+  const { PreviewFarmingView, UiContext } = await loadScreen();
+  const html = renderToString(React.createElement(UiContext.Provider, { value: { t, ui: {}, locale: 'en', ready: true, i18nData: null } }, React.createElement(PreviewFarmingView, {
+    targets, reservations: targetsStore.reservations ?? [], model, t, selectedTarget: targets[0]?.id, setSelectedTarget: noOp,
+    tab: 'all', setTab: noOp, minChanceOn: false, setMinChanceOn: noOp, minChancePct: '5', setMinChancePct: noOp,
+    hideDone: false, setHideDone: noOp, hideConclave: true, setHideConclave: noOp, groupPlanet: false, setGroupPlanet: noOp,
+    toggle: noOp, onRemoveTarget: noOp, onQuantityChange: noOp, onTargetChange: noOp, onReserve: noOp,
+  })));
+  assert.ok((html.match(/data-farming-place-row/g) ?? []).length <= 40);
+  assert.match(html, /farming_targets\.show_more/);
+});

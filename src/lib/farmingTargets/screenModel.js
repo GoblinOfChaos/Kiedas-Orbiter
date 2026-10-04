@@ -211,7 +211,26 @@ function regionForSource(source, regions, dict) {
   return null;
 }
 
-function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
+function resolvedNodeLiteral(value, dict, regions) {
+  if (!value) return null;
+  const resolved = resolveNode(String(value), dict, regions);
+  if (resolved && resolved !== 'Unknown Node' && !String(resolved).startsWith('/')) return resolved;
+  const literal = String(value).trim();
+  return literal && !literal.startsWith('/') ? literal : null;
+}
+
+function sourceKind(source, type, name, isNode) {
+  if (isNode) return 'node';
+  if (type === 'enemy') return 'enemy';
+  if (type === 'relic') return 'relic';
+  if (type === 'vendor') return 'vendor';
+  if (/cache/i.test(`${name} ${source?.missionType ?? ''}`)) return 'cache';
+  if (source?.type === 'avatar') return 'boss';
+  if (type === 'mission') return 'event';
+  return 'source-only';
+}
+
+export function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   const name = sourceName(source);
   if (!name) return null;
   const type = sourceType(source);
@@ -223,17 +242,23 @@ function sourcePlace(source, itemName, { dict = {}, regions = {} } = {}) {
   // (regionLookupCache), so this must be the stable object, not a freshly
   // built array per call - otherwise every call misses the cache.
   const region = regionForSource(source, regions, dict);
+  const isNode = type === 'mission' && Boolean(source.nodeName || source.node || region);
+  const kind = sourceKind(source, type, name, isNode);
   const faction = region?.faction ? resolveNode(region.faction, dict, regions) : null;
+  const planet = isNode
+    ? resolvedNodeLiteral(source.region ?? source.planet ?? region?.systemName, dict, regions)
+    : null;
   return {
     id: `${type}:${type === 'vendor' ? vendorKey(name) : lower(name)}`,
     name,
     type: pvp ? 'conclave' : type,
     pvp,
-    level: source.nodeName ? 'node' : isPlanet ? 'planet' : source.relicName ? 'source-only' : 'source-only',
-    badge: source.nodeName ? 'exact node' : isPlanet ? 'planet-wide resource' : source.relicName ? 'source only' : 'source only',
+    level: isNode ? 'node' : isPlanet ? 'planet' : kind,
+    kind,
+    badge: isNode ? 'exact node' : isPlanet ? 'planet-wide resource' : kind,
     missionType: missionType || null,
     ...(faction ? { faction } : {}),
-    planet: source.region ?? source.planet ?? null,
+    planet,
     itemName,
   };
 }

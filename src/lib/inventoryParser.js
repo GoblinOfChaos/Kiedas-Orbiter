@@ -96,7 +96,7 @@ export const RIVEN_STAT_MAP = {
   'WeaponMeleeComboBonusOnHitMod': 'Combo Count',
 };
 
-const WEAPON_BUCKET_BY_CATEGORY = { LongGuns: 'primary', Pistols: 'secondary', Melee: 'melee' };
+const WEAPON_BUCKET_BY_CATEGORY = { LongGuns: 'primary', Pistols: 'secondary', Melee: 'melee', DrifterMelee: 'melee' };
 const WEAPON_BUCKET_BY_SLOT = { 1: 'primary', 0: 'secondary', 5: 'melee' };
 const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
 
@@ -276,6 +276,7 @@ export function getWeaponBucket(entry, uniqueName = '') {
   const bucket = entry?.productCategory
     ? WEAPON_BUCKET_BY_CATEGORY[entry.productCategory]
     : WEAPON_BUCKET_BY_SLOT[entry?.slot];
+  if (entry?.productCategory === 'DrifterMelee') return 'melee';
   // /Bayonet/ holds both attachment definitions (masteryReq 0) and real masterable
   // Tenno weapons such as Vinquibus (LongGuns, masteryReq 14, codexSecret false):
   // DE's own masteryReq decides, not the path. The bayonet MELEE record is just that rifle's
@@ -1410,7 +1411,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     raw.Suits, raw.LongGuns, raw.Pistols, raw.Melee,
     raw.Sentinels, raw.KubrowPets, raw.MoaPets, raw.ZanukaPets, raw.SentinelWeapons,
     raw.SpaceMelee, raw.SpaceGuns, raw.MechSuits, raw.OperatorAmps,
-    raw.SpaceSuits, raw.Hoverboards, raw.Drones
+    raw.SpaceSuits, raw.Hoverboards, raw.Drones, raw.DrifterMelee
   ].forEach(processList);
 
   const subsumedSet = new Set((raw.InfestedFoundry?.ConsumedSuits ?? []).map(s => s.s).filter(Boolean));
@@ -2816,6 +2817,49 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         is_prime: false,
       });
     }
+  }
+
+  // Railjack salvage and installed weapon skins are inventory records, but
+  // their catalog identities live in DE's ExportCustoms rather than the
+  // normal equipment exports. Keep the complete named Railjack catalog in
+  // Parts and aggregate both raw inventory lists because the same ItemType
+  // can occur as salvage and as an installed skin. Entries without a name
+  // resolved from the DE export are deliberately omitted; never derive a
+  // display name from the internal path.
+  const railjackPartCounts = new Map();
+  for (const list of [raw.CrewShipRawSalvage, raw.CrewShipWeaponSkins]) {
+    for (const entry of list ?? []) {
+      const uniqueName = entry?.ItemType;
+      if (!uniqueName?.startsWith('/Lotus/Upgrades/Skins/RailJack/')) continue;
+      railjackPartCounts.set(uniqueName, (railjackPartCounts.get(uniqueName) ?? 0) + (entry.ItemCount ?? 1));
+    }
+  }
+  for (const [uniqueName, entry] of Object.entries(ECustOrig)) {
+    if (!uniqueName.startsWith('/Lotus/Upgrades/Skins/RailJack/')) continue;
+    const exportName = entry?.name ?? entry?.displayName;
+    const localizedExportName = isLotusPath(exportName) ? dict[exportName] : exportName;
+    if (!localizedExportName || isLotusPath(localizedExportName)) continue;
+    const name = resolveName(uniqueName, dict, locale, ECustOrig);
+    if (!name || isLotusPath(name)) continue;
+    const quantity = railjackPartCounts.get(uniqueName) ?? 0;
+    parts.push({
+      unique_name: uniqueName,
+      name,
+      image: resolveImage(uniqueName, ECustOrig),
+      category: 'parts',
+      real_unique_name: uniqueName,
+      blueprint_quantity: 0,
+      crafted_quantity: quantity,
+      quantity,
+      owned: quantity > 0,
+      description: '',
+      xp: 0,
+      rank: 0,
+      max_rank: 0,
+      mastered: false,
+      is_prime: false,
+      railjack_part: true,
+    });
   }
 
   // Resource Extractors are a four-item DE catalog whose finished instances

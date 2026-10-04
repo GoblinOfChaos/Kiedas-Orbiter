@@ -11,7 +11,7 @@ import { useUi } from '../contexts/UiContext';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 import { event } from '../lib/logging/logger';
-import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel } from '../lib/relicSources';
+import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel, prepareAcquisitionSources } from '../lib/relicSources';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -52,7 +52,8 @@ export function splitUnconfirmed(text) {
 export function getSourceLabel(source, t = (k) => k, i18nData = null) {
   if (!source) return t('acquisition_drawer.unknown_source');
 
-  const rotation = source.rotation ? ` Rot ${source.rotation}` : '';
+  const rotationValue = source.rotation || source.rotationOrTable;
+  const rotation = rotationValue ? ` Rot ${rotationValue}` : '';
   switch (source.type) {
     case 'override':
       // localizeOverrideText is a no-op fallback to the raw English text
@@ -72,6 +73,18 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
       return [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ') || t('acquisition_drawer.known_drop_source');
     case 'relic':
       return getRelicSourceLabel(source, t);
+    case 'relic-group': {
+      const count = t('acquisition_drawer.sources_count', { count: source.relicCount });
+      const tiers = (source.raritySummary || [])
+        .slice(0, 2)
+        .map((rarity) => t(`ui.relic_rarity.${String(rarity).toLowerCase()}`))
+        .filter(Boolean)
+        .join(' / ');
+      return `${t('acquisition_drawer.other_sources')} — ${count}${tiers ? ` (${tiers})` : ''}`;
+    }
+    case 'mission-group':
+    case 'source-group':
+      return `${t('acquisition_drawer.other_sources')} — ${t('acquisition_drawer.sources_count', { count: source.count })}`;
     case 'mission': {
       // source.missionType is usually a raw DE code (e.g. "MT_TAU_WAR") that
       // must go through the same MT_ translation table used elsewhere, or an
@@ -87,10 +100,10 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
       const missionTypeName = source.missionType != null
         ? (MAPPING_TYPES[source.missionType] ?? (!looksLikeRawCode(source.missionType) ? source.missionType : undefined))
         : undefined;
-      const label = source.nodeName || source.node || missionTypeName || t('acquisition_drawer.mission_fallback');
+      const label = source.nodeName || source.node || source.location || source.resourceSource || source.dropType || missionTypeName || source.rarity || t('acquisition_drawer.mission_fallback');
       const suffix = missionTypeName && (source.nodeName || source.node) ? ` (${missionTypeName})` : '';
       const nodes = Array.isArray(source.nodes) && source.nodes.length ? ` — ${source.nodes.join('; ')}` : '';
-      return `${source.region ? `${source.region} — ` : ''}${label}${suffix}${rotation}${nodes}`;
+      return `${source.region ? `${source.region}/` : ''}${label}${suffix}${rotation}${nodes}`;
     }
     case 'enemy':
       return source.enemyName || source.enemy || t('acquisition_drawer.enemy_drop');
@@ -217,6 +230,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
   const { t, i18nData } = useUi();
   const { dropIndex, exportData } = useMonitoring();
   const [showReportModal, setShowReportModal] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState({});
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
   const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
 
@@ -228,6 +242,14 @@ export default function AcquisitionDrawer({ item, onClose }) {
   const innerClassName = 'max-w-6xl mx-auto px-6 py-4';
   const sourcesGridClassName = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto';
   const isPrimeItem = /\bPrime\b/i.test(displayName || '');
+  const displaySources = prepareAcquisitionSources(sources, {
+    rarityIndex: relicRarityIndex,
+    itemType: recipe?.blueprintUniqueName || uniqueName,
+  });
+  const displayComponentSources = prepareAcquisitionSources(componentSources, {
+    rarityIndex: relicRarityIndex,
+    itemType: recipe?.blueprintUniqueName || uniqueName,
+  });
   const blueprintSources = recipe && isPrimeItem
     ? buildBlueprintSourceRows(displayName, recipe, dropIndex, getItemDrops(recipe.blueprintUniqueName), relicRarityIndex)
     : [];
@@ -247,10 +269,24 @@ export default function AcquisitionDrawer({ item, onClose }) {
           </button>
         </div>
 
-        {sources.length > 0 ?
+        {displaySources.length > 0 ?
           <div className={sourcesGridClassName}>
-            {sources.map((s, i) => {
+            {displaySources.map((s, i) => {
               const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t, i18nData));
+              const groupKey = `${s.type}-${i}`;
+              if (s.type.endsWith('-group')) {
+                return <div key={groupKey} className="col-span-full px-3 py-2 rounded bg-black/30 border border-white/5">
+                  <button type="button" className="w-full text-left text-xs text-kronos-text" aria-expanded={!!expandedGroups[groupKey]} onClick={() => setExpandedGroups((current) => ({ ...current, [groupKey]: !current[groupKey] }))}>
+                    <span className="font-bold">{text}</span>
+                  </button>
+                  {expandedGroups[groupKey] && <div className="mt-2 space-y-2">
+                    {s.sources.map((child, childIndex) => <div key={`${groupKey}-${childIndex}`} className="flex items-start justify-between gap-2 px-2 py-1 rounded bg-black/20">
+                      <span className="block text-xs text-kronos-text whitespace-normal break-words">{getSourceLabel(child, t, i18nData)}</span>
+                      {typeof child.chance === 'number' && <span className="text-[12px] font-bold text-kronos-accent flex-shrink-0 ml-2">{formatChance(child.chance)}</span>}
+                    </div>)}
+                  </div>}
+                </div>;
+              }
               return (
                 <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
                   <div className="min-w-0">
@@ -283,11 +319,11 @@ export default function AcquisitionDrawer({ item, onClose }) {
             </button>
           </div>
         }
-        {componentSources.length > 0 &&
+        {displayComponentSources.length > 0 &&
           <div className="mt-3">
             <p className="mb-2 text-[11px] uppercase font-black text-kronos-dim">{t('acquisition_drawer.component_sources')}</p>
             <div className={sourcesGridClassName}>
-              {componentSources.map((s, i) => {
+              {displayComponentSources.map((s, i) => {
                 const { text, unconfirmed } = splitUnconfirmed(`${s.part} - ${getSourceLabel(s, t, i18nData)}`);
                 return (
                   <div key={i} className="flex items-start justify-between gap-2 px-3 py-2 rounded bg-black/30 border border-white/5">
@@ -302,7 +338,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
             </div>
           </div>
         }
-        {sources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&
+        {displaySources.some((s) => splitUnconfirmed(getSourceLabel(s, t, i18nData)).unconfirmed) &&
           <p className="mt-2 text-[13px] text-amber-400/90 italic">
             {t('acquisition_drawer.unconfirmed_price_note')}
           </p>

@@ -65,6 +65,8 @@ export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exp
     if (stem === 'ExportUpgrades_en') exportsBundle.ExportUpgradesLocalized = readJson(path.join(resolvedExportDir, file))
     else if (!/^ExportUpgrades_/.test(stem)) exportsBundle[stem] = readJson(path.join(resolvedExportDir, file))
   }
+  const deManifest = path.join(resolvedExportDir, 'de/ExportManifest.json')
+  if (fs.existsSync(deManifest)) exportsBundle.ExportManifest = readJson(deManifest)
   for (const [file, key] of HARNESS_SUPPLEMENT_FILES) {
     const candidate = path.join(resolvedAssetData, file)
     if (fs.existsSync(candidate)) exportsBundle[key] = readJson(candidate)

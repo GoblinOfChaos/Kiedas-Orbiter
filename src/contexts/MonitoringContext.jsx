@@ -10,11 +10,12 @@ import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
 import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
-import { resolveNode, resolveMissionType, resolveChallenge, resolveAnyImage } from '../lib/warframeUtils'
+import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
 import { evaluateNotifications } from '../lib/notificationManager'
 import { loadWarframeItemsMaps } from '../lib/wfcdLoader'
 import { fillDataGaps, logGapFillAudit, fillModGaps, logModGapFillAudit } from '../lib/wfcdGapFill'
 import { buildImageMaps, buildRuntimeExportBundle } from '../lib/exportBundle'
+import { attachRelicRewardImages, attachRelicSubcomponentImages, resolveRelicImage } from '../lib/relicOverlayData'
 import { loadSettings, getSetting, setSetting } from '../lib/settings'
 import { useUi } from './UiContext'
 import { event as logEvent, startSpan, warn } from '../lib/logging/logger'
@@ -1072,8 +1073,11 @@ const hasCachedData = useCallback(async () => {
 
     subs.push(listen('fissure-relic-phase', (e) => {
       const { squad_relics, squad_size } = e.payload
+      const imageMaps = { EI, nameToImage, uniqueNameToName }
       const resolved = squad_relics.map(r => ({
-        ...r, ...parseRelicName(r.unique_name), rewards: getRelicRewards(r.unique_name, exportData, localeRef.current)
+        ...r,
+        ...parseRelicName(r.unique_name),
+        rewards: attachRelicRewardImages(getRelicRewards(r.unique_name, exportData, localeRef.current), imageMaps),
       }))
       fissureStateRef.current.squad_relics = resolved
       // Play relic sound once per session via Rust backend
@@ -1092,8 +1096,14 @@ const hasCachedData = useCallback(async () => {
       const baseItem = fissureStateRef.current.squad_relics.flatMap(r => r.rewards).find(r => r.uniqueName === local_reward) || {}
       const platPrice = await getPrice(local_reward, baseItem.name, baseItem.ducats)
       const inventory = getRewardInventoryContext(local_reward, inventoryData, exportData, localeRef.current)
-      inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
-      const reward = { uniqueName: local_reward, ...baseItem, icon: EI[local_reward], platPrice, inventory }
+      const imageMaps = { EI, nameToImage, uniqueNameToName }
+      const reward = {
+        uniqueName: local_reward,
+        ...baseItem,
+        icon: resolveRelicImage({ ...baseItem, uniqueName: local_reward }, imageMaps),
+        platPrice,
+        inventory: attachRelicSubcomponentImages(inventory, imageMaps),
+      }
       invoke('relay_event', { event: 'overlay-update-reward', payload: { local_reward: reward, squad_size, session_id: ocrSessionRef.current } }).catch(() => { })
     }))
 
@@ -1173,8 +1183,17 @@ const hasCachedData = useCallback(async () => {
         if (bestMatch) {
           const platPrice = await getPrice(bestMatch.uniqueName, bestMatch.name, bestMatch.ducats || 0);
           const inventory = getRewardInventoryContext(bestMatch.uniqueName, inventoryData, exportData);
-          inventory.subcomponents = (inventory.subcomponents || []).map((c) => ({ ...c, image: resolveAnyImage(c.uniqueName, EI, nameToImage) }))
-          return { slot: res.slot, confirmed_reward: bestMatch.name, item: { ...bestMatch, icon: EI[bestMatch.uniqueName], platPrice, inventory } };
+          const imageMaps = { EI, nameToImage, uniqueNameToName }
+          return {
+            slot: res.slot,
+            confirmed_reward: bestMatch.name,
+            item: {
+              ...bestMatch,
+              icon: resolveRelicImage(bestMatch, imageMaps),
+              platPrice,
+              inventory: attachRelicSubcomponentImages(inventory, imageMaps),
+            },
+          };
         }
         return { slot: res.slot, unmatched: true, raw_text: res.text };
       });
@@ -1346,7 +1365,7 @@ const hasCachedData = useCallback(async () => {
     }))
 
     return () => { subs.forEach(p => p.then(f => f())) }
-  }, [exportData, inventoryData, globalRewardPool, EI])
+  }, [exportData, inventoryData, globalRewardPool, EI, nameToImage, uniqueNameToName])
 
   // Monitoring-active listener in its own effect so it's registered ASAP.
   useEffect(() => {

@@ -18,7 +18,6 @@ import AcquisitionDrawer, { useAcquisitionDrawer, formatChance } from '../compon
 import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer';
 import ModCard from '../components/ModCard';
 import { getRelicCatalog } from '../lib/relicParser';
-import { OFFICIAL_IMAGE_OVERRIDES } from '../lib/warframeUtils';
 import { isPrimeSetOwned } from '../lib/primeSets.js';
 import { getSetting } from '../lib/settings';
 import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
@@ -506,9 +505,7 @@ export default function Inventory() {
     const withImageFallback = (items) => (items ?? []).map((item) => {
       if (item?.image) return item;
       const image = imageByUniqueName.get(canonicalItemPath(item?.unique_name))
-        || imageByName.get(item?.name?.trim().toLowerCase())
-        || OFFICIAL_IMAGE_OVERRIDES[item?.unique_name]
-        || OFFICIAL_IMAGE_OVERRIDES[item?.name?.trim().toLowerCase()];
+        || imageByName.get(item?.name?.trim().toLowerCase());
       return image ? { ...item, image } : item;
     });
     if (activeTab === 'prime_junk') {

@@ -26,14 +26,26 @@ function manifestImageMaps(exportData) {
 }
 
 function toBrowseWf(value, exportData, uniqueName, manifestMaps) {
-  if (!value) return null
-  if (/^(?:https?:|asset-cache:|asset:|data:)/.test(value)) return value
+  const manifestImage = manifestMaps?.byUniqueName.get(uniqueName)
+  if (!value) {
+    return manifestImage?.contentHash
+      ? `asset-cache://content.warframe.com/PublicExport${manifestImage.path}!${manifestImage.contentHash}`
+      : null
+  }
+  if (/^https:\/\/content\.warframe\.com\/PublicExport\//i.test(value)) {
+    return value.replace(/^https:\/\/content\.warframe\.com\//i, 'asset-cache://content.warframe.com/')
+  }
+  if (/^https?:\/\//i.test(value)) {
+    return manifestImage?.contentHash
+      ? `asset-cache://content.warframe.com/PublicExport${manifestImage.path}!${manifestImage.contentHash}`
+      : null
+  }
+  if (/^(?:asset-cache:|asset:|data:)/.test(value)) return value
   const clean = value.startsWith('/') ? value : '/' + value
   const mirrorImage = exportData.ExportImages?.[clean]
-  const manifestImage = manifestMaps?.byUniqueName.get(uniqueName) || manifestMaps?.byPath.get(clean)
   const image = mirrorImage?.contentHash
     ? { path: clean, contentHash: mirrorImage.contentHash }
-    : manifestImage
+    : manifestImage || manifestMaps?.byPath.get(clean)
   return image?.contentHash
     ? `asset-cache://content.warframe.com/PublicExport${image.path}!${image.contentHash}`
     : `asset-cache://browse.wf${clean}`

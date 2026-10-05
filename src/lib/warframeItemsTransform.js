@@ -33,8 +33,9 @@ function itemsToMap(items) {
       name: item.name || '',
       description: item.description || '',
       icon: item.wikiaThumbnail || null,
-      // Note: icon is an absolute https://wiki.warframe.com URL; resolveImage
-      // and toBrowseWf now detect absolute URLs and return them as-is.
+      // The community thumbnail is only a lookup hint. The image resolver
+      // must replace it with a cached DE manifest asset when available and
+      // must never expose a live web address as an image field.
       category: item.category,
       type: item.type,
       productCategory: item.productCategory,

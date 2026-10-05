@@ -21,7 +21,7 @@
  * parseInventory(raw, exports) → structured inventory object
  *   All other functions are internal helpers.
  */
-import { BLUEPRINT_SUFFIX, OFFICIAL_IMAGE_OVERRIDES } from './warframeUtils.js'
+import { BLUEPRINT_SUFFIX } from './warframeUtils.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 import { debug as logDebug } from './logging/logger.js'
 
@@ -631,7 +631,6 @@ const AUTHORITATIVE_ITEM_ICONS = {
   // existing browse.wf cache path only as the LAST-RESORT community fallback.
   '/Lotus/Powersuits/Frumentarius/Frumentarius': '/Lotus/Interface/Icons/StoreIcons/Warframes/Frumentarius.png',
   '/Lotus/Powersuits/Choir/Choir': '/Lotus/Interface/Icons/StoreIcons/Warframes/Jade.png',
-  ...OFFICIAL_IMAGE_OVERRIDES,
 };
 
 function resolveImage(un, ...tables) {
@@ -641,7 +640,11 @@ function resolveImage(un, ...tables) {
     const authoritativeIcon = AUTHORITATIVE_ITEM_ICONS[uniqueName];
     if (authoritativeIcon) icon = authoritativeIcon;
     if (!icon) return null;
-    if (icon.startsWith('http://') || icon.startsWith('https://') || icon.startsWith('asset-cache://') || icon.startsWith('asset://') || icon.startsWith('data:')) {
+    if (/^https:\/\/content\.warframe\.com\/PublicExport\//i.test(icon)) {
+      return icon.replace(/^https:\/\/content\.warframe\.com\//i, 'asset-cache://content.warframe.com/');
+    }
+    if (icon.startsWith('http://') || icon.startsWith('https://')) return null;
+    if (icon.startsWith('asset-cache://') || icon.startsWith('asset://') || icon.startsWith('data:')) {
       return icon;
     }
     const path = icon.startsWith('/') ? icon : `/${icon}`;
@@ -670,11 +673,6 @@ function resolveImage(un, ...tables) {
 
   const officialOverride = AUTHORITATIVE_ITEM_ICONS[un];
   if (officialOverride) return imageUrl(officialOverride, un);
-  const normalizedNameOverride = typeof un === 'string'
-    ? OFFICIAL_IMAGE_OVERRIDES[un.toLowerCase()]
-    : null;
-  if (normalizedNameOverride) return normalizedNameOverride;
-
   // Check exact match first
   for (const tbl of tables) {
     if (!tbl) continue;
@@ -683,7 +681,7 @@ function resolveImage(un, ...tables) {
       const icon = entry.icon ?? entry.thumbnail;
       // Do not allow stale wiki.warframe.com thumbnails from supplemental
       // datasets to terminate the search before DE's export icon is used.
-      if (/^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(icon) && !AUTHORITATIVE_ITEM_ICONS[un]) continue;
+      if (/^https?:\/\//i.test(icon) && !/^https:\/\/content\.warframe\.com\/PublicExport\//i.test(icon)) continue;
       return imageUrl(icon, un);
     }
   }
@@ -697,7 +695,7 @@ function resolveImage(un, ...tables) {
       const matchKey = suffixIndex.get(leaf)
       if (matchKey && (tbl[matchKey]?.icon || tbl[matchKey]?.thumbnail)) {
         const icon = tbl[matchKey].icon ?? tbl[matchKey].thumbnail;
-        if (/^https?:\/\/(?:www\.)?wiki\.warframe\.com\//i.test(icon)) continue;
+        if (/^https?:\/\//i.test(icon) && !/^https:\/\/content\.warframe\.com\/PublicExport\//i.test(icon)) continue;
         return imageUrl(icon, matchKey);
       }
     }
@@ -3721,13 +3719,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   // recipe; each entry carries `foundryGroup`.
   let craftableExtraItems = [];
 
-  const unresolvedImageItems = all.filter((item) => !item.image || isLotusPath(item.image));
+  const webAddressImageItems = all.filter((item) => /^https?:\/\//i.test(item.image || ''));
+  const unresolvedImageItems = all.filter((item) => !item.image || isLotusPath(item.image) || webAddressImageItems.includes(item));
   const hasTauriBridge = typeof globalThis.__TAURI_INTERNALS__?.invoke === 'function'
     || typeof globalThis.window?.__TAURI_INTERNALS__?.invoke === 'function';
   if (hasTauriBridge) {
     logDebug('state.parse.image_audit', {
       count: unresolvedImageItems.length,
       names: unresolvedImageItems.slice(0, 10).map((item) => item.name),
+      web_address_count: webAddressImageItems.length,
+      web_address_names: webAddressImageItems.slice(0, 10).map((item) => item.name),
     }, { screen: 'inventory', phase: 'complete' });
   }
 

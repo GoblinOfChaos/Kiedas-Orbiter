@@ -30,6 +30,30 @@ function manifestEntries(exportsBundle) {
   return exportsBundle.ExportManifest?.Manifest || exportsBundle.ExportManifest || []
 }
 
+function imageEntries(inventory) {
+  const entries = []
+  for (const item of inventory.all ?? []) entries.push({ scope: 'inventory', item })
+  for (const set of Object.values(inventory.primeSets ?? {})) {
+    entries.push({ scope: 'prime set', item: set })
+    for (const part of set.parts ?? []) entries.push({ scope: 'prime set part', item: part })
+  }
+  return entries
+}
+
+function imageViolations(inventory, allowlist = new Map()) {
+  return imageEntries(inventory).flatMap(({ scope, item }) => {
+    if (allowlist.has(item?.name)) return []
+    const image = item?.image
+    return !image || /^https?:\/\//i.test(image) || image.startsWith('/Lotus/')
+      ? [{ scope, name: item?.name || '(unnamed)', unique_name: item?.unique_name || '', image: image || '(empty)' }]
+      : []
+  })
+}
+
+function imageViolationSummary(violations) {
+  return `image violations: count=${violations.length}; first25=${JSON.stringify(violations.slice(0, 25))}`
+}
+
 test('real data: recipe-linked part mastery mirrors its finished item', { skip: !haveRealData }, async () => {
   const { exportsBundle, dict } = await loadRealHarness({ locale: 'en' })
   const { parseInventory } = await getParser()
@@ -41,7 +65,7 @@ test('real data: recipe-linked part mastery mirrors its finished item', { skip: 
     .filter(({ part, parent }) => parent && part.mastered !== parent.mastered)
     .map(({ part, parent }) => `${part.name}=${part.mastered}, parent ${parent.name}=${parent.mastered}`)
 
-  assert.deepEqual(mismatches, [], `recipe-linked part mastery mismatches: ${mismatches.join('; ')}`)
+  assert.equal(mismatches.length, 0, `recipe-linked part mastery mismatches: count=${mismatches.length}; first25=${mismatches.slice(0, 25).join('; ')}`)
 })
 
 test('fixture: injected Atlas mastery removes its unmastered + unowned parts', { skip: !haveRealData }, async () => {
@@ -65,7 +89,7 @@ test('fixture: injected Atlas mastery removes its unmastered + unowned parts', {
   // This is the exact Inventory All tab condition for the two negative filters
   // in Inventory.jsx (~650-672), applied to the fixture rather than live state.
   const unmasteredUnowned = parts.filter((part) => !part.owned && !part.mastered)
-  assert.deepEqual(unmasteredUnowned, [], 'mastered Atlas parts must not match Unmastered + Unowned')
+  assert.equal(unmasteredUnowned.length, 0, `mastered Atlas parts must not match Unmastered + Unowned: count=${unmasteredUnowned.length}; first25=${unmasteredUnowned.slice(0, 25).map((item) => item.name).join('; ')}`)
 })
 
 test('real data: every parsed inventory entry has a resolved image', { skip: !haveRealData }, async () => {
@@ -77,12 +101,8 @@ test('real data: every parsed inventory entry has a resolved image', { skip: !ha
     // Keep this explicit and reasoned. It should remain empty after the
     // verified DE manifest and browse.wf fallbacks resolve the current gaps.
   ])
-  const unresolved = (parsed.all ?? []).filter((item) => {
-    if (allowlist.has(item.name)) return false
-    return !item.image || item.image.startsWith('/Lotus/')
-  }).map((item) => item.name)
-
-  assert.deepEqual(unresolved, [], `inventory entries without resolved images: ${unresolved.join(', ')}`)
+  const violations = imageViolations(parsed, allowlist)
+  assert.ok(violations.length === 0, imageViolationSummary(violations))
 })
 
 test('real data: known new Warframe and veiled Riven images use verified sources', { skip: !haveRealData }, async () => {

@@ -115,6 +115,14 @@ export default function Market({ onNavigate }) {
   // Keyed by WFM item id (not display name / unique_name) - see wfmCache.js.
   // Each value is { status: 'loading' | 'ready' | 'no_orders' | 'error', price?, timestamp? }.
   const [priceStates, setPriceStates] = useState({});
+  const cachedImageByName = useMemo(() => {
+    const map = new Map();
+    for (const item of inventoryData?.all ?? []) {
+      const key = item?.name?.trim().toLowerCase();
+      if (key && item.image && !map.has(key)) map.set(key, item.image);
+    }
+    return map;
+  }, [inventoryData]);
   // Card order is intentionally NOT recomputed every time a price resolves
   // (see stockOrderKeys effect below) - bumping this is how the user
   // explicitly asks for the list to re-sort using currently-known prices.
@@ -311,20 +319,20 @@ export default function Market({ onNavigate }) {
       const entry = idCatalog[id];
       return {
         name: entry.name,
-        image: entry.icon ? `https://warframe.market/static/assets/${entry.icon}` : null
+        image: cachedImageByName.get(entry.name.trim().toLowerCase()) || null
       };
     }
     if (order?.item?.en?.item_name) {
       return {
         name: order.item.en.item_name,
-        image: order.item.icon ? `https://warframe.market/static/assets/${order.item.icon}` : null
+        image: cachedImageByName.get(order.item.en.item_name.trim().toLowerCase()) || null
       };
     }
     return {
       name: order?.itemId ? `Item (${order.itemId.slice(0, 8)})` : "Warframe Item",
       image: null
     };
-  }, [idCatalog]);
+  }, [cachedImageByName, idCatalog]);
 
   // Filtered orders
   const filteredOrders = useMemo(() => {

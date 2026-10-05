@@ -282,8 +282,10 @@ test('P39 real verified routes are all loaded and normalized', { skip: !haveReal
     normalizedRoutes += sourceRows(result.sources).filter((source) => source.type !== 'unresearched').length
   }
   console.log(`P39 verified routes: entries=${Object.keys(verified).length}; raw=${rawRoutes}; normalized=${normalizedRoutes}`)
-  assert.equal(Object.keys(verified).length, 336)
-  assert.equal(rawRoutes, 341)
+  // The expected counts come from the data file itself, never from constants: the research data grows.
+  const fileData = JSON.parse(fs.readFileSync(path.join(auditRoot, 'src-tauri/data/assets/data/verified-routes.json'), 'utf8'))
+  assert.equal(Object.keys(verified).length, Object.keys(fileData).length)
+  assert.equal(rawRoutes, Object.values(fileData).reduce((sum, entry) => sum + entry.routes.length, 0))
   assert.equal(normalizedRoutes, rawRoutes)
 })
 

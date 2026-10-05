@@ -27088,6 +27088,8 @@ function suffixes(source, primary, { includeRegion = true, includeRotation = tru
 }
 function sourceLabel(source, { includeRegion = true, includeRotation = true, includeRarity = true } = {}) {
   if (!source || typeof source !== "object") return "";
+  const attached = text2(source.placeLabel);
+  if (attached) return attached;
   const objective = text2(source.objectiveName);
   const enemy = text2(source.enemyName || source.enemy);
   const syndicate = text2(source.syndicateName);

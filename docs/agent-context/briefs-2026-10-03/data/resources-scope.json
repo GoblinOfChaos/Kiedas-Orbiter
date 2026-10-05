@@ -1,0 +1,4977 @@
+[
+{
+"name": "Mutagen Sample",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Research/BioFragment"
+},
+{
+"name": "Detonite Ampule",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Research/ChemFragment"
+},
+{
+"name": "Rubedo",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Rubedo"
+},
+{
+"name": "Ferrite",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Ferrite"
+},
+{
+"name": "Nav Coordinate",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NavCode"
+},
+{
+"name": "Neurodes",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Neurode"
+},
+{
+"name": "Morphics",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Morphic"
+},
+{
+"name": "Salvage",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Salvage"
+},
+{
+"name": "Polymer Bundle",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/PolymerBundle"
+},
+{
+"name": "Ascaris Negator",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Components/VorBoltRemoverFakeItem"
+},
+{
+"name": "Oxium",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/OxiumAlloy"
+},
+{
+"name": "Cryotic",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Cryotic"
+},
+{
+"name": "Orokin Archive",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ArchWingNavCode"
+},
+{
+"name": "Circuits",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Circuits"
+},
+{
+"name": "Fieldron Sample",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Research/EnergyFragment"
+},
+{
+"name": "Alloy Plate",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/AlloyPlate"
+},
+{
+"name": "Neural Sensors",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NeuralSensor"
+},
+{
+"name": "Control Module",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ControlModule"
+},
+{
+"name": "Argon Crystal",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ArgonCrystal"
+},
+{
+"name": "Orokin Cell",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/OrokinCell"
+},
+{
+"name": "Gallium",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Gallium"
+},
+{
+"name": "Plastids",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Plastids"
+},
+{
+"name": "Nano Spores",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Nanospores"
+},
+{
+"name": "Nai-Zhen Kubrow Collar",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/KubrowPet/KubrowPetCollarItem"
+},
+{
+"name": "Nitain Extract",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Alertium"
+},
+{
+"name": "Forma",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Forma"
+},
+{
+"name": "Miter Chassis",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MiterChassis"
+},
+{
+"name": "Velocitus Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRailgunReceiver"
+},
+{
+"name": "Tellurium",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Tellurium"
+},
+{
+"name": "Miter Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MiterBarrel"
+},
+{
+"name": "Orokin Catalyst",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/OrokinCatalyst"
+},
+{
+"name": "Orokin Reactor",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/OrokinReactor"
+},
+{
+"name": "Insignia",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/SteelMeridianDogTag"
+},
+{
+"name": "Seer Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/VorsPistolBarrel"
+},
+{
+"name": "Exilus Warframe Adapter",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/UtilityUnlocker"
+},
+{
+"name": "Ayatan Cyan Star",
+"family": "ayatan",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentA"
+},
+{
+"name": "Cetus Wisp",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/CetusWispItem"
+},
+{
+"name": "Ganglion",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/InfMapricoFruitItem"
+},
+{
+"name": "Grokdrul",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/GrokdrulItem"
+},
+{
+"name": "Iradite",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/IraditeItem"
+},
+{
+"name": "Maprico",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/EidolonFruitItem"
+},
+{
+"name": "Ayatan Amber Star",
+"family": "ayatan",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentB"
+},
+{
+"name": "Mytocardia Spore",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/FungusHeartItem"
+},
+{
+"name": "Travoride",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreAItem"
+},
+{
+"name": "Thermal Sludge",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/CoolantItem"
+},
+{
+"name": "Gorgaricus Spore",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/VenusCoconutItem"
+},
+{
+"name": "Tepa Nodule",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/VenusTreeItem"
+},
+{
+"name": "Scrubber Exa Brain",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishExaBrainItem"
+},
+{
+"name": "Brickie Muon Battery",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishMuonBatteryItem"
+},
+{
+"name": "Eye-Eye Rotoblade",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishRotobladeItem"
+},
+{
+"name": "Sapcaddy Venedo Case",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishVenedoCaseItem"
+},
+{
+"name": "Recaster Neural Relay",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishNeuralRelayItem"
+},
+{
+"name": "Phasmin",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemAItem"
+},
+{
+"name": "Axidite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreBItem"
+},
+{
+"name": "Void Traces",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/VoidTearDrop"
+},
+{
+"name": "Hexenon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ConcentratedGas"
+},
+{
+"name": "Cubic Diodes",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/CubicsRailjackItem"
+},
+{
+"name": "Nora's Mix Vol. 7 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionElevenCreds"
+},
+{
+"name": "Carbides",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/CarbidesRailjackItem"
+},
+{
+"name": "Ruk's Claw",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/GftPlantRuksClawMaturePlantItem"
+},
+{
+"name": "CHROMA MARK",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/ChromaBeaconCComponent"
+},
+{
+"name": "Proof Fragment",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Beacon"
+},
+{
+"name": "Limbo Neuroptics Theorem",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/LimboQuest/LimboHelmetTheorem"
+},
+{
+"name": "Sunlight Threshcone",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/CommonDayPlantItem"
+},
+{
+"name": "Sunlight Dragonlily",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/UnCommonDayPlantItem"
+},
+{
+"name": "Limbo Systems Theorem",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/LimboQuest/LimboSystemsTheorem"
+},
+{
+"name": "Limbo Chassis Theorem",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/LimboQuest/LimboChassisTheorem"
+},
+{
+"name": "Moonlight Threshcone",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/CommonNightPlantItem"
+},
+{
+"name": "Kaszas Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchScytheBlade"
+},
+{
+"name": "Pustulite",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/InfGorgaricusSeedItem"
+},
+{
+"name": "Dendrite Blastoma",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishBPartItem"
+},
+{
+"name": "Adramalium",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreAItem"
+},
+{
+"name": "Chitinous Husk",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/JuggernautPartC"
+},
+{
+"name": "Javlok Capacitor",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/GrnFlameSpearPart"
+},
+{
+"name": "Infected Palpators",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/JuggernautPartB"
+},
+{
+"name": "Xoris Core",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGhostCatcherGlaivePartCore"
+},
+{
+"name": "Spectral Debris",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SpecterParticleResidue"
+},
+{
+"name": "Veiled Riven Cipher",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/RivenIdentifier"
+},
+{
+"name": "Intact Sentient Core",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsDogTag"
+},
+{
+"name": "Frostleaf",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/WildGingerBPlantItem"
+},
+{
+"name": "Lunar Pitcher",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/ZenPitcherPlantItem"
+},
+{
+"name": "Naramon Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/TacticLens"
+},
+{
+"name": "Sunlight Jadeleaf",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/RareDayPlantItem"
+},
+{
+"name": "Riven Sliver",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/RivenFragment"
+},
+{
+"name": "Dusklight Sarracenia",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/ZenCobraLotusPlantItem"
+},
+{
+"name": "Mother Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonB"
+},
+{
+"name": "Bapholite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreBItem"
+},
+{
+"name": "Zenurik Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/PowerLens"
+},
+{
+"name": "Pustulent Cognitive Nodule",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishAPartItem"
+},
+{
+"name": "Parasitic Tethermaw",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishGPartItem"
+},
+{
+"name": "Lucent Teroglobe",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/OrbStoneItem"
+},
+{
+"name": "Pulsating Tubercles",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/JuggernautPartA"
+},
+{
+"name": "Aya",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SchismKey"
+},
+{
+"name": "Severed Bile Sac",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/JuggernautPartD"
+},
+{
+"name": "Ferment Bladder",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericInfestedFishPartItem"
+},
+{
+"name": "Benign Infested Tumor",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericSharedFishPartItem"
+},
+{
+"name": "Saturated Muscle Mass",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishCPartItem"
+},
+{
+"name": "Unairu Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/WardLens"
+},
+{
+"name": "Purple Velocipod Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedKdriveCommon"
+},
+{
+"name": "Barbisteo (Infested Common B Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonBFishItemMedium"
+},
+{
+"name": "Amniophysi (Infested Common D Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonDFishItemLarge"
+},
+{
+"name": "Tubercular Gill System",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosGenericOrokinFishPartItem"
+},
+{
+"name": "Spinal Core Section",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishBPartItem"
+},
+{
+"name": "Vizier Predasite Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorCommon"
+},
+{
+"name": "Biotic Filter",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishAPartItem"
+},
+{
+"name": "Dagonic",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemBItem"
+},
+{
+"name": "Thaumica",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosRareOreAItem"
+},
+{
+"name": "Heciphron",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonGemAItem"
+},
+{
+"name": "Sporulate Sac",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishEPartItem"
+},
+{
+"name": "Pharaoh Predasite Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorUncommon"
+},
+{
+"name": "Isos",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/IsosRailjackItem"
+},
+{
+"name": "Zenith Granum Crown",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Tokens/GreedTokens/GreedTokenBlack"
+},
+{
+"name": "Lamentus",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriEnemyDropItem"
+},
+{
+"name": "Rune Marrow",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriFractalItem"
+},
+{
+"name": "Aggristone",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriRockItem"
+},
+{
+"name": "Silphsela",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemE"
+},
+{
+"name": "Saggen Pearl",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriProcessedItem"
+},
+{
+"name": "Tasoma Extract",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomItem"
+},
+{
+"name": "Connla Sprout",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemC"
+},
+{
+"name": "Asterite",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/AsteriteRailjackItem"
+},
+{
+"name": "Aucrux Capacitors",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/AucruxRailjackItem"
+},
+{
+"name": "Gallos Rods",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/GallosRailjackItem"
+},
+{
+"name": "Komms",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/KommsRailjackItem"
+},
+{
+"name": "Nullstones",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/NullstonesRailjackItem"
+},
+{
+"name": "Ticor Plate",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/ScrapRailjackItem"
+},
+{
+"name": "Titanium",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/TitaniumRailjackItem"
+},
+{
+"name": "Fate Pearl",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ShrineFragment"
+},
+{
+"name": "Moonlight Jadeleaf",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/RareNightPlantItem"
+},
+{
+"name": "Exemplar Granum Crown",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Tokens/GreedTokens/GreedTokenGold"
+},
+{
+"name": "Universal Medallion",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/UniversalSyndicateDogTag"
+},
+{
+"name": "Kuva",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Kuva"
+},
+{
+"name": "Nora's Mix Vol. 8 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionTwelveCreds"
+},
+{
+"name": "Judgement Points",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/KelaArenaToken"
+},
+{
+"name": "Vestan Moss",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/MossGroundCoverAPlantItem"
+},
+{
+"name": "Somatic Fibers",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/MemoryCryptoFragment"
+},
+{
+"name": "Lua Thrax Plasm",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/EclipseVoidWraithItem"
+},
+{
+"name": "Belric Crystal Fragment",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LastWishItems/BlueCrystal"
+},
+{
+"name": "Rania Crystal Fragment",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LastWishItems/RedCrystal"
+},
+{
+"name": "Agkuza Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHookSwordHandle"
+},
+{
+"name": "Damaged Necramech Casing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartChassisItem"
+},
+{
+"name": "Damaged Necramech Engine",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartEngineItem"
+},
+{
+"name": "Damaged Necramech Weapon Pod",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartWeaponPodItem"
+},
+{
+"name": "Orokin Orientation Matrix",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Necraloids/NecraloidStandingCommonItem"
+},
+{
+"name": "Ocular Stem-Root",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishFPartItem"
+},
+{
+"name": "Damaged Necramech Pod",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechPartSystemsItem"
+},
+{
+"name": "Orokin Ballistics Matrix",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Necraloids/NecraloidStandingUncommonItem"
+},
+{
+"name": "Tiametrite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemAItem"
+},
+{
+"name": "Necrathene",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosRareGemAItem"
+},
+{
+"name": "Kymaeros (Infested Common C Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonCFishItemLarge"
+},
+{
+"name": "Faceted Tiametrite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemACutItem"
+},
+{
+"name": "Purged Dagonic",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonGemBCutItem"
+},
+{
+"name": "Azurite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonGemAItem"
+},
+{
+"name": "Devar",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonGemBItem"
+},
+{
+"name": "Pyrol",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonOreAItem"
+},
+{
+"name": "Coprun",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonOreBItem"
+},
+{
+"name": "Sentirum",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemAItem"
+},
+{
+"name": "Nyth",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemBItem"
+},
+{
+"name": "Auron",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/RareOreAItem"
+},
+{
+"name": "Ferros",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/UncommonOreAItem"
+},
+{
+"name": "Venerol",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonOreItem"
+},
+{
+"name": "Noctrul",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemBItem"
+},
+{
+"name": "Thyst",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemBItem"
+},
+{
+"name": "Hesperon",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisRareOreAItem"
+},
+{
+"name": "Goblite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonGemAItem"
+},
+{
+"name": "Xenorhast",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemAItem"
+},
+{
+"name": "Adramal Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreAAlloyItem"
+},
+{
+"name": "Devolved Namalon",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonOreAAlloyItem"
+},
+{
+"name": "Purified Heciphron",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonGemACutItem"
+},
+{
+"name": "Tempered Bapholite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosCommonOreBAlloyItem"
+},
+{
+"name": "Sly Vulpaphyla Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedCritterCommon"
+},
+{
+"name": "Veridos",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/UncommonGemAItem"
+},
+{
+"name": "Crimzian",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/RareGemAItem"
+},
+{
+"name": "Zodian",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemAItem"
+},
+{
+"name": "Cranial Foremount",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosOrokinFishCPartItem"
+},
+{
+"name": "Burrowing Cryptilex Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotCommon"
+},
+{
+"name": "Genericdojocolorpigment",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Research/DojoColors/GenericDojoColorPigment"
+},
+{
+"name": "Anomaly Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SentientFragmentLootItem"
+},
+{
+"name": "Perigale Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnQuadSniperRifleBarrel"
+},
+{
+"name": "War Hilt",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/WarHilt"
+},
+{
+"name": "Kuaka Spinal Claw",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/ForestRodentPartItem"
+},
+{
+"name": "Nistlepod",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/NistlebrushItem"
+},
+{
+"name": "Sharrac Teeth",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothUncommonFishAPartItem"
+},
+{
+"name": "Karkina Antenna",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothUncommonFishBPartItem"
+},
+{
+"name": "Mawfish Bones",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayCommonFishAPartItem"
+},
+{
+"name": "Norg Brain",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/NightRareFishAPartItem"
+},
+{
+"name": "Coprite Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonOreBAlloyBItem"
+},
+{
+"name": "Bau Vasca Kavat Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagVampireKavatUncommon"
+},
+{
+"name": "Breath of the Eidolon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Eidolonium"
+},
+{
+"name": "Goopolla",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/BothCommonFishBItemLarge"
+},
+{
+"name": "Goopolla Spleen",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothCommonFishBPartItem"
+},
+{
+"name": "Fish Meat",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishMeatItem"
+},
+{
+"name": "Fish Oil",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishOilItem"
+},
+{
+"name": "Fish Scales",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/EidolonFishScalesItem"
+},
+{
+"name": "Exilus Weapon Adapter",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WeaponUtilityUnlocker"
+},
+{
+"name": "Lazulite Toroid",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperTerraItem"
+},
+{
+"name": "Mirewinder Parallel Biode",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishParralelBiodeItem"
+},
+{
+"name": "Synathid Ecosynth Analyzer",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/OrokinFishEcosynthAnalyzerItem"
+},
+{
+"name": "Calda Toroid",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidHungerItem"
+},
+{
+"name": "Sola Toroid",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidWraithItem"
+},
+{
+"name": "Vega Toroid",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidMicroidItem"
+},
+{
+"name": "Kriller Thermal Laser",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishThermalLaserItem"
+},
+{
+"name": "Training Debt-Bond",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/DebtTokenA"
+},
+{
+"name": "Familial Debt-Bond",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/DebtTokenE"
+},
+{
+"name": "Advances Debt-Bond",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/DebtTokenD"
+},
+{
+"name": "Echowinder Anoscopic Sensor",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/CorpusFishAnoscopicSensorItem"
+},
+{
+"name": "Vazarin Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/DefenseLens"
+},
+{
+"name": "Kovnik",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemA"
+},
+{
+"name": "Eevani",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemB"
+},
+{
+"name": "Dracroot",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemF"
+},
+{
+"name": "Animo Nav Beacon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Events/AmbulasDataFragment"
+},
+{
+"name": "Omega Isotope",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/OmegaIsotope"
+},
+{
+"name": "Imperator Vandal Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ImperatorVandalReceiver"
+},
+{
+"name": "Orokin Ducats",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/PrimeBucks"
+},
+{
+"name": "Steel Essence",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SteelEssence"
+},
+{
+"name": "Yao Shrub",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemD"
+},
+{
+"name": "Pathos Clamp",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriDragonDropItem"
+},
+{
+"name": "Miter Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MiterHandle"
+},
+{
+"name": "Kavat Genetic Code",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/CatbrowPet/CatbrowGeneticSignature"
+},
+{
+"name": "Orvius Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TeshinGlaiveBlade"
+},
+{
+"name": "Orvius Disc",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TeshinGlaiveDisc"
+},
+{
+"name": "Father Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentUncommonA"
+},
+{
+"name": "Daughter Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentCommonC"
+},
+{
+"name": "Panzer Vulpaphyla Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedCritterRare"
+},
+{
+"name": "Caustic Cryptilex Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotRare"
+},
+{
+"name": "AMETHYST NEXIFERA TAG",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaCommon"
+},
+{
+"name": "Medjay Predasite Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedPredatorRare"
+},
+{
+"name": "Son Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentCommonB"
+},
+{
+"name": "Exceptional Sentient Core",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsUncommonDogTag"
+},
+{
+"name": "Flawless Sentient Core",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsRareDogTag"
+},
+{
+"name": "Brilliant Eidolon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardBrilliantItem"
+},
+{
+"name": "Eidolon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardCommonItem"
+},
+{
+"name": "Murkray Liver",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothRareFishAPartItem"
+},
+{
+"name": "Seram Beetle Shell",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/NightLegendaryFishAPartItem"
+},
+{
+"name": "Charc Electroplax",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/BothCommonFishAPartItem"
+},
+{
+"name": "Mortus Horn",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayUncommonFishBPartItem"
+},
+{
+"name": "Tear Azurite",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonGemACutAItem"
+},
+{
+"name": "Charc Eel",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/BothCommonFishAItemMedium"
+},
+{
+"name": "Mawfish",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishAItem"
+},
+{
+"name": "Condroc Wing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/BirdOfPreyPartItem"
+},
+{
+"name": "Riven Transmuter",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientSecretItem"
+},
+{
+"name": "Radiant Eidolon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardBrilliantTierTwoItem"
+},
+{
+"name": "Omni Forma",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/FormaAura"
+},
+{
+"name": "Shelter Debt-Bond",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/DebtTokenB"
+},
+{
+"name": "Thrax Plasm",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/VoidWraithItem"
+},
+{
+"name": "Voidgel Orb",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemA"
+},
+{
+"name": "Voidplume Quill",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagBounty"
+},
+{
+"name": "Entrati Lanthorn",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanMiscItemB"
+},
+{
+"name": "Voidplume Pinion",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/VoidAngelItem"
+},
+{
+"name": "Voidplume Down",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagCommon"
+},
+{
+"name": "Voidplume Crest",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagRare"
+},
+{
+"name": "Voidplume Vane",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTagUncommon"
+},
+{
+"name": "Corrupted Holokey",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/GranumBucks"
+},
+{
+"name": "Medical Debt-Bond",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/DebtTokenC"
+},
+{
+"name": "Entrati Obols",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabMiscItemA"
+},
+{
+"name": "Necracoil",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabMiscItemB"
+},
+{
+"name": "Shrill Voca",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagCommon"
+},
+{
+"name": "Stela",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/MurmurItem"
+},
+{
+"name": "Jahu Gargoyle",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem"
+},
+{
+"name": "MELEE ARCANE ADAPTER",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WeaponMeleeArcaneUnlocker"
+},
+{
+"name": "Eidolon Vazarin Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/DefenseLensOstron"
+},
+{
+"name": "Greater Vazarin Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/DefenseLensGreater"
+},
+{
+"name": "Otak Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentCommonA"
+},
+{
+"name": "HOWLER UNDAZOA TAG",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroRare"
+},
+{
+"name": "VAPOROUS UNDAZOA TAG",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroUncommon"
+},
+{
+"name": "Crescent Vulpaphyla Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedCritterUncommon"
+},
+{
+"name": "Efervon Sample",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonA"
+},
+{
+"name": "Techrot Chitin",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceUncommonA"
+},
+{
+"name": "Experimental Arc-Relay",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceUncommonB"
+},
+{
+"name": "Höllvanian Pitchweave Fragment",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceCommonB"
+},
+{
+"name": "Techrot Motherboard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceRareA"
+},
+{
+"name": "The Countessa Comic",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagAmir"
+},
+{
+"name": "Cheddar Crowns Cereal",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagLettie"
+},
+{
+"name": "Big Bytes Pizza",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagRare"
+},
+{
+"name": "Argon Burger Meal",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagUncommon"
+},
+{
+"name": "On-Lyne Cd",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagAoi"
+},
+{
+"name": "Chuggin' Along Sixpack",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagArthur"
+},
+{
+"name": "35mm Film",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagQuincy"
+},
+{
+"name": "Greater Unairu Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/WardLensGreater"
+},
+{
+"name": "Esher Devar",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonGemBCutAItem"
+},
+{
+"name": "Greater Zenurik Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/PowerLensGreater"
+},
+{
+"name": "Grandmother Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentRareA"
+},
+{
+"name": "Orokin Animus Matrix",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Necraloids/NecraloidStandingRareItem"
+},
+{
+"name": "Mood Crystal",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexDogTagEleanor"
+},
+{
+"name": "Live Heartcell",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/CodaWeaponBucks"
+},
+{
+"name": "Cryptographic Alu",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/RazorbackCipherPart"
+},
+{
+"name": "SECONDARY ARCANE ADAPTER",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WeaponSecondaryArcaneUnlocker"
+},
+{
+"name": "Antiserum Injector Fragment",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SyringeComponent"
+},
+{
+"name": "Vosfor",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/DistillPoints"
+},
+{
+"name": "Sapcaddy (Corpus Cool Common Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolCommonFishAItem"
+},
+{
+"name": "Sapcaddy (Corpus Cool Common Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolCommonFishAMediumItem"
+},
+{
+"name": "Tink (Solaris Cool Common Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolCommonFishAItem"
+},
+{
+"name": "Subterranean Pobber Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagPobbersRare"
+},
+{
+"name": "Fuming Dax Stover Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagStoverUncommon"
+},
+{
+"name": "Spotted Bolarola Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagBolarolaCommon"
+},
+{
+"name": "Swimmer Horrasque Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagHorrasqueUncommon"
+},
+{
+"name": "Dusky-Headed Virmink Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagVirminkUncommon"
+},
+{
+"name": "Brindle Kubrodon Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagKubrodonCommon"
+},
+{
+"name": "Tromyzon (Orokin Cool Rare Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinCoolRareFishAItem"
+},
+{
+"name": "Star Crimzian",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/RareGemACutAItem"
+},
+{
+"name": "Tralok",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/DayUncommonFishAItem"
+},
+{
+"name": "Murkray",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/BothRareFishAItem"
+},
+{
+"name": "Crewman’s Boot",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusBootItem"
+},
+{
+"name": "Amber Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalNira"
+},
+{
+"name": "Ueymag",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPlantItemG"
+},
+{
+"name": "Enigma Gyrum",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriPuzzleItem"
+},
+{
+"name": "Vessel Capillaries",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/VesselCapillaries"
+},
+{
+"name": "Bellow Voca",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagUncommon"
+},
+{
+"name": "Greater Naramon Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/TacticLensGreater"
+},
+{
+"name": "Echo Voca",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTagRare"
+},
+{
+"name": "Topaz Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalOrange"
+},
+{
+"name": "Madurai Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/AttackLens"
+},
+{
+"name": "Greater Madurai Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/AttackLensGreater"
+},
+{
+"name": "Beating Heartstrings",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/1999ResourceDefense"
+},
+{
+"name": "Vitus Essence",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Elitium"
+},
+{
+"name": "PRIMARY ARCANE ADAPTER",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WeaponPrimaryArcaneUnlocker"
+},
+{
+"name": "Azure Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalBoreal"
+},
+{
+"name": "Gyromag Systems",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetAItem"
+},
+{
+"name": "Tink Dissipator Coil",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishDissipatorCoilItem"
+},
+{
+"name": "Nacreous Pebble",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartAItem"
+},
+{
+"name": "Ariette Scale",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartBItem"
+},
+{
+"name": "Inaak",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Duviri/DuviriFishAItem"
+},
+{
+"name": "Detron Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DetronBarrel"
+},
+{
+"name": "VIRIDIAN NEXIFERA TAG",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaUncommon"
+},
+{
+"name": "UMBER UNDAZOA TAG",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedZongroCommon"
+},
+{
+"name": "Crimson Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalAmar"
+},
+{
+"name": "Stance Forma",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/FormaStance"
+},
+{
+"name": "Seriglass Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/SeriglassShard"
+},
+{
+"name": "Yogwun Stomach",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayCommonFishCPartItem"
+},
+{
+"name": "Mirewinder (Corpus Both Uncommon Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusBothUncommonFishAItem"
+},
+{
+"name": "Charamote (Orokin Both Rare Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinBothRareFishAItem"
+},
+{
+"name": "Charamote (Orokin Both Rare Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinBothRareFishAMediumItem"
+},
+{
+"name": "Scrubber (Solaris Both Common Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisBothCommonFishAItem"
+},
+{
+"name": "Umbra Forma",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/FormaUmbra"
+},
+{
+"name": "Repeller Systems",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetCItem"
+},
+{
+"name": "Pyrotic Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/CommonOreAAlloyAItem"
+},
+{
+"name": "Venerdo Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonOreAAlloyItem"
+},
+{
+"name": "Tromyzon (Orokin Cool Rare Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinCoolRareFishALargeItem"
+},
+{
+"name": "Tromyzon (Orokin Cool Rare Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinCoolRareFishAMediumItem"
+},
+{
+"name": "Scrap",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/GenericFishScrapItem"
+},
+{
+"name": "Tromyzon Entroplasma",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/OrokinFishEntroplasmaItem"
+},
+{
+"name": "Marquise Thyst",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemBCutItem"
+},
+{
+"name": "Smooth Phasmin",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemACutItem"
+},
+{
+"name": "Travocyte Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreAAlloyItem"
+},
+{
+"name": "Star Amarast",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisRareGemACutItem"
+},
+{
+"name": "Axidrol Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonOreBAlloyItem"
+},
+{
+"name": "Hespazym Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisRareOreAAlloyItem"
+},
+{
+"name": "Fersteel Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/UncommonOreAAlloyAItem"
+},
+{
+"name": "Common Condroc Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagCondrocCommon"
+},
+{
+"name": "Vainthorn",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/DagathAbyssItem"
+},
+{
+"name": "Elemental Vice",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ValenceAdapter"
+},
+{
+"name": "Flossy Sawgaw Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagSawgawCommon"
+},
+{
+"name": "Ghost Kuaka Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagKuakaRare"
+},
+{
+"name": "Coastal Mergoo Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagMergooCommon"
+},
+{
+"name": "Boot",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/GrineerBootItem"
+},
+{
+"name": "Tralok Eyes",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayUncommonFishAPartItem"
+},
+{
+"name": "Shedu Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SheduHeavyWeaponBarrel"
+},
+{
+"name": "Khut-Khut Venom Sac",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/DayCommonFishBPartItem"
+},
+{
+"name": "Corufell Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GunScytheBlade"
+},
+{
+"name": "War Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/WarBlade"
+},
+{
+"name": "Auroxium Alloy",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/RareOreAAlloyAItem"
+},
+{
+"name": "Crisma Toroid",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/ArachnoidCamperItem"
+},
+{
+"name": "Defender Insignia",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/SteelMeridianUncommonDogTag"
+},
+{
+"name": "Scintillant",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/EntratiWispItem"
+},
+{
+"name": "Emerald Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalGreen"
+},
+{
+"name": "Maw Fang",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/GenericDuviriFishPartCItem"
+},
+{
+"name": "Haav",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Duviri/DuviriFishCItem"
+},
+{
+"name": "Namaes",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Duviri/DuviriFishDItem"
+},
+{
+"name": "Cuthol Tendrils",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/FishParts/NightRareFishBPartItem"
+},
+{
+"name": "Tonkkatt Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnChainSawTonfaBlade"
+},
+{
+"name": "Tonkkatt Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnChainSawTonfaHandle"
+},
+{
+"name": "Rogue Condroc Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagCondrocUncommon"
+},
+{
+"name": "Ashen Kuaka Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagKuakaUncommon"
+},
+{
+"name": "Plains Kuaka Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagKuakaCommon"
+},
+{
+"name": "Ostia Vasca Kavat Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagVampireKavatCommon"
+},
+{
+"name": "Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/KahlCreds"
+},
+{
+"name": "Sentinel Stover Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagStoverCommon"
+},
+{
+"name": "White Velocipod Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedKdriveRare"
+},
+{
+"name": "Vestigial Motes",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionResourceItem"
+},
+{
+"name": "Tauforged Azure Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalBorealMythic"
+},
+{
+"name": "General Insignia",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/SteelMeridianRareDogTag"
+},
+{
+"name": "Tak & Lug Guard",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MortiforShieldAndSwordGuard"
+},
+{
+"name": "Tak & Lug Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MortiforShieldAndSwordBlade"
+},
+{
+"name": "Tak & Lug Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MortiforShieldAndSwordHandle"
+},
+{
+"name": "Nami Solo Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/NamiSoloIncarnonUnlocker"
+},
+{
+"name": "Steflos Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnoLotusPodShotgunStock"
+},
+{
+"name": "Tauforged Amber Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalNiraMythic"
+},
+{
+"name": "Furax Wraith Right Gauntlet",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/FuraxWraithRightGauntlet"
+},
+{
+"name": "Pix Chip",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/1999ConquestBucks"
+},
+{
+"name": "Tauforged Topaz Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalOrangeMythic"
+},
+{
+"name": "Carmine Penta Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CarminePentaStock"
+},
+{
+"name": "Scimitar Engines",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/BlueSky/BlueSkyEnginesComponent"
+},
+{
+"name": "Athodai Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/AthodaiPistolReceiver"
+},
+{
+"name": "Stropha Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGunbladeStock"
+},
+{
+"name": "Mantis Avionics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/Mantys/MantysStarChartComponent"
+},
+{
+"name": "Furax Wraith Left Gauntlet",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/FuraxWraithLeftGauntlet"
+},
+{
+"name": "Trapezium Xenorhast",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemACutItem"
+},
+{
+"name": "Stellated Necrathene",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosRareGemACutItem"
+},
+{
+"name": "Parallax Avionics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/ZarimanShip/ZarimanShipAvionicsComponent"
+},
+{
+"name": "Khut-Khut",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishBItem"
+},
+{
+"name": "Yogwun",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/DayCommonFishCItemMedium"
+},
+{
+"name": "Gorgon Wraith Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GorgonWraithBarrel"
+},
+{
+"name": "AMP ARCANE ADAPTER",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WeaponAmpArcaneUnlocker"
+},
+{
+"name": "Phaedra Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchLongRifleStock"
+},
+{
+"name": "Centaur Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchSwordShieldHandle"
+},
+{
+"name": "Centaur Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchSwordShieldBlade"
+},
+{
+"name": "Velox Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ProteaSMGReceiver"
+},
+{
+"name": "Heart Noctrul",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisCommonGemBCutItem"
+},
+{
+"name": "Radiant Zodian",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisEidolonGemACutItem"
+},
+{
+"name": "Partner Quittance",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/PerrinRareDogTag"
+},
+{
+"name": "Executive Quittance",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/PerrinUncommonDogTag"
+},
+{
+"name": "Seed",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NewLokaDogTag"
+},
+{
+"name": "Flawless Seed",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NewLokaRareDogTag"
+},
+{
+"name": "Bountiful Seed",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NewLokaUncommonDogTag"
+},
+{
+"name": "Goblite Tears",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisUncommonGemACutItem"
+},
+{
+"name": "Unlock Arbitrations",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/UnlockArbitrationKeyItem"
+},
+{
+"name": "Detron Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DetronReceiver"
+},
+{
+"name": "Temporal Dust",
+"family": "duviri",
+"unique_name": "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemA"
+},
+{
+"name": "Scuttler Husk",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemB"
+},
+{
+"name": "Dominus Aureus",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/DuviriMITW/Resources/DuviriMurmurItemEvent"
+},
+{
+"name": "Scyotid Gauntlet",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ScyotidGauntlet"
+},
+{
+"name": "Cabochon Embolos",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemBCutItem"
+},
+{
+"name": "Marquise Veridos",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/UncommonGemACutAItem"
+},
+{
+"name": "Perigale Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnQuadSniperRifleReceiver"
+},
+{
+"name": "Seonn",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Duviri/DuviriFishEItem"
+},
+{
+"name": "Steflos Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnoLotusPodShotgunReceiver"
+},
+{
+"name": "Orokin Cipher",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/MirageCode"
+},
+{
+"name": "Perigale Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnQuadSniperRifleStock"
+},
+{
+"name": "Diluted Thermia",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Fissureum"
+},
+{
+"name": "Synthetic Eidolon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/SentientShardSynthesizedItem"
+},
+{
+"name": "Tauforged Emerald Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalGreenMythic"
+},
+{
+"name": "Carmine Penta Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CarminePentaReceiver"
+},
+{
+"name": "Recaster (Solaris Cool Uncommon Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolUncommonFishAItem"
+},
+{
+"name": "Charamote Sagan Module",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/OrokinFishSaganModuleItem"
+},
+{
+"name": "Cinta String",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowString"
+},
+{
+"name": "Nakak Pearls",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WaterFightBucks"
+},
+{
+"name": "Synthula",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/Eventium"
+},
+{
+"name": "Braton Vandal Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/BratonVandalStock"
+},
+{
+"name": "Mandonel Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnConcreteArchgunReceiver"
+},
+{
+"name": "Sunny Pobber Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagPobbersCommon"
+},
+{
+"name": "White-Breasted Virmink Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagVirminkCommon"
+},
+{
+"name": "Scimitar Avionics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/BlueSky/BlueSkyAvionicsComponent"
+},
+{
+"name": "Kullervo's Bane",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriKullervoDropItem"
+},
+{
+"name": "Velox Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ProteaSMGBarrel"
+},
+{
+"name": "Lato Vandal Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatoVandalReceiver"
+},
+{
+"name": "Dappled Horrasque Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagHorrasqueCommon"
+},
+{
+"name": "Longwinder Lathe Coagulant",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/FishParts/SolarisFishLatheCoogulantItem"
+},
+{
+"name": "Heart Nyth",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemBCutAItem"
+},
+{
+"name": "Radian Sentirum",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Eidolon/EidolonGemACutAItem"
+},
+{
+"name": "Cross-Matrix Widget",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LibraryScannerDoubleScanUpgrade"
+},
+{
+"name": "Sol-Battery Widget",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LibraryScannerRechargeUpgrade"
+},
+{
+"name": "Nautilus Cerebrum",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/EmpyreanSentinelCerebrum"
+},
+{
+"name": "Tremor",
+"family": "other",
+"unique_name": "/Lotus/Weapons/SolarisUnited/Primary/SUModularPrimarySet1/Handles/SUModularPrimaryHandleDPart"
+},
+{
+"name": "Mantis Engines",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/Mantys/MantysPowerCoreComponent"
+},
+{
+"name": "Nautilus Carapace",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/EmpyreanSentinelCarapace"
+},
+{
+"name": "Gorgon Wraith Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GorgonWraithStock"
+},
+{
+"name": "Phaedra Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchLongRifleReceiver"
+},
+{
+"name": "Cyngas Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchBurstGunStock"
+},
+{
+"name": "Eidolon Phylaxis",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/InfestedEventIngredient"
+},
+{
+"name": "Infested Catalyst",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/InfestedEventClanIngredient"
+},
+{
+"name": "Hemocyte Cystolith",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/LephantisShardItem"
+},
+{
+"name": "Braton Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BratonIncarnonUnlocker"
+},
+{
+"name": "Dorrclave Hilt",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHilt"
+},
+{
+"name": "Anku Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/AnkuIncarnonUnlocker"
+},
+{
+"name": "Bo Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/BoIncarnonUnlocker"
+},
+{
+"name": "Thaumic Distillate",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosRareOreAAlloyItem"
+},
+{
+"name": "Sheev Heatsink",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeHeatsink"
+},
+{
+"name": "Sheev Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeBlade"
+},
+{
+"name": "Sheev Hilt",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeHilt"
+},
+{
+"name": "Latron Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/LatronIncarnonUnlocker"
+},
+{
+"name": "Kubrow Egg",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/KubrowPet/Eggs/KubrowEgg"
+},
+{
+"name": "Twin Vipers Wraith Link",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithLink"
+},
+{
+"name": "Muck Bonnet",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/ToxinMushroomJournalItem"
+},
+{
+"name": "Ferrofungus",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/MagneticMushroomJournalItem"
+},
+{
+"name": "Vomval Trumpet",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/TauMushroomJournalItem"
+},
+{
+"name": "Fergolyte",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/MushroomFood"
+},
+{
+"name": "Spring Popper",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/BlastMushroomJournalItem"
+},
+{
+"name": "Dull Button",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/PlainMushroomJournalItem"
+},
+{
+"name": "Thorn Tooth",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/PunctureMushroomJournalItem"
+},
+{
+"name": "Reeking Puffball",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/GasMushroomJournalItem"
+},
+{
+"name": "Gamma Berry",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/RadiationMushroomJournalItem"
+},
+{
+"name": "Thunder-Button",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/ElectricMushroomJournalItem"
+},
+{
+"name": "Devil's Cap",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/SlashMushroomJournalItem"
+},
+{
+"name": "Winter Spear",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/ColdMushroomJournalItem"
+},
+{
+"name": "Strun Wraith Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithStock"
+},
+{
+"name": "Nonono",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/VoidMushroomJournalItem"
+},
+{
+"name": "Karak Wraith Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithBarrel"
+},
+{
+"name": "Pathocyst Subcortex",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfBoomerangDisc"
+},
+{
+"name": "ARCHGUN ARCANE ADAPTER",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/WeaponArchGunArcaneUnlocker"
+},
+{
+"name": "Nora's Mix:\r\nDreams of the Dead Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionFourteenCreds"
+},
+{
+"name": "Sporothrix Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfSniperRifleBarrel"
+},
+{
+"name": "Stahlta Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpRubanRifleStock"
+},
+{
+"name": "Stropha Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGunbladeReceiver"
+},
+{
+"name": "Stahlta Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpRubanRifleBarrel"
+},
+{
+"name": "Dera Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/DeraIncarnonUnlocker"
+},
+{
+"name": "Stropha Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGunbladeBlade"
+},
+{
+"name": "Skana Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/SkanaIncarnonUnlocker"
+},
+{
+"name": "Vector-Thread Widget",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LibraryScannerScanSpeedUpgrade"
+},
+{
+"name": "Lato Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/LatoIncarnonUnlocker"
+},
+{
+"name": "Gorgon Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/GorgonIncarnonUnlocker"
+},
+{
+"name": "Gorgon Wraith Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GorgonWraithReceiver"
+},
+{
+"name": "Gammacor Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/GammacorIncarnonUnlocker"
+},
+{
+"name": "Boltor Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BoltorIncarnonUnlocker"
+},
+{
+"name": "Ceramic Dagger Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/CeramicDaggerIncarnonUnlocker"
+},
+{
+"name": "Charamote (Orokin Both Rare Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinBothRareFishALargeItem"
+},
+{
+"name": "Alpine Monitor Sawgaw Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagSawgawUncommon"
+},
+{
+"name": "Ren Hypercore",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveBossResourceDactolystItem"
+},
+{
+"name": "Lyroic Bridge",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveBossResourceHunhullusItem"
+},
+{
+"name": "Ascaris Prime",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveBossResourcePrimesItem"
+},
+{
+"name": "Ignia",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/CoHResourceCommonItem"
+},
+{
+"name": "Maphica",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/CoHResourceRareItem"
+},
+{
+"name": "Agnovidisc",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceCommonItem"
+},
+{
+"name": "Servoris",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceRareItem"
+},
+{
+"name": "Laudavi",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceUncommonItem"
+},
+{
+"name": "Miter Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/MiterIncarnonUnlocker"
+},
+{
+"name": "Atomos Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/AtomosIncarnonUnlocker"
+},
+{
+"name": "Epitaph Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/WraithSidearmReceiver"
+},
+{
+"name": "Marks Of Valiance",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Tau/Resources/TwelveResourceCurrencyItem"
+},
+{
+"name": "Vasto Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/VastoIncarnonUnlocker"
+},
+{
+"name": "Velocitus Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRailgunStock"
+},
+{
+"name": "Rathbone Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHammerHandle"
+},
+{
+"name": "Fluctus Limbs",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRocketCrossbowStock"
+},
+{
+"name": "Arcroid",
+"family": "other",
+"unique_name": "/Lotus/Weapons/Infested/Pistols/InfKitGun/Clips/InfSmallClip/InfModularClipSmallCritStatPart"
+},
+{
+"name": "Nephil Vasca Kavat Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagVampireKavatRare"
+},
+{
+"name": "Sicarus Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/SicarusIncarnonUnlocker"
+},
+{
+"name": "Kunai Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/KunaiIncarnonUnlocker"
+},
+{
+"name": "Angstrum Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/AngstrumIncarnonUnlocker"
+},
+{
+"name": "Furis Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/FurisIncarnonUnlocker"
+},
+{
+"name": "Maxim Medallion",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/ArbitersRareDogTag"
+},
+{
+"name": "Nora's Mix: Time Tempests Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds"
+},
+{
+"name": "Atramentum",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Shadowgrapher/Resources/ShadowgrapherResource"
+},
+{
+"name": "Datum",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/CephalonDogTag"
+},
+{
+"name": "Emerald Talent",
+"family": "other",
+"unique_name": "/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/AshFavor"
+},
+{
+"name": "Crimson Talent",
+"family": "other",
+"unique_name": "/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/GarudaFavor"
+},
+{
+"name": "Shedu Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SheduHeavyWeaponReceiver"
+},
+{
+"name": "Bronco Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/BroncoIncarnonUnlocker"
+},
+{
+"name": "Lato Vandal Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatoVandalBarrel"
+},
+{
+"name": "Amir's Shockwave Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds"
+},
+{
+"name": "Delicate Pobber Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon"
+},
+{
+"name": "Enigma Sense",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/DuviriGuidingHandPuzzleUpgrade"
+},
+{
+"name": "Twin Vipers Wraith Receivers",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver"
+},
+{
+"name": "Strun Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/StrunIncarnonUnlocker"
+},
+{
+"name": "Entropic Kuva",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/EntropicKuvaItem"
+},
+{
+"name": "Vista Suite Key",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ApartmentPenthouseKey"
+},
+{
+"name": "Emperor Condroc Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagCondrocRare"
+},
+{
+"name": "Woodland Mergoo Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon"
+},
+{
+"name": "Amarast",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Solaris/SolarisRareGemAItem"
+},
+{
+"name": "Atmo Systems",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/CorpusWidgetBItem"
+},
+{
+"name": "Bioplasma",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem"
+},
+{
+"name": "Bonewidow Capsule",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartSystemsItem"
+},
+{
+"name": "Bonewidow Casing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartChassisItem"
+},
+{
+"name": "Bonewidow Engine",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartEngineItem"
+},
+{
+"name": "Bonewidow Weapon Pod",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanomechPartWeaponPodItem"
+},
+{
+"name": "Bracoid",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/BracoidRailjackItem"
+},
+{
+"name": "Cephalite Resonance",
+"family": "other",
+"unique_name": "/Lotus/Types/PickUps/Nightwave/CephalonFissureTimePointItem"
+},
+{
+"name": "Cerulean Fungus Extract",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem"
+},
+{
+"name": "Copernics",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/CopernicsRailjackItem"
+},
+{
+"name": "Corpus Cipher",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Research/CipherPlus"
+},
+{
+"name": "Corpus Datamass",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Research/DataMassPlus"
+},
+{
+"name": "Cortege Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunBarrelItem"
+},
+{
+"name": "Cortege Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunReceiverItem"
+},
+{
+"name": "Cortege Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechArchGunStockItem"
+},
+{
+"name": "Cortichrome",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/JadeShadows/Resources/JuggernautBehemothItem"
+},
+{
+"name": "Curse Of Hearing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemB"
+},
+{
+"name": "Curse Of Knowing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemA"
+},
+{
+"name": "Curse Of Seeing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventCurseItemC"
+},
+{
+"name": "Damaged Necramech Weapon Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponBarrelItem"
+},
+{
+"name": "Damaged Necramech Weapon Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponReceiverItem"
+},
+{
+"name": "Damaged Necramech Weapon Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/DamagedMechWeaponStockItem"
+},
+{
+"name": "Embolos",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosEidolonGemBItem"
+},
+{
+"name": "Entratifragmentbase",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/EntratiFragmentBase"
+},
+{
+"name": "Entratilabdogtag",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTag"
+},
+{
+"name": "Fresnels",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/FresnelsRailjackItem"
+},
+{
+"name": "Frostcap",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem"
+},
+{
+"name": "Ghost Brush Extract",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem"
+},
+{
+"name": "Granum Crown",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Tokens/GreedTokens/GreedTokenBlue"
+},
+{
+"name": "Grotesque Splinter",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiEventOctopedeItem"
+},
+{
+"name": "Hexsyndicatedogtag",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Resources/HexSyndicateDogTag"
+},
+{
+"name": "Hunhow's Trinket",
+"family": "other",
+"unique_name": "/Lotus/Types/JadeShadowsPart2Mission/Gameplay/Resources/HunhowTrinketMiscItem"
+},
+{
+"name": "Kesslers",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/KesslersRailjackItem"
+},
+{
+"name": "Lich Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedGrineerLichToken"
+},
+{
+"name": "Moonlight Dragonlily",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/UnCommonNightPlantItem"
+},
+{
+"name": "Morgha Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherBarrelItem"
+},
+{
+"name": "Morgha Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherReceiverItem"
+},
+{
+"name": "Morgha Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/ThanotechGrenadeLauncherStockItem"
+},
+{
+"name": "Namalon",
+"family": "gems",
+"unique_name": "/Lotus/Types/Items/Gems/Deimos/DeimosUncommonOreAItem"
+},
+{
+"name": "Nightmare Tatters",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Shadowgrapher/Resources/ShadowgrapherEventResource"
+},
+{
+"name": "Orokin Monitor",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem"
+},
+{
+"name": "Plantitem",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/PlantItem"
+},
+{
+"name": "Pustrels",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/PustrelsRailjackItem"
+},
+{
+"name": "Pyrus Essence",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/RelayRebuild/PhaseOneFireElement"
+},
+{
+"name": "Relay Strut Component",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/RelayRebuild/PhaseOneClanItem"
+},
+{
+"name": "Sister Of Parvos Token",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedCorpusLichToken"
+},
+{
+"name": "Skateweed Extract",
+"family": "plants",
+"unique_name": "/Lotus/Types/Items/Plants/MiscItems/IresPlantItem"
+},
+{
+"name": "Tasoma Spore",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed"
+},
+{
+"name": "Tertium",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem"
+},
+{
+"name": "Trachons",
+"family": "railjack",
+"unique_name": "/Lotus/Types/Items/RailjackMiscItems/TrachonsRailjackItem"
+},
+{
+"name": "Trembera Essence",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/RelayRebuild/PhaseThreeEarthEssence"
+},
+{
+"name": "Voidrig Capsule",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartSystemsItem"
+},
+{
+"name": "Voidrig Casing",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartChassisItem"
+},
+{
+"name": "Voidrig Engine",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartEngineItem"
+},
+{
+"name": "Voidrig Weapon Pod",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/InfestedMicroplanet/Resources/Mechs/NecromechPartWeaponPodItem"
+},
+{
+"name": "Volatile Motes",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/JadeShadows/Resources/AscensionEventResourceItem"
+},
+{
+"name": "Zarimandogtag",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTag"
+},
+{
+"name": "Genetic Code Template",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/KubrowPet/BlankTraitPrint"
+},
+{
+"name": "Incubator Power Core",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/KubrowPet/EggHatcher"
+},
+{
+"name": "DNA Stabilizers",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/KubrowPet/KubrowPetFood"
+},
+{
+"name": "TECHNOCYTE CODA TOKEN (DJ Rom)",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedDJRomToken"
+},
+{
+"name": "TECHNOCYTE CODA TOKEN (Drill Bit)",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedDrillBitToken"
+},
+{
+"name": "TECHNOCYTE CODA TOKEN (Hard Drive)",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedHardDriveToken"
+},
+{
+"name": "TECHNOCYTE CODA TOKEN (Packet)",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedPacketToken"
+},
+{
+"name": "TECHNOCYTE CODA TOKEN (Zeke)",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/Nemesis/KuvaLich/CapturedInfestedZekeToken"
+},
+{
+"name": "Vapor Specter Regiment",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/SpectreArmies/BronzeSpectreArmy"
+},
+{
+"name": "Force Specter Regiment",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/SpectreArmies/GoldSpectreArmy"
+},
+{
+"name": "Cosmic Specter Regiment",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/SpectreArmies/PlatinumSpectreArmy"
+},
+{
+"name": "Phase Specter Regiment",
+"family": "other",
+"unique_name": "/Lotus/Types/Game/SpectreArmies/SilverSpectreArmy"
+},
+{
+"name": "Kinemantik A/V Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver"
+},
+{
+"name": "Kinemantik Hockey Table",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable"
+},
+{
+"name": "KineBasik Bicycle",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle"
+},
+{
+"name": "File-a-Style Binder",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Binder"
+},
+{
+"name": "File-a-Style Deluxe Calculator",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Calculator"
+},
+{
+"name": "KineBasik Cardboard Box",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox"
+},
+{
+"name": "Kinemantik Cellphone",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone"
+},
+{
+"name": "File-A-Style Coffee Cups",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup"
+},
+{
+"name": "KineKitchen Coffee Machine",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine"
+},
+{
+"name": "On-lyne: The Boys R Back",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc"
+},
+{
+"name": "Kinemantik Digital Phone",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone"
+},
+{
+"name": "KineBasik Fire Extinguisher",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher"
+},
+{
+"name": "KineMagik! Party Light",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight"
+},
+{
+"name": "Kinemantik 256 GPU",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU"
+},
+{
+"name": "KineMagik! Wireless Headphones",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Headphones"
+},
+{
+"name": "File-a-Style Highlighters",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters"
+},
+{
+"name": "KineBasik Gas Can (Large)",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge"
+},
+{
+"name": "KineBasik Gas Can (Small)",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall"
+},
+{
+"name": "KineBasik Asst. Metal Keychains",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain"
+},
+{
+"name": "KineBasik Metal Lunch Box",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox"
+},
+{
+"name": "KineBasik Medical Kit",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/MedKit"
+},
+{
+"name": "Kinemantik Announce",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Microphone"
+},
+{
+"name": "KineKitchen Microwave",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Microwave"
+},
+{
+"name": "File-a-Style Mouse Pad",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/MousePad"
+},
+{
+"name": "KineBasik Coffee Mug",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Mug"
+},
+{
+"name": "File-a-Style Notepad",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Notepad"
+},
+{
+"name": "File-a-Style Office Phone",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone"
+},
+{
+"name": "KineMagik! Boom Box",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox"
+},
+{
+"name": "K.A.H. Game System",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole"
+},
+{
+"name": "K.A.H. Game Monitor",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor"
+},
+{
+"name": "KineMagik! Portable TV",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV"
+},
+{
+"name": "Kinemantik Speaker",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker"
+},
+{
+"name": "Kinemantik Speaker System",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp"
+},
+{
+"name": "Kinemantik Digital Video Camera",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera"
+},
+{
+"name": "KineBasik Paper Party Hats",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat"
+},
+{
+"name": "File-a-Style Pens",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Pen"
+},
+{
+"name": "File-a-Style Pencils",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Pencil"
+},
+{
+"name": "KineBasik Pillows",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Pillow"
+},
+{
+"name": "KineBasik Pizza Boxes",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox"
+},
+{
+"name": "KineBasik Hanging Planter",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Planter"
+},
+{
+"name": "Green Gorilla Propane Tank",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas"
+},
+{
+"name": "The Scooticle",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Scooter"
+},
+{
+"name": "KineBasik Assorted Roadsigns",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Sign"
+},
+{
+"name": "File-a-Style Sticky Notes",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes"
+},
+{
+"name": "Kinemantik 840HD TV",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Television"
+},
+{
+"name": "KineKitchen Toaster",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/Toaster"
+},
+{
+"name": "KineKitchen Toaster Oven",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven"
+},
+{
+"name": "\"Circle of Comrades\" Series on VHS",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette"
+},
+{
+"name": "Loaned Weapons",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem"
+},
+{
+"name": "Xiran",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishBItem"
+},
+{
+"name": "Moonflesh",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource"
+},
+{
+"name": "ARCHON SHARD",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystal"
+},
+{
+"name": "Tauforged Crimson Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalAmarMythic"
+},
+{
+"name": "Violet Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalViolet"
+},
+{
+"name": "Tauforged Violet Archon Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Gameplay/NarmerSorties/ArchonCrystalVioletMythic"
+},
+{
+"name": "Green Velocipod Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedKdriveUncommon"
+},
+{
+"name": "Septic Cryptilex Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMaggotUncommon"
+},
+{
+"name": "Common Avichaea Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMergooCommon"
+},
+{
+"name": "Viscid Avichaea Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMergooRare"
+},
+{
+"name": "Sporule Avichaea Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedMergooUncommon"
+},
+{
+"name": "SCARLET NEXIFERA TAG",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/AnimalTagInfestedNexiferaRare"
+},
+{
+"name": "Fass Residue",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Deimos/InfestedWyrmBlood"
+},
+{
+"name": "Splendid Mergoo Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Eidolon/AnimalTagMergooRare"
+},
+{
+"name": "Scarlet Credits",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Events/OperationsCredits"
+},
+{
+"name": "Waxen Sebum Deposit",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/FishParts/DeimosInfestedFishDPartItem"
+},
+{
+"name": "Aquapulmo (Hybrid Rare A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridRareAFishItem"
+},
+{
+"name": "Aquapulmo (Hybrid Rare A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridRareAFishItemLarge"
+},
+{
+"name": "Aquapulmo (Hybrid Rare A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridRareAFishItemMedium"
+},
+{
+"name": "Ostimyr (Hybrid Uncommon A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonAFishItem"
+},
+{
+"name": "Ostimyr (Hybrid Uncommon A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonAFishItemLarge"
+},
+{
+"name": "Ostimyr (Hybrid Uncommon A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonAFishItemMedium"
+},
+{
+"name": "Vitreospina (Hybrid Uncommon B Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonBFishItem"
+},
+{
+"name": "Vitreospina (Hybrid Uncommon B Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonBFishItemLarge"
+},
+{
+"name": "Vitreospina (Hybrid Uncommon B Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/HybridUncommonBFishItemMedium"
+},
+{
+"name": "Cryptosuctus (Infested Common A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonAFishItem"
+},
+{
+"name": "Cryptosuctus (Infested Common A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonAFishItemLarge"
+},
+{
+"name": "Cryptosuctus (Infested Common A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonAFishItemMedium"
+},
+{
+"name": "Barbisteo (Infested Common B Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonBFishItem"
+},
+{
+"name": "Barbisteo (Infested Common B Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonBFishItemLarge"
+},
+{
+"name": "Kymaeros (Infested Common C Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonCFishItem"
+},
+{
+"name": "Kymaeros (Infested Common C Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonCFishItemMedium"
+},
+{
+"name": "Amniophysi (Infested Common D Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonDFishItem"
+},
+{
+"name": "Amniophysi (Infested Common D Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonDFishItemMedium"
+},
+{
+"name": "Lobotriscid (Infested Common E Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonEFishItem"
+},
+{
+"name": "Lobotriscid (Infested Common E Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonEFishItemLarge"
+},
+{
+"name": "Lobotriscid (Infested Common E Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedCommonEFishItemMedium"
+},
+{
+"name": "Flagellocanth (Infested Rare A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedRareAFishItem"
+},
+{
+"name": "Flagellocanth (Infested Rare A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedRareAFishItemLarge"
+},
+{
+"name": "Flagellocanth (Infested Rare A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedRareAFishItemMedium"
+},
+{
+"name": "Glutinox (Infested Uncommon A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedUncommonAFishItem"
+},
+{
+"name": "Glutinox (Infested Uncommon A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedUncommonAFishItemLarge"
+},
+{
+"name": "Glutinox (Infested Uncommon A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/InfestedUncommonAFishItemMedium"
+},
+{
+"name": "Myxostomata (Orokin Legendary A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinLegendaryAFishItem"
+},
+{
+"name": "Myxostomata (Orokin Legendary A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinLegendaryAFishItemLarge"
+},
+{
+"name": "Myxostomata (Orokin Legendary A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinLegendaryAFishItemMedium"
+},
+{
+"name": "Duroid (Orokin Rare A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinRareAFishItem"
+},
+{
+"name": "Duroid (Orokin Rare A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinRareAFishItemLarge"
+},
+{
+"name": "Duroid (Orokin Rare A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinRareAFishItemMedium"
+},
+{
+"name": "Chondricord (Orokin Uncommon A Fish)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinUncommonAFishItem"
+},
+{
+"name": "Chondricord (Orokin Uncommon A Fish Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinUncommonAFishItemLarge"
+},
+{
+"name": "Chondricord (Orokin Uncommon A Fish Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Deimos/OrokinUncommonAFishItemMedium"
+},
+{
+"name": "Sharrac",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/BothUncommonFishAItem"
+},
+{
+"name": "Karkina",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/BothUncommonFishBItem"
+},
+{
+"name": "Mortus Lungfish",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/DayUncommonFishBItem"
+},
+{
+"name": "STOCKING",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem"
+},
+{
+"name": "Glappid",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/NightLegendaryFishAItem"
+},
+{
+"name": "Norg",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/NightRareFishAItem"
+},
+{
+"name": "Cuthol",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Eidolon/NightRareFishBItem"
+},
+{
+"name": "Mirewinder (Corpus Both Uncommon Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusBothUncommonFishALargeItem"
+},
+{
+"name": "Mirewinder (Corpus Both Uncommon Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusBothUncommonFishAMediumItem"
+},
+{
+"name": "Sapcaddy (Corpus Cool Common Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolCommonFishALargeItem"
+},
+{
+"name": "Eye-Eye (Corpus Cool Uncommon Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolUncommonFishAItem"
+},
+{
+"name": "Eye-Eye (Corpus Cool Uncommon Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolUncommonFishALargeItem"
+},
+{
+"name": "Eye-Eye (Corpus Cool Uncommon Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusCoolUncommonFishAMediumItem"
+},
+{
+"name": "Echowinder (Corpus Warm Common Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishAItem"
+},
+{
+"name": "Echowinder (Corpus Warm Common Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishALargeItem"
+},
+{
+"name": "Echowinder (Corpus Warm Common Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishAMediumItem"
+},
+{
+"name": "Brickie (Corpus Warm Common Fish B)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishBItem"
+},
+{
+"name": "Brickie (Corpus Warm Common Fish B Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishBLargeItem"
+},
+{
+"name": "Brickie (Corpus Warm Common Fish B Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmCommonFishBMediumItem"
+},
+{
+"name": "Kriller (Corpus Warm Uncommon Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmUncommonFishAItem"
+},
+{
+"name": "Kriller (Corpus Warm Uncommon Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmUncommonFishALargeItem"
+},
+{
+"name": "Kriller (Corpus Warm Uncommon Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/CorpusWarmUncommonFishAMediumItem"
+},
+{
+"name": "Synathid (Orokin Both Legendary Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinBothLegendaryFishAItem"
+},
+{
+"name": "Synathid (Orokin Both Legendary Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinBothLegendaryFishALargeItem"
+},
+{
+"name": "Synathid (Orokin Both Legendary Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/OrokinBothLegendaryFishAMediumItem"
+},
+{
+"name": "Scrubber (Solaris Both Common Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisBothCommonFishALargeItem"
+},
+{
+"name": "Scrubber (Solaris Both Common Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisBothCommonFishAMediumItem"
+},
+{
+"name": "Tink (Solaris Cool Common Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolCommonFishALargeItem"
+},
+{
+"name": "Tink (Solaris Cool Common Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolCommonFishAMediumItem"
+},
+{
+"name": "Recaster (Solaris Cool Uncommon Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolUncommonFishALargeItem"
+},
+{
+"name": "Recaster (Solaris Cool Uncommon Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisCoolUncommonFishAMediumItem"
+},
+{
+"name": "Longwinder (Solaris Warm Rare Fish A)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisWarmRareFishAItem"
+},
+{
+"name": "Longwinder (Solaris Warm Rare Fish A Large)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisWarmRareFishALargeItem"
+},
+{
+"name": "Longwinder (Solaris Warm Rare Fish A Medium)",
+"family": "fish",
+"unique_name": "/Lotus/Types/Items/Fish/Solaris/SolarisWarmRareFishAMediumItem"
+},
+{
+"name": "Ayatan Sah Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexA"
+},
+{
+"name": "Ayatan Ayr Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexB"
+},
+{
+"name": "Ayatan Orta Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexC"
+},
+{
+"name": "Ayatan Vaya Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexD"
+},
+{
+"name": "Ayatan Piv Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexE"
+},
+{
+"name": "Ayatan Kitha Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexEntrati"
+},
+{
+"name": "Ayatan Anasa Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexF"
+},
+{
+"name": "Ayatan Valana Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexG"
+},
+{
+"name": "Ayatan Zambuka Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexH"
+},
+{
+"name": "Ayatan Chattraka Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexI"
+},
+{
+"name": "Ayatan Hemakara Sculpture",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/FusionTreasures/OroFusexJ"
+},
+{
+"name": "SENTIENT APPETITE",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer"
+},
+{
+"name": "Bile",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthBile"
+},
+{
+"name": "Biotics",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthBiotics"
+},
+{
+"name": "Calx",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthCalx"
+},
+{
+"name": "Oxides",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthOxides"
+},
+{
+"name": "Pheromones",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthPheromones"
+},
+{
+"name": "Synthetics",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/InfestedFoundry/HelminthSynthetics"
+},
+{
+"name": "Owned Peely Pak",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/1999FixedStickersPack"
+},
+{
+"name": "Alpha Corruptor",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/AlphaCorruptorResource"
+},
+{
+"name": "Zealot Derelict Code",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/AntiSerumInjector"
+},
+{
+"name": "Beta Corruptor",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/BetaCorruptorResource"
+},
+{
+"name": "additional appearance config slot for this item",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker"
+},
+{
+"name": "Tethra Data Fragments",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/DataFragment"
+},
+{
+"name": "Greater Focus Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Types/Items/MiscItems/FocusLensGreater"
+},
+{
+"name": "Lua Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Types/Items/MiscItems/FocusLensLua"
+},
+{
+"name": "Eidolon Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Types/Items/MiscItems/FocusLensOstron"
+},
+{
+"name": "Chromatic Atramentum",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/FoilModUnlocker"
+},
+{
+"name": "TEST FORMA",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/FormaOmega"
+},
+{
+"name": "Gravimag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/HeavyWeaponCatalyst"
+},
+{
+"name": "Vay Hek Nav Coordinate",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/HekNavCode"
+},
+{
+"name": "Ack & Brunt Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/AckAndBruntIncarnonUnlocker"
+},
+{
+"name": "Destreza Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/DestrezaIncarnonUnlocker"
+},
+{
+"name": "Dual Ichor Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/DualIchorIncarnonUnlocker"
+},
+{
+"name": "Furax Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/FuraxIncarnonUnlocker"
+},
+{
+"name": "Hate Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/HateIncarnonUnlocker"
+},
+{
+"name": "Magistar Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/MagistarIncarnonUnlocker"
+},
+{
+"name": "Obex Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/ObexIncarnonUnlocker"
+},
+{
+"name": "Okina Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/OkinaIncarnonUnlocker"
+},
+{
+"name": "Sibear Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/SibearIncarnonUnlocker"
+},
+{
+"name": "Boar Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BoarIncarnonUnlocker"
+},
+{
+"name": "Burston Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BurstonIncarnonUnlocker"
+},
+{
+"name": "Dread Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/DreadIncarnonUnlocker"
+},
+{
+"name": "Paris Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/ParisIncarnonUnlocker"
+},
+{
+"name": "Soma Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/SomaIncarnonUnlocker"
+},
+{
+"name": "Sybaris Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/SybarisIncarnonUnlocker"
+},
+{
+"name": "Torid Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/ToridIncarnonUnlocker"
+},
+{
+"name": "Vectis Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/VectisIncarnonUnlocker"
+},
+{
+"name": "Ballistica Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/BallisticaIncarnonUnlocker"
+},
+{
+"name": "Cestra Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/CestraIncarnonUnlocker"
+},
+{
+"name": "Despair Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/DespairIncarnonUnlocker"
+},
+{
+"name": "Dual Toxocyst Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/DualToxocystIncarnonUnlocker"
+},
+{
+"name": "Lex Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/LexIncarnonUnlocker"
+},
+{
+"name": "Stug Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/StugIncarnonUnlocker"
+},
+{
+"name": "Zylok Incarnon Genesis",
+"family": "incarnon",
+"unique_name": "/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/ZylokIncarnonUnlocker"
+},
+{
+"name": "Mutalist Alad V Nav Coordinate",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/InfestedAladCoordinate"
+},
+{
+"name": "RUSH REPAIR DRONE",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/InstantSalvageRepairItem"
+},
+{
+"name": "Data-Parse Widget",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LibraryScannerEnemyWeaknessUpgrade"
+},
+{
+"name": "Library Scanner Upgrade",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/LibraryScannerUpgrade"
+},
+{
+"name": "Phasic Cells",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/MechSurvivalEventCreds"
+},
+{
+"name": "additional mod config slot for this item",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/ModSlotUnlocker"
+},
+{
+"name": "Narmer Isoplast",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NarmerBountyResource"
+},
+{
+"name": "Emissary Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraInfestedCreds"
+},
+{
+"name": "Nora's Mix Vol. 4 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionEightCreds"
+},
+{
+"name": "Nora's Mix Vol. 1 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionFiveCreds"
+},
+{
+"name": "Nora's Choice Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds"
+},
+{
+"name": "Nora's Mix Vol. 5 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionNineCreds"
+},
+{
+"name": "Nora's Mix Vol. 3 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionSevenCreds"
+},
+{
+"name": "Nora's Mix Vol. 2 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionSixCreds"
+},
+{
+"name": "Nora's Mix Vol. 6 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionTenCreds"
+},
+{
+"name": "Nora's Mix Vol. 9 Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionThirteenCreds"
+},
+{
+"name": "INTERMISSION III CRED",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionThreeCreds"
+},
+{
+"name": "Intermission II Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraIntermissionTwoCreds"
+},
+{
+"name": "Crystal Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraSeasonThreeCreds"
+},
+{
+"name": "Wolf Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraWolfCreds"
+},
+{
+"name": "Intermission I Cred",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/NoraWolfTwoCreds"
+},
+{
+"name": "Photobooth Tile",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/PhotoboothTile"
+},
+{
+"name": "Riven Splicer",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/RivenSplicer"
+},
+{
+"name": "Sunpoint Plasma Drill Range Widget",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SolarisMiningToolRangeUpgrade"
+},
+{
+"name": "Sunpoint Plasma Drill Silencer Widget",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SolarisMiningToolSilenceUpgrade"
+},
+{
+"name": "Solaris Mining Tool Upgrade",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/SolarisMiningToolUpgrade"
+},
+{
+"name": "Stable Corruptor",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/StableCorruptorResource"
+},
+{
+"name": "Archon Amar's Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/TNWArchonItemAmar"
+},
+{
+"name": "TNW Archon Item Base",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/TNWArchonItemBase"
+},
+{
+"name": "Archon Boreal's Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/TNWArchonItemBoreal"
+},
+{
+"name": "Archon Nira's Shard",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/TNWArchonItemNira"
+},
+{
+"name": "Echoes Of Umbra",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/UmbraEchoes"
+},
+{
+"name": "Delta Beacon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA"
+},
+{
+"name": "Gamma Beacon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB"
+},
+{
+"name": "Kappa Beacon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC"
+},
+{
+"name": "Omega Beacon",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD"
+},
+{
+"name": "Borica",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/CorrosiveMushroomJournalItem"
+},
+{
+"name": "Blister Stalk",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/HeatMushroomJournalItem"
+},
+{
+"name": "Ironwood",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/ImpactMushroomJournalItem"
+},
+{
+"name": "Violet's Bane",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/MushroomJournal/ViralMushroomJournalItem"
+},
+{
+"name": "Festive Interior Decorations",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/ShipChristmasifier"
+},
+{
+"name": "Spring Festival Interior Decorations",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/ShipLayerCNY"
+},
+{
+"name": "Thorny Bolarola Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagBolarolaRare"
+},
+{
+"name": "Black-Banded Bolarola Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon"
+},
+{
+"name": "Horrasque Stormer Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare"
+},
+{
+"name": "Kubrodon Incarnadine Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagKubrodonRare"
+},
+{
+"name": "Vallis Kubrodon Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon"
+},
+{
+"name": "Frogmouthed Sawgaw Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagSawgawRare"
+},
+{
+"name": "Fire-Veined Stover Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagStoverRare"
+},
+{
+"name": "Red-Crested Virmink Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/Solaris/AnimalTagVirminkRare"
+},
+{
+"name": "Medallion",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/ArbitersDogTag"
+},
+{
+"name": "Lawful Medallion",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/ArbitersUncommonDogTag"
+},
+{
+"name": "Auto Shared Dog Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/AutoSharedDogTag"
+},
+{
+"name": "Genius Datum",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/CephalonRareDogTag"
+},
+{
+"name": "Intriguing Datum",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/CephalonUncommonDogTag"
+},
+{
+"name": "Dog Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/DogTag"
+},
+{
+"name": "Rathuum Prisoner Coordinates",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag"
+},
+{
+"name": "MuseumDogTag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag"
+},
+{
+"name": "Nora Dog Tag",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NoraDogTag"
+},
+{
+"name": "GLASSMAKER  STANDING",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag"
+},
+{
+"name": "EMISSARY  STANDING",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag"
+},
+{
+"name": "NIGHTWAVE  STANDING",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag"
+},
+{
+"name": "Quittance",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/PerrinDogTag"
+},
+{
+"name": "Mark",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/RedVeilDogTag"
+},
+{
+"name": "Exalted Mark",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/RedVeilRareDogTag"
+},
+{
+"name": "Honored Mark",
+"family": "other",
+"unique_name": "/Lotus/Types/Items/SyndicateDogTags/RedVeilUncommonDogTag"
+},
+{
+"name": "Mandachord",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerItem"
+},
+{
+"name": "Mandachord Body",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartA"
+},
+{
+"name": "Mandachord Fret",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartB"
+},
+{
+"name": "Mandachord Bridge",
+"family": "other",
+"unique_name": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartC"
+},
+{
+"name": "Odonata Prime Wings",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/ArchwingRecipes/PrimeArchwing/PrimeArchwingWingsComponent"
+},
+{
+"name": "Grustrag Bolt Release",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Components/BrandRemovalFakeItem"
+},
+{
+"name": "Kavasa Prime Buckle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Kubrow/Collars/PrimeKubrowCollarABuckleComponent"
+},
+{
+"name": "Scimitar Fuselage",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/BlueSky/BlueSkyFuselageComponent"
+},
+{
+"name": "Xiphos Avionics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/Gyroscope/GyroscopeAvionicsComponent"
+},
+{
+"name": "Xiphos Engines",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/Gyroscope/GyroscopeEnginesComponent"
+},
+{
+"name": "Xiphos Fuselage",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/Gyroscope/GyroscopeFuselageComponent"
+},
+{
+"name": "Mantis Fuselage",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/Mantys/MantysExoskeletonComponent"
+},
+{
+"name": "Nightwave Avionics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/NightwaveShip/NoraShipAvionicsComponent"
+},
+{
+"name": "Nightwave Engines",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/NightwaveShip/NoraShipEnginesComponent"
+},
+{
+"name": "Nightwave Fuselage",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/NightwaveShip/NoraShipFuselageComponent"
+},
+{
+"name": "Parallax Engines",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/ZarimanShip/ZarimanShipEnginesComponent"
+},
+{
+"name": "Parallax Fuselage",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/LandingCraftRecipes/ZarimanShip/ZarimanShipFuselageComponent"
+},
+{
+"name": "Equinox Night Chassis",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/AnimaChassisComponent"
+},
+{
+"name": "Equinox Night Neuroptics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/AnimaHelmetComponent"
+},
+{
+"name": "Equinox Night Systems",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/AnimaSystemsComponent"
+},
+{
+"name": "Equinox Day Chassis",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/AnimusChassisComponent"
+},
+{
+"name": "Equinox Day Neuroptics",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/AnimusHelmetComponent"
+},
+{
+"name": "Equinox Day Systems",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/AnimusSystemsComponent"
+},
+{
+"name": "SCORCHED BEACON",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/ChromaBeaconAComponent"
+},
+{
+"name": "CHROMA SIGNAL",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/WarframeRecipes/ChromaBeaconBComponent"
+},
+{
+"name": "Onorix Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchAxeBlade"
+},
+{
+"name": "Onorix Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchAxeHandle"
+},
+{
+"name": "Cyngas Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchBurstGunBarrel"
+},
+{
+"name": "Cyngas Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchBurstGunReceiver"
+},
+{
+"name": "Corvas Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchCannonBarrel"
+},
+{
+"name": "Corvas Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchCannonReceiver"
+},
+{
+"name": "Corvas Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchCannonStock"
+},
+{
+"name": "Rathbone Head",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHammerHead"
+},
+{
+"name": "Decurion Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHeavyPistolsBarrel"
+},
+{
+"name": "Decurion Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHeavyPistolsReceiver"
+},
+{
+"name": "Agkuza Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHookSwordBlade"
+},
+{
+"name": "Agkuza Guard",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchHookSwordGuard"
+},
+{
+"name": "Phaedra Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchLongRifleBarrel"
+},
+{
+"name": "Velocitus Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRailgunBarrel"
+},
+{
+"name": "Fluctus Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRocketCrossbowBarrel"
+},
+{
+"name": "Fluctus Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchRocketCrossbowReceiver"
+},
+{
+"name": "Kaszas Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchScytheHandle"
+},
+{
+"name": "Centaur Aegis",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ArchSwordShieldAegis"
+},
+{
+"name": "Athodai Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/AthodaiPistolBarrel"
+},
+{
+"name": "Brakk Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/BrakkBarrel"
+},
+{
+"name": "Brakk Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/BrakkReceiver"
+},
+{
+"name": "Braton Vandal Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/BratonVandalBarrel"
+},
+{
+"name": "Braton Vandal Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/BratonVandalReceiver"
+},
+{
+"name": "Carmine Penta Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CarminePentaBarrel"
+},
+{
+"name": "Xoris Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGhostCatcherGlaivePartBlade"
+},
+{
+"name": "Xoris Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGhostCatcherGlaivePartHandle"
+},
+{
+"name": "Stropha Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpGunbladeBarrel"
+},
+{
+"name": "Stahlta Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/CrpRubanRifleReceiver"
+},
+{
+"name": "Cinta Grip",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowGrip"
+},
+{
+"name": "Cinta Lower Limb",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowLowerLimb"
+},
+{
+"name": "Cinta Upper Limb",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DaxDuviriAsymmetricalLongBowUpperLimb"
+},
+{
+"name": "Dera Vandal Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalBarrel"
+},
+{
+"name": "Dera Vandal Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalReceiver"
+},
+{
+"name": "Dera Vandal Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalStock"
+},
+{
+"name": "Nunchasa Grip",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowGrip"
+},
+{
+"name": "Nunchasa Lower Limb",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowLowerLimb"
+},
+{
+"name": "Nunchasa String",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowString"
+},
+{
+"name": "Nunchasa Upper Limb",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowUpperLimb"
+},
+{
+"name": "Nautilus Systems",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/EmpyreanSentinelSystems"
+},
+{
+"name": "Ruvox Glove",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/EntFistIncarnonGlove"
+},
+{
+"name": "Ghoulsaw Engine",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GrnGhoulSawEngine"
+},
+{
+"name": "Corufell Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GunScytheHandle"
+},
+{
+"name": "Corufell Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/GunScytheReceiver"
+},
+{
+"name": "Imperator Vandal Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ImperatorVandalBarrel"
+},
+{
+"name": "Pathocyst Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfBoomerangBlade"
+},
+{
+"name": "Sporothrix Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfSniperRifleReceiver"
+},
+{
+"name": "Sporothrix Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfSniperRifleStock"
+},
+{
+"name": "Keratinos Gauntlet",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfTransformClawsWeaponGlove"
+},
+{
+"name": "Arum Spinosa Guard",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfWarFanGuard"
+},
+{
+"name": "Arum Spinosa Rivet",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/InfWarFanRivet"
+},
+{
+"name": "Karak Wraith Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithReceiver"
+},
+{
+"name": "Karak Wraith Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithStock"
+},
+{
+"name": "Dual Viciss Hilt",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/LasGooSicklesPlayerWeaponHilt"
+},
+{
+"name": "Latron Wraith Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithBarrel"
+},
+{
+"name": "Latron Wraith Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithReceiver"
+},
+{
+"name": "Latron Wraith Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithStock"
+},
+{
+"name": "Miter Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/MiterBlade"
+},
+{
+"name": "Arbucep Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/NokkoArchGunBarrelItem"
+},
+{
+"name": "Arbucep Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/NokkoArchGunReceiverItem"
+},
+{
+"name": "Arbucep Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/NokkoArchGunStockItem"
+},
+{
+"name": "Rauta Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/PaxDuviricusShotgunBarrel"
+},
+{
+"name": "Rauta Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/PaxDuviricusShotgunReceiver"
+},
+{
+"name": "Rauta Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/PaxDuviricusShotgunStock"
+},
+{
+"name": "Shedu Chassis",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SheduHeavyWeaponChassis"
+},
+{
+"name": "Shedu Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SheduHeavyWeaponHandle"
+},
+{
+"name": "Snipetron Vandal Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalBarrel"
+},
+{
+"name": "Snipetron Vandal Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalReceiver"
+},
+{
+"name": "Snipetron Vandal Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalStock"
+},
+{
+"name": "Spectra Vandal Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SpectraVandalBarrel"
+},
+{
+"name": "Spectra Vandal Chassis",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SpectraVandalChassis"
+},
+{
+"name": "Spectra Vandal Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SpectraVandalHandle"
+},
+{
+"name": "Spinnerex String",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/SpinnerexString"
+},
+{
+"name": "Strun Wraith Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithBarrel"
+},
+{
+"name": "Strun Wraith Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithReceiver"
+},
+{
+"name": "Wolf Sledge Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ThrowingHammerHandle"
+},
+{
+"name": "Wolf Sledge Head",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ThrowingHammerHead"
+},
+{
+"name": "Wolf Sledge Motor",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/ThrowingHammerMotor"
+},
+{
+"name": "Cedo Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnAlchemistShotgunBarrel"
+},
+{
+"name": "Cedo Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnAlchemistShotgunReceiver"
+},
+{
+"name": "Cedo Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnAlchemistShotgunStock"
+},
+{
+"name": "Mandonel Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnConcreteArchgunBarrel"
+},
+{
+"name": "Mandonel Stock",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnConcreteArchgunStock"
+},
+{
+"name": "Dorrclave Hook",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHook"
+},
+{
+"name": "Dorrclave String",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipString"
+},
+{
+"name": "Steflos Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TnoLotusPodShotgunBarrel"
+},
+{
+"name": "Twin Vipers Wraith Barrels",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel"
+},
+{
+"name": "Seer Receiver",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/VorsPistolReceiver"
+},
+{
+"name": "Sarofang Blade",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/WolfFrameAxeWeaponBlade"
+},
+{
+"name": "Sarofang Handle",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/WolfFrameAxeWeaponHandle"
+},
+{
+"name": "Epitaph Barrel",
+"family": "other",
+"unique_name": "/Lotus/Types/Recipes/Weapons/WeaponParts/WraithSidearmBarrel"
+},
+{
+"name": "Lua Madurai Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/AttackLensLua"
+},
+{
+"name": "Eidolon Madurai Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/AttackLensOstron"
+},
+{
+"name": "Lua Vazarin Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/DefenseLensLua"
+},
+{
+"name": "Lua Zenurik Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/PowerLensLua"
+},
+{
+"name": "Eidolon Zenurik Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/PowerLensOstron"
+},
+{
+"name": "Lua Naramon Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/TacticLensLua"
+},
+{
+"name": "Eidolon Naramon Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/TacticLensOstron"
+},
+{
+"name": "Lua Unairu Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/WardLensLua"
+},
+{
+"name": "Eidolon Unairu Lens",
+"family": "focus_lens",
+"unique_name": "/Lotus/Upgrades/Focus/WardLensOstron"
+}
+]

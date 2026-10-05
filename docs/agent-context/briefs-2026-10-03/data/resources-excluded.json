@@ -1,0 +1,498 @@
+[
+{
+"name": "Deimos Necralisk Scene",
+"why": "name"
+},
+{
+"name": "Granum Void Scene",
+"why": "name"
+},
+{
+"name": "PROPULSION SYSTEMS",
+"why": "path"
+},
+{
+"name": "PORT NACELLE",
+"why": "path"
+},
+{
+"name": "STARBOARD NACELLE",
+"why": "path"
+},
+{
+"name": "TAIL SECTION",
+"why": "path"
+},
+{
+"name": "ENGINE COWLING",
+"why": "path"
+},
+{
+"name": "Orokin Tower Extraction Scene",
+"why": "name"
+},
+{
+"name": "Amaryn's Retreat Scene",
+"why": "name"
+},
+{
+"name": "Veil's Binding Scene",
+"why": "name"
+},
+{
+"name": "The War Within Choice Scene",
+"why": "name"
+},
+{
+"name": "Umbra's Courtyard Scene",
+"why": "name"
+},
+{
+"name": "Deimos Crypt Scene",
+"why": "name"
+},
+{
+"name": "Deimos Forsaken Scene",
+"why": "name"
+},
+{
+"name": "The Cold Below Scene",
+"why": "name"
+},
+{
+"name": "The Drifter Camp Scene",
+"why": "name"
+},
+{
+"name": "Stalker's Lair Scene",
+"why": "path"
+},
+{
+"name": "Lua Balcony Scene",
+"why": "name"
+},
+{
+"name": "Deimos Membrane Scene",
+"why": "name"
+},
+{
+"name": "The Ballroom Simulacrum",
+"why": "path"
+},
+{
+"name": "Kuva Fortress Crevice Scene",
+"why": "name"
+},
+{
+"name": "Simulacrum Access Key",
+"why": "name"
+},
+{
+"name": "Grineer Forest Industry Scene",
+"why": "name"
+},
+{
+"name": "Deimos Depths Scene",
+"why": "name"
+},
+{
+"name": "Deimos Verge Scene",
+"why": "name"
+},
+{
+"name": "Deimos Heart Scene",
+"why": "name"
+},
+{
+"name": "Moonlit Courtyard Simulacrum",
+"why": "path"
+},
+{
+"name": "Orowyrm Arena Simulacrum",
+"why": "path"
+},
+{
+"name": "Sanctum Simulacrum",
+"why": "path"
+},
+{
+"name": "Ambulas Arena Simulacrum",
+"why": "path"
+},
+{
+"name": "Red Veil Temple Simulacrum",
+"why": "path"
+},
+{
+"name": "Iron Wake Scene",
+"why": "name"
+},
+{
+"name": "Inaros Tomb Scene",
+"why": "name"
+},
+{
+"name": "Harrow's Temple Scene",
+"why": "name"
+},
+{
+"name": "Roathe's Oblivion Arena",
+"why": "path"
+},
+{
+"name": "Infested Ship Bridge Scene",
+"why": "name"
+},
+{
+"name": "Hunhow's Chamber Scene",
+"why": "name"
+},
+{
+"name": "Grineer Asteroid Simulacrum",
+"why": "path"
+},
+{
+"name": "Cressa's Garrison Scene",
+"why": "name"
+},
+{
+"name": "Grineer Settlement Reactor Scene",
+"why": "name"
+},
+{
+"name": "Kuva Throne Scene",
+"why": "name"
+},
+{
+"name": "Railjack",
+"why": "path"
+},
+{
+"name": "File-A-Style Insta-Print Poster",
+"why": "name"
+},
+{
+"name": "Danger Room Tile",
+"why": "path"
+},
+{
+"name": "Mall Rotunda Simulacrum",
+"why": "path"
+},
+{
+"name": "Höllvanian Courtyard Simulacrum",
+"why": "path"
+},
+{
+"name": "The Citadel Simulacrum",
+"why": "path"
+},
+{
+"name": "Zanuka Arena Simulacrum",
+"why": "path"
+},
+{
+"name": "Orokin Derelict Simulacrum",
+"why": "path"
+},
+{
+"name": "Hunhow's Datascape Scene",
+"why": "name"
+},
+{
+"name": "Dog Days Scene",
+"why": "name"
+},
+{
+"name": "Dog Days Night Scene",
+"why": "name"
+},
+{
+"name": "Cetus Scene",
+"why": "name"
+},
+{
+"name": "Deimos Vault Scene",
+"why": "name"
+},
+{
+"name": "Deimos Breakthrough Scene",
+"why": "name"
+},
+{
+"name": "Deimos Catacombs Scene",
+"why": "name"
+},
+{
+"name": "Deimos Cenote Scene",
+"why": "name"
+},
+{
+"name": "Deimos Downfall Scene",
+"why": "name"
+},
+{
+"name": "Deimos Cambion Drift Scene",
+"why": "name"
+},
+{
+"name": "Deimos Underground Scene",
+"why": "name"
+},
+{
+"name": "Deimos Chamber Scene",
+"why": "name"
+},
+{
+"name": "Deimos Tunnels Scene",
+"why": "name"
+},
+{
+"name": "Plains of Eidolon Scene",
+"why": "name"
+},
+{
+"name": "Grineer Forest Water Pump Scene",
+"why": "name"
+},
+{
+"name": "Grineer Forest Factory Scene",
+"why": "name"
+},
+{
+"name": "Grineer Galleon Cargo Scene",
+"why": "name"
+},
+{
+"name": "Grineer Sealab Centrifuge Scene",
+"why": "name"
+},
+{
+"name": "Grineer Settlement Artillery Scene",
+"why": "name"
+},
+{
+"name": "Hydroid's Relay Scene",
+"why": "name"
+},
+{
+"name": "Infested Ship Hologram Scene",
+"why": "name"
+},
+{
+"name": "Haunted Vesper Relay Scene",
+"why": "name"
+},
+{
+"name": "Onkko's Command Post Scene",
+"why": "name"
+},
+{
+"name": "Orbiter Scene",
+"why": "name"
+},
+{
+"name": "Teshin's Refuge Scene",
+"why": "name"
+},
+{
+"name": "Lunaro Arena Scene",
+"why": "name"
+},
+{
+"name": "Arbiter's Tribunal Scene",
+"why": "name"
+},
+{
+"name": "Lua Containment Scene",
+"why": "name"
+},
+{
+"name": "Lua Nursery Scene",
+"why": "name"
+},
+{
+"name": "Suda's Datascape Scene",
+"why": "name"
+},
+{
+"name": "Chamber of the Lotus Scene",
+"why": "name"
+},
+{
+"name": "Grineer Shipyards Manufactory Scene",
+"why": "name"
+},
+{
+"name": "Silver Grove Shrine Scene",
+"why": "name"
+},
+{
+"name": "Ergo's Boardroom Scene",
+"why": "name"
+},
+{
+"name": "Mycona Colony Scene",
+"why": "name"
+},
+{
+"name": "Orokin Derelict Plaza Scene",
+"why": "name"
+},
+{
+"name": "Sanctuary Conduit Scene",
+"why": "name"
+},
+{
+"name": "Praghasa Throne Room Scene",
+"why": "name"
+},
+{
+"name": "Yuvan Peak Scene",
+"why": "name"
+},
+{
+"name": "Color Key Scene",
+"why": "name"
+},
+{
+"name": "Saturn Six Scene",
+"why": "name"
+},
+{
+"name": "Scoria's Angel Scene",
+"why": "path"
+},
+{
+"name": "Kuva Wytch Scene",
+"why": "path"
+},
+{
+"name": "Pontis Tower Scene",
+"why": "path"
+},
+{
+"name": "Lua Circulus Scene",
+"why": "path"
+},
+{
+"name": "Technocyte Coda Stadium Scene",
+"why": "path"
+},
+{
+"name": "Sentient Balcony Scene",
+"why": "path"
+},
+{
+"name": "Sentient Fountain Scene",
+"why": "path"
+},
+{
+"name": "Sentient Basin Scene",
+"why": "path"
+},
+{
+"name": "Sentient Concourse Scene",
+"why": "path"
+},
+{
+"name": "Sentient Altar Scene",
+"why": "path"
+},
+{
+"name": "Veilbreak Forest Scene",
+"why": "path"
+},
+{
+"name": "Veilbreak Murex Scene",
+"why": "path"
+},
+{
+"name": "Veilbreak Factory Scene",
+"why": "path"
+},
+{
+"name": "PROPULSION SYSTEMS REPAIRS",
+"why": "path"
+},
+{
+"name": "ENGINE COWLING REPAIRS",
+"why": "path"
+},
+{
+"name": "PORT NACELLE REPAIRS",
+"why": "path"
+},
+{
+"name": "STARBOARD NACELLE REPAIRS",
+"why": "path"
+},
+{
+"name": "TAIL SECTION REPAIRS",
+"why": "path"
+},
+{
+"name": "Ship Feature Item",
+"why": "path"
+},
+{
+"name": "Scimitar",
+"why": "path"
+},
+{
+"name": "Liset",
+"why": "path"
+},
+{
+"name": "SKAUT",
+"why": "path"
+},
+{
+"name": "Xiphos",
+"why": "path"
+},
+{
+"name": "Mantis",
+"why": "path"
+},
+{
+"name": "Nightwave",
+"why": "path"
+},
+{
+"name": "Parallax",
+"why": "path"
+},
+{
+"name": "Ember Prex",
+"why": "path"
+},
+{
+"name": "Garuda Prex",
+"why": "path"
+},
+{
+"name": "Protea Prex",
+"why": "path"
+},
+{
+"name": "Titania Prex",
+"why": "path"
+},
+{
+"name": "Vauban Prex",
+"why": "path"
+},
+{
+"name": "Last Chance Offerings",
+"why": "path"
+},
+{
+"name": "Varzia's Offerings - Part 2",
+"why": "path"
+},
+{
+"name": "Varzia's Offerings",
+"why": "path"
+}
+]

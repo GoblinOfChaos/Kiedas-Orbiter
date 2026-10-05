@@ -18,7 +18,7 @@ import { parseInventory } from './inventoryParser'
 const api = {
   buildDropIndex(exportData) {
     const withDeDrops = DE_DROP_TABLES_ENABLED && exportData?.DEDropTables
-      ? { ...exportData, DropsAll: convertDeDropTables(exportData.DEDropTables) }
+      ? { ...exportData, DropsAll: convertDeDropTables(exportData.DEDropTables, exportData.DropsAll) }
       : exportData
     return buildDropIndex(withDeDrops)
   },

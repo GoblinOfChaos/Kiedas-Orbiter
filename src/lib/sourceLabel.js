@@ -42,6 +42,9 @@ function suffixes(source, primary, { includeRegion = true, includeRotation = tru
 export function sourceLabel(source, { includeRegion = true, includeRotation = true, includeRarity = true } = {}) {
   if (!source || typeof source !== 'object') return '';
 
+  const attached = text(source.placeLabel);
+  if (attached) return attached;
+
   const objective = text(source.objectiveName);
   const enemy = text(source.enemyName || source.enemy);
   const syndicate = text(source.syndicateName);

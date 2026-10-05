@@ -140,6 +140,7 @@ export const HARNESS_SUPPLEMENT_FILES = [
   ['wiki-resources-acquisition.json', 'WikiResourceAcquisition'],
   ['wiki-page-acquisition.json', 'WikiPageAcquisition'],
   ['wiki-acquisition-status.json', 'WikiAcquisitionStatus'],
+  ['verified-routes.json', 'VerifiedRoutes'],
 ]
 
 export async function loadExports({ dataDir = DEFAULT_DATA_DIR, repo = REPO, exportDir, assetData, wfcd, locale } = {}) {

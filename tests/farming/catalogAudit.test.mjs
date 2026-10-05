@@ -3,10 +3,12 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { loadRealHarness, DEFAULT_DATA_DIR } from '../../scripts/lib/real-data-harness.mjs'
+import routeBaseline from '../fixtures/has-route-baseline.json' with { type: 'json' }
 
 const auditRoot = path.resolve(process.env.P36_AUDIT_REPO || path.join(import.meta.dirname, '../..'))
 const overrides = JSON.parse(fs.readFileSync(path.join(auditRoot, 'src-tauri/data/assets/data/acquisition_overrides.json'), 'utf8'))
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'))
+const HAS_ROUTE_BASELINE = new Set(routeBaseline.uniqueNames)
 
 const ALLOWED_VIOLATIONS = new Map()
 
@@ -147,7 +149,7 @@ test('real data: Grimoire routes keep their labels and formatted Standing amount
   assert.ok(blueprint.sources.some((source) => /Sold by Bird 3/i.test(source.text)))
 })
 
-const KNOWN_UNRESEARCHED = 3287 // First real-data audit run; Phase 2 verified-routes data must drive this count to 0.
+const KNOWN_UNRESEARCHED = 1056 // Honest post-P39 count with verified-routes.json loaded; Phase 2 data should drive this to 0.
 
 function canonicalRouteText(value) {
   return String(value || '').normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, ' ').replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
@@ -172,6 +174,7 @@ test('real data: P36 route contract holds for every catalog drawer', { skip: !ha
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
   const dropIndex = buildDropIndex(harness.exportsBundle)
   const violations = []
+  const baselineUnresearched = []
   let unresearched = 0
   for (const entry of catalogEntries(harness.exportsBundle)) {
     const displayName = harness.dict[entry.name] || entry.name
@@ -185,7 +188,11 @@ test('real data: P36 route contract holds for every catalog drawer', { skip: !ha
       indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
     )
     const rows = sourceRows(result.sources)
-    if (rows.some((source) => source?.type === 'unresearched')) unresearched += 1
+    const isUnresearched = rows.some((source) => source?.type === 'unresearched')
+    if (isUnresearched) {
+      unresearched += 1
+      if (HAS_ROUTE_BASELINE.has(entry.uniqueName)) baselineUnresearched.push(displayName)
+    }
     const seen = []
     for (const source of rows) {
       if (!source || source.type === 'unresearched') continue
@@ -205,6 +212,11 @@ test('real data: P36 route contract holds for every catalog drawer', { skip: !ha
       if (first && group.sources.slice(1).some((source) => canonicalRouteText(source.text) === first)) violations.push({ kind: 'repeatedGroupFirstRow', name: displayName, uniqueName: entry.uniqueName, text: group.sources[0].text })
     }
   }
+  console.log(`P39 catalog audit: unresearched=${unresearched}; baseline-routed=${HAS_ROUTE_BASELINE.size}; violations=${violations.length}`)
+  assert.ok(
+    baselineUnresearched.length === 0,
+    `pre-P36 routed entries became unresearched: ${baselineUnresearched.length}; first 25: ${baselineUnresearched.slice(0, 25).join(', ')}`,
+  )
   assert.ok(unresearched <= KNOWN_UNRESEARCHED, `unresearched entries increased: ${unresearched} > ${KNOWN_UNRESEARCHED}`)
   assertNoViolations('P36 catalog violations', violations)
   assert.ok(getAcquisitionAuditStats().rowsSplit >= 0)
@@ -247,6 +259,34 @@ test('P36 optional verified routes use the same normalized rows', async () => {
   assert.match(result.sources[0].text, /synthetic vendor/i)
 })
 
+test('P39 real verified routes are all loaded and normalized', { skip: !haveRealData }, async () => {
+  const harness = await loadRealHarness({ locale: 'en' })
+  const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
+  const dropIndex = buildDropIndex(harness.exportsBundle)
+  const verified = harness.exportsBundle.VerifiedRoutes || {}
+  let rawRoutes = 0
+  let normalizedRoutes = 0
+  for (const [uniqueName, entry] of Object.entries(verified)) {
+    rawRoutes += entry.routes.length
+    const result = getAcquisitionInfo(
+      uniqueName, entry.name || uniqueName.split('/').pop(), dropIndex, overrides,
+      indexes.recipeResultIndex, indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex,
+      indexes.wikiSigilIndex, indexes.wikiVendorIndex, indexes.wikiTennoGenIndex, indexes.wikiBaroIndex,
+      indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
+      indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex,
+      indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex, indexes.wikiAcquisitionStatusIndex,
+      indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
+    )
+    normalizedRoutes += sourceRows(result.sources).filter((source) => source.type !== 'unresearched').length
+  }
+  console.log(`P39 verified routes: entries=${Object.keys(verified).length}; raw=${rawRoutes}; normalized=${normalizedRoutes}`)
+  assert.equal(Object.keys(verified).length, 336)
+  assert.equal(rawRoutes, 341)
+  assert.equal(normalizedRoutes, rawRoutes)
+})
+
 test('P36 normalizer handles the reported route strings', async () => {
   const { normalizeAcquisitionRoutes } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
   const forma = normalizeAcquisitionRoutes([{
@@ -279,4 +319,19 @@ test('P36 normalizer handles the reported route strings', async () => {
   assert.equal(latron.length, 2)
   assert.ok(latron[1].placeLabel)
   assert.match(latron[1].text, /All components can be traded/)
+
+  const realEvidence = [
+    ['Drops from: Nightmare Mode Missions (18.97%).', 'Nightmare Mode Missions', 0.1897],
+    ['Drops from: Jupiter Disruption (10%).', 'Jupiter Disruption', 0.1],
+    ['Drops from: Annihilation (Conclave) (2.48%); Cephalon Capture (Conclave) (2.48%).', 'Annihilation (Conclave)', 0.0248],
+    ['Cephalon Simaris (Sanctuary - Standing).', 'Cephalon Simaris (Sanctuary - Standing)', null],
+    ['Railjack & Archwing Mission Rewards.', 'Railjack & Archwing Mission Rewards', null],
+    ['Drops from: Nightmare Mode Rescue (18.97%).', 'Nightmare Mode Rescue', 0.1897],
+  ]
+  for (const [text, place, chance] of realEvidence) {
+    const rows = normalizeAcquisitionRoutes([{ type: 'override', text }], { itemName: 'real evidence' })
+    assert.ok(rows.length >= 1)
+    assert.ok(rows.some((row) => row.placeLabel === place))
+    if (chance != null) assert.ok(rows.some((row) => Math.abs(row.chance - chance) < 0.0000001))
+  }
 })

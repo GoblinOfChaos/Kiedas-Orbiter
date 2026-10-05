@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { loadRealHarness, DEFAULT_DATA_DIR } from '../../scripts/lib/real-data-harness.mjs'
 import routeBaseline from '../fixtures/has-route-baseline.json' with { type: 'json' }
 
@@ -182,7 +183,9 @@ function p40PlaceViolations(source) {
 test('real data: P36 route contract holds for every catalog drawer', { skip: !haveRealData }, async () => {
   const harness = await loadRealHarness({ locale: 'en' })
   const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
-  const { buildAllAcquisitionIndexes, getAcquisitionInfo, getAcquisitionAuditStats } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const acquisitionModule = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo, getAcquisitionAuditStats } = acquisitionModule
+  const isAcquisitionFact = acquisitionModule.isAcquisitionFact || p41AcquisitionFact
   let sourceLabel = null
   try { sourceLabel = (await import(path.join(auditRoot, 'src/lib/sourceLabel.js'))).sourceLabel } catch {}
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
@@ -216,7 +219,7 @@ test('real data: P36 route contract holds for every catalog drawer', { skip: !ha
       for (const kind of p40PlaceViolations(source)) violations.push({ kind, name: displayName, uniqueName: entry.uniqueName, text: `${source.placeLabel || ''} | ${text}` })
       if (text.length > 300) violations.push({ kind: 'longRow', name: displayName, uniqueName: entry.uniqueName, text })
       if (/±|\d+\.\d+%\s+\d/.test(text)) violations.push({ kind: 'flattenedTable', name: displayName, uniqueName: entry.uniqueName, text })
-      if (source.type !== 'legacy-fallback' && !/^Warframe Wiki\b/i.test(source.source || '') && text && !/\b(?:bought|buy|purchase(?:d|able)?|sold|sale|price|costs?|acquire(?:d|able)?|obtain(?:ed|able)?|earn(?:ed|ing)?|reward(?:ed)?|award(?:ed)?|receiv(?:e|ed)|drop(?:s|ped)?|found|craft(?:ed)?|build|built|available|unlock(?:ed)?|included in|trade(?:d)?|claim(?:ed)?|granted|gift|market|vendor|offering|offerings|part\s+of|bundle|pack|collection|listed under|not currently|simaris|bird\s*3|master\s+teasonai|ticker|varzia|baro\s+ki['’]?teer|nightwave|conclave|railjack|archon|netracell|void|dojo|cetus|fortuna|necralisk|zariman|duviri|invasion|syndicate|promo\s+code|bounty|stage|relics?|aya|standing|alerts?|daughter|omni|equip|redeem|option|complete|vanquish|mission)\b|\b\d[\d,]*(?:\.\d+)?\s*(?:platinum|credits|ducats|standing|aya|regal\s+aya)\b/i.test(text)) violations.push({ kind: 'noAcquisitionSignal', name: displayName, uniqueName: entry.uniqueName, text })
+      if (source.type !== 'legacy-fallback' && !/^Warframe Wiki\b/i.test(source.source || '') && text && !isAcquisitionFact(text)) violations.push({ kind: 'noAcquisitionSignal', name: displayName, uniqueName: entry.uniqueName, text })
       if (source.type !== 'legacy-fallback' && /^(?:Once\b|For details\b|Note\b|The names\b|Please\b|See\b)/i.test(text)) violations.push({ kind: 'loreRow', name: displayName, uniqueName: entry.uniqueName, text })
       const key = canonicalRouteText(text)
       if (key && seen.some((prior) => prior === key || prior.includes(key) || key.includes(prior))) violations.push({ kind: 'duplicateRoute', name: displayName, uniqueName: entry.uniqueName, text })
@@ -392,4 +395,95 @@ test('P40 places never fall back to a random word', async () => {
   ], { itemName: 'Named Cosmetic' })
   assert.equal(rows.length, 1)
   assert.equal(rows[0].placeLabel, 'named vendor')
+})
+
+function routeRows(sources) {
+  return (sources || []).flatMap((source) => source?.sources ? routeRows(source.sources) : [source])
+}
+
+function routeCanonicalText(value) {
+  return String(value || '').normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, ' ').replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+}
+
+function p41AcquisitionFact(value) {
+  const text = String(value || '').trim()
+  if (/^No player-facing acquisition route\b/i.test(text)) return true
+  if (/\b(?:not|never|no longer)\s+(?:offered|available|sold|obtainable)\b/i.test(text)
+    && !/^Vaulted\b/i.test(text)
+    && !/^Not\s+(?:currently\s+)?obtainable\b/i.test(text)) return false
+  return /\b(?:prime\s+resurgence|prime\s+access|sells?|offers?|gives?|awarded|rewarded|granted|given|unlocked|earned|claimed|dropped|found|crafted|built|researched|purchased|purchasing|purchase|bought|obtained|acquired|received|delivered|vanquished|defeated|traded|price|standing|amount|bundle|pack|collection|market|nightwave|syndicates?|bounty|mission|relic|dojo|invasions?)\b|\b\d[\d,]*(?:\.\d+)?\s*(?:platinum|credits|ducats|standing|aya|regal\s+aya|clamps?)\b/i.test(text)
+}
+
+function routeFactPieces(text, split, isFact) {
+  const pieces = split(text)
+  return (pieces.length ? pieces : [text]).filter((piece) => piece && isFact(piece))
+}
+
+function factPreserved(preText, currentRows, split, isFact) {
+  if (/^No player-facing acquisition route\b/i.test(preText)) {
+    return currentRows.some((row) => /^Not obtainable by players\.?$/i.test(String(row.text || '').trim()))
+  }
+  const pattern = preText.match(/^Included in the\s+(.+?)\s+\(/i)
+  if (pattern && /-\s+(?:Kavat|Kubrow)\s+color\/pattern\.?$/i.test(preText)) {
+    const details = preText.match(/\((.*)\)\s+-\s+(?:Kavat|Kubrow)\s+color\/pattern\.?$/i)?.[1] || ''
+    const vendor = details.match(/\b(?:from|by)\s+([A-Z][A-Za-z'’ -]+)/i)?.[1]?.trim()
+    const wantedPlace = routeCanonicalText(vendor || pattern[1])
+    return currentRows.some((row) => routeCanonicalText(row.placeLabel).startsWith(wantedPlace))
+  }
+  return routeFactPieces(preText, split, isFact).every((piece) => {
+    const wanted = routeCanonicalText(piece)
+    return currentRows.some((row) => {
+      const actual = routeCanonicalText(row.text)
+      return actual === wanted || actual.includes(wanted) || wanted.includes(actual)
+    })
+  })
+}
+
+test('P41 ratchet: every pre-P40 acquisition fact remains present', { skip: !process.env.P41_PRE_P40_REPO }, async () => {
+  const harness = await loadRealHarness({ locale: 'en' })
+  const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
+  const current = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const preRoot = path.resolve(process.env.P41_PRE_P40_REPO)
+  const pre = await import(pathToFileURL(path.join(preRoot, 'src/lib/acquisitionInfo.js')).href)
+  const preDrops = await import(pathToFileURL(path.join(preRoot, 'src/lib/dropsParser.js')).href)
+  const overrides = JSON.parse(fs.readFileSync(path.join(auditRoot, 'src-tauri/data/assets/data/acquisition_overrides.json'), 'utf8'))
+  const currentIndexes = current.buildAllAcquisitionIndexes(harness.exportsBundle)
+  const preIndexes = pre.buildAllAcquisitionIndexes(harness.exportsBundle)
+  const currentDropIndex = buildDropIndex(harness.exportsBundle)
+  const preDropIndex = preDrops.buildDropIndex(harness.exportsBundle)
+  const failures = []
+  const isFact = current.isAcquisitionFact || p41AcquisitionFact
+  let preFactRows = 0
+  let preservedFactRows = 0
+  let currentRows = 0
+
+  const acquire = (module, indexes, dropIndex, uniqueName, displayName) => module.getAcquisitionInfo(
+    uniqueName, displayName, dropIndex, overrides,
+    indexes.recipeResultIndex, indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex,
+    indexes.wikiSigilIndex, indexes.wikiVendorIndex, indexes.wikiTennoGenIndex, indexes.wikiBaroIndex,
+    indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
+    indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex,
+    indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex, indexes.wikiAcquisitionStatusIndex,
+    indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
+  )
+
+  for (const entry of catalogEntries(harness.exportsBundle)) {
+    const displayName = harness.dict[entry.name] || entry.name
+    const preRows = routeRows(acquire(pre, preIndexes, preDropIndex, entry.uniqueName, displayName).sources)
+    const currentRowsForEntry = routeRows(acquire(current, currentIndexes, currentDropIndex, entry.uniqueName, displayName).sources)
+    currentRows += currentRowsForEntry.length
+    for (const row of preRows) {
+      const text = String(row?.text || '').trim()
+      if (!text || !isFact(text)) continue
+      preFactRows += 1
+      if (factPreserved(text, currentRowsForEntry, current.splitAcquisitionRouteText, isFact)) preservedFactRows += 1
+      else if (failures.length < 25) failures.push({ name: displayName, uniqueName: entry.uniqueName, text })
+    }
+  }
+
+  const scratchDir = path.join(auditRoot, 'scratch')
+  fs.mkdirSync(scratchDir, { recursive: true })
+  fs.writeFileSync(path.join(scratchDir, 'p41-ratchet-failures.json'), JSON.stringify(failures, null, 2))
+  console.log(`P41 ratchet: pre-P40 acquisition rows=${preFactRows}; preserved=${preservedFactRows}; current rows=${currentRows}; failures=${failures.length}`)
+  assert.ok(failures.length === 0, `P41 fact loss: ${failures.length}; first ${failures.slice(0, 25).map((failure) => `${failure.name}: ${failure.text.slice(0, 120)}`).join(' | ')}`)
 })

@@ -49,10 +49,15 @@ const acquisitionNormalizerStats = {
 };
 let activeVerifiedRoutesIndex = new Map();
 const droppedAcquisitionOpeningCounts = new Map();
+const droppedAcquisitionOpeningExamples = new Map();
 
 function recordDroppedAcquisitionOpening(value) {
   const opening = String(value || '').trim().match(/^\S+(?:\s+\S+){0,3}/)?.[0];
-  if (opening) droppedAcquisitionOpeningCounts.set(opening, (droppedAcquisitionOpeningCounts.get(opening) || 0) + 1);
+  if (!opening) return;
+  droppedAcquisitionOpeningCounts.set(opening, (droppedAcquisitionOpeningCounts.get(opening) || 0) + 1);
+  const examples = droppedAcquisitionOpeningExamples.get(opening) || [];
+  if (examples.length < 2 && !examples.includes(value)) examples.push(value);
+  droppedAcquisitionOpeningExamples.set(opening, examples);
 }
 
 function buildVerifiedRoutesIndex(exportData) {
@@ -186,7 +191,10 @@ export function splitAcquisitionRouteText(value) {
   // complete purchase routes ("20 Platinum Purchased complete..."). Treat a
   // currency/price boundary followed by a capitalized sentence start as a
   // route boundary, but never split inside parentheses or numeric values.
-  const text = value.trim().replace(/(?<=\b(?:Platinum|Credits|Standing|Ducats|Essence|Clamps))\s+(?=[A-Z][a-z])/g, '. ');
+  const text = value.trim()
+    .replace(/(?<=\b(?:Platinum|Credits|Standing|Ducats|Essence|Clamps))\s+(?=[A-Z][a-z])/g, '. ')
+    .replace(/\s+(?=[A-Z][A-Za-z'’ -]{2,80}\s+can\s+also\s+be\s+obtained\b)/g, '. ')
+    .replace(/,\s+(?=any\s+excess\s+copies\s+obtained\b)/i, '. ');
   const push = (end) => {
     const route = text.slice(start, end).trim().replace(/^[,;]+|[,;]+$/g, '').trim();
     if (route) routes.push(route);
@@ -239,7 +247,41 @@ function flattenedTableText(value) {
   return /\d+\s*±\s*\d+|\d+\.\d+%\s+\d|(?:Drop Table|Item Chance|Expected Kills|Avg\. Per roll attempt)/i.test(value || '');
 }
 
-const ACQUISITION_SIGNAL = /\b(?:bought|buy|purchase(?:d)?|sold|sale|price|costs?|acquire(?:d)?|obtain(?:ed)?|earn(?:ed)?|reward(?:ed)?|drop(?:s|ped)?|found|craft(?:ed)?|build|built|available|unlock(?:ed)?|included in|trade(?:d)?|claim(?:ed)?|granted|gift|market|vendor|offering|offerings|part\s+of|bundle|pack|collection|listed under|simaris|bird\s*3|master\s+teasonai|ticker|varzia|baro\s+ki['’]?teer|nightwave|conclave|railjack|archon|netracell|void|dojo|cetus|fortuna|necralisk|zariman|duviri|invasion|syndicate|promo\s+code)\b|\b\d[\d,]*(?:\.\d+)?\s*(?:platinum|credits|ducats|standing|aya)\b/i;
+const ACQUISITION_SIGNAL = new RegExp([
+  // A source plus a route relation: this is deliberately narrower than a
+  // list of generic words such as "available" or "reward".
+  String.raw`\b(?:from|at|via|through|in|on|by)\s+(?:the\s+)?(?:[\w'’:-]+\s+){0,8}`
+    + String.raw`(?:vendor|shop|market|activity|node|bundle|pack|collection|event|prime\s+resurgence|prime\s+access|varzia|baro|nightwave|syndicate|bounty|mission|relic|dojo|cetus|fortuna|zariman|void|invasion|archon|netracell|circuit|reward|offerings?)\b`,
+  // Named source forms commonly used by the DE/Wiki prose.
+  String.raw`\b(?:prime\s+resurgence|prime\s+access)\b`,
+  String.raw`\b(?:cephalon\s+)?simaris\b`,
+  String.raw`\b(?:cavalero|necraloid|master\s+teasonai|son|eudico|konzu|mother)\b[\s\S]{0,100}\bstanding\b`,
+  String.raw`\b(?:as\s+)?part\s+of\s+(?:the\s+)?[A-Z][^.]{0,160}(?:bundle|pack|collection|for\s+\d|\bmarket\b)`,
+  String.raw`\b(?:price|cost|standing|amount)\s+(?:listed|of|is|required|costs?)\b|\b\d[\d,]*\s*x\s*[A-Z][\w' -]+`,
+  String.raw`\b(?:included\s+(?:in|with|by\s+default)|default\s+skin|listed\s+by|as\s+a\s+drop\s+from|reward\s+from|quest\s+reward|rank[- ]up\s+reward|hidden\s+pickup|pickup\s+in|clan\s+dojo|daily\s+tribute)\b`,
+  String.raw`\b(?:available\s+(?:via|through)|vanquish(?:ed)?\s*\(|spawned\s+via)\s+[A-Z]`,
+  String.raw`\b(?:available\s+directly\s+in|talk\s+to|visit|speak\s+with)\s+[A-Z]`,
+  String.raw`\bresearch(?:ed)?\s+(?:the\s+)?(?:blueprint|item)\s+in\s+[A-Z]`,
+  String.raw`\bearn\s+from\s+[A-Z]`,
+  String.raw`\b(?:bounty|isolation\s+vault)\b[\s\S]{0,120}\b(?:lvl|level|stage|final\s+stage|\d+x)\b`,
+  String.raw`\b(?:kuva\s+lich|sisters?\s+of\s+parvos)\s+defeat\b|\barchon\s+hunts?\b`,
+  String.raw`\bthrough\s+the\s+syndicates?\b`,
+  // An NPC/vendor route, including the present-tense form P40 missed.
+  String.raw`\b(?:sell|sells|sold|offer|offers|give|gives|grant|grants)\b\s+(?:[^.]{1,180})`,
+  // Acquisition verbs must have an object/relation; bare explanatory
+  // occurrences of "reward" or "available" are not enough.
+  String.raw`\b(?:awarded|rewarded|granted|given|unlocked|earned|claimed|dropped|found|crafted|built|researched|purchased|purchasing|purchase|bought|obtained|obtainable|acquired|acquire|received|delivered|vanquished|defeated|traded)\b\s+(?:for|from|by|at|in|on|through|upon|after|as|with|the\b|a\b|an\b|[A-Z])`,
+  String.raw`\b(?:can|may)\s+be\s+obtained\s+(?:from|through|via|at|in|on)\s+[A-Z]`,
+  String.raw`\b(?:possible\s+)?prizes?\s+from\s+[A-Z]`,
+  String.raw`\b(?:available|rolled)\s+as\s+(?:common|rare)\s+loot\b`,
+  String.raw`\b(?:nightwave|nora['’]?s\s+mix)\s+reward\b|\b(?:free\s+reward|reward\s+included|comes\s+free\s+with)\b|\bpart\s+of\s+the\s+nightwave\b`,
+  String.raw`\bnightwave\s*:\s*[^.]{0,100}\breward\b|\bbecome[s]?\s+available\b[^.]{0,100}\breward\b|\bconclave\b[^.]{0,80}\breward\b|\bblueprint\s+comes\s+from\b`,
+  // Amounts and explicit current availability are acquisition facts by
+  // themselves.
+  String.raw`\b\d[\d,]*(?:\.\d+)?\s*(?:platinum|credits|ducats|standing|aya|regal\s+aya|clamps?)\b`,
+  String.raw`\b(?:platinum|credits|ducats|standing|aya|regal\s+aya)\s+\d[\d,]*(?:\.\d+)?\b`,
+  String.raw`\b(?:not\s+(?:currently\s+)?obtainable|no\s+longer\s+obtainable|vaulted)\b`,
+].join('|'), 'i');
 const PURE_LORE_OPENING = /^(?:Once\b|For details\b|Note\b|The names\b|Please\b|See\b)/i;
 const INVALID_TEXT_PLACES = new Set(['page', 'names', 'this page', 'table', 'list', 'bundle', 'kavat', 'kubrow']);
 
@@ -308,7 +350,26 @@ function normalizePatternTableRoute(value) {
 }
 
 function hasAcquisitionSignal(value) {
-  return ACQUISITION_SIGNAL.test(String(value || ''));
+  const text = String(value || '');
+  if (/\b(?:upgrade|duplicate|excess\s+copies)\b/i.test(text)
+    && !/\b(?:from|through|via|market|vendor|reward|price|standing|platinum|credits)\b/i.test(text)) return false;
+  if (/\bacquired\s+per\s+mission\b/i.test(text) && !/\b(?:from|through|via|reward|drop|price|standing)\b/i.test(text)) return false;
+  if (/\b(?:not|never|no longer)\s+(?:offered|available|sold|obtainable)\b/i.test(text)
+    && !/^Vaulted\b/i.test(text)
+    && !/^Not\s+(?:currently\s+)?obtainable\b/i.test(text)
+    && !/\bno longer obtainable\b/i.test(text)) return false;
+  return ACQUISITION_SIGNAL.test(text);
+}
+
+export function isAcquisitionFact(value) {
+  const text = String(value || '').trim();
+  return /^No player-facing acquisition route\b/i.test(text) || hasAcquisitionSignal(text);
+}
+
+function normalizeAvailabilityFact(value) {
+  return /^No player-facing acquisition route\b/i.test(String(value || '').trim())
+    ? 'Not obtainable by players.'
+    : value;
 }
 
 function textRoutePlace(value) {
@@ -546,6 +607,7 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
           .replace(/^(?:although|but|and|which|while|however|though|so|or|then|except)[, ]+/i, '')
           .replace(/^[a-z]/, (letter) => letter.toUpperCase())
           .trim();
+        text = normalizeAvailabilityFact(text);
         const verifiedNotObtainable = source.type === 'verified-route' && source.kind === 'not_obtainable';
         if (verifiedNotObtainable) text = /^Not currently obtainable\b/i.test(text) ? 'Not currently obtainable.' : text;
         if (/\bfor\s*$/i.test(text) || /\b(?:price|costs?)\s*[.]$/i.test(text)) continue;
@@ -598,7 +660,9 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
         continue;
       }
       const wikiAcquisitionRow = typeof source?.source === 'string' && /^Warframe Wiki\b/i.test(source.source);
-      if (typeof source?.text !== 'string' || source.type === 'verified-route' || ((source.resourceWiki === true || wikiAcquisitionRow) && !PURE_LORE_OPENING.test(source.text)) || (hasAcquisitionSignal(source.text) && !PURE_LORE_OPENING.test(source.text))) kept.push(source);
+      const wikiKeepsRow = (wikiAcquisitionRow && !PURE_LORE_OPENING.test(source.text))
+        || (source.resourceWiki === true && (!PURE_LORE_OPENING.test(source.text) || isAcquisitionFact(source.text)));
+      if (typeof source?.text !== 'string' || source.type === 'verified-route' || wikiKeepsRow || isAcquisitionFact(source.text)) kept.push(source);
       else dropped.push(source);
     }
     acquisitionNormalizerStats.rowsDroppedNonAcquisition += dropped.length;
@@ -609,7 +673,7 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
     // the unresearched state; the audit excludes this documented compatibility
     // marker from the acquisition-signal rule.
     if (!kept.length && textRows.length) {
-      const strongest = [...textRows].sort((left, right) => Number(hasAcquisitionSignal(right.text)) - Number(hasAcquisitionSignal(left.text)))[0];
+      const strongest = [...textRows].sort((left, right) => Number(isAcquisitionFact(right.text)) - Number(isAcquisitionFact(left.text)))[0];
       if (strongest) kept.push({ ...strongest, type: 'legacy-fallback' });
     }
     return kept;
@@ -672,6 +736,12 @@ export function getAcquisitionAuditStats() {
 
 export function getAcquisitionDroppedOpeningCounts() {
   return [...droppedAcquisitionOpeningCounts.entries()].sort((left, right) => right[1] - left[1]);
+}
+
+export function getAcquisitionDroppedOpeningGroups() {
+  return [...droppedAcquisitionOpeningCounts.entries()]
+    .map(([opening, count]) => ({ opening, count, examples: droppedAcquisitionOpeningExamples.get(opening) || [] }))
+    .sort((left, right) => right.count - left.count || left.opening.localeCompare(right.opening));
 }
 
 function getBundleInfo(bundleIndex, uniqueName) {

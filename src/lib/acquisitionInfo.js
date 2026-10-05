@@ -1424,8 +1424,17 @@ function wikiDropMatchesDeRow(wikiDrop, deRow) {
   return sameChance && (sameNamedSource || sameNode);
 }
 
-function formatWikiResourceDrop(wikiDrop) {
-  const nodes = (wikiDrop.nodes || []).length ? ` — ${(wikiDrop.nodes || []).join('; ')}` : '';
+// A wiki node can carry a requirement after a semicolon ("Orb Vallis/Fortuna,
+// Venus; talk to Eudico"). Left bare, splitAcquisitionRouteText cut the row at
+// that semicolon and the fragment ("Talk to Eudico") kept the whole row's
+// chance. Parentheses keep the note on the node it belongs to.
+const nodeWithRequirement = (node) => {
+  const at = String(node).indexOf(';');
+  return at < 0 ? String(node) : `${String(node).slice(0, at).trim()} (${String(node).slice(at + 1).trim()})`;
+};
+
+export function formatWikiResourceDrop(wikiDrop) {
+  const nodes = (wikiDrop.nodes || []).length ? ` — ${(wikiDrop.nodes || []).map(nodeWithRequirement).join('; ')}` : '';
   const rotation = wikiDrop.rotationOrTable ? `, ${wikiDrop.rotationOrTable}` : '';
   const quantity = wikiDrop.quantity != null ? `, ${wikiDrop.quantity}x` : '';
   return `${wikiDrop.source || wikiDrop.missionType}${rotation}${quantity}${nodes}`;

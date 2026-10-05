@@ -6,10 +6,16 @@ Resumable (skips pages already extracted), one process, one file at a time. Writ
 import sys, os, time
 from pathlib import Path
 from pypdf import PdfReader
-archive = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/jedwards/kiedas-orbiter/wiki_pdf_archive")
-out = Path(sys.argv[2] if len(sys.argv) > 2 else Path.home() / ".cache/kiedas-wiki-text")
+args = [a for a in sys.argv[1:] if not a.startswith("--")]
+archive = Path(args[0] if len(args) > 0 else "/home/jedwards/kiedas-orbiter/wiki_pdf_archive")
+out = Path(args[1] if len(args) > 1 else Path.home() / ".cache/kiedas-wiki-text")
 out.mkdir(parents=True, exist_ok=True)
 files = sorted(archive.glob("*.pdf"))
+# optional: --shard K/N processes every N-th file starting at K (0-based), --reverse walks backwards; workers may overlap harmlessly
+if "--reverse" in sys.argv: files = files[::-1]
+for a in sys.argv:
+    if a.startswith("--shard="):
+        k, n = map(int, a.split("=")[1].split("/")); files = files[k::n]
 t0 = time.time(); done = skipped = failed = 0
 for i, f in enumerate(files, 1):
     dest = out / (f.stem + ".txt")

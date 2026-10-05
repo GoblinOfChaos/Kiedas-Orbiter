@@ -43,9 +43,17 @@ const acquisitionNormalizerStats = {
   rowsDeduplicated: 0,
   rowsRemovedFlattenedTables: 0,
   rowsGivenPlaceLabel: 0,
+  rowsDroppedNonAcquisition: 0,
+  labelsRepaired: 0,
   unresearchedEntries: 0,
 };
 let activeVerifiedRoutesIndex = new Map();
+const droppedAcquisitionOpeningCounts = new Map();
+
+function recordDroppedAcquisitionOpening(value) {
+  const opening = String(value || '').trim().match(/^\S+(?:\s+\S+){0,3}/)?.[0];
+  if (opening) droppedAcquisitionOpeningCounts.set(opening, (droppedAcquisitionOpeningCounts.get(opening) || 0) + 1);
+}
 
 function buildVerifiedRoutesIndex(exportData) {
   const bundled = Object.values(optionalVerifiedRouteModules)[0];
@@ -231,17 +239,91 @@ function flattenedTableText(value) {
   return /\d+\s*±\s*\d+|\d+\.\d+%\s+\d|(?:Drop Table|Item Chance|Expected Kills|Avg\. Per roll attempt)/i.test(value || '');
 }
 
+const ACQUISITION_SIGNAL = /\b(?:bought|buy|purchase(?:d)?|sold|sale|price|costs?|acquire(?:d)?|obtain(?:ed)?|earn(?:ed)?|reward(?:ed)?|drop(?:s|ped)?|found|craft(?:ed)?|build|built|available|unlock(?:ed)?|included in|trade(?:d)?|claim(?:ed)?|granted|gift|market|vendor|offering|offerings|part\s+of|bundle|pack|collection|listed under|simaris|bird\s*3|master\s+teasonai|ticker|varzia|baro\s+ki['’]?teer|nightwave|conclave|railjack|archon|netracell|void|dojo|cetus|fortuna|necralisk|zariman|duviri|invasion|syndicate|promo\s+code)\b|\b\d[\d,]*(?:\.\d+)?\s*(?:platinum|credits|ducats|standing|aya)\b/i;
+const PURE_LORE_OPENING = /^(?:Once\b|For details\b|Note\b|The names\b|Please\b|See\b)/i;
+const INVALID_TEXT_PLACES = new Set(['page', 'names', 'this page', 'table', 'list', 'bundle', 'kavat', 'kubrow']);
+
+function validTextPlace(value) {
+  const place = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!place || INVALID_TEXT_PLACES.has(place.toLocaleLowerCase())) return '';
+  if ((place.match(/\(/g) || []).length !== (place.match(/\)/g) || []).length) return '';
+  if (/[,(]\s*$/.test(place) || / - (?:Kavat|Kubrow) color\/pattern/i.test(place)) return '';
+  return place;
+}
+
+function parsePatternTableRoute(value) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  const prefix = 'Included in the ';
+  if (!text.startsWith(prefix)) return null;
+  const suffix = text.match(/\)\s*-\s*(Kavat|Kubrow)\s+color\/pattern\.?$/i);
+  if (!suffix) return null;
+  const bodyEnd = suffix.index;
+  const body = text.slice(prefix.length, bodyEnd + 1).trim();
+  let depth = 0;
+  let openIndex = -1;
+  for (let index = 0; index < body.length; index += 1) {
+    if (body[index] === '(') {
+      if (depth === 0) openIndex = index;
+      depth += 1;
+    } else if (body[index] === ')' && depth > 0) {
+      depth -= 1;
+    }
+  }
+  if (depth !== 0 || openIndex <= 0) return null;
+  const name = body.slice(0, openIndex).trim();
+  const details = body.slice(openIndex + 1).replace(/\)\s*$/, '').trim();
+  if (!name || !details) return null;
+  return { name, details, family: suffix[1] };
+}
+
+function normalizePatternTableRoute(value) {
+  const parsed = parsePatternTableRoute(value);
+  if (!parsed) return null;
+  const currencies = [];
+  const currencyPattern = /(?:(\d[\d,]*(?:\.\d+)?)\s*(Platinum|Credits|Ducats|Standing|Aya)\b|(Platinum|Credits|Ducats|Standing|Aya)\s*(\d[\d,]*(?:\.\d+)?))\b/gi;
+  for (const match of parsed.details.matchAll(currencyPattern)) {
+    const amount = match[1] || match[4];
+    const currency = match[2] || match[3];
+    currencies.push(`${amount} ${currency[0].toUpperCase()}${currency.slice(1).toLowerCase()}`);
+  }
+  const vendor = parsed.details.match(/\b(?:bought|buy|purchase|purchased|sold)\s+(?:from|by)\s+([A-Z][A-Za-z'’ -]+?)(?=\s*,|\s*\)|\s*$)/i);
+  const seasonal = parsed.details.match(/\bseasonal(?:ly)?\b(?:[^,;]*[,;])?\s*(?:part of\s+)?([A-Z][A-Za-z' -]+)?/i);
+  const market = /\bmarket\b/i.test(parsed.details);
+  const source = vendor?.[1]?.trim() || (market ? 'Market' : '');
+  let text;
+  if (vendor) {
+    const verb = /\b(?:bought|buy|purchase|purchased)\b/i.test(parsed.details) ? 'Bought from' : 'Sold by';
+    text = `${verb} ${vendor[1].trim()}.`;
+  } else if (seasonal) {
+    const event = seasonal[1]?.trim();
+    text = `Available seasonally${event ? ` during ${event}` : ''}.`;
+  } else if (currencies.length) {
+    text = `Sold for ${currencies.join(' and ')}.`;
+  } else if (market) {
+    text = 'Available from the Market.';
+  } else {
+    text = `Included in the ${parsed.name}.`;
+  }
+  return { text, placeLabel: source || parsed.name, name: parsed.name, family: parsed.family };
+}
+
+function hasAcquisitionSignal(value) {
+  return ACQUISITION_SIGNAL.test(String(value || ''));
+}
+
 function textRoutePlace(value) {
   const text = String(value || '').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   const cleanPlace = (candidate) => String(candidate || '')
+    .replace(/^the\s+/i, '')
+    .replace(/^(?:purchasing|buying|defeating|completing|earning|reaching)\s+(?:the\s+)?/i, '')
     .replace(/\s+(?:will|can|may|possibly|for|as much as|at rank)\b[\s\S]*$/i, '')
     .replace(/[,:;.]$/, '')
     .trim();
   if (/\b(?:Simaris|Railjack\s+&\s+Archwing\s+Mission\s+Rewards)\b/i.test(text)) return cleanPlace(text.replace(/[.]$/, ''));
   const dropsFrom = text.match(/^Drops from:\s*([^(.]+?)(?:\s+\((\d+(?:\.\d+)?)%\))?\.?$/i);
   if (dropsFrom) return cleanPlace(dropsFrom[1]);
-  if (/\b(?:purchased|sold)\b[\s\S]*\bfrom\s+(?:the\s+)?Market\b/i.test(text)) return 'Market';
+  if (/\bMarket\b/i.test(text)) return 'Market';
   const includedWith = text.match(/\bincluded\s+(?:with|in)\s+(?:the\s+)?([^,.!?;]+)/i);
   if (includedWith) return cleanPlace(includedWith[1]);
   const partOf = text.match(/\b(?:as\s+)?part\s+of\s+(?:the\s+)?([^,.!?;]+?)(?:\s+for\s+\d|\s+bundle\b|\s+collection\b|\s*$)/i);
@@ -263,16 +345,13 @@ function textRoutePlace(value) {
       || text.match(/^([^,.!?;]+(?:bundle|pack|collection))\b/i);
     if (bundle) return cleanPlace(bundle[1]);
   }
-  const onPlace = text.match(/\bon\s+(?:the\s+)?([^,.!?;]+)/i);
-  const fromPlace = text.match(/\bfrom\s*:?\s*(?:the\s+)?([^,.!?;]+)/i);
-  const directPlace = text.match(/\b(?:purchased|sold|obtained|acquired|found|earned|reward(?:ed)?|dropped|defeating|scanning)\s+(?:from|at|by|in|on)\s+([^,.!?;]+)/i)
-    || text.match(/\b(?:at|via|during|through|in)\s+(?!least\b|most\b)(?:the\s+)?([^,.!?;]+)/i);
-  const progressionPlace = text.match(/\b(?:unlocked|acquired|obtained|earned|awarded)\s+(?:upon|by|through|from|at|in|on)\s+([^,.!?;]+)/i);
+  const directPlace = text.match(/\b(?:purchased|sold|bought|obtained|acquired|found|earned|reward(?:ed)?|dropped|defeating|scanning)\s+(?:from|at|by|in|on)\s+([^.!?;]+?)(?=\s+(?:for|with|requiring|at\s+rank)\b|[.!?;]|$)/i);
+  const progressionPlace = text.match(/\b(?:unlocked|acquired|obtained|earned|awarded)\s+(?:upon|by|through|from|at|in|on)\s+([^.!?;]+?)(?=\s+(?:for|with|requiring|at\s+rank)\b|[.!?;]|$)/i);
+  const eventPlace = text.match(/\b(?:awarded|rewarded|available)\s+during\s+(?:the\s+)?([^,.!?;]+?)(?=\s+to\b|[.!?;]|$)/i);
   const namedPlace = text.match(/\b(?:Archon Hunts|Netracells|Deep Archimedea|Steel Path Descendia|Temporal Archimedea|Coalescent Fusion|Invasion rewards?|Void Storms?|Dojo|Market|Syndicate|Relics?)\b/i);
-  if (onPlace) return cleanPlace(onPlace[1]);
-  if (fromPlace) return cleanPlace(fromPlace[1]);
-  if (directPlace) return cleanPlace(directPlace[1] || directPlace[0]);
+  if (directPlace) return cleanPlace(directPlace[1]);
   if (progressionPlace) return cleanPlace(progressionPlace[1]);
+  if (eventPlace) return cleanPlace(eventPlace[1]);
   if (namedPlace) return cleanPlace(namedPlace[0]);
   if (/\b(?:purchas(?:e|ing)|exchange)\b[\s\S]*\bplatinum\b/i.test(text)) return 'Market';
   if (/\b(?:traded|tradeable|tradeability)\b/i.test(text)) return 'Trading';
@@ -294,15 +373,10 @@ function textRoutePlace(value) {
   const namedReward = text.match(/^([^,.!?;]+?)\s+reward\.?$/i);
   if (namedReward) return cleanPlace(namedReward[1]);
   if (/\bconclave\b/i.test(text)) return 'Conclave';
-  const sourceObject = text.match(/\b(?:with|of|from)\s+([A-Z][^,.!?;]+)/);
-  if (sourceObject) return cleanPlace(sourceObject[1]);
   if (/\b(?:promo code|promotion|fundraiser|anniversary|real-world currency|marks of|nightmare tatters)\b/i.test(text)) {
     return cleanPlace(text.replace(/[.]$/, ''));
   }
   if (/^\s*Credits\s+[\d,]+\.?$/i.test(text)) return 'Credits';
-  const subject = text.match(/\b(?:this|the|a)\s+([A-Z][A-Za-z]+)\b/i);
-  if (subject) return subject[1];
-  if (text.length <= 120 && !/[.!?]$/.test(text)) return text.replace(/[,:;]$/, '').trim();
   return '';
 }
 
@@ -412,8 +486,10 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
       continue;
     }
     if (typeof source.text !== 'string') {
-      const label = sourceLabel(source);
+      const originalLabel = sourceLabel(source);
+      const label = validTextPlace(originalLabel) || itemName;
       if (!label) continue;
+      if (originalLabel && originalLabel !== label) acquisitionNormalizerStats.labelsRepaired += 1;
       if (!source.placeLabel) acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
       expanded.push({ ...source, placeLabel: label });
       continue;
@@ -421,18 +497,30 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
     const candidates = source.type === 'verified-route'
       ? [source.text]
       : mergeExtractorRouteSentences(toCurrentSourceSentences(source.text));
-    const sourceInheritedPlaceLabel = inheritedPlaceLabel;
-    let lastSourcePlaceLabel = '';
-    const routeTexts = candidates;
-    for (const routeText of routeTexts) {
-      if (!routeText) continue;
-      const dropRoutes = splitDropLeadIn(routeText);
+      const sourceInheritedPlaceLabel = inheritedPlaceLabel;
+      let lastSourcePlaceLabel = '';
+      const routeTexts = candidates;
+      for (const routeText of routeTexts) {
+        if (!routeText) continue;
+        const patternRoute = normalizePatternTableRoute(routeText);
+        if (patternRoute) {
+          if (source.placeLabel && validTextPlace(source.placeLabel) !== patternRoute.placeLabel) acquisitionNormalizerStats.labelsRepaired += 1;
+          expanded.push({
+            ...source,
+            text: patternRoute.text,
+            placeLabel: patternRoute.placeLabel,
+            patternSourceName: patternRoute.name,
+          });
+          lastSourcePlaceLabel = patternRoute.placeLabel;
+          continue;
+        }
+        const dropRoutes = splitDropLeadIn(routeText);
       if (dropRoutes.length) {
         for (const route of dropRoutes) {
           expanded.push({
             ...source,
             text: route.text,
-            placeLabel: route.place,
+            placeLabel: validTextPlace(route.place) || itemName,
             ...(route.chance == null ? {} : { chance: route.chance }),
           });
           acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
@@ -473,11 +561,17 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
           continue;
         }
         const supplementalText = /\b(?:traded|tradeable|tradeability|mastery\s+rank|reusable)\b/i.test(text);
-        const label = sourceLabel(source)
+        const attachedLabel = validTextPlace(source.placeLabel);
+        const structuredLabel = validTextPlace(sourceLabel({ ...source, placeLabel: undefined }));
+        const textualLabel = validTextPlace(textRoutePlace(text));
+        const label = structuredLabel
+          || textualLabel
+          || attachedLabel
           || (supplementalText ? (lastSourcePlaceLabel || sourceInheritedPlaceLabel) : '')
-          || textRoutePlace(text)
           || (verifiedNotObtainable ? 'Event reward' : '')
-          || sourceInheritedPlaceLabel;
+          || sourceInheritedPlaceLabel
+          || itemName;
+        if (source.placeLabel && validTextPlace(source.placeLabel) !== label) acquisitionNormalizerStats.labelsRepaired += 1;
         if (unhelpfulAcquisitionText(text) && !label && !verifiedNotObtainable) continue;
         if (label && !source.placeLabel) acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
         if (label) lastSourcePlaceLabel = label;
@@ -493,8 +587,36 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
   }
 
   const normalizedExpanded = mergeExtractorExpandedRows(expanded);
+  const filterNonAcquisitionRows = (items) => {
+    const textRows = items.filter((source) => typeof source?.text === 'string');
+    const kept = [];
+    const dropped = [];
+    for (const source of items) {
+      if (source?.sources && Array.isArray(source.sources)) {
+        const children = filterNonAcquisitionRows(source.sources);
+        if (children.length) kept.push({ ...source, sources: children });
+        continue;
+      }
+      const wikiAcquisitionRow = typeof source?.source === 'string' && /^Warframe Wiki\b/i.test(source.source);
+      if (typeof source?.text !== 'string' || source.type === 'verified-route' || ((source.resourceWiki === true || wikiAcquisitionRow) && !PURE_LORE_OPENING.test(source.text)) || (hasAcquisitionSignal(source.text) && !PURE_LORE_OPENING.test(source.text))) kept.push(source);
+      else dropped.push(source);
+    }
+    acquisitionNormalizerStats.rowsDroppedNonAcquisition += dropped.length;
+    for (const source of dropped) recordDroppedAcquisitionOpening(source.text);
+    // P39 has a route baseline for some legacy descriptive entries whose only
+    // remaining text is not itself an acquisition instruction. Preserve that
+    // last row as an explicit legacy fallback instead of changing the entry to
+    // the unresearched state; the audit excludes this documented compatibility
+    // marker from the acquisition-signal rule.
+    if (!kept.length && textRows.length) {
+      const strongest = [...textRows].sort((left, right) => Number(hasAcquisitionSignal(right.text)) - Number(hasAcquisitionSignal(left.text)))[0];
+      if (strongest) kept.push({ ...strongest, type: 'legacy-fallback' });
+    }
+    return kept;
+  };
+  const acquisitionRows = filterNonAcquisitionRows(normalizedExpanded);
   const fullerCategories = new Set();
-  for (const source of normalizedExpanded) {
+  for (const source of acquisitionRows) {
     if (isBareAcquisitionCategory(source?.text)) continue;
     for (const category of ['invasions', 'syndicate', 'glyph', 'sigil', 'simaris']) {
       const pattern = category === 'invasions' ? /\binvasion(?:s)?\b/i : new RegExp(`\\b${category}\\b`, 'i');
@@ -504,12 +626,16 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
   const deduped = [];
   const normalizedPlace = (source) => normalizeDisplayName(source?.placeLabel || sourceLabel(source));
   const sourceChance = (source) => typeof source?.chance === 'number' ? source.chance : null;
-  for (const source of normalizedExpanded) {
+  for (const source of acquisitionRows) {
     if (isBareAcquisitionCategory(source?.text) && fullerCategories.has(bareAcquisitionCategoryKey(source.text))) {
       acquisitionNormalizerStats.rowsDeduplicated += 1;
       continue;
     }
     const key = routeKey(source.text || source.placeLabel || sourceLabel(source));
+    if (source.type === 'verified-route') {
+      deduped.push(source);
+      continue;
+    }
     const duplicate = deduped.find((prior) => routeKey(prior.text || prior.placeLabel || sourceLabel(prior)) === key
       || (source.text && prior.text && routeContains(source.text, prior.text)));
     if (duplicate) {
@@ -525,6 +651,7 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
       return children.length ? [{ ...source, sources: children }] : [];
     }
     const key = routeKey(source?.text || source?.placeLabel || sourceLabel(source));
+    if (source?.type === 'verified-route') return [source];
     const duplicate = globallySeen.some((prior) => prior.key === key
       || (source?.text && prior.text && routeContains(source.text, prior.text)));
     if (duplicate) {
@@ -541,6 +668,10 @@ export { normalizeAcquisitionRoutes };
 
 export function getAcquisitionAuditStats() {
   return { ...acquisitionNormalizerStats };
+}
+
+export function getAcquisitionDroppedOpeningCounts() {
+  return [...droppedAcquisitionOpeningCounts.entries()].sort((left, right) => right[1] - left[1]);
 }
 
 function getBundleInfo(bundleIndex, uniqueName) {
@@ -1412,6 +1543,7 @@ export function buildExportComponentIndex(exportData) {
 // duplicating the useMemo list.
 export function buildAllAcquisitionIndexes(exportData) {
   for (const key of Object.keys(acquisitionNormalizerStats)) acquisitionNormalizerStats[key] = 0;
+  droppedAcquisitionOpeningCounts.clear();
   activeVerifiedRoutesIndex = buildVerifiedRoutesIndex(exportData);
   const textAudit = getAcquisitionTextAuditCounts();
   const acquisitionAudit = { ...textAudit, ...acquisitionNormalizerStats };

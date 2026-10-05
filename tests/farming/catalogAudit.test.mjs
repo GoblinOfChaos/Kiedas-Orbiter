@@ -36,7 +36,7 @@ function catalogEntries(exportsBundle) {
     const table = exportsBundle[key]
     const entries = Array.isArray(table) ? table.map((entry) => [entry.uniqueName, entry]) : Object.entries(table || {})
     for (const [uniqueName, entry] of entries) {
-      if (uniqueName && entry && !isPlaceholder(uniqueName, entry.name || entry.displayName || '')) all.push({ uniqueName, name: entry.name || entry.displayName || '' })
+      if (uniqueName && entry && (entry.name || entry.displayName) && !isPlaceholder(uniqueName, entry.name || entry.displayName || '')) all.push({ uniqueName, name: entry.name || entry.displayName || '' })
     }
   }
   return all
@@ -165,6 +165,20 @@ function hasPlace(source, sourceLabel) {
   return /\b(?:from|at|via|during|through|in|on|market|shop|vendor|reward(?:ed)?|relic|mission|enemy|defeat|scan|quest|invasion|dojo|lab|archon|netracell|circuit|void|bounty|cache|syndicate|acts|claim|nightwave|nora|amir|intrinsics?|drifter|mastery|trade)\b/i.test(source?.text || '')
 }
 
+const P40_STOP_WORD_PLACES = new Set(['page', 'names', 'this page', 'table', 'list', 'bundle', 'kavat', 'kubrow'])
+
+function p40PlaceViolations(source) {
+  const place = String(source?.placeLabel || '').trim()
+  if (!place) return ['missingPlaceLabel']
+  const lower = place.toLocaleLowerCase()
+  const violations = []
+  if (P40_STOP_WORD_PLACES.has(lower)) violations.push('stopWordPlace')
+  if ((place.match(/\(/g) || []).length !== (place.match(/\)/g) || []).length) violations.push('unbalancedPlace')
+  if (/[,(]\s*$/.test(place)) violations.push('cutoffPlace')
+  if (/ - (?:Kavat|Kubrow) color\/pattern/i.test(place)) violations.push('patternPlaceResidue')
+  return violations
+}
+
 test('real data: P36 route contract holds for every catalog drawer', { skip: !haveRealData }, async () => {
   const harness = await loadRealHarness({ locale: 'en' })
   const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
@@ -199,8 +213,11 @@ test('real data: P36 route contract holds for every catalog drawer', { skip: !ha
       const text = String(source.text || '').trim()
       if (!text && source.type !== 'status') continue
       if (!hasPlace(source, sourceLabel)) violations.push({ kind: 'missingPlace', name: displayName, uniqueName: entry.uniqueName, text })
+      for (const kind of p40PlaceViolations(source)) violations.push({ kind, name: displayName, uniqueName: entry.uniqueName, text: `${source.placeLabel || ''} | ${text}` })
       if (text.length > 300) violations.push({ kind: 'longRow', name: displayName, uniqueName: entry.uniqueName, text })
       if (/±|\d+\.\d+%\s+\d/.test(text)) violations.push({ kind: 'flattenedTable', name: displayName, uniqueName: entry.uniqueName, text })
+      if (source.type !== 'legacy-fallback' && !/^Warframe Wiki\b/i.test(source.source || '') && text && !/\b(?:bought|buy|purchase(?:d|able)?|sold|sale|price|costs?|acquire(?:d|able)?|obtain(?:ed|able)?|earn(?:ed|ing)?|reward(?:ed)?|award(?:ed)?|receiv(?:e|ed)|drop(?:s|ped)?|found|craft(?:ed)?|build|built|available|unlock(?:ed)?|included in|trade(?:d)?|claim(?:ed)?|granted|gift|market|vendor|offering|offerings|part\s+of|bundle|pack|collection|listed under|not currently|simaris|bird\s*3|master\s+teasonai|ticker|varzia|baro\s+ki['’]?teer|nightwave|conclave|railjack|archon|netracell|void|dojo|cetus|fortuna|necralisk|zariman|duviri|invasion|syndicate|promo\s+code|bounty|stage|relics?|aya|standing|alerts?|daughter|omni|equip|redeem|option|complete|vanquish|mission)\b|\b\d[\d,]*(?:\.\d+)?\s*(?:platinum|credits|ducats|standing|aya|regal\s+aya)\b/i.test(text)) violations.push({ kind: 'noAcquisitionSignal', name: displayName, uniqueName: entry.uniqueName, text })
+      if (source.type !== 'legacy-fallback' && /^(?:Once\b|For details\b|Note\b|The names\b|Please\b|See\b)/i.test(text)) violations.push({ kind: 'loreRow', name: displayName, uniqueName: entry.uniqueName, text })
       const key = canonicalRouteText(text)
       if (key && seen.some((prior) => prior === key || prior.includes(key) || key.includes(prior))) violations.push({ kind: 'duplicateRoute', name: displayName, uniqueName: entry.uniqueName, text })
       if (key) seen.push(key)
@@ -219,7 +236,10 @@ test('real data: P36 route contract holds for every catalog drawer', { skip: !ha
   )
   assert.ok(unresearched <= KNOWN_UNRESEARCHED, `unresearched entries increased: ${unresearched} > ${KNOWN_UNRESEARCHED}`)
   assertNoViolations('P36 catalog violations', violations)
-  assert.ok(getAcquisitionAuditStats().rowsSplit >= 0)
+  const auditStats = getAcquisitionAuditStats()
+  assert.ok(auditStats.rowsSplit >= 0)
+  assert.ok(auditStats.rowsDroppedNonAcquisition >= 0)
+  assert.ok(auditStats.labelsRepaired >= 0)
 })
 
 test('P36 audit summaries stay bounded for large violation lists', () => {
@@ -336,4 +356,40 @@ test('P36 normalizer handles the reported route strings', async () => {
     assert.ok(rows.some((row) => row.placeLabel === place))
     if (chance != null) assert.ok(rows.some((row) => Math.abs(row.chance - chance) < 0.0000001))
   }
+})
+
+test('P40 normalizer repairs pattern-table wording and removes lore rows', async () => {
+  const { normalizeAcquisitionRoutes } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const cases = [
+    ['Included in the Atrox (Credits 150,000 + Ducats 285) - Kubrow color/pattern.', 'Atrox', 'Sold for 150,000 Credits and 285 Ducats.'],
+    ['Included in the Kexat Medical Debt-Bond 12 (seasonal, part of Star Days ) - Kavat color/pattern.', 'Kexat Medical Debt-Bond 12', 'Available seasonally during Star Days.'],
+    ['Included in the Nesyr (Platinum 55) - Kavat color/pattern.', 'Nesyr', 'Sold for 55 Platinum.'],
+    ['Included in the Underbrush (purchase from Master Teasonai ) - Kubrow color/pattern.', 'Master Teasonai', 'Bought from Master Teasonai.'],
+    ['Included in the Moonless (Bought from Master Teasonai, Cetus ) - Kavat color/pattern.', 'Master Teasonai', 'Bought from Master Teasonai.'],
+  ]
+  for (const [text, place, expected] of cases) {
+    const rows = normalizeAcquisitionRoutes([{ type: 'override', text, placeLabel: text.slice(14, 25) }], { itemName: 'pattern' })
+    assert.equal(rows.length, 1)
+    assert.equal(rows[0].placeLabel, place)
+    assert.equal(rows[0].text, expected)
+  }
+  const rows = normalizeAcquisitionRoutes([
+    { type: 'override', text: 'Once hatched, Kavats randomly gain four coat colors.', placeLabel: 'Kavat' },
+    { type: 'override', text: "Currently, all of a Kavat's natural coat colors can also be found in the Gene-Masking Kits, which can be acquired through the Market.", placeLabel: 'the Gene-Masking Kits' },
+    { type: 'override', text: 'For details regarding how patterns are passed down, please refer to this page.', placeLabel: 'page' },
+    { type: 'override', text: 'The names listed below are unofficial.', placeLabel: 'names' },
+  ], { itemName: 'Hyacinth Fur Pattern' })
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0].placeLabel, 'Market')
+  assert.match(rows[0].text, /acquired through the Market/)
+})
+
+test('P40 places never fall back to a random word', async () => {
+  const { normalizeAcquisitionRoutes } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const rows = normalizeAcquisitionRoutes([
+    { type: 'override', text: 'This item is useful in many ways.' },
+    { type: 'override', text: 'Obtained from the named vendor for 5 Platinum.' },
+  ], { itemName: 'Named Cosmetic' })
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0].placeLabel, 'named vendor')
 })

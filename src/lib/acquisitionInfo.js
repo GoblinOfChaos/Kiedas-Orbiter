@@ -12,7 +12,7 @@ import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/
 import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-relic-drops.json';
 import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wiki-extractor-acquisition.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
-import { normalizeRelicSources } from './relicSources.js';
+import { buildRelicRarityIndex, countRelicRowsWithoutDeTier, normalizeRelicSources } from './relicSources.js';
 import { bareAcquisitionCategoryKey, getAcquisitionTextAuditCounts, isBareAcquisitionCategory, toCurrentSourceSentences } from './acquisitionText.js';
 import { sourceLabel } from './sourceLabel.js';
 import { debug } from './logging/logger.js';
@@ -1616,7 +1616,12 @@ export function buildAllAcquisitionIndexes(exportData) {
   droppedAcquisitionOpeningCounts.clear();
   activeVerifiedRoutesIndex = buildVerifiedRoutesIndex(exportData);
   const textAudit = getAcquisitionTextAuditCounts();
-  const acquisitionAudit = { ...textAudit, ...acquisitionNormalizerStats };
+  const relicRarityIndex = buildRelicRarityIndex(exportData);
+  const acquisitionAudit = {
+    ...textAudit,
+    ...acquisitionNormalizerStats,
+    relicRowsWithoutDeTier: countRelicRowsWithoutDeTier(exportData, relicRarityIndex),
+  };
   // The real frontend has the Tauri logging transport; headless real-data
   // tests intentionally run without that transport.
   if (typeof window !== 'undefined') debug('state.parse.acquisition_audit', acquisitionAudit, { phase: 'complete', source: 'frontend' });

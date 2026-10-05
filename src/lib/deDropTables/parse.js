@@ -5,6 +5,11 @@ const PLACE_SECTIONS = new Set([
 const SOURCE_SECTIONS = new Set([
   'modByAvatar', 'blueprintByAvatar', 'resourceByAvatar', 'sigilByAvatar', 'additionalItemByAvatar', 'relicByAvatar',
 ]);
+// Bounty tables nest Rotation A/B/C headers around per-stage sub-headers
+// ("Stage 1", "Final stage"); both values are required by the legacy shape.
+const BOUNTY_SECTIONS = new Set([
+  'cetusRewards', 'solarisRewards', 'deimosRewards', 'zarimanRewards', 'entratiLabRewards', 'hexRewards',
+]);
 const ITEM_SECTIONS = new Set(['modByDrop', 'blueprintByDrop', 'resourceByDrop']);
 
 export const KNOWN_SECTIONS = [
@@ -77,7 +82,12 @@ export function parseDropTablesHtml(html) {
     }
     let currentPlace = null;
     let rotation = null;
+    let stage = null;
     let currentItem = null;
+    const header = (text) => {
+      if (BOUNTY_SECTIONS.has(section) && !/^Rotation\s+/i.test(text)) stage = text;
+      else { rotation = text; stage = null; }
+    };
     for (const rowMatch of sectionBody(html, start, end).matchAll(/<tr\b([^>]*)>([\s\S]*?)<\/tr>/gi)) {
       const row = rowMatch[0];
       if (/class\s*=\s*"[^"]*\bblank-row\b/i.test(row)) continue;
@@ -86,27 +96,27 @@ export function parseDropTablesHtml(html) {
 
       if (PLACE_SECTIONS.has(section)) {
         if (cells.length === 1 && cells[0].kind === 'th') {
-          if (/^Rotation\s+/i.test(cells[0].text)) rotation = cells[0].text;
-          else { currentPlace = cells[0].text; rotation = null; places.add(currentPlace); }
+          if (/^Rotation\s+/i.test(cells[0].text)) { rotation = cells[0].text; stage = null; }
+          else { currentPlace = cells[0].text; rotation = null; stage = null; places.add(currentPlace); }
           continue;
         }
         if (cells.length === 2 && cells[0].kind === 'th' && cells[1].kind === 'td' && !cells[1].text && cells[0].text) {
-          rotation = cells[0].text;
+          header(cells[0].text);
           continue;
         }
         if (cells.length === 2 && cells[0].kind === 'td' && !cells[0].text && cells[1].kind === 'th' && cells[1].text) {
-          rotation = cells[1].text;
+          header(cells[1].text);
           continue;
         }
         if (cells.length === 2 && cells.every((cell) => cell.kind === 'td') && currentPlace) {
           const parsed = probability(cells[1].text, section, row);
-          sections[section].push({ place: currentPlace, rotation, item: cells[0].text, ...parsed });
+          sections[section].push({ place: currentPlace, rotation, ...(stage ? { stage } : {}), item: cells[0].text, ...parsed });
           stats.rows += 1;
           continue;
         }
         if (cells.length === 3 && cells[0].kind === 'td' && !cells[0].text && cells[1].kind === 'td' && cells[2].kind === 'td' && currentPlace) {
           const parsed = probability(cells[2].text, section, row);
-          sections[section].push({ place: currentPlace, rotation, item: cells[1].text, ...parsed });
+          sections[section].push({ place: currentPlace, rotation, ...(stage ? { stage } : {}), item: cells[1].text, ...parsed });
           stats.rows += 1;
           continue;
         }

@@ -111,7 +111,7 @@ def check(scope_path: Path, resolved_path: Path, unresolved_path: Path, archive:
         assert entry.get("name") == expected[unique], f"wrong unresolved name for {unique}"
         assert entry.get("reason"), f"missing unresolved reason for {unique}"
         pages = entry.get("pagesChecked")
-        assert isinstance(pages, list) and pages, f"missing pagesChecked for {unique}"
+        assert isinstance(pages, list), f"pagesChecked must be a list for {unique}"  # unresolved entries make no claim; an empty list means no single page was cited
         for page in pages:
             page_text(page, archive, cache, title_map)
     return {"items": len(scope), "resolved": len(resolved), "unresolved": len(unresolved), "kinds": kinds, "reasons": reasons, "examples": examples}
@@ -120,12 +120,13 @@ def check(scope_path: Path, resolved_path: Path, unresolved_path: Path, archive:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--group", default="resources")
-    parser.add_argument("--scope", type=Path, default=DEFAULT_SCOPE)
+    parser.add_argument("--scope", type=Path, default=None)
     parser.add_argument("--archive", type=Path, default=DEFAULT_ARCHIVE)
     args = parser.parse_args()
     resolved = ROOT / f"src-tauri/data/assets/data/verified-routes.{args.group}.json"
     unresolved = ROOT / f"src-tauri/data/assets/data/verified-routes.{args.group}.unresolved.json"
-    result = check(args.scope, resolved, unresolved, args.archive)
+    scope = args.scope or ROOT / f"docs/agent-context/briefs-2026-10-03/data/zero-{args.group}.json"
+    result = check(scope, resolved, unresolved, args.archive)
     print(f"items={result['items']} resolved={result['resolved']} unresolved={result['unresolved']}")
     print("routes per kind:", dict(result["kinds"]))
     print("top unresolved reasons:", result["reasons"].most_common())

@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "Syndikat",
     "acquisition_drawer.vaulted_no_source": "Dieses Relikt ist eingelagert und hat derzeit keine aktive Beschaffungsquelle.",
     "acquisition_drawer.checking_item_data": "Elementdaten werden geprüft …",
-    "acquisition_drawer.no_verified_route": "Für diesen Gegenstand ist kein bestätigter Beschaffungsweg bekannt.",
+    "acquisition_drawer.unresearched_route": "Die Beschaffung dieses Gegenstands wurde noch nicht erforscht.",
     "acquisition_drawer.know_where_found": "Weißt du, wo man es findet?",
     "acquisition_drawer.unconfirmed_price_note": "Dieser Preis ist bestätigt, die Quelle jedoch nicht — klicke unten auf den Wiki-Link für genauere Infos.",
     "acquisition_drawer.unconfirmed_badge": "Unbestätigt",

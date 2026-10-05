@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "신디케이트",
     "acquisition_drawer.vaulted_no_source": "이 유물은 봉인되어 있으며 현재 활성화된 입수 경로가 없습니다.",
     "acquisition_drawer.checking_item_data": "아이템 데이터 확인 중…",
-    "acquisition_drawer.no_verified_route": "이 아이템의 검증된 입수 경로가 알려져 있지 않습니다.",
+    "acquisition_drawer.unresearched_route": "이 아이템의 획득 방법은 아직 조사되지 않았습니다.",
     "acquisition_drawer.know_where_found": "어디서 구할 수 있는지 아시나요?",
     "acquisition_drawer.unconfirmed_price_note": "이 가격은 확인되었지만 출처는 확인되지 않았습니다. 더 정확한 정보는 아래 위키 링크를 클릭하세요.",
     "acquisition_drawer.unconfirmed_badge": "미확인",

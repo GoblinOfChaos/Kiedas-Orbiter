@@ -30,6 +30,7 @@ import { sortByChanceDesc, sortSourcesByChanceInRotations } from '../lib/chanceS
 import { instrumentScroll, event as logEvent } from '../lib/logging/logger';
 import PrimeSetCard from '../components/PrimeSetCard';
 import { getGridColumnCount, getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualScrollMaximum, getVirtualScrollModel, settleScrollJump } from '../lib/inventoryScroll.js';
+import { sourceLabel } from '../lib/sourceLabel.js';
 import { buildRelicRarityIndex, buildRelicTooltipRows } from '../lib/relicSources.js';
 import { compareText, compareTextBase } from '../lib/textCompare';
 
@@ -1757,11 +1758,11 @@ export default function Inventory() {
                       const itemSources = dropIndex?.[itemNorm] || dropIndex?.[itemBlueprintNorm] || dropIndex?.['display:' + (item.name || '').toLowerCase().trim()] || [];
                       if (itemSources.length === 0) return null;
                       const dedupKey = (s) => {
-                        if (s.type === 'mission') return 'm:' + s.nodeName + '|' + (s.rotation || '');
-                        if (s.type === 'relic') return 'r:' + (s.relicName || s.relicManifest);
-                        if (s.type === 'enemy') return 'e:' + s.enemyName;
-                        if (s.type === 'bounty') return 'b:' + s.bountyLevel + '|' + (s.rotation || '') + '|' + (s.stage || '');
-                        return 'o:' + (s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type);
+                        if (s.type === 'mission') return 'm:' + sourceLabel(s);
+                        if (s.type === 'relic') return 'r:' + sourceLabel(s);
+                        if (s.type === 'enemy') return 'e:' + sourceLabel(s);
+                        if (s.type === 'bounty') return 'b:' + sourceLabel(s);
+                        return 'o:' + sourceLabel(s);
                       };
                       const seen = {};
                       const uniq = itemSources.filter((s) => {const k = dedupKey(s);if (seen[k]) return false;seen[k] = true;return true;});
@@ -1782,7 +1783,7 @@ export default function Inventory() {
                                       <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">{t('ui.inventory.missions')}</p>
                                       {missionSources.map((s, i) =>
                               <p key={`m-${i}`} className="text-[10px] text-kronos-text leading-tight">
-                                          {s.nodeName} {s.rotation ? `(Rot ${s.rotation})` : ''}
+                                          {sourceLabel(s)}
                                           {s.chance ? <span className="text-kronos-dim ml-1">{formatChance(s.chance)}</span> : ''}
                                         </p>
                               )}
@@ -1801,7 +1802,7 @@ export default function Inventory() {
                                       <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">{t('ui.inventory.enemy_drops')}</p>
                                       {enemySources.map((s, i) =>
                               <p key={`e-${i}`} className="text-[10px] text-kronos-text leading-tight">
-                                          {s.enemyName}
+                                          {sourceLabel(s)}
                                           {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}
                                         </p>
                               )}
@@ -1812,7 +1813,7 @@ export default function Inventory() {
                                       <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">{t('ui.dashboard.bounties')}</p>
                                       {bountySources.map((s, i) =>
                               <p key={`b-${i}`} className="text-[10px] text-kronos-text leading-tight">
-                                          {s.bountyLevel}{s.stage ? ` (${s.stage})` : ''}{s.rotation ? ` Rot ${s.rotation}` : ''}
+                                          {sourceLabel(s)}
                                           {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}
                                         </p>
                               )}
@@ -1823,7 +1824,7 @@ export default function Inventory() {
                                       <p className="text-[9px] font-bold text-kronos-dim uppercase tracking-wider mb-0.5">{t('ui.inventory.other')}</p>
                                       {otherSources.map((s, i) =>
                               <p key={`o-${i}`} className="text-[10px] text-kronos-text leading-tight">
-                                          {s.syndicateName || s.objectiveName || s.keyName || s.sourceName || s.type}
+                                          {sourceLabel(s)}
                                           {s.chance ? <span className="text-kronos-dim ml-1">{typeof s.chance === 'number' ? formatChance(s.chance) : `${s.chance}%`}</span> : ''}
                                         </p>
                               )}

@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "Sindacato",
     "acquisition_drawer.vaulted_no_source": "Questa reliquia è in caveau e non ha una fonte di acquisizione attiva.",
     "acquisition_drawer.checking_item_data": "Controllo dati dell’oggetto…",
-    "acquisition_drawer.no_verified_route": "Non è nota alcuna fonte di acquisizione verificata per questo oggetto.",
+    "acquisition_drawer.unresearched_route": "Il modo per ottenere questo oggetto non è ancora stato studiato.",
     "acquisition_drawer.know_where_found": "Sai dove trovarlo?",
     "acquisition_drawer.unconfirmed_price_note": "Questo prezzo è confermato, ma la fonte no — clicca sul link del wiki qui sotto per info più accurate.",
     "acquisition_drawer.unconfirmed_badge": "Non confermato",

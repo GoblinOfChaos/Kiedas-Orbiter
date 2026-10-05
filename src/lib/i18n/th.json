@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "สหภาพ",
     "acquisition_drawer.vaulted_no_source": "โบราณวัตถุนี้ถูกเก็บเข้าคลังและไม่มีแหล่งที่มาที่ใช้งานอยู่",
     "acquisition_drawer.checking_item_data": "กำลังตรวจสอบข้อมูลไอเทม…",
-    "acquisition_drawer.no_verified_route": "ไม่มีเส้นทางการได้มาที่ยืนยันแล้วสำหรับไอเทมนี้",
+    "acquisition_drawer.unresearched_route": "ยังไม่ได้ศึกษาวิธีรับไอเทมนี้",
     "acquisition_drawer.know_where_found": "รู้ไหมว่าจะหาได้จากที่ไหน?",
     "acquisition_drawer.unconfirmed_price_note": "ยืนยันราคานี้แล้ว แต่ยังไม่ยืนยันแหล่งที่มา — คลิกลิงก์วิกิด้านล่างเพื่อข้อมูลที่แม่นยำกว่า",
     "acquisition_drawer.unconfirmed_badge": "ยังไม่ยืนยัน",

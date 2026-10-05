@@ -938,7 +938,7 @@
     "acquisition_drawer.syndicate_fallback": "Sendika",
     "acquisition_drawer.vaulted_no_source": "Bu kalıntı kasada ve şu anda aktif bir edinme kaynağı yok.",
     "acquisition_drawer.checking_item_data": "Öğe verileri kontrol ediliyor…",
-    "acquisition_drawer.no_verified_route": "Bu öğe için doğrulanmış bir edinme yolu bilinmiyor.",
+    "acquisition_drawer.unresearched_route": "Bu öğenin nasıl edinileceği henüz araştırılmadı.",
     "acquisition_drawer.know_where_found": "Nerede bulunacağını biliyor musunuz?",
     "acquisition_drawer.unconfirmed_price_note": "Bu fiyat onaylı, ancak kaynak değil — daha doğru bilgi için aşağıdaki wiki bağlantısına tıklayın.",
     "acquisition_drawer.unconfirmed_badge": "Doğrulanmadı",

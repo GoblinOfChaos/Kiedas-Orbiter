@@ -938,7 +938,7 @@
     "acquisition_drawer.syndicate_fallback": "Синдикат",
     "acquisition_drawer.vaulted_no_source": "Эта реликвия хранится в архиве и не имеет активного источника получения.",
     "acquisition_drawer.checking_item_data": "Проверка данных предмета…",
-    "acquisition_drawer.no_verified_route": "Проверенный способ получения этого предмета неизвестен.",
+    "acquisition_drawer.unresearched_route": "Способ получения этого предмета ещё не исследован.",
     "acquisition_drawer.know_where_found": "Знаете, где это найти?",
     "acquisition_drawer.unconfirmed_price_note": "Цена подтверждена, а источник — нет. Нажмите на ссылку на вики ниже для более точной информации.",
     "acquisition_drawer.unconfirmed_badge": "Не подтверждено",

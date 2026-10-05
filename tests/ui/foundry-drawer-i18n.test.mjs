@@ -33,6 +33,7 @@ const requestedUiKeys = [
   'ui.riven_prompt.configure_hotkey',
   'farming_targets.corrupt_warning',
 ]
+const intentionallyRemovedUiKeys = ['acquisition_drawer.no_verified_route']
 const readBaseLocale = (locale) => {
   try {
     return JSON.parse(execFileSync(
@@ -53,6 +54,7 @@ const assertUiKeyContract = (directory = localesDir, files = fs.readdirSync(dire
     const current = JSON.parse(fs.readFileSync(path.join(directory, file), 'utf8'))
     const base = readBaseLocale(locale)
     for (const key of Object.keys(base.ui)) {
+      if (intentionallyRemovedUiKeys.includes(key)) continue
       assert.ok(Object.hasOwn(current.ui, key), `${file} missing base ui key ${key}`)
       if (current.ui[key] === base.ui[key]) continue
       const isMovedKey = requestedUiKeys.includes(key)

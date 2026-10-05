@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "Sindicato",
     "acquisition_drawer.vaulted_no_source": "Esta reliquia está archivada y no tiene una fuente de obtención activa.",
     "acquisition_drawer.checking_item_data": "Comprobando datos del objeto…",
-    "acquisition_drawer.no_verified_route": "No se conoce una ruta de obtención verificada para este objeto.",
+    "acquisition_drawer.unresearched_route": "Aún no se ha investigado cómo obtener este objeto.",
     "acquisition_drawer.know_where_found": "¿Sabes dónde encontrarlo?",
     "acquisition_drawer.unconfirmed_price_note": "Este precio está confirmado, pero la fuente no — haz clic en el enlace del wiki de abajo para más información.",
     "acquisition_drawer.unconfirmed_badge": "Sin confirmar",

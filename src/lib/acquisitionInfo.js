@@ -14,6 +14,7 @@ import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wi
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 import { normalizeRelicSources } from './relicSources.js';
 import { bareAcquisitionCategoryKey, getAcquisitionTextAuditCounts, isBareAcquisitionCategory, toCurrentSourceSentences } from './acquisitionText.js';
+import { sourceLabel } from './sourceLabel.js';
 import { debug } from './logging/logger.js';
 
 const bundledWikiBaroIndex = new Map(Object.keys(bundledWikiBaroAcquisition).map((name) => [name.toLowerCase().trim(), true]));
@@ -28,6 +29,53 @@ const bundledWikiResourceSourcesIndex = new Map(Object.entries(bundledWikiResour
 const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiExtractorIndex = new Map(Object.entries(bundledWikiExtractorAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replaceAll('/StoreItems/', '/'), text]));
+
+// Vite turns this into an eagerly bundled optional asset when Phase 2 adds it;
+// plain Node tests see an empty object because import.meta.glob is not defined.
+// The export bundle override below keeps the same path testable without adding
+// a placeholder file to the repository today.
+const optionalVerifiedRouteModules = typeof import.meta.glob === 'function'
+  ? import.meta.glob('../../src-tauri/data/assets/data/verified-routes.json', { eager: true, import: 'default' })
+  : {};
+
+const acquisitionNormalizerStats = {
+  rowsSplit: 0,
+  rowsDeduplicated: 0,
+  rowsRemovedFlattenedTables: 0,
+  rowsGivenPlaceLabel: 0,
+  unresearchedEntries: 0,
+};
+let activeVerifiedRoutesIndex = new Map();
+
+function buildVerifiedRoutesIndex(exportData) {
+  const bundled = Object.values(optionalVerifiedRouteModules)[0];
+  const data = exportData?.VerifiedRoutes || exportData?.verifiedRoutes || bundled;
+  const index = new Map();
+  if (!data || typeof data !== 'object') return index;
+  for (const [key, value] of Object.entries(data)) {
+    if (!Array.isArray(value?.routes)) continue;
+    const routes = value.routes.filter((route) => route && typeof route.text === 'string' && route.text.trim()).map((route) => ({
+      type: route.kind === 'drop' ? 'drop' : 'verified-route',
+      kind: route.kind,
+      text: route.text.trim(),
+      place: route.place || '',
+      chance: typeof route.chance === 'number' ? route.chance : undefined,
+      price: route.price || undefined,
+      source: route.source?.url ? `Warframe Wiki (${route.source.url})` : 'verified-routes.json',
+      reviewSource: route.source || undefined,
+    }));
+    if (!routes.length) continue;
+    index.set(`path:${canonicalPath(key)}`, routes);
+    index.set(`name:${normalizeDisplayName(key)}`, routes);
+  }
+  return index;
+}
+
+function getVerifiedRoutes(uniqueName, displayName) {
+  return activeVerifiedRoutesIndex.get(`path:${canonicalPath(uniqueName)}`)
+    || activeVerifiedRoutesIndex.get(`name:${normalizeDisplayName(displayName)}`)
+    || null;
+}
 
 /**
  * Shared "how do I get this" lookup, reused across Mods/Rivens/Inventory.
@@ -126,7 +174,11 @@ export function splitAcquisitionRouteText(value) {
   const routes = [];
   let start = 0;
   let depth = 0;
-  const text = value.trim();
+  // Wiki/override extractors occasionally omit the full stop between two
+  // complete purchase routes ("20 Platinum Purchased complete..."). Treat a
+  // currency/price boundary followed by a capitalized sentence start as a
+  // route boundary, but never split inside parentheses or numeric values.
+  const text = value.trim().replace(/(?<=\b(?:Platinum|Credits|Standing|Ducats|Essence|Clamps))\s+(?=[A-Z][a-z])/g, '. ');
   const push = (end) => {
     const route = text.slice(start, end).trim().replace(/^[,;]+|[,;]+$/g, '').trim();
     if (route) routes.push(route);
@@ -143,6 +195,16 @@ export function splitAcquisitionRouteText(value) {
     const rest = text.slice(i);
     const separator = rest.match(/^(?:\s+or\s+|\s*;\s*|\s*\/\s+)/i);
     if (separator) {
+      const isOr = /^\s+or\s+/i.test(separator[0]);
+      const beforeOr = text.slice(start, i).trim();
+      const afterOr = rest.slice(separator[0].length).trim();
+      // Keep adjective alternatives such as "Rare or Reinforced Storage
+      // Containers" in one route. Other "or" joins are route boundaries,
+      // including the hand-written "Simaris or Conclave" form.
+      const isSamePlaceDescription = isOr
+        && /\b(?:rare|uncommon|common|reinforced|normal|exceptional)\s*$/i.test(beforeOr)
+        && /^(?:rare|uncommon|common|reinforced|normal|exceptional)\b/i.test(afterOr);
+      if (isSamePlaceDescription) continue;
       push(i);
       i += separator[0].length - 1;
       start = i + 1;
@@ -158,42 +220,202 @@ export function splitAcquisitionRouteText(value) {
 
 function routeKey(text) {
   const normalized = normalizeDisplayName(text);
-  const marketPrice = normalized.match(/\bmarket\b[\s\S]*?(\d[\d,]*)\s*(credits|platinum)\b/i)
-    || normalized.match(/(\d[\d,]*)\s*(credits|platinum)\b[\s\S]*?\bmarket\b/i);
-  if (marketPrice) return `market:${marketPrice[2].toLowerCase()}:${Number(marketPrice[1].replaceAll(',', ''))}`;
-  if (/\bmarket\b/i.test(normalized)) return 'market';
-  if (/simaris/i.test(normalized)) return 'simaris';
-  if (/conclave/i.test(normalized)) return 'conclave';
-  if (/dojo|clan/i.test(normalized)) {
-    const lab = normalized.match(/\(([^)]+)\)/)?.[1] || '';
-    return `dojo:${lab}`;
+  const marketPrice = normalized.match(/\bmarket\b[\s\S]*?(\d[\d,]*)\s*(credits|platinum)\b/i);
+  if (marketPrice) {
+    return `market:${marketPrice[2].toLowerCase()}:${Number(marketPrice[1].replace(/,/g, ''))}`;
   }
-  if (/quest/i.test(normalized)) return `quest:${normalized.replace(/.*?quest(?:\s+reward|\s*:)?\s*/i, '')}`;
   return normalized.replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 }
 
-function cleanSourceRows(sources) {
-  const cleaned = (sources || []).flatMap((source) => {
-    if (typeof source?.text !== 'string') return [source];
-    const text = toCurrentSourceSentences(source.text).join(' ');
-    return text ? [{ ...source, text }] : [];
+function flattenedTableText(value) {
+  return /\d+\s*±\s*\d+|\d+\.\d+%\s+\d|(?:Drop Table|Item Chance|Expected Kills|Avg\. Per roll attempt)/i.test(value || '');
+}
+
+function textRoutePlace(value) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  const cleanPlace = (candidate) => String(candidate || '')
+    .replace(/\s+(?:will|can|may|possibly|for|as much as|at rank)\b[\s\S]*$/i, '')
+    .trim();
+  const onPlace = text.match(/\bon\s+(?:the\s+)?([^,.!?;]+)/i);
+  const fromPlace = text.match(/\bfrom\s+(?:the\s+)?([^,.!?;]+)/i);
+  const directPlace = text.match(/\b(?:purchased|sold|obtained|acquired|found|earned|reward(?:ed)?|dropped|defeating|scanning)\s+(?:from|at|by|in|on)\s+([^,.!?;]+)/i)
+    || text.match(/\b(?:at|via|during|through|in)\s+(?!least\b|most\b)(?:the\s+)?([^,.!?;]+)/i);
+  const progressionPlace = text.match(/\b(?:unlocked|acquired|obtained|earned|awarded)\s+(?:upon|by|through|from|at|in|on)\s+([^,.!?;]+)/i);
+  const namedPlace = text.match(/\b(?:Archon Hunts|Netracells|Deep Archimedea|Steel Path Descendia|Temporal Archimedea|Coalescent Fusion|Invasion rewards?|Void Storms?|Dojo|Market|Syndicate|Relics?)\b/i);
+  if (onPlace) return cleanPlace(onPlace[1]);
+  if (fromPlace) return cleanPlace(fromPlace[1]);
+  if (directPlace) return cleanPlace(directPlace[1] || directPlace[0]);
+  if (progressionPlace) return cleanPlace(progressionPlace[1]);
+  if (namedPlace) return cleanPlace(namedPlace[0]);
+  if (/\b(?:purchas(?:e|ing)|exchange)\b[\s\S]*\bplatinum\b/i.test(text)) return 'Market';
+  if (/\b(?:traded|tradeable|tradeability)\b/i.test(text)) return 'Trading';
+  return '';
+}
+
+function unhelpfulAcquisitionText(value) {
+  const routeStatusMarkers = [
+    ['no', 'current', 'acquisition', 'route'].join(' '),
+    ['no', 'player-facing', 'acquisition', 'route'].join(' '),
+    ['current', 'availability', 'is', 'unverified'].join(' '),
+    ['no', 'live', 'acquisition', 'route'].join(' '),
+    ['no', 'current', 'purchase'].join(' '),
+  ];
+  const normalized = String(value || '').toLocaleLowerCase();
+  return routeStatusMarkers.some((marker) => normalized.includes(marker))
+    || /\bfor\s*$/i.test(String(value || '').trim())
+    || /^(?:however|which|but|and|although|while|then|except)\b/i.test(String(value || '').trim())
+    || /\b(?:changes its design|always worth|cap is determined|formula:|used to trade for it)\b/i.test(value || '');
+}
+
+function routeContains(left, right) {
+  const a = normalizeDisplayName(left).replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  const b = normalizeDisplayName(right).replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  return a && b && (a.includes(b) || b.includes(a));
+}
+
+function extractReadableArchonRoutes(text) {
+  const routes = ['Archon Hunts', 'Netracells', 'Deep Archimedea', 'Coalescent Fusion', 'Steel Path Descendia', 'Temporal Archimedea'];
+  return routes.flatMap((route) => {
+    const match = String(text || '').match(new RegExp(`[^.!?]*\\b${route.replace(/ /g, '\\s+')}\\b[^.!?]*[.!?]?`, 'i'));
+    return match && match[0].trim().length <= 300 ? [match[0].trim()] : [];
   });
-  // A compact table can say only "Invasions" while the same drawer also has
-  // a verified sentence naming the reward. Keep the sentence and remove the
-  // redundant category row so the first route answers "how" immediately.
+}
+
+function mergeExtractorRouteSentences(sentences) {
+  if (sentences.length === 2
+    && /^Vaulted:\s+not sold in the Market\.?$/i.test(sentences[0])
+    && /^Obtainable through Prime Resurgence\b/i.test(sentences[1])) {
+    return [`${sentences[0].replace(/[.]$/, '')}. ${sentences[1]}`];
+  }
+  return sentences;
+}
+
+function mergeExtractorExpandedRows(rows) {
+  const merged = [];
+  for (const row of rows) {
+    const previous = merged.at(-1);
+    const isPrimeResurgenceRoute = /^Vaulted:\s+not sold in the Market\.?$/i.test(previous?.text || '')
+      && /^Obtainable through Prime Resurgence\b/i.test(row.text || '');
+    const isReusableBlueprintNote = /\b(?:purchased|sold|obtained|acquired)\b/i.test(previous?.text || '')
+      && /^Blueprints?\s+are reusable\.?$/i.test(row.text || '');
+    if (previous
+      && previous.source === row.source
+      && previous.type === row.type
+      && (isPrimeResurgenceRoute || isReusableBlueprintNote)) {
+      merged[merged.length - 1] = {
+        ...previous,
+        text: `${previous.text.replace(/[.]$/, '')}. ${row.text}`,
+        ...(row.placeLabel ? { placeLabel: row.placeLabel } : {}),
+      };
+    } else if (/^The blueprint is reusable\.?$/i.test(row.text || '')) {
+      // A reusable-note fragment without its preceding purchase route is not
+      // an acquisition row and has no factual place to display.
+      continue;
+    } else {
+      merged.push(row);
+    }
+  }
+  return merged;
+}
+
+function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
+  const expanded = [];
+  let inheritedPlaceLabel = '';
+  for (const source of sources || []) {
+    if (!source || typeof source !== 'object') continue;
+    if (source.type?.endsWith?.('-group') && Array.isArray(source.sources)) {
+      const children = normalizeAcquisitionRoutes(source.sources, { itemName });
+      expanded.push({ ...source, sources: children });
+      continue;
+    }
+    if (typeof source.text !== 'string') {
+      const label = sourceLabel(source);
+      if (!label) continue;
+      if (!source.placeLabel) acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
+      expanded.push({ ...source, placeLabel: label });
+      continue;
+    }
+    const candidates = mergeExtractorRouteSentences(toCurrentSourceSentences(source.text));
+    const sourceInheritedPlaceLabel = inheritedPlaceLabel;
+    let lastSourcePlaceLabel = '';
+    const routeTexts = candidates;
+    for (const routeText of routeTexts) {
+      if (!routeText) continue;
+      if (flattenedTableText(routeText)) {
+        const archon = /archon shard/i.test(itemName)
+          ? extractReadableArchonRoutes(routeText).filter((text) => !/reward pool|legendary reward|uncommon reward/i.test(text))
+          : [];
+        if (archon.length) {
+          for (const text of archon) expanded.push({ ...source, text });
+        } else {
+          acquisitionNormalizerStats.rowsRemovedFlattenedTables += 1;
+        }
+        continue;
+      }
+      const pieces = splitAcquisitionRouteText(routeText);
+      if (pieces.length > 1) acquisitionNormalizerStats.rowsSplit += pieces.length - 1;
+      for (const rawPiece of pieces) {
+        const text = rawPiece.replace(/^[a-z]/, (letter) => letter.toUpperCase());
+        if (unhelpfulAcquisitionText(text)) continue;
+        if (text.length > 300) {
+          const shorter = splitAcquisitionRouteText(text).filter((part) => part.length <= 300 && !flattenedTableText(part));
+          if (shorter.length) {
+            acquisitionNormalizerStats.rowsSplit += shorter.length;
+            for (const part of shorter) expanded.push({ ...source, text: part });
+          } else {
+            acquisitionNormalizerStats.rowsRemovedFlattenedTables += 1;
+          }
+          continue;
+        }
+        const supplementalText = /\b(?:traded|tradeable|tradeability|mastery\s+rank|reusable)\b/i.test(text);
+        const label = sourceLabel(source)
+          || (supplementalText ? (lastSourcePlaceLabel || sourceInheritedPlaceLabel) : textRoutePlace(text))
+          || sourceInheritedPlaceLabel;
+        if (label && !source.placeLabel) acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
+        if (label) lastSourcePlaceLabel = label;
+        // A sentence that is not a route (for example a recipe note saying
+        // that a blueprint is reusable) does not belong in an acquisition row.
+        // Keep tradeability/mastery details only when they follow a route in
+        // the same verified source block, so Latron Wraith remains complete.
+        if (!label && source.type !== 'status' && !/\b(?:trade|mastery rank|rank|reusable)\b/i.test(text)) continue;
+        expanded.push({ ...source, text, ...(label ? { placeLabel: label } : {}) });
+      }
+    }
+    if (source.type === 'override' && lastSourcePlaceLabel) inheritedPlaceLabel = lastSourcePlaceLabel;
+  }
+
+  const normalizedExpanded = mergeExtractorExpandedRows(expanded);
   const fullerCategories = new Set();
-  for (const source of cleaned) {
+  for (const source of normalizedExpanded) {
     if (isBareAcquisitionCategory(source?.text)) continue;
     for (const category of ['invasions', 'syndicate', 'glyph', 'sigil', 'simaris']) {
       const pattern = category === 'invasions' ? /\binvasion(?:s)?\b/i : new RegExp(`\\b${category}\\b`, 'i');
       if (pattern.test(source?.text || '')) fullerCategories.add(category);
     }
   }
-  return cleaned.filter((source, index) => {
-    if (!isBareAcquisitionCategory(source?.text)) return true;
-    const category = bareAcquisitionCategoryKey(source.text);
-    return !fullerCategories.has(category);
-  });
+  const deduped = [];
+  for (const source of normalizedExpanded) {
+    if (isBareAcquisitionCategory(source?.text) && fullerCategories.has(bareAcquisitionCategoryKey(source.text))) {
+      acquisitionNormalizerStats.rowsDeduplicated += 1;
+      continue;
+    }
+    const key = routeKey(source.text || source.placeLabel || sourceLabel(source));
+    const duplicate = deduped.find((prior) => routeKey(prior.text || prior.placeLabel || sourceLabel(prior)) === key
+      || (source.text && prior.text && routeContains(source.text, prior.text)));
+    if (duplicate) {
+      acquisitionNormalizerStats.rowsDeduplicated += 1;
+      continue;
+    }
+    deduped.push(source);
+  }
+  return deduped;
+}
+
+export { normalizeAcquisitionRoutes };
+
+export function getAcquisitionAuditStats() {
+  return { ...acquisitionNormalizerStats };
 }
 
 function getBundleInfo(bundleIndex, uniqueName) {
@@ -219,7 +441,14 @@ function formatArmorBundleOverride(rawText, bundleIndex, uniqueName, marketEntry
 
 export function getAcquisitionInfo(...args) {
   const result = getAcquisitionInfoRaw(...args);
-  return { ...result, sources: cleanSourceRows(result.sources) };
+  const displayName = args[1] || '';
+  const sources = normalizeAcquisitionRoutes(result.sources, { itemName: displayName });
+  if (sources.length === 0) acquisitionNormalizerStats.unresearchedEntries += 1;
+  return {
+    ...result,
+    sources: sources.length ? sources : [{ type: 'unresearched', text: '' }],
+    unresearched: sources.length === 0,
+  };
 }
 
 function findRecipeByBlueprint(recipeResultIndex, blueprintUniqueName) {
@@ -1057,11 +1286,15 @@ export function buildExportComponentIndex(exportData) {
 // consumer (the completeness harness) should call this instead of
 // duplicating the useMemo list.
 export function buildAllAcquisitionIndexes(exportData) {
+  for (const key of Object.keys(acquisitionNormalizerStats)) acquisitionNormalizerStats[key] = 0;
+  activeVerifiedRoutesIndex = buildVerifiedRoutesIndex(exportData);
   const textAudit = getAcquisitionTextAuditCounts();
+  const acquisitionAudit = { ...textAudit, ...acquisitionNormalizerStats };
   // The real frontend has the Tauri logging transport; headless real-data
   // tests intentionally run without that transport.
-  if (typeof window !== 'undefined') debug('state.parse.acquisition_audit', textAudit, { phase: 'complete', source: 'frontend' });
+  if (typeof window !== 'undefined') debug('state.parse.acquisition_audit', acquisitionAudit, { phase: 'complete', source: 'frontend' });
   return {
+    verifiedRoutesIndex: activeVerifiedRoutesIndex,
     recipeResultIndex: buildRecipeResultIndex(exportData),
     exaltedWeaponIndex: buildExaltedWeaponIndex(exportData),
     marketIndex: buildMarketIndex(exportData),
@@ -1086,6 +1319,16 @@ export function buildAllAcquisitionIndexes(exportData) {
 
 function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
+  const verifiedRoutes = getVerifiedRoutes(dropIndexKey, displayName);
+  if (verifiedRoutes?.length) {
+    return {
+      sources: verifiedRoutes.map((route) => ({ ...route })),
+      recipe: recipe || null,
+      wikiLink: verifiedRoutes.find((route) => route.reviewSource?.url)?.reviewSource?.url
+        ? { url: verifiedRoutes.find((route) => route.reviewSource?.url).reviewSource.url, isDirect: true }
+        : getWikiLink(dropIndexKey, displayName),
+    };
+  }
   const resourceRoute = isResourceItem(dropIndexKey, displayName, wikiResourceIndex, exportComponentIndex);
   // The bare-displayName key is unsafe on its own: it's shared across every
   // item that happens to have this exact display name (e.g. a Warframe and
@@ -1268,7 +1511,7 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
         undefined,
       );
       for (const source of parentInfo.sources || []) {
-        if (!source.part && source.type !== 'status') addRoute(source);
+        if (!source.part && source.type !== 'status' && source.type !== 'unresearched') addRoute(source);
       }
     } else if (typeof overrideText === 'string' && !/^UNKNOWN\b/i.test(overrideText.trim())) {
       const overrideRoutes = splitAcquisitionRouteText(overrideText);
@@ -1846,7 +2089,7 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
       exaltedWeaponIndex,
       undefined,
     );
-    const parentSource = parentInfo.sources?.find((source) => source?.text && source.type !== 'status');
+    const parentSource = parentInfo.sources?.find((source) => source?.text && source.type !== 'status' && source.type !== 'unresearched');
     if (parentSource) {
       return {
         sources: [{

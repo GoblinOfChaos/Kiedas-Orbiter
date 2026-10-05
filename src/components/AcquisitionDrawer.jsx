@@ -5,13 +5,13 @@ import { codexDetailToAcquisition, fetchCodexDetail, isGenericAcquisition } from
 import { sortSourcesByChanceInRotations } from '../lib/chanceSort';
 import { getItemDrops, resolveBlueprintOrigin } from '../lib/acquisitionData';
 import { localizeOverrideText } from '../lib/acquisitionTemplates';
-import { MAPPING_TYPES } from '../lib/warframeUtils';
 import BugReporterModal from './BugReporterModal';
 import { useUi } from '../contexts/UiContext';
 import { useMonitoring } from '../contexts/MonitoringContext';
 import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 import { event } from '../lib/logging/logger';
 import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel, prepareAcquisitionSources } from '../lib/relicSources';
+import { sourceLabel } from '../lib/sourceLabel';
 
 // A flat toFixed(1) rounds real sub-1% drop chances (0.06%, 0.0335%) down to
 // "0.1%" or even "0.0%" - the latter reads as "doesn't drop here", which is
@@ -50,27 +50,34 @@ export function splitUnconfirmed(text) {
 }
 
 export function getSourceLabel(source, t = (k) => k, i18nData = null) {
-  if (!source) return t('acquisition_drawer.unknown_source');
-
+  if (!source) return '';
   const rotationValue = source.rotation || source.rotationOrTable;
   const rotation = rotationValue ? ` Rot ${rotationValue}` : '';
+  const textWithPlace = (value) => {
+    if (!value) return source.placeLabel || '';
+    if (!source.placeLabel || value.toLocaleLowerCase().includes(String(source.placeLabel).toLocaleLowerCase())) return value;
+    return `${value} — ${source.placeLabel}`;
+  };
+
   switch (source.type) {
     case 'override':
       // localizeOverrideText is a no-op fallback to the raw English text
       // whenever there's no matching template or no translation for the
       // active locale (see GitHub #111 Phase 3) - it never runs upstream of
       // acquisitionInfo.js's guard-regex chain, only at final display time.
-      return source.text ? localizeOverrideText(source.text, i18nData) : t('acquisition_drawer.known_source');
+      return source.text ? textWithPlace(localizeOverrideText(source.text, i18nData)) : sourceLabel(source);
     case 'non-drop':
-      return source.text || t('acquisition_drawer.not_drop_table');
+      return textWithPlace(source.text) || sourceLabel(source);
     case 'wiki':
-      return source.text || t('acquisition_drawer.wiki_acquisition_info');
+      return textWithPlace(source.text) || sourceLabel(source);
     case 'wiki-status':
-      return source.text || t('acquisition_drawer.wiki_status');
+      return textWithPlace(source.text) || sourceLabel(source);
+    case 'verified-route':
+      return textWithPlace(source.text) || sourceLabel(source);
     case 'blueprint':
       return `${source.location || t('nav.foundry')}${source.blueprintName ? ` - ${source.blueprintName}` : ''}`;
     case 'drop':
-      return [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ') || t('acquisition_drawer.known_drop_source');
+      return sourceLabel(source) || [formatDropLocation(source.location), source.dropType && `— ${source.dropType}`].filter(Boolean).join(' ');
     case 'relic':
       return getRelicSourceLabel(source, t);
     case 'relic-group': {
@@ -86,45 +93,30 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
     case 'source-group':
       return `${t('acquisition_drawer.other_sources')} — ${t('acquisition_drawer.sources_count', { count: source.count })}`;
     case 'mission': {
-      // source.missionType is usually a raw DE code (e.g. "MT_TAU_WAR") that
-      // must go through the same MT_ translation table used elsewhere, or an
-      // unrecognized internal enum string leaks straight into the UI. But
-      // drops.wf-sourced mission rewards (dropsParser.js) set this from
-      // their own `gameMode` field, which is already a real Title-Case
-      // display string ("Mobile Defense", "Excavation", ...) that never
-      // matches any MT_* key - that class of source previously always lost
-      // its mission-type parenthetical entirely. Detect the already-readable
-      // case (no raw-code shape: not MT_-prefixed, not ALL_CAPS_WITH_UNDERSCORES)
-      // and use it as-is instead of requiring a table match.
-      const looksLikeRawCode = (s) => /^MT_/.test(s) || /^[A-Z0-9_]+$/.test(s);
-      const missionTypeName = source.missionType != null
-        ? (MAPPING_TYPES[source.missionType] ?? (!looksLikeRawCode(source.missionType) ? source.missionType : undefined))
-        : undefined;
-      const label = source.nodeName || source.node || source.location || source.resourceSource || source.dropType || missionTypeName || source.rarity || t('acquisition_drawer.mission_fallback');
-      const suffix = missionTypeName && (source.nodeName || source.node) ? ` (${missionTypeName})` : '';
+      const label = sourceLabel(source);
       const nodes = Array.isArray(source.nodes) && source.nodes.length ? ` — ${source.nodes.join('; ')}` : '';
-      return `${source.region ? `${source.region}/` : ''}${label}${suffix}${rotation}${nodes}`;
+      return `${label}${nodes}`.trim();
     }
     case 'enemy':
-      return source.enemyName || source.enemy || t('acquisition_drawer.enemy_drop');
+      return sourceLabel(source);
     case 'bounty':
-      return `${source.bountyLevel || t('acquisition_drawer.bounty_fallback')}${rotation}`;
+      return sourceLabel(source);
     case 'sortie':
-      return `${t('acquisition_drawer.sortie_fallback')}${source.rarity ? ` (${source.rarity})` : ''}`;
+      return sourceLabel(source);
     case 'transient':
       return `${source.objectiveName || t('acquisition_drawer.arbitration_reward')}${rotation}`;
     case 'key':
       return `${source.keyName || t('acquisition_drawer.key_reward')}${rotation}`;
     case 'syndicate':
-      return source.place ? `${source.syndicateName || t('acquisition_drawer.syndicate_fallback')} - ${source.place}` : (source.syndicateName || t('acquisition_drawer.syndicate_fallback'));
+      return sourceLabel(source);
     case 'avatar':
-      return source.sourceName || t('acquisition_drawer.enemy_drop');
+      return sourceLabel(source);
+    case 'unresearched':
+      return t('acquisition_drawer.unresearched_route');
     default:
       // Keep the drawer useful if a new drops.wf source type is added before
       // its specialized display text is implemented.
-      return source.location || source.nodeName || source.node || source.name ||
-        source.sourceName || source.objectiveName || source.syndicateName ||
-        source.enemyName || source.text || source.type || t('acquisition_drawer.known_source');
+      return sourceLabel(source) || source.text || '';
   }
 }
 
@@ -309,7 +301,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
         : recipe ? null : codexLoading ?
           <p className="text-xs text-kronos-dim italic">{t('acquisition_drawer.checking_item_data')}</p>
         : <div className="flex items-center justify-between gap-3">
-            <p className="text-xs text-kronos-dim italic">{t('acquisition_drawer.no_verified_route')}</p>
+            <p className="text-xs text-kronos-dim italic">{t('acquisition_drawer.unresearched_route')}</p>
             <button
               onClick={() => setShowReportModal(true)}
               className="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded text-[12px] font-bold uppercase tracking-wide text-kronos-accent border border-kronos-accent/30 hover:bg-kronos-accent/10"

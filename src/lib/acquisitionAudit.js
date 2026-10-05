@@ -2,8 +2,8 @@
  * Acquisition Coverage Audit
  *
  * A one-click census of every item this app can show an acquisition drawer
- * for, counting how many currently resolve to "no verified acquisition
- * route is known for this item" (the fallback shown by AcquisitionDrawer.jsx
+ * for, counting how many currently resolve to the temporary unresearched
+ * state (the fallback shown by AcquisitionDrawer.jsx
  * when `sources.length === 0 && !recipe && info.vaulted !== true`).
  *
  * This module deliberately does NOT reimplement any acquisition-resolution
@@ -14,7 +14,7 @@
  *   2. Calls the real `getAcquisitionInfo` (imported from acquisitionInfo.js)
  *      with the real indices already built once by MonitoringContext.
  *   3. Classifies each item with the exact same condition AcquisitionDrawer
- *      uses to decide whether to show the "no verified route" message.
+ *      uses to decide whether to show the temporary unresearched message.
  *
  * Async Codex fallback (AcquisitionDrawer.jsx ~150-172):
  * When a drawer opens for an item whose base `info` is "generic"
@@ -192,9 +192,9 @@ export function buildInventoryCatalog(inventoryData) {
 }
 
 /**
- * Same missing/no-verified-route condition AcquisitionDrawer.jsx uses:
+ * Same unresearched-state condition AcquisitionDrawer.jsx uses:
  * `sources.length > 0 ? ... : info?.vaulted === true ? ... : recipe ? null
- * : ... : <no_verified_route>`. An item is "missing" only when it falls all
+ * : ... : <unresearched_route>`. An item is "missing" only when it falls all
  * the way through to that last branch.
  */
 export function isMissingAcquisition(info) {

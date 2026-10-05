@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "シンジケート",
     "acquisition_drawer.vaulted_no_source": "この遺物は封印されており、現在有効な入手手段はありません。",
     "acquisition_drawer.checking_item_data": "アイテムデータを確認中…",
-    "acquisition_drawer.no_verified_route": "このアイテムの確認済みの入手手段は不明です。",
+    "acquisition_drawer.unresearched_route": "このアイテムの入手方法はまだ調査されていません。",
     "acquisition_drawer.know_where_found": "入手場所をご存知ですか?",
     "acquisition_drawer.unconfirmed_price_note": "この価格は確認済みですが、入手元は未確認です。より正確な情報は下のWikiリンクをご覧ください。",
     "acquisition_drawer.unconfirmed_badge": "未確認",

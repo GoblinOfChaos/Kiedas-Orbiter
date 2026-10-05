@@ -236,9 +236,35 @@ function textRoutePlace(value) {
   if (!text) return '';
   const cleanPlace = (candidate) => String(candidate || '')
     .replace(/\s+(?:will|can|may|possibly|for|as much as|at rank)\b[\s\S]*$/i, '')
+    .replace(/[,:;.]$/, '')
     .trim();
+  if (/\b(?:Simaris|Railjack\s+&\s+Archwing\s+Mission\s+Rewards)\b/i.test(text)) return cleanPlace(text.replace(/[.]$/, ''));
+  const dropsFrom = text.match(/^Drops from:\s*([^(.]+?)(?:\s+\((\d+(?:\.\d+)?)%\))?\.?$/i);
+  if (dropsFrom) return cleanPlace(dropsFrom[1]);
+  if (/\b(?:purchased|sold)\b[\s\S]*\bfrom\s+(?:the\s+)?Market\b/i.test(text)) return 'Market';
+  const includedWith = text.match(/\bincluded\s+(?:with|in)\s+(?:the\s+)?([^,.!?;]+)/i);
+  if (includedWith) return cleanPlace(includedWith[1]);
+  const partOf = text.match(/\b(?:as\s+)?part\s+of\s+(?:the\s+)?([^,.!?;]+?)(?:\s+for\s+\d|\s+bundle\b|\s+collection\b|\s*$)/i);
+  if (partOf) return cleanPlace(partOf[1]);
+  const patternsFor = text.match(/\b(?:patterns?|skins?|sigils?)\s+for\s+([^,.!?;]+)/i);
+  if (patternsFor) return cleanPlace(patternsFor[1]);
+  const questReward = text.match(/^(.+?)\s+quest\s+reward\.?$/i);
+  if (questReward) return cleanPlace(`${questReward[1]} quest`);
+  if (/\b(?:sold|purchased)\s+for\s+\d[\d,]*(?:\.\d+)?\s+platinum\b/i.test(text)) return 'Market';
+  if (/\b(?:sold|purchased)\s+for\s+\d[\d,]*(?:\.\d+)?\s+credits\b/i.test(text)) return 'Market';
+  if (/\bnightwave\b/i.test(text)) return 'Nightwave';
+  if (/\bdaily\s+tribute\b/i.test(text)) return 'Daily Tribute';
+  if (/\binherent\s+exalted\s+weapon\b/i.test(text)) return 'Exalted Weapon';
+  const category = text.match(/^Category:\s*([^,.;]+)$/i);
+  if (category) return cleanPlace(category[1]);
+  if (/\bincluded\s+by\s+default\b|\bdefault\s+skin\b/i.test(text)) return 'Base item';
+  if (/\b(?:bundle|pack|collection)\b/i.test(text)) {
+    const bundle = text.match(/\b(?:of|part of|as part of)\s+([^,.!?;]+(?:bundle|pack|collection))\b/i)
+      || text.match(/^([^,.!?;]+(?:bundle|pack|collection))\b/i);
+    if (bundle) return cleanPlace(bundle[1]);
+  }
   const onPlace = text.match(/\bon\s+(?:the\s+)?([^,.!?;]+)/i);
-  const fromPlace = text.match(/\bfrom\s+(?:the\s+)?([^,.!?;]+)/i);
+  const fromPlace = text.match(/\bfrom\s*:?\s*(?:the\s+)?([^,.!?;]+)/i);
   const directPlace = text.match(/\b(?:purchased|sold|obtained|acquired|found|earned|reward(?:ed)?|dropped|defeating|scanning)\s+(?:from|at|by|in|on)\s+([^,.!?;]+)/i)
     || text.match(/\b(?:at|via|during|through|in)\s+(?!least\b|most\b)(?:the\s+)?([^,.!?;]+)/i);
   const progressionPlace = text.match(/\b(?:unlocked|acquired|obtained|earned|awarded)\s+(?:upon|by|through|from|at|in|on)\s+([^,.!?;]+)/i);
@@ -250,7 +276,62 @@ function textRoutePlace(value) {
   if (namedPlace) return cleanPlace(namedPlace[0]);
   if (/\b(?:purchas(?:e|ing)|exchange)\b[\s\S]*\bplatinum\b/i.test(text)) return 'Market';
   if (/\b(?:traded|tradeable|tradeability)\b/i.test(text)) return 'Trading';
+  const awarded = text.match(/\b(?:awarded|rewarded|delivered|granted|obtained|acquired|received)\s+(?:for|after|upon|with)\s+(?:completing\s+)?([^,.!?;]+)/i);
+  if (awarded) return cleanPlace(awarded[1]);
+  if (/\bawarded\s+to\s+Tenno\s+recruited\b/i.test(text)) return 'Ally recruitment';
+  if (/\b(?:awarded|rewarded)\s+to\s+players?\s+who\s+contributed\b/i.test(text)) return 'Translation contribution';
+  const defeated = text.match(/\b(?:capturing|defeating|vanquishing)\s+(?:or\s+converting\s+)?([^,.!?;]+)/i);
+  if (defeated) return cleanPlace(defeated[1]);
+  const requires = text.match(/\brequires\s+([\s\S]*?(?:shop|points|Standing)\b[^,.!?;]*)/i);
+  if (requires) return cleanPlace(requires[1]);
+  const stoodAgainst = text.match(/\bstood\s+against\s+([^,.!?;]+)/i);
+  if (stoodAgainst) return cleanPlace(stoodAgainst[1]);
+  const recurringReward = text.match(/\brecurring\s+([^,.!?;]+?)\s+reward\b/i);
+  if (recurringReward) return cleanPlace(recurringReward[1]);
+  if (/\bTennobaum\b/i.test(text)) return 'Tennobaum';
+  const fragmentReward = text.match(/^([^,.!?;]+?)\s+fragment\s+reward\.?$/i);
+  if (fragmentReward) return cleanPlace(fragmentReward[1]);
+  const namedReward = text.match(/^([^,.!?;]+?)\s+reward\.?$/i);
+  if (namedReward) return cleanPlace(namedReward[1]);
+  if (/\bconclave\b/i.test(text)) return 'Conclave';
+  const sourceObject = text.match(/\b(?:with|of|from)\s+([A-Z][^,.!?;]+)/);
+  if (sourceObject) return cleanPlace(sourceObject[1]);
+  if (/\b(?:promo code|promotion|fundraiser|anniversary|real-world currency|marks of|nightmare tatters)\b/i.test(text)) {
+    return cleanPlace(text.replace(/[.]$/, ''));
+  }
+  if (/^\s*Credits\s+[\d,]+\.?$/i.test(text)) return 'Credits';
+  const subject = text.match(/\b(?:this|the|a)\s+([A-Z][A-Za-z]+)\b/i);
+  if (subject) return subject[1];
+  if (text.length <= 120 && !/[.!?]$/.test(text)) return text.replace(/[,:;]$/, '').trim();
   return '';
+}
+
+function splitDropLeadIn(value) {
+  const text = String(value || '').trim();
+  if (!/^Drops from:\s*/i.test(text)) return [];
+  const body = text.replace(/^Drops from:\s*/i, '');
+  const parts = [];
+  let start = 0;
+  let depth = 0;
+  for (let index = 0; index < body.length; index += 1) {
+    if (body[index] === '(') depth += 1;
+    else if (body[index] === ')' && depth > 0) depth -= 1;
+    if (body[index] === ';' && depth === 0) {
+      parts.push(body.slice(start, index).trim());
+      start = index + 1;
+    }
+  }
+  parts.push(body.slice(start).trim());
+  return parts.filter(Boolean).map((part) => {
+    const match = part.match(/^(.+?)(?:\s+\((\d+(?:\.\d+)?)%\))?\.?$/);
+    const place = String(match?.[1] || part).trim();
+    const percent = match?.[2] == null ? null : Number(match[2]);
+    return {
+      place,
+      chance: percent == null ? undefined : percent / 100,
+      text: `Dropped by ${place.replace(/[.]$/, '')}.`,
+    };
+  });
 }
 
 function unhelpfulAcquisitionText(value) {
@@ -263,6 +344,7 @@ function unhelpfulAcquisitionText(value) {
   ];
   const normalized = String(value || '').toLocaleLowerCase();
   return routeStatusMarkers.some((marker) => normalized.includes(marker))
+    || /\b(?:no longer|not obtainable|event is over|season has ended|currently unavailable|operation is currently unavailable|no longer an active acquisition route|posters are decorations)\b/i.test(String(value || ''))
     || /\bfor\s*$/i.test(String(value || '').trim())
     || /^(?:however|which|but|and|although|while|then|except)\b/i.test(String(value || '').trim())
     || /\b(?:changes its design|always worth|cap is determined|formula:|used to trade for it)\b/i.test(value || '');
@@ -336,12 +418,27 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
       expanded.push({ ...source, placeLabel: label });
       continue;
     }
-    const candidates = mergeExtractorRouteSentences(toCurrentSourceSentences(source.text));
+    const candidates = source.type === 'verified-route'
+      ? [source.text]
+      : mergeExtractorRouteSentences(toCurrentSourceSentences(source.text));
     const sourceInheritedPlaceLabel = inheritedPlaceLabel;
     let lastSourcePlaceLabel = '';
     const routeTexts = candidates;
     for (const routeText of routeTexts) {
       if (!routeText) continue;
+      const dropRoutes = splitDropLeadIn(routeText);
+      if (dropRoutes.length) {
+        for (const route of dropRoutes) {
+          expanded.push({
+            ...source,
+            text: route.text,
+            placeLabel: route.place,
+            ...(route.chance == null ? {} : { chance: route.chance }),
+          });
+          acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
+        }
+        continue;
+      }
       if (flattenedTableText(routeText)) {
         const archon = /archon shard/i.test(itemName)
           ? extractReadableArchonRoutes(routeText).filter((text) => !/reward pool|legendary reward|uncommon reward/i.test(text))
@@ -353,11 +450,18 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
         }
         continue;
       }
-      const pieces = splitAcquisitionRouteText(routeText);
+      const pieces = source.type === 'verified-route' ? [routeText] : splitAcquisitionRouteText(routeText);
       if (pieces.length > 1) acquisitionNormalizerStats.rowsSplit += pieces.length - 1;
       for (const rawPiece of pieces) {
-        const text = rawPiece.replace(/^[a-z]/, (letter) => letter.toUpperCase());
-        if (unhelpfulAcquisitionText(text)) continue;
+        let text = rawPiece
+          .replace(/\s*\(internal path:[^)]+\)/gi, '')
+          .replace(/^(?:although|but|and|which|while|however|though|so|or|then|except)[, ]+/i, '')
+          .replace(/^[a-z]/, (letter) => letter.toUpperCase())
+          .trim();
+        const verifiedNotObtainable = source.type === 'verified-route' && source.kind === 'not_obtainable';
+        if (verifiedNotObtainable) text = /^Not currently obtainable\b/i.test(text) ? 'Not currently obtainable.' : text;
+        if (/\bfor\s*$/i.test(text) || /\b(?:price|costs?)\s*[.]$/i.test(text)) continue;
+        if (/^\d{1,3}$/.test(text) || /^[A-Z][A-Za-z']+s?$/.test(text)) text = `${text}.`;
         if (text.length > 300) {
           const shorter = splitAcquisitionRouteText(text).filter((part) => part.length <= 300 && !flattenedTableText(part));
           if (shorter.length) {
@@ -370,8 +474,11 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
         }
         const supplementalText = /\b(?:traded|tradeable|tradeability|mastery\s+rank|reusable)\b/i.test(text);
         const label = sourceLabel(source)
-          || (supplementalText ? (lastSourcePlaceLabel || sourceInheritedPlaceLabel) : textRoutePlace(text))
+          || (supplementalText ? (lastSourcePlaceLabel || sourceInheritedPlaceLabel) : '')
+          || textRoutePlace(text)
+          || (verifiedNotObtainable ? 'Event reward' : '')
           || sourceInheritedPlaceLabel;
+        if (unhelpfulAcquisitionText(text) && !label && !verifiedNotObtainable) continue;
         if (label && !source.placeLabel) acquisitionNormalizerStats.rowsGivenPlaceLabel += 1;
         if (label) lastSourcePlaceLabel = label;
         // A sentence that is not a route (for example a recipe note saying
@@ -395,6 +502,8 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
     }
   }
   const deduped = [];
+  const normalizedPlace = (source) => normalizeDisplayName(source?.placeLabel || sourceLabel(source));
+  const sourceChance = (source) => typeof source?.chance === 'number' ? source.chance : null;
   for (const source of normalizedExpanded) {
     if (isBareAcquisitionCategory(source?.text) && fullerCategories.has(bareAcquisitionCategoryKey(source.text))) {
       acquisitionNormalizerStats.rowsDeduplicated += 1;
@@ -409,7 +518,23 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
     }
     deduped.push(source);
   }
-  return deduped;
+  const globallySeen = [];
+  const pruneDuplicates = (items) => items.flatMap((source) => {
+    if (source?.sources && Array.isArray(source.sources)) {
+      const children = pruneDuplicates(source.sources);
+      return children.length ? [{ ...source, sources: children }] : [];
+    }
+    const key = routeKey(source?.text || source?.placeLabel || sourceLabel(source));
+    const duplicate = globallySeen.some((prior) => prior.key === key
+      || (source?.text && prior.text && routeContains(source.text, prior.text)));
+    if (duplicate) {
+      acquisitionNormalizerStats.rowsDeduplicated += 1;
+      return [];
+    }
+    globallySeen.push({ key, place: normalizedPlace(source), chance: sourceChance(source), text: source?.text });
+    return [source];
+  });
+  return pruneDuplicates(deduped);
 }
 
 export { normalizeAcquisitionRoutes };
@@ -1514,7 +1639,7 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
         if (!source.part && source.type !== 'status' && source.type !== 'unresearched') addRoute(source);
       }
     } else if (typeof overrideText === 'string' && !/^UNKNOWN\b/i.test(overrideText.trim())) {
-      const overrideRoutes = splitAcquisitionRouteText(overrideText);
+      const overrideRoutes = [overrideText];
       for (const text of overrideRoutes) addRoute({ type: 'override', text, source: 'manual override' });
     }
 
@@ -1602,7 +1727,7 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
-    const overrideRoutes = splitAcquisitionRouteText(overrideText);
+    const overrideRoutes = [overrideText];
     return {
       sources: overrideRoutes.map((text) => ({ type: 'override', text, source: 'manual override' })),
       recipe: recipe || null,

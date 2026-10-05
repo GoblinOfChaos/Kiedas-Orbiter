@@ -1,0 +1,117 @@
+{
+  "/Lotus/Types/Restoratives/SelfHealSmall": {
+    "name": "Health Restore (Small)",
+    "reason": "the page only says it could be a Login Reward and does not establish current availability",
+    "pagesChecked": ["Small Health Restore"]
+  },
+  "/Lotus/Types/Restoratives/SelfPistolAmmo": {
+    "name": "Pistol Ammo Box",
+    "reason": "the page only says it could be a Login Reward and does not establish current availability",
+    "pagesChecked": ["Pistol Ammo Box"]
+  },
+  "/Lotus/Types/Restoratives/SelfShieldHeal": {
+    "name": "Shield Restore (Small)",
+    "reason": "the page only says it could be a Login Reward and does not establish current availability",
+    "pagesChecked": ["Shield Restore"]
+  },
+  "/Lotus/Types/Restoratives/SelfSniperAmmo": {
+    "name": "Sniper Ammo Box",
+    "reason": "the page only says it could be a Login Reward and does not establish current availability",
+    "pagesChecked": ["Sniper Ammo Box"]
+  },
+  "/Lotus/Powersuits/Banshee/SonarPvPAugmentCard": {
+    "name": "Augmented Sonar",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Warframe Augment Mods", "Warframe Augment Mods/PvP", "Conclave Mods"]
+  },
+  "/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard": {
+    "name": "Infernum",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Warframe Augment Mods", "Warframe Augment Mods/PvE"]
+  },
+  "/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard": {
+    "name": "Gastroparesis",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Warframe Augment Mods", "Warframe Augment Mods/PvE"]
+  },
+  "/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard": {
+    "name": "Cold Front",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Warframe Augment Mods", "Warframe Augment Mods/PvP", "Frost"]
+  },
+  "/Lotus/Powersuits/Oraxia/BroodAugmentCard": {
+    "name": "Brood's Oversurge",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Warframe Augment Mods", "Warframe Augment Mods/PvE", "Oraxia"]
+  },
+  "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponElectricityDamageModExpert": {
+    "name": "Primed Electrified Barrel",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Primed Mods", "Baro Ki'Teer/Trades", "Archwing Augment Mods"]
+  },
+  "/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert": {
+    "name": "Primed Charged Chamber",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Primed Mods", "Charged Chamber", "Baro Ki'Teer/Trades"]
+  },
+  "/Lotus/Upgrades/Mods/Shotgun/Expert/WeaponCritChanceModExpert": {
+    "name": "Primed Blunderbuss",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Primed Mods", "Blunderbuss", "Baro Ki'Teer/Trades"]
+  },
+  "/Lotus/Upgrades/Mods/Syndicate/BallisticaMod": {
+    "name": "Soaring Truth",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Weapon Augment Mods", "Syndicate Weapons", "Faction Syndicates"]
+  },
+  "/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert": {
+    "name": "Primed Fast Deflection",
+    "reason": "no archived page names this item or states its current acquisition route",
+    "pagesChecked": ["Primed Mods", "Fast Deflection", "Baro Ki'Teer/Trades"]
+  },
+  "/Lotus/Weapons/CrewShip/CrewShipInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/CrewShipInnateFireRateRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/ElectricTether/ElectricTetherInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/Laser/Beam/RailJackBeamInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/Laser/Blaster/BlasterInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/Laser/Blaster/BlasterShotgunInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/Laser/PulseLaser/PulseLaserInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/MassDriver/AutoCannon/AutoCannonInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  },
+  "/Lotus/Weapons/CrewShip/ShrapnelShotgun/ShrapnelShotgunInnateDamageRandomMod": {
+    "name": "Unfused Artifact",
+    "reason": "the archive's Artifact page describes legacy Artifacts, not this item, and does not state a current route",
+    "pagesChecked": ["Artifact", "Railjack", "Railjack/Components"]
+  }
+}

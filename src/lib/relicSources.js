@@ -18,9 +18,16 @@ function isPlainRelicDrop(source) {
 }
 
 function relicNameOf(source) {
-  return String(source?.relicName || source?.relicManifest || relicLikeName(source))
+  return normalizeRelicName(String(source?.relicName || source?.relicManifest || relicLikeName(source)))
+}
+
+/** Normalize every DE/user-facing relic spelling to `Era Code`. */
+export function normalizeRelicName(value) {
+  return String(value || '')
     .replace(REFINEMENT_SUFFIX, '')
     .replace(/\s+-\s+.*?\s+\d+(?:\.\d+)?%\s*$/i, '')
+    .replace(/\s+Relic\b/gi, '')
+    .replace(/\s+/g, ' ')
     .trim()
 }
 
@@ -31,33 +38,138 @@ function relicKey(source, name) {
 }
 
 function rarityKey(relicName, itemType) {
-  return `${relicName.toLowerCase()}|${canonicalPath(itemType || '').toLowerCase()}`
+  return `${normalizeRelicName(relicName).toLowerCase()}|${canonicalPath(itemType || '').toLowerCase()}`
+}
+
+function normalizedIdentity(value) {
+  return String(value || '').replaceAll('/StoreItems/', '/').replace(/\s+/g, ' ').trim().toLowerCase()
+}
+
+function resolvedExportName(value, dict = {}) {
+  if (typeof value !== 'string') return ''
+  const resolved = dict[value] || dict[`/${value}`] || value
+  return String(resolved).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim()
+}
+
+function addRelatedIdentity(related, left, right) {
+  const a = canonicalPath(left)
+  const b = canonicalPath(right)
+  if (!a || !b) return
+  const leftSet = related.get(a) || new Set([a])
+  const rightSet = related.get(b) || new Set([b])
+  const merged = new Set([...leftSet, ...rightSet])
+  for (const identity of merged) related.set(identity, merged)
+}
+
+function addIdentityVariants(related, value) {
+  const identity = canonicalPath(value)
+  if (!identity) return
+  if (!related.has(identity)) related.set(identity, new Set([identity]))
+  if (/Component$/i.test(identity)) addRelatedIdentity(related, identity, identity.replace(/Component$/i, 'Blueprint'))
+  if (/Blueprint$/i.test(identity)) addRelatedIdentity(related, identity, identity.replace(/Blueprint$/i, 'Component'))
+}
+
+function buildIdentityMaps(exportData) {
+  const related = new Map()
+  const displayToIdentities = new Map()
+  const addDisplay = (displayName, identity) => {
+    const name = normalizedIdentity(displayName)
+    const path = canonicalPath(identity)
+    if (!name || !path || name === 'blueprint') return
+    addIdentityVariants(related, path)
+    const identities = displayToIdentities.get(name) || new Set()
+    identities.add(path)
+    displayToIdentities.set(name, identities)
+  }
+
+  for (const [blueprintUniqueName, recipe] of Object.entries(exportData?.ExportRecipes || {})) {
+    if (!recipe?.resultType) continue
+    addRelatedIdentity(related, blueprintUniqueName, recipe.resultType)
+  }
+
+  const tables = ['ExportWarframes', 'ExportWeapons', 'ExportSentinels', 'ExportGear', 'ExportCustoms', 'ExportResources', 'ExportUpgrades']
+  for (const tableName of tables) {
+    const table = exportData?.[tableName]
+    if (!table || typeof table !== 'object') continue
+    for (const [key, entry] of Object.entries(table)) {
+      const identity = entry?.uniqueName || entry?.ItemType || key
+      addDisplay(resolvedExportName(entry?.name || entry?.displayName, exportData?.dict || {}), identity)
+    }
+  }
+
+  for (const item of exportData?.AcquisitionItems || []) {
+    if (!item) continue
+    if (item.uniqueName) addDisplay(item.name, item.uniqueName)
+    for (const component of item.components || []) {
+      if (!component?.uniqueName) continue
+      addDisplay(component.name === 'Blueprint' ? `${item.name} Blueprint` : `${item.name} ${component.name}`, component.uniqueName)
+      if (component.name !== 'Blueprint') addDisplay(`${item.name} ${component.name} Blueprint`, component.uniqueName)
+    }
+  }
+
+  for (const identity of related.keys()) addIdentityVariants(related, identity)
+  return { related, displayToIdentities }
+}
+
+function identityAliases(identity, maps) {
+  const aliases = new Set()
+  const add = (value) => {
+    const path = canonicalPath(value)
+    if (!path) return
+    const group = maps.related.get(path) || new Set([path])
+    for (const member of group) aliases.add(member)
+  }
+  add(identity)
+  for (const path of maps.displayToIdentities.get(normalizedIdentity(identity)) || []) add(path)
+  return aliases
 }
 
 /** Build the DE ExportRelics/ExportRewards rarity lookup used by plain drops. */
 export function buildRelicRarityIndex(exportData) {
   const index = new Map()
-  const blueprintToResult = new Map()
-  for (const [blueprintUniqueName, recipe] of Object.entries(exportData?.ExportRecipes || {})) {
-    if (recipe?.resultType) blueprintToResult.set(canonicalPath(blueprintUniqueName), canonicalPath(recipe.resultType))
-  }
+  const maps = buildIdentityMaps(exportData)
   for (const [uniqueName, entry] of Object.entries(exportData?.ExportRelics || {})) {
     const normalized = normalizeRelicEntry(entry, uniqueName)
     if (!normalized.era || !normalized.category) continue
     const relicName = `${normalized.era} ${normalized.category}`
     for (const reward of relicRewardPool(entry, exportData?.ExportRewards, uniqueName)) {
       if (!reward?.type || !reward?.rarity) continue
-      const rewardType = canonicalPath(reward.type)
-      index.set(rarityKey(relicName, rewardType), reward.rarity)
-      // Prime part drops name the part blueprint, while Foundry ingredients
-      // use that blueprint's resultType (the component path). Keep both
-      // identities on the DE-backed index so a drawer never falls back to
-      // the unreliable bundled item-data rarity.
-      const componentType = blueprintToResult.get(rewardType)
-      if (componentType) index.set(rarityKey(relicName, componentType), reward.rarity)
+      for (const identity of identityAliases(reward.type, maps)) index.set(rarityKey(relicName, identity), reward.rarity)
     }
   }
+  Object.defineProperty(index, 'identityMaps', { value: maps })
   return index
+}
+
+/** Resolve a DE tier through the same path/blueprint/display-name identity map used by drawers. */
+export function resolveRelicRarity(rarityIndex, relicName, itemType) {
+  if (!rarityIndex) return undefined
+  const direct = rarityIndex.get(rarityKey(relicName, itemType))
+  if (direct) return direct
+  for (const identity of identityAliases(itemType, rarityIndex.identityMaps || { related: new Map(), displayToIdentities: new Map() })) {
+    const rarity = rarityIndex.get(rarityKey(relicName, identity))
+    if (rarity) return rarity
+  }
+  return undefined
+}
+
+/** Count unique fallback relic rows that have no matching DE ExportRelics tier. */
+export function countRelicRowsWithoutDeTier(exportData, rarityIndex) {
+  const missing = new Set()
+  for (const item of exportData?.AcquisitionItems || []) {
+    for (const component of item?.components || []) {
+      if (!component?.uniqueName || !Array.isArray(component.drops)) continue
+      for (const drop of component.drops) {
+        const match = String(drop?.location || '').match(/\b(?:Lith|Meso|Neo|Axi|Requiem)\s+[A-Z]\d+/i)
+        if (!match) continue
+        const relicName = normalizeRelicName(match[0])
+        if (!resolveRelicRarity(rarityIndex, relicName, component.uniqueName)) {
+          missing.add(`${canonicalPath(component.uniqueName)}|${relicName.toLowerCase()}`)
+        }
+      }
+    }
+  }
+  return missing.size
 }
 
 /** Collapse refinement variants and normalize relic-shaped fallback drops. */
@@ -72,10 +184,14 @@ export function normalizeRelicSources(sources = [], { rarityIndex = null, itemTy
       continue
     }
     const relicName = relicNameOf(source)
+    // A malformed DE reward row has no relic identity at all. It cannot be
+    // paired with ExportRelics, so do not render a misleading bare "Relic"
+    // label or attach a tier from a different item.
+    if (!relicName) continue
     const key = relicKey(source, relicName)
     const existing = relics.get(key)
     const sourceItemType = source?.componentType || source?.itemType || itemType
-    const exportRarity = rarityIndex?.get(rarityKey(relicName, sourceItemType))
+    const exportRarity = resolveRelicRarity(rarityIndex, relicName, sourceItemType)
     const isExportRelic = source.type === 'relic' && source.chance == null && source.state == null
     const isIntactMirror = /^Intact$/i.test(source.state || '')
     const { rarity: _bundledRarity, ...sourceWithoutRarity } = source
@@ -204,7 +320,7 @@ export function buildBlueprintSourceRows(displayName, recipe, dropIndex, fallbac
 }
 
 export function getRelicSourceLabel(source, t = (key) => key) {
-  const name = source?.relicName || source?.relicManifest || t('acquisition_drawer.relic_fallback')
+  const name = normalizeRelicName(source?.relicName || source?.relicManifest) || t('acquisition_drawer.relic_fallback')
   return `${name}${source?.rarity ? ` (${t(`ui.relic_rarity.${String(source.rarity).toLowerCase()}`)})` : ''}`
 }
 

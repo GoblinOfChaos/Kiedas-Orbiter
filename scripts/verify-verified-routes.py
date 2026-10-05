@@ -21,7 +21,25 @@ INVALID_FILENAME_CHARS = re.compile(r'[/\\:*?"<>|]')
 
 
 def norm(value: str) -> str:
-    return re.sub(r"\s+", " ", value).strip()
+    value = value.replace("\u2018", "'").replace("\u2019", "'")
+    value = value.replace("\u201c", '"').replace("\u201d", '"')
+    value = value.replace("\u2013", "-").replace("\u2014", "-")
+    value = re.sub(r"\s+", " ", value).strip()
+    value = re.sub(r"\bT\s+(?=(?:ennobaum|echnocyte|enno|asoma|epa|oxic|win|ype|o)\b)", "T", value, flags=re.I)
+    value = re.sub(r"\bN\s+(?=o longer\b)", "N", value, flags=re.I)
+    return value
+
+
+def not_obtainable_proven(quote: str, page: str) -> bool:
+    if re.search(
+        r"\b(?:not obtainable|no longer|no way to obtain|unavailable|discontinued|retired|previously obtainable|remain exclusive)\b",
+        quote,
+        re.I,
+    ):
+        return True
+    return page.casefold().startswith("nightwave/") and re.search(
+        r"\b(?:had|ended|concluded|intermission|series)\b", quote, re.I
+    ) is not None
 
 
 def archive_filename(title: str) -> str:
@@ -102,6 +120,8 @@ def check(scope_path: Path, resolved_path: Path, unresolved_path: Path, archive:
             assert isinstance(quote, str) and quote.strip(), f"missing quote for {unique}"
             text_source = page_text(page, archive, cache, title_map)
             assert norm(quote) in text_source, f"quote not found on {page} for {unique}"
+            if item_route["kind"] == "not_obtainable":
+                assert not_obtainable_proven(quote, page), f"not_obtainable is not proven for {unique}"
             kinds[item_route["kind"]] += 1
             if len(examples) < 15:
                 examples.append({"item": entry["name"], "quote": quote, "text": text})

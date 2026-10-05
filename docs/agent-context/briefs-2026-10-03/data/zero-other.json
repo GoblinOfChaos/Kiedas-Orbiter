@@ -1,192 +1,197 @@
 [
-{
-"table": "ExportGear",
-"name": "Corrupted Bombard Specter",
-"uniqueName": "/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall"
-},
-{
-"table": "ExportGear",
-"name": "Stalker Specter",
-"uniqueName": "/Lotus/Types/Restoratives/Consumable/StalkerBall"
-},
-{
-"table": "ExportGear",
-"name": "Health Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/SelfHealSmall"
-},
-{
-"table": "ExportGear",
-"name": "Pistol Ammo Box",
-"uniqueName": "/Lotus/Types/Restoratives/SelfPistolAmmo"
-},
-{
-"table": "ExportGear",
-"name": "Shield Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/SelfShieldHeal"
-},
-{
-"table": "ExportGear",
-"name": "Shotgun Ammo Box",
-"uniqueName": "/Lotus/Types/Restoratives/SelfShotgunAmmo"
-},
-{
-"table": "ExportGear",
-"name": "Sniper Ammo Box",
-"uniqueName": "/Lotus/Types/Restoratives/SelfSniperAmmo"
-},
-{
-"table": "ExportGear",
-"name": "Squad Ammo Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/TeamAmmoTotem"
-},
-{
-"table": "ExportGear",
-"name": "Squad Energy Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/TeamEnergyTotem"
-},
-{
-"table": "ExportGear",
-"name": "Squad Health Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/TeamHeal"
-},
-{
-"table": "ExportGear",
-"name": "Squad Health Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/TeamHealTotem"
-},
-{
-"table": "ExportGear",
-"name": "Squad Shield Restore (Small)",
-"uniqueName": "/Lotus/Types/Restoratives/TeamShieldTotem"
-},
-{
-"table": "ExportSentinels",
-"name": "Prisma Shade",
-"uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit"
-},
-{
-"table": "ExportUpgrades",
-"name": "Augmented Sonar",
-"uniqueName": "/Lotus/Powersuits/Banshee/SonarPvPAugmentCard"
-},
-{
-"table": "ExportUpgrades",
-"name": "Infernum",
-"uniqueName": "/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard"
-},
-{
-"table": "ExportUpgrades",
-"name": "Gastroparesis",
-"uniqueName": "/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard"
-},
-{
-"table": "ExportUpgrades",
-"name": "Cold Front",
-"uniqueName": "/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard"
-},
-{
-"table": "ExportUpgrades",
-"name": "Brood's Oversurge",
-"uniqueName": "/Lotus/Powersuits/Oraxia/BroodAugmentCard"
-},
-{
-"table": "ExportUpgrades",
-"name": "Primed Electrified Barrel",
-"uniqueName": "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponElectricityDamageModExpert"
-},
-{
-"table": "ExportUpgrades",
-"name": "Primed Polar Magazine",
-"uniqueName": "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert"
-},
-{
-"table": "ExportUpgrades",
-"name": "Primed Charged Chamber",
-"uniqueName": "/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert"
-},
-{
-"table": "ExportUpgrades",
-"name": "Helminth Ferocity",
-"uniqueName": "/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Primed Blunderbuss",
-"uniqueName": "/Lotus/Upgrades/Mods/Shotgun/Expert/WeaponCritChanceModExpert"
-},
-{
-"table": "ExportUpgrades",
-"name": "Soaring Truth",
-"uniqueName": "/Lotus/Upgrades/Mods/Syndicate/BallisticaMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Resilient Focus",
-"uniqueName": "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun"
-},
-{
-"table": "ExportUpgrades",
-"name": "Primed Fast Deflection",
-"uniqueName": "/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/CrewShipInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/CrewShipInnateFireRateRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/ElectricTether/ElectricTetherInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/Laser/Beam/RailJackBeamInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/Laser/Blaster/BlasterInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/Laser/Blaster/BlasterShotgunInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/Laser/PulseLaser/PulseLaserInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/MassDriver/AutoCannon/AutoCannonInnateDamageRandomMod"
-},
-{
-"table": "ExportUpgrades",
-"name": "Unfused Artifact",
-"uniqueName": "/Lotus/Weapons/CrewShip/ShrapnelShotgun/ShrapnelShotgunInnateDamageRandomMod"
-},
-{
-"table": "ExportWarframes",
-"name": "Excalibur Prime",
-"uniqueName": "/Lotus/Powersuits/Excalibur/ExcaliburPrime"
-},
-{
-"table": "ExportWeapons",
-"name": "<ARCHWING> Prisma Veritux",
-"uniqueName": "/Lotus/Weapons/Tenno/Archwing/Melee/VoidTraderArchsword/VTArchSwordWeapon"
-},
-{
-"table": "ExportWeapons",
-"name": "Skana Prime",
-"uniqueName": "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime"
-}
+  {
+    "table": "ExportGear",
+    "name": "Corrupted Bombard Specter",
+    "uniqueName": "/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Stalker Specter",
+    "uniqueName": "/Lotus/Types/Restoratives/Consumable/StalkerBall"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Health Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/SelfHealSmall"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Pistol Ammo Box",
+    "uniqueName": "/Lotus/Types/Restoratives/SelfPistolAmmo"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Shield Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/SelfShieldHeal"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Shotgun Ammo Box",
+    "uniqueName": "/Lotus/Types/Restoratives/SelfShotgunAmmo"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Sniper Ammo Box",
+    "uniqueName": "/Lotus/Types/Restoratives/SelfSniperAmmo"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Squad Ammo Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/TeamAmmoTotem"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Squad Energy Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/TeamEnergyTotem"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Squad Health Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/TeamHeal"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Squad Health Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/TeamHealTotem"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Squad Shield Restore (Small)",
+    "uniqueName": "/Lotus/Types/Restoratives/TeamShieldTotem"
+  },
+  {
+    "table": "ExportSentinels",
+    "name": "Prisma Shade",
+    "uniqueName": "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Augmented Sonar",
+    "uniqueName": "/Lotus/Powersuits/Banshee/SonarPvPAugmentCard"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Infernum",
+    "uniqueName": "/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Gastroparesis",
+    "uniqueName": "/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Cold Front",
+    "uniqueName": "/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Brood's Oversurge",
+    "uniqueName": "/Lotus/Powersuits/Oraxia/BroodAugmentCard"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Primed Electrified Barrel",
+    "uniqueName": "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponElectricityDamageModExpert"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Primed Polar Magazine",
+    "uniqueName": "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Primed Charged Chamber",
+    "uniqueName": "/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Helminth Ferocity",
+    "uniqueName": "/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Primed Blunderbuss",
+    "uniqueName": "/Lotus/Upgrades/Mods/Shotgun/Expert/WeaponCritChanceModExpert"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Soaring Truth",
+    "uniqueName": "/Lotus/Upgrades/Mods/Syndicate/BallisticaMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Resilient Focus",
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Primed Fast Deflection",
+    "uniqueName": "/Lotus/Upgrades/Mods/Warframe/Expert/AvatarShieldRechargeRateModExpert"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/CrewShipInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/CrewShipInnateFireRateRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/ElectricTether/ElectricTetherInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/Laser/Beam/RailJackBeamInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/Laser/Blaster/BlasterInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/Laser/Blaster/BlasterShotgunInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/Laser/PulseLaser/PulseLaserInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/MassDriver/AutoCannon/AutoCannonInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportUpgrades",
+    "name": "Unfused Artifact",
+    "uniqueName": "/Lotus/Weapons/CrewShip/ShrapnelShotgun/ShrapnelShotgunInnateDamageRandomMod"
+  },
+  {
+    "table": "ExportWarframes",
+    "name": "Excalibur Prime",
+    "uniqueName": "/Lotus/Powersuits/Excalibur/ExcaliburPrime"
+  },
+  {
+    "table": "ExportWeapons",
+    "name": "<ARCHWING> Prisma Veritux",
+    "uniqueName": "/Lotus/Weapons/Tenno/Archwing/Melee/VoidTraderArchsword/VTArchSwordWeapon"
+  },
+  {
+    "table": "ExportWeapons",
+    "name": "Skana Prime",
+    "uniqueName": "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime"
+  },
+  {
+    "table": "ExportGear",
+    "name": "Corrupted Heavy Gunner Specter",
+    "uniqueName": "/Lotus/Types/Restoratives/Consumable/CorruptedHeavyGunnerBall"
+  }
 ]

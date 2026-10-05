@@ -1,2112 +1,2347 @@
 [
-{
-"table": "ExportCustoms",
-"name": "Deimos Vulpaphyla Pattern",
-"uniqueName": "/Lotus/Types/Game/InfestedKavatPet/Patterns/InfestedCritterPatternDefault"
-},
-{
-"table": "ExportCustoms",
-"name": "Deimos Predasite Pattern",
-"uniqueName": "/Lotus/Types/Game/InfestedPredatorPet/Patterns/InfestedPredatorPatternDefault"
-},
-{
-"table": "ExportCustoms",
-"name": "Drahk Kubrow Pattern",
-"uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/DrahkKubrowPattern"
-},
-{
-"table": "ExportCustoms",
-"name": "Helminth Degenerate Pattern",
-"uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/HelminthPetPatternClassic"
-},
-{
-"table": "ExportCustoms",
-"name": "Fabled Kubrow Fur Pattern",
-"uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternDuviriWolf"
-},
-{
-"table": "ExportCustoms",
-"name": "Helminth Pattern",
-"uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternInfested"
-},
-{
-"table": "ExportCustoms",
-"name": "Nart-Deer Pattern",
-"uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasA"
-},
-{
-"table": "ExportCustoms",
-"name": "Nistlebrush Pattern",
-"uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasB"
-},
-{
-"table": "ExportCustoms",
-"name": "Ivara Obsidian Artemis Bow Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Ivara Obsidian Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Ivara Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Salix Solstice Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Archer/WinterSolsticeSalix"
-},
-{
-"table": "ExportCustoms",
-"name": "Hexis Arm Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Hexis Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorC"
-},
-{
-"table": "ExportCustoms",
-"name": "Hexis Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorL"
-},
-{
-"table": "ExportCustoms",
-"name": "Suda Arm Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Suda Chest Piece",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorC"
-},
-{
-"table": "ExportCustoms",
-"name": "Suda Leg Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorL"
-},
-{
-"table": "ExportCustoms",
-"name": "Dendra Obsidian Shoulder Guard",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Dendra Obsidian Leg Guard",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Porta Day of the Dead Shoulder Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircA"
-},
-{
-"table": "ExportCustoms",
-"name": "Porta Day of the Dead Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircC"
-},
-{
-"table": "ExportCustoms",
-"name": "Porta Day of the Dead Leg Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircL"
-},
-{
-"table": "ExportCustoms",
-"name": "Dax Lustratus Shoulder Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Tidon Shoulder Medallion",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA"
-},
-{
-"table": "ExportCustoms",
-"name": "Tidon Chest Medallion",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourC"
-},
-{
-"table": "ExportCustoms",
-"name": "Tidon Leg Medallion",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourL"
-},
-{
-"table": "ExportCustoms",
-"name": "Contegorus Pauldrons",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoA"
-},
-{
-"table": "ExportCustoms",
-"name": "Contegorus Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoC"
-},
-{
-"table": "ExportCustoms",
-"name": "Contegorus Greaves",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoL"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Pauldrons",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/EvilBaroArmour/EvilBaroArmourA"
-},
-{
-"table": "ExportCustoms",
-"name": "Meridian Arm Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianAArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Meridian Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianCArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Meridian Leg Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianLArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Axa Shoulder Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourA"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Axa Leg Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourL"
-},
-{
-"table": "ExportCustoms",
-"name": "Lokan Arm Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaAArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Lokan Chest Piece",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaCArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Lokan Knee Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaLArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Opula Shoulder Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Opula Chest Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC"
-},
-{
-"table": "ExportCustoms",
-"name": "Opula Leg Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL"
-},
-{
-"table": "ExportCustoms",
-"name": "Ostron Arm Guards",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Ostron Chest Guard",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorC"
-},
-{
-"table": "ExportCustoms",
-"name": "Ostron Leg Guards",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorL"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Deko Shoulder Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Deko Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Deko Knee Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL"
-},
-{
-"table": "ExportCustoms",
-"name": "Perrin Arm Guards",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Perrin Chest Piece",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorC"
-},
-{
-"table": "ExportCustoms",
-"name": "Perrin Leg Guards",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorL"
-},
-{
-"table": "ExportCustoms",
-"name": "Red Veil Arm Insignia",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilAArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Red Veil Chest Piece",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilCArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Red Veil Knee Guards",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilLArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Daedalus Shoulder Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeArmArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Daedalus Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeChestArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Daedalus Knee Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeLegArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Daedalus Shoulder Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeArmArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Daedalus Chest Plate",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeChestArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Daedalus Knee Plates",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeLegArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Solaris Arm Guards",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedAArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Solaris Chest Marker",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedCArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Solaris Leg Spurs",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedLArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Deathmark Shoulder Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/StalkerShoulderArmor/StalkerShoulderArmorA"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Heirloom Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostHeirloomArmArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Revenant Mephisto Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/RevenantDeluxeCape"
-},
-{
-"table": "ExportCustoms",
-"name": "Octavia Iridos Mix Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Octavia Iridos Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Bard/BardTwitchHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Octavia Iridos Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Bard/BardTwitchSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Valkyr Jade Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Berserker/JadeValkyrHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Valkyr Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Berserker/JadeValkyrSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Xaku Raya Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Nexus Kavat Fur Pattern",
-"uniqueName": "/Lotus/Upgrades/Skins/Catbrows/NexusCatbrowFur"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Kavat Fur Pattern",
-"uniqueName": "/Lotus/Upgrades/Skins/Catbrows/SolsticeCatbrowFur"
-},
-{
-"table": "ExportCustoms",
-"name": "Argyl Kavat Fur Pattern",
-"uniqueName": "/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Coven Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Choir/SWCovenJadeHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Coven Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Choir/SWCovenJadeSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Drip Squad 4 Life Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Hostile Mergers Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Lunar Renewal Ox Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem"
-},
-{
-"table": "ExportCustoms",
-"name": "COMMEMORATIVE EMBLEM",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/CYCCBBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Tiberon Obsidian Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Epoch Operation Vessel Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/EpochOperationEmblemItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Sekhara",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/EvilBaroHaloBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "False Profit Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/FalseProfitEventBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Tubemen Of Regor Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/GrnSeaLabEventBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Operation Orphix Venom Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/NoraSeasonTwoBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Okina Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Acolyte Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/ProjectSinisterBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Conquera Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Nightwave Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/RadioLegionBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Atramentum Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Bronze Skull Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Gold Skull Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Silver Skull Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Eyes of Blight Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/SlingStone2EmblemItem"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Saturn Six Emblem",
-"uniqueName": "/Lotus/Upgrades/Skins/Clan/WolfBadgeItem"
-},
-{
-"table": "ExportCustoms",
-"name": "Mandonel Chythedra Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Qorvex Basilica Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Qorvex Basilica Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Vectis Sharpshooter Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSharpshooter"
-},
-{
-"table": "ExportCustoms",
-"name": "Vectis Silferer Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSilferer"
-},
-{
-"table": "ExportCustoms",
-"name": "Dual Zoren Combustion Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/DualZorenCombustion"
-},
-{
-"table": "ExportCustoms",
-"name": "Dual Zoren Kuberus Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/DualZorenKuberus"
-},
-{
-"table": "ExportCustoms",
-"name": "Scindo Combustion Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/ScindoCombustion"
-},
-{
-"table": "ExportCustoms",
-"name": "Scindo Kuberus Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/ScindoKuberus"
-},
-{
-"table": "ExportCustoms",
-"name": "Akmagnus Dakila Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/AkmagnusDakila"
-},
-{
-"table": "ExportCustoms",
-"name": "Akmagnus Hivelight Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/AkmagnusHiveLight"
-},
-{
-"table": "ExportCustoms",
-"name": "Magnus Dakila Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/MagnusDakila"
-},
-{
-"table": "ExportCustoms",
-"name": "Magnus Hivelight Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/MagnusHiveLight"
-},
-{
-"table": "ExportCustoms",
-"name": "Isageum Signa",
-"uniqueName": "/Lotus/Upgrades/Skins/Crowns/DuelistCrown"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Heirloom Signa",
-"uniqueName": "/Lotus/Upgrades/Skins/Crowns/HeirloomFrostCrown"
-},
-{
-"table": "ExportCustoms",
-"name": "Mag Heirloom Signa",
-"uniqueName": "/Lotus/Upgrades/Skins/Crowns/HeirloomMagCrown"
-},
-{
-"table": "ExportCustoms",
-"name": "Conquera Cateura Signa",
-"uniqueName": "/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown"
-},
-{
-"table": "ExportCustoms",
-"name": "Gothica Signa",
-"uniqueName": "/Lotus/Upgrades/Skins/Crowns/SWGothicaSignaCrown"
-},
-{
-"table": "ExportCustoms",
-"name": "Vermis Signa",
-"uniqueName": "/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown"
-},
-{
-"table": "ExportCustoms",
-"name": "Ambassador Tenet Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/CrpArSniper/CrpArSniperLichSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Banshee Threnodia Shoulder Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBArmLeftArmor"
-},
-{
-"table": "ExportCustoms",
-"name": "Banshee Threnodia Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Banshee Threnodia Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Narin Baridegi Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Narin Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Duelist/DuelistHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Narin Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Duelist/DuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Infinitas Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/BaroEvilEphemeraB"
-},
-{
-"table": "ExportCustoms",
-"name": "Conquera III Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Gangrim Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/DuelistEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Seonang Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/DuelistSpiritEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Spring Step Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/FootstepsEasterEggs"
-},
-{
-"table": "ExportCustoms",
-"name": "Spore Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA"
-},
-{
-"table": "ExportCustoms",
-"name": "Primatura Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraA"
-},
-{
-"table": "ExportCustoms",
-"name": "Pareidola Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraB"
-},
-{
-"table": "ExportCustoms",
-"name": "Liftbalon Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraC"
-},
-{
-"table": "ExportCustoms",
-"name": "Xianglong Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/LNYDragonEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Malaen Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/LNYKaitheDagathEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Heaven Stones Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/LNYStonesEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Purified Bloom Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/LunarEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/ObsidianEphemeraA"
-},
-{
-"table": "ExportCustoms",
-"name": "Opula Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/OpulaEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Okuri Tails Prime Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/PrimeVorunaEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Temporal Prime Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/ProteaPrimeEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Belfri Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2021 Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/TennoCon2021Ephemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Hunhullus Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/TennoCon2026Ephemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Thalassa Prime Ephemera",
-"uniqueName": "/Lotus/Upgrades/Skins/Effects/YareliPrimeEphemera"
-},
-{
-"table": "ExportCustoms",
-"name": "Glaxion Polar Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Events/GlaxionPolar"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Excalibur/NintendoExcalibur"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Opal Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Obsidian Azura Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB"
-},
-{
-"table": "ExportCustoms",
-"name": "Titania Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Fairy/SolsticeFairySkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Aerospri Dex Pixia Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIArchwingPistolsSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Ringers Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Festivities/JingleKnuckles"
-},
-{
-"table": "ExportCustoms",
-"name": "Sonicor Festive Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Festivities/XmasSonicor"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Heirloom Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostHeirloomHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Heirloom Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostHeirloomSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Festive Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostXmasSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Frost/NintendoFrost"
-},
-{
-"table": "ExportCustoms",
-"name": "Frost Opal Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Frost/NintendoFrostHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Citrine Prime Adornments",
-"uniqueName": "/Lotus/Upgrades/Skins/Geode/CitrinePrimeAux"
-},
-{
-"table": "ExportCustoms",
-"name": "Citrine Prime Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Geode/CitrinePrimeHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Citrine Prime Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Citrine Heliotropia Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Geode/SWCitrineHeliotropiaHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Twin Grakatas Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Guandao Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Guandao/NintendoGaundaoSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Atomos Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/DOTD2025AtomosSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Aklato Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAklato"
-},
-{
-"table": "ExportCustoms",
-"name": "Amprex Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAmprex"
-},
-{
-"table": "ExportCustoms",
-"name": "Angstrum Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAngstrum"
-},
-{
-"table": "ExportCustoms",
-"name": "Veritux Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenArchSword"
-},
-{
-"table": "ExportCustoms",
-"name": "Boltor Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenBoltor"
-},
-{
-"table": "ExportCustoms",
-"name": "Braton Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenBraton"
-},
-{
-"table": "ExportCustoms",
-"name": "Buzlok Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenBuzlok"
-},
-{
-"table": "ExportCustoms",
-"name": "Daikyu Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDaikyu"
-},
-{
-"table": "ExportCustoms",
-"name": "Dark Dagger Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDarkDagger"
-},
-{
-"table": "ExportCustoms",
-"name": "Dark Split-Sword Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDarkSplitSword"
-},
-{
-"table": "ExportCustoms",
-"name": "Dragon Nikana Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDragonNikana"
-},
-{
-"table": "ExportCustoms",
-"name": "Dual Zoren Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDualZoren"
-},
-{
-"table": "ExportCustoms",
-"name": "Galatine Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGalatine"
-},
-{
-"table": "ExportCustoms",
-"name": "Glaive Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGlaive"
-},
-{
-"table": "ExportCustoms",
-"name": "Glaxion Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGlaxion"
-},
-{
-"table": "ExportCustoms",
-"name": "Gorgon Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGorgon"
-},
-{
-"table": "ExportCustoms",
-"name": "Grakata Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGrakata"
-},
-{
-"table": "ExportCustoms",
-"name": "Grinlok Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGrinlok"
-},
-{
-"table": "ExportCustoms",
-"name": "Imperator Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenImperator"
-},
-{
-"table": "ExportCustoms",
-"name": "Jat Kittag Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenJatKittag"
-},
-{
-"table": "ExportCustoms",
-"name": "Kronen Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenKronen"
-},
-{
-"table": "ExportCustoms",
-"name": "Kunai Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenKunai"
-},
-{
-"table": "ExportCustoms",
-"name": "Lato Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenLato"
-},
-{
-"table": "ExportCustoms",
-"name": "Lato Vandal Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal"
-},
-{
-"table": "ExportCustoms",
-"name": "Marelok Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenMarelok"
-},
-{
-"table": "ExportCustoms",
-"name": "Nikana Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenNikana"
-},
-{
-"table": "ExportCustoms",
-"name": "Nukor Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenNukor"
-},
-{
-"table": "ExportCustoms",
-"name": "Opticor Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenOpticor"
-},
-{
-"table": "ExportCustoms",
-"name": "Orthos Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenOrthos"
-},
-{
-"table": "ExportCustoms",
-"name": "Paris Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenParis"
-},
-{
-"table": "ExportCustoms",
-"name": "Ack & Brunt Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenRegorAxeShield"
-},
-{
-"table": "ExportCustoms",
-"name": "Sarpa Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSarpa"
-},
-{
-"table": "ExportCustoms",
-"name": "Scindo Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenScindo"
-},
-{
-"table": "ExportCustoms",
-"name": "Silva & Aegis Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis"
-},
-{
-"table": "ExportCustoms",
-"name": "Simulor Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSimulor"
-},
-{
-"table": "ExportCustoms",
-"name": "Skana Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSkana"
-},
-{
-"table": "ExportCustoms",
-"name": "Sobek Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSobek"
-},
-{
-"table": "ExportCustoms",
-"name": "Soma Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSoma"
-},
-{
-"table": "ExportCustoms",
-"name": "Sonicor Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSonicor"
-},
-{
-"table": "ExportCustoms",
-"name": "Spira Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSpira"
-},
-{
-"table": "ExportCustoms",
-"name": "Stradavar Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenStradavar"
-},
-{
-"table": "ExportCustoms",
-"name": "Tonkor Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenTonkor"
-},
-{
-"table": "ExportCustoms",
-"name": "Twin Grakatas Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenTwinGrakatas"
-},
-{
-"table": "ExportCustoms",
-"name": "Gremlins Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenTwinGremlins"
-},
-{
-"table": "ExportCustoms",
-"name": "Vasto Day of the Dead Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenVasto"
-},
-{
-"table": "ExportCustoms",
-"name": "Heliocor Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Hammer/SolsticeHeliocor"
-},
-{
-"table": "ExportCustoms",
-"name": "Mirage Winter Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Harlequin/MirageXmasSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Gynfas Kaithe",
-"uniqueName": "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseBodySkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Gynfas Tail",
-"uniqueName": "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail"
-},
-{
-"table": "ExportCustoms",
-"name": "EXTERMINATE",
-"uniqueName": "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerM"
-},
-{
-"table": "ExportCustoms",
-"name": "Valinn Jade Kubrow Armor",
-"uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBJade"
-},
-{
-"table": "ExportCustoms",
-"name": "Daybreak Kubrow Fur Pattern",
-"uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Fur/DaybreakKubrowFur"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Kubrow Fur Pattern",
-"uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Fur/SolsticeKubrowFur"
-},
-{
-"table": "ExportCustoms",
-"name": "Dual Swords Lunaeus Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/LunarNewYear/LNYHookSword"
-},
-{
-"table": "ExportCustoms",
-"name": "Mag Heirloom Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHeirloomHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Mag Heirloom Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHeirloomSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Mag Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Mag/NintendoMag"
-},
-{
-"table": "ExportCustoms",
-"name": "Mag Opal Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Mag/NintendoMagHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Drippy Keychain Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/DrippyKeychainMeleeDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/EvilBaroSugatraMeleeDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "Baochun Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/LNYBirdSugatra"
-},
-{
-"table": "ExportCustoms",
-"name": "Tanau Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/LNYFireSugatra"
-},
-{
-"table": "ExportCustoms",
-"name": "Cordmade Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/LNYSnakeMeleeDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "Alumeti Prime Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra"
-},
-{
-"table": "ExportCustoms",
-"name": "Jack O'Naut Keychain Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "Tammpet Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/TennoCon2022SugatraMeleeDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "Lunaeus Knot Sugatra",
-"uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/WegameChinaKnotDangle"
-},
-{
-"table": "ExportCustoms",
-"name": "Eschatos Necramech Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Necramech Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Mausolon Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Necramech/MechWeapon/EvilBaroMausolonSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Mausolon Supulchrax Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Epitaph Raya Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Glaive Daybreak Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Cedo Daybreak Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakCedoSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Daybreak Vanquished Banner",
-"uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakGrnBannerScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Nukor Daybreak Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakNukorSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Eukar Claw Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Nightwave/InfHeavyClawsSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Nvidia Braton",
-"uniqueName": "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Spinele Prime Earpiece",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEarpiece"
-},
-{
-"table": "ExportCustoms",
-"name": "Spinele Prime Oculus",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEyepiece"
-},
-{
-"table": "ExportCustoms",
-"name": "Spinele Prime Facial Accessory",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeMouthPiece"
-},
-{
-"table": "ExportCustoms",
-"name": "Cogna Earpiece",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEarPieceA"
-},
-{
-"table": "ExportCustoms",
-"name": "Cogna Oculus",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEyePieceA"
-},
-{
-"table": "ExportCustoms",
-"name": "Cogna Mask",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveMaskA"
-},
-{
-"table": "ExportCustoms",
-"name": "Vox Solaris Mask",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon Origins Bandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/Tennocon2025Bandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Vacis Amp Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Amp/EntratiAmpSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Escuchon Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Dex Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultInfested"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Dex Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitInfestedA"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Escuchon Suit",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Jacket",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/DrifterNightwave1999Torso"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Jacket",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/OperatorNightwave1999Torso"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/DrifterNightwave1999Helmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Escuchon Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Dex Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultInfested"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Dex Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodInfestedA"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Escuchon Hood",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/OperatorNightwave1999Helmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Leggings",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/DrifterNightwave1999Leggings"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Escuchon Greaves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Dex Pants",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Greaves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultInfested"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Leggings",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Dex Leggings",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Greaves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsInfestedA"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Leggings",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Escuchon Greaves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Leggings",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/OperatorNightwave1999Leggings"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Escuchon Apparel",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Dex Gear",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Dex Apparel",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Escuchon Apparel",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtOperatorCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/DrifterNightwave1999Sleeves"
-},
-{
-"table": "ExportCustoms",
-"name": "Kaneshell Atomicycle Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/OperatorNightwave1999Sleeves"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Escuchon Pauldrons",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Drifter Dex Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultInfested"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultM2022Tennocon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Dex Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesDexOutfit"
-},
-{
-"table": "ExportCustoms",
-"name": "Emissary Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesInfestedA"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2022 Sleeves",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesM2022TennoCon"
-},
-{
-"table": "ExportCustoms",
-"name": "Operator Escuchon Pauldrons",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorCalDeluxe"
-},
-{
-"table": "ExportCustoms",
-"name": "Conquera Cherry Tree Ink",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH"
-},
-{
-"table": "ExportCustoms",
-"name": "Conquera Magnolia Ink",
-"uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI"
-},
-{
-"table": "ExportCustoms",
-"name": "Fragor Tekelu Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Oberon Obsidian Markhor Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Oberon Obsidian Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Paladin/OberonPS4Helmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Oberon Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Paladin/OberonPS4Skin"
-},
-{
-"table": "ExportCustoms",
-"name": "Eskhatos Parazon Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Parazon/EvilBaroParazonSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Jade Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkinHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Carrier Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeCarrier"
-},
-{
-"table": "ExportCustoms",
-"name": "Dethcube Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDethcube"
-},
-{
-"table": "ExportCustoms",
-"name": "Rhino Jade Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Rhino Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Itzal Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeStealthArchwingSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Spearmint Scythe Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneEtherReaperSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Spearmint Scythe Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneHateSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Spearmint Scythe Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneReaperPrimeSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Broken War Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumBrokenWar"
-},
-{
-"table": "ExportCustoms",
-"name": "Ocucor Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumOcucor"
-},
-{
-"table": "ExportCustoms",
-"name": "Gauss Prime Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Ki'Teer Razza Elixis Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/BaroCape2RazzaExilisScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Monarcierro Day of the Dead Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Dhampyre Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/DraculaCapeSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Durumi Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/DuelistSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Glacia Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/IceSpikeCape"
-},
-{
-"table": "ExportCustoms",
-"name": "Imperator Jade Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/JadeTurtleNeckScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Azura Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Corvus Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Kyroptera Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Samia Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Yomo Obsidian Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Obsidian Sedai Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/PS5Syandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Sphatika Prime Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Garkulek Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Yamako Rubedo Plated Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/RubedoDinoSpikeScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Reliquia Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/SWReliquiaSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Centuria Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeCenturionCape"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Vanquished Banner",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeGrnBannerScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Izvara Solstice Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeU17TnoCapeScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon Riftguard Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/TC2025Scarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Broca Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox"
-},
-{
-"table": "ExportCustoms",
-"name": "Palla Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLefaucheuxSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Stelflare Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnPyraV2Syandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Raya Sigma Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnRailjackCosmosSyandana"
-},
-{
-"table": "ExportCustoms",
-"name": "Parotia Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnSparrowCape"
-},
-{
-"table": "ExportCustoms",
-"name": "Aspirant Syandana",
-"uniqueName": "/Lotus/Upgrades/Skins/Scarves/ZorbaScarf"
-},
-{
-"table": "ExportCustoms",
-"name": "Gast Sentinel Mask",
-"uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask"
-},
-{
-"table": "ExportCustoms",
-"name": "Gast Sentinel Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Gast Sentinel Tail",
-"uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail"
-},
-{
-"table": "ExportCustoms",
-"name": "Gast Sentinel Wings",
-"uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings"
-},
-{
-"table": "ExportCustoms",
-"name": "Clan Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasic"
-},
-{
-"table": "ExportCustoms",
-"name": "Cyte-09 Target Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Dante's Noctua Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/DanteSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Taubound Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/EpochOperationSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Glacium Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/FrozenSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Deca Heirloom Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Jade Ophanim Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/JadeSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Kahl's Fortitude Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/KahlSupporterPackSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Cycle Five Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Cycle Four Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Cycle Two Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Conquera United Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2016 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2017 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2018 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2019 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2020 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoCon 2026 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoGen Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Tenno Live Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "TennoVIP Xi'an 2026 Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026ChinaSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Solstice Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Seal Of Honoring IV",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Seal Of Honoring II",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Yareli Aquablade Sigil",
-"uniqueName": "/Lotus/Upgrades/Skins/Sigils/YareliSigil"
-},
-{
-"table": "ExportCustoms",
-"name": "Glaive Boomie Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/SolarisUnited/SUVentkidsBoomerang"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Obsidian Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkinHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Attica Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianAttica"
-},
-{
-"table": "ExportCustoms",
-"name": "Coltek Obsidian Sentinel Mask",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask"
-},
-{
-"table": "ExportCustoms",
-"name": "Galatine Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianGalatine"
-},
-{
-"table": "ExportCustoms",
-"name": "Gorgon Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianGorgon"
-},
-{
-"table": "ExportCustoms",
-"name": "Hek Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianHek"
-},
-{
-"table": "ExportCustoms",
-"name": "Helios Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianHelios"
-},
-{
-"table": "ExportCustoms",
-"name": "Nikana Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianNikana"
-},
-{
-"table": "ExportCustoms",
-"name": "Quanta Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianQuanta"
-},
-{
-"table": "ExportCustoms",
-"name": "Scoliac Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianScoliac"
-},
-{
-"table": "ExportCustoms",
-"name": "Serro Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSerro"
-},
-{
-"table": "ExportCustoms",
-"name": "Silva & Aegis Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis"
-},
-{
-"table": "ExportCustoms",
-"name": "Sonicor Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSonicor"
-},
-{
-"table": "ExportCustoms",
-"name": "Spira Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSpira"
-},
-{
-"table": "ExportCustoms",
-"name": "Odonata Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Viper Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianViper"
-},
-{
-"table": "ExportCustoms",
-"name": "Wyrm Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianWyrm"
-},
-{
-"table": "ExportCustoms",
-"name": "Lato Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/PS4Lato"
-},
-{
-"table": "ExportCustoms",
-"name": "Skana Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/PS4Skana"
-},
-{
-"table": "ExportCustoms",
-"name": "Okina Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Tiberon Obsidian Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Onyx Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcalibur"
-},
-{
-"table": "ExportCustoms",
-"name": "Excalibur Onyx Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Zephyr Conquera Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCBodySkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Zephyr Conquera Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Corinth Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/TnHeavyShotgun/NintendoTnHeavyShotgunSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Volt Amethyst Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Volt/DiscordVolt"
-},
-{
-"table": "ExportCustoms",
-"name": "Volt Amethyst Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Volt/DiscordVoltHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Volt Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Volt/NintendoVolt"
-},
-{
-"table": "ExportCustoms",
-"name": "Volt Opal Helmet",
-"uniqueName": "/Lotus/Upgrades/Skins/Volt/NintendoVoltHelmet"
-},
-{
-"table": "ExportCustoms",
-"name": "Amir's Shades",
-"uniqueName": "/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Nepheri Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Orvius Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Glaives/TeshinGlaiveDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Paracesis Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/GreatSword/BallasSwordDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Paracesis Jade Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword"
-},
-{
-"table": "ExportCustoms",
-"name": "Fragor Opal Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Hammers/NintendoFragor"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Glaxion Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/LongGuns/CrpFreezeRayDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Quellor Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/LongGuns/RailjackRifleDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Neote Rapier Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Rapier/IcebladeRapierSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Nefertym Rapier Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Rapier/TnLotusRapierSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Dark Dagger Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/DarkDaggerDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Dark Split-Sword Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSplitSwordDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Niveus Dark Sword Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSwordDuelistSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Protokol Longsword Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/LasriaSkanaSwordSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Protokol Hira Thrown Weapon Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/Weapons/Throwable/TennoCon2024NinjaStarSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Quassus Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/SolsticeQuassusSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Gammacor Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeGammacorSkin"
-},
-{
-"table": "ExportCustoms",
-"name": "Latron Solstice Skin",
-"uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeLatron"
-}
+  {
+    "table": "ExportCustoms",
+    "name": "Deimos Vulpaphyla Pattern",
+    "uniqueName": "/Lotus/Types/Game/InfestedKavatPet/Patterns/InfestedCritterPatternDefault"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Deimos Predasite Pattern",
+    "uniqueName": "/Lotus/Types/Game/InfestedPredatorPet/Patterns/InfestedPredatorPatternDefault"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drahk Kubrow Pattern",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/DrahkKubrowPattern"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Helminth Degenerate Pattern",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/HelminthPetPatternClassic"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Fabled Kubrow Fur Pattern",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternDuviriWolf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Helminth Pattern",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternInfested"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nart-Deer Pattern",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nistlebrush Pattern",
+    "uniqueName": "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasB"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ivara Obsidian Artemis Bow Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ivara Obsidian Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ivara Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Salix Solstice Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Archer/WinterSolsticeSalix"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Hexis Arm Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Hexis Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Hexis Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Suda Arm Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Suda Chest Piece",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Suda Leg Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dendra Obsidian Shoulder Guard",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dendra Obsidian Leg Guard",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Porta Day of the Dead Shoulder Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Porta Day of the Dead Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Porta Day of the Dead Leg Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dax Lustratus Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tidon Shoulder Medallion",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tidon Chest Medallion",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tidon Leg Medallion",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Contegorus Pauldrons",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Contegorus Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Contegorus Greaves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Pauldrons",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/EvilBaroArmour/EvilBaroArmourA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Meridian Arm Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Meridian Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianCArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Meridian Leg Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianLArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Axa Shoulder Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Axa Leg Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lokan Arm Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lokan Chest Piece",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaCArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lokan Knee Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaLArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Opula Shoulder Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Opula Chest Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Opula Leg Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ostron Arm Guards",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ostron Chest Guard",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ostron Leg Guards",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Deko Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Deko Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Deko Knee Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Perrin Arm Guards",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Perrin Chest Piece",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Perrin Leg Guards",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Red Veil Arm Insignia",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Red Veil Chest Piece",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilCArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Red Veil Knee Guards",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilLArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Daedalus Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeArmArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Daedalus Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeChestArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Daedalus Knee Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeLegArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Daedalus Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeArmArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Daedalus Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeChestArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Daedalus Knee Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeLegArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solaris Arm Guards",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solaris Chest Marker",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedCArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solaris Leg Spurs",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedLArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Deathmark Shoulder Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/StalkerShoulderArmor/StalkerShoulderArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Heirloom Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostHeirloomArmArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Revenant Mephisto Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/RevenantDeluxeCape"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Octavia Iridos Mix Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Octavia Iridos Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Bard/BardTwitchHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Octavia Iridos Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Bard/BardTwitchSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Valkyr Jade Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Berserker/JadeValkyrHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Valkyr Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Berserker/JadeValkyrSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Xaku Raya Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nexus Kavat Fur Pattern",
+    "uniqueName": "/Lotus/Upgrades/Skins/Catbrows/NexusCatbrowFur"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Kavat Fur Pattern",
+    "uniqueName": "/Lotus/Upgrades/Skins/Catbrows/SolsticeCatbrowFur"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Argyl Kavat Fur Pattern",
+    "uniqueName": "/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Coven Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Choir/SWCovenJadeHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Coven Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Choir/SWCovenJadeSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drip Squad 4 Life Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Hostile Mergers Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lunar Renewal Ox Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "COMMEMORATIVE EMBLEM",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/CYCCBBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tiberon Obsidian Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Epoch Operation Vessel Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/EpochOperationEmblemItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Sekhara",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/EvilBaroHaloBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "False Profit Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/FalseProfitEventBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tubemen Of Regor Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/GrnSeaLabEventBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operation Orphix Venom Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/NoraSeasonTwoBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Okina Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Acolyte Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/ProjectSinisterBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Conquera Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nightwave Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/RadioLegionBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Atramentum Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Bronze Skull Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gold Skull Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Silver Skull Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eyes of Blight Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/SlingStone2EmblemItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Saturn Six Emblem",
+    "uniqueName": "/Lotus/Upgrades/Skins/Clan/WolfBadgeItem"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mandonel Chythedra Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Qorvex Basilica Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Qorvex Basilica Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Vectis Sharpshooter Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSharpshooter"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Vectis Silferer Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSilferer"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dual Zoren Combustion Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/DualZorenCombustion"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dual Zoren Kuberus Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/DualZorenKuberus"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Scindo Combustion Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/ScindoCombustion"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Scindo Kuberus Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Melee/ScindoKuberus"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Akmagnus Dakila Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/AkmagnusDakila"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Akmagnus Hivelight Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/AkmagnusHiveLight"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Magnus Dakila Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/MagnusDakila"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Magnus Hivelight Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Contests/Pistols/MagnusHiveLight"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Isageum Signa",
+    "uniqueName": "/Lotus/Upgrades/Skins/Crowns/DuelistCrown"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Heirloom Signa",
+    "uniqueName": "/Lotus/Upgrades/Skins/Crowns/HeirloomFrostCrown"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mag Heirloom Signa",
+    "uniqueName": "/Lotus/Upgrades/Skins/Crowns/HeirloomMagCrown"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Conquera Cateura Signa",
+    "uniqueName": "/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gothica Signa",
+    "uniqueName": "/Lotus/Upgrades/Skins/Crowns/SWGothicaSignaCrown"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Vermis Signa",
+    "uniqueName": "/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ambassador Tenet Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/CrpArSniper/CrpArSniperLichSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Banshee Threnodia Shoulder Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBArmLeftArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Banshee Threnodia Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Banshee Threnodia Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Narin Baridegi Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Narin Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Duelist/DuelistHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Narin Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Duelist/DuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Infinitas Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/BaroEvilEphemeraB"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Conquera III Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gangrim Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/DuelistEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Seonang Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/DuelistSpiritEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spring Step Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/FootstepsEasterEggs"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spore Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Primatura Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Pareidola Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraB"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Liftbalon Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/InkEphemeraC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Xianglong Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/LNYDragonEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Malaen Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/LNYKaitheDagathEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Heaven Stones Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/LNYStonesEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Purified Bloom Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/LunarEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/ObsidianEphemeraA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Opula Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/OpulaEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Okuri Tails Prime Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/PrimeVorunaEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Temporal Prime Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/ProteaPrimeEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Belfri Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2021 Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/TennoCon2021Ephemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Hunhullus Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/TennoCon2026Ephemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Thalassa Prime Ephemera",
+    "uniqueName": "/Lotus/Upgrades/Skins/Effects/YareliPrimeEphemera"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glaxion Polar Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Events/GlaxionPolar"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/NintendoExcalibur"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Opal Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Obsidian Azura Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Titania Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Fairy/SolsticeFairySkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Aerospri Dex Pixia Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIArchwingPistolsSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ringers Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Festivities/JingleKnuckles"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Sonicor Festive Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Festivities/XmasSonicor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Heirloom Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostHeirloomHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Heirloom Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostHeirloomSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Festive Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/FrostXmasSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/NintendoFrost"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Frost Opal Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Frost/NintendoFrostHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Citrine Prime Adornments",
+    "uniqueName": "/Lotus/Upgrades/Skins/Geode/CitrinePrimeAux"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Citrine Prime Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Geode/CitrinePrimeHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Citrine Prime Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Citrine Heliotropia Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Geode/SWCitrineHeliotropiaHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Twin Grakatas Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Guandao Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Guandao/NintendoGaundaoSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Atomos Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/DOTD2025AtomosSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Aklato Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAklato"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Amprex Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAmprex"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Angstrum Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenAngstrum"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Veritux Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenArchSword"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Boltor Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenBoltor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Braton Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenBraton"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Buzlok Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenBuzlok"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Daikyu Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDaikyu"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dark Dagger Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDarkDagger"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dark Split-Sword Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDarkSplitSword"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dragon Nikana Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDragonNikana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dual Zoren Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenDualZoren"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Galatine Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGalatine"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glaive Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGlaive"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glaxion Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGlaxion"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gorgon Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGorgon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Grakata Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGrakata"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Grinlok Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenGrinlok"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Imperator Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenImperator"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jat Kittag Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenJatKittag"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kronen Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenKronen"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kunai Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenKunai"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lato Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenLato"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lato Vandal Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Marelok Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenMarelok"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nikana Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenNikana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nukor Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenNukor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Opticor Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenOpticor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Orthos Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenOrthos"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Paris Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenParis"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ack & Brunt Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenRegorAxeShield"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Sarpa Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSarpa"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Scindo Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenScindo"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Silva & Aegis Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Simulor Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSimulor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Skana Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSkana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Sobek Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSobek"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Soma Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSoma"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Sonicor Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSonicor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spira Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenSpira"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Stradavar Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenStradavar"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tonkor Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenTonkor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Twin Grakatas Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenTwinGrakatas"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gremlins Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenTwinGremlins"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Vasto Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/HalloweenVasto"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Heliocor Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Hammer/SolsticeHeliocor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mirage Winter Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Harlequin/MirageXmasSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gynfas Kaithe",
+    "uniqueName": "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseBodySkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gynfas Tail",
+    "uniqueName": "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "EXTERMINATE",
+    "uniqueName": "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerM"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Valinn Jade Kubrow Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBJade"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Daybreak Kubrow Fur Pattern",
+    "uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Fur/DaybreakKubrowFur"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Kubrow Fur Pattern",
+    "uniqueName": "/Lotus/Upgrades/Skins/Kubrows/Fur/SolsticeKubrowFur"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dual Swords Lunaeus Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/LunarNewYear/LNYHookSword"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mag Heirloom Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHeirloomHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mag Heirloom Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/MagHeirloomSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mag Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/NintendoMag"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mag Opal Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Mag/NintendoMagHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drippy Keychain Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/DrippyKeychainMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/EvilBaroSugatraMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Baochun Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/LNYBirdSugatra"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tanau Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/LNYFireSugatra"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cordmade Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/LNYSnakeMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Alumeti Prime Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jack O'Naut Keychain Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tammpet Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/TennoCon2022SugatraMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lunaeus Knot Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/WegameChinaKnotDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eschatos Necramech Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Necramech Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Mausolon Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Necramech/MechWeapon/EvilBaroMausolonSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mausolon Supulchrax Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Epitaph Raya Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glaive Daybreak Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cedo Daybreak Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakCedoSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Daybreak Vanquished Banner",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakGrnBannerScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nukor Daybreak Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/DaybreakNukorSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eukar Claw Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/InfHeavyClawsSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nvidia Braton",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spinele Prime Earpiece",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEarpiece"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spinele Prime Oculus",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEyepiece"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spinele Prime Facial Accessory",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeMouthPiece"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cogna Earpiece",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEarPieceA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cogna Oculus",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEyePieceA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cogna Mask",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveMaskA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Vox Solaris Mask",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon Origins Bandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/Tennocon2025Bandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Vacis Amp Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Amp/EntratiAmpSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Escuchon Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Dex Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultInfested"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Dex Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitInfestedA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Escuchon Suit",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Jacket",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/DrifterNightwave1999Torso"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Jacket",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/BodySuits/OperatorNightwave1999Torso"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/DrifterNightwave1999Helmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Escuchon Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Dex Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultInfested"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Dex Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodInfestedA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Escuchon Hood",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Hoods/OperatorNightwave1999Helmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Leggings",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/DrifterNightwave1999Leggings"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Escuchon Greaves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Dex Pants",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Greaves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultInfested"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Leggings",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Dex Leggings",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Greaves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsInfestedA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Leggings",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Escuchon Greaves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Leggings",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Leggings/OperatorNightwave1999Leggings"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Escuchon Apparel",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Dex Gear",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Dex Apparel",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Escuchon Apparel",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtOperatorCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/DrifterNightwave1999Sleeves"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kaneshell Atomicycle Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/OperatorNightwave1999Sleeves"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Escuchon Pauldrons",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Drifter Dex Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultInfested"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultM2022Tennocon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Dex Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesDexOutfit"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Emissary Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesInfestedA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Sleeves",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesM2022TennoCon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Operator Escuchon Pauldrons",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorCalDeluxe"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Conquera Cherry Tree Ink",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Conquera Magnolia Ink",
+    "uniqueName": "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Fragor Tekelu Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Oberon Obsidian Markhor Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Oberon Obsidian Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Paladin/OberonPS4Helmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Oberon Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Paladin/OberonPS4Skin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Eskhatos Parazon Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Parazon/EvilBaroParazonSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Jade Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkinHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Carrier Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeCarrier"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dethcube Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDethcube"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Rhino Jade Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Rhino Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Itzal Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeStealthArchwingSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spearmint Scythe Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneEtherReaperSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spearmint Scythe Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneHateSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spearmint Scythe Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneReaperPrimeSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Broken War Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumBrokenWar"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ocucor Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumOcucor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gauss Prime Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Ki'Teer Razza Elixis Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/BaroCape2RazzaExilisScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Monarcierro Day of the Dead Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dhampyre Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/DraculaCapeSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Durumi Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/DuelistSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glacia Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/IceSpikeCape"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Imperator Jade Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/JadeTurtleNeckScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Azura Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Corvus Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Kyroptera Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Samia Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Yomo Obsidian Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Sedai Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PS5Syandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Sphatika Prime Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Garkulek Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Yamako Rubedo Plated Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/RubedoDinoSpikeScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Reliquia Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SWReliquiaSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Centuria Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeCenturionCape"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Vanquished Banner",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeGrnBannerScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Izvara Solstice Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/SolsticeU17TnoCapeScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon Riftguard Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TC2025Scarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Broca Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Palla Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnLefaucheuxSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Stelflare Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnPyraV2Syandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Raya Sigma Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnRailjackCosmosSyandana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Parotia Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TnSparrowCape"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Aspirant Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/ZorbaScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gast Sentinel Mask",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gast Sentinel Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gast Sentinel Tail",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gast Sentinel Wings",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Clan Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasic"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cyte-09 Target Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Dante's Noctua Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/DanteSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Taubound Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/EpochOperationSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glacium Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/FrozenSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Deca Heirloom Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/HeirloomSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Ophanim Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/JadeSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kahl's Fortitude Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/KahlSupporterPackSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cycle Five Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cycle Four Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Cycle Two Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Conquera United Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2016 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2017 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2018 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2019 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2020 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2026 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoGen Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tenno Live Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoVIP Xi'an 2026 Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026ChinaSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Solstice Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Seal Of Honoring IV",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Seal Of Honoring II",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Yareli Aquablade Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/YareliSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Glaive Boomie Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/SolarisUnited/SUVentkidsBoomerang"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Obsidian Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkinHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Attica Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianAttica"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Coltek Obsidian Sentinel Mask",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Galatine Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianGalatine"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gorgon Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianGorgon"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Hek Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianHek"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Helios Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianHelios"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nikana Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianNikana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Quanta Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianQuanta"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Scoliac Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianScoliac"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Serro Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSerro"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Silva & Aegis Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Sonicor Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSonicor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Spira Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianSpira"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Odonata Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Viper Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianViper"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Wyrm Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/ObsidianWyrm"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Lato Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/PS4Lato"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Skana Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/PS4Skana"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Okina Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tiberon Obsidian Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Onyx Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcalibur"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Excalibur Onyx Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Zephyr Conquera Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCBodySkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Zephyr Conquera Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Corinth Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/TnHeavyShotgun/NintendoTnHeavyShotgunSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Volt Amethyst Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/DiscordVolt"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Volt Amethyst Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/DiscordVoltHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Volt Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/NintendoVolt"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Volt Opal Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/NintendoVoltHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Amir's Shades",
+    "uniqueName": "/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Nepheri Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Orvius Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Glaives/TeshinGlaiveDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Paracesis Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/GreatSword/BallasSwordDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Paracesis Jade Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Fragor Opal Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Hammers/NintendoFragor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Glaxion Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/LongGuns/CrpFreezeRayDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Quellor Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/LongGuns/RailjackRifleDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Neote Rapier Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Rapier/IcebladeRapierSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nefertym Rapier Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Rapier/TnLotusRapierSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Dark Dagger Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/DarkDaggerDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Dark Split-Sword Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSplitSwordDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Niveus Dark Sword Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSwordDuelistSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Protokol Longsword Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Swords/LasriaSkanaSwordSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Protokol Hira Thrown Weapon Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Weapons/Throwable/TennoCon2024NinjaStarSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Quassus Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/SolsticeQuassusSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Gammacor Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeGammacorSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Latron Solstice Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeLatron"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Avia Solstice Shoulder Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/FurisArmor/SolsticeFurisAArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Avia Solstice Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/FurisArmor/SolsticeFurisCArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Avia Solstice Ankle Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/FurisArmor/SolsticeFurisLArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Mantle of the Lotus",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/GuideOfTheLotus/GuideOfTheLotusArmArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Itzal Armor Shoulder Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/RailjackArmor/ItzalArmourA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Itzal Armor Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/RailjackArmor/ItzalArmourC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Itzal Armor Leg Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/RailjackArmor/ItzalArmourL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Naktavyre Shoulder Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Naktavyre Chest Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Naktavyre Leg Armor",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2018 Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2018 Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2018 Leg Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2019 Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2019Armor/TennoCon2019AArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2019 Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2019Armor/TennoCon2019CArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2019 Leg Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2019Armor/TennoCon2019LArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2021 Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2021Armor/TennoCon2021AArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2021 Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2021Armor/TennoCon2021CArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2021 Leg Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2021Armor/TennoCon2021LArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Shoulder Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2022Armor/TennoCon2022AArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2022Armor/TennoCon2022CArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2022 Leg Plates",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TennoCon2022Armor/TennoCon2022LArmor"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nidina Armor Solstice Shoulder Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveA"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nidina Armor Solstice Chest Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveC"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nidina Armor Solstice Leg Plate",
+    "uniqueName": "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveL"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Okina Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/DOTD2025OkinaSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Shedu Day of the Dead Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Halloween/DOTD2025SheduSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Patika Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/JadePatikaMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Monast Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/Obsidian2SugatraMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Obsidian Azura Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/ObsidianSugatraMeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Jade Follox Sugatra",
+    "uniqueName": "/Lotus/Upgrades/Skins/MeleeDangles/XBoxSugatra2MeleeDangle"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Proto Necramech Helmet",
+    "uniqueName": "/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaHelmet"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Proto Necramech Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Heuris Polearm Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CephPolearmSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Burston Raya Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/Nightwave/CosmosBurstonSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "RixtyMOL Aklato",
+    "uniqueName": "/Lotus/Upgrades/Skins/Promo/RixtyMOL/RixtyMOLAklatoSkin"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon Riftguard Syandana (Void-swept)",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2017 Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoCon2017Scarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2020 Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoCon2020Scarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2023 Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoCon2023Cape"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2024 Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoCon2024Scarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "TennoCon 2016 Syandana",
+    "uniqueName": "/Lotus/Upgrades/Skins/Scarves/TennoConScarf"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Empyrean Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/ArchwingSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Nava Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Kumuda Sigil",
+    "uniqueName": "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Orthos Onyx Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemOrthos"
+  },
+  {
+    "table": "ExportCustoms",
+    "name": "Tigris Onyx Skin",
+    "uniqueName": "/Lotus/Upgrades/Skins/SteamEsteem/EsteemTigris"
+  }
 ]

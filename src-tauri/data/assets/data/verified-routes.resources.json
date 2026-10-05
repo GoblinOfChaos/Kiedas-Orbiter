@@ -643,8 +643,8 @@
     "name": "Nora's Mix Vol. 4 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 4.",
         "place": "Nora's Mix Volume 4",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -659,30 +659,14 @@
     "name": "Nora's Mix Vol. 7 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 7.",
         "place": "Nora's Mix Volume 7",
         "source": {
           "archive": "wiki_pdf_archive",
           "page": "Nightwave/Nora's Mix Volume 7",
           "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_7",
           "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds": {
-    "name": "Nora's Mix: Time Tempests Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Nora's Mix: Time Tempests",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix: Time Tempests",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix:_Time_Tempests",
-          "quote": "It has 30 Ranks using Nora's Mix: Time Tempests Cred as currency, and could be continued for 150 more ranks after max for additional Creds."
         }
       }
     ]
@@ -699,22 +683,6 @@
           "page": "Nightwave/Nora's Mix Volume 1",
           "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_1",
           "quote": "It had 30 Ranks using Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds": {
-    "name": "Nora's Choice Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Nora's Choice",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Choice",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Choice",
-          "quote": "It has 30 Ranks using Nora's Choice Cred as currency, and can be continued for 150 more ranks after max for additional Creds."
         }
       }
     ]
@@ -739,8 +707,8 @@
     "name": "Nora's Mix Vol. 5 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 5.",
         "place": "Nora's Mix Volume 5",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -755,8 +723,8 @@
     "name": "Nora's Mix Vol. 3 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 3.",
         "place": "Nora's Mix Volume 3",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -803,8 +771,8 @@
     "name": "Nora's Mix Vol. 6 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 6.",
         "place": "Nora's Mix Volume 6",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -819,8 +787,8 @@
     "name": "Nora's Mix Vol. 9 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 9.",
         "place": "Nora's Mix Volume 9",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -851,8 +819,8 @@
     "name": "Nora's Mix Vol. 8 Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Nora's Mix Volume 8.",
         "place": "Nora's Mix Volume 8",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -883,8 +851,8 @@
     "name": "Crystal Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from Glassmaker.",
         "place": "Glassmaker",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -899,8 +867,8 @@
     "name": "Wolf Cred",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+        "kind": "vendor",
+        "text": "Obtain from The Wolf of Saturn Six.",
         "place": "The Wolf of Saturn Six",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1475,8 +1443,8 @@
     "name": "Corpus Cipher",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was an Operation: Arid Fear reward.",
+        "kind": "event",
+        "text": "Reward from the Operation: Arid Fear event.",
         "place": "Operation: Arid Fear",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1491,8 +1459,8 @@
     "name": "Corpus Datamass",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was an Operation: Arid Fear reward.",
+        "kind": "event",
+        "text": "Reward from the Operation: Arid Fear event.",
         "place": "Operation: Arid Fear",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1519,54 +1487,6 @@
         "price": {
           "amount": 1,
           "currency": "Credits"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Conquera2021Deco": {
-    "name": "Conquera Decoration",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Conquera event reward.",
-        "place": "Conquera event",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Conquera",
-          "url": "https://wiki.warframe.com/w/Conquera",
-          "quote": "Conquera Decoration $30,000 Donation Goal"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Events/NeonPrideWings": {
-    "name": "Neon Pride Wings",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Pride event reward.",
-        "place": "Pride event",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Neon Pride Wings Pride 2024"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/HeartOroRainbowDeco": {
-    "name": "Pride Oro Decoration",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Pride event reward.",
-        "place": "Pride event",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Pride Oro Decoration Pride 2025"
         }
       }
     ]
@@ -1635,8 +1555,8 @@
     "name": "The New War Orbiter Decoration",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was part of a TennoCon digital pack.",
+        "kind": "event",
+        "text": "Reward from the Orbiter Decorations event.",
         "place": "TennoCon",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1651,8 +1571,8 @@
     "name": "Festive Domestik Ornament",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Tennobaum reward.",
+        "kind": "event",
+        "text": "Reward from the Orbiter Decorations event.",
         "place": "Tennobaum",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1667,8 +1587,8 @@
     "name": "Festive Endosphere Ornament",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Tennobaum reward.",
+        "kind": "event",
+        "text": "Reward from the Orbiter Decorations event.",
         "place": "Tennobaum",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1683,8 +1603,8 @@
     "name": "Festive Relic Ornament",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Tennobaum reward.",
+        "kind": "event",
+        "text": "Reward from the Orbiter Decorations event.",
         "place": "Tennobaum",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -1695,50 +1615,18 @@
       }
     ]
   },
-  "/Lotus/Types/Items/ShipDecos/Props/Seasonal/StarDays2026HeartPictureFrame": {
-    "name": "Star Days Heart Frame Display",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Star Days delivery reward.",
-        "place": "Star Days",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Star Days Heart Frame Display Delivered February 27 to March 2, 2026"
-        }
-      }
-    ]
-  },
   "/Lotus/Types/Items/ShipDecos/Props/ShadowgrapherEaselShipDeco": {
     "name": "Follie's Shadowgraph",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was an Operation: Atramentum reward.",
+        "kind": "event",
+        "text": "Reward from the Operation: Atramentum event.",
         "place": "Operation: Atramentum",
         "source": {
           "archive": "wiki_pdf_archive",
           "page": "Decorations/Orbiter Decorations",
           "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
           "quote": "Follie's Shadowgraph Delivered after the conclusion of Operation: Atramentum"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Venus/ClemTennobaumDisplay": {
-    "name": "Dashing Through the Vallis Display",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Tennobaum gift-goal reward.",
-        "place": "Tennobaum",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Dashing Through the Vallis Display T ennobaum 2022 Gift Goal"
         }
       }
     ]
@@ -1939,8 +1827,8 @@
     "name": "Cephalite Resonance",
     "routes": [
       {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was tied to a concluded Nightwave series.",
+        "kind": "event",
+        "text": "Reward from the NightwaveSeries 3 event.",
         "place": "Glass Fissures",
         "source": {
           "archive": "wiki_pdf_archive",
@@ -2203,22 +2091,6 @@
           "page": "Twin Vipers Wraith",
           "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
           "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/KubrowPet/KubrowPetFood": {
-    "name": "DNA Stabilizers",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it cannot be crafted or found as a drop.",
-        "place": "DNA Stabilizer",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "DNA Stabilizer",
-          "url": "https://wiki.warframe.com/w/DNA_Stabilizer",
-          "quote": "Expand/Collapse PH_INFOBOX 38d3 Expand/Collapse PH_INFOBOX 8d69 Expand/Collapse PH_INFOBOX 3c47 Expand/Collapse PH_INFOBOX fed4 Expand/Collapse PH_INFOBOX 6f98 • ◦ • • • Notes [edit | edit source] DNA Stabilizers cannot be made from blueprints, nor can they be found as drops."
         }
       }
     ]

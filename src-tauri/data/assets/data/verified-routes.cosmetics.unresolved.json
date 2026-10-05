@@ -1,346 +1,403 @@
 {
   "/Lotus/Types/Game/InfestedKavatPet/Patterns/InfestedCritterPatternDefault": {
     "name": "Deimos Vulpaphyla Pattern",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Types/Game/InfestedPredatorPet/Patterns/InfestedPredatorPatternDefault": {
     "name": "Deimos Predasite Pattern",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Types/Game/KubrowPet/Patterns/DrahkKubrowPattern": {
     "name": "Drahk Kubrow Pattern",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Types/Game/KubrowPet/Patterns/HelminthPetPatternClassic": {
     "name": "Helminth Degenerate Pattern",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternInfested": {
     "name": "Helminth Pattern",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraExaltedBowSkin": {
     "name": "Ivara Obsidian Artemis Bow Skin",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircA": {
-    "name": "Porta Day of the Dead Shoulder Plate",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircC": {
-    "name": "Porta Day of the Dead Chest Plate",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircL": {
-    "name": "Porta Day of the Dead Leg Plates",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA": {
     "name": "Tidon Shoulder Medallion",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourC": {
     "name": "Tidon Chest Medallion",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourL": {
     "name": "Tidon Leg Medallion",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoA": {
     "name": "Contegorus Pauldrons",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoC": {
     "name": "Contegorus Chest Plate",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoL": {
     "name": "Contegorus Greaves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/EvilBaroArmour/EvilBaroArmourA": {
-    "name": "Eskhatos Pauldrons",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA": {
     "name": "Opula Shoulder Armor",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC": {
     "name": "Opula Chest Armor",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL": {
     "name": "Opula Leg Armor",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA": {
-    "name": "Obsidian Deko Shoulder Plates",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Third Party Deals and Rewards"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
-  },
-  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC": {
-    "name": "Obsidian Deko Chest Plate",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL": {
-    "name": "Obsidian Deko Knee Plates",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeArmArmor": {
-    "name": "Jade Daedalus Shoulder Plates",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeChestArmor": {
-    "name": "Jade Daedalus Chest Plate",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeLegArmor": {
-    "name": "Jade Daedalus Knee Plates",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
   },
   "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/FrostHeirloomArmArmor": {
     "name": "Frost Heirloom Armor",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet": {
     "name": "Octavia Iridos Mix Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Bard/BardTwitchHelmet": {
     "name": "Octavia Iridos Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Bard/BardTwitchSkin": {
     "name": "Octavia Iridos Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Berserker/JadeValkyrHelmet": {
     "name": "Valkyr Jade Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet": {
     "name": "Xaku Raya Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Choir/SWCovenJadeHelmet": {
     "name": "Jade Coven Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Choir/SWCovenJadeSkin": {
     "name": "Jade Coven Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem": {
     "name": "Drip Squad 4 Life Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem": {
-    "name": "Hostile Mergers Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem": {
-    "name": "Lunar Renewal Ox Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/CYCCBBadgeItem": {
     "name": "COMMEMORATIVE EMBLEM",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem": {
-    "name": "Tiberon Obsidian Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/EpochOperationEmblemItem": {
     "name": "Epoch Operation Vessel Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/EvilBaroHaloBadgeItem": {
     "name": "Eskhatos Sekhara",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/GrnSeaLabEventBadgeItem": {
     "name": "Tubemen Of Regor Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem": {
     "name": "Operation Orphix Venom Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Clan/ProjectSinisterBadgeItem": {
-    "name": "Acolyte Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem": {
-    "name": "Conquera Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Conquera"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
-  },
-  "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem": {
-    "name": "Atramentum Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
   },
   "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem": {
     "name": "Bronze Skull Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem": {
     "name": "Gold Skull Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem": {
     "name": "Silver Skull Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem": {
-    "name": "TennoCon Emblem",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin": {
     "name": "Mandonel Chythedra Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet": {
     "name": "Qorvex Basilica Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin": {
     "name": "Qorvex Basilica Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Crowns/DuelistCrown": {
     "name": "Isageum Signa",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown": {
     "name": "Conquera Cateura Signa",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Crowns/SWGothicaSignaCrown": {
     "name": "Gothica Signa",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown": {
     "name": "Vermis Signa",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBArmLeftArmor": {
     "name": "Banshee Threnodia Shoulder Armor",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet": {
     "name": "Banshee Threnodia Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin": {
     "name": "Banshee Threnodia Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet": {
     "name": "Narin Baridegi Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Duelist/DuelistHelmet": {
     "name": "Narin Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Duelist/DuelistSkin": {
     "name": "Narin Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Effects/BaroEvilEphemeraB": {
     "name": "Eskhatos Infinitas Ephemera",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera": {
     "name": "Conquera III Ephemera",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Effects/DuelistEphemera": {
     "name": "Gangrim Ephemera",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Effects/DuelistSpiritEphemera": {
     "name": "Seonang Ephemera",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera": {
     "name": "Belfri Ephemera",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Excalibur/NintendoExcaliburHelmet": {
     "name": "Excalibur Opal Helmet",
@@ -349,17 +406,13 @@
       "Third Party Deals and Rewards"
     ]
   },
-  "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB": {
-    "name": "Excalibur Obsidian Azura Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
   "/Lotus/Upgrades/Skins/Frost/FrostHeirloomHelmet": {
     "name": "Frost Heirloom Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Frost/NintendoFrostHelmet": {
     "name": "Frost Opal Helmet",
@@ -370,58 +423,82 @@
   },
   "/Lotus/Upgrades/Skins/Geode/CitrinePrimeAux": {
     "name": "Citrine Prime Adornments",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Geode/CitrinePrimeHelmet": {
     "name": "Citrine Prime Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin": {
     "name": "Citrine Prime Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Geode/SWCitrineHeliotropiaHelmet": {
     "name": "Citrine Heliotropia Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin": {
-    "name": "Twin Grakatas Opal Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal": {
     "name": "Lato Vandal Day of the Dead Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseBodySkin": {
     "name": "Gynfas Kaithe",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Horse/DagathDeluxeLNYHorseTail": {
     "name": "Gynfas Tail",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerM": {
     "name": "EXTERMINATE",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "the archived item page has no explicit acquisition route",
+    "pagesChecked": [
+      "Exterminate"
+    ]
   },
   "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBJade": {
     "name": "Valinn Jade Kubrow Armor",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Mag/MagHeirloomHelmet": {
     "name": "Mag Heirloom Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Mag/NintendoMagHelmet": {
     "name": "Mag Opal Helmet",
@@ -432,323 +509,443 @@
   },
   "/Lotus/Upgrades/Skins/MeleeDangles/DrippyKeychainMeleeDangle": {
     "name": "Drippy Keychain Sugatra",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/MeleeDangles/EvilBaroSugatraMeleeDangle": {
-    "name": "Eskhatos Sugatra",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra": {
     "name": "Alumeti Prime Sugatra",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle": {
     "name": "Jack O'Naut Keychain Sugatra",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechHelmet": {
     "name": "Eschatos Necramech Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechSkin": {
     "name": "Eskhatos Necramech Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Necramech/MechWeapon/EvilBaroMausolonSkin": {
     "name": "Eskhatos Mausolon Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin": {
     "name": "Mausolon Supulchrax Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin": {
     "name": "Nvidia Braton",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEarpiece": {
     "name": "Spinele Prime Earpiece",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEyepiece": {
     "name": "Spinele Prime Oculus",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeMouthPiece": {
     "name": "Spinele Prime Facial Accessory",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEarPieceA": {
     "name": "Cogna Earpiece",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEyePieceA": {
     "name": "Cogna Oculus",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveMaskA": {
     "name": "Cogna Mask",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask": {
     "name": "Vox Solaris Mask",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Accessories/Tennocon2025Bandana": {
     "name": "TennoCon Origins Bandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Amp/EntratiAmpSkin": {
     "name": "Vacis Amp Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultCalDeluxe": {
     "name": "Drifter Escuchon Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDexOutfit": {
     "name": "Drifter Dex Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultInfested": {
     "name": "Emissary Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultM2022TennoCon": {
-    "name": "TennoCon 2022 Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitDexOutfit": {
     "name": "Operator Dex Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitInfestedA": {
     "name": "Emissary Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitM2022TennoCon": {
-    "name": "TennoCon 2022 Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitOperatorCalDeluxe": {
     "name": "Operator Escuchon Suit",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/DrifterNightwave1999Torso": {
     "name": "Kaneshell Atomicycle Jacket",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/BodySuits/OperatorNightwave1999Torso": {
     "name": "Kaneshell Atomicycle Jacket",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/DrifterNightwave1999Helmet": {
     "name": "Kaneshell Atomicycle Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultCalDeluxe": {
     "name": "Drifter Escuchon Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDexOutfit": {
     "name": "Drifter Dex Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultInfested": {
     "name": "Emissary Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon": {
-    "name": "TennoCon 2022 Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/HoodDexOutfit": {
     "name": "Operator Dex Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/HoodInfestedA": {
     "name": "Emissary Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon": {
-    "name": "TennoCon 2022 Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/HoodOperatorCalDeluxe": {
     "name": "Operator Escuchon Hood",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Hoods/OperatorNightwave1999Helmet": {
     "name": "Kaneshell Atomicycle Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/DrifterNightwave1999Leggings": {
     "name": "Kaneshell Atomicycle Leggings",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultCalDeluxe": {
     "name": "Drifter Escuchon Greaves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDexOutfit": {
     "name": "Drifter Dex Pants",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultInfested": {
     "name": "Emissary Greaves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultM2022TennoCon": {
-    "name": "TennoCon 2022 Leggings",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsDexOutfit": {
     "name": "Operator Dex Leggings",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsInfestedA": {
     "name": "Emissary Greaves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsM2022TennoCon": {
-    "name": "TennoCon 2022 Leggings",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsOperatorCalDeluxe": {
     "name": "Operator Escuchon Greaves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Leggings/OperatorNightwave1999Leggings": {
     "name": "Kaneshell Atomicycle Leggings",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultCalDeluxe": {
     "name": "Drifter Escuchon Apparel",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDexOutfit": {
     "name": "Drifter Dex Gear",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDexOutfit": {
     "name": "Operator Dex Apparel",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtOperatorCalDeluxe": {
     "name": "Operator Escuchon Apparel",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/DrifterNightwave1999Sleeves": {
     "name": "Kaneshell Atomicycle Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/OperatorNightwave1999Sleeves": {
     "name": "Kaneshell Atomicycle Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultCalDeluxe": {
     "name": "Drifter Escuchon Pauldrons",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDexOutfit": {
     "name": "Drifter Dex Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultInfested": {
     "name": "Emissary Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultM2022Tennocon": {
-    "name": "TennoCon 2022 Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesDexOutfit": {
     "name": "Operator Dex Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesInfestedA": {
     "name": "Emissary Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesM2022TennoCon": {
-    "name": "TennoCon 2022 Sleeves",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesOperatorCalDeluxe": {
     "name": "Operator Escuchon Pauldrons",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH": {
     "name": "Conquera Cherry Tree Ink",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI": {
     "name": "Conquera Magnolia Ink",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Paladin/OberonPS4Helmet": {
     "name": "Oberon Obsidian Helmet",
@@ -759,402 +956,299 @@
   },
   "/Lotus/Upgrades/Skins/Parazon/EvilBaroParazonSkin": {
     "name": "Eskhatos Parazon Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkinHelmet": {
-    "name": "Excalibur Jade Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeCarrier": {
-    "name": "Carrier Jade Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDethcube": {
-    "name": "Dethcube Jade Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoHelmet": {
     "name": "Rhino Jade Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeStealthArchwingSkin": {
     "name": "Itzal Jade Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneEtherReaperSkin": {
     "name": "Spearmint Scythe Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneHateSkin": {
     "name": "Spearmint Scythe Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneReaperPrimeSkin": {
     "name": "Spearmint Scythe Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet": {
-    "name": "Gauss Prime Helmet",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/BaroCape2RazzaExilisScarf": {
     "name": "Ki'Teer Razza Elixis Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/DraculaCapeSyandana": {
     "name": "Dhampyre Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/DuelistSyandana": {
     "name": "Durumi Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Scarves/JadeTurtleNeckScarf": {
-    "name": "Imperator Jade Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf": {
-    "name": "Obsidian Azura Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana": {
-    "name": "Obsidian Corvus Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Third Party Deals and Rewards"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf": {
     "name": "Obsidian Kyroptera Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf": {
-    "name": "Obsidian Samia Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Third Party Deals and Rewards"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
-  },
-  "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf": {
-    "name": "Yomo Obsidian Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
   },
   "/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana": {
     "name": "Sphatika Prime Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana": {
     "name": "Garkulek Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/RubedoDinoSpikeScarf": {
     "name": "Yamako Rubedo Plated Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/SWReliquiaSyandana": {
     "name": "Reliquia Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox": {
     "name": "Jade Broca Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Scarves/TnLefaucheuxSyandana": {
-    "name": "Palla Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Scarves/TnSparrowCape": {
     "name": "Parotia Syandana",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask": {
     "name": "Gast Sentinel Mask",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin": {
     "name": "Gast Sentinel Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail": {
     "name": "Gast Sentinel Tail",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings": {
     "name": "Gast Sentinel Wings",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasic": {
-    "name": "Clan Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Sigils"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil": {
     "name": "Cyte-09 Target Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/DanteSigil": {
     "name": "Dante's Noctua Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/EpochOperationSigil": {
     "name": "Taubound Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/FrozenSigil": {
     "name": "Glacium Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/HeirloomSigil": {
-    "name": "Deca Heirloom Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Sigils"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Sigils/JadeSigil": {
     "name": "Jade Ophanim Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/KahlSupporterPackSigil": {
     "name": "Kahl's Fortitude Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil": {
-    "name": "Cycle Five Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Sigils"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil": {
-    "name": "Cycle Four Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Sigils"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil": {
     "name": "Cycle Two Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil": {
     "name": "Conquera United Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil": {
     "name": "TennoCon 2016 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil": {
     "name": "TennoCon 2017 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil": {
-    "name": "TennoCon 2018 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": {
-    "name": "TennoCon 2019 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": {
-    "name": "TennoCon 2020 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil": {
     "name": "TennoCon 2026 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil": {
-    "name": "TennoGen Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Sigils"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
-  },
-  "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil": {
-    "name": "Tenno Live Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
   },
   "/Lotus/Upgrades/Skins/Sigils/TennoVIP2026ChinaSigil": {
     "name": "TennoVIP Xi'an 2026 Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil": {
-    "name": "Solstice Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Sigils"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil": {
-    "name": "Seal Of Honoring IV",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Sigils"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil": {
-    "name": "Seal Of Honoring II",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Sigils"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Sigils/YareliSigil": {
     "name": "Yareli Aquablade Sigil",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask": {
     "name": "Coltek Obsidian Sentinel Mask",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianGalatine": {
-    "name": "Galatine Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianGorgon": {
-    "name": "Gorgon Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianHek": {
-    "name": "Hek Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianNikana": {
-    "name": "Nikana Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianQuanta": {
-    "name": "Quanta Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianSerro": {
-    "name": "Serro Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianSonicor": {
-    "name": "Sonicor Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianSpira": {
-    "name": "Spira Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin": {
-    "name": "Odonata Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin": {
-    "name": "Okina Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
-    ]
-  },
-  "/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin": {
-    "name": "Tiberon Obsidian Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": [
-      "Third Party Deals and Rewards"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcaliburHelmet": {
     "name": "Excalibur Onyx Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCHelmet": {
     "name": "Zephyr Conquera Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/TnHeavyShotgun/NintendoTnHeavyShotgunSkin": {
-    "name": "Corinth Opal Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
     "pagesChecked": [
-      "Third Party Deals and Rewards"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Volt/DiscordVoltHelmet": {
     "name": "Volt Amethyst Helmet",
     "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Volt/NintendoVoltHelmet": {
     "name": "Volt Opal Helmet",
@@ -1165,69 +1259,496 @@
   },
   "/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat": {
     "name": "Amir's Shades",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin": {
     "name": "Niveus Nepheri Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Glaives/TeshinGlaiveDuelistSkin": {
     "name": "Niveus Orvius Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/GreatSword/BallasSwordDuelistSkin": {
     "name": "Niveus Paracesis Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword": {
     "name": "Paracesis Jade Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
-  },
-  "/Lotus/Upgrades/Skins/Weapons/Hammers/NintendoFragor": {
-    "name": "Fragor Opal Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
+    "reason": "no archived item page or explicit route found",
     "pagesChecked": [
-      "Third Party Deals and Rewards"
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
     ]
   },
   "/Lotus/Upgrades/Skins/Weapons/LongGuns/CrpFreezeRayDuelistSkin": {
     "name": "Niveus Glaxion Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/LongGuns/RailjackRifleDuelistSkin": {
     "name": "Niveus Quellor Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Rapier/IcebladeRapierSkin": {
     "name": "Neote Rapier Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Rapier/TnLotusRapierSkin": {
     "name": "Nefertym Rapier Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Swords/DarkDaggerDuelistSkin": {
     "name": "Niveus Dark Dagger Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSplitSwordDuelistSkin": {
     "name": "Niveus Dark Split-Sword Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   },
   "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSwordDuelistSkin": {
     "name": "Niveus Dark Sword Skin",
-    "reason": "no clear current acquisition sentence or table line in the archived pages checked",
-    "pagesChecked": []
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaHelmet": {
+    "name": "Proto Necramech Helmet",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemOrthos": {
+    "name": "Orthos Onyx Skin",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemTigris": {
+    "name": "Tigris Onyx Skin",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin": {
+    "name": "Argyl Kavat Fur Pattern",
+    "reason": "the archived quote names historical context but does not establish an acquisition route or current unavailability",
+    "pagesChecked": [
+      "Kavat Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis": {
+    "name": "Silva & Aegis Day of the Dead Skin",
+    "reason": "the archived quote names historical context but does not establish an acquisition route or current unavailability",
+    "pagesChecked": [
+      "Day of the Dead Skins"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorA": {
+    "name": "Naktavyre Shoulder Armor",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorC": {
+    "name": "Naktavyre Chest Armor",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorL": {
+    "name": "Naktavyre Leg Armor",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/RixtyMOL/RixtyMOLAklatoSkin": {
+    "name": "RixtyMOL Aklato",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": {
+    "name": "TennoCon 2020 Sigil",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil": {
+    "name": "Tenno Live Sigil",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircA": {
+    "name": "Porta Day of the Dead Shoulder Plate",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircC": {
+    "name": "Porta Day of the Dead Chest Plate",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircL": {
+    "name": "Porta Day of the Dead Leg Plates",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/EvilBaroArmour/EvilBaroArmourA": {
+    "name": "Eskhatos Pauldrons",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC": {
+    "name": "Obsidian Deko Chest Plate",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL": {
+    "name": "Obsidian Deko Knee Plates",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem": {
+    "name": "Hostile Mergers Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem": {
+    "name": "Lunar Renewal Ox Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem": {
+    "name": "Tiberon Obsidian Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/ProjectSinisterBadgeItem": {
+    "name": "Acolyte Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem": {
+    "name": "Conquera Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/ShadowgrapherEventBadgeItem": {
+    "name": "Atramentum Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem": {
+    "name": "TennoCon Emblem",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/EvilBaroSugatraMeleeDangle": {
+    "name": "Eskhatos Sugatra",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultM2022TennoCon": {
+    "name": "TennoCon 2022 Suit",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitM2022TennoCon": {
+    "name": "TennoCon 2022 Suit",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon": {
+    "name": "TennoCon 2022 Hood",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon": {
+    "name": "TennoCon 2022 Hood",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultM2022TennoCon": {
+    "name": "TennoCon 2022 Leggings",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsM2022TennoCon": {
+    "name": "TennoCon 2022 Leggings",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultM2022Tennocon": {
+    "name": "TennoCon 2022 Sleeves",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesM2022TennoCon": {
+    "name": "TennoCon 2022 Sleeves",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkinHelmet": {
+    "name": "Excalibur Jade Helmet",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeCarrier": {
+    "name": "Carrier Jade Skin",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDethcube": {
+    "name": "Dethcube Jade Skin",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet": {
+    "name": "Gauss Prime Helmet",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf": {
+    "name": "Obsidian Azura Syandana",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil": {
+    "name": "Cycle Five Sigil",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil": {
+    "name": "Cycle Four Sigil",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil": {
+    "name": "TennoCon 2018 Sigil",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": {
+    "name": "TennoCon 2019 Sigil",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil": {
+    "name": "Seal Of Honoring IV",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil": {
+    "name": "Seal Of Honoring II",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin": {
+    "name": "Okina Obsidian Skin",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin": {
+    "name": "Tiberon Obsidian Skin",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeArmArmor": {
+    "name": "Jade Daedalus Shoulder Plates",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeChestArmor": {
+    "name": "Jade Daedalus Chest Plate",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeLegArmor": {
+    "name": "Jade Daedalus Knee Plates",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/TnLefaucheuxSyandana": {
+    "name": "Palla Syandana",
+    "reason": "no archived item page or explicit route found",
+    "pagesChecked": [
+      "Warframe Cosmetics",
+      "Kubrow Cosmetics"
+    ]
   }
 }

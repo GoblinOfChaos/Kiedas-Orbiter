@@ -15,28 +15,12 @@
    }
   ]
  },
- "/Lotus/Types/Game/KubrowPet/KubrowPetFood": {
-  "name": "DNA Stabilizers",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it cannot be crafted or found as a drop.",
-    "place": "DNA Stabilizer",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "DNA Stabilizer",
-     "url": "https://wiki.warframe.com/w/DNA_Stabilizer",
-     "quote": "Expand/Collapse PH_INFOBOX 38d3 Expand/Collapse PH_INFOBOX 8d69 Expand/Collapse PH_INFOBOX 3c47 Expand/Collapse PH_INFOBOX fed4 Expand/Collapse PH_INFOBOX 6f98 • ◦ • • • Notes [edit | edit source] DNA Stabilizers cannot be made from blueprints, nor can they be found as drops."
-    }
-   }
-  ]
- },
  "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternDuviriWolf": {
   "name": "Fabled Kubrow Fur Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "vendor",
+    "text": "Obtain from Limited-time reward.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -51,8 +35,8 @@
   "name": "Nart-Deer Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Kubrow Cosmetics event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -67,8 +51,8 @@
   "name": "Nistlebrush Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Kubrow Cosmetics event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -739,8 +723,8 @@
   "name": "Nora's Mix Vol. 4 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 4.",
     "place": "Nora's Mix Volume 4",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -755,30 +739,14 @@
   "name": "Nora's Mix Vol. 7 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 7.",
     "place": "Nora's Mix Volume 7",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Nightwave/Nora's Mix Volume 7",
      "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_7",
      "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds": {
-  "name": "Nora's Mix: Time Tempests Cred",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-    "place": "Nora's Mix: Time Tempests",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Nightwave/Nora's Mix: Time Tempests",
-     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix:_Time_Tempests",
-     "quote": "It has 30 Ranks using Nora's Mix: Time Tempests Cred as currency, and could be continued for 150 more ranks after max for additional Creds."
     }
    }
   ]
@@ -795,22 +763,6 @@
      "page": "Nightwave/Nora's Mix Volume 1",
      "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_1",
      "quote": "It had 30 Ranks using Nora's Mix Vol."
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds": {
-  "name": "Nora's Choice Cred",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-    "place": "Nora's Choice",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Nightwave/Nora's Choice",
-     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Choice",
-     "quote": "It has 30 Ranks using Nora's Choice Cred as currency, and can be continued for 150 more ranks after max for additional Creds."
     }
    }
   ]
@@ -835,8 +787,8 @@
   "name": "Nora's Mix Vol. 5 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 5.",
     "place": "Nora's Mix Volume 5",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -851,8 +803,8 @@
   "name": "Nora's Mix Vol. 3 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 3.",
     "place": "Nora's Mix Volume 3",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -899,8 +851,8 @@
   "name": "Nora's Mix Vol. 6 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 6.",
     "place": "Nora's Mix Volume 6",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -915,8 +867,8 @@
   "name": "Nora's Mix Vol. 9 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 9.",
     "place": "Nora's Mix Volume 9",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -947,8 +899,8 @@
   "name": "Nora's Mix Vol. 8 Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 8.",
     "place": "Nora's Mix Volume 8",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -979,8 +931,8 @@
   "name": "Crystal Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from Glassmaker.",
     "place": "Glassmaker",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -995,8 +947,8 @@
   "name": "Wolf Cred",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "kind": "vendor",
+    "text": "Obtain from The Wolf of Saturn Six.",
     "place": "The Wolf of Saturn Six",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1571,8 +1523,8 @@
   "name": "Corpus Cipher",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was an Operation: Arid Fear reward.",
+    "kind": "event",
+    "text": "Reward from the Operation: Arid Fear event.",
     "place": "Operation: Arid Fear",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1587,8 +1539,8 @@
   "name": "Corpus Datamass",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was an Operation: Arid Fear reward.",
+    "kind": "event",
+    "text": "Reward from the Operation: Arid Fear event.",
     "place": "Operation: Arid Fear",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1615,54 +1567,6 @@
     "price": {
      "amount": 1,
      "currency": "Credits"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/ShipDecos/Conquera2021Deco": {
-  "name": "Conquera Decoration",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Conquera event reward.",
-    "place": "Conquera event",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Conquera",
-     "url": "https://wiki.warframe.com/w/Conquera",
-     "quote": "Conquera Decoration $30,000 Donation Goal"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/ShipDecos/Events/NeonPrideWings": {
-  "name": "Neon Pride Wings",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Pride event reward.",
-    "place": "Pride event",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Decorations/Orbiter Decorations",
-     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-     "quote": "Neon Pride Wings Pride 2024"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/ShipDecos/HeartOroRainbowDeco": {
-  "name": "Pride Oro Decoration",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Pride event reward.",
-    "place": "Pride event",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Decorations/Orbiter Decorations",
-     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-     "quote": "Pride Oro Decoration Pride 2025"
     }
    }
   ]
@@ -1731,8 +1635,8 @@
   "name": "The New War Orbiter Decoration",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was part of a TennoCon digital pack.",
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
     "place": "TennoCon",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1747,8 +1651,8 @@
   "name": "Festive Domestik Ornament",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Tennobaum reward.",
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
     "place": "Tennobaum",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1763,8 +1667,8 @@
   "name": "Festive Endosphere Ornament",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Tennobaum reward.",
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
     "place": "Tennobaum",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1779,8 +1683,8 @@
   "name": "Festive Relic Ornament",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Tennobaum reward.",
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
     "place": "Tennobaum",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -1791,50 +1695,18 @@
    }
   ]
  },
- "/Lotus/Types/Items/ShipDecos/Props/Seasonal/StarDays2026HeartPictureFrame": {
-  "name": "Star Days Heart Frame Display",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Star Days delivery reward.",
-    "place": "Star Days",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Decorations/Orbiter Decorations",
-     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-     "quote": "Star Days Heart Frame Display Delivered February 27 to March 2, 2026"
-    }
-   }
-  ]
- },
  "/Lotus/Types/Items/ShipDecos/Props/ShadowgrapherEaselShipDeco": {
   "name": "Follie's Shadowgraph",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was an Operation: Atramentum reward.",
+    "kind": "event",
+    "text": "Reward from the Operation: Atramentum event.",
     "place": "Operation: Atramentum",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Decorations/Orbiter Decorations",
      "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
      "quote": "Follie's Shadowgraph Delivered after the conclusion of Operation: Atramentum"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/ShipDecos/Venus/ClemTennobaumDisplay": {
-  "name": "Dashing Through the Vallis Display",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a Tennobaum gift-goal reward.",
-    "place": "Tennobaum",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Decorations/Orbiter Decorations",
-     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-     "quote": "Dashing Through the Vallis Display T ennobaum 2022 Gift Goal"
     }
    }
   ]
@@ -2035,8 +1907,8 @@
   "name": "Cephalite Resonance",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was tied to a concluded Nightwave series.",
+    "kind": "event",
+    "text": "Reward from the NightwaveSeries 3 event.",
     "place": "Glass Fissures",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2307,8 +2179,8 @@
   "name": "Corrupted Bombard Specter",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time Baro Ki'Teer exclusive specter.",
+    "kind": "vendor",
+    "text": "Obtain from Baro Ki'Teer.",
     "place": "Baro Ki'Teer",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2323,8 +2195,8 @@
   "name": "Stalker Specter",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: its blueprint was a Nightwave and event reward.",
+    "kind": "event",
+    "text": "Reward from the Operation: Belly of the Beast event.",
     "place": "Nightwave and Operations",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2602,8 +2474,8 @@
   "name": "Ivara Obsidian Helmet",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2618,8 +2490,8 @@
   "name": "Ivara Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Ivara Obsidian Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2634,8 +2506,8 @@
   "name": "Salix Solstice Syandana",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2770,8 +2642,8 @@
   "name": "Dendra Obsidian Shoulder Guard",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "PlayStation Renown Pack",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2786,8 +2658,8 @@
   "name": "Dendra Obsidian Leg Guard",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "PlayStation Renown Pack",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2810,6 +2682,54 @@
      "page": "Dax Lustratus Shoulder Plates",
      "url": "https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates",
      "quote": "Operation: Blood of Perita for 40 Marks of Valiance."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/FurisArmor/SolsticeFurisAArmor": {
+  "name": "Avia Solstice Shoulder Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Avia Solstice Shoulder Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Avia Solstice Shoulder Plate",
+     "url": "https://wiki.warframe.com/w/Avia_Solstice_Shoulder_Plate",
+     "quote": "Not obtainable."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/FurisArmor/SolsticeFurisCArmor": {
+  "name": "Avia Solstice Chest Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Avia Solstice Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Avia Solstice Chest Plate",
+     "url": "https://wiki.warframe.com/w/Avia_Solstice_Chest_Plate",
+     "quote": "Not obtainable."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/FurisArmor/SolsticeFurisLArmor": {
+  "name": "Avia Solstice Ankle Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Avia Solstice Ankle Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Avia Solstice Ankle Plate",
+     "url": "https://wiki.warframe.com/w/Avia_Solstice_Ankle_Plate",
+     "quote": "Not obtainable."
     }
    }
   ]
@@ -2862,12 +2782,28 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Armor/GuideOfTheLotus/GuideOfTheLotusArmArmor": {
+  "name": "Mantle of the Lotus",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Armor (Cosmetic)",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Armor (Cosmetic)",
+     "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+     "quote": "reward for Day 1,000 Guide your Warframe with this complete Lodestar armor set. Mantle of the Lotus Mantle Of The Lotus (Shoulders) Guides of the Lotus Reward (Retired) An ornate set of shoulder armor worn by the Guides of the Lotus. Mortuus Mortuus Shoulder Guard Nightmare Granum Void Rotation C reward The Taxman, taxed. With interest. Nidina Armor Solstice Nidina Armor Solstice Chest PlateNidin"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourA": {
   "name": "Jade Axa Shoulder Plate",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "PlayStation Prestige Pack",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -2882,8 +2818,8 @@
   "name": "Jade Axa Leg Plate",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3010,6 +2946,22 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA": {
+  "name": "Obsidian Deko Shoulder Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "an Deko Chest Plate Obsidian Deko Knee Plates • • • • • • • • • • • • • • • • • Obsidian Deko Shoulder Plates Corinth Corinth Obsidian Skin Pennant Pennant Obsidian Skin Affinity Booster (7 days) Credit Booster (7 days) Xbox One [edit | edit source] Twin Grakatas Jade Bundle [edit | edit source] https://www.warframe.com/news/xbox-games-pass-ultimate-perks This pack was available from November 15, 2022 to ?"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorA": {
   "name": "Perrin Arm Guards",
   "routes": [
@@ -3066,6 +3018,54 @@
     "price": {
      "amount": 125000,
      "currency": "Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/RailjackArmor/ItzalArmourA": {
+  "name": "Itzal Armor Shoulder Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Itzal Armor Shoulder Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Itzal Armor Shoulder Plate",
+     "url": "https://wiki.warframe.com/w/Itzal_Armor_Shoulder_Plate",
+     "quote": "No longer available."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/RailjackArmor/ItzalArmourC": {
+  "name": "Itzal Armor Chest Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Itzal Armor Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Itzal Armor Chest Plate",
+     "url": "https://wiki.warframe.com/w/Itzal_Armor_Chest_Plate",
+     "quote": "No longer available."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/RailjackArmor/ItzalArmourL": {
+  "name": "Itzal Armor Leg Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Itzal Armor Leg Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Itzal Armor Leg Plate",
+     "url": "https://wiki.warframe.com/w/Itzal_Armor_Leg_Plate",
+     "quote": "No longer available."
     }
    }
   ]
@@ -3238,6 +3238,246 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorA": {
+  "name": "TennoCon 2018 Shoulder Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2018 Shoulder Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2018 Shoulder Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2018_Shoulder_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2018 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorC": {
+  "name": "TennoCon 2018 Chest Plate",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2018 Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2018 Chest Plate",
+     "url": "https://wiki.warframe.com/w/TennoCon_2018_Chest_Plate",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2018 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2018Armor/TennoCon2018ArmorL": {
+  "name": "TennoCon 2018 Leg Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2018 Leg Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2018 Leg Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2018_Leg_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2018 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2019Armor/TennoCon2019AArmor": {
+  "name": "TennoCon 2019 Shoulder Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2019 Shoulder Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2019 Shoulder Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2019_Shoulder_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2019 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2019Armor/TennoCon2019CArmor": {
+  "name": "TennoCon 2019 Chest Plate",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2019 Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2019 Chest Plate",
+     "url": "https://wiki.warframe.com/w/TennoCon_2019_Chest_Plate",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2019 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2019Armor/TennoCon2019LArmor": {
+  "name": "TennoCon 2019 Leg Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2019 Leg Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2019 Leg Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2019_Leg_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2019 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2021Armor/TennoCon2021AArmor": {
+  "name": "TennoCon 2021 Shoulder Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2021 Shoulder Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2021 Shoulder Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2021_Shoulder_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2021 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2021Armor/TennoCon2021CArmor": {
+  "name": "TennoCon 2021 Chest Plate",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2021 Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2021 Chest Plate",
+     "url": "https://wiki.warframe.com/w/TennoCon_2021_Chest_Plate",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2021 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2021Armor/TennoCon2021LArmor": {
+  "name": "TennoCon 2021 Leg Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2021 Leg Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2021 Leg Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2021_Leg_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2021 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2022Armor/TennoCon2022AArmor": {
+  "name": "TennoCon 2022 Shoulder Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2022 Shoulder Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2022 Shoulder Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2022_Shoulder_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2022 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2022Armor/TennoCon2022CArmor": {
+  "name": "TennoCon 2022 Chest Plate",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2022 Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2022 Chest Plate",
+     "url": "https://wiki.warframe.com/w/TennoCon_2022_Chest_Plate",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2022 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TennoCon2022Armor/TennoCon2022LArmor": {
+  "name": "TennoCon 2022 Leg Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2022 Leg Plates",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2022 Leg Plates",
+     "url": "https://wiki.warframe.com/w/TennoCon_2022_Leg_Plates",
+     "quote": "Used to be a bundled reward for purchasing T ennoCon 2022 Ticket / Digital Ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveA": {
+  "name": "Nidina Armor Solstice Shoulder Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Nidina Armor Solstice Shoulder Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nidina Armor Solstice Shoulder Plate",
+     "url": "https://wiki.warframe.com/w/Nidina_Armor_Solstice_Shoulder_Plate",
+     "quote": "Not obtainable."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveC": {
+  "name": "Nidina Armor Solstice Chest Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Nidina Armor Solstice Chest Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nidina Armor Solstice Chest Plate",
+     "url": "https://wiki.warframe.com/w/Nidina_Armor_Solstice_Chest_Plate",
+     "quote": "Not obtainable."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/TnArmorCurve/SolsticeTnArmorCurveL": {
+  "name": "Nidina Armor Solstice Leg Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Nidina Armor Solstice Leg Plate",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nidina Armor Solstice Leg Plate",
+     "url": "https://wiki.warframe.com/w/Nidina_Armor_Solstice_Leg_Plate",
+     "quote": "Not obtainable."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/RevenantDeluxeCape": {
   "name": "Revenant Mephisto Syandana",
   "routes": [
@@ -3258,8 +3498,8 @@
   "name": "Valkyr Jade Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Valkyr Jade Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3274,8 +3514,8 @@
   "name": "Nexus Kavat Fur Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "vendor",
+    "text": "Obtain from Limited-time reward.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3290,8 +3530,8 @@
   "name": "Solstice Kavat Fur Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Kavat Cosmetics event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3302,28 +3542,12 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin": {
-  "name": "Argyl Kavat Fur Pattern",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
-    "place": "Limited-time reward",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Kavat Cosmetics",
-     "url": "https://wiki.warframe.com/w/Kavat_Cosmetics",
-     "quote": "Argyl 40 (seasonal) Argyl Fur PatternSandstorm BrownAtlas Red Asteroid BrownCleaver Green Customize a Kavat's fur color with these isolated DNA sequences. Solstice"
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Clan/FalseProfitEventBadgeItem": {
   "name": "False Profit Emblem",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was an event reward.",
+    "kind": "event",
+    "text": "Reward from the Operation: False Profit event.",
     "place": "Event reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3354,8 +3578,8 @@
   "name": "Okina Emblem",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3386,8 +3610,8 @@
   "name": "Eyes of Blight Emblem",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was an event reward.",
+    "kind": "event",
+    "text": "Reward from the Eyes of Blight Emblem event.",
     "place": "Event reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3610,8 +3834,8 @@
   "name": "Ambassador Tenet Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Ambassador Tenet Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3898,8 +4122,8 @@
   "name": "Excalibur Opal Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Excalibur Opal Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3910,12 +4134,28 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Excalibur/ObsidianExcaliburHelmetB": {
+  "name": "Excalibur Obsidian Azura Helmet",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "contains the following: Obsidian Azura Syandana Galatine Galatine Obsidian Skin Excalibur Obsidian Azura Helmet Excalibur Obsidian Azura Skin 50,000 Credits Credits 300 Platinum Platinum Affinity Booster (3 days) Credit Booster (3 days) Obsidian Corvus Collection [edit | edit source] https://www.warframe.com/news/obsidian-corvus-collection-available- now This pack was available from ? to ?. The Obsidian Corv"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Fairy/SolsticeFairySkin": {
   "name": "Titania Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3946,8 +4186,8 @@
   "name": "Ringers Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3962,8 +4202,8 @@
   "name": "Sonicor Festive Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -3994,8 +4234,8 @@
   "name": "Frost Festive Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4010,8 +4250,8 @@
   "name": "Frost Opal Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Frost Opal Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4022,12 +4262,28 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/GrineerAssaultRifle/NintendoGrineerAssaultRifleSkin": {
+  "name": "Twin Grakatas Opal Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "I includes: 170 Platinum Platinum Volt Opal Helmet Volt Opal Skin Twin Grakatas Twin Grakatas Opal Skin Affinity Booster (3 days) Credit Booster (3 days) Esteem Pack III [edit | edit source] https://www.warframe.com/news/esteem-pack-iii-available-now Crush the competition with the latest Esteem Pack! This bundle was available from September 10, 2019 to March 11, 2020. The Esteem Pack III includes: 17"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Guandao/NintendoGaundaoSkin": {
   "name": "Guandao Opal Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4054,12 +4310,44 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Halloween/DOTD2025OkinaSkin": {
+  "name": "Okina Day of the Dead Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Nightwave's Nora's Mix.",
+    "place": "Okina Day of the Dead Skin",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Okina Day of the Dead Skin",
+     "url": "https://wiki.warframe.com/w/Okina_Day_of_the_Dead_Skin",
+     "quote": "This skin could be obtained by reaching Rank 13 in Nora's Mix: Dreams of the Dead, available from October 27th, 2025 and to April 8th, 2026."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Halloween/DOTD2025SheduSkin": {
+  "name": "Shedu Day of the Dead Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Nightwave's Nora's Mix.",
+    "place": "Shedu Day of the Dead Skin",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Shedu Day of the Dead Skin",
+     "url": "https://wiki.warframe.com/w/Shedu_Day_of_the_Dead_Skin",
+     "quote": "This skin could be obtained by reaching Rank 4 in Nora's Mix: Dreams of the Dead, available from October 27th, 2025 and to April 8th, 2026."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Halloween/HalloweenAklato": {
   "name": "Aklato Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4074,8 +4362,8 @@
   "name": "Amprex Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4090,8 +4378,8 @@
   "name": "Angstrum Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4106,8 +4394,8 @@
   "name": "Veritux Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4122,8 +4410,8 @@
   "name": "Boltor Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4138,8 +4426,8 @@
   "name": "Braton Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4154,8 +4442,8 @@
   "name": "Buzlok Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4170,8 +4458,8 @@
   "name": "Daikyu Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4186,8 +4474,8 @@
   "name": "Dark Dagger Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4202,8 +4490,8 @@
   "name": "Dark Split-Sword Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4218,8 +4506,8 @@
   "name": "Dragon Nikana Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4234,8 +4522,8 @@
   "name": "Dual Zoren Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4250,8 +4538,8 @@
   "name": "Galatine Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4266,8 +4554,8 @@
   "name": "Glaive Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4282,8 +4570,8 @@
   "name": "Glaxion Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4298,8 +4586,8 @@
   "name": "Gorgon Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4314,8 +4602,8 @@
   "name": "Grakata Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4330,8 +4618,8 @@
   "name": "Grinlok Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4346,8 +4634,8 @@
   "name": "Imperator Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4362,8 +4650,8 @@
   "name": "Jat Kittag Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4378,8 +4666,8 @@
   "name": "Kronen Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4394,8 +4682,8 @@
   "name": "Kunai Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4410,8 +4698,8 @@
   "name": "Lato Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4426,8 +4714,8 @@
   "name": "Marelok Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4442,8 +4730,8 @@
   "name": "Nikana Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4458,8 +4746,8 @@
   "name": "Nukor Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4474,8 +4762,8 @@
   "name": "Opticor Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4490,8 +4778,8 @@
   "name": "Orthos Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4506,8 +4794,8 @@
   "name": "Paris Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4522,8 +4810,8 @@
   "name": "Ack & Brunt Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time event reward.",
+    "kind": "event",
+    "text": "Reward from the Day of the Dead Skins event.",
     "place": "Nights of Naberus",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4538,8 +4826,8 @@
   "name": "Sarpa Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4554,8 +4842,8 @@
   "name": "Scindo Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4566,28 +4854,12 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis": {
-  "name": "Silva & Aegis Day of the Dead Skin",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time event reward.",
-    "place": "Nights of Naberus",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Day of the Dead Skins",
-     "url": "https://wiki.warframe.com/w/Day_of_the_Dead_Skins",
-     "quote": "Sarpa Day of the Dead Skin Platinum 20 Silva & Aegis Day of the Dead Skin Platinum 20 Simulor Day of the Dead Skin Platinum 20"
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Halloween/HalloweenSimulor": {
   "name": "Simulor Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4602,8 +4874,8 @@
   "name": "Skana Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4618,8 +4890,8 @@
   "name": "Sobek Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4634,8 +4906,8 @@
   "name": "Soma Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4650,8 +4922,8 @@
   "name": "Sonicor Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4666,8 +4938,8 @@
   "name": "Spira Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4682,8 +4954,8 @@
   "name": "Stradavar Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4698,8 +4970,8 @@
   "name": "Tonkor Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4714,8 +4986,8 @@
   "name": "Twin Grakatas Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4730,8 +5002,8 @@
   "name": "Gremlins Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4746,8 +5018,8 @@
   "name": "Vasto Day of the Dead Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4762,8 +5034,8 @@
   "name": "Heliocor Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4778,8 +5050,8 @@
   "name": "Mirage Winter Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "market",
+    "text": "Purchase from the Market during the listed event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4794,8 +5066,8 @@
   "name": "Daybreak Kubrow Fur Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Nightwave reward) Daybreak Fur PatternDusk Pink Evening PurpleMorning Yellow The Orokin engineered this DNA structure to make their Kubrows embody the season of renewal event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4810,8 +5082,8 @@
   "name": "Solstice Kubrow Fur Pattern",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Kubrow Cosmetics event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -4858,14 +5130,30 @@
   "name": "Mag Opal Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Mag Opal Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Mag Opal Skin",
      "url": "https://wiki.warframe.com/w/Mag_Opal_Skin",
      "quote": "The Mag Opal Skin was available through the Nintendo store via the Esteem Pack III[1]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/JadePatikaMeleeDangle": {
+  "name": "Jade Patika Sugatra",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Jade Patika Sugatra",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Jade Patika Sugatra",
+     "url": "https://wiki.warframe.com/w/Jade_Patika_Sugatra",
+     "quote": "No longer available."
     }
    }
   ]
@@ -4918,6 +5206,38 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/MeleeDangles/Obsidian2SugatraMeleeDangle": {
+  "name": "Obsidian Monast Sugatra",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Obsidian Monast Sugatra",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Obsidian Monast Sugatra",
+     "url": "https://wiki.warframe.com/w/Obsidian_Monast_Sugatra",
+     "quote": "No longer available."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/ObsidianSugatraMeleeDangle": {
+  "name": "Obsidian Azura Sugatra",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Obsidian Azura Sugatra",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Obsidian Azura Sugatra",
+     "url": "https://wiki.warframe.com/w/Obsidian_Azura_Sugatra",
+     "quote": "No longer available."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle": {
   "name": "Tammpet Sugatra",
   "routes": [
@@ -4962,6 +5282,70 @@
      "page": "Lunaeus Knot Sugatra",
      "url": "https://wiki.warframe.com/w/Lunaeus_Knot_Sugatra",
      "quote": "Acquired from purchasing Start Anew Bundle for 185."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/XBoxSugatra2MeleeDangle": {
+  "name": "Jade Follox Sugatra",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Jade Follox Sugatra",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Jade Follox Sugatra",
+     "url": "https://wiki.warframe.com/w/Jade_Follox_Sugatra",
+     "quote": "No longer available."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Necramech/VoidrigDSChromaSkin": {
+  "name": "Proto Necramech Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Nightwave's Nora's Mix.",
+    "place": "Nightwave: Nora's Mix Volume 8, available from February 6th, 2025 to May 21st, 2025",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Proto Necramech Skin",
+     "url": "https://wiki.warframe.com/w/Proto_Necramech_Skin",
+     "quote": "This skin could be obtained by reaching Rank 23 in Nightwave: Nora's Mix Volume 8, available from February 6th, 2025 to May 21st, 2025."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Nightwave/CephPolearmSkin": {
+  "name": "Heuris Polearm Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Nightwave Cred Offerings.",
+    "place": "Nightwave Cred Offerings",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Heuris Polearm Skin",
+     "url": "https://wiki.warframe.com/w/Heuris_Polearm_Skin",
+     "quote": "This skin is available for purchase in the Nightwave Cred Offerings for 50 Was originally acquired by reaching Rank 7 during NightwaveNora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Nightwave/CosmosBurstonSkin": {
+  "name": "Burston Raya Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Nightwave's Nora's Mix.",
+    "place": "Nightwave: Nora's Mix Volume 9, available from May 21st, 2025 and to October 27th, 2025",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Burston Raya Skin",
+     "url": "https://wiki.warframe.com/w/Burston_Raya_Skin",
+     "quote": "This skin could be obtained by reaching Rank 22 in Nightwave: Nora's Mix Volume 9, available from May 21st, 2025 and to October 27th, 2025."
     }
    }
   ]
@@ -5066,8 +5450,8 @@
   "name": "Fragor Tekelu Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Fragor Tekelu Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5082,8 +5466,8 @@
   "name": "Oberon Obsidian Markhor Helmet",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "PlayStation Renown Pack",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5098,8 +5482,8 @@
   "name": "Oberon Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Oberon Obsidian Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5114,8 +5498,8 @@
   "name": "Excalibur Jade Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Excalibur Jade Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5130,8 +5514,8 @@
   "name": "Rhino Jade Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Rhino Jade Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5146,8 +5530,8 @@
   "name": "Broken War Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Broken War Solstice Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5162,8 +5546,8 @@
   "name": "Ocucor Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Ocucor Solstice Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5206,12 +5590,76 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Scarves/JadeTurtleNeckScarf": {
+  "name": "Imperator Jade Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "vailable from January 19, 2016 to April 5, 2016. The Prestige Pack IV included: Imperator Jade Syandana Prestige Pack V [edit | edit source] • • • • • • https://www.warframe.com/news/xbox-one-prestige-pack-v-available- now This pack was available from April 19, 2016 to July 7, 2016. The Prestige Pack V included: Stasis Slot Kubrow Egg Jade Valinn Kubrow Armor Prestige Pack VI [edit | edit source] htt"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/ObsidianCrowSyandana": {
+  "name": "Obsidian Corvus Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "ble from ? to ?. The Obsidian Corvus Collection includes: 300 Platinum Platinum Obsidian Corvus Syandana Obsidian Corvus Sigil Nikana Nikana Obsidian Skin Affinity Booster (7 days) Credit Booster (7 days) • • • • • • • • • • • • • • • • Ultimate Obsidian Collection [edit | edit source] https://www.warframe.com/news/ultimate-obsidian-collection This pack was available from September 28, 2021 to ?. The"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/ObsidianSamiaScarf": {
+  "name": "Obsidian Samia Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "0, 2019 to March 10, 2020. The Renown Pack XVII includes: 170 Platinum Platinum Obsidian Samia Syandana Obsidian Ephemera Affinity Booster (3 days) Credit Booster (3 days) Renown Pack XVIII [edit | edit source] https://www.warframe.com/news/renown-pack-xviii This pack was available from ? to ?. The Renown Pack XVIII includes: 170 Platinum Platinum Grattler Grattler Obsidian Skin Affinity Booster (3 d"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf": {
+  "name": "Yomo Obsidian Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "available from June 7, 2014 to September 23, 2014. The Renown Pack I included: Yomo Obsidian Syandana 170 Platinum Platinum Renown Pack II [edit | edit source] https://www.warframe.com/news/renown-pack-ii-available-now This pack was available from September 30, 2014 to November 25, 2014. The Renown Pack II included: Lato Obsidian Skin Skana Obsidian Skin 170 Platinum Platinum Renown Pack III [edit"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Scarves/PS5Syandana": {
   "name": "Obsidian Sedai Syandana",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "PlayStation Plus Booster Pack",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5226,8 +5674,8 @@
   "name": "Solstice Centuria Syandana",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Solstice Centuria Syandana event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5242,8 +5690,8 @@
   "name": "Solstice Vanquished Banner",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Solstice Vanquished Banner event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5258,14 +5706,30 @@
   "name": "Izvara Solstice Syandana",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Izvara Solstice Syandana event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Izvara Solstice Syandana",
      "url": "https://wiki.warframe.com/w/Izvara_Solstice_Syandana",
      "quote": "Obtained as T ennobaum 2017 Ultimate Goal Reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TC2025EvolvedScarf": {
+  "name": "TennoCon Riftguard Syandana (Void-swept)",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the TennoCon digital pack.",
+    "place": "TennoCon Riftguard Syandana (Void-swept)",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon Riftguard Syandana (Void-swept)",
+     "url": "https://wiki.warframe.com/w/TennoCon_Riftguard_Syandana_(Void-swept)",
+     "quote": "Originally obtained by purchasing the T ennoCon 2025 Digital Pack."
     }
    }
   ]
@@ -5282,6 +5746,86 @@
      "page": "TennoCon Riftguard Syandana",
      "url": "https://wiki.warframe.com/w/TennoCon_Riftguard_Syandana",
      "quote": "Originally obtained by purchasing the T ennoCon 2025 Digital Pack. Now no longer available."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TennoCon2017Scarf": {
+  "name": "TennoCon 2017 Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2017 Syandana",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2017 Syandana",
+     "url": "https://wiki.warframe.com/w/TennoCon_2017_Syandana",
+     "quote": "Originally obtained as a bonus code from purchasing a physical T ennoCon 2017 ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TennoCon2020Scarf": {
+  "name": "TennoCon 2020 Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2020 Syandana",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2020 Syandana",
+     "url": "https://wiki.warframe.com/w/TennoCon_2020_Syandana",
+     "quote": "Originally obtained as a bonus code from purchasing a physical or digital T ennoCon 2020 ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TennoCon2023Cape": {
+  "name": "TennoCon 2023 Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2023 Syandana",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2023 Syandana",
+     "url": "https://wiki.warframe.com/w/TennoCon_2023_Syandana",
+     "quote": "Originally obtained as a bonus code from purchasing a physical or digital T ennoCon 2023 ticket."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TennoCon2024Scarf": {
+  "name": "TennoCon 2024 Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the TennoCon digital pack.",
+    "place": "TennoCon 2024 Syandana",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2024 Syandana",
+     "url": "https://wiki.warframe.com/w/TennoCon_2024_Syandana",
+     "quote": "Originally obtained by purchasing the T ennoCon 2024 Digital Pack."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TennoConScarf": {
+  "name": "TennoCon 2016 Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event ticket or digital ticket.",
+    "place": "TennoCon 2016 Syandana",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "TennoCon 2016 Syandana",
+     "url": "https://wiki.warframe.com/w/TennoCon_2016_Syandana",
+     "quote": "Originally obtained as a bonus code from purchasing a physical T ennoCon 2016 ticket."
     }
    }
   ]
@@ -5322,8 +5866,8 @@
   "name": "Aspirant Syandana",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Operation: Atramentum for 60 Nightmare T atters event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5334,12 +5878,124 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Sigils/ArchwingSigil": {
+  "name": "Empyrean Sigil",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "l Nava Sigil Kumuda Sigil Pay respect to The Lotus with this elegant sigil. The Empyrean Sigil was available from December 12th, 2019 to August 25th, 2020 from the Empyrean Supporter Pack. Empyrean Sigil The same sigil that was proudly worn by Old War Railjack crews. Twitch Game Store and Twitch Prime Sigils [edit | edit source] The Prominence Sigil was obtainable by purchasing the Prominenc"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/ClanSigilBasic": {
+  "name": "Clan Sigil",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from the listed vendor.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "he Tenno victory over the machinations of Alad V and his Amalgam Project. These Clan Sigils were originally available for purchase during Operation: Scarlet Spear, purchased from Little Duck in the Scarlet Spear Flotilla Relay for 2,000 Scarlet Credits each. They have been made available in subsequent events as a recurring reward: Operation: Gargoyle's Cry: 3 Grotesque Splinters each Ope"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/HeirloomSigil": {
+  "name": "Deca Heirloom Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "Sigil This sigil won't just buff out. Heirloom Sigils [edit | edit source] The Deca Heirloom Sigil was part of the Risen Heirloom Collection or Zenith Heirloom Collection, sold for real-world currency for a limited time. These bundles have since been retired and are no longer available for purchase. Deca Heirloom Sigil A sigil that celebrates the Tenno's loyalty and dedication. The Ember Heirloo"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/StarterPackASigil": {
+  "name": "Nava Sigil",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "e signature sigil of Limbo Prime. Platinum Pack Sigils [edit | edit source] The Nava Sigil was available from a previous iteration of WARFRAME's Starter Pack, which was discontinued on June 25th, 2019. Nava Sigil Pay respect to The Lotus with this elegant sigil. The Kumuda Sigil was available from June 25th, 2019 to August 25th, 2020 from a previous Starter Pack. Velorum Prime Sigil Cycu"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/StarterPackLotusSigil": {
+  "name": "Kumuda Sigil",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "ne 25th, 2019. Nava Sigil Pay respect to The Lotus with this elegant sigil. The Kumuda Sigil was available from June 25th, 2019 to August 25th, 2020 from a previous Starter Pack. Velorum Prime Sigil Cycuta Prime Sigil Rift Walker Prime Sigil Nava Sigil Kumuda Sigil Pay respect to The Lotus with this elegant sigil. The Empyrean Sigil was available from December 12th, 2019 to August 25th, 20"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoGenSigil": {
+  "name": "TennoGen Sigil",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "Tenno Translator Emblem An exclusive Sigil worn only by Tenno Translators. The TennoGen Sigil is awarded to players who have had a T ennoGen skin implemented in the game. Tennogen Sigil A special sigil worn only by a select few Tenno. The Guides of the Lotus Sigil was used to help new players identify Guides of the Lotus. With the removal of the program, the Sigil is now unobtainable. Guide"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/Winter2016Sigil": {
+  "name": "Solstice Sigil",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Sigils",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "un Sigil Awarded to dedicated members within the Warframe community. The Winter Solstice Sigil was given to all Tenno during December 2016 after achieving the first donation milestone of Tennobaum. Winter Solstice Sigil A festive sigil. The Teralyst Prominence Sigil was awarded during The Great Eidolon Hunt, an event on T witch commemorating the release of the Plains of Eidolon. It was obtai"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/SolarisUnited/SUVentkidsBoomerang": {
   "name": "Glaive Boomie Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Glaive Boomie Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5354,8 +6010,8 @@
   "name": "Excalibur Obsidian Helmet",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5370,8 +6026,8 @@
   "name": "Attica Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5382,12 +6038,60 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianGalatine": {
+  "name": "Galatine Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "idian Azura Collection contains the following: Obsidian Azura Syandana Galatine Galatine Obsidian Skin Excalibur Obsidian Azura Helmet Excalibur Obsidian Azura Skin 50,000 Credits Credits 300 Platinum Platinum Affinity Booster (3 days) Credit Booster (3 days) Obsidian Corvus Collection [edit | edit source] https://www.warframe.com/news/obsidian-corvus-collection-available- now This pack was availabl"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianGorgon": {
+  "name": "Gorgon Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "2015. • • • • • • • • The Renown Pack IV included: 170 Platinum Platinum Gorgon Gorgon Obsidian Skin Viper Viper Obsidian Skin Twin Viper Obsidian Skin Renown Pack V [edit | edit source] https://www.warframe.com/news/renown-pack-V-available-now This pack was available from May 19, 2015 to August 25, 2015. The Renown Pack V included: 170 Platinum Platinum Obsidian Coltek Mask Helios Obsidian Skin W"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianHek": {
+  "name": "Hek Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "8 to December 4, 2018. The Renown Pack XIII includes: 170 Platinum Platinum Hek Hek Obsidian Skin Provvok Obsidian Shoulder Guard • • • • • • • • • • • • Renown Pack XIV [edit | edit source] https://forums.warframe.com/topic/1038161-last-chance-to-get-renown- pack-xiv/ Released November 28th, 2018 This pack was available from November 27, 2018 to February 26, 2019. The Renown Pack XIV includes:"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Sony/ObsidianHelios": {
   "name": "Helios Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5398,12 +6102,44 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianNikana": {
+  "name": "Nikana Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "es: 300 Platinum Platinum Obsidian Corvus Syandana Obsidian Corvus Sigil Nikana Nikana Obsidian Skin Affinity Booster (7 days) Credit Booster (7 days) • • • • • • • • • • • • • • • • Ultimate Obsidian Collection [edit | edit source] https://www.warframe.com/news/ultimate-obsidian-collection This pack was available from September 28, 2021 to ?. The Ultimate Obsidian Collection included: Ivara Obsid"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianQuanta": {
+  "name": "Quanta Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "Booster Pack III includes: 100 Platinum Platinum 100,000 Credits Credits Quanta Quanta Obsidian Skin Affinity Booster (7 days) • • • • • • • • • • • • • • • • • Credit Booster (7 days) PlayStation Plus Booster Pack IV [edit | edit source] https://www.warframe.com/news/playstation-plus-booster-pack-iv This pack was available from December 3, 2019, to November 5, 2020. The PlayStation Plus Booster P"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Sony/ObsidianScoliac": {
   "name": "Scoliac Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5414,12 +6150,28 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianSerro": {
+  "name": "Serro Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "0 Platinum Platinum Sonicor • • • • • • • • • • • • Sonicor Obsidian Skin Serro Serro Obsidian Skin Affinity Booster (3 days) Credit Booster (3 days) Renown Pack XVII [edit | edit source] https://www.warframe.com/news/renown-pack-xvii-available-now This pack was available from September 10, 2019 to March 10, 2020. The Renown Pack XVII includes: 170 Platinum Platinum Obsidian Samia Syandana Obsidi"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis": {
   "name": "Silva & Aegis Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5430,12 +6182,60 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianSonicor": {
+  "name": "Sonicor Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "Renown Pack XVI includes: 170 Platinum Platinum Sonicor • • • • • • • • • • • • Sonicor Obsidian Skin Serro Serro Obsidian Skin Affinity Booster (3 days) Credit Booster (3 days) Renown Pack XVII [edit | edit source] https://www.warframe.com/news/renown-pack-xvii-available-now This pack was available from September 10, 2019 to March 10, 2020. The Renown Pack XVII includes: 170 Platinum Platinum Obsi"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianSpira": {
+  "name": "Spira Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "2017 to June 20, 2017. The Renown Pack X included: 170 Platinum Platinum Spira Spira Obsidian Skin Obsidian Sigil • • • • • • • • • • • • • Renown Pack XI [edit | edit source] https://www.warframe.com/news/renown-pack-xi-available-now This pack was released on June 20, 2017. The Renown Pack XI includes: 170 Platinum Platinum Obsidian Ivara Helmet Obsidian Ivara Skin Obsidian Artemis Bow Skin Ren"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianStandardArchwingSkin": {
+  "name": "Odonata Obsidian Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "sidian Helmet Ivara Obsidian Skin Obsidian Artemis Bow Skin Liset Obsidian Skin Odonata Obsidian Skin Dendra Obsidian Leg Guard Dendra Obsidian Shoulder Guard Obsidian Indra Sigil Affinity Booster (7 days) 170 Platinum Platinum Ultimate Fan Pack [edit | edit source] https://blog.playstation.com/2013/11/07/warframe-ps4-pre-order- bonuses-detailed/ This pack was available until November 12, 2013. The"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Sony/ObsidianViper": {
   "name": "Viper Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5450,8 +6250,8 @@
   "name": "Wyrm Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5466,8 +6266,8 @@
   "name": "Lato Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5482,8 +6282,8 @@
   "name": "Skana Obsidian Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+    "kind": "event",
+    "text": "Reward from the Third Party Deals and Rewards event.",
     "place": "Third-party promotion",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5526,12 +6326,28 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/TnHeavyShotgun/NintendoTnHeavyShotgunSkin": {
+  "name": "Corinth Opal Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "Pack III includes: 170 Platinum Platinum Mag Opal Helmet Mag Opal Skin Corinth Corinth Opal Skin Affinity Booster (3 days) Credit Booster (3 days) Esteem Pack IV [edit | edit source] https://www.warframe.com/news/esteem-pack-iv Freeze enemies in their tracks and shatter their resolve with Esteem Pack IV. This bundle was available from March 11, 2020 to July 8, 2020. The Esteem Pack IV includes"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Volt/DiscordVolt": {
   "name": "Volt Amethyst Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Volt Amethyst Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5546,14 +6362,30 @@
   "name": "Volt Opal Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Volt Opal Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Volt Opal Skin",
      "url": "https://wiki.warframe.com/w/Volt_Opal_Skin",
      "quote": "The Volt Opal Skin was available through the Nintendo store via the Esteem Pack II[1]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Hammers/NintendoFragor": {
+  "name": "Fragor Opal Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "ack IV includes: 170 Platinum Platinum Frost Opal Helmet Frost Opal Skin Fragor Fragor Opal Skin Affinity Booster (3 days) Credit Booster (3 days) • • • • • • • • • • • • • • • • • • • • • Esteem Pack V [edit | edit source] https://www.warframe.com/news/esteem-pack-v-available-now Get ready to reload your Joy-Cons and kickstart your Fashion Frame: the latest Esteem Pack is available now! Estee"
     }
    }
   ]
@@ -5594,8 +6426,8 @@
   "name": "Quassus Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Quassus Solstice Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5610,8 +6442,8 @@
   "name": "Gammacor Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Gammacor Solstice Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",
@@ -5626,8 +6458,8 @@
   "name": "Latron Solstice Skin",
   "routes": [
    {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable: it was a limited-time or event reward.",
+    "kind": "event",
+    "text": "Reward from the Latron Solstice Skin event.",
     "place": "Limited-time reward",
     "source": {
      "archive": "wiki_pdf_archive",

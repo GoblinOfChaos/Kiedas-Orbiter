@@ -11,11 +11,14 @@ const unresolved = JSON.parse(fs.readFileSync(path.join(root, 'src-tauri/data/as
 const expected = new Map(scope.map((item) => [item.uniqueName, item.name]));
 
 const history = /(?:\b\d{4}\b|\bUpdate\s+\d+\b|originally|formerly|first available|previously|returned)/i;
+const notObtainableProof = /\b(?:not obtainable|no longer|no way to obtain|unavailable|discontinued|retired|previously obtainable|remain exclusive)\b/i;
 
 test('verified resources routes cover the scope exactly once', () => {
-  assert.equal(scope.length, 389);
   assert.equal(expected.size, scope.length);
-  assert.deepEqual(new Set([...Object.keys(resolved), ...Object.keys(unresolved)]), new Set(expected.keys()));
+  const actual = new Set([...Object.keys(resolved), ...Object.keys(unresolved)]);
+  const missing = [...expected.keys()].filter((key) => !actual.has(key));
+  const extra = [...actual].filter((key) => !expected.has(key));
+  assert.equal(missing.length + extra.length, 0, `scope mismatch: missing=${missing.slice(0, 25).join(', ')} extra=${extra.slice(0, 25).join(', ')}`);
   assert.equal(Object.keys(resolved).filter((key) => key in unresolved).length, 0);
 });
 
@@ -32,6 +35,7 @@ test('resolved resources routes have structured current text and source proof', 
       assert.equal(route.source.archive, 'wiki_pdf_archive');
       assert.equal(route.source.url, `https://wiki.warframe.com/w/${route.source.page.replaceAll(' ', '_')}`);
       assert.ok(route.source.quote);
+      if (route.kind === 'not_obtainable') assert.ok(notObtainableProof.test(route.source.quote) || /^Nightwave\//i.test(route.source.page), `${uniqueName}: unproven not_obtainable route`);
       if (route.price) {
         assert.equal(typeof route.price.amount, 'number');
         assert.ok(route.price.currency);

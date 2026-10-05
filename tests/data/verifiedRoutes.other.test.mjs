@@ -12,10 +12,14 @@ const unresolved = JSON.parse(readFileSync(path.join(root, 'src-tauri/data/asset
 const allKeys = new Set(scope.map((entry) => entry.uniqueName))
 const kinds = new Set(['drop', 'vendor', 'market', 'quest', 'event', 'crafting', 'reward', 'not_obtainable'])
 const history = /(?:19|20)\d{2}|Update\s+\d|originally|formerly|first available|previously/i
+const notObtainableProof = /\b(?:not obtainable|no longer|no way to obtain|unavailable|discontinued|retired|previously obtainable|remain exclusive)\b/i
 
 test('other verified routes are complete and mutually exclusive', () => {
   assert.equal(Object.keys(resolved).length + Object.keys(unresolved).length, scope.length)
-  assert.deepEqual(new Set([...Object.keys(resolved), ...Object.keys(unresolved)]), allKeys)
+  const actual = new Set([...Object.keys(resolved), ...Object.keys(unresolved)])
+  const missing = [...allKeys].filter((key) => !actual.has(key))
+  const extra = [...actual].filter((key) => !allKeys.has(key))
+  assert.equal(missing.length + extra.length, 0, `scope mismatch: missing=${missing.slice(0, 25).join(', ')} extra=${extra.slice(0, 25).join(', ')}`)
   for (const key of Object.keys(resolved)) assert.equal(Object.hasOwn(unresolved, key), false, key)
 })
 
@@ -32,6 +36,7 @@ test('other resolved routes have structured, current-only text', () => {
       assert.ok(route.source?.archive === 'wiki_pdf_archive', key)
       assert.ok(route.source?.page && route.source?.url && route.source?.quote, key)
       assert.equal(route.source.url, `https://wiki.warframe.com/w/${route.source.page.replaceAll(' ', '_')}`, key)
+      if (route.kind === 'not_obtainable') assert.ok(notObtainableProof.test(route.source.quote) || /^Nightwave\//i.test(route.source.page), `${key}: unproven not_obtainable route`)
       if (route.price) {
         assert.equal(typeof route.price.amount, 'number', key)
         assert.ok(route.price.amount >= 0 && route.price.currency, key)

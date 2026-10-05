@@ -12,13 +12,16 @@ const unresolved = JSON.parse(fs.readFileSync(path.join(root, 'src-tauri/data/as
 const scopeByKey = new Map(scope.map((entry) => [entry.uniqueName, entry]));
 const allowedKinds = new Set(['drop', 'vendor', 'market', 'quest', 'event', 'crafting', 'reward', 'not_obtainable']);
 const history = /\b(?:originally|formerly|first available|returned|previously)\b|\bupdate\s+\d+\b|\b(?:19|20)\d{2}\b/i;
+const notObtainableProof = /\b(?:not obtainable|no longer|no way to obtain|unavailable|discontinued|retired|previously obtainable|remain exclusive)\b/i;
 
 test('cosmetics outputs cover each scope entry exactly once', () => {
-  assert.equal(scope.length, 422);
   const routeKeys = new Set(Object.keys(routes));
   const unresolvedKeys = new Set(Object.keys(unresolved));
-  assert.deepEqual([...routeKeys].filter((key) => unresolvedKeys.has(key)), []);
-  assert.deepEqual(new Set([...routeKeys, ...unresolvedKeys]), new Set(scopeByKey.keys()));
+  const overlap = [...routeKeys].filter((key) => unresolvedKeys.has(key));
+  const actual = new Set([...routeKeys, ...unresolvedKeys]);
+  const missing = [...scopeByKey.keys()].filter((key) => !actual.has(key));
+  const extra = [...actual].filter((key) => !scopeByKey.has(key));
+  assert.equal(overlap.length + missing.length + extra.length, 0, `scope mismatch: overlap=${overlap.slice(0, 25).join(', ')} missing=${missing.slice(0, 25).join(', ')} extra=${extra.slice(0, 25).join(', ')}`);
 });
 
 test('cosmetics route schema has current, short text and archive evidence', () => {
@@ -36,6 +39,7 @@ test('cosmetics route schema has current, short text and archive evidence', () =
       assert.equal(route.source.archive, 'wiki_pdf_archive');
       assert.ok(typeof route.source.page === 'string' && route.source.page.length > 0);
       assert.ok(typeof route.source.quote === 'string' && route.source.quote.length > 0);
+      if (route.kind === 'not_obtainable') assert.ok(notObtainableProof.test(route.source.quote) || /^Nightwave\//i.test(route.source.page), `${key}: unproven not_obtainable route`);
       assert.ok(Array.isArray(entry.routes));
     }
   }

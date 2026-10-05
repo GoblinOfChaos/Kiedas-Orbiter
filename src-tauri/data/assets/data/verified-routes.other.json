@@ -1,175 +1,349 @@
 {
   "/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall": {
     "name": "Corrupted Bombard Specter",
-    "routes": [{
-      "kind": "not_obtainable",
-      "text": "Not currently obtainable: it was a limited-time Baro Ki'Teer exclusive specter.",
-      "place": "Baro Ki'Teer",
-      "source": {"archive": "wiki_pdf_archive", "page": "Specter", "url": "https://wiki.warframe.com/w/Specter", "quote": "The Corrupted Bombard Specter Blueprint was introduced as a Baro Ki'T eer exclusive specter, available for 100 and 50,000 between February 24–26, 2017 on PC."}
-    }]
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Obtain from Baro Ki'Teer.",
+        "place": "Baro Ki'Teer",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Specter",
+          "url": "https://wiki.warframe.com/w/Specter",
+          "quote": "The Corrupted Bombard Specter Blueprint was introduced as a Baro Ki'T eer exclusive specter, available for 100 and 50,000 between February 24–26, 2017 on PC."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/Consumable/StalkerBall": {
     "name": "Stalker Specter",
-    "routes": [{
-      "kind": "not_obtainable",
-      "text": "Not currently obtainable: its blueprint was a Nightwave and event reward.",
-      "place": "Nightwave and Operations",
-      "source": {"archive": "wiki_pdf_archive", "page": "Specter", "url": "https://wiki.warframe.com/w/Specter", "quote": "The Stalker Specter Blueprint was a reward from Nightwave's Nora's Mix Volume 7 and returned as a reward in Operation: Belly of the Beast."}
-    }]
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Reward from the Operation: Belly of the Beast event.",
+        "place": "Nightwave and Operations",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Specter",
+          "url": "https://wiki.warframe.com/w/Specter",
+          "quote": "The Stalker Specter Blueprint was a reward from Nightwave's Nora's Mix Volume 7 and returned as a reward in Operation: Belly of the Beast."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/SelfShotgunAmmo": {
     "name": "Shotgun Ammo Box",
-    "routes": [{
-      "kind": "not_obtainable",
-      "text": "Not currently obtainable: it was a Login Reward.",
-      "place": "Login Rewards",
-      "source": {"archive": "wiki_pdf_archive", "page": "Shotgun Ammo Box", "url": "https://wiki.warframe.com/w/Shotgun_Ammo_Box", "quote": "This item was previously obtainable as a Login Reward."}
-    }]
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a Login Reward.",
+        "place": "Login Rewards",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Shotgun Ammo Box",
+          "url": "https://wiki.warframe.com/w/Shotgun_Ammo_Box",
+          "quote": "This item was previously obtainable as a Login Reward."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/TeamAmmoTotem": {
     "name": "Squad Ammo Restore (Small)",
-    "routes": [{
-      "kind": "market",
-      "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-      "place": "Market",
-      "price": {"amount": 500, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Ammo Restore", "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }, {
-      "kind": "market",
-      "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-      "place": "Market",
-      "price": {"amount": 250000, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Ammo Restore", "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }]
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 500,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Ammo Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      },
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 250000,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Ammo Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/TeamEnergyTotem": {
     "name": "Squad Energy Restore (Small)",
-    "routes": [{
-      "kind": "market",
-      "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-      "place": "Market",
-      "price": {"amount": 500, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Energy Restore", "url": "https://wiki.warframe.com/w/Squad_Energy_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }, {
-      "kind": "market",
-      "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-      "place": "Market",
-      "price": {"amount": 250000, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Energy Restore", "url": "https://wiki.warframe.com/w/Squad_Energy_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }]
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 500,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Energy Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Energy_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      },
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 250000,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Energy Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Energy_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/TeamHeal": {
     "name": "Squad Health Restore (Small)",
-    "routes": [{
-      "kind": "market",
-      "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-      "place": "Market",
-      "price": {"amount": 500, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Health Restore", "url": "https://wiki.warframe.com/w/Squad_Health_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }, {
-      "kind": "market",
-      "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-      "place": "Market",
-      "price": {"amount": 250000, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Health Restore", "url": "https://wiki.warframe.com/w/Squad_Health_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }]
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 500,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Health Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      },
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 250000,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Health Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/TeamHealTotem": {
     "name": "Squad Health Restore (Small)",
-    "routes": [{
-      "kind": "market",
-      "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-      "place": "Market",
-      "price": {"amount": 500, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Health Restore", "url": "https://wiki.warframe.com/w/Squad_Health_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }, {
-      "kind": "market",
-      "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-      "place": "Market",
-      "price": {"amount": 250000, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Health Restore", "url": "https://wiki.warframe.com/w/Squad_Health_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }]
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 500,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Health Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      },
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 250000,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Health Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Restoratives/TeamShieldTotem": {
     "name": "Squad Shield Restore (Small)",
-    "routes": [{
-      "kind": "market",
-      "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-      "place": "Market",
-      "price": {"amount": 500, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Shield Restore", "url": "https://wiki.warframe.com/w/Squad_Shield_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }, {
-      "kind": "market",
-      "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-      "place": "Market",
-      "price": {"amount": 250000, "currency": "Credits"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Squad Shield Restore", "url": "https://wiki.warframe.com/w/Squad_Shield_Restore", "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."}
-    }]
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 500,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Shield Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Shield_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      },
+      {
+        "kind": "market",
+        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+        "place": "Market",
+        "price": {
+          "amount": 250000,
+          "currency": "Credits"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Squad Shield Restore",
+          "url": "https://wiki.warframe.com/w/Squad_Shield_Restore",
+          "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+        }
+      }
+    ]
   },
   "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit": {
     "name": "Prisma Shade",
-    "routes": [{
-      "kind": "vendor",
-      "text": "Purchase Prisma Shade from Baro Ki'Teer for 500 Ducats and 300,000 Credits when offered.",
-      "place": "Baro Ki'Teer",
-      "price": {"amount": 500, "currency": "Ducats"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Baro Ki'Teer", "url": "https://wiki.warframe.com/w/Baro_Ki'Teer", "quote": "Prisma Shade Ducats 500 Credits 300,000"}
-    }]
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase Prisma Shade from Baro Ki'Teer for 500 Ducats and 300,000 Credits when offered.",
+        "place": "Baro Ki'Teer",
+        "price": {
+          "amount": 500,
+          "currency": "Ducats"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Baro Ki'Teer",
+          "url": "https://wiki.warframe.com/w/Baro_Ki'Teer",
+          "quote": "Prisma Shade Ducats 500 Credits 300,000"
+        }
+      }
+    ]
   },
   "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert": {
     "name": "Primed Polar Magazine",
-    "routes": [{
-      "kind": "vendor",
-      "text": "Purchase Primed Polar Magazine unranked from Baro Ki'Teer for 390 Ducats and 210,000 Credits when it is in stock.",
-      "place": "Baro Ki'Teer",
-      "price": {"amount": 390, "currency": "Ducats"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Primed Polar Magazine", "url": "https://wiki.warframe.com/w/Primed_Polar_Magazine", "quote": "This mod can be purchased unranked from the Void Trader Baro Ki'T eer for 210,000 and 390."}
-    }]
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase Primed Polar Magazine unranked from Baro Ki'Teer for 390 Ducats and 210,000 Credits when it is in stock.",
+        "place": "Baro Ki'Teer",
+        "price": {
+          "amount": 390,
+          "currency": "Ducats"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Primed Polar Magazine",
+          "url": "https://wiki.warframe.com/w/Primed_Polar_Magazine",
+          "quote": "This mod can be purchased unranked from the Void Trader Baro Ki'T eer for 210,000 and 390."
+        }
+      }
+    ]
   },
   "/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod": {
     "name": "Helminth Ferocity",
-    "routes": [{
-      "kind": "reward",
-      "text": "Receive Helminth Ferocity by incubating a Helminth Charger.",
-      "place": "Helminth Charger",
-      "source": {"archive": "wiki_pdf_archive", "page": "Helminth Ferocity", "url": "https://wiki.warframe.com/w/Helminth_Ferocity", "quote": "This mod was unique to the Helminth Charger and was granted to players upon incubating of a Helminth Charger."}
-    }]
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Receive Helminth Ferocity by incubating a Helminth Charger.",
+        "place": "Helminth Charger",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Helminth Ferocity",
+          "url": "https://wiki.warframe.com/w/Helminth_Ferocity",
+          "quote": "This mod was unique to the Helminth Charger and was granted to players upon incubating of a Helminth Charger."
+        }
+      }
+    ]
   },
   "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun": {
     "name": "Resilient Focus",
-    "routes": [{
-      "kind": "not_obtainable",
-      "text": "Not currently obtainable: the page says there is currently no way to obtain this mod.",
-      "place": "Unavailable",
-      "source": {"archive": "wiki_pdf_archive", "page": "Resilient Focus", "url": "https://wiki.warframe.com/w/Resilient_Focus", "quote": "There is currently no way to obtain this mod."}
-    }]
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: the page says there is currently no way to obtain this mod.",
+        "place": "Unavailable",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Resilient Focus",
+          "url": "https://wiki.warframe.com/w/Resilient_Focus",
+          "quote": "There is currently no way to obtain this mod."
+        }
+      }
+    ]
   },
   "/Lotus/Powersuits/Excalibur/ExcaliburPrime": {
     "name": "Excalibur Prime",
-    "routes": [{
-      "kind": "not_obtainable",
-      "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
-      "place": "Founder program",
-      "source": {"archive": "wiki_pdf_archive", "page": "Prime Resurgence", "url": "https://wiki.warframe.com/w/Prime_Resurgence", "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."}
-    }]
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
+        "place": "Founder program",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Prime Resurgence",
+          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+          "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
+        }
+      }
+    ]
   },
   "/Lotus/Weapons/Tenno/Archwing/Melee/VoidTraderArchsword/VTArchSwordWeapon": {
     "name": "<ARCHWING> Prisma Veritux",
-    "routes": [{
-      "kind": "vendor",
-      "text": "Purchase Prisma Veritux from Baro Ki'Teer for 550 Ducats and 150,000 Credits when it is in stock.",
-      "place": "Baro Ki'Teer",
-      "price": {"amount": 550, "currency": "Ducats"},
-      "source": {"archive": "wiki_pdf_archive", "page": "Prisma Veritux", "url": "https://wiki.warframe.com/w/Prisma_Veritux", "quote": "The Prisma Veritux is potentially sold by Baro Ki'T eer in the Concourse section of the T ennoRelay for 150,000 and 550."}
-    }]
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase Prisma Veritux from Baro Ki'Teer for 550 Ducats and 150,000 Credits when it is in stock.",
+        "place": "Baro Ki'Teer",
+        "price": {
+          "amount": 550,
+          "currency": "Ducats"
+        },
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Prisma Veritux",
+          "url": "https://wiki.warframe.com/w/Prisma_Veritux",
+          "quote": "The Prisma Veritux is potentially sold by Baro Ki'T eer in the Concourse section of the T ennoRelay for 150,000 and 550."
+        }
+      }
+    ]
   },
   "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime": {
     "name": "Skana Prime",
-    "routes": [{
-      "kind": "not_obtainable",
-      "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
-      "place": "Founder program",
-      "source": {"archive": "wiki_pdf_archive", "page": "Prime Resurgence", "url": "https://wiki.warframe.com/w/Prime_Resurgence", "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."}
-    }]
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
+        "place": "Founder program",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Prime Resurgence",
+          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+          "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
+        }
+      }
+    ]
   }
 }

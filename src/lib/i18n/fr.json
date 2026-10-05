@@ -943,7 +943,7 @@
     "acquisition_drawer.syndicate_fallback": "Syndicat",
     "acquisition_drawer.vaulted_no_source": "Cette relique est archivée et n’a aucune source d’obtention active.",
     "acquisition_drawer.checking_item_data": "Vérification des données de l’objet…",
-    "acquisition_drawer.no_verified_route": "Aucune méthode d’obtention vérifiée n’est connue pour cet objet.",
+    "acquisition_drawer.unresearched_route": "La méthode d’obtention de cet objet n’a pas encore été étudiée.",
     "acquisition_drawer.know_where_found": "Vous savez où le trouver ?",
     "acquisition_drawer.unconfirmed_price_note": "Ce prix est confirmé, mais pas la source — cliquez sur le lien du wiki ci-dessous pour des infos plus précises.",
     "acquisition_drawer.unconfirmed_badge": "Non confirmé",

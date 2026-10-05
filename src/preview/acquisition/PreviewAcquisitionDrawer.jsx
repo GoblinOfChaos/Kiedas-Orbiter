@@ -178,7 +178,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 <p className="preview-acq-muted italic">{t('acquisition_drawer.checking_item_data')}</p>
               :
                 <div className="preview-acq-no-source">
-                  <p className="preview-acq-muted italic">{t('acquisition_drawer.no_verified_route')}</p>
+                  <p className="preview-acq-muted italic">{t('acquisition_drawer.unresearched_route')}</p>
                   <button type="button" onClick={() => setShowReportModal(true)} className="preview-acq-report-inline">
                     <Flag size={11} />
                     {t('acquisition_drawer.know_where_found')}

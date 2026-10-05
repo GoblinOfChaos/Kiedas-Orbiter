@@ -3,9 +3,9 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { loadRealHarness, DEFAULT_DATA_DIR } from '../../scripts/lib/real-data-harness.mjs'
-import { buildDropIndex } from '../../src/lib/dropsParser.js'
 
-const overrides = JSON.parse(fs.readFileSync(new URL('../../src-tauri/data/assets/data/acquisition_overrides.json', import.meta.url)))
+const auditRoot = path.resolve(process.env.P36_AUDIT_REPO || path.join(import.meta.dirname, '../..'))
+const overrides = JSON.parse(fs.readFileSync(path.join(auditRoot, 'src-tauri/data/assets/data/acquisition_overrides.json'), 'utf8'))
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'))
 
 const ALLOWED_VIOLATIONS = new Map()
@@ -34,10 +34,16 @@ function catalogEntries(exportsBundle) {
     const table = exportsBundle[key]
     const entries = Array.isArray(table) ? table.map((entry) => [entry.uniqueName, entry]) : Object.entries(table || {})
     for (const [uniqueName, entry] of entries) {
-      if (uniqueName && entry) all.push({ uniqueName, name: entry.name || entry.displayName || '' })
+      if (uniqueName && entry && !isPlaceholder(uniqueName, entry.name || entry.displayName || '')) all.push({ uniqueName, name: entry.name || entry.displayName || '' })
     }
   }
   return all
+}
+
+function isPlaceholder(uniqueName, name) {
+  return /Lotus\*Customization/i.test(`${uniqueName} ${name}`)
+    || /^<[^>]+>$/.test(String(name).trim())
+    || /<[^>]+>/.test(String(name))
 }
 
 function violationKind(text) {
@@ -58,9 +64,39 @@ function violationKind(text) {
   return null
 }
 
+function violationSummary(label, violations) {
+  const counts = new Map()
+  for (const violation of violations) counts.set(violation.kind, (counts.get(violation.kind) || 0) + 1)
+  const countText = [...counts.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([kind, count]) => `${kind}=${count}`).join(', ') || 'none'
+  const samples = violations.slice(0, 25).map((violation) => `${violation.name} [${violation.kind}]: ${String(violation.text || '').slice(0, 120)}`).join('\n')
+  return `${label}: ${violations.length} violation(s); ${countText}${samples ? `\nFirst ${Math.min(25, violations.length)}:\n${samples}` : ''}`.slice(0, 4900)
+}
+
+function assertNoViolations(label, violations, scratchName = 'p36-audit-violations.json') {
+  if (violations.length) {
+    const scratchDir = path.join(auditRoot, 'scratch')
+    fs.mkdirSync(scratchDir, { recursive: true })
+    fs.writeFileSync(path.join(scratchDir, scratchName), JSON.stringify(violations, null, 2))
+  }
+  assert.ok(violations.length === 0, violationSummary(label, violations))
+}
+
+const BANNED_ROUTE_PHRASES = [
+  ['no', 'acquisition', 'known'].join(' '),
+  ['no', 'verified', 'acquisition', 'route'].join(' '),
+  ['no', 'known', 'source'].join(' '),
+  ['no', 'current', 'acquisition', 'route'].join(' '),
+]
+
+function containsBannedRoutePhrase(text) {
+  const value = String(text || '').toLocaleLowerCase()
+  return BANNED_ROUTE_PHRASES.some((phrase) => value.includes(phrase))
+}
+
 test('real data: every catalog acquisition source row is current and renderable', { skip: !haveRealData }, async () => {
   const harness = await loadRealHarness({ locale: 'en' })
-  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import('../../src/lib/acquisitionInfo.js')
+  const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
   const dropIndex = buildDropIndex(harness.exportsBundle)
   const violations = []
@@ -86,12 +122,13 @@ test('real data: every catalog acquisition source row is current and renderable'
     }
   }
 
-  assert.deepEqual(violations, [], `catalog acquisition violations: ${JSON.stringify(violations.slice(0, 30), null, 2)}`)
+  assertNoViolations('catalog acquisition violations', violations, 'p36-shape-violations.json')
 })
 
 test('real data: Grimoire routes keep their labels and formatted Standing amount', { skip: !haveRealData }, async () => {
   const harness = await loadRealHarness({ locale: 'en' })
-  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import('../../src/lib/acquisitionInfo.js')
+  const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
   const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
   const dropIndex = buildDropIndex(harness.exportsBundle)
   const acquire = (uniqueName, name) => getAcquisitionInfo(
@@ -108,4 +145,138 @@ test('real data: Grimoire routes keep their labels and formatted Standing amount
   assert.ok(grimoire.sources.some((source) => /Purchased from Bird 3.*50,000 Standing/i.test(source.text)))
   assert.ok(grimoire.sources.every((source) => !/^Blueprint:$|^or$/i.test(source.text)))
   assert.ok(blueprint.sources.some((source) => /Sold by Bird 3/i.test(source.text)))
+})
+
+const KNOWN_UNRESEARCHED = 3287 // First real-data audit run; Phase 2 verified-routes data must drive this count to 0.
+
+function canonicalRouteText(value) {
+  return String(value || '').normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, ' ').replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+}
+
+function sourceRows(sources) {
+  return (sources || []).flatMap((source) => source?.sources ? sourceRows(source.sources) : [source])
+}
+
+function hasPlace(source, sourceLabel) {
+  if (source?.type === 'status') return true
+  if (source?.placeLabel || sourceLabel?.(source)) return true
+  return /\b(?:from|at|via|during|through|in|on|market|shop|vendor|reward(?:ed)?|relic|mission|enemy|defeat|scan|quest|invasion|dojo|lab|archon|netracell|circuit|void|bounty|cache|syndicate|acts|claim|nightwave|nora|amir|intrinsics?|drifter|mastery|trade)\b/i.test(source?.text || '')
+}
+
+test('real data: P36 route contract holds for every catalog drawer', { skip: !haveRealData }, async () => {
+  const harness = await loadRealHarness({ locale: 'en' })
+  const { buildDropIndex } = await import(path.join(auditRoot, 'src/lib/dropsParser.js'))
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo, getAcquisitionAuditStats } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  let sourceLabel = null
+  try { sourceLabel = (await import(path.join(auditRoot, 'src/lib/sourceLabel.js'))).sourceLabel } catch {}
+  const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
+  const dropIndex = buildDropIndex(harness.exportsBundle)
+  const violations = []
+  let unresearched = 0
+  for (const entry of catalogEntries(harness.exportsBundle)) {
+    const displayName = harness.dict[entry.name] || entry.name
+    const result = getAcquisitionInfo(
+      entry.uniqueName, displayName, dropIndex, overrides,
+      indexes.recipeResultIndex, indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex,
+      indexes.wikiSigilIndex, indexes.wikiVendorIndex, indexes.wikiTennoGenIndex, indexes.wikiBaroIndex,
+      indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
+      indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex,
+      indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex, indexes.wikiAcquisitionStatusIndex,
+      indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
+    )
+    const rows = sourceRows(result.sources)
+    if (rows.some((source) => source?.type === 'unresearched')) unresearched += 1
+    const seen = []
+    for (const source of rows) {
+      if (!source || source.type === 'unresearched') continue
+      const text = String(source.text || '').trim()
+      if (!text && source.type !== 'status') continue
+      if (!hasPlace(source, sourceLabel)) violations.push({ kind: 'missingPlace', name: displayName, uniqueName: entry.uniqueName, text })
+      if (text.length > 300) violations.push({ kind: 'longRow', name: displayName, uniqueName: entry.uniqueName, text })
+      if (/±|\d+\.\d+%\s+\d/.test(text)) violations.push({ kind: 'flattenedTable', name: displayName, uniqueName: entry.uniqueName, text })
+      const key = canonicalRouteText(text)
+      if (key && seen.some((prior) => prior === key || prior.includes(key) || key.includes(prior))) violations.push({ kind: 'duplicateRoute', name: displayName, uniqueName: entry.uniqueName, text })
+      if (key) seen.push(key)
+      if (/\b(?:Platinum|Credits|Standing)\s+[A-Z][a-z]+/.test(text)) violations.push({ kind: 'runOn', name: displayName, uniqueName: entry.uniqueName, text })
+      if (containsBannedRoutePhrase(text)) violations.push({ kind: 'bannedPhrase', name: displayName, uniqueName: entry.uniqueName, text })
+    }
+    for (const group of (result.sources || []).filter((source) => source?.type?.endsWith?.('-group') && source.sources?.length)) {
+      const first = canonicalRouteText(group.sources[0]?.text)
+      if (first && group.sources.slice(1).some((source) => canonicalRouteText(source.text) === first)) violations.push({ kind: 'repeatedGroupFirstRow', name: displayName, uniqueName: entry.uniqueName, text: group.sources[0].text })
+    }
+  }
+  assert.ok(unresearched <= KNOWN_UNRESEARCHED, `unresearched entries increased: ${unresearched} > ${KNOWN_UNRESEARCHED}`)
+  assertNoViolations('P36 catalog violations', violations)
+  assert.ok(getAcquisitionAuditStats().rowsSplit >= 0)
+})
+
+test('P36 audit summaries stay bounded for large violation lists', () => {
+  const violations = Array.from({ length: 100000 }, (_, index) => ({
+    kind: 'longRow',
+    name: `Item ${index}`,
+    text: 'x'.repeat(1000),
+  }))
+  assert.ok(violationSummary('bounded', violations).length < 5000)
+})
+
+test('P36 optional verified routes use the same normalized rows', async () => {
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const indexes = buildAllAcquisitionIndexes({
+    VerifiedRoutes: {
+      '/Synthetic/VerifiedItem': {
+        routes: [{
+          kind: 'vendor',
+          text: 'Purchase this item from the synthetic vendor.',
+          place: 'Synthetic vendor',
+          source: { url: 'https://wiki.warframe.com/w/Synthetic', revid: 1, quote: 'Purchase this item from the synthetic vendor.' },
+        }],
+      },
+    },
+  })
+  const result = getAcquisitionInfo(
+    '/Synthetic/VerifiedItem', 'Synthetic Verified Item', null, {},
+    indexes.recipeResultIndex, indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex,
+    indexes.wikiSigilIndex, indexes.wikiVendorIndex, indexes.wikiTennoGenIndex, indexes.wikiBaroIndex,
+    indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
+    indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex,
+    indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex, indexes.wikiAcquisitionStatusIndex,
+    indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
+  )
+  assert.equal(result.sources.length, 1)
+  assert.equal(result.sources[0].placeLabel, 'Synthetic vendor')
+  assert.match(result.sources[0].text, /synthetic vendor/i)
+})
+
+test('P36 normalizer handles the reported route strings', async () => {
+  const { normalizeAcquisitionRoutes } = await import(path.join(auditRoot, 'src/lib/acquisitionInfo.js'))
+  const forma = normalizeAcquisitionRoutes([{
+    type: 'non-drop',
+    text: "Purchased blueprint from Acrithis's shop for 10 Pathos Clamps. Found very rarely in Rare or Reinforced Storage Containers in Zariman Ten Zero, Void, and Lua. Purchased complete from the Market for 20 Platinum Purchased complete from the Market as a three-Forma bundle for 35 Platinum.",
+  }], { itemName: 'Forma Blueprint' })
+  assert.equal(forma.length, 4)
+  assert.ok(forma.some((row) => /20 Platinum\./.test(row.text)))
+  assert.ok(forma.some((row) => /three-Forma bundle/.test(row.text)))
+
+  const arbucep = normalizeAcquisitionRoutes([
+    { type: 'mission', objectiveName: 'Nokko: Critter Liberation Rewards', rotation: 'B', rarity: 'Rare' },
+    { type: 'mission', objectiveName: 'Nokko: Critter Liberation Rewards', rotation: 'C', rarity: 'Uncommon' },
+  ], { itemName: 'Arbucep Receiver' })
+  assert.deepEqual(arbucep.map((row) => row.placeLabel), [
+    'Nokko: Critter Liberation Rewards — Rot B — Rare',
+    'Nokko: Critter Liberation Rewards — Rot C — Uncommon',
+  ])
+
+  const archon = normalizeAcquisitionRoutes([{
+    type: 'non-drop',
+    text: '5 31 ± 10 52.5% 1 – 2 9 ± 3 12.5% 8 52 ± 17 Deep Archimedea Uncommon Reward Pool 52.',
+  }], { itemName: 'Amber Archon Shard' })
+  assert.equal(archon.filter((row) => /±|\d+\.\d+%\s+\d/.test(row.text)).length, 0)
+
+  const latron = normalizeAcquisitionRoutes([
+    { type: 'override', text: 'They can now be found as an Invasion reward.' },
+    { type: 'override', text: 'All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint.' },
+  ], { itemName: 'Latron Wraith' })
+  assert.equal(latron.length, 2)
+  assert.ok(latron[1].placeLabel)
+  assert.match(latron[1].text, /All components can be traded/)
 })

@@ -5,6 +5,7 @@ import { rankPlaces } from './farmNext.js';
 import { sortSourcesByChanceInRotations } from '../chanceSort.js';
 import { buildRelicPlaces } from './relicPlaces.js';
 import { resolveAnyImage, resolveMissionType, resolveNode } from '../warframeUtils.js';
+import { sourceLabel } from '../sourceLabel.js';
 
 const CACHE_LIMIT = 8192;
 
@@ -215,11 +216,7 @@ export function sourceType(source) {
 }
 
 function sourceName(source, normalizer) {
-  const provenance = lower(source.source, normalizer);
-  const sourceIsProvenance = provenance === 'drops.wf' || provenance === 'browse.wf' || provenance.endsWith('.wf');
-  return source.nodeName ?? source.node ?? source.relicName ?? source.enemyName ?? source.bountyName ??
-    source.objectiveName ?? source.syndicateName ?? source.sourceName ?? source.place ?? source.keyName ??
-    (sourceIsProvenance ? null : source.source) ?? source.name ?? null;
+  return sourceLabel(source, { includeRegion: false, includeRotation: false, includeRarity: false }) || null;
 }
 
 function regionEntries(regions) {
@@ -455,7 +452,11 @@ function sourceRowsFor(placeIndex, coveredItems) {
   return coveredItems.map((item) => ({
     ...item,
     sources: sortSourcesByChanceInRotations(
-      [...new Set([item.itemType, item.name].map((value) => lower(value)).filter(Boolean))]
+      [...new Set([
+        item.itemType,
+        item.name,
+        item.name && /blueprint$/i.test(String(item.itemType ?? '')) ? `${item.name} Blueprint` : null,
+      ].map((value) => lower(value)).filter(Boolean))]
         .flatMap((key) => placeIndex.byItem.get(key) ?? [])
         .filter((source) => source.placeId === item.placeId),
     ),

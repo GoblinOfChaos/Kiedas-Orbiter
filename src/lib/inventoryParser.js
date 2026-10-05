@@ -154,6 +154,16 @@ export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
   return false;
 }
 
+// DE sometimes exports resolver placeholders instead of player-facing items.
+// They have no usable display identity and must not enter any catalog bucket.
+export function isInternalCatalogPlaceholder(itemOrUniqueName) {
+  const uniqueName = typeof itemOrUniqueName === 'string' ? itemOrUniqueName : itemOrUniqueName?.unique_name;
+  const name = typeof itemOrUniqueName === 'object' ? itemOrUniqueName?.name : '';
+  return /Lotus\*Customization/i.test(`${uniqueName || ''} ${name || ''}`)
+    || /^<[^>]+>$/.test(String(name || '').trim())
+    || /<[^>]+>/.test(String(name || ''));
+}
+
 const INVENTORY_DEDUPE_ORDER = [
   'warframes', 'primary', 'secondary', 'melee', 'kitguns', 'zaws', 'sentinels',
   'moas', 'hounds', 'beasts', 'archwings', 'kdrives', 'archweapons', 'necramechs', 'amps',
@@ -3595,6 +3605,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     for (const parent of parentArray) {
       const weapons = exaltedWeaponsByParent[parent.unique_name];
       if (weapons) parent.exaltedWeapons = weapons;
+    }
+  }
+
+  // These internal records can be present in several buckets, so apply the
+  // same documented filter once before constructing the full catalog.
+  for (const list of [warframes, primary, secondary, melee, kitguns, zaws, sentinels, moas, hounds, beasts, archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, resources, components, rivens, prime_parts, parts]) {
+    for (let index = list.length - 1; index >= 0; index -= 1) {
+      if (isInternalCatalogPlaceholder(list[index])) list.splice(index, 1);
     }
   }
 

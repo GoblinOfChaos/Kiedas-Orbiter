@@ -1463,7 +1463,7 @@
     "acquisition_drawer.syndicate_fallback": "Syndicate",
     "acquisition_drawer.vaulted_no_source": "This relic is vaulted and has no active acquisition source.",
     "acquisition_drawer.checking_item_data": "Checking item data…",
-    "acquisition_drawer.no_verified_route": "No verified acquisition route is known for this item.",
+    "acquisition_drawer.unresearched_route": "How to get this item has not been researched yet.",
     "acquisition_drawer.know_where_found": "Know where to find it?",
     "acquisition_drawer.unconfirmed_price_note": "This price is confirmed, but the source isn't — click the wiki link below for more accurate info.",
     "acquisition_drawer.unconfirmed_badge": "Unconfirmed",

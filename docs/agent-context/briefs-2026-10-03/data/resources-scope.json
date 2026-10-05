@@ -4375,6 +4375,31 @@
 "unique_name": "/Lotus/Types/Keys/BardQuest/BardQuestSequencerPartC"
 },
 {
+"name": "Ember Prex",
+"family": "other",
+"unique_name": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem"
+},
+{
+"name": "Garuda Prex",
+"family": "other",
+"unique_name": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem"
+},
+{
+"name": "Protea Prex",
+"family": "other",
+"unique_name": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem"
+},
+{
+"name": "Titania Prex",
+"family": "other",
+"unique_name": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem"
+},
+{
+"name": "Vauban Prex",
+"family": "other",
+"unique_name": "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem"
+},
+{
 "name": "Odonata Prime Wings",
 "family": "other",
 "unique_name": "/Lotus/Types/Recipes/ArchwingRecipes/PrimeArchwing/PrimeArchwingWingsComponent"

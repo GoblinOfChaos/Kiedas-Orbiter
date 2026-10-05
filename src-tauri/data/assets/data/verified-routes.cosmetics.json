@@ -1,0 +1,3090 @@
+{
+  "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternDuviriWolf": {
+    "name": "Fabled Kubrow Fur Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kubrow Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kubrow_Cosmetics",
+          "quote": "Bond (from Ticker, during Star Days) Fabled Fur PatternHarbinger Red Conspirator GreenCourtier RedPrincely Gold Euleria Entrati commissioned this unique Kubrow DNA segment to manifest a creature from the storybook, Tales of Duviri."
+        }
+      }
+    ]
+  },
+  "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasA": {
+    "name": "Nart-Deer Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kubrow Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kubrow_Cosmetics",
+          "quote": "50 (during T ennobaum) Nart-Deer Fur PatternBrokk Brown Lotus WhiteT enno Red This tool provides all of the genetic information to mask a Kubrow's innate DNA structure and allows a Tenno to customize its"
+        }
+      }
+    ]
+  },
+  "/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternXmasB": {
+    "name": "Nistlebrush Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kubrow Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kubrow_Cosmetics",
+          "quote": "50 (during T ennobaum) Nistlebrush Fur PatternTrinity RedNova White Jadeleaf Green This tool provides all of the genetic information to mask a Kubrow's innate DNA structure and allows a Tenno to customize its"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraHelmet": {
+    "name": "Ivara Obsidian Helmet",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The Ultimate Obsidian Collection included: Ivara Obsidian Helmet Ivara Obsidian Skin Obsidian Artemis Bow Skin"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Archer/ObsidianIvaraSkin": {
+    "name": "Ivara Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Ivara Obsidian Skin",
+          "url": "https://wiki.warframe.com/w/Ivara_Obsidian_Skin",
+          "quote": "The Ivara Obsidian Skin was available through the PlayStation store via the Renown Pack XI[1] and the Ultimate Obsidian Collection[2]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Archer/WinterSolsticeSalix": {
+    "name": "Salix Solstice Syandana",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Salix Solstice Syandana",
+          "url": "https://wiki.warframe.com/w/Salix_Solstice_Syandana",
+          "quote": "Purchaseable from the Market during T ennobaum for 95, or as a bundled item from Winter Solstice Skin Bundle for 350."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorA": {
+    "name": "Hexis Arm Plates",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Arbiters of Hexis for 125,000 Standing.",
+        "place": "Arbiters of Hexis",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Hexis Chest PlateHexis Arm Plates Hexis Spurs Arbiters of Hexis Rank 5: Maxim 125,000 Standing An armor set traditionally worn by those entrusted with the duties of Arbitration"
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorC": {
+    "name": "Hexis Chest Plate",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Arbiters of Hexis for 125,000 Standing.",
+        "place": "Arbiters of Hexis",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Hexis Chest PlateHexis Arm Plates Hexis Spurs Arbiters of Hexis Rank 5: Maxim 125,000 Standing An armor set traditionally worn by those entrusted with the duties of Arbitration"
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/ArbiterOfHexisArmor/ArbiterOfHexisArmorL": {
+    "name": "Hexis Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Arbiters of Hexis for 125,000 Standing.",
+        "place": "Arbiters of Hexis",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Hexis Chest PlateHexis Arm Plates Hexis Spurs Arbiters of Hexis Rank 5: Maxim 125,000 Standing An armor set traditionally worn by those entrusted with the duties of Arbitration"
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorA": {
+    "name": "Suda Arm Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Cephalon Suda for 125,000 Standing.",
+        "place": "Cephalon Suda",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Suda Chest PieceSuda Arm Spurs Suda Leg Spurs Cephalon Suda Rank 5: Genius 125,000 Standing From knowledge: creation. An armor set forged to exacting Precepts."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorC": {
+    "name": "Suda Chest Piece",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Cephalon Suda for 125,000 Standing.",
+        "place": "Cephalon Suda",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Suda Chest PieceSuda Arm Spurs Suda Leg Spurs Cephalon Suda Rank 5: Genius 125,000 Standing From knowledge: creation. An armor set forged to exacting Precepts."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CephArmor/CephArmorL": {
+    "name": "Suda Leg Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Cephalon Suda for 125,000 Standing.",
+        "place": "Cephalon Suda",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Suda Chest PieceSuda Arm Spurs Suda Leg Spurs Cephalon Suda Rank 5: Genius 125,000 Standing From knowledge: creation. An armor set forged to exacting Precepts."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/DaxFlaredArmor/DaxFlaredAArmor": {
+    "name": "Dax Lustratus Shoulder Plates",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dax Lustratus Shoulder Plates",
+          "url": "https://wiki.warframe.com/w/Dax_Lustratus_Shoulder_Plates",
+          "quote": "Operation: Blood of Perita for 40 Marks of Valiance."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourL": {
+    "name": "Jade Axa Leg Plate",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Jade Axa Shoulder Plates Jade Axa Leg Plates 170 Platinum Platinum Prestige Pack XI"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaAArmor": {
+    "name": "Lokan Arm Plates",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from New Loka for 125,000 Standing.",
+        "place": "New Loka",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Lokan Chest PieceLokan Arm PlatesLokan Knee Spurs New Loka Rank 5: Flawless 125,000 Standing Orchid patterns and flowing organic lines are signature to the New Lokan armor."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaCArmor": {
+    "name": "Lokan Chest Piece",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from New Loka for 125,000 Standing.",
+        "place": "New Loka",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Lokan Chest PieceLokan Arm PlatesLokan Knee Spurs New Loka Rank 5: Flawless 125,000 Standing Orchid patterns and flowing organic lines are signature to the New Lokan armor."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/NLokaArmor/NLokaLArmor": {
+    "name": "Lokan Knee Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from New Loka for 125,000 Standing.",
+        "place": "New Loka",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Lokan Chest PieceLokan Arm PlatesLokan Knee Spurs New Loka Rank 5: Flawless 125,000 Standing Orchid patterns and flowing organic lines are signature to the New Lokan armor."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorA": {
+    "name": "Ostron Arm Guards",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Ostron, Hok for 125,000 Standing.",
+        "place": "Ostron, Hok",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Set Ostron Chest Guard Ostron Arm GuardsOstron Leg Guards Ostron, Hok Rank 5: Kin 125,000 Standing An Ostron armor set crafted from Orokin tower salvage."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorL": {
+    "name": "Ostron Leg Guards",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Ostron, Hok for 125,000 Standing.",
+        "place": "Ostron, Hok",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Set Ostron Chest Guard Ostron Arm GuardsOstron Leg Guards Ostron, Hok Rank 5: Kin 125,000 Standing An Ostron armor set crafted from Orokin tower salvage."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorA": {
+    "name": "Perrin Arm Guards",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from The Perrin Sequence for 125,000 Standing.",
+        "place": "The Perrin Sequence",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Perrin Chest PiecePerrin Arm GuardsPerrin Leg Guards The Perrin Sequence Rank 5: Partner 125,000 Standing The Armor of the Perrin Sequence is clean and economically designed."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorC": {
+    "name": "Perrin Chest Piece",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from The Perrin Sequence for 125,000 Standing.",
+        "place": "The Perrin Sequence",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Perrin Chest PiecePerrin Arm GuardsPerrin Leg Guards The Perrin Sequence Rank 5: Partner 125,000 Standing The Armor of the Perrin Sequence is clean and economically designed."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/PerrinSequenceArmor/PerrinSequenceArmorL": {
+    "name": "Perrin Leg Guards",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from The Perrin Sequence for 125,000 Standing.",
+        "place": "The Perrin Sequence",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Perrin Chest PiecePerrin Arm GuardsPerrin Leg Guards The Perrin Sequence Rank 5: Partner 125,000 Standing The Armor of the Perrin Sequence is clean and economically designed."
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedAArmor": {
+    "name": "Solaris Arm Guards",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Solaris United, Rude Zuud for 125,000 Standing.",
+        "place": "Solaris United, Rude Zuud",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Set Solaris Chest Marker Solaris Arm GuardsSolaris Leg Spurs Solaris United, Rude Zuud Rank 5: Old Mate 125,000 Standing"
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedLArmor": {
+    "name": "Solaris Leg Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Solaris United, Rude Zuud for 125,000 Standing.",
+        "place": "Solaris United, Rude Zuud",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Set Solaris Chest Marker Solaris Arm GuardsSolaris Leg Spurs Solaris United, Rude Zuud Rank 5: Old Mate 125,000 Standing"
+        },
+        "price": {
+          "amount": 125000,
+          "currency": "Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/StalkerShoulderArmor/StalkerShoulderArmorA": {
+    "name": "Deathmark Shoulder Armor",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available from Nightwave.",
+        "place": "Nightwave",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Deathmark Shoulder Armor",
+          "url": "https://wiki.warframe.com/w/Deathmark_Shoulder_Armor",
+          "quote": "Obtained from the following Nightwave season(s): Nora's Mix Volume 7 — Rank 30 Armor (Cosmetic) [General] Syndicate Hexis Armor Set Hexis Chest Plate • Hexis Arm Plates • Hexis Spurs Suda Armor Set Suda Chest Piece • Suda Arm Spurs • Suda Leg Spurs Meridian Armor Set Meridian Chest Plate • Meridian Arm Spurs •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/WarframeDefaults/RevenantDeluxeCape": {
+    "name": "Revenant Mephisto Syandana",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Revenant Mephisto Syandana",
+          "url": "https://wiki.warframe.com/w/Revenant_Mephisto_Syandana",
+          "quote": "Purchase Revenant Mephisto Skin from the Market for 150."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Berserker/JadeValkyrSkin": {
+    "name": "Valkyr Jade Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Valkyr Jade Skin",
+          "url": "https://wiki.warframe.com/w/Valkyr_Jade_Skin",
+          "quote": "The Valkyr Jade Skin was available through the Xbox store via the Prestige Pack XII.[1] Equipping [edit | edit source] T o equip this skin, go to the \"Arsenal\" page, then click on Valkyr's \"Appearance\" tab, and then it can be found within the \"Skin\" sub- menu."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/NexusCatbrowFur": {
+    "name": "Nexus Kavat Fur Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kavat Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kavat_Cosmetics",
+          "quote": "(Baro Ki'T eer's offering) Nexus Fur PatternNidus WhiteMesa Blue Ignis RedDarvo Purple Customize a Kavat's fur color with these isolated DNA sequences. Moonless"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/SolsticeCatbrowFur": {
+    "name": "Solstice Kavat Fur Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kavat Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kavat_Cosmetics",
+          "quote": "Winter Solstice Skin Bundle) Solstice Fur PatternBombard White Wukong BlueManic BlackLynx Blue Customize a Kavat's fur color with these isolated DNA sequences. Hyekka"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin": {
+    "name": "Argyl Kavat Fur Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kavat Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kavat_Cosmetics",
+          "quote": "Argyl 40 (seasonal) Argyl Fur PatternSandstorm BrownAtlas Red Asteroid BrownCleaver Green Customize a Kavat's fur color with these isolated DNA sequences. Solstice"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/PS5OkinaBadgeItem": {
+    "name": "Okina Emblem",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Okina Weapon and its slick Obsidian Skin. Display your Okina proudly with the Okina Emblem and mark your territory with the Mesa Okina Glyph, both available exclusively to PlayStation Tenno! This pack was released on Febuary 22, 2022. It may only be purchased"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSharpshooter": {
+    "name": "Vectis Sharpshooter Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Vectis Sharpshooter Skin",
+          "url": "https://wiki.warframe.com/w/Vectis_Sharpshooter_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSilferer": {
+    "name": "Vectis Silferer Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Vectis Silferer Skin",
+          "url": "https://wiki.warframe.com/w/Vectis_Silferer_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Melee/DualZorenCombustion": {
+    "name": "Dual Zoren Combustion Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dual Zoren Combustion Skin",
+          "url": "https://wiki.warframe.com/w/Dual_Zoren_Combustion_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Melee/DualZorenKuberus": {
+    "name": "Dual Zoren Kuberus Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dual Zoren Kuberus Skin",
+          "url": "https://wiki.warframe.com/w/Dual_Zoren_Kuberus_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Melee/ScindoCombustion": {
+    "name": "Scindo Combustion Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Scindo Combustion Skin",
+          "url": "https://wiki.warframe.com/w/Scindo_Combustion_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Melee/ScindoKuberus": {
+    "name": "Scindo Kuberus Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Scindo Kuberus Skin",
+          "url": "https://wiki.warframe.com/w/Scindo_Kuberus_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Pistols/AkmagnusDakila": {
+    "name": "Akmagnus Dakila Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Akmagnus Dakila Skin",
+          "url": "https://wiki.warframe.com/w/Akmagnus_Dakila_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Pistols/AkmagnusHiveLight": {
+    "name": "Akmagnus Hivelight Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Akmagnus Hivelight Skin",
+          "url": "https://wiki.warframe.com/w/Akmagnus_Hivelight_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Pistols/MagnusDakila": {
+    "name": "Magnus Dakila Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Magnus Dakila Skin",
+          "url": "https://wiki.warframe.com/w/Magnus_Dakila_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Contests/Pistols/MagnusHiveLight": {
+    "name": "Magnus Hivelight Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Magnus Hivelight Skin",
+          "url": "https://wiki.warframe.com/w/Magnus_Hivelight_Skin",
+          "quote": "This item can be purchased for 40 from the Marketplace."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Crowns/HeirloomFrostCrown": {
+    "name": "Frost Heirloom Signa",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Frost Heirloom Signa",
+          "url": "https://wiki.warframe.com/w/Frost_Heirloom_Signa",
+          "quote": "Bundles, available from August 25, 2023 to December 31, 2023."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Crowns/HeirloomMagCrown": {
+    "name": "Mag Heirloom Signa",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Mag Heirloom Signa",
+          "url": "https://wiki.warframe.com/w/Mag_Heirloom_Signa",
+          "quote": "Bundles, available from August 25, 2023 to December 31, 2023."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/CrpArSniper/CrpArSniperLichSkin": {
+    "name": "Ambassador Tenet Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Ambassador Tenet Skin",
+          "url": "https://wiki.warframe.com/w/Ambassador_Tenet_Skin",
+          "quote": "Parvos Riptide Pack, which was available from August 6th, 2021 to December 10th, 2021."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/FootstepsEasterEggs": {
+    "name": "Spring Step Ephemera",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Spring Step Ephemera",
+          "url": "https://wiki.warframe.com/w/Spring_Step_Ephemera",
+          "quote": "event and removed from the player's inventory after that date."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/InfestedEphemeraA": {
+    "name": "Spore Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available from Nightwave.",
+        "place": "Nightwave",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Spore Ephemera",
+          "url": "https://wiki.warframe.com/w/Spore_Ephemera",
+          "quote": "Awarded from reaching certain ranks in Nightwave: Rank 19 in Series 2: The Emissary Rank 18 in Intermission III Rank 27 in Nora's Mix Volume 4 Rank 7 in Nora's Mix: Dreams of the Dead Media [edit | edit source] Spore Ephemera Ephemera Adversary Series Kuva Lich Vengeful Charge Ephemera •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/InkEphemeraA": {
+    "name": "Primatura Ephemera",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Primatura Ephemera",
+          "url": "https://wiki.warframe.com/w/Primatura_Ephemera",
+          "quote": "Can be purchased during Operation: Atramentum from Aspirant Zorba in any Relays for 65 Nightmare T atters once Community Progress has reached 30%."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/InkEphemeraB": {
+    "name": "Pareidola Ephemera",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Pareidola Ephemera",
+          "url": "https://wiki.warframe.com/w/Pareidola_Ephemera",
+          "quote": "Can be purchased during Operation: Atramentum from Aspirant Zorba in any Relays for 65 Nightmare T atters once Community Progress has reached 60%."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/InkEphemeraC": {
+    "name": "Liftbalon Ephemera",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Liftbalon Ephemera",
+          "url": "https://wiki.warframe.com/w/Liftbalon_Ephemera",
+          "quote": "Can be purchased during Operation: Atramentum from Aspirant Zorba in any Relays for 65 Nightmare T atters once Community Progress has reached 90%."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/LNYDragonEphemera": {
+    "name": "Xianglong Ephemera",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Xianglong Ephemera",
+          "url": "https://wiki.warframe.com/w/Xianglong_Ephemera",
+          "quote": "The Xianglong Ephemera can be bought from the Market for 60, or as part of the Dragon Stone Bundle for 575 between January 24th - February 25th, 2024."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/LNYKaitheDagathEphemera": {
+    "name": "Malaen Ephemera",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Malaen Ephemera",
+          "url": "https://wiki.warframe.com/w/Malaen_Ephemera",
+          "quote": "The Malaen Ephemera can be bought from the Market for 60, or as part of the Dagath Yfari Collection for 480 or Lustrous Lunar Renewal Collection for 700 between February 11th - March 11th, 2026."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/LNYStonesEphemera": {
+    "name": "Heaven Stones Ephemera",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Heaven Stones Ephemera",
+          "url": "https://wiki.warframe.com/w/Heaven_Stones_Ephemera",
+          "quote": "The Heaven Stones Ephemera can be bought from the Market for 60, or as part of the Pink T opaz Bundle for 590 or Noble Opal Collection for 805 between January 15th - February 15th, 2025."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/LunarEphemera": {
+    "name": "Purified Bloom Ephemera",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Purified Bloom Ephemera",
+          "url": "https://wiki.warframe.com/w/Purified_Bloom_Ephemera",
+          "quote": "The Purified Bloom Ephemera can be bought from the Market for 60, or as part of the Emerald Renewal Bundle for 500 between January 12th - February 12th, 2023."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/ObsidianEphemeraA": {
+    "name": "Obsidian Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Obsidian Ephemera",
+          "url": "https://wiki.warframe.com/w/Obsidian_Ephemera",
+          "quote": "available from September 10th, 2019 to March 10th, 2020."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/PrimeVorunaEphemera": {
+    "name": "Okuri Tails Prime Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through Prime Access.",
+        "place": "Prime Access",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Okuri Tails Prime Ephemera",
+          "url": "https://wiki.warframe.com/w/Okuri_Tails_Prime_Ephemera",
+          "quote": "Obtained via Voruna Prime Access Accessories Pack, available from April 8, 2026."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/ProteaPrimeEphemera": {
+    "name": "Temporal Prime Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through Prime Access.",
+        "place": "Prime Access",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Temporal Prime Ephemera",
+          "url": "https://wiki.warframe.com/w/Temporal_Prime_Ephemera",
+          "quote": "Obtained via the Protea Prime Access Accessories Pack, available from May 1st, 2024 until August 21st, 2024."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/TennoCon2021Ephemera": {
+    "name": "TennoCon 2021 Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "TennoCon 2021 Ephemera",
+          "url": "https://wiki.warframe.com/w/TennoCon_2021_Ephemera",
+          "quote": "Obtained from the T ennocon 2021 Digital ticket pack."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/TennoCon2026Ephemera": {
+    "name": "Hunhullus Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Hunhullus Ephemera",
+          "url": "https://wiki.warframe.com/w/Hunhullus_Ephemera",
+          "quote": "Obtained from the T ennoCon 2026 Digital Pack."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/YareliPrimeEphemera": {
+    "name": "Thalassa Prime Ephemera",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through Prime Access.",
+        "place": "Prime Access",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Thalassa Prime Ephemera",
+          "url": "https://wiki.warframe.com/w/Thalassa_Prime_Ephemera",
+          "quote": "Obtained via the Yareli Prime Access Accessories Pack, available from May 21st, 2025."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Events/GlaxionPolar": {
+    "name": "Glaxion Polar Skin",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Glaxion Polar Skin",
+          "url": "https://wiki.warframe.com/w/Glaxion_Polar_Skin",
+          "quote": "Excavation mission in Operation Cryotic Front."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Excalibur/NintendoExcalibur": {
+    "name": "Excalibur Opal Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Excalibur Opal Skin",
+          "url": "https://wiki.warframe.com/w/Excalibur_Opal_Skin",
+          "quote": "The Excalibur Opal Skin was available through the Nintendo store via the Esteem Pack I[1]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Fairy/SolsticeFairySkin": {
+    "name": "Titania Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Titania Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Titania_Solstice_Skin",
+          "quote": "The Titania Solstice Skin is available from the Market during T ennobaum for 40."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Fairy/TitaniaDeluxeIIArchwingPistolsSkin": {
+    "name": "Aerospri Dex Pixia Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Aerospri Dex Pixia Skin",
+          "url": "https://wiki.warframe.com/w/Aerospri_Dex_Pixia_Skin",
+          "quote": "The Aerospri Dex Pixia Skin is only available in the Market as part of the Titania Donann Skin for 165 or Titania Donann Collection for 195."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Festivities/JingleKnuckles": {
+    "name": "Ringers Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Ringers Skin",
+          "url": "https://wiki.warframe.com/w/Ringers_Skin",
+          "quote": "This weapon skin could be obtained from the market on December 16, 2015 for 1."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Festivities/XmasSonicor": {
+    "name": "Sonicor Festive Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Sonicor Festive Skin",
+          "url": "https://wiki.warframe.com/w/Sonicor_Festive_Skin",
+          "quote": "This weapon skin could be obtained from the market on December 16, 2015 for 20."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostHeirloomSkin": {
+    "name": "Frost Heirloom Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Frost Heirloom Skin",
+          "url": "https://wiki.warframe.com/w/Frost_Heirloom_Skin",
+          "quote": "Players could purchase the Frost Heirloom Skin alongside the Mag Heirloom Skin by purchasing the Celestial or Zenith Heirloom Bundles from August 26th to December 31st 2023."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Frost/FrostXmasSkin": {
+    "name": "Frost Festive Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Frost Festive Skin",
+          "url": "https://wiki.warframe.com/w/Frost_Festive_Skin",
+          "quote": "The Frost Festive Skin is available from the Market during T ennobaum for 40."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Frost/NintendoFrost": {
+    "name": "Frost Opal Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Frost Opal Skin",
+          "url": "https://wiki.warframe.com/w/Frost_Opal_Skin",
+          "quote": "The Frost Opal Skin was available through the Nintendo store via the Esteem Pack IV[1]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Guandao/NintendoGaundaoSkin": {
+    "name": "Guandao Opal Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Give your Excalibur a pearlescent new look with the Excalibur Opal Skin, or equip the Guandao Opal Skin to make your polearm shimmer with every slash. This bundle was available from March 12, 2019 to May 28, 2019."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/DOTD2025AtomosSkin": {
+    "name": "Atomos Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Atomos Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Atomos_Day_of_the_Dead_Skin",
+          "quote": "of the Dead, available from October 27th, 2025 and to April 8th, 2026."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenAklato": {
+    "name": "Aklato Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Aklato Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Aklato_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenAmprex": {
+    "name": "Amprex Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Amprex Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Amprex_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenAngstrum": {
+    "name": "Angstrum Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Angstrum Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Angstrum_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenArchSword": {
+    "name": "Veritux Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Veritux Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Veritux_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenBoltor": {
+    "name": "Boltor Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Boltor Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Boltor_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenBraton": {
+    "name": "Braton Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Braton Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Braton_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenBuzlok": {
+    "name": "Buzlok Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Buzlok Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Buzlok_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenDaikyu": {
+    "name": "Daikyu Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Daikyu Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Daikyu_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenDarkDagger": {
+    "name": "Dark Dagger Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dark Dagger Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Dark_Dagger_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenDarkSplitSword": {
+    "name": "Dark Split-Sword Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dark Split-Sword Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Dark_Split-Sword_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenDragonNikana": {
+    "name": "Dragon Nikana Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dragon Nikana Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Dragon_Nikana_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenDualZoren": {
+    "name": "Dual Zoren Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dual Zoren Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Dual_Zoren_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenGalatine": {
+    "name": "Galatine Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Galatine Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Galatine_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenGlaive": {
+    "name": "Glaive Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Glaive Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Glaive_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenGlaxion": {
+    "name": "Glaxion Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Glaxion Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Glaxion_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenGorgon": {
+    "name": "Gorgon Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Gorgon Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Gorgon_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenGrakata": {
+    "name": "Grakata Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Grakata Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Grakata_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenGrinlok": {
+    "name": "Grinlok Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Grinlok Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Grinlok_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenImperator": {
+    "name": "Imperator Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Imperator Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Imperator_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenJatKittag": {
+    "name": "Jat Kittag Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Jat Kittag Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Jat_Kittag_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenKronen": {
+    "name": "Kronen Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kronen Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Kronen_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenKunai": {
+    "name": "Kunai Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kunai Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Kunai_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenLato": {
+    "name": "Lato Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Lato Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Lato_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenMarelok": {
+    "name": "Marelok Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Marelok Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Marelok_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenNikana": {
+    "name": "Nikana Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Nikana Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Nikana_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenNukor": {
+    "name": "Nukor Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Nukor Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Nukor_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenOpticor": {
+    "name": "Opticor Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Opticor Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Opticor_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenOrthos": {
+    "name": "Orthos Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Orthos Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Orthos_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenParis": {
+    "name": "Paris Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Paris Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Paris_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenRegorAxeShield": {
+    "name": "Ack & Brunt Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time event reward.",
+        "place": "Nights of Naberus",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Day of the Dead Skins",
+          "url": "https://wiki.warframe.com/w/Day_of_the_Dead_Skins",
+          "quote": "Dead Weapon Skin Pack III for 175, or individually for 20. Ack & Brunt Day of the Dead Skin Platinum 20 Angstrum Day of the Dead Skin Platinum 20"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSarpa": {
+    "name": "Sarpa Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Sarpa Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Sarpa_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenScindo": {
+    "name": "Scindo Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Scindo Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Scindo_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis": {
+    "name": "Silva & Aegis Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time event reward.",
+        "place": "Nights of Naberus",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Day of the Dead Skins",
+          "url": "https://wiki.warframe.com/w/Day_of_the_Dead_Skins",
+          "quote": "Sarpa Day of the Dead Skin Platinum 20 Silva & Aegis Day of the Dead Skin Platinum 20 Simulor Day of the Dead Skin Platinum 20"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSimulor": {
+    "name": "Simulor Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Simulor Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Simulor_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSkana": {
+    "name": "Skana Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Skana Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Skana_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack III 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSobek": {
+    "name": "Sobek Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Sobek Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Sobek_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSoma": {
+    "name": "Soma Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Soma Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Soma_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSonicor": {
+    "name": "Sonicor Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Sonicor Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Sonicor_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenSpira": {
+    "name": "Spira Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Spira Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Spira_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenStradavar": {
+    "name": "Stradavar Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Stradavar Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Stradavar_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenTonkor": {
+    "name": "Tonkor Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Tonkor Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Tonkor_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenTwinGrakatas": {
+    "name": "Twin Grakatas Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Twin Grakatas Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Twin_Grakatas_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack IV 180 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenTwinGremlins": {
+    "name": "Gremlins Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Gremlins Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Gremlins_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack 175 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Halloween/HalloweenVasto": {
+    "name": "Vasto Day of the Dead Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Vasto Day of the Dead Skin",
+          "url": "https://wiki.warframe.com/w/Vasto_Day_of_the_Dead_Skin",
+          "quote": "This skin is available for purchase for limited time from in-game market during Nights of Naberus separately for 20 or as part of Day of the Dead Weapon Skin Pack II 145 Skins and Cosmetics [Bundles] General Adventus Arrows • Ceramica • Continuity Collection • Desert T actics • Forest Camo • Gemini Nikana •"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Hammer/SolsticeHeliocor": {
+    "name": "Heliocor Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Heliocor Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Heliocor_Solstice_Skin",
+          "quote": "This weapon skin could be obtained from market during Holiday Season for 30."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Harlequin/MirageXmasSkin": {
+    "name": "Mirage Winter Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Mirage Winter Skin",
+          "url": "https://wiki.warframe.com/w/Mirage_Winter_Skin",
+          "quote": "The Mirage Winter Skin is available from the Market during T ennobaum for 40."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Fur/DaybreakKubrowFur": {
+    "name": "Daybreak Kubrow Fur Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kubrow Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kubrow_Cosmetics",
+          "quote": "Daybreak (Nightwave reward) Daybreak Fur PatternDusk Pink Evening PurpleMorning Yellow The Orokin engineered this DNA structure to make their Kubrows embody the season of renewal."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Kubrows/Fur/SolsticeKubrowFur": {
+    "name": "Solstice Kubrow Fur Pattern",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Kubrow Cosmetics",
+          "url": "https://wiki.warframe.com/w/Kubrow_Cosmetics",
+          "quote": "40 (during T ennobaum) Solstice Fur PatternBombard White Wukong BlueManic Black This tool provides all of the genetic information to mask a Kubrow's innate DNA structure and allows a Tenno to customize its"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/LunarNewYear/LNYHookSword": {
+    "name": "Dual Swords Lunaeus Skin",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Dual Swords Lunaeus Skin",
+          "url": "https://wiki.warframe.com/w/Dual_Swords_Lunaeus_Skin",
+          "quote": "the Market separately for 75, or as part of the Fire Agate Bundle for 295."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Mag/MagHeirloomSkin": {
+    "name": "Mag Heirloom Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Mag Heirloom Skin",
+          "url": "https://wiki.warframe.com/w/Mag_Heirloom_Skin",
+          "quote": "Players could purchase the Mag Heirloom Skin alongside the Frost Heirloom Skin by purchasing the Celestial or Zenith Heirloom Bundles from August 26th to December 31st 2023."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Mag/NintendoMag": {
+    "name": "Mag Opal Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Mag Opal Skin",
+          "url": "https://wiki.warframe.com/w/Mag_Opal_Skin",
+          "quote": "The Mag Opal Skin was available through the Nintendo store via the Esteem Pack III[1]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/LNYBirdSugatra": {
+    "name": "Baochun Sugatra",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Baochun Sugatra",
+          "url": "https://wiki.warframe.com/w/Baochun_Sugatra",
+          "quote": "Purchased from the Market for 15, or as a bundled item from Fire Agate Bundle for 295."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/LNYFireSugatra": {
+    "name": "Tanau Sugatra",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Tanau Sugatra",
+          "url": "https://wiki.warframe.com/w/Tanau_Sugatra",
+          "quote": "Purchased from the Market for 15, or as a bundled item from Year Of The Kaithe Collection for 295."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/LNYSnakeMeleeDangle": {
+    "name": "Cordmade Sugatra",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Cordmade Sugatra",
+          "url": "https://wiki.warframe.com/w/Cordmade_Sugatra",
+          "quote": "Purchased from the Market for 15, or as a bundled item from Smoky Quartz Bundle for 215."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/Sugotchi1999MeleeDangle": {
+    "name": "Tammpet Sugatra",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available from Nightwave.",
+        "place": "Nightwave",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Tammpet Sugatra",
+          "url": "https://wiki.warframe.com/w/Tammpet_Sugatra",
+          "quote": "Acquired from achieving NightwaveNora's Mix Volume 8: Rank 22."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/TennoCon2022SugatraMeleeDangle": {
+    "name": "TennoCon 2022 Sugatra",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "TennoCon 2022 Sugatra",
+          "url": "https://wiki.warframe.com/w/TennoCon_2022_Sugatra",
+          "quote": "Acquired from purchasing T ennoCon 2022 Digital Pack."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/MeleeDangles/WegameChinaKnotDangle": {
+    "name": "Lunaeus Knot Sugatra",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Lunaeus Knot Sugatra",
+          "url": "https://wiki.warframe.com/w/Lunaeus_Knot_Sugatra",
+          "quote": "Acquired from purchasing Start Anew Bundle for 185."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/CosmosEpitaphSkin": {
+    "name": "Epitaph Raya Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Epitaph Raya Skin",
+          "url": "https://wiki.warframe.com/w/Epitaph_Raya_Skin",
+          "quote": "Mix Volume 9, available from May 21st, 2025 and to October 27th, 2025."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin": {
+    "name": "Glaive Daybreak Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Glaive Daybreak Skin",
+          "url": "https://wiki.warframe.com/w/Glaive_Daybreak_Skin",
+          "quote": "Volume 6, available from May 15th, 2024 and to September 3rd, 2024."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/DaybreakCedoSkin": {
+    "name": "Cedo Daybreak Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Cedo Daybreak Skin",
+          "url": "https://wiki.warframe.com/w/Cedo_Daybreak_Skin",
+          "quote": "Mix Volume 6, available from May 15th, 2024 and to September 3rd, 2024."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/DaybreakGrnBannerScarf": {
+    "name": "Daybreak Vanquished Banner",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Daybreak Vanquished Banner",
+          "url": "https://wiki.warframe.com/w/Daybreak_Vanquished_Banner",
+          "quote": "Obtained from the following Nightwave season(s): Nora's Mix Volume 6 — Rank 4 Variant [edit | edit source] Vanquished Banner Vanquished Banner Day of the Dead Daybreak Vanquished Banner Solstice Vanquished Banner Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/DaybreakNukorSkin": {
+    "name": "Nukor Daybreak Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Nukor Daybreak Skin",
+          "url": "https://wiki.warframe.com/w/Nukor_Daybreak_Skin",
+          "quote": "Mix Volume 6, available from May 15th, 2024 and to September 3rd, 2024."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Nightwave/InfHeavyClawsSkin": {
+    "name": "Eukar Claw Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Eukar Claw Skin",
+          "url": "https://wiki.warframe.com/w/Eukar_Claw_Skin",
+          "quote": "Volume 4, Available from May 24th, 2023."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin": {
+    "name": "Fragor Tekelu Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Fragor Tekelu Skin",
+          "url": "https://wiki.warframe.com/w/Fragor_Tekelu_Skin",
+          "quote": "Was previously available from Gift from the Lotus in 2019."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Paladin/OberonPS4Skin": {
+    "name": "Oberon Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Oberon Obsidian Skin",
+          "url": "https://wiki.warframe.com/w/Oberon_Obsidian_Skin",
+          "quote": "The Oberon Obsidian Skin was available through the PlayStation store via the Renown Pack XV[1]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkin": {
+    "name": "Excalibur Jade Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Excalibur Jade Skin",
+          "url": "https://wiki.warframe.com/w/Excalibur_Jade_Skin",
+          "quote": "The Excalibur Jade Skin was available through the Xbox store via the Excalibur Jade Bundle[1], Prestige Pack I[2], Prestige Collection I[3], and Prestige Collection II.[4] Equipping [edit | edit source] T o equip this skin, go to the \"Arsenal\" page, then click on Excalibur's \"Appearance\" tab, and then it can be found within the \"Skin\" sub-"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeRhinoSkin": {
+    "name": "Rhino Jade Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Rhino Jade Skin",
+          "url": "https://wiki.warframe.com/w/Rhino_Jade_Skin",
+          "quote": "The Rhino Jade Skin was available through the Xbox store via the Jade Axa Bundle[1] and Prestige Collection II.[2] Equipping [edit | edit source] T o equip this skin, go to the \"Arsenal\" page, then click on Rhino's \"Appearance\" tab, and then it can be found within the \"Skin\" sub-"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumBrokenWar": {
+    "name": "Broken War Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Broken War Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Broken_War_Solstice_Skin",
+          "quote": "The Broken War Solstice Skin was originally available during T ennobaum."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Promo/Seasonal/TennobaumOcucor": {
+    "name": "Ocucor Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Ocucor Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Ocucor_Solstice_Skin",
+          "quote": "The Ocucor Solstice Skin was originally available during T ennobaum."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana": {
+    "name": "Monarcierro Day of the Dead Syandana",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Monarcierro Day of the Dead Syandana",
+          "url": "https://wiki.warframe.com/w/Monarcierro_Day_of_the_Dead_Syandana",
+          "quote": "Obtained from the following Nightwave season(s): Nora's Mix: Dreams of the Dead — Rank 30 Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana • Ahlto Syandana • Akrabu Syandana • Altra Syandana • Amphor Syandana • Apoxys Syandana • Artifex Syandana • Asa Syandana"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/IceSpikeCape": {
+    "name": "Glacia Syandana",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Glacia Syandana",
+          "url": "https://wiki.warframe.com/w/Glacia_Syandana",
+          "quote": "Obtained from the following Nightwave season(s): Nora's Mix Volume 1 — Rank 30 Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana • Ahlto Syandana • Akrabu Syandana • Altra Syandana • Amphor Syandana • Apoxys Syandana • Artifex Syandana • Asa Syandana"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SolsticeCenturionCape": {
+    "name": "Solstice Centuria Syandana",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Solstice Centuria Syandana",
+          "url": "https://wiki.warframe.com/w/Solstice_Centuria_Syandana",
+          "quote": "Obtained from a Gift from the Lotus alert, last seen in December 20, 2019[citation needed]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SolsticeGrnBannerScarf": {
+    "name": "Solstice Vanquished Banner",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Solstice Vanquished Banner",
+          "url": "https://wiki.warframe.com/w/Solstice_Vanquished_Banner",
+          "quote": "Obtained as T ennobaum 2016 Ultimate Goal Reward."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/SolsticeU17TnoCapeScarf": {
+    "name": "Izvara Solstice Syandana",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Izvara Solstice Syandana",
+          "url": "https://wiki.warframe.com/w/Izvara_Solstice_Syandana",
+          "quote": "Obtained as T ennobaum 2017 Ultimate Goal Reward."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/TC2025Scarf": {
+    "name": "TennoCon Riftguard Syandana",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "TennoCon Riftguard Syandana",
+          "url": "https://wiki.warframe.com/w/TennoCon_Riftguard_Syandana",
+          "quote": "Originally obtained by purchasing the T ennoCon 2025 Digital Pack. Now no longer available."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/TnPyraV2Syandana": {
+    "name": "Stelflare Syandana",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Stelflare Syandana",
+          "url": "https://wiki.warframe.com/w/Stelflare_Syandana",
+          "quote": "Obtained from the following Nightwave season(s): Nora's Mix Volume 5 — Rank 30 Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana • Ahlto Syandana • Akrabu Syandana • Altra Syandana • Amphor Syandana • Apoxys Syandana • Artifex Syandana • Asa Syandana"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/TnRailjackCosmosSyandana": {
+    "name": "Raya Sigma Syandana",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Raya Sigma Syandana",
+          "url": "https://wiki.warframe.com/w/Raya_Sigma_Syandana",
+          "quote": "Obtained from the following Nightwave season(s): Nora's Mix Volume 9 — Rank 18 Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana • Ahlto Syandana • Akrabu Syandana • Altra Syandana • Amphor Syandana • Apoxys Syandana • Artifex Syandana • Asa Syandana"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/ZorbaScarf": {
+    "name": "Aspirant Syandana",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Aspirant Syandana",
+          "url": "https://wiki.warframe.com/w/Aspirant_Syandana",
+          "quote": "Obtained during limited time event Operation: Atramentum for 60 Nightmare T atters."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/SolarisUnited/SUVentkidsBoomerang": {
+    "name": "Glaive Boomie Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Glaive Boomie Skin",
+          "url": "https://wiki.warframe.com/w/Glaive_Boomie_Skin",
+          "quote": "Parvos Riptide Pack, which was available from August 6th, 2021 to December 10th, 2021."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ExcaliburPSPlusSkinHelmet": {
+    "name": "Excalibur Obsidian Helmet",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Excalibur Obsidian Skin Excalibur Obsidian Helmet 170 Platinum Platinum Renown Pack IV"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianAttica": {
+    "name": "Attica Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Attica Attica Obsidian Skin Renown Pack X [edit | edit source]"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianHelios": {
+    "name": "Helios Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Obsidian Coltek Mask Helios Obsidian Skin Wyrm Obsidian Skin Renown Pack VI"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianScoliac": {
+    "name": "Scoliac Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Scoliac Scoliac Obsidian Skin Obsidian Azura Sugatra Renown Pack XV"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianSilvaAndAegis": {
+    "name": "Silva & Aegis Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Silva & Aegis Silva & Aegis Obsidian Skin Renown Pack VIII [edit | edit source]"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianViper": {
+    "name": "Viper Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Viper Viper Obsidian Skin T win Viper Obsidian Skin Renown Pack V"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/ObsidianWyrm": {
+    "name": "Wyrm Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Helios Obsidian Skin Wyrm Obsidian Skin Renown Pack VI [edit | edit source]"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Lato": {
+    "name": "Lato Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The Renown Pack II included: Lato Obsidian Skin Skana Obsidian Skin 170 Platinum Platinum"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Sony/PS4Skana": {
+    "name": "Skana Obsidian Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a platform-exclusive or limited-time bundle reward.",
+        "place": "Third-party promotion",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "Lato Obsidian Skin Skana Obsidian Skin 170 Platinum Platinum Renown Pack III"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/SteamEsteem/EsteemExcalibur": {
+    "name": "Excalibur Onyx Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Excalibur Onyx Skin",
+          "url": "https://wiki.warframe.com/w/Excalibur_Onyx_Skin",
+          "quote": "purchasing any of the available Pinnacle Packs[1]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Tengu/ZephyrQTCCBodySkin": {
+    "name": "Zephyr Conquera Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available as the listed reward.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Zephyr Conquera Skin",
+          "url": "https://wiki.warframe.com/w/Zephyr_Conquera_Skin",
+          "quote": "This skin was made available for free for reaching the community $100K Donation goal for QTCC 2025. After the campaign's conclusion the skin was delivered to players' inbox for logging in before December 31 2025 along with the Conquera Uplift Syandana and other donation goal rewards."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Volt/DiscordVolt": {
+    "name": "Volt Amethyst Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Volt Amethyst Skin",
+          "url": "https://wiki.warframe.com/w/Volt_Amethyst_Skin",
+          "quote": "The Volt Amethyst Skin was available through the Discord store via the Reverence Pack, along with Excalibur Amethyst Skin & Mag Amethyst Skin.[1] Equipping [edit | edit source] T o equip this skin, go to the \"Arsenal\" page, then click on Volt's \"Appearance\" tab, and then it can be found within the \"Skin\" sub-"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Volt/NintendoVolt": {
+    "name": "Volt Opal Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Volt Opal Skin",
+          "url": "https://wiki.warframe.com/w/Volt_Opal_Skin",
+          "quote": "The Volt Opal Skin was available through the Nintendo store via the Esteem Pack II[1]."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Swords/LasriaSkanaSwordSkin": {
+    "name": "Protokol Longsword Skin",
+    "routes": [
+      {
+        "kind": "event",
+        "text": "Available as an event reward.",
+        "place": "Event",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Protokol Longsword Skin",
+          "url": "https://wiki.warframe.com/w/Protokol_Longsword_Skin",
+          "quote": "with it. This would correlate with the events of the 1999 prequel comic."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Weapons/Throwable/TennoCon2024NinjaStarSkin": {
+    "name": "Protokol Hira Thrown Weapon Skin",
+    "routes": [
+      {
+        "kind": "reward",
+        "text": "Available through the listed route.",
+        "place": "Reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Protokol Hira Thrown Weapon Skin",
+          "url": "https://wiki.warframe.com/w/Protokol_Hira_Thrown_Weapon_Skin",
+          "quote": "This skin was obtained by buying the T ennoCon 2024 Digital Pack."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/WinterSolstice/SolsticeQuassusSkin": {
+    "name": "Quassus Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Quassus Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Quassus_Solstice_Skin",
+          "quote": "The Quassus Solstice Skin was originally available during T ennobaum."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeGammacorSkin": {
+    "name": "Gammacor Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Gammacor Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Gammacor_Solstice_Skin",
+          "quote": "The Gammacor Solstice Skin was originally available during T ennobaum."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/WinterSolstice/WinterSolsticeLatron": {
+    "name": "Latron Solstice Skin",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time or event reward.",
+        "place": "Limited-time reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Latron Solstice Skin",
+          "url": "https://wiki.warframe.com/w/Latron_Solstice_Skin",
+          "quote": "The Latron Solstice Skin was originally available during T ennobaum."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianCArmor": {
+    "name": "Meridian Chest Plate",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Steel Meridian for 125,000 Standing.",
+        "place": "Steel Meridian",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Meridian Armor Set Meridian Chest Plate Meridian Arm Spurs Meridian Leg Spurs Steel Meridian Rank 5: General 125,000 Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianAArmor": {
+    "name": "Meridian Arm Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Steel Meridian for 125,000 Standing.",
+        "place": "Steel Meridian",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Meridian Armor Set Meridian Chest Plate Meridian Arm Spurs Meridian Leg Spurs Steel Meridian Rank 5: General 125,000 Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/GrnSteelMeridianArmor/GrnSteelMeridianLArmor": {
+    "name": "Meridian Leg Spurs",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Steel Meridian for 125,000 Standing.",
+        "place": "Steel Meridian",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Meridian Armor Set Meridian Chest Plate Meridian Arm Spurs Meridian Leg Spurs Steel Meridian Rank 5: General 125,000 Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilCArmor": {
+    "name": "Red Veil Chest Piece",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Red Veil for 125,000 Standing.",
+        "place": "Red Veil",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Red Veil Armor Set Red Veil Chest Piece Red Veil Arm Insignia Red Veil Knee Guards Red Veil Rank 5: Exalted 125,000 Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilAArmor": {
+    "name": "Red Veil Arm Insignia",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Red Veil for 125,000 Standing.",
+        "place": "Red Veil",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Red Veil Armor Set Red Veil Chest Piece Red Veil Arm Insignia Red Veil Knee Guards Red Veil Rank 5: Exalted 125,000 Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/RedVeilArmor/RedVeilLArmor": {
+    "name": "Red Veil Knee Guards",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Red Veil for 125,000 Standing.",
+        "place": "Red Veil",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Red Veil Armor Set Red Veil Chest Piece Red Veil Arm Insignia Red Veil Knee Guards Red Veil Rank 5: Exalted 125,000 Standing"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorC": {
+    "name": "Ostron Chest Guard",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Ostron, Hok for 125,000 Standing.",
+        "place": "Ostron, Hok",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Ostron Chest Guard Ostron Arm GuardsOstron Leg Guards Ostron, Hok Rank 5: Kin 125,000 Standing An Ostron armor set crafted from Orokin tower salvage."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SolarisUnitedArmor/SolarisUnitedCArmor": {
+    "name": "Solaris Chest Marker",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Solaris United, Rude Zuud for 125,000 Standing.",
+        "place": "Solaris United, Rude Zuud",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Armor Set Solaris Chest Marker Solaris Arm GuardsSolaris Leg Spurs Solaris United, Rude Zuud Rank 5: Old Mate 125,000 Standing Repurposed and reliable, strap on Solaris armor and everything's green."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeChestArmor": {
+    "name": "Solstice Daedalus Chest Plate",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Daedalus Solstice Daedalus Chest Plate Solstice Daedalus Shoulder Plates Solstice Daedalus Knee Plates Solstice Daedalus Armor Bundle 100 A full set of festive Daedalus armor."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeArmArmor": {
+    "name": "Solstice Daedalus Shoulder Plates",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Daedalus Solstice Daedalus Chest Plate Solstice Daedalus Shoulder Plates Solstice Daedalus Knee Plates Solstice Daedalus Armor Bundle 100 A full set of festive Daedalus armor."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/SolsticeSetThreeLegArmor": {
+    "name": "Solstice Daedalus Knee Plates",
+    "routes": [
+      {
+        "kind": "market",
+        "text": "Available from the Market.",
+        "place": "Market",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Armor (Cosmetic)",
+          "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+          "quote": "Daedalus Solstice Daedalus Chest Plate Solstice Daedalus Shoulder Plates Solstice Daedalus Knee Plates Solstice Daedalus Armor Bundle 100 A full set of festive Daedalus armor."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Effects/OpulaEphemera": {
+    "name": "Opula Ephemera",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Purchase from Varzia.",
+        "place": "Varzia",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Opula Ephemera",
+          "url": "https://wiki.warframe.com/w/Opula_Ephemera",
+          "quote": "Acquisition [edit | edit source] The Opula Ephemera can be bought from Varzia for 10."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/FalseProfitEventBadgeItem": {
+    "name": "False Profit Emblem",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was an event reward.",
+        "place": "Event reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "False Profit Emblem",
+          "url": "https://wiki.warframe.com/w/False_Profit_Emblem",
+          "quote": "T ype Event Reward Sources Operation: False Profit"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/SlingStone2EmblemItem": {
+    "name": "Eyes of Blight Emblem",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was an event reward.",
+        "place": "Event reward",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Eyes of Blight Emblem",
+          "url": "https://wiki.warframe.com/w/Eyes_of_Blight_Emblem",
+          "quote": "Sources Event Reward “An insignia awarded to the T enno Elite who proved themselves during Operation Eyes of Blight.”"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/NoraSeasonTwoBadgeItem": {
+    "name": "Emissary Emblem",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Available from Nightwave Cred Offerings.",
+        "place": "Nightwave Cred Offerings",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Emissary Emblem",
+          "url": "https://wiki.warframe.com/w/Emissary_Emblem",
+          "quote": "Beginning with Nightwave: Nora's Mix Vol. 4, the Emissary Emblem has been available for purchase through Nightwave Cred Offerings for 30 on a rotational basis."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/RadioLegionBadgeItem": {
+    "name": "Nightwave Emblem",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Available from Nightwave Cred Offerings.",
+        "place": "Nightwave Cred Offerings",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Nightwave Emblem",
+          "url": "https://wiki.warframe.com/w/Nightwave_Emblem",
+          "quote": "The Nightwave Emblem can be purchased through Nightwave Cred Offerings for 30 on a rotational basis."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Clan/WolfBadgeItem": {
+    "name": "Saturn Six Emblem",
+    "routes": [
+      {
+        "kind": "vendor",
+        "text": "Available from Nightwave Cred Offerings.",
+        "place": "Nightwave Cred Offerings",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Saturn Six Emblem",
+          "url": "https://wiki.warframe.com/w/Saturn_Six_Emblem",
+          "quote": "Beginning with Nightwave: Nora's Mix Vol. 4, the Saturn Six Emblem has been available for purchase through Nightwave Cred Offerings for 30 on a rotational basis."
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncLArmor": {
+    "name": "Dendra Obsidian Leg Guard",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time bundle reward.",
+        "place": "PlayStation Renown Pack",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The Renown Pack VIII included: 170 Platinum Platinum Dendra Obsidian Leg Guard Dendra Obsidian Shoulder Guard Renown Pack IX"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/CorpusFencer/PS4CrpFncAArmor": {
+    "name": "Dendra Obsidian Shoulder Guard",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time bundle reward.",
+        "place": "PlayStation Renown Pack",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The Renown Pack VIII included: 170 Platinum Platinum Dendra Obsidian Leg Guard Dendra Obsidian Shoulder Guard Renown Pack IX"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Armor/Microsoft/JadeAxaArmourA": {
+    "name": "Jade Axa Shoulder Plate",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time bundle reward.",
+        "place": "PlayStation Prestige Pack",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The Prestige Pack X included: Jade Axa Chest Plate Jade Axa Shoulder Plates Jade Axa Leg Plates 170 Platinum Platinum"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Paladin/OberonPS4Alt2Helmet": {
+    "name": "Oberon Obsidian Markhor Helmet",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time bundle reward.",
+        "place": "PlayStation Renown Pack",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The Renown Pack XV includes: 170 Platinum Platinum Oberon Obsidian Skin Oberon Obsidian Helmet Oberon Obsidian Markhor Helmet Affinity Booster (3 days)"
+        }
+      }
+    ]
+  },
+  "/Lotus/Upgrades/Skins/Scarves/PS5Syandana": {
+    "name": "Obsidian Sedai Syandana",
+    "routes": [
+      {
+        "kind": "not_obtainable",
+        "text": "Not currently obtainable: it was a limited-time bundle reward.",
+        "place": "PlayStation Plus Booster Pack",
+        "source": {
+          "archive": "wiki_pdf_archive",
+          "page": "Third Party Deals and Rewards",
+          "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+          "quote": "The PlayStation Plus Booster Pack V includes: 100 Platinum Platinum 100,000 Credits Credits Obsidian Sedai Syandana Affinity Booster (7 days)"
+        }
+      }
+    ]
+  }
+}

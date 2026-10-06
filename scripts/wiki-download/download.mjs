@@ -123,27 +123,55 @@ export function createWikiRequester({
 
 function pageList(query) {
   if (Array.isArray(query?.pages)) return query.pages;
-  if (query?.pages && typeof query.pages === 'object') return Object.values(query.pages);
-  return [];
+  throw new Error('MediaWiki page response is missing query.pages array');
 }
 
 function revisionContent(revision) {
   const main = revision?.slots?.main;
-  return main?.content ?? main?.['*'] ?? revision?.content ?? revision?.['*'] ?? '';
+  if (typeof main?.content === 'string') return { present: true, value: main.content };
+  if (typeof main?.['*'] === 'string') return { present: true, value: main['*'] };
+  if (typeof revision?.content === 'string') return { present: true, value: revision.content };
+  if (typeof revision?.['*'] === 'string') return { present: true, value: revision['*'] };
+  return { present: false, value: '' };
 }
 
 function pageRecord(page) {
-  const revision = page?.revisions?.[0];
-  if (!page?.title || !revision || revision.revid === undefined) {
-    throw new Error(`MediaWiki page response is missing title or revision metadata: ${JSON.stringify(page)}`);
+  if (!page?.title || typeof page.title !== 'string') {
+    throw new Error(`MediaWiki page response is missing a title: ${JSON.stringify(page)}`);
   }
+  const revision = page?.revisions?.[0];
+  const emptyRecord = (reason) => ({
+    kind: 'empty',
+    record: { title: page.title, pageid: page.pageid, reason },
+  });
+  if (!revision) return emptyRecord('no-revision');
+  if (revision.revid === undefined || revision.revid === null) {
+    return emptyRecord('missing-revid');
+  }
+  const content = revisionContent(revision);
+  if (!content.present) return emptyRecord('missing-slot-content');
+  if (!content.value.trim()) return emptyRecord('empty-wikitext');
   return {
-    title: page.title,
-    pageid: page.pageid,
-    revid: revision.revid,
-    timestamp: revision.timestamp,
-    wikitext: String(revisionContent(revision)),
+    kind: 'page',
+    record: {
+      title: page.title,
+      pageid: page.pageid,
+      revid: revision.revid,
+      timestamp: revision.timestamp,
+      wikitext: content.value,
+    },
   };
+}
+
+function normalizeEmptyRecord(record) {
+  if (!record?.title) return record;
+  if (typeof record.reason === 'string' && record.reason.trim()) {
+    return { title: record.title, pageid: record.pageid, reason: record.reason };
+  }
+  if ('wikitext' in record && !String(record.wikitext).trim()) {
+    return { title: record.title, pageid: record.pageid, reason: 'empty-wikitext' };
+  }
+  return record;
 }
 
 async function readText(path, fallback) {
@@ -174,7 +202,10 @@ async function readPageRecords(path) {
 }
 
 function mapFromRecords(records) {
-  return new Map(records.filter((record) => record?.title).map((record) => [record.title, record]));
+  return new Map(records
+    .map(normalizeEmptyRecord)
+    .filter((record) => record?.title)
+    .map((record) => [record.title, record]));
 }
 
 async function writeJson(path, value) {
@@ -227,10 +258,11 @@ async function processPages(pages, records, emptyRecords, pagesPath, emptyPath) 
   const append = [];
   let needsCanonicalRewrite = false;
   for (const page of pages) {
-    const record = pageRecord(page);
+    const result = pageRecord(page);
+    const record = result.record;
     const previous = records.get(record.title) ?? emptyRecords.get(record.title);
-    if (previous?.revid === record.revid) continue;
-    if (record.wikitext.trim()) {
+    if (result.kind === 'page') {
+      if (records.get(record.title)?.revid === record.revid) continue;
       if (records.has(record.title)) needsCanonicalRewrite = true;
       if (emptyRecords.delete(record.title)) needsCanonicalRewrite = true;
       records.set(record.title, record);
@@ -254,10 +286,17 @@ function validate(records, emptyRecords, duplicateInput) {
     }
   }
   for (const record of emptyRecords.values()) {
-    if (!record.title || String(record.wikitext).trim()) {
+    if (!record.title || typeof record.reason !== 'string' || !record.reason.trim()) {
       throw new Error(`Invalid empty page record for ${record.title ?? '<unknown>'}`);
     }
   }
+}
+
+function queryObject(payload) {
+  if (!payload?.query || typeof payload.query !== 'object') {
+    throw new Error('MediaWiki response is missing query object');
+  }
+  return payload.query;
 }
 
 export async function downloadWiki({
@@ -348,7 +387,7 @@ export async function downloadWiki({
         ...(state.pages.continuation ?? {}),
       });
     }
-    const pages = pageList(payload.query);
+    const pages = pageList(queryObject(payload));
     await processPages(pages, records, emptyRecords, pagesPath, emptyPath);
     processedThisRun += requestedCount;
     if (requestedTitles) {
@@ -379,7 +418,11 @@ export async function downloadWiki({
         list: 'allpages', apnamespace: '0', apfilterredir: 'redirects', aplimit: '500',
         ...(redirectState.listContinuation ?? {}),
       });
-      for (const item of payload.query?.allpages ?? []) {
+      const query = queryObject(payload);
+      if (!Array.isArray(query.allpages)) {
+        throw new Error('MediaWiki redirect response is missing query.allpages array');
+      }
+      for (const item of query.allpages) {
         if (typeof item?.title === 'string' && item.title.trim()
             && !redirectState.titles.includes(item.title)) {
           redirectState.titles.push(item.title);
@@ -406,7 +449,11 @@ export async function downloadWiki({
         action: 'query', format: 'json', formatversion: '2',
         titles: batch.join('|'), redirects: '1',
       });
-      const resolved = new Map((payload.query?.redirects ?? [])
+      const query = queryObject(payload);
+      if (!Array.isArray(query.redirects)) {
+        throw new Error('MediaWiki redirect response is missing query.redirects array');
+      }
+      const resolved = new Map(query.redirects
         .filter((item) => item?.from)
         .map((item) => [item.from, item]));
       for (const source of batch) {
@@ -444,6 +491,8 @@ export async function downloadWiki({
     pages: records.size,
     redirects: Object.keys(await readJson(redirectsPath, {})).length,
     empty: emptyRecords.size,
+    noRevision: [...emptyRecords.values()]
+      .filter((record) => record.reason !== 'empty-wikitext').length,
     requests: requester.requestCount,
   };
   const manifest = {
@@ -486,7 +535,7 @@ async function parseCli(argv) {
 export async function main(argv = process.argv.slice(2)) {
   const options = await parseCli(argv);
   const result = await downloadWiki(options);
-  console.log(`[wiki-download] pages=${result.counts.pages} redirects=${result.counts.redirects} empty=${result.counts.empty}`);
+  console.log(`[wiki-download] pages=${result.counts.pages} redirects=${result.counts.redirects} empty=${result.counts.empty} no-revision=${result.counts.noRevision}`);
   return result;
 }
 

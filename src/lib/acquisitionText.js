@@ -22,6 +22,8 @@ const HISTORICAL_PATTERNS = [
 const CURRENCY_TEMPLATES = new Map([
   ['pc', 'Platinum'],
   ['cc', 'Credits'],
+  ['dc', 'Ducats'],
+  ['nc', 'creds'],
   ['sc', 'Standing'],
 ])
 
@@ -93,7 +95,8 @@ function expandInnermostTemplates(value) {
     })
     if (failed) return null
   }
-  return /{{|}}/.test(text) ? null : text
+  if (/{{|}}/.test(text)) return null
+  return text.replace(/(\b\d[\d,]*(?:\.\d+)?)\s+(Platinum|Credits?|Ducats?|creds?|Standing)\s+\2/gi, '$1 $2')
 }
 
 export function expandWikiTemplates(wikitext) {

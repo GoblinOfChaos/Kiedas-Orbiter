@@ -204,6 +204,55 @@ test('empty wikitext is recorded separately and not emitted as a page record', a
   });
 });
 
+test('continues past a page with no revisions and records the missing revision', async () => {
+  await withOutDir(async (outDir) => {
+    const time = clock();
+    const pageRequests = [];
+    const fetchImpl = async (url) => {
+      const params = new URL(url).searchParams;
+      if (params.get('generator') === 'allpages') {
+        pageRequests.push(params.has('gapcontinue'));
+        if (!params.has('gapcontinue')) {
+          return response({
+            continue: { continue: '-||', gapcontinue: 'Other Page' },
+            query: { pages: [{
+              pageid: 1598994,
+              ns: 0,
+              title: 'Universal Weapon Bonuses',
+              revisions: [],
+            }] },
+          });
+        }
+        return response({ query: { pages: [page('Other Page', 8)] } });
+      }
+      return response({ query: { allpages: [] } });
+    };
+
+    const first = await downloadWiki({
+      outDir, limit: 1, fetchImpl, now: time.now, sleep: time.sleep,
+    });
+    assert.equal(first.state.pages.complete, false);
+    const result = await downloadWiki({ outDir, fetchImpl, now: time.now, sleep: time.sleep });
+    const pages = (await readFile(join(outDir, 'pages.jsonl'), 'utf8'))
+      .trim().split('\n').map((line) => JSON.parse(line));
+    const empty = JSON.parse(await readFile(join(outDir, 'empty.json'), 'utf8'));
+    const manifest = JSON.parse(await readFile(join(outDir, 'manifest.json'), 'utf8'));
+
+    assert.deepEqual(pageRequests, [false, true]);
+    assert.deepEqual(pages.map((record) => record.title), ['Other Page']);
+    assert.deepEqual(empty, [{
+      title: 'Universal Weapon Bonuses',
+      pageid: 1598994,
+      reason: 'no-revision',
+    }]);
+    assert.equal(result.counts.pages, 1);
+    assert.equal(result.counts.empty, 1);
+    assert.equal(result.counts.noRevision, 1);
+    assert.equal(result.state.pages.complete, true);
+    assert.deepEqual(manifest.counts, result.counts);
+  });
+});
+
 test('--limit still runs redirects and --redirect-limit resumes redirect batches', async () => {
   await withOutDir(async (outDir) => {
     const time = clock();

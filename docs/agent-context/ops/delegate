@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Delegation wrapper enforcing AGENTS.md rule #3 (provider / exact model / cost
+# category named up front) and rule #1 (nice -n 19) for Codex and agy.
+#
+# usage: delegate codex|agy --model MODEL --cost "included in X, capped" \
+#                 [--effort low|medium|high] -- <args passed to the CLI>
+#   codex -> nice -n 19 codex exec -m MODEL [-c model_reasoning_effort=E] <args>
+#   agy   -> nice -n 19 agy --model MODEL [--effort E] <args>
+set -euo pipefail
+
+usage() { echo "usage: delegate codex|agy --model MODEL --cost \"...\" [--effort E] -- <cli args>" >&2; exit 2; }
+
+[ $# -ge 1 ] || usage
+provider=$1; shift
+model=; cost=; effort=
+while [ $# -gt 0 ]; do
+  case $1 in
+    --model)  model=${2:-}; shift 2;;
+    --cost)   cost=${2:-};  shift 2;;
+    --effort) effort=${2:-}; shift 2;;
+    --)       shift; break;;
+    *)        break;;
+  esac
+done
+
+if [ -z "$model" ] || [ -z "$cost" ]; then
+  echo "delegate: --model and --cost are required (AGENTS.md rule #3: state provider, exact model/version, and cost category before delegating)." >&2
+  exit 2
+fi
+
+echo "DELEGATING: provider=$provider model=$model effort=${effort:-default} cost=\"$cost\"" >&2
+
+case $provider in
+  codex) exec flatpak-spawn --host --directory="$PWD" systemd-run --user --scope --quiet --slice=claude-agent.slice nice -n 19 ionice -c3 codex exec -m "$model" ${effort:+-c "model_reasoning_effort=\"$effort\""} "$@";;
+  agy)   exec nice -n 19 agy --model "$model" ${effort:+--effort "$effort"} "$@";;
+  *)     usage;;
+esac

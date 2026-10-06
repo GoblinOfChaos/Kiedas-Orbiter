@@ -34,7 +34,7 @@ Preview repo root: `/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-c
 
 | Need | Command (run from the Preview folder) |
 |---|---|
-| Tests (120 pass as of now) | `nice -n 19 node --test 'tests/farming/*.test.mjs' 'tests/completeness/*.test.mjs' 'tests/relics/*.test.mjs' 'tests/ui/*.test.mjs' tests/dropAttribution.test.mjs` (Node 24; this Node version does not accept directories, use globs) |
+| Tests (120 pass as of now) | `nice -n 19 node --test --test-concurrency=2 'tests/farming/*.test.mjs' 'tests/completeness/*.test.mjs' 'tests/relics/*.test.mjs' 'tests/ui/*.test.mjs' tests/dropAttribution.test.mjs` (Node 24; this Node version does not accept directories, use globs) |
 | Build | `flatpak-spawn --host distrobox enter dev-fedora -- bash -lc "cd ~/kiedas-orbiter/.preview-work/stage4-command-center && CARGO_BUILD_JOBS=4 pnpm_config_verify_deps_before_run=false nice -n 19 pnpm run preview:build"` (~1 min; on success, deploys to `~/AppImages/kiedas_orbiter_preview.appimage`) |
 | Deploy | same wrapper with `node scripts/run-preview.mjs deploy` (manually re-deploys the latest build; hardlink-backs-up the old AppImage to `.bak-HHMM`, then hardlinks the new one in) |
 | Is the app running? | `flatpak-spawn --host ps aux \| grep -i kiedas` (plain `ps` is blind to the host from the sandbox) |

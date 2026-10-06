@@ -1,0 +1,9 @@
+[Unit]
+Description=Shared memory cap for everything Claude Code runs (commands and Codex jobs)
+
+[Slice]
+# Everything inside this slice shares ONE budget. MemoryMax is a hard stop: the kernel kills only a
+# process inside this slice (never Claude Code itself or the rest of the desktop). No MemoryHigh on
+# purpose: a soft limit made a runaway process crawl and hang (tested 2026-10-06) instead of failing fast.
+MemoryMax=10G
+MemorySwapMax=0

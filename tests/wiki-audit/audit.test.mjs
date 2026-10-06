@@ -97,3 +97,72 @@ test('real report golden cases pass when the generated report is present', { ski
   assert.ok(a8.wikiFacts.some((fact) => fact.kind === 'vendor' && fact.where === "Baro Ki'Teer"), 'Axi A8 Intact Baro')
   console.log('PASS real golden Axi A8 Intact')
 })
+
+test('compares vendor and market entities instead of coarse kinds', () => {
+  const fatherWiki = [{ kind: 'vendor', where: 'vendor or syndicate', detail: 'Bhisaj-Bal can be purchased for 20,000 from Father.', evidence: 'x' }]
+  const fatherApp = summarizeAppSources([{ type: 'non-drop', text: 'Sold by Father.' }])
+  assert.equal(compareSources(fatherWiki, fatherApp).status, 'agree')
+
+  const marketWiki = [{ kind: 'market', where: 'Market', detail: 'Purchaseable from the Market for 105.', evidence: 'x' }]
+  const marketApp = summarizeAppSources([{ type: 'market', text: 'Available in the Market.' }])
+  assert.equal(compareSources(marketWiki, marketApp).status, 'agree')
+
+  const questWiki = [{ kind: 'quest', where: 'quest or quest reward', detail: 'Awarded during The Teacher Quest.', evidence: 'x' }]
+  const missionApp = summarizeAppSources([{ type: 'mission', text: 'Dropped from a mission.' }])
+  assert.equal(compareSources(questWiki, missionApp).status, 'app_partial')
+})
+
+test('classifies Stubba Market text before the generic vendor rule', () => {
+  const wikiFacts = [{ kind: 'market', where: 'Market', detail: 'Blueprint purchasable from Market for 190 Platinum.', evidence: 'x' }]
+  const appSummary = summarizeAppSources([{ type: 'non-drop', text: 'Blueprint purchasable from Market for 190 Platinum.' }])
+  assert.equal(appSummary.sources[0].kind, 'vendor-market')
+  assert.equal(compareSources(wikiFacts, appSummary).status, 'agree')
+})
+
+test('ignores relic reward contents for relic acquisition comparison', () => {
+  const wikiFacts = [{ kind: 'relic', where: 'Axi A2', detail: 'Relic drops: Lex Prime Receiver', evidence: 'x' }]
+  const refined = summarizeAppSources([{ type: 'relic', relic: 'Axi A2', text: 'Refined from Axi A2 using Void Traces.' }])
+  assert.equal(compareSources(wikiFacts, refined, { category: 'relics' }).status, 'agree')
+})
+
+test('filters template and infobox noise while retaining acquisition sentences', () => {
+  const page = { title: 'Noise Test', wikitext: '==Acquisition==\n{{Faction|Orokin}}\n* QuestTopNav\n* Awarded by completing the Teacher Quest.' }
+  const facts = extractWikiFacts(page, { name: 'Noise Test', category: 'mods' }, { voidData: {}, baroData: {}, dropData: {} })
+  assert.ok(facts.some((fact) => /Teacher Quest/.test(fact.detail)))
+  assert.ok(!facts.some((fact) => /Orokin|QuestTopNav/.test(`${fact.where} ${fact.detail} ${fact.evidence}`)))
+})
+
+test('classifies enemy drop-table pages as not an item source', () => {
+  const reports = auditItems({
+    appRoutes: { moa: { name: 'Moa', category: 'companions', sources: [{ type: 'craft', text: 'Configured at Legs.' }] } },
+    pages: [{ title: 'Moa', wikitext: 'Moa is an enemy.' }],
+    redirects: {},
+    modules: { voidData: {}, baroData: {}, dropData: { Enemies: { MOA: [{ Source: { Name: 'Moa' } }] } } },
+  })
+  assert.equal(reports[0].status, 'not_an_item_source')
+  assert.match(reports[0].evidence.join(' '), /enemy|drop/i)
+})
+
+test('matches weapon and resource parts to their parent page', () => {
+  const partNames = ['Aksondol Receiver', 'Koumei Chassis/Systems', 'Vesper 77 Receiver', 'Nikana Prime Hilt', 'Morgha Stock', 'Vinquibus Barrel', 'Grandmother Token Ornament']
+  const parentPages = partNames.map((name) => {
+    const parent = name
+      .replace(/\s+(?:Chassis\/Systems|Receiver|Hilt|Stock|Barrel|Ornament)$/i, '')
+      .trim()
+    return { title: parent, wikitext: '==Acquisition==\n* Obtained from a mission.' }
+  })
+  const routes = Object.fromEntries(partNames.map((name, index) => [String(index), { name, category: 'weapons', sources: [{ type: 'mission', text: 'Dropped from a mission.' }] }]))
+  const reports = auditItems({ appRoutes: routes, pages: parentPages, redirects: {}, modules: { voidData: {}, baroData: {}, dropData: {} } })
+  for (const report of reports) assert.match(report.matchedBy, /^part of /, report.name)
+})
+
+test('matches cosmetics listed on shared catalog pages', () => {
+  const reports = auditItems({
+    appRoutes: { cape: { name: 'Test Cape', category: 'cosmetics', sources: [{ type: 'vendor', text: 'Sold by Father.' }] } },
+    pages: [{ title: 'Syandana', wikitext: '==List==\n{| class="wikitable"\n| [[Test Cape]] || Sold by Father\n|}' }],
+    redirects: {},
+    modules: { voidData: {}, baroData: {}, dropData: {} },
+  })
+  assert.equal(reports[0].matchedBy, 'listed on Syandana')
+  assert.notEqual(reports[0].status, 'no_wiki_page')
+})

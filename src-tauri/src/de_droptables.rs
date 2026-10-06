@@ -17,6 +17,9 @@ const SECTIONS: &[&str] = &[
     "additionalItemByAvatar", "relicByAvatar", "modByDrop",
     "blueprintByDrop", "resourceByDrop",
 ];
+const BOUNTY_SECTIONS: &[&str] = &[
+    "cetusRewards", "solarisRewards", "deimosRewards", "zarimanRewards", "entratiLabRewards", "hexRewards",
+];
 
 fn find_ascii_case_insensitive(haystack: &str, needle: &str) -> Option<usize> {
     if needle.is_empty() { return Some(0); }
@@ -94,14 +97,39 @@ fn parse(html: &str) -> Result<Value, String> {
         let end = positions.get(index + 1).map(|(_, position)| *position).unwrap_or(html.len());
         let mut place: Option<String> = None;
         let mut rotation: Option<String> = None;
+        let mut stage: Option<String> = None;
         let mut source_chance: Option<f64> = None;
         for row in rows_between(html, *heading, end) {
             if row.to_lowercase().contains("blank-row") { continue; }
             let parsed = cells(&row);
             if parsed.len() == 1 && parsed[0].0 == "th" {
-                if parsed[0].1.to_lowercase().starts_with("rotation ") { rotation = Some(parsed[0].1.clone()); }
-                else { place = Some(parsed[0].1.clone()); rotation = None; }
+                if parsed[0].1.to_lowercase().starts_with("rotation ") {
+                    rotation = Some(parsed[0].1.clone());
+                    stage = None;
+                } else {
+                    place = Some(parsed[0].1.clone());
+                    rotation = None;
+                    stage = None;
+                }
                 continue;
+            }
+            if BOUNTY_SECTIONS.contains(&section.as_str()) && parsed.len() == 2 {
+                let header = if parsed[0].0 == "th" && parsed[1].0 == "td" && parsed[1].1.is_empty() {
+                    Some(&parsed[0].1)
+                } else if parsed[0].0 == "td" && parsed[0].1.is_empty() && parsed[1].0 == "th" {
+                    Some(&parsed[1].1)
+                } else {
+                    None
+                };
+                if let Some(header) = header.filter(|value| !value.is_empty()) {
+                    if header.to_lowercase().starts_with("rotation ") {
+                        rotation = Some(header.clone());
+                        stage = None;
+                    } else {
+                        stage = Some(header.clone());
+                    }
+                    continue;
+                }
             }
             if parsed.len() == 2 && parsed[0].0 == "th" && parsed[1].1.to_lowercase().contains("drop chance:") {
                 place = Some(parsed[0].1.clone());
@@ -116,7 +144,13 @@ fn parse(html: &str) -> Result<Value, String> {
             if under_review { row_value["underReview"] = json!(true); }
             if section.ends_with("ByDrop") { row_value["source"] = json!(place.clone().unwrap_or_default()); }
             else if section.ends_with("ByAvatar") { row_value["source"] = json!(place.clone().unwrap_or_default()); row_value["sourceChance"] = json!(source_chance); }
-            else { row_value["place"] = json!(place.clone().unwrap_or_default()); row_value["rotation"] = json!(rotation); }
+            else {
+                row_value["place"] = json!(place.clone().unwrap_or_default());
+                row_value["rotation"] = json!(rotation);
+                if let Some(stage) = stage.as_ref().filter(|_| BOUNTY_SECTIONS.contains(&section.as_str())) {
+                    row_value["stage"] = json!(stage);
+                }
+            }
             sections.entry(section.clone()).or_default().push(row_value);
         }
     }
@@ -137,13 +171,56 @@ fn parse(html: &str) -> Result<Value, String> {
 
 #[cfg(test)]
 mod tests {
-    use super::find_ascii_case_insensitive;
+    use super::{find_ascii_case_insensitive, parse};
+    use serde_json::json;
 
     #[test]
     fn ascii_search_preserves_utf8_offsets() {
         let html = "é <H3 id=\"missionRewards\">";
         let offset = find_ascii_case_insensitive(html, "<h3 id=\"").unwrap();
         assert!(html[offset..].starts_with("<H3 id=\""));
+    }
+
+    #[test]
+    fn bounty_rows_keep_rotation_and_stage_without_changing_mission_rows() {
+        let mission_padding = "<tr><td>Credit Cache</td><td>Common (100.00%)</td></tr>".repeat(1_000);
+        let html = format!(
+            r#"
+            <h3 id="cetusRewards">Cetus Bounty Rewards:</h3>
+            <table>
+              <tr><th colspan="3">Level 5 - 15 Cetus Bounty</th></tr>
+              <tr><th colspan="3">Rotation A</th></tr>
+              <tr><td class="pad-cell"></td><th colspan="2">Stage 1</th></tr>
+              <tr><td></td><td>Redirection</td><td>Uncommon (20.00%)</td></tr>
+              <tr><td class="pad-cell"></td><th colspan="2">Final Stage</th></tr>
+              <tr><td></td><td>Gara Chassis Blueprint</td><td>Uncommon (30.56%)</td></tr>
+              <tr><th colspan="3">Rotation B</th></tr>
+              <tr><td class="pad-cell"></td><th colspan="2">Stage 1</th></tr>
+              <tr><td></td><td>Pressure Point</td><td>Uncommon (20.00%)</td></tr>
+            </table>
+            <h3 id="missionRewards">Mission Rewards:</h3>
+            <table><tr><th colspan="2">Earth/Test (Exterminate)</th></tr>{mission_padding}</table>
+            "#
+        );
+        let parsed = parse(&html).expect("fixture should pass the production row floor");
+        let cetus = parsed["sections"]["cetusRewards"].as_array().unwrap();
+        assert_eq!(cetus[0], json!({
+            "item": "Redirection",
+            "rarity": "Uncommon",
+            "chance": 0.2,
+            "place": "Level 5 - 15 Cetus Bounty",
+            "rotation": "Rotation A",
+            "stage": "Stage 1",
+        }));
+        assert_eq!(cetus[1]["stage"], "Final Stage");
+        assert_eq!(cetus[1]["rotation"], "Rotation A");
+        assert_eq!(cetus[2]["item"], "Pressure Point");
+        assert_eq!(cetus[2]["rotation"], "Rotation B");
+        assert_eq!(cetus[2]["stage"], "Stage 1");
+
+        let mission = parsed["sections"]["missionRewards"].as_array().unwrap();
+        assert!(mission[0].get("stage").is_none());
+        assert_eq!(mission[0]["rotation"], json!(null));
     }
 }
 

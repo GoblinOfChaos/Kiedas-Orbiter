@@ -22,7 +22,7 @@ const PART_SUFFIXES = [
   'Lower Limb', 'Upper Limb', 'Head', 'Carapace', 'Cerebrum', 'Pouch', 'Disc',
   'Stars', 'String', 'Fuselage', 'Engines', 'Engine', 'Sabot', 'Ornament', 'Handle',
 ]
-const ACQUISITION_KINDS = new Set(['vendor', 'drop', 'relic', 'quest', 'market', 'craft', 'event', 'vault'])
+const ACQUISITION_KINDS = new Set(['vendor', 'drop', 'relic', 'quest', 'market', 'craft', 'event', 'vault', 'not_obtainable'])
 const RELIC_COMPARISON_KINDS = new Set(['vendor', 'event', 'vault'])
 const COMPARISON_KIND_ALIASES = new Map([
   ['vendor-market', 'market'],
@@ -42,6 +42,9 @@ const STEAM_ONLY_RE = /(?:steam\s+wallet|linked\s+(?:with\s+)?steam|steam\s+acco
 const MARKET_PRICE_RE = /\b(?:sold\s+in\s+the\s+in-game\s+market|available\s+in\s+the\s+market|purchasable\s+from\s+market)\b[^.!?\n]*\b\d[\d,]*\s+platinum\b/i
 const ROUTE_NAME_RE = /\b(?:operation\s*:\s*[^,.;!?]+|[A-Z][A-Za-z0-9'’:-]*(?:\s+[A-Z][A-Za-z0-9'’:-]*){0,5}\s+(?:Bounties|Weekend|Event|Invasions|Sorties|Tactical Alert|Market|Marketplace|Offerings|Relay|Void Trader))\b/gi
 const GENERIC_ROUTE_NAMES = new Set(['event', 'market', 'marketplace', 'relay', 'offerings', 'void trader'])
+const HISTORY_SECTION_NAMES = new Set(['history', 'patch history'])
+const HISTORICAL_ACQUISITION_RE = /\b(?:beginning\s+with|was\s+added|were\s+added|added\s+to|was\s+removed|previously|originally|used\s+to|no\s+longer|prior\s+to|before\s+update|as\s+of\s+update)\b/i
+const CURRENT_NOT_OBTAINABLE_RE = /\b(?:no\s+longer\s+obtainable|not\s+currently\s+obtainable|not\s+obtainable|no\s+way\s+to\s+obtain|currently\s+unavailable|unavailable|discontinued|retired)\b/i
 // `cosmetics` is the only cosmetic category in CATEGORY_RULES. The app bucket
 // names appearance_catalog and landing_craft_catalog are not audit categories.
 const EXCLUDED_CATEGORIES = new Set(['cosmetics'])
@@ -227,6 +230,9 @@ function classifyText(text) {
   const value = clean(text)
   const lower = value.toLocaleLowerCase()
   if (!value) return null
+  if (CURRENT_NOT_OBTAINABLE_RE.test(value) && !HISTORICAL_ACQUISITION_RE.test(value.replace(/\bno\s+longer\s+obtainable\b/ig, ''))) {
+    return { kind: 'not_obtainable', where: 'Current availability', detail: value }
+  }
   if (/\b(?:vaulted|unvaulted)\b/i.test(value)) return { kind: 'vault', where: 'Vault status', detail: value }
   if (/\bmarket\b|platinum|prime access|prime resurgence/i.test(lower)) return { kind: 'market', where: 'Market', detail: value }
   if (/baro\s+ki.?teer|void trader|\bbaro\b|sold by|vendor|syndicate|\bfaction\b|purchase|purchasable|offering/i.test(value)) {
@@ -266,6 +272,25 @@ function parseSections(wikitext) {
     } else if (current) current.lines.push(line)
   }
   return sections
+}
+
+function listText(line) {
+  return String(line || '').trim().replace(/^[*#:;]+\s*/, '')
+}
+
+function isHistoricalAcquisitionLine(line, sectionTitle = '') {
+  const value = clean(line)
+  if (!value) return false
+  const bullet = /^[*#:;]/.test(String(line || '').trim())
+  const body = clean(listText(line))
+  // Patch/history sections describe changes, not current acquisition routes.
+  if (bullet && HISTORY_SECTION_NAMES.has(sectionTitle)) return true
+  // Versioned patch bullets are history even when the heading is absent.
+  if (bullet && /^(?:v)?\d+(?:\.\d+)+(?:\b|[-:])/i.test(body)) return true
+  // Keep a current unavailability statement, but not a sentence that mixes
+  // that status with historical acquisition wording.
+  if (CURRENT_NOT_OBTAINABLE_RE.test(value) && !HISTORICAL_ACQUISITION_RE.test(value.replace(/\bno\s+longer\s+obtainable\b/ig, ''))) return false
+  return HISTORICAL_ACQUISITION_RE.test(value)
 }
 
 function templateBlocks(wikitext) {
@@ -344,6 +369,7 @@ export function extractWikiFacts(page, item, modules, prebuiltModuleIndexes = nu
     if (!SECTION_NAMES.has(section.title)) continue
     for (const line of section.lines) {
       if (!usefulAcquisitionLine(line)) continue
+      if (isHistoricalAcquisitionLine(line, section.title)) continue
       const fact = classifyText(line)
       if (fact) addFact(facts, { ...fact, evidence: line }, seen)
     }
@@ -356,6 +382,7 @@ export function extractWikiFacts(page, item, modules, prebuiltModuleIndexes = nu
       if (!/=/.test(param)) continue
       const [key, ...rest] = param.split('=')
       if (!ACQUISITION_PARAMETER_RE.test(key.trim())) continue
+      if (isHistoricalAcquisitionLine(rest.join('='))) continue
       const fact = classifyText(rest.join('='))
       addFact(facts, { ...(fact || { kind: 'other', where: clean(key), detail: clean(rest.join('=')) }), evidence: block.raw }, seen)
     }
@@ -394,6 +421,7 @@ function sourceKind(source) {
   const type = String(source?.type || '').toLocaleLowerCase()
   const text = [source?.text, source?.location, source?.quest, source?.event, source?.relic].filter(Boolean).join(' ').toLocaleLowerCase()
   if (type === 'unresearched') return null
+  if (type === 'not_obtainable' || /\b(?:not\s+currently\s+obtainable|no\s+longer\s+obtainable)\b/.test(text)) return 'not_obtainable'
   if (/\b(?:vaulted|unvaulted)\b/.test(text)) return 'vault'
   if (type === 'relic') return 'relic'
   if (/prime\s+access/.test(text)) return 'vendor-prime-access'

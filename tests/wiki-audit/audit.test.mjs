@@ -230,6 +230,81 @@ test('filters template and infobox noise while retaining acquisition sentences',
   assert.ok(!facts.some((fact) => /Orokin|QuestTopNav/.test(`${fact.where} ${fact.detail} ${fact.evidence}`)))
 })
 
+test('drops historical acquisition sentences but keeps current routes and current unavailability', () => {
+  const page = {
+    title: 'History Noise',
+    wikitext: [
+      '==Acquisition==',
+      '* Available for 20 creds from the Nightwave Cred Offerings store on a rotational basis.',
+      '* Beginning with Nightwave Nora\'s Mix, it was added to the Nightwave Cred Offerings.',
+      '* The item was added to the Cred Offerings.',
+      '* The items were added to the Cred Offerings.',
+      '* The item was removed from the Cred Offerings.',
+      '* The item was previously awarded by Nightwave.',
+      '* The item was originally awarded by Nightwave.',
+      '* The item used to be awarded by Nightwave.',
+      '* The item is no longer awarded by Nightwave.',
+      '* The item was available prior to Update 30.',
+      '* The item was available before Update 30.',
+      '* The item was added as of Update 30.',
+      '* This item is no longer obtainable.',
+      '==History==',
+      '* Rewarded from a mission.',
+      '==Patch History==',
+      '* 43.5 Rewarded from a mission.',
+      '* Rewarded from a mission.',
+    ].join('\n'),
+  }
+  const facts = extractWikiFacts(page, { name: 'History Noise', category: 'mods' }, { voidData: {}, baroData: {}, dropData: {} })
+  assert.deepEqual(facts.map((fact) => [fact.kind, fact.detail]), [
+    ['vendor', '* Available for 20 creds from the Nightwave Cred Offerings store on a rotational basis.'],
+    ['not_obtainable', '* This item is no longer obtainable.'],
+  ])
+
+  const report = auditItems({
+    appRoutes: { mod: { name: 'Nightwave Mod', category: 'mods', sources: [{ type: 'non-drop', text: 'Available for 20 creds from the Nightwave Cred Offerings store on a rotational basis.' }] } },
+    pages: [{ title: 'Nightwave Mod', wikitext: '==Acquisition==\n* Available for 20 creds from the Nightwave Cred Offerings store on a rotational basis.\n* Beginning with Nightwave Nora\'s Mix, it was added to the Nightwave Cred Offerings.' }],
+    redirects: {},
+    modules: { voidData: {}, baroData: {}, dropData: {} },
+  })
+  assert.equal(report[0].status, 'agree')
+  assert.equal(findDefects(report).app_conflict_route.length, 0)
+})
+
+test('real drawer proof: non-Prime blueprint drop rows are present but gated out of the item drawer', { skip: !fs.existsSync(path.join(process.env.HOME || '', '.local/share/kiedas-orbiter-preview/data/export')) }, async () => {
+  const { loadRealHarness } = await import('../../scripts/lib/real-data-harness.mjs')
+  const { buildDropIndex } = await import('../../src/lib/dropsParser.js')
+  const { buildBlueprintSourceRows, buildRelicRarityIndex } = await import('../../src/lib/relicSources.js')
+  const harness = await loadRealHarness({ locale: 'en' })
+  const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js')
+  const indexes = await buildAllAcquisitionIndexes(harness.exportsBundle)
+  const dropIndex = buildDropIndex(harness.exportsBundle)
+  const rarityIndex = buildRelicRarityIndex(harness.exportsBundle)
+  const names = ['Korumm', 'Nepheri', 'Verdilac', 'Quartakk', 'Stubba']
+  const expectedCounts = { Korumm: 4, Nepheri: 4, Verdilac: 4, Quartakk: 6, Stubba: 6 }
+  const entries = new Map()
+  for (const table of ['ExportWeapons', 'ExportWarframes', 'ExportSentinels']) {
+    for (const [key, entry] of Object.entries(harness.exportsBundle[table] || {})) {
+      const displayName = harness.dict?.[entry.name] || harness.dict?.[`/${entry.name}`] || entry.name
+      if (names.includes(displayName)) entries.set(displayName, { ...entry, uniqueName: entry.uniqueName || key })
+    }
+  }
+  for (const name of names) {
+    const entry = entries.get(name)
+    assert.ok(entry, name)
+    const recipe = indexes.recipeResultIndex.get(entry.uniqueName)
+    const rows = buildBlueprintSourceRows(name, recipe, dropIndex, [], rarityIndex)
+    assert.equal(rows.length, expectedCounts[name], name)
+    assert.ok(rows.every((row) => row.source === 'drops.wf'), name)
+    assert.ok(rows.some((row) => row.type === 'bounty'), name)
+    assert.equal(/\bPrime\b/i.test(name), false, name)
+  }
+  const acquisitionDrawer = fs.readFileSync(path.resolve('src/components/AcquisitionDrawer.jsx'), 'utf8')
+  const previewDrawer = fs.readFileSync(path.resolve('src/preview/acquisition/PreviewAcquisitionDrawer.jsx'), 'utf8')
+  assert.match(acquisitionDrawer, /const blueprintSources = recipe && isPrimeItem\s*\n\s*\? buildBlueprintSourceRows/)
+  assert.match(previewDrawer, /const blueprintSources = recipe && isPrimeItem\s*\n\s*\? buildBlueprintSourceRows/)
+})
+
 test('classifies enemy drop-table pages as not an item source', () => {
   const reports = auditItems({
     appRoutes: { moa: { name: 'Moa', category: 'companions', sources: [{ type: 'craft', text: 'Configured at Legs.' }] } },

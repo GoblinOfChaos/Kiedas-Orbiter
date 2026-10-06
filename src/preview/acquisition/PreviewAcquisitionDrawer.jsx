@@ -8,8 +8,9 @@ import {
   formatCredits,
   formatDuration,
 } from '../../components/AcquisitionDrawer';
-import { resolveBlueprintOrigin, getItemDrops } from '../../lib/acquisitionData';
-import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, prepareAcquisitionSources } from '../../lib/relicSources';
+import { getItemDrops } from '../../lib/acquisitionData';
+import { buildIngredientSourceRows, buildRelicRarityIndex, prepareAcquisitionSources } from '../../lib/relicSources';
+import BlueprintAcquisitionBox from '../../components/BlueprintAcquisitionBox';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
 import { useUi } from '../../contexts/UiContext';
@@ -89,7 +90,6 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
 
   if (!item) return null;
 
-  const isPrimeItem = /\bPrime\b/i.test(displayName || '');
   const displaySources = prepareAcquisitionSources(sources, {
     rarityIndex: relicRarityIndex,
     itemType: recipe?.blueprintUniqueName || uniqueName,
@@ -101,10 +101,6 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const featured = displaySources[0] || null;
   const alternatives = displaySources.slice(1);
   const featuredSplit = featured ? splitUnconfirmed(getSourceLabel(featured, t, i18nData)) : null;
-  const blueprintSources = recipe && isPrimeItem
-    ? buildBlueprintSourceRows(displayName, recipe, dropIndex, getItemDrops(recipe.blueprintUniqueName), relicRarityIndex)
-    : [];
-  const blueprintOrigin = recipe && blueprintSources.length === 0 ? resolveBlueprintOrigin(displayName, recipe) : null;
   const blueprintCost = recipe?.blueprintMarketEligible === false ? null : formatCredits(recipe?.blueprintCost);
 
   return (
@@ -277,24 +273,20 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 {formatDuration(recipe.buildTime) && <span>{t('acquisition_drawer.time_label')} <strong>{formatDuration(recipe.buildTime)}</strong></span>}
                 {recipe.rushCost > 0 && <span>{t('acquisition_drawer.rush_label')} <strong>{recipe.rushCost} {t('ui.dashboard.platinum')}</strong></span>}
               </div>
+              <BlueprintAcquisitionBox
+                displayName={displayName}
+                recipe={recipe}
+                dropIndex={dropIndex}
+                fallbackDrops={getItemDrops(recipe.blueprintUniqueName)}
+                rarityIndex={relicRarityIndex}
+                t={t}
+                getSourceLabel={getSourceLabel}
+                formatChance={formatChance}
+                originSources={sources}
+                variant="preview"
+              />
               {recipe.ingredients?.length > 0 &&
                 <div className="preview-acq-ingredients">
-                  {(blueprintSources.length > 0 || blueprintOrigin) &&
-                    <div className="preview-acq-ingredient">
-                      <div className="preview-acq-ingredient-row">
-                        <span>1x {isPrimeItem ? `${displayName} Blueprint` : t('acquisition_drawer.blueprint_label')}</span>
-                      </div>
-                      <div className="preview-acq-ingredient-sources">
-                        {blueprintSources.length > 0
-                          ? blueprintSources.map((source, sourceIndex) => (
-                            <div key={`${source.relicName || source.location || 'source'}-${sourceIndex}`} className="preview-acq-ingredient-source-row">
-                              <span>{getSourceLabel(source, t)}</span>
-                            </div>
-                          ))
-                          : <div className="preview-acq-ingredient-source-row"><span>{blueprintOrigin}</span></div>}
-                      </div>
-                    </div>
-                  }
                   {recipe.ingredients.map((ingredient, i) => {
                     const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
                     return (

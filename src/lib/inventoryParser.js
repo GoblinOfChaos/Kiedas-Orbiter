@@ -24,6 +24,7 @@
 import { BLUEPRINT_SUFFIX } from './warframeUtils.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 import { debug as logDebug } from './logging/logger.js'
+import placeholderExceptions from '../../src-tauri/data/assets/data/placeholder-exceptions.json' with { type: 'json' }
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -142,7 +143,10 @@ export function resourceFamilyForParent(parentName = '') {
   return 'other';
 }
 
+export const PLACEHOLDER_EXCEPTION_UNIQUE_NAMES = new Set((placeholderExceptions.items ?? []).map((item) => item.uniqueName));
+
 export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
+  if (PLACEHOLDER_EXCEPTION_UNIQUE_NAMES.has(uniqueName)) return true;
   const parentName = entry?.parentName ?? '';
   if (INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES.has(parentName)) return true;
   if (INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES.has(entry?.productCategory)) return true;
@@ -2988,6 +2992,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (un.includes('/Projections/') || un.includes('/Upgrades/Relic/')) continue;
     // Hidden resource — user requested it be excluded (Tethra Data Fragments)
     if (un === '/Lotus/Types/Items/SyndicateDogTags/MuseumDogTag') continue;
+    if (PLACEHOLDER_EXCEPTION_UNIQUE_NAMES.has(un)) continue;
     // Deimos Conservation "Wounded Animal" reward trophies (Common/Uncommon/
     // Rare, Predasite and Vulpaphyla/"Critter" alike) share their exact DE
     // localization string with the real companion breed of the same name

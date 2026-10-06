@@ -1,0 +1,12 @@
+{
+  "_comment": "Items that are mission/engine placeholders, not player-obtainable. Excluded from Inventory > Resources and from the acquisition-research scope. This is the single documented exception to 'Inventory is the full catalog'. Add entries only on the user's decision.",
+  "items": [
+    {
+      "uniqueName": "/Lotus/Types/Items/SyndicateDogTags/AutoSharedDogTag",
+      "name": "Auto Shared Dog Tag",
+      "reason": "Mission placeholder: an animal capture that is shared with the whole squad. Not player-obtainable; no wiki page.",
+      "decidedBy": "user",
+      "date": "2026-10-06"
+    }
+  ]
+}

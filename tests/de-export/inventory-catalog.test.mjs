@@ -37,3 +37,17 @@ test('resource catalog excludes DE decoration and presentation parents', () => {
   assert.equal(isExcludedInventoryResourceEntry({ parentName: '/Lotus/Types/Game/SongItem' }), true)
   assert.equal(isExcludedInventoryResourceEntry({ parentName: '/Lotus/Types/Items/Fish/FishItem', productCategory: 'MiscItems' }), false)
 })
+
+test('placeholder exception list is valid and excluded from the resource catalog', async () => {
+  const list = JSON.parse(await fs.readFile('src-tauri/data/assets/data/placeholder-exceptions.json', 'utf8'))
+  assert.ok(list.items.length >= 1)
+  const seen = new Set()
+  for (const item of list.items) {
+    assert.match(item.uniqueName, /^\/Lotus\//)
+    assert.ok(item.name && item.reason && item.date, `${item.uniqueName} missing name/reason/date`)
+    assert.ok(!seen.has(item.uniqueName), `duplicate ${item.uniqueName}`)
+    seen.add(item.uniqueName)
+    assert.equal(isExcludedInventoryResourceEntry({ parentName: '/Lotus/Types/Items/Fish/FishItem' }, item.uniqueName), true)
+  }
+  assert.ok(seen.has('/Lotus/Types/Items/SyndicateDogTags/AutoSharedDogTag'))
+})

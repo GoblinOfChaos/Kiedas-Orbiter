@@ -271,7 +271,7 @@ test('drops historical acquisition sentences but keeps current routes and curren
   assert.equal(findDefects(report).app_conflict_route.length, 0)
 })
 
-test('real drawer proof: non-Prime blueprint drop rows are present but gated out of the item drawer', { skip: !fs.existsSync(path.join(process.env.HOME || '', '.local/share/kiedas-orbiter-preview/data/export')) }, async () => {
+test('real drawer proof: non-Prime blueprint drop rows exist and the drawers now render them through the shared Blueprint box', { skip: !fs.existsSync(path.join(process.env.HOME || '', '.local/share/kiedas-orbiter-preview/data/export')) }, async () => {
   const { loadRealHarness } = await import('../../scripts/lib/real-data-harness.mjs')
   const { buildDropIndex } = await import('../../src/lib/dropsParser.js')
   const { buildBlueprintSourceRows, buildRelicRarityIndex } = await import('../../src/lib/relicSources.js')
@@ -301,8 +301,12 @@ test('real drawer proof: non-Prime blueprint drop rows are present but gated out
   }
   const acquisitionDrawer = fs.readFileSync(path.resolve('src/components/AcquisitionDrawer.jsx'), 'utf8')
   const previewDrawer = fs.readFileSync(path.resolve('src/preview/acquisition/PreviewAcquisitionDrawer.jsx'), 'utf8')
-  assert.match(acquisitionDrawer, /const blueprintSources = recipe && isPrimeItem\s*\n\s*\? buildBlueprintSourceRows/)
-  assert.match(previewDrawer, /const blueprintSources = recipe && isPrimeItem\s*\n\s*\? buildBlueprintSourceRows/)
+  // P55 (2026-10-06) removed the Prime-only gate: both drawers render the Blueprint box through the shared
+  // component for every item with a recipe, so these non-Prime rows are now shown (see tests/ui/p55-blueprint-box.test.mjs).
+  assert.doesNotMatch(acquisitionDrawer, /const blueprintSources = recipe && isPrimeItem/)
+  assert.doesNotMatch(previewDrawer, /const blueprintSources = recipe && isPrimeItem/)
+  assert.match(acquisitionDrawer, /BlueprintAcquisitionBox/)
+  assert.match(previewDrawer, /BlueprintAcquisitionBox/)
 })
 
 test('classifies enemy drop-table pages as not an item source', () => {

@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { auditItems, compareSources, extractWikiFacts, matchPage, summarizeAppSources } from '../../scripts/wiki-audit/audit.mjs'
+import { auditItems, compareSources, extractWikiFacts, findDefects, matchPage, summarizeAppSources } from '../../scripts/wiki-audit/audit.mjs'
 
 const modules = {
   voidData: { RelicData: {
@@ -110,6 +110,72 @@ test('compares vendor and market entities instead of coarse kinds', () => {
   const questWiki = [{ kind: 'quest', where: 'quest or quest reward', detail: 'Awarded during The Teacher Quest.', evidence: 'x' }]
   const missionApp = summarizeAppSources([{ type: 'mission', text: 'Dropped from a mission.' }])
   assert.equal(compareSources(questWiki, missionApp).status, 'app_partial')
+})
+
+test('text-first comparison covers exact app sentences even when source kinds are other', () => {
+  const routes = {
+    ballistic: {
+      name: 'Ballistic Bullseye', category: 'mods', sources: [
+        { type: 'override', text: 'Can be acquired by attaining the rank of General under Steel Meridian' },
+        { type: 'override', text: 'The rank of Exalted under Red Veil, and spending 25,000 Standing to purchase.' },
+      ],
+    },
+    noctrul: {
+      name: 'Noctrul', category: 'resources', sources: [
+        { type: 'non-drop', text: 'Mined from blue mineral veins in Orb Vallis with the Sunpoint Plasma Drill.' },
+        { type: 'non-drop', text: 'Dropped from storage containers found in Orb Vallis, yielding varying units.' },
+      ],
+    },
+    cipher: {
+      name: 'Orokin Cipher', category: 'resources', sources: [
+        { type: 'non-drop', text: 'One Orokin Cipher (along with a random Corrupted Mod) is obtained by opening an Orokin Vault in an Orokin Derelict tileset mission on Deimos.' },
+      ],
+    },
+  }
+  const reports = auditItems({
+    appRoutes: routes,
+    pages: [
+      { title: 'Ballistic Bullseye', wikitext: '==Acquisition==\n*Can be acquired by attaining the rank of General under Steel Meridian, or the rank of Exalted under Red Veil, and spending 25,000 to purchase.' },
+      { title: 'Noctrul', wikitext: '==Acquisition==\n*Mined from blue mineral veins in Orb Vallis with the Sunpoint Plasma Drill.\n*Dropped from storage containers found in Orb Vallis, yielding varying units.' },
+      { title: 'Orokin Cipher', wikitext: '==Acquisition==\n*One Orokin Cipher (along with a random Corrupted Mod) is obtained by opening an Orokin Vault in an Orokin Derelict tileset mission on Deimos.' },
+    ],
+    redirects: {},
+    modules: { voidData: {}, baroData: {}, dropData: {} },
+  })
+  assert.deepEqual(Object.fromEntries(reports.map((report) => [report.name, report.status])), {
+    'Ballistic Bullseye': 'agree',
+    Noctrul: 'agree',
+    'Orokin Cipher': 'agree',
+  })
+})
+
+test('detects all three status-independent defect families with exact evidence', () => {
+  const items = [
+    {
+      name: 'Holster Amp', category: 'mods', status: 'agree', evidence: [], wikiFacts: [{ kind: 'vendor', where: 'vendor', detail: 'Available for 20 creds from the Nightwave Cred Offerings store.', evidence: 'wiki' }],
+      appSources: { sources: [{ type: 'non-drop', text: 'Found at Available for creds from the Nightwave Cred Offerings store..' }] },
+    },
+    {
+      name: 'Harrow Suffragan Helmet', category: 'cosmetics', status: 'agree', evidence: [], wikiFacts: [{ kind: 'market', where: 'Market', detail: 'Can be purchased directly from the in-game Market for 75.', evidence: 'wiki' }],
+      appSources: { sources: [{ type: 'non-drop', text: 'Its blueprint can be acquired as a Nightwave Cred Offering for on a rotational basis.' }, { type: 'non-drop', text: '.' }] },
+    },
+    {
+      name: 'Mag Corpra Skin', category: 'cosmetics', status: 'app_partial', evidence: [], wikiFacts: [{ kind: 'vendor', where: 'vendor', detail: 'This item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit.', evidence: 'wiki' }],
+      appSources: { sources: [{ type: 'non-drop', text: 'Sold in the in-game Market for 165 Platinum.' }] },
+    },
+    {
+      name: 'Korumm', category: 'weapons', status: 'app_partial', evidence: [], wikiFacts: [{ kind: 'quest', where: 'quest', detail: "Korumm's blueprint is acquired from Narmer Bounties after completion of The New War.", evidence: 'wiki' }],
+      appSources: { sources: [{ type: 'non-drop', text: 'Blueprint purchasable from Market for 180 Platinum.' }] },
+    },
+  ]
+  const defects = findDefects(items)
+  assert.ok(defects.app_text_missing_number.some((entry) => entry.name === 'Holster Amp'))
+  assert.ok(defects.app_text_missing_number.some((entry) => entry.name === 'Harrow Suffragan Helmet'))
+  assert.ok(defects.app_conflict_steam_vs_market.some((entry) => entry.name === 'Mag Corpra Skin'))
+  assert.ok(defects.app_conflict_route.some((entry) => entry.name === 'Korumm'))
+  const korumm = defects.app_conflict_route.find((entry) => entry.name === 'Korumm')
+  assert.match(JSON.stringify(korumm), /Narmer Bounties/)
+  assert.match(JSON.stringify(korumm), /Market/)
 })
 
 test('classifies Stubba Market text before the generic vendor rule', () => {

@@ -33,6 +33,15 @@ const COMPARISON_KIND_ALIASES = new Map([
 const ACQUISITION_TEMPLATE_RE = /^(?:acquisition|acquisitions|source|sources|location|locations|drop|drops|drop locations|reward|rewards|vendor|market|baro|quest reward|obtain|obtained|purchase|purchasable|availability)/i
 const ACQUISITION_PARAMETER_RE = /^(?:source|sources|acquisition|acquisitions|location|locations|drop|drops|drop location|drop locations|reward|rewards|vendor|vendors|obtain|obtained|purchase|purchasable|sold|availability|quest|event)$/i
 const TEMPLATE_NOISE_RE = /^(?:faction|questtopnav|questnav|navbox|itemnav|weaponnnav|warframenav|category|cleanup|spoiler|clr|quote|infobox)$/i
+const TEXT_COMPARISON_IGNORED_WORDS = new Set([
+  'a', 'an', 'and', 'are', 'be', 'by', 'can', 'from', 'in', 'is', 'it', 'of', 'on', 'or', 'the', 'this', 'to', 'was', 'were', 'with',
+  'standing', 'platinum', 'credit', 'credits',
+])
+const MISSING_NUMBER_RE = /\bfor\s+(?:on\s+a\b|creds?\b|credits?\b|platinum\b)|\bfor\s+\./i
+const STEAM_ONLY_RE = /(?:steam\s+wallet|linked\s+(?:with\s+)?steam|steam\s+account)/i
+const MARKET_PRICE_RE = /\b(?:sold\s+in\s+the\s+in-game\s+market|available\s+in\s+the\s+market|purchasable\s+from\s+market)\b[^.!?\n]*\b\d[\d,]*\s+platinum\b/i
+const ROUTE_NAME_RE = /\b(?:operation\s*:\s*[^,.;!?]+|[A-Z][A-Za-z0-9'’:-]*(?:\s+[A-Z][A-Za-z0-9'’:-]*){0,5}\s+(?:Bounties|Weekend|Event|Invasions|Sorties|Tactical Alert|Market|Marketplace|Offerings|Relay|Void Trader))\b/gi
+const GENERIC_ROUTE_NAMES = new Set(['event', 'market', 'marketplace', 'relay', 'offerings', 'void trader'])
 
 const clean = (value) => String(value ?? '')
   .replace(/<!--[^]*?-->/g, ' ')
@@ -53,6 +62,65 @@ const clean = (value) => String(value ?? '')
 const shortEvidence = (value) => clean(value).replace(/\s+/g, ' ').slice(0, 360)
 const normalize = (value) => clean(value).replaceAll('_', ' ').replace(/\s+/g, ' ').trim().toLocaleLowerCase()
 const baseRelicName = (name) => clean(name).replace(/\s+(?:Intact|Exceptional|Flawless|Radiant)$/i, '').replace(/\s+Relic$/i, '').trim()
+
+export function comparisonTokens(value) {
+  const normalized = clean(value)
+    .replace(/\b(\d{1,3}(?:,\d{3})+)\b/g, (_, number) => number.replaceAll(',', ''))
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+  return new Set(normalized.split(/\s+/).filter((word) => word && !TEXT_COMPARISON_IGNORED_WORDS.has(word)))
+}
+
+export function textSimilarity(left, right) {
+  const leftTokens = comparisonTokens(left)
+  const rightTokens = comparisonTokens(right)
+  if (!leftTokens.size || !rightTokens.size) return 0
+  const leftText = [...leftTokens].join(' ')
+  const rightText = [...rightTokens].join(' ')
+  if (leftText.includes(rightText) || rightText.includes(leftText)) return 1
+  const intersection = [...leftTokens].filter((token) => rightTokens.has(token)).length
+  return intersection / new Set([...leftTokens, ...rightTokens]).size
+}
+
+function textValue(value) {
+  return [value?.text, value?.location, value?.quest, value?.event, value?.relic].filter(Boolean).join(' ')
+}
+
+function wikiFactText(fact) {
+  return fact?.detail || fact?.evidence || fact?.where || ''
+}
+
+function appTextCandidates(sources = []) {
+  const texts = sources.map(textValue).filter(Boolean)
+  return [...new Set([...texts, texts.join(' ')].filter(Boolean))]
+}
+
+function factTextCovered(fact, appTexts) {
+  const wikiText = wikiFactText(fact)
+  if (!wikiText || !appTexts.length) return { covered: false, similarity: 0, appText: null, reason: null }
+  for (const appText of appTexts) {
+    const similarity = textSimilarity(wikiText, appText)
+    if (similarity >= 0.6) return { covered: true, similarity, appText, reason: `text similarity ${similarity.toFixed(3)}` }
+  }
+  const namedEntities = factEntities(fact).map((entity) => normalize(entity)).filter(Boolean)
+  if (namedEntities.length) {
+    const joinedApp = normalize(appTexts.join(' '))
+    if (namedEntities.every((entity) => joinedApp.includes(entity))) return { covered: true, similarity: 0, appText: appTexts.join(' '), reason: 'all named entities present' }
+  }
+  return { covered: false, similarity: 0, appText: null, reason: null }
+}
+
+export function extractRouteEntities(text) {
+  const routes = new Set()
+  for (const match of clean(text).matchAll(ROUTE_NAME_RE)) {
+    const route = normalize(match[0]).replace(/\s+/g, ' ').trim()
+    if (route && !GENERIC_ROUTE_NAMES.has(route)) routes.add(route)
+  }
+  if (/\b(?:sold|purchasable|purchased|available)\s+(?:in|from)\s+(?:the\s+)?market\b/i.test(clean(text))) routes.add('market')
+  if (/\bpurchasable\s+from\s+market\b/i.test(clean(text))) routes.add('market')
+  if (/\breward\s+from\s+invasions?\b/i.test(clean(text))) routes.add('invasions')
+  return [...routes]
+}
 
 function partParentName(name) {
   const original = clean(name).trim()
@@ -347,7 +415,7 @@ export function summarizeAppSources(sources = []) {
     count: sources.length,
     unresearched: sources.length > 0 && meaningful.length === 0,
     kinds: [...new Set(meaningful.map(sourceKind))].sort(),
-    sources: sources.map((source) => ({ ...source, kind: sourceKind(source), entities: extractEntities([source.text, source.location, source.quest, source.event, source.relic].filter(Boolean).join(' '), sourceKind(source) || '') })),
+    sources: sources.map((source) => ({ ...source, kind: sourceKind(source), entities: extractEntities(textValue(source), sourceKind(source) || '') })),
   }
 }
 
@@ -358,7 +426,7 @@ function factEntities(fact) {
 function appSourceMatchesFact(source, fact) {
   if (!source || comparisonKind(source.kind) !== comparisonKind(fact.kind)) return false
   const wikiEntities = factEntities(fact)
-  const appEntities = source.entities?.length ? source.entities : extractEntities([source.text, source.location, source.quest, source.event, source.relic].filter(Boolean).join(' '), source.kind)
+  const appEntities = source.entities?.length ? source.entities : extractEntities(textValue(source), source.kind)
   if (!wikiEntities.length || !appEntities.length) return true
   return wikiEntities.some((entity) => appEntities.includes(entity))
 }
@@ -366,6 +434,9 @@ function appSourceMatchesFact(source, fact) {
 export function compareSources(wikiFacts, appSummary, options = {}) {
   const relevantKinds = options.category === 'relics' ? RELIC_COMPARISON_KINDS : ACQUISITION_KINDS
   const clearWikiFacts = wikiFacts.filter((fact) => relevantKinds.has(comparisonKind(fact.kind)))
+  const appTexts = appTextCandidates(appSummary.sources)
+  const textCoverage = new Map(clearWikiFacts.map((fact) => [fact, factTextCovered(fact, appTexts)]))
+  const textCoveredFacts = clearWikiFacts.filter((fact) => textCoverage.get(fact)?.covered)
   const clearWikiKinds = [...new Set(clearWikiFacts.map((fact) => comparisonKind(fact.kind)))]
   const appSources = appSummary.sources.filter((source) => source.kind && relevantKinds.has(comparisonKind(source.kind)))
   const appKinds = [...new Set(appSources.map((source) => comparisonKind(source.kind)))]
@@ -375,8 +446,9 @@ export function compareSources(wikiFacts, appSummary, options = {}) {
     if (options.category === 'relics' && wikiFacts.some((fact) => fact.kind === 'relic') && !appKinds.length) return { status: 'agree', evidence: ['Relic reward contents and refinement route are not acquisition sources.'] }
     return appKinds.length ? { status: 'app_extra', evidence: ['Matched wiki page had no clear acquisition fact for this item category.'] } : { status: 'unclassified', evidence: ['Matched wiki page contained only unclassified acquisition text.'] }
   }
+  if (textCoveredFacts.length === clearWikiFacts.length) return { status: 'agree', evidence: [`Text-covered wiki facts: ${textCoveredFacts.length}/${clearWikiFacts.length}`] }
   if (!appKinds.length) return { status: 'app_missing', evidence: [`Wiki kinds: ${clearWikiKinds.join(', ')}`] }
-  const unmatchedFacts = clearWikiFacts.filter((fact) => !appSources.some((source) => appSourceMatchesFact(source, fact)))
+  const unmatchedFacts = clearWikiFacts.filter((fact) => !textCoverage.get(fact)?.covered && !appSources.some((source) => appSourceMatchesFact(source, fact)))
   const missingKinds = [...new Set(unmatchedFacts.map((fact) => comparisonKind(fact.kind)))]
   const extraKinds = appKinds.filter((kind) => !clearWikiKinds.includes(kind))
   if (unmatchedFacts.length) {
@@ -389,6 +461,20 @@ export function compareSources(wikiFacts, appSummary, options = {}) {
 
 function appItemSource(item) {
   return Array.isArray(item?.sources) ? item.sources : []
+}
+
+function textSelfCheck(items) {
+  const failures = []
+  for (const item of items) {
+    if (!['app_missing', 'app_partial'].includes(item.status)) continue
+    const appTexts = appTextCandidates(item.appSources.sources)
+    for (const fact of item.wikiFacts.filter((entry) => ACQUISITION_KINDS.has(comparisonKind(entry.kind)))) {
+      const coverage = factTextCovered(fact, appTexts)
+      const similarity = Math.max(0, ...appTexts.map((appText) => textSimilarity(wikiFactText(fact), appText)))
+      if (similarity >= 0.6 && !coverage.covered) failures.push({ name: item.name, fact: wikiFactText(fact), similarity })
+    }
+  }
+  return failures
 }
 
 export function auditItems({ appRoutes, pages, redirects, modules }) {
@@ -411,6 +497,54 @@ export function auditItems({ appRoutes, pages, redirects, modules }) {
     reports.push({ uniqueName, name: item.name, category: item.category, matchedBy: match.matchedBy, wikiFacts, appSources, status: comparison.status, evidence: [`Wiki page: ${match.page.title}`, ...comparison.evidence] })
   }
   return reports
+}
+
+function sourceEvidence(source) {
+  return { text: textValue(source), type: source.type || null, source: source.source || null }
+}
+
+function factEvidence(fact) {
+  return { kind: fact.kind, where: fact.where, text: wikiFactText(fact), evidence: fact.evidence }
+}
+
+export function findDefects(items) {
+  const appTextMissingNumber = []
+  const appConflictSteamVsMarket = []
+  const appConflictRoute = []
+  for (const item of items) {
+    const appSources = item.appSources.sources
+    const missingNumberSources = appSources.filter((source) => MISSING_NUMBER_RE.test(textValue(source)))
+    const numberedWikiFacts = item.wikiFacts.filter((fact) => /\b\d[\d,]*(?:\.\d+)?\b/.test(wikiFactText(fact)))
+    if (missingNumberSources.length && numberedWikiFacts.length) {
+      appTextMissingNumber.push({
+        name: item.name,
+        category: item.category,
+        appSources: missingNumberSources.map(sourceEvidence),
+        wikiFacts: numberedWikiFacts.map(factEvidence),
+      })
+    }
+    const steamFacts = item.wikiFacts.filter((fact) => STEAM_ONLY_RE.test(wikiFactText(fact)))
+    const marketSources = appSources.filter((source) => MARKET_PRICE_RE.test(textValue(source)))
+    if (steamFacts.length && marketSources.length) {
+      appConflictSteamVsMarket.push({
+        name: item.name,
+        category: item.category,
+        wikiFacts: steamFacts.map(factEvidence),
+        appSources: marketSources.map(sourceEvidence),
+      })
+    }
+    const routeFacts = item.wikiFacts.map((fact) => ({ fact, routes: extractRouteEntities(wikiFactText(fact)) })).filter((entry) => entry.routes.length)
+    const routeSources = appSources.map((source) => ({ source, routes: extractRouteEntities(textValue(source)) })).filter((entry) => entry.routes.length)
+    const routeConflicts = []
+    for (const wikiEntry of routeFacts) {
+      for (const appEntry of routeSources) {
+        if (wikiEntry.routes.some((route) => appEntry.routes.includes(route))) continue
+        routeConflicts.push({ wiki: factEvidence(wikiEntry.fact), wikiRoutes: wikiEntry.routes, app: sourceEvidence(appEntry.source), appRoutes: appEntry.routes })
+      }
+    }
+    if (routeConflicts.length) appConflictRoute.push({ name: item.name, category: item.category, conflicts: routeConflicts })
+  }
+  return { app_text_missing_number: appTextMissingNumber, app_conflict_steam_vs_market: appConflictSteamVsMarket, app_conflict_route: appConflictRoute }
 }
 
 function countBy(items, key) {
@@ -437,7 +571,7 @@ function seededRandom(seed) {
 }
 
 function seededSample(items, status, random, limit = 25) {
-  const pool = items.filter((item) => item.status === status).slice()
+  const pool = items.filter((item) => typeof status === 'function' ? status(item) : item.status === status).slice()
   for (let index = pool.length - 1; index > 0; index--) {
     const swap = Math.floor(random() * (index + 1))
     ;[pool[index], pool[swap]] = [pool[swap], pool[index]]
@@ -445,17 +579,27 @@ function seededSample(items, status, random, limit = 25) {
   return pool.slice(0, limit)
 }
 
-export function makeReviewSampleMarkdown(items, seed = 4903) {
+export function makeReviewSampleMarkdown(items, seed = 7311, defects = findDefects(items)) {
   const statuses = ['app_missing', 'app_partial', 'app_extra', 'no_wiki_page', 'agree']
   const random = seededRandom(seed)
   const lines = ['# Wiki acquisition audit review sample', '', `Seeded random sample seed: **${seed}**.`, 'Each section contains up to 25 items for human grading.', '']
+  const addItem = (item, extra = '') => {
+    const wikiText = item.wikiFacts.map((fact) => `${fact.kind}: ${fact.detail || fact.evidence}`).join(' | ') || '(none)'
+    const appText = item.appSources.sources.map((source) => textValue(source) || source.type || '(empty)').join(' | ') || '(none)'
+    lines.push(`### ${item.name}`, '', `- Category: ${item.category}`, `- Wiki fact text: ${wikiText}`, `- App source texts: ${appText}`, `- Verdict reason: ${item.evidence.join(' ')}${extra ? ` ${extra}` : ''}`, '')
+  }
   for (const status of statuses) {
     const sample = seededSample(items, status, random)
     lines.push(`## ${status} (${sample.length})`, '')
+    for (const item of sample) addItem(item)
+  }
+  for (const [key, entries] of Object.entries(defects)) {
+    const names = new Set(entries.map((entry) => entry.name))
+    const sample = seededSample(items, (item) => names.has(item.name), random)
+    lines.push(`## ${key} (${sample.length})`, '')
     for (const item of sample) {
-      const wikiText = item.wikiFacts.map((fact) => `${fact.kind}: ${fact.detail || fact.evidence}`).join(' | ') || '(none)'
-      const appText = item.appSources.sources.map((source) => [source.text, source.location, source.quest, source.event, source.relic].filter(Boolean).join(' — ') || source.type || '(empty)').join(' | ') || '(none)'
-      lines.push(`### ${item.name}`, '', `- Category: ${item.category}`, `- Wiki fact text: ${wikiText}`, `- App source texts: ${appText}`, `- Verdict reason: ${item.evidence.join(' ')}`, '')
+      const defect = entries.find((entry) => entry.name === item.name)
+      addItem(item, `Defect evidence: ${JSON.stringify(defect)}`)
     }
   }
   return `${lines.join('\n')}\n`
@@ -496,17 +640,31 @@ export function makeSummaryMarkdown(items, metadata = {}) {
     ...Object.entries(statusCounts).map(([key, value]) => `- ${key}: ${value}`), '',
     '## Counts by category', '',
     ...Object.entries(categoryCounts).map(([key, value]) => `- ${key}: ${value}`), '',
-    '## Counts by category and status', '',
+    '## Counts by category and status after P49e', '',
     `| Category | ${statuses.join(' | ')} |`, `| --- | ${statuses.map(() => '---:').join(' | ')} |`,
     ...Object.entries(categoryStatusCounts).map(([category, counts]) => `| ${category} | ${statuses.map((status) => counts[status] || 0).join(' | ')} |`), '',
     '## Selected examples', '',
     ...(metadata.selectedExamples?.agree || []).map((entry) => `- agree: **${entry.name}** — ${entry.why}`),
     ...(metadata.selectedExamples?.no_wiki_page || []).map((entry) => `- no_wiki_page: **${entry.name}** — ${entry.why}`), '',
+    '## Status-independent defect lists', '',
+  ]
+  for (const [key, entries] of Object.entries(metadata.defects || {})) {
+    lines.push(`### ${key}`, '', ...entries.map((entry) => `- ${entry.name}`), '')
+  }
+  if (metadata.beforeP49d?.categoryStatusCounts) {
+    const beforeStatuses = [...new Set(Object.values(metadata.beforeP49d.categoryStatusCounts).flatMap((counts) => Object.keys(counts)))].sort()
+    lines.push('## Counts by category and status before P49e (P49d)', '', `Source: ${metadata.beforeP49d.source}.`, '', `| Category | ${beforeStatuses.join(' | ')} |`, `| --- | ${beforeStatuses.map(() => '---:').join(' | ')} |`)
+    for (const [category, counts] of Object.entries(metadata.beforeP49d.categoryStatusCounts).sort((a, b) => a[0].localeCompare(b[0]))) {
+      lines.push(`| ${category} | ${beforeStatuses.map((status) => counts[status] || 0).join(' | ')} |`)
+    }
+    lines.push('', 'P49d overall status counts:', '', ...Object.entries(metadata.beforeP49d.statusCounts || {}).map(([key, value]) => `- ${key}: ${value}`), '')
+  }
+  lines.push(
     '## Top 50 gap patterns', '',
     '| Count | Pattern | Examples |', '| ---: | --- | --- |',
     ...topPatterns.map((entry) => `| ${entry.count} | ${entry.pattern.replaceAll('|', '\\|')} | ${entry.examples.join(', ').replaceAll('|', '\\|')} |`), '',
     '## app_missing items by category', '',
-  ]
+  )
   for (const [category, names] of Object.entries(missingByCategory).sort((a, b) => a[0].localeCompare(b[0]))) {
     lines.push(`### ${category}`, '', ...names.map((name) => `- ${name}`), '')
   }
@@ -552,6 +710,14 @@ async function main() {
     readJson(path.join(moduleDir, 'Module_DropTables_data.json')),
   ])
   const items = auditItems({ appRoutes, pages, redirects, modules: { voidData, baroData, dropData } })
+  const textSelfCheckFailures = textSelfCheck(items)
+  console.log(`TEXT SELF-CHECK: ${textSelfCheckFailures.length} unmatched high-similarity facts`)
+  if (textSelfCheckFailures.length) throw new Error(`text self-check failed: ${JSON.stringify(textSelfCheckFailures.slice(0, 5))}`)
+  const defects = findDefects(items)
+  const previousReport = await readJson(path.join(outDir, 'audit-report.json')).catch(() => null)
+  const p49dBaseline = previousReport?.metadata?.reviewSampleSeed === 4903
+    ? previousReport.metadata
+    : previousReport?.metadata?.beforeP49d
   const golden = ['Axi A2 Intact', 'Axi A5 Intact', 'Axi V8 Intact', 'Axi M5 Intact', 'Neo O1 Intact', 'Axi A8 Intact'].map((name) => {
     const report = items.find((item) => item.name === name)
     const baro = report?.wikiFacts.some((fact) => fact.kind === 'vendor' && fact.where === "Baro Ki'Teer")
@@ -566,7 +732,14 @@ async function main() {
     generatedAt: new Date().toISOString(), appRoutes: appRoutesFile, pageCount: manifest.counts?.pages ?? pages.length,
     redirectCount: manifest.counts?.redirects ?? Object.keys(redirects).length,
     moduleFiles: ['Module_Void_data.json', 'Module_Baro_data.json', 'Module_DropTables_data.json'],
-    statusCounts: countBy(items, 'status'), categoryStatusCounts, reviewSampleSeed: 4903,
+    statusCounts: countBy(items, 'status'), categoryStatusCounts, reviewSampleSeed: 7311,
+    textSelfCheck: { unmatchedHighSimilarityFacts: textSelfCheckFailures.length },
+    beforeP49d: p49dBaseline?.categoryStatusCounts ? {
+      statusCounts: p49dBaseline.statusCounts,
+      categoryStatusCounts: p49dBaseline.categoryStatusCounts,
+      source: 'existing P49d audit-report.json',
+    } : null,
+    defects,
     skippedCategories: [], golden,
     selectedExamples: {
       agree: [
@@ -586,7 +759,7 @@ async function main() {
     }
   }
   await fs.mkdir(outDir, { recursive: true })
-  await fs.writeFile(reportPath, `${JSON.stringify({ metadata, items }, null, 2)}\n`)
+  await fs.writeFile(reportPath, `${JSON.stringify({ metadata, defects, items }, null, 2)}\n`)
   await fs.writeFile(summaryPath, makeSummaryMarkdown(items, metadata))
   await fs.writeFile(reviewPath, makeReviewSampleMarkdown(items, metadata.reviewSampleSeed))
   for (const result of golden) console.log(`${result.pass ? 'PASS' : 'FAIL'} golden ${result.name}: status=${result.status}, expected=${result.expectedStatus}, baroFact=${result.baroFact}`)

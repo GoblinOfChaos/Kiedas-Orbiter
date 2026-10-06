@@ -9,6 +9,10 @@ const DEFAULT_AUDIT = path.resolve(ROOT, '../wiki-audit/scripts/wiki-audit/out/a
 const DEFAULT_PAGES = '/home/jedwards/kiedas-orbiter/wiki_store/pages.jsonl'
 const DATA = path.join(ROOT, 'src-tauri/data/assets/data')
 const GROUPS = ['resources', 'cosmetics', 'other']
+// `cosmetics` is the only cosmetic category in scripts/item-completeness.mjs
+// CATEGORY_RULES. Its appearance_catalog and landing_craft_catalog values are
+// app buckets, not additional audit categories.
+const EXCLUDED_CATEGORIES = new Set(['cosmetics'])
 const REQUIRED_COMPATIBILITY_ITEMS = new Set(['Lua Unairu Lens'])
 const CLEAN_DETAIL_RE = /^(?:DropLocations|Acquisition\s*\||\{\{|!Image|\|)/i
 const ROUTE_SIGNAL_RE = /\b(?:acquir|award|availab|bought|buy|complet|craft|drop|market|obtain|offer|purchas|reward|sold|trade|vendor|watch|standing|prime\s+(?:access|resurgence)|nightwave|operation|quest|mission|rotation|dojo|foundry|blueprint)\b/i
@@ -61,6 +65,7 @@ function titleFromReport(item) {
 
 function cleanCoreItems(items) {
   return items.filter((item) => {
+    if (EXCLUDED_CATEGORIES.has(item.category)) return false
     const strict = item.status === 'app_missing' && item.appSources?.unresearched === true
     const compatibility = item.status === 'app_missing' && REQUIRED_COMPATIBILITY_ITEMS.has(item.name)
     return (strict || compatibility) && item.wikiFacts?.some((fact) => isCleanFact(fact))
@@ -269,6 +274,7 @@ export function generate({ auditFile = process.env.AUDIT_REPORT || DEFAULT_AUDIT
   const audit = readJson(auditFile)
   const pages = pageIndex(pagesFile)
   const groups = Object.fromEntries(GROUPS.map((group) => [group, readJson(path.join(dataDir, `verified-routes.${group}.json`))]))
+  groups.cosmetics = Object.fromEntries(Object.entries(groups.cosmetics).filter(([, entry]) => !entry.routes?.some((route) => route.source?.archive === 'wiki_store')))
   const existing = new Set(GROUPS.flatMap((group) => Object.keys(groups[group])))
   const selected = cleanCoreItems(audit.items)
   const skipped = []

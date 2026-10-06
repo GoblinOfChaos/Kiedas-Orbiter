@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { auditItems, compareSources, extractWikiFacts, findDefects, matchPage, summarizeAppSources } from '../../scripts/wiki-audit/audit.mjs'
+import { auditItems, compareSources, extractWikiFacts, findDefects, makeReviewSampleMarkdown, makeSummaryMarkdown, matchPage, summarizeAppSources } from '../../scripts/wiki-audit/audit.mjs'
 
 const modules = {
   voidData: { RelicData: {
@@ -60,19 +60,19 @@ test('compares clear wiki facts conservatively', () => {
   assert.equal(compareSources([{ kind: 'drop', where: 'Mission', detail: 'reward', evidence: 'x' }], summarizeAppSources([{ type: 'mission' }])).status, 'agree')
 })
 
-test('fixture audit prints the two required golden outcomes', () => {
+test('fixture audit prints the six required golden outcomes', () => {
   const routes = {
-    a2: { name: 'Axi A2 Intact', category: 'relics', sources: [{ type: 'unresearched', text: '' }] },
-    a5: { name: 'Axi A5 Intact', category: 'relics', sources: [{ type: 'unresearched', text: '' }] },
-    v8: { name: 'Axi V8 Intact', category: 'relics', sources: [{ type: 'unresearched', text: '' }] },
-    m5: { name: 'Axi M5 Intact', category: 'relics', sources: [{ type: 'unresearched', text: '' }] },
-    o1: { name: 'Neo O1 Intact', category: 'relics', sources: [{ type: 'unresearched', text: '' }] },
+    a2: { name: 'Axi A2 Intact', category: 'relics', sources: [{ type: 'verified-route', text: "Sold by Baro Ki'Teer.", source: "Warframe Wiki (https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items)" }] },
+    a5: { name: 'Axi A5 Intact', category: 'relics', sources: [{ type: 'verified-route', text: "Sold by Baro Ki'Teer.", source: "Warframe Wiki (https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items)" }] },
+    v8: { name: 'Axi V8 Intact', category: 'relics', sources: [{ type: 'verified-route', text: "Sold by Baro Ki'Teer.", source: "Warframe Wiki (https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items)" }] },
+    m5: { name: 'Axi M5 Intact', category: 'relics', sources: [{ type: 'verified-route', text: "Sold by Baro Ki'Teer.", source: "Warframe Wiki (https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items)" }] },
+    o1: { name: 'Neo O1 Intact', category: 'relics', sources: [{ type: 'verified-route', text: "Sold by Baro Ki'Teer.", source: "Warframe Wiki (https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items)" }] },
     a8: { name: 'Axi A8 Intact', category: 'relics', sources: [{ type: 'non-drop', text: 'Vaulted relic' }] },
   }
   const reports = auditItems({ appRoutes: routes, pages, redirects: {}, modules })
   for (const name of ['Axi A2 Intact', 'Axi A5 Intact', 'Axi V8 Intact', 'Axi M5 Intact', 'Neo O1 Intact']) {
     const item = reports.find((entry) => entry.name === name)
-    assert.equal(item.status, 'app_missing', name)
+    assert.equal(item.status, 'agree', name)
     assert.ok(item.wikiFacts.some((fact) => fact.kind === 'vendor' && fact.where === "Baro Ki'Teer"), name)
   }
   assert.equal(reports.find((item) => item.name === 'Axi A8 Intact').status, 'app_partial')
@@ -84,11 +84,43 @@ test('fixture audit prints the two required golden outcomes', () => {
   console.log('PASS fixture golden Axi A8 Intact')
 })
 
+test('cosmetics are excluded by default and restored by the explicit flag', () => {
+  const routes = {
+    mod: { name: 'Test Mod', category: 'mods', sources: [{ type: 'mission', text: 'Dropped from a mission.' }] },
+    cape: { name: 'Test Cape', category: 'cosmetics', sources: [{ type: 'vendor', text: 'Sold by Father.' }] },
+  }
+  const args = { appRoutes: routes, pages, redirects: {}, modules }
+  assert.deepEqual(auditItems(args).map((item) => item.name), ['Test Mod'])
+  assert.deepEqual(auditItems({ ...args, includeCosmetics: true }).map((item) => item.name), ['Test Mod', 'Test Cape'])
+
+  const cosmeticDefect = {
+    name: 'Test Cape', category: 'cosmetics', status: 'agree', evidence: [],
+    wikiFacts: [{ kind: 'market', where: 'Market', detail: 'Can be purchased from the Market for 75.', evidence: 'wiki' }],
+    appSources: { sources: [{ type: 'non-drop', text: 'Sold in the Market for Platinum.' }] },
+  }
+  assert.equal(findDefects([cosmeticDefect]).app_text_missing_number.length, 0)
+  assert.ok(findDefects([cosmeticDefect], { includeCosmetics: true }).app_text_missing_number.length > 0)
+})
+
+test('summary and review sample exclude cosmetics by default', () => {
+  const items = [
+    { name: 'Test Mod', category: 'mods', status: 'agree', evidence: ['mod evidence'], wikiFacts: [], appSources: { kinds: [], sources: [] } },
+    { name: 'Test Cape', category: 'cosmetics', status: 'agree', evidence: ['cosmetic evidence'], wikiFacts: [], appSources: { kinds: [], sources: [] } },
+  ]
+  const metadata = { excludedByDecision: { cosmetics: 1 }, defects: {} }
+  const summary = makeSummaryMarkdown(items, metadata)
+  const review = makeReviewSampleMarkdown(items, 7311, {})
+  assert.match(summary, /^excluded by decision: cosmetics 1 items$/m)
+  assert.doesNotMatch(summary, /Test Cape/)
+  assert.doesNotMatch(review, /Test Cape/)
+  assert.match(review, /Test Mod/)
+})
+
 test('real report golden cases pass when the generated report is present', { skip: !fs.existsSync(path.resolve('scripts/wiki-audit/out/audit-report.json')) }, () => {
   const report = JSON.parse(fs.readFileSync(path.resolve('scripts/wiki-audit/out/audit-report.json'), 'utf8'))
   for (const name of ['Axi A2 Intact', 'Axi A5 Intact', 'Axi V8 Intact', 'Axi M5 Intact', 'Neo O1 Intact']) {
     const item = report.items.find((entry) => entry.name === name)
-    assert.equal(item.status, 'app_missing', name)
+    assert.equal(item.status, 'agree', name)
     assert.ok(item.wikiFacts.some((fact) => fact.kind === 'vendor' && fact.where === "Baro Ki'Teer"), name)
     console.log(`PASS real golden ${name}`)
   }
@@ -168,7 +200,7 @@ test('detects all three status-independent defect families with exact evidence',
       appSources: { sources: [{ type: 'non-drop', text: 'Blueprint purchasable from Market for 180 Platinum.' }] },
     },
   ]
-  const defects = findDefects(items)
+  const defects = findDefects(items, { includeCosmetics: true })
   assert.ok(defects.app_text_missing_number.some((entry) => entry.name === 'Holster Amp'))
   assert.ok(defects.app_text_missing_number.some((entry) => entry.name === 'Harrow Suffragan Helmet'))
   assert.ok(defects.app_conflict_steam_vs_market.some((entry) => entry.name === 'Mag Corpra Skin'))
@@ -228,6 +260,7 @@ test('matches cosmetics listed on shared catalog pages', () => {
     pages: [{ title: 'Syandana', wikitext: '==List==\n{| class="wikitable"\n| [[Test Cape]] || Sold by Father\n|}' }],
     redirects: {},
     modules: { voidData: {}, baroData: {}, dropData: {} },
+    includeCosmetics: true,
   })
   assert.equal(reports[0].matchedBy, 'listed on Syandana')
   assert.notEqual(reports[0].status, 'no_wiki_page')

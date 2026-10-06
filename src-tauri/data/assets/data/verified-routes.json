@@ -858,74 +858,6 @@
    }
   ]
  },
- "/Lotus/Types/Items/Emotes/DuelistEmote": {
-  "name": "Kalsawi Emote",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Durumi Syandana",
-     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
-     "revid": 2813725,
-     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/Emotes/GeminiEmote": {
-  "name": "Universal Gemini Emote",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable.",
-    "place": "Unavailable",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Gemini Skins",
-     "url": "https://wiki.warframe.com/w/Gemini_Skins",
-     "revid": 2805007,
-     "quote": "***The '''1999 Complete Collection''', which also included {{pc|750}} and the [[1999 Cyte-09 Bullseye Bundle]], could be purchased for real world currency. This bundle has since been retired and is '''no longer available.'''"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/Emotes/HeirloomEmote": {
-  "name": "Deca Heirloom Emote",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable.",
-    "place": "Unavailable",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Heirloom Skins",
-     "url": "https://wiki.warframe.com/w/Heirloom_Skins",
-     "revid": 2805018,
-     "quote": "**{{Cosmetic|Frost Heirloom Skin}} and {{Cosmetic|Mag Heirloom Skin}}, as well as their corresponding [[Signa]], [[Emote]], [[Glyph]] and [[Sigil]] are '''not''' available anymore for purchase."
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/Emotes/ShawzinEmote": {
-  "name": "Shawzin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Shawzin",
-     "url": "https://wiki.warframe.com/w/Shawzin",
-     "revid": 2789349,
-     "quote": "There are multiple variants of Shawzin available in the [[Market]], which grant the player the Orbiter decoration of the purchased instrument. Upon acquiring any Shawzin, the player will also receive the unique Shawzin emote."
-    }
-   }
-  ]
- },
  "/Lotus/Types/Items/Fish/Duviri/DuviriFishBItem": {
   "name": "Xiran",
   "routes": [
@@ -3081,57 +3013,6 @@
    }
   ]
  },
- "/Lotus/Types/StoreItems/AvatarImages/BansheeDeluxeGlyph": {
-  "name": "Banshee Sonatus Glyph",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Banshee Threnodia Skin",
-     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
-     "revid": 2812688,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
-    }
-   }
-  ]
- },
- "/Lotus/Types/StoreItems/AvatarImages/HeirloomGlyph": {
-  "name": "Deca Heirloom Glyph",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable.",
-    "place": "Unavailable",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Heirloom Skins",
-     "url": "https://wiki.warframe.com/w/Heirloom_Skins",
-     "revid": 2805018,
-     "quote": "**{{Cosmetic|Frost Heirloom Skin}} and {{Cosmetic|Mag Heirloom Skin}}, as well as their corresponding [[Signa]], [[Emote]], [[Glyph]] and [[Sigil]] are '''not''' available anymore for purchase."
-    }
-   }
-  ]
- },
- "/Lotus/Types/StoreItems/SuitCustomizations/ColourPickerRWBItem": {
-  "name": "Red/white/blue",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Sold by Baro Ki'Teer.",
-    "place": "Baro Ki'Teer",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Paris Abra Skin",
-     "url": "https://wiki.warframe.com/w/Paris_Abra_Skin",
-     "revid": 2710497,
-     "quote": "*This skin can be purchased from the Void Trader [[Baro Ki'Teer]] for {{cc|275,000}} and {{dc|315}}. Note however that Baro Ki'Teer's stock changes with each appearance, and may not have this item available at every time."
-    }
-   }
-  ]
- },
  "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBDeckBlueprint": {
   "name": "Feverspine",
   "routes": [
@@ -3723,57 +3604,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA": {
-  "name": "Opula Shoulder Armor",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Purchase from Varzia.",
-    "place": "Varzia",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Opula Armor Bundle",
-     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
-     "revid": 2815013,
-     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC": {
-  "name": "Opula Chest Armor",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Purchase from Varzia.",
-    "place": "Varzia",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Opula Armor Bundle",
-     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
-     "revid": 2815013,
-     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL": {
-  "name": "Opula Leg Armor",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Purchase from Varzia.",
-    "place": "Varzia",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Opula Armor Bundle",
-     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
-     "revid": 2815013,
-     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorA": {
   "name": "Ostron Arm Guards",
   "routes": [
@@ -3998,57 +3828,6 @@
      "page": "Armor (Cosmetic)",
      "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
      "quote": "Red Veil Armor Set Red Veil Chest Piece Red Veil Arm Insignia Red Veil Knee Guards Red Veil Rank 5: Exalted 125,000 Standing"
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorA": {
-  "name": "Naktavyre Shoulder Armor",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable.",
-    "place": "Unavailable",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Naktavyre Armor Bundle",
-     "url": "https://wiki.warframe.com/w/Naktavyre_Armor_Bundle",
-     "revid": 2770161,
-     "quote": "Not obtainable currently. Originally obtained as a twitch drop for either watching [[TennoCon 2025]] online, or attending the convention physically."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorC": {
-  "name": "Naktavyre Chest Armor",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable.",
-    "place": "Unavailable",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Naktavyre Armor Bundle",
-     "url": "https://wiki.warframe.com/w/Naktavyre_Armor_Bundle",
-     "revid": 2770161,
-     "quote": "Not obtainable currently. Originally obtained as a twitch drop for either watching [[TennoCon 2025]] online, or attending the convention physically."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorL": {
-  "name": "Naktavyre Leg Armor",
-  "routes": [
-   {
-    "kind": "not_obtainable",
-    "text": "Not currently obtainable.",
-    "place": "Unavailable",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Naktavyre Armor Bundle",
-     "url": "https://wiki.warframe.com/w/Naktavyre_Armor_Bundle",
-     "revid": 2770161,
-     "quote": "Not obtainable currently. Originally obtained as a twitch drop for either watching [[TennoCon 2025]] online, or attending the convention physically."
     }
    }
   ]
@@ -4573,57 +4352,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin": {
-  "name": "Mandonel Chythedra Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Mandonel Chythedra Skin",
-     "url": "https://wiki.warframe.com/w/Mandonel_Chythedra_Skin",
-     "revid": 2813326,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|60}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet": {
-  "name": "Qorvex Basilica Helmet",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Qorvex Basilica Skin",
-     "url": "https://wiki.warframe.com/w/Qorvex_Basilica_Skin",
-     "revid": 2815468,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Mandonel Chythedra Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin": {
-  "name": "Qorvex Basilica Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Qorvex Basilica Skin",
-     "url": "https://wiki.warframe.com/w/Qorvex_Basilica_Skin",
-     "revid": 2815468,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Mandonel Chythedra Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSharpshooter": {
   "name": "Vectis Sharpshooter Skin",
   "routes": [
@@ -4784,23 +4512,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Crowns/DuelistCrown": {
-  "name": "Isageum Signa",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Isageum Signa",
-     "url": "https://wiki.warframe.com/w/Isageum_Signa",
-     "revid": 2812564,
-     "quote": "Purchased from the [[Market]] for {{pc|65}} or as a part of the [[Narin Bundle]]."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Crowns/HeirloomFrostCrown": {
   "name": "Frost Heirloom Signa",
   "routes": [
@@ -4833,23 +4544,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown": {
-  "name": "Vermis Signa",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Vermis Signa",
-     "url": "https://wiki.warframe.com/w/Vermis_Signa",
-     "revid": 2815076,
-     "quote": "{{TennoGen}}"
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/CrpArSniper/CrpArSniperLichSkin": {
   "name": "Ambassador Tenet Skin",
   "routes": [
@@ -4862,74 +4556,6 @@
      "page": "Ambassador Tenet Skin",
      "url": "https://wiki.warframe.com/w/Ambassador_Tenet_Skin",
      "quote": "Parvos Riptide Pack, which was available from August 6th, 2021 to December 10th, 2021."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet": {
-  "name": "Banshee Threnodia Helmet",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Banshee Threnodia Skin",
-     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
-     "revid": 2812688,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin": {
-  "name": "Banshee Threnodia Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Banshee Threnodia Skin",
-     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
-     "revid": 2812688,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet": {
-  "name": "Narin Baridegi Helmet",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Narin Baridegi Helmet",
-     "url": "https://wiki.warframe.com/w/Narin_Baridegi_Helmet",
-     "revid": 2812835,
-     "quote": "* The '''{{PAGENAME}}''' can be purchased from the [[Market]] directly for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}} or real-world currency."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Effects/DuelistEphemera": {
-  "name": "Gangrim Ephemera",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Gangrim Ephemera",
-     "url": "https://wiki.warframe.com/w/Gangrim_Ephemera",
-     "revid": 2813720,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Durumi Syandana}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
     }
    }
   ]
@@ -5078,23 +4704,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Effects/NightwaveIntermissionEphemera": {
-  "name": "Waveform Ephemera",
-  "routes": [
-   {
-    "kind": "event",
-    "text": "Reward from Nightwave.",
-    "place": "Nightwave",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Waveform Ephemera",
-     "url": "https://wiki.warframe.com/w/Waveform_Ephemera",
-     "revid": 2765296,
-     "quote": "Awarded from reaching certain ranks in [[Nightwave]]."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Effects/ObsidianEphemeraA": {
   "name": "Obsidian Ephemera",
   "routes": [
@@ -5155,23 +4764,6 @@
      "page": "Temporal Prime Ephemera",
      "url": "https://wiki.warframe.com/w/Temporal_Prime_Ephemera",
      "quote": "Obtained via the Protea Prime Access Accessories Pack, available from May 1st, 2024 until August 21st, 2024."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera": {
-  "name": "Belfri Ephemera",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Belfri Ephemera",
-     "url": "https://wiki.warframe.com/w/Belfri_Ephemera",
-     "revid": 2813329,
-     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|95}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Garkulek Syandana}}."
     }
    }
   ]
@@ -5316,23 +4908,6 @@
      "page": "Ringers Skin",
      "url": "https://wiki.warframe.com/w/Ringers_Skin",
      "quote": "This weapon skin could be obtained from the market on December 16, 2015 for 1."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Festivities/XmasGlaxion": {
-  "name": "Glaxion Festive Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Glaxion Festive Skin",
-     "url": "https://wiki.warframe.com/w/Glaxion_Festive_Skin",
-     "revid": 2761220,
-     "quote": "The Glaxion Polar Skin can be bought during Tennobaum season from market for 20 {{Resource|Platinum}}."
     }
    }
   ]
@@ -5993,23 +5568,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis": {
-  "name": "Silva & Aegis Day of the Dead Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Silva & Aegis Day of the Dead Skin",
-     "url": "https://wiki.warframe.com/w/Silva_&_Aegis_Day_of_the_Dead_Skin",
-     "revid": 2763795,
-     "quote": "This skin is available for purchase for limited time from in-game market during [[Nights of Naberus]] separately for {{pc|20}} or as part of [[Day of the Dead Weapon Skin Pack IV]] {{pc|180}}"
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Halloween/HalloweenSimulor": {
   "name": "Simulor Day of the Dead Skin",
   "routes": [
@@ -6218,227 +5776,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerA": {
-  "name": "LET'S GO",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerB": {
-  "name": "ZANUKA?!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerC": {
-  "name": "SILENCE!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerD": {
-  "name": "ERROR!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerG": {
-  "name": "WORM!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerH": {
-  "name": "CICERO",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerI": {
-  "name": "KILL IT!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerJ": {
-  "name": "GET THEM!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerK": {
-  "name": "GET REKT",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerL": {
-  "name": "DESTROY ALL!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerN": {
-  "name": "WHAT THE...?",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerO": {
-  "name": "SLIPPERY",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerP": {
-  "name": "SSSICK!!!!",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "K-Drive",
-     "url": "https://wiki.warframe.com/w/K-Drive",
-     "revid": 2815940,
-     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Kubrows/Fur/DaybreakKubrowFur": {
   "name": "Daybreak Kubrow Fur Pattern",
   "routes": [
@@ -6471,74 +5808,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/LunarNewYear/CNY2025ScytheSkin": {
-  "name": "Hespar Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Hespar Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Hespar_Lunaeus_Skin",
-     "revid": 2773857,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Smoky Quartz Bundle]] {{pc|215}} and [[Noble Opal Bundle]] {{pc|805}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/LNY2024Nukor": {
-  "name": "Nukor Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Nukor Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Nukor_Lunaeus_Skin",
-     "revid": 2773852,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Red Coral Bundle]] {{pc|135}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/LNY2024Ogris": {
-  "name": "Ogris Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Ogris Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Ogris_Lunaeus_Skin",
-     "revid": 2773853,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Dragon Stone Bundle]] {{pc|575}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/LNY2025BoltorSkin": {
-  "name": "Boltor Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Boltor Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Boltor_Lunaeus_Skin",
-     "revid": 2773856,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Pink Topaz Bundle]] {{pc|590}} and [[Noble Opal Bundle]] {{pc|805}}."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/LunarNewYear/LNYHookSword": {
   "name": "Dual Swords Lunaeus Skin",
   "routes": [
@@ -6551,108 +5820,6 @@
      "page": "Dual Swords Lunaeus Skin",
      "url": "https://wiki.warframe.com/w/Dual_Swords_Lunaeus_Skin",
      "quote": "the Market separately for 75, or as part of the Fire Agate Bundle for 295."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020AcceltraSkin": {
-  "name": "Acceltra Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Acceltra Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Acceltra_Lunaeus_Skin",
-     "revid": 2773833,
-     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Luminous Brilliance Bundle]] {{pc|470}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020OrthosSkin": {
-  "name": "Orthos Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Orthos Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Orthos_Lunaeus_Skin",
-     "revid": 2773835,
-     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Luminous Brilliance Bundle]] {{pc|470}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020PyranaSkin": {
-  "name": "Pyrana Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Pyrana Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Pyrana_Lunaeus_Skin",
-     "revid": 2773836,
-     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Luminous Brilliance Bundle]] {{pc|470}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023CedoSkin": {
-  "name": "Cedo Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Cedo Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Cedo_Lunaeus_Skin",
-     "revid": 2773847,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Quartz Renewal Bundle]] {{pc|135}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023CernosSkin": {
-  "name": "Cernos Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Cernos Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Cernos_Lunaeus_Skin",
-     "revid": 2773849,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Emerald Renewal Bundle]] {{pc|500}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023NagantakaSkin": {
-  "name": "Nagantaka Lunaeus Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Nagantaka Lunaeus Skin",
-     "url": "https://wiki.warframe.com/w/Nagantaka_Lunaeus_Skin",
-     "revid": 2773848,
-     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Garnet Renewal Bundle]] {{pc|265}}."
     }
    }
   ]
@@ -6685,40 +5852,6 @@
      "page": "Mag Opal Skin",
      "url": "https://wiki.warframe.com/w/Mag_Opal_Skin",
      "quote": "The Mag Opal Skin was available through the Nintendo store via the Esteem Pack III[1]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/MeleeDangles/CephalonSugatraDangle": {
-  "name": "Boolean Sugatra",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Purchase from Nightwave Cred Offerings.",
-    "place": "Nightwave Cred Offerings",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Boolean Sugatra",
-     "url": "https://wiki.warframe.com/w/Boolean_Sugatra",
-     "revid": 2801911,
-     "quote": "* Can be acquired as a [[Nightwave/Offerings|Nightwave Cred Offering]] for {{Nc|30}} on a rotational basis."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangleRefresh": {
-  "name": "Pyra Opula Sugatra",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Available through Prime Resurgence.",
-    "place": "Prime Resurgence",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Pyra Opula Sugatra",
-     "url": "https://wiki.warframe.com/w/Pyra_Opula_Sugatra",
-     "revid": 2768857,
-     "quote": "Acquired from [[Prime Resurgence]] for 6 {{Resource|Aya}}."
     }
    }
   ]
@@ -6815,23 +5948,6 @@
      "page": "Obsidian Azura Sugatra",
      "url": "https://wiki.warframe.com/w/Obsidian_Azura_Sugatra",
      "quote": "No longer available."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra": {
-  "name": "Alumeti Prime Sugatra",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Available through Prime Access or Prime Resurgence.",
-    "place": "Prime Access / Prime Resurgence",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Alumeti Prime Sugatra",
-     "url": "https://wiki.warframe.com/w/Alumeti_Prime_Sugatra",
-     "revid": 2813731,
-     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 1 {{Resource|Regal Aya}} when it is in rotation."
     }
    }
   ]
@@ -7044,23 +6160,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin": {
-  "name": "Nvidia Braton",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Braton",
-     "url": "https://wiki.warframe.com/w/Braton",
-     "revid": 2773809,
-     "quote": "A fully built Braton can be purchased from the [[Market]] for {{cc|25,000}}."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Ornate/TekeluFragorSkin": {
   "name": "Fragor Tekelu Skin",
   "routes": [
@@ -7173,23 +6272,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Promo/WeGame/WeGameMacheteSkin": {
-  "name": "Lunaeus Machete Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Lunaeus Machete Skin",
-     "url": "https://wiki.warframe.com/w/Lunaeus_Machete_Skin",
-     "revid": 2773825,
-     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Start Anew Bundle]] {{pc|185}}."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana": {
   "name": "Monarcierro Day of the Dead Syandana",
   "routes": [
@@ -7202,125 +6284,6 @@
      "page": "Monarcierro Day of the Dead Syandana",
      "url": "https://wiki.warframe.com/w/Monarcierro_Day_of_the_Dead_Syandana",
      "quote": "Obtained from the following Nightwave season(s): Nora's Mix: Dreams of the Dead — Rank 30 Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana • Ahlto Syandana • Akrabu Syandana • Altra Syandana • Amphor Syandana • Apoxys Syandana • Artifex Syandana • Asa Syandana"
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/DuelistSyandana": {
-  "name": "Durumi Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Durumi Syandana",
-     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
-     "revid": 2813725,
-     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/FlameScarfRefresh": {
-  "name": "Pyra Opula Syandana",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Purchase from Varzia.",
-    "place": "Varzia",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Pyra Opula Syandana",
-     "url": "https://wiki.warframe.com/w/Pyra_Opula_Syandana",
-     "revid": 2768797,
-     "quote": "Purchase from [[Varzia]] for 10 {{Resource|Aya}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/HalloweenErosionCape": {
-  "name": "Abrasys Day of the Dead Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Abrasys Day of the Dead Syandana",
-     "url": "https://wiki.warframe.com/w/Abrasys_Day_of_the_Dead_Syandana",
-     "revid": 2775102,
-     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|50}}, or as a bundled item from [[Day of the Dead Threads II]] for {{pc|80}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/HalloweenFireFlyScarf": {
-  "name": "Igaro Day of the Dead Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Igaro Day of the Dead Syandana",
-     "url": "https://wiki.warframe.com/w/Igaro_Day_of_the_Dead_Syandana",
-     "revid": 2775105,
-     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|90}}, or as a bundled item from [[Day of the Dead Threads]] for {{pc|130}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/HalloweenGrnBannerScarf": {
-  "name": "Vanquished Banner Day of the Dead",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Vanquished Banner Day of the Dead",
-     "url": "https://wiki.warframe.com/w/Vanquished_Banner_Day_of_the_Dead",
-     "revid": 2775117,
-     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|75}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/HalloweenKyropteraScarf": {
-  "name": "Kyroptera Day of the Dead Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Kyroptera Day of the Dead Syandana",
-     "url": "https://wiki.warframe.com/w/Kyroptera_Day_of_the_Dead_Syandana",
-     "revid": 2775111,
-     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|50}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/HolidayTurtleNeckScarf": {
-  "name": "Imperator Festive Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Imperator Festive Syandana",
-     "url": "https://wiki.warframe.com/w/Imperator_Festive_Syandana",
-     "revid": 2768688,
-     "quote": "Only purchaseable during [[Tennobaum]] from the [[Market]] for {{pc|50}}, or as a bundled item from [[Winter Bundle]] for {{pc|280}} for the accessory pack."
     }
    }
   ]
@@ -7389,23 +6352,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana": {
-  "name": "Sphatika Prime Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Available through Prime Access or Prime Resurgence.",
-    "place": "Prime Access / Prime Resurgence",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Sphatika Prime Syandana",
-     "url": "https://wiki.warframe.com/w/Sphatika_Prime_Syandana",
-     "revid": 2813301,
-     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 2 {{Resource|Regal Aya}} when it is in rotation."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf": {
   "name": "Yomo Obsidian Syandana",
   "routes": [
@@ -7434,23 +6380,6 @@
      "page": "Third Party Deals and Rewards",
      "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
      "quote": "The PlayStation Plus Booster Pack V includes: 100 Platinum Platinum 100,000 Credits Credits Obsidian Sedai Syandana Affinity Booster (7 days)"
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana": {
-  "name": "Garkulek Syandana",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Garkulek Syandana",
-     "url": "https://wiki.warframe.com/w/Garkulek_Syandana",
-     "revid": 2813328,
-     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|105}}, or acquired as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Belfri Ephemera}}."
     }
    }
   ]
@@ -7659,142 +6588,6 @@
      "page": "Aspirant Syandana",
      "url": "https://wiki.warframe.com/w/Aspirant_Syandana",
      "quote": "Obtained during limited time event Operation: Atramentum for 60 Nightmare T atters."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask": {
-  "name": "Gast Sentinel Mask",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Gast Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
-     "revid": 2815979,
-     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Masks/LNYDragonMask": {
-  "name": "Dragondance Sentinel Mask",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Dragondance Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
-     "revid": 2791360,
-     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin": {
-  "name": "Gast Sentinel Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Gast Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
-     "revid": 2815979,
-     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Skins/LNYDragonSentinelSkin": {
-  "name": "Dragondance Sentinel Skin",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Dragondance Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
-     "revid": 2791360,
-     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail": {
-  "name": "Gast Sentinel Tail",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Gast Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
-     "revid": 2815979,
-     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Tails/LNYDragonTail": {
-  "name": "Dragondance Sentinel Tail",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Dragondance Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
-     "revid": 2791360,
-     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings": {
-  "name": "Gast Sentinel Wings",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Gast Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
-     "revid": 2815979,
-     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Sentinels/Wings/LNYDragonWings": {
-  "name": "Dragondance Sentinel Wings",
-  "routes": [
-   {
-    "kind": "market",
-    "text": "Purchasable from the Market or as part of a bundle.",
-    "place": "Market",
-    "source": {
-     "archive": "wiki_store",
-     "page": "Dragondance Sentinel Skin Bundle",
-     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
-     "revid": 2791360,
-     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
     }
    }
   ]

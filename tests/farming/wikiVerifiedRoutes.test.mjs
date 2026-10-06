@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
 
 import { DEFAULT_DATA_DIR, loadRealHarness } from '../../scripts/lib/real-data-harness.mjs'
+import { generate } from '../../scripts/wiki-audit/make-verified-routes.mjs'
 
 const root = path.resolve(import.meta.dirname, '../..')
 const dataDir = path.join(root, 'src-tauri/data/assets/data')
@@ -40,6 +42,7 @@ test('wiki-store generated routes have verbatim, revision-pinned source quotes a
     pages.set(`${page.title}\0${page.revid}`, page)
   }
   assert.ok(generated.length > 0)
+  assert.equal(Object.values(groupData().cosmetics).flatMap((entry) => entry.routes || []).filter((route) => route.source.archive === 'wiki_store').length, 0)
   for (const { uniqueName, route } of generated) {
     const page = pages.get(`${route.source.page}\0${route.source.revid}`)
     assert.ok(page, `${uniqueName}: source revision is not in pages.jsonl`)
@@ -48,10 +51,32 @@ test('wiki-store generated routes have verbatim, revision-pinned source quotes a
   }
 })
 
+test('the route generator excludes cosmetic categories', async () => {
+  const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'wiki-routes-'))
+  try {
+    const auditFile = path.join(tempDir, 'audit-report.json')
+    const pagesFile = path.join(tempDir, 'pages.jsonl')
+    const fact = 'This item can be purchased from Father for credits.'
+    await fs.promises.writeFile(auditFile, JSON.stringify({ items: [
+      { uniqueName: '/Test/Cosmetic', name: 'Test Cosmetic', category: 'cosmetics', status: 'app_missing', appSources: { unresearched: true }, wikiFacts: [{ kind: 'vendor', detail: fact, evidence: fact }] },
+      { uniqueName: '/Test/Resource', name: 'Test Resource', category: 'resources', status: 'app_missing', appSources: { unresearched: true }, evidence: ['Wiki page: Test Resource'], wikiFacts: [{ kind: 'vendor', detail: fact, evidence: fact }] },
+    ] }))
+    await fs.promises.writeFile(pagesFile, `${JSON.stringify({ title: 'Test Resource', revid: 1, wikitext: `==Acquisition==\n* ${fact}` })}\n`)
+    const result = generate({ auditFile, pagesFile, write: false })
+    assert.deepEqual(result.selected.map((item) => item.name), ['Test Resource'])
+    assert.deepEqual(result.generated.map((item) => item.name), ['Test Resource'])
+    assert.equal(result.generated.some((item) => item.category === 'cosmetics'), false)
+    assert.ok(result.groups.resources['/Test/Resource'])
+    assert.equal(result.groups.cosmetics['/Test/Cosmetic'], undefined)
+  } finally {
+    await fs.promises.rm(tempDir, { recursive: true, force: true })
+  }
+})
+
 test('the requested named routes and A8 Baro coverage are present', () => {
   const entries = Object.values(groupData()).flatMap((data) => Object.values(data))
   const names = new Set(entries.map((entry) => entry.name))
-  for (const name of ["Brood's Oversurge", 'Sphatika Prime Syandana', 'Pyra Opula Sugatra', 'Lua Unairu Lens', 'Dragondance Sentinel Mask']) {
+  for (const name of ["Brood's Oversurge", 'Augmented Sonar', 'Prototype Shock Coils', 'Lua Unairu Lens', 'Moonflesh']) {
     assert.equal(names.has(name), true, name)
   }
 })
@@ -86,10 +111,7 @@ test('real data: Baro relics and selected generated routes render through getAcq
   }
   const selected = [
     ["/Lotus/Powersuits/Oraxia/BroodAugmentCard", "Brood's Oversurge"],
-    ['/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana', 'Sphatika Prime Syandana'],
-    ['/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangleRefresh', 'Pyra Opula Sugatra'],
     ['/Lotus/Upgrades/Focus/WardLensLua', 'Lua Unairu Lens'],
-    ['/Lotus/Upgrades/Skins/Sentinels/Masks/LNYDragonMask', 'Dragondance Sentinel Mask'],
     ['/Lotus/Powersuits/Banshee/SonarPvPAugmentCard', 'Augmented Sonar'],
     ['/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod', 'Prototype Shock Coils'],
     ['/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource', 'Moonflesh'],
@@ -97,5 +119,12 @@ test('real data: Baro relics and selected generated routes render through getAcq
   for (const [uniqueName, name] of selected) {
     const result = acquire(uniqueName, name)
     assert.ok(result.sources.some((source) => source.type === 'verified-route' || /Prime Resurgence|Prime Access|Market|Lua Disruption|Cephalon Suda|Baro/i.test(source.text)), `${name}: ${JSON.stringify(result.sources)}`)
+  }
+  for (const [uniqueName, name] of [
+    ['/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana', 'Sphatika Prime Syandana'],
+    ['/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangleRefresh', 'Pyra Opula Sugatra'],
+  ]) {
+    const result = acquire(uniqueName, name)
+    assert.equal(result.sources.some((source) => source.reviewSource?.archive === 'wiki_store'), false, `${name}: ${JSON.stringify(result.sources)}`)
   }
 })

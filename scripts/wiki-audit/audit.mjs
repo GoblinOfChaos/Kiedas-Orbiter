@@ -42,6 +42,9 @@ const STEAM_ONLY_RE = /(?:steam\s+wallet|linked\s+(?:with\s+)?steam|steam\s+acco
 const MARKET_PRICE_RE = /\b(?:sold\s+in\s+the\s+in-game\s+market|available\s+in\s+the\s+market|purchasable\s+from\s+market)\b[^.!?\n]*\b\d[\d,]*\s+platinum\b/i
 const ROUTE_NAME_RE = /\b(?:operation\s*:\s*[^,.;!?]+|[A-Z][A-Za-z0-9'’:-]*(?:\s+[A-Z][A-Za-z0-9'’:-]*){0,5}\s+(?:Bounties|Weekend|Event|Invasions|Sorties|Tactical Alert|Market|Marketplace|Offerings|Relay|Void Trader))\b/gi
 const GENERIC_ROUTE_NAMES = new Set(['event', 'market', 'marketplace', 'relay', 'offerings', 'void trader'])
+// `cosmetics` is the only cosmetic category in CATEGORY_RULES. The app bucket
+// names appearance_catalog and landing_craft_catalog are not audit categories.
+const EXCLUDED_CATEGORIES = new Set(['cosmetics'])
 
 const clean = (value) => String(value ?? '')
   .replace(/<!--[^]*?-->/g, ' ')
@@ -477,11 +480,16 @@ function textSelfCheck(items) {
   return failures
 }
 
-export function auditItems({ appRoutes, pages, redirects, modules }) {
-  const indexes = buildPageIndex(pages, redirects, Object.values(appRoutes))
+function scopedItems(items, includeCosmetics = false) {
+  return includeCosmetics ? items : items.filter((item) => !EXCLUDED_CATEGORIES.has(item.category))
+}
+
+export function auditItems({ appRoutes, pages, redirects, modules, includeCosmetics = false }) {
+  const entries = Object.entries(appRoutes).filter(([, item]) => includeCosmetics || !EXCLUDED_CATEGORIES.has(item.category))
+  const indexes = buildPageIndex(pages, redirects, entries.map(([, item]) => item))
   const moduleIndexes = moduleFactIndexes(modules)
   const reports = []
-  for (const [uniqueName, item] of Object.entries(appRoutes)) {
+  for (const [uniqueName, item] of entries) {
     const match = matchPage(item, indexes)
     const appSources = summarizeAppSources(appItemSource(item))
     if (!match) {
@@ -507,7 +515,8 @@ function factEvidence(fact) {
   return { kind: fact.kind, where: fact.where, text: wikiFactText(fact), evidence: fact.evidence }
 }
 
-export function findDefects(items) {
+export function findDefects(items, { includeCosmetics = false } = {}) {
+  items = scopedItems(items, includeCosmetics)
   const appTextMissingNumber = []
   const appConflictSteamVsMarket = []
   const appConflictRoute = []
@@ -579,7 +588,11 @@ function seededSample(items, status, random, limit = 25) {
   return pool.slice(0, limit)
 }
 
-export function makeReviewSampleMarkdown(items, seed = 7311, defects = findDefects(items)) {
+export function makeReviewSampleMarkdown(items, seed = 7311, defects = findDefects(items), { includeCosmetics = false } = {}) {
+  items = scopedItems(items, includeCosmetics)
+  if (!includeCosmetics) {
+    defects = Object.fromEntries(Object.entries(defects).map(([key, entries]) => [key, entries.filter((entry) => !EXCLUDED_CATEGORIES.has(entry.category))]))
+  }
   const statuses = ['app_missing', 'app_partial', 'app_extra', 'no_wiki_page', 'agree']
   const random = seededRandom(seed)
   const lines = ['# Wiki acquisition audit review sample', '', `Seeded random sample seed: **${seed}**.`, 'Each section contains up to 25 items for human grading.', '']
@@ -612,6 +625,7 @@ function patternFor(item) {
 }
 
 export function makeSummaryMarkdown(items, metadata = {}) {
+  items = scopedItems(items, metadata.includeCosmetics === true)
   const statusCounts = countBy(items, 'status')
   const categoryCounts = countBy(items, 'category')
   const patterns = new Map()
@@ -630,7 +644,8 @@ export function makeSummaryMarkdown(items, metadata = {}) {
   const lines = [
     '# Wiki acquisition audit', '',
     `Generated from ${metadata.appRoutes || 'app-routes.json'} and the complete local wiki store.`,
-    `Items audited: **${items.length}**. No categories were skipped.`, '',
+    `Items audited: **${items.length}**.`,
+    `excluded by decision: cosmetics ${metadata.excludedByDecision?.cosmetics ?? 0} items`, '',
     '## Input completeness', '',
     `- Wiki pages: ${metadata.pageCount ?? 'unknown'}`,
     `- Wiki redirects: ${metadata.redirectCount ?? 'unknown'}`,
@@ -649,7 +664,7 @@ export function makeSummaryMarkdown(items, metadata = {}) {
     '## Status-independent defect lists', '',
   ]
   for (const [key, entries] of Object.entries(metadata.defects || {})) {
-    lines.push(`### ${key}`, '', ...entries.map((entry) => `- ${entry.name}`), '')
+    lines.push(`### ${key} (${entries.length})`, '', ...entries.map((entry) => `- ${entry.name}`), '')
   }
   if (metadata.beforeP49d?.categoryStatusCounts) {
     const beforeStatuses = [...new Set(Object.values(metadata.beforeP49d.categoryStatusCounts).flatMap((counts) => Object.keys(counts)))].sort()
@@ -694,6 +709,7 @@ function argValue(args, name, fallback) {
 
 async function main() {
   const args = process.argv.slice(2)
+  const includeCosmetics = args.includes('--include-cosmetics')
   const wikiDir = argValue(args, '--wiki-dir', process.env.WIKI_AUDIT_WIKI_DIR || DEFAULTS.wikiDir)
   const moduleDir = argValue(args, '--module-dir', process.env.WIKI_AUDIT_MODULE_DIR || DEFAULTS.moduleDir)
   const appRoutesFile = argValue(args, '--app-routes', process.env.WIKI_AUDIT_APP_ROUTES || DEFAULTS.appRoutes)
@@ -709,11 +725,12 @@ async function main() {
     readJson(path.join(moduleDir, 'Module_Baro_data.json')),
     readJson(path.join(moduleDir, 'Module_DropTables_data.json')),
   ])
-  const items = auditItems({ appRoutes, pages, redirects, modules: { voidData, baroData, dropData } })
+  const excludedCosmeticCount = Object.values(appRoutes).filter((item) => EXCLUDED_CATEGORIES.has(item.category)).length
+  const items = auditItems({ appRoutes, pages, redirects, modules: { voidData, baroData, dropData }, includeCosmetics })
   const textSelfCheckFailures = textSelfCheck(items)
   console.log(`TEXT SELF-CHECK: ${textSelfCheckFailures.length} unmatched high-similarity facts`)
   if (textSelfCheckFailures.length) throw new Error(`text self-check failed: ${JSON.stringify(textSelfCheckFailures.slice(0, 5))}`)
-  const defects = findDefects(items)
+  const defects = findDefects(items, { includeCosmetics })
   const previousReport = await readJson(path.join(outDir, 'audit-report.json')).catch(() => null)
   const p49dBaseline = previousReport?.metadata?.reviewSampleSeed === 4903
     ? previousReport.metadata
@@ -721,7 +738,7 @@ async function main() {
   const golden = ['Axi A2 Intact', 'Axi A5 Intact', 'Axi V8 Intact', 'Axi M5 Intact', 'Neo O1 Intact', 'Axi A8 Intact'].map((name) => {
     const report = items.find((item) => item.name === name)
     const baro = report?.wikiFacts.some((fact) => fact.kind === 'vendor' && fact.where === "Baro Ki'Teer")
-    const expectedStatus = name === 'Axi A8 Intact' ? 'app_partial' : 'app_missing'
+    const expectedStatus = name === 'Axi A8 Intact' ? 'app_partial' : 'agree'
     return { name, pass: report?.status === expectedStatus && baro === true, status: report?.status || 'missing', expectedStatus, baroFact: baro }
   })
   const reportPath = path.join(outDir, 'audit-report.json')
@@ -733,6 +750,7 @@ async function main() {
     redirectCount: manifest.counts?.redirects ?? Object.keys(redirects).length,
     moduleFiles: ['Module_Void_data.json', 'Module_Baro_data.json', 'Module_DropTables_data.json'],
     statusCounts: countBy(items, 'status'), categoryStatusCounts, reviewSampleSeed: 7311,
+    includeCosmetics, excludedByDecision: { cosmetics: includeCosmetics ? 0 : excludedCosmeticCount },
     textSelfCheck: { unmatchedHighSimilarityFacts: textSelfCheckFailures.length },
     beforeP49d: p49dBaseline?.categoryStatusCounts ? {
       statusCounts: p49dBaseline.statusCounts,
@@ -740,7 +758,7 @@ async function main() {
       source: 'existing P49d audit-report.json',
     } : null,
     defects,
-    skippedCategories: [], golden,
+    skippedCategories: includeCosmetics ? [] : ['cosmetics'], golden,
     selectedExamples: {
       agree: [
         { name: 'Prova Vandal', why: 'Exact wiki title matched; both wiki and app report a Baro Ki\'Teer vendor source.' },
@@ -761,9 +779,11 @@ async function main() {
   await fs.mkdir(outDir, { recursive: true })
   await fs.writeFile(reportPath, `${JSON.stringify({ metadata, defects, items }, null, 2)}\n`)
   await fs.writeFile(summaryPath, makeSummaryMarkdown(items, metadata))
-  await fs.writeFile(reviewPath, makeReviewSampleMarkdown(items, metadata.reviewSampleSeed))
+  await fs.writeFile(reviewPath, makeReviewSampleMarkdown(items, metadata.reviewSampleSeed, defects, { includeCosmetics }))
   for (const result of golden) console.log(`${result.pass ? 'PASS' : 'FAIL'} golden ${result.name}: status=${result.status}, expected=${result.expectedStatus}, baroFact=${result.baroFact}`)
-  console.log(JSON.stringify({ reportPath, summaryPath, reviewPath, itemCount: items.length, statusCounts: countBy(items, 'status'), categoryStatusCounts, golden }, null, 2))
+  console.log(`excluded by decision: cosmetics ${metadata.excludedByDecision.cosmetics} items`)
+  console.log(`defect-list sizes: ${Object.entries(defects).map(([key, entries]) => `${key}=${entries.length}`).join(', ')}`)
+  console.log(JSON.stringify({ reportPath, summaryPath, reviewPath, itemCount: items.length, statusCounts: countBy(items, 'status'), categoryStatusCounts, defectCounts: Object.fromEntries(Object.entries(defects).map(([key, entries]) => [key, entries.length])), golden }, null, 2))
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main().catch((error) => { console.error(`wiki-audit: ${error.message}`); process.exitCode = 1 })

@@ -4,8 +4,9 @@ use std::path::Path;
 use std::time::Duration;
 
 pub const DROP_TABLES_URL: &str = "https://www.warframe.com/droptables";
-/// Disabled by default because this is a large non-DE-export HTML download.
-pub const DE_DROP_TABLES_REFRESH_ENABLED: bool = false;
+/// Enabled 2026-10-05 (user approved): DE's own drop page becomes the drop source; if the download
+/// or parse fails the app keeps the mirror (see the warning branch in main.rs).
+pub const DE_DROP_TABLES_REFRESH_ENABLED: bool = true;
 const MIN_ROWS: usize = 1_000;
 const MIN_PREVIOUS_RATIO: f64 = 0.8;
 

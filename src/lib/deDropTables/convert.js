@@ -11,8 +11,11 @@ const BOUNTY_OUTPUTS = {
   hexRewards: 'hexRewards',
 }
 
-// Deliberately false until the coordinator reviews parity and flips it.
-export const DE_DROP_TABLES_ENABLED = false
+// On since 2026-10-05: parity reviewed over every item with real data (20,287 of 20,417 identical,
+// nothing lost; the 130 differences are DE's finer rarity words and DE-only rows). See
+// tests/farming/deDropTables.test.mjs. The old scripts/de-drop-tables/parity.mjs compares
+// mismatched keys and cannot validate this.
+export const DE_DROP_TABLES_ENABLED = true
 
 function groupsBy(rows, key) {
   const groups = new Map()

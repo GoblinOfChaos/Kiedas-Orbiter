@@ -1,6 +1,7 @@
 import { getDropSourcesWithFallback } from './dropsParser.js'
 import { chanceValue, sortSourcesByChanceInRotations } from './chanceSort.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
+import { sourceLabel } from './sourceLabel.js'
 import { compareText } from './textCompare.js'
 
 const REFINEMENT_SUFFIX = /\s*\((?:Intact|Exceptional|Flawless|Radiant)\)|\s+(?:Intact|Exceptional|Flawless|Radiant)$/i
@@ -317,6 +318,31 @@ export function buildBlueprintSourceRows(displayName, recipe, dropIndex, fallbac
     fallbackDrops,
     rarityIndex,
   )
+}
+
+/** Build the bounded, shared source list used by both blueprint-box drawers. */
+export function buildBlueprintAcquisitionRows(displayName, recipe, dropIndex, fallbackDrops = [], rarityIndex = null, origin = null, originSources = []) {
+  if (!recipe?.blueprintUniqueName) return []
+  const seen = new Set()
+  const sources = [
+    ...(origin ? [{ type: 'non-drop', text: origin }] : []),
+    ...(!origin ? (originSources || []).filter((source) => source?.type === 'non-drop' && /blueprint/i.test(source.text || '')) : []),
+    ...buildBlueprintSourceRows(displayName, recipe, dropIndex, fallbackDrops, rarityIndex),
+  ].filter((source) => {
+    const label = source?.type === 'relic'
+      ? `${normalizeRelicName(source.relicName || source.relicManifest)}|${source.rarity || ''}`
+      : source?.type === 'key'
+        ? `${source.keyName || ''}|${source.rotation || source.rotationOrTable || ''}`
+        : source?.text || sourceLabel(source) || source?.location || source?.relicName || ''
+    const identity = `${label}|${source?.chance ?? ''}`
+    if (!label || seen.has(identity)) return false
+    seen.add(identity)
+    return true
+  })
+  return prepareAcquisitionSources(sources, {
+    rarityIndex,
+    itemType: recipe.blueprintUniqueName,
+  })
 }
 
 export function getRelicSourceLabel(source, t = (key) => key) {

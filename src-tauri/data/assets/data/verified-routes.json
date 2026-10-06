@@ -1,4 +1,55 @@
 {
+ "/Lotus/Powersuits/Banshee/SonarPvPAugmentCard": {
+  "name": "Augmented Sonar",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Suda or The Perrin Sequence.",
+    "place": "Cephalon Suda / The Perrin Sequence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Resonance",
+     "url": "https://wiki.warframe.com/w/Resonance",
+     "revid": 2813420,
+     "quote": "*This mod can be acquired by attaining the rank of '''Genius''' under {{Faction|Cephalon Suda}}, or the rank of '''Partner''' under {{Faction|The Perrin Sequence}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard": {
+  "name": "Infernum",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Steel Meridian or The Perrin Sequence.",
+    "place": "Steel Meridian / The Perrin Sequence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Infernum",
+     "url": "https://wiki.warframe.com/w/Infernum",
+     "revid": 2815139,
+     "quote": "*This mod can be acquired by attaining the rank of '''General''' under {{Faction|Steel Meridian}}, or the rank of '''Partner''' under {{Faction|The Perrin Sequence}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard": {
+  "name": "Gastroparesis",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Steel Meridian or Red Veil.",
+    "place": "Steel Meridian / Red Veil",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gastroparesis",
+     "url": "https://wiki.warframe.com/w/Gastroparesis",
+     "revid": 2816197,
+     "quote": "*This mod can be acquired by attaining the rank of '''General''' under {{Faction|Steel Meridian}}, or the rank of '''Exalted''' under {{Faction|Red Veil}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
  "/Lotus/Powersuits/Excalibur/ExcaliburPrime": {
   "name": "Excalibur Prime",
   "routes": [
@@ -11,6 +62,40 @@
      "page": "Prime Resurgence",
      "url": "https://wiki.warframe.com/w/Prime_Resurgence",
      "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard": {
+  "name": "Cold Front",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Suda or Steel Meridian.",
+    "place": "Cephalon Suda / Steel Meridian",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Cold Front",
+     "url": "https://wiki.warframe.com/w/Cold_Front",
+     "revid": 2813483,
+     "quote": "*This mod can be acquired by attaining the rank of '''General''' under {{Faction|Steel Meridian}}, or the rank of '''Genius''' under {{Faction|Cephalon Suda}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Oraxia/BroodAugmentCard": {
+  "name": "Brood's Oversurge",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Suda or New Loka.",
+    "place": "Cephalon Suda / New Loka",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Brood's Oversurge",
+     "url": "https://wiki.warframe.com/w/Brood's_Oversurge",
+     "revid": 2815754,
+     "quote": "*'''Brood's Oversurge''' can be acquired by attaining the rank of '''Genius''' under {{Faction|Cephalon Suda}}, or the rank of '''Flawless''' under {{Faction|New Loka}}, and spending {{sc|25,000}} to purchase."
     }
    }
   ]
@@ -511,6 +596,23 @@
    }
   ]
  },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionVoltOdonataPrimeBronze": {
+  "name": "Neo O1 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic\n|Axi M5 Relic\n|Axi V8 Relic\n|Neo O1 Relic"
+    }
+   }
+  ]
+ },
  "/Lotus/Types/Game/Projections/T4VoidProjection": {
   "name": "Axi Relic",
   "routes": [
@@ -523,6 +625,57 @@
      "page": "Void Relic",
      "url": "https://wiki.warframe.com/w/Void_Relic",
      "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionBaroAkmagnusPrimeBronze": {
+  "name": "Axi M5 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic\n|Axi M5 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionMagNovaVaultBBronze": {
+  "name": "Axi A5 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionPBronze": {
+  "name": "Axi A2 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic"
     }
    }
   ]
@@ -607,6 +760,23 @@
    }
   ]
  },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionVoltOdonataPrimeBronze": {
+  "name": "Axi V8 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic\n|Axi M5 Relic\n|Axi V8 Relic"
+    }
+   }
+  ]
+ },
  "/Lotus/Types/Game/Projections/T5VoidProjectionImmortal": {
   "name": "Requiem Relic",
   "routes": [
@@ -667,6 +837,91 @@
      "page": "Hemocyte Cystolith",
      "url": "https://wiki.warframe.com/w/Hemocyte_Cystolith",
      "quote": "com/droptables Maintenance 📝 Update Infobox Data Hemocyte Cystoliths are a resource dropped by the Hemocyte during Operation: Plague Star, and used to build that event's clan trophies."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource": {
+  "name": "Moonflesh",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Operation: Taubound.",
+    "place": "Operation: Taubound",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Moonflesh",
+     "url": "https://wiki.warframe.com/w/Moonflesh",
+     "revid": 2816012,
+     "quote": "'''Moonflesh''' can be gotten by completing missions on [[Eris]] during [[Epoch Operation: Taubound]].<!--;where each mission completion will reward ? {{Resource|Moonflesh}}, or ? on [[Steel Path]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/DuelistEmote": {
+  "name": "Kalsawi Emote",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Durumi Syandana",
+     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
+     "revid": 2813725,
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/GeminiEmote": {
+  "name": "Universal Gemini Emote",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gemini Skins",
+     "url": "https://wiki.warframe.com/w/Gemini_Skins",
+     "revid": 2805007,
+     "quote": "***The '''1999 Complete Collection''', which also included {{pc|750}} and the [[1999 Cyte-09 Bullseye Bundle]], could be purchased for real world currency. This bundle has since been retired and is '''no longer available.'''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/HeirloomEmote": {
+  "name": "Deca Heirloom Emote",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Heirloom Skins",
+     "url": "https://wiki.warframe.com/w/Heirloom_Skins",
+     "revid": 2805018,
+     "quote": "**{{Cosmetic|Frost Heirloom Skin}} and {{Cosmetic|Mag Heirloom Skin}}, as well as their corresponding [[Signa]], [[Emote]], [[Glyph]] and [[Sigil]] are '''not''' available anymore for purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/ShawzinEmote": {
+  "name": "Shawzin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Shawzin",
+     "url": "https://wiki.warframe.com/w/Shawzin",
+     "revid": 2789349,
+     "quote": "There are multiple variants of Shawzin available in the [[Market]], which grant the player the Orbiter decoration of the purchased instrument. Upon acquiring any Shawzin, the player will also receive the unique Shawzin emote."
     }
    }
   ]
@@ -1295,6 +1550,38 @@
    }
   ]
  },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnector14Alt": {
+  "name": "Gas City Cloud Vista Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY CLOUD VISTA SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnectorTwo": {
+  "name": "Gas City Corridors Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY CORRIDORS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConPlusDOpen": {
   "name": "Gas City Central Drop Scene",
   "routes": [
@@ -1339,38 +1626,6 @@
      "page": "Captura",
      "url": "https://wiki.warframe.com/w/Captura",
      "quote": "GAS CITY LIFTS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnector14Alt": {
-  "name": "Gas City Cloud Vista Scene",
-  "routes": [
-   {
-    "kind": "drop",
-    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-    "place": "Jupiter Secret Laboratories",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Captura",
-     "url": "https://wiki.warframe.com/w/Captura",
-     "quote": "GAS CITY CLOUD VISTA SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-    }
-   }
-  ]
- },
- "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnectorTwo": {
-  "name": "Gas City Corridors Scene",
-  "routes": [
-   {
-    "kind": "drop",
-    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-    "place": "Jupiter Secret Laboratories",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Captura",
-     "url": "https://wiki.warframe.com/w/Captura",
-     "quote": "GAS CITY CORRIDORS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
     }
    }
   ]
@@ -1571,6 +1826,57 @@
    }
   ]
  },
+ "/Lotus/Types/Items/ShipDecos/ArthurPagerShipDeco": {
+  "name": "Arthur's KinePage",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "After completing The Lotus Eaters, the player will receive Arthur's KinePage as an Orbiter Decoration in a message from Loid.",
+    "place": "Loid",
+    "source": {
+     "archive": "wiki_store",
+     "page": "KinePage",
+     "url": "https://wiki.warframe.com/w/KinePage",
+     "revid": 2798867,
+     "quote": "After completing The Lotus Eaters, the player will receive [[Arthur]]'s KinePage as an [[Orbiter]] [[Decorations|Decoration]] in a message from [[Loid (Original)|Loid]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/LisetPropMandolinGrineer": {
+  "name": "Corbu Shawzin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Shawzin",
+     "url": "https://wiki.warframe.com/w/Shawzin",
+     "revid": 2789349,
+     "quote": "There are multiple variants of Shawzin available in the [[Market]], which grant the player the Orbiter decoration of the purchased instrument. Upon acquiring any Shawzin, the player will also receive the unique Shawzin emote."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/LisetPropShawzinDuviri": {
+  "name": "Courtly Shawzin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Shawzin",
+     "url": "https://wiki.warframe.com/w/Shawzin",
+     "revid": 2789349,
+     "quote": "There are multiple variants of Shawzin available in the [[Market]], which grant the player the Orbiter decoration of the purchased instrument. Upon acquiring any Shawzin, the player will also receive the unique Shawzin emote."
+    }
+   }
+  ]
+ },
  "/Lotus/Types/Items/ShipDecos/LisetPropShawzinTwitch": {
   "name": "Iridos Shawzin",
   "routes": [
@@ -1643,6 +1949,23 @@
      "page": "Decorations/Orbiter Decorations",
      "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
      "quote": "The New War Orbiter Decoration A part of the T ennoCon 2020 Digital Pack"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/LisetPropIceblade": {
+  "name": "Icebound Neote Decoration",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Durumi Syandana",
+     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
+     "revid": 2813725,
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
     }
    }
   ]
@@ -1739,6 +2062,23 @@
      "page": "Orbiter Segments",
      "url": "https://wiki.warframe.com/w/Orbiter_Segments",
      "quote": "Foundry Segment [edit | edit source] The Foundry Segment is the third segment obtained, which is obtained in order to remove Captain Vor's Ascaris implant, and unlocks the ability to use the Foundry to build items."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipFeatureItems/RailjackKeyShipFeatureItem": {
+  "name": "RELIQUARY KEY",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Railjack/Main",
+     "url": "https://wiki.warframe.com/w/Railjack/Main",
+     "revid": 2807867,
+     "quote": "A Railjack is constructed during the [[Rising Tide]] quest, which requires completion of [[The War Within]]. The building can alternatively be bypassed by purchasing the [[Starter Railjack Bundle]] in the [[Market]] for {{pc|175}}, containing a fully built Railjack, 4 Crew Member Slots, and 4 Component & Armament slots; obtaining the Railjack this way will count the Rising Tide quest as completed."
     }
    }
   ]
@@ -1903,6 +2243,40 @@
    }
   ]
  },
+ "/Lotus/Types/Keys/ProteaQuest/ProteaQuestMissionFour": {
+  "name": "THE XORIS",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "The blueprint, core, handle, and blade are all obtained during The Deadlock Protocol. Additional blueprints and parts can be bought from Cephalon Simaris and respectively.",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Xoris",
+     "url": "https://wiki.warframe.com/w/Xoris",
+     "revid": 2804714,
+     "quote": "The blueprint, core, handle, and blade are all obtained during [[The Deadlock Protocol]]. Additional blueprints and parts can be bought from [[Cephalon Simaris]] for {{sc|100,000}} and {{sc|15,000}} respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Keys/VeyHekKey": {
+  "name": "Vay Hek Frequency Triangulator",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Vay Hek Frequency Triangulator",
+     "url": "https://wiki.warframe.com/w/Vay_Hek_Frequency_Triangulator",
+     "revid": 2224966,
+     "quote": "The Triangulator's blueprint was obtained from the Lotus in an inbox message, with duplicate blueprints available in the [[Market]]. The resources needed to craft the key were [[Beacons (Prosecutor)|Beacons]] (not to be confused with the [[Gear]] item), which could be obtained from [[Guardsman#Variants|Prosecutors]] in the [[Grineer Shipyard|Grineer Shipyards]] on [[Ceres]]. Prosecutors would drop 1-2 Beacons of one type each, with Delta Beacons being the rarest. The Prosecutor's element did not affect which Beacon dropped."
+    }
+   }
+  ]
+ },
  "/Lotus/Types/PickUps/Nightwave/CephalonFissureTimePointItem": {
   "name": "Cephalite Resonance",
   "routes": [
@@ -1915,6 +2289,108 @@
      "page": "Cephalite Resonance",
      "url": "https://wiki.warframe.com/w/Cephalite_Resonance",
      "quote": "” —In-game Description Cephalite Resonance is a unique resource that drops during NightwaveSeries 3."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Components/RelayThermicStrutBlueprint": {
+  "name": "Relay Strut Component",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "This item can be crafted from Trembera Essence.",
+    "place": "Foundry",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Relay Strut Component",
+     "url": "https://wiki.warframe.com/w/Relay_Strut_Component",
+     "revid": 2660284,
+     "quote": "'''{{PAGENAME}}''' can be crafted from {{Resource|Trembera Essence}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/AttackLensLuaBlueprint": {
+  "name": "Lua Madurai Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/DefenseLensLuaBlueprint": {
+  "name": "Lua Vazarin Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/PowerLensLuaBlueprint": {
+  "name": "Lua Zenurik Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/TacticLensLuaBlueprint": {
+  "name": "Lua Naramon Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/WardLensLuaBlueprint": {
+  "name": "Lua Unairu Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
     }
    }
   ]
@@ -1963,6 +2439,125 @@
      "page": "Dera Vandal",
      "url": "https://wiki.warframe.com/w/Dera_Vandal",
      "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowGripBlueprint": {
+  "name": "Nunchasa Grip",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowLowerLimbBlueprint": {
+  "name": "Nunchasa Lower Limb",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowStringBlueprint": {
+  "name": "Nunchasa String",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowUpperLimbBlueprint": {
+  "name": "Nunchasa Upper Limb",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistPistolsBarrelBlueprint": {
+  "name": "Aksondol Barrel",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica or Son.",
+    "place": "Cephalon Melica / Son",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Aksondol",
+     "url": "https://wiki.warframe.com/w/Aksondol",
+     "revid": 2815581,
+     "quote": "Aksondol's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistPistolsLinkBlueprint": {
+  "name": "Aksondol Link",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica or Son.",
+    "place": "Cephalon Melica / Son",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Aksondol",
+     "url": "https://wiki.warframe.com/w/Aksondol",
+     "revid": 2815581,
+     "quote": "Aksondol's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistPistolsReceiverBlueprint": {
+  "name": "Aksondol Receiver",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica or Son.",
+    "place": "Cephalon Melica / Son",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Aksondol",
+     "url": "https://wiki.warframe.com/w/Aksondol",
+     "revid": 2815581,
+     "quote": "Aksondol's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
     }
    }
   ]
@@ -2143,6 +2738,57 @@
    }
   ]
  },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBladeBlueprint": {
+  "name": "Dorrclave Blade",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's cons",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dorrclave",
+     "url": "https://wiki.warframe.com/w/Dorrclave",
+     "revid": 2812872,
+     "quote": "Dorrclave's main and component blueprints are acquired from [[Research/Dagath's Hollow|Dagath's Hollow]] within the [[Clan Dojo]]. Unlike most Clan Dojo rooms, Dorrclave does not require [[Research]] and can be acquired immediately following the room's construction."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHiltBlueprint": {
+  "name": "Dorrclave Hilt",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's cons",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dorrclave",
+     "url": "https://wiki.warframe.com/w/Dorrclave",
+     "revid": 2812872,
+     "quote": "Dorrclave's main and component blueprints are acquired from [[Research/Dagath's Hollow|Dagath's Hollow]] within the [[Clan Dojo]]. Unlike most Clan Dojo rooms, Dorrclave does not require [[Research]] and can be acquired immediately following the room's construction."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipStringBlueprint": {
+  "name": "Dorrclave String",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's cons",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dorrclave",
+     "url": "https://wiki.warframe.com/w/Dorrclave",
+     "revid": 2812872,
+     "quote": "Dorrclave's main and component blueprints are acquired from [[Research/Dagath's Hollow|Dagath's Hollow]] within the [[Clan Dojo]]. Unlike most Clan Dojo rooms, Dorrclave does not require [[Research]] and can be acquired immediately following the room's construction."
+    }
+   }
+  ]
+ },
  "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel": {
   "name": "Twin Vipers Wraith Barrels",
   "routes": [
@@ -2171,6 +2817,23 @@
      "page": "Twin Vipers Wraith",
      "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
      "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/ZanukaPetParts/ZanukaPetPartBodyBBlueprint": {
+  "name": "Garmr Core",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gammacor",
+     "url": "https://wiki.warframe.com/w/Gammacor",
+     "revid": 2815272,
+     "quote": "The Gammacor's blueprint can be purchased from the [[Market]]. Alternatively, it can be acquired from completing the [[Uranus]] to [[Neptune]] [[Junction]]."
     }
    }
   ]
@@ -2418,6 +3081,125 @@
    }
   ]
  },
+ "/Lotus/Types/StoreItems/AvatarImages/BansheeDeluxeGlyph": {
+  "name": "Banshee Sonatus Glyph",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Banshee Threnodia Skin",
+     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
+     "revid": 2812688,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/HeirloomGlyph": {
+  "name": "Deca Heirloom Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Heirloom Skins",
+     "url": "https://wiki.warframe.com/w/Heirloom_Skins",
+     "revid": 2805018,
+     "quote": "**{{Cosmetic|Frost Heirloom Skin}} and {{Cosmetic|Mag Heirloom Skin}}, as well as their corresponding [[Signa]], [[Emote]], [[Glyph]] and [[Sigil]] are '''not''' available anymore for purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/SuitCustomizations/ColourPickerRWBItem": {
+  "name": "Red/white/blue",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Paris Abra Skin",
+     "url": "https://wiki.warframe.com/w/Paris_Abra_Skin",
+     "revid": 2710497,
+     "quote": "*This skin can be purchased from the Void Trader [[Baro Ki'Teer]] for {{cc|275,000}} and {{dc|315}}. Note however that Baro Ki'Teer's stock changes with each appearance, and may not have this item available at every time."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBDeckBlueprint": {
+  "name": "Feverspine",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Blueprint reward from the K-Drive Race \"Dead Drop\".",
+    "place": "K-Drive Race",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Feverspine",
+     "url": "https://wiki.warframe.com/w/Feverspine",
+     "revid": 2747557,
+     "quote": "The blueprint can be acquired by completing the [[K-Drive Race]] '''\"Dead Drop\"''' on the [[Cambion Drift]]. Note: Active races rotate on a daily basis and thus it is not available every day."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBEngineBlueprint": {
+  "name": "Gristlebuck",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Blueprint reward from the K-Drive Race \"Muck and Mire\".",
+    "place": "K-Drive Race",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gristlebuck",
+     "url": "https://wiki.warframe.com/w/Gristlebuck",
+     "revid": 2248096,
+     "quote": "The blueprint can be acquired by completing the [[K-Drive Race]] '''\"Muck and Mire\"''' on the [[Cambion Drift]]. Note: Active races rotate on a daily basis and thus it is not available every day."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBFrontBlueprint": {
+  "name": "Nodulite",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Blueprint reward from the K-Drive Race \"Exocrine Flow\".",
+    "place": "K-Drive Race",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nodulite",
+     "url": "https://wiki.warframe.com/w/Nodulite",
+     "revid": 2216780,
+     "quote": "The blueprint can be acquired by completing the [[K-Drive Race]] '''\"Exocrine Flow\"''' on the [[Cambion Drift]]. Note: Active races rotate on a daily basis and thus it is not available every day."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Focus/WardLensLua": {
+  "name": "Lua Unairu Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert": {
   "name": "Primed Polar Magazine",
   "routes": [
@@ -2434,6 +3216,57 @@
      "page": "Primed Polar Magazine",
      "url": "https://wiki.warframe.com/w/Primed_Polar_Magazine",
      "quote": "This mod can be purchased unranked from the Void Trader Baro Ki'T eer for 210,000 and 390."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod": {
+  "name": "Prototype Shock Coils",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Amir's Shockwave Nightwave.",
+    "place": "Amir's Shockwave Nightwave",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Prototype Shock Coils",
+     "url": "https://wiki.warframe.com/w/Prototype_Shock_Coils",
+     "revid": 2814671,
+     "quote": "* '''Prototype Shock Coils''' can be obtained by reaching Rank 10 with [[Nightwave]] during [[Nightwave/Amir's Shockwave|Amir's Shockwave]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveLasGooAKAugmentMod": {
+  "name": "Overpressured Rounds",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Amir's Shockwave Nightwave.",
+    "place": "Amir's Shockwave Nightwave",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Overpressured Rounds",
+     "url": "https://wiki.warframe.com/w/Overpressured_Rounds",
+     "revid": 2814672,
+     "quote": "* '''Overpressured Rounds''' can be obtained by reaching Rank 25 with [[Nightwave]] during [[Nightwave/Amir's Shockwave|Amir's Shockwave]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert": {
+  "name": "Primed Charged Chamber",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Primed Chamber",
+     "url": "https://wiki.warframe.com/w/Primed_Chamber",
+     "revid": 2798700,
+     "quote": "*This mod can be purchased '''unranked''' from [[Baro Ki'Teer]] for {{dc|2,995}} and {{cc|1,000,000}}. Note however that Baro Ki'Teer's stock changes with each appearance, and may not have this item available every time."
     }
    }
   ]
@@ -2890,6 +3723,57 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA": {
+  "name": "Opula Shoulder Armor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Opula Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
+     "revid": 2815013,
+     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC": {
+  "name": "Opula Chest Armor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Opula Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
+     "revid": 2815013,
+     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL": {
+  "name": "Opula Leg Armor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Opula Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
+     "revid": 2815013,
+     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Armor/OstronCrewArmor/OstronCrewArmorA": {
   "name": "Ostron Arm Guards",
   "routes": [
@@ -2942,22 +3826,6 @@
     "price": {
      "amount": 125000,
      "currency": "Standing"
-    }
-   }
-  ]
- },
- "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA": {
-  "name": "Obsidian Deko Shoulder Plates",
-  "routes": [
-   {
-    "kind": "event",
-    "text": "Reward from the listed event or bundle.",
-    "place": "Third Party Deals and Rewards",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Third Party Deals and Rewards",
-     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
-     "quote": "an Deko Chest Plate Obsidian Deko Knee Plates • • • • • • • • • • • • • • • • • Obsidian Deko Shoulder Plates Corinth Corinth Obsidian Skin Pennant Pennant Obsidian Skin Affinity Booster (7 days) Credit Booster (7 days) Xbox One [edit | edit source] Twin Grakatas Jade Bundle [edit | edit source] https://www.warframe.com/news/xbox-games-pass-ultimate-perks This pack was available from November 15, 2022 to ?"
     }
    }
   ]
@@ -3018,6 +3886,22 @@
     "price": {
      "amount": 125000,
      "currency": "Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorA": {
+  "name": "Obsidian Deko Shoulder Plates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the listed event or bundle.",
+    "place": "Third Party Deals and Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "an Deko Chest Plate Obsidian Deko Knee Plates • • • • • • • • • • • • • • • • • Obsidian Deko Shoulder Plates Corinth Corinth Obsidian Skin Pennant Pennant Obsidian Skin Affinity Booster (7 days) Credit Booster (7 days) Xbox One [edit | edit source] Twin Grakatas Jade Bundle [edit | edit source] https://www.warframe.com/news/xbox-games-pass-ultimate-perks This pack was available from November 15, 2022 to ?"
     }
    }
   ]
@@ -3114,6 +3998,57 @@
      "page": "Armor (Cosmetic)",
      "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
      "quote": "Red Veil Armor Set Red Veil Chest Piece Red Veil Arm Insignia Red Veil Knee Guards Red Veil Rank 5: Exalted 125,000 Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorA": {
+  "name": "Naktavyre Shoulder Armor",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Naktavyre Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Naktavyre_Armor_Bundle",
+     "revid": 2770161,
+     "quote": "Not obtainable currently. Originally obtained as a twitch drop for either watching [[TennoCon 2025]] online, or attending the convention physically."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorC": {
+  "name": "Naktavyre Chest Armor",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Naktavyre Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Naktavyre_Armor_Bundle",
+     "revid": 2770161,
+     "quote": "Not obtainable currently. Originally obtained as a twitch drop for either watching [[TennoCon 2025]] online, or attending the convention physically."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorL": {
+  "name": "Naktavyre Leg Armor",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Naktavyre Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Naktavyre_Armor_Bundle",
+     "revid": 2770161,
+     "quote": "Not obtainable currently. Originally obtained as a twitch drop for either watching [[TennoCon 2025]] online, or attending the convention physically."
     }
    }
   ]
@@ -3638,6 +4573,57 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin": {
+  "name": "Mandonel Chythedra Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Mandonel Chythedra Skin",
+     "url": "https://wiki.warframe.com/w/Mandonel_Chythedra_Skin",
+     "revid": 2813326,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|60}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet": {
+  "name": "Qorvex Basilica Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Qorvex Basilica Skin",
+     "url": "https://wiki.warframe.com/w/Qorvex_Basilica_Skin",
+     "revid": 2815468,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Mandonel Chythedra Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin": {
+  "name": "Qorvex Basilica Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Qorvex Basilica Skin",
+     "url": "https://wiki.warframe.com/w/Qorvex_Basilica_Skin",
+     "revid": 2815468,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Mandonel Chythedra Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Contests/LongGuns/VectisSharpshooter": {
   "name": "Vectis Sharpshooter Skin",
   "routes": [
@@ -3798,6 +4784,23 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Crowns/DuelistCrown": {
+  "name": "Isageum Signa",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Isageum Signa",
+     "url": "https://wiki.warframe.com/w/Isageum_Signa",
+     "revid": 2812564,
+     "quote": "Purchased from the [[Market]] for {{pc|65}} or as a part of the [[Narin Bundle]]."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Crowns/HeirloomFrostCrown": {
   "name": "Frost Heirloom Signa",
   "routes": [
@@ -3830,6 +4833,23 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown": {
+  "name": "Vermis Signa",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Vermis Signa",
+     "url": "https://wiki.warframe.com/w/Vermis_Signa",
+     "revid": 2815076,
+     "quote": "{{TennoGen}}"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/CrpArSniper/CrpArSniperLichSkin": {
   "name": "Ambassador Tenet Skin",
   "routes": [
@@ -3842,6 +4862,74 @@
      "page": "Ambassador Tenet Skin",
      "url": "https://wiki.warframe.com/w/Ambassador_Tenet_Skin",
      "quote": "Parvos Riptide Pack, which was available from August 6th, 2021 to December 10th, 2021."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet": {
+  "name": "Banshee Threnodia Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Banshee Threnodia Skin",
+     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
+     "revid": 2812688,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin": {
+  "name": "Banshee Threnodia Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Banshee Threnodia Skin",
+     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
+     "revid": 2812688,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet": {
+  "name": "Narin Baridegi Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Narin Baridegi Helmet",
+     "url": "https://wiki.warframe.com/w/Narin_Baridegi_Helmet",
+     "revid": 2812835,
+     "quote": "* The '''{{PAGENAME}}''' can be purchased from the [[Market]] directly for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}} or real-world currency."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Effects/DuelistEphemera": {
+  "name": "Gangrim Ephemera",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gangrim Ephemera",
+     "url": "https://wiki.warframe.com/w/Gangrim_Ephemera",
+     "revid": 2813720,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Durumi Syandana}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
     }
    }
   ]
@@ -3990,6 +5078,23 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Effects/NightwaveIntermissionEphemera": {
+  "name": "Waveform Ephemera",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Nightwave.",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Waveform Ephemera",
+     "url": "https://wiki.warframe.com/w/Waveform_Ephemera",
+     "revid": 2765296,
+     "quote": "Awarded from reaching certain ranks in [[Nightwave]]."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Effects/ObsidianEphemeraA": {
   "name": "Obsidian Ephemera",
   "routes": [
@@ -4050,6 +5155,23 @@
      "page": "Temporal Prime Ephemera",
      "url": "https://wiki.warframe.com/w/Temporal_Prime_Ephemera",
      "quote": "Obtained via the Protea Prime Access Accessories Pack, available from May 1st, 2024 until August 21st, 2024."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera": {
+  "name": "Belfri Ephemera",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Belfri Ephemera",
+     "url": "https://wiki.warframe.com/w/Belfri_Ephemera",
+     "revid": 2813329,
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|95}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Garkulek Syandana}}."
     }
    }
   ]
@@ -4194,6 +5316,23 @@
      "page": "Ringers Skin",
      "url": "https://wiki.warframe.com/w/Ringers_Skin",
      "quote": "This weapon skin could be obtained from the market on December 16, 2015 for 1."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Festivities/XmasGlaxion": {
+  "name": "Glaxion Festive Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Glaxion Festive Skin",
+     "url": "https://wiki.warframe.com/w/Glaxion_Festive_Skin",
+     "revid": 2761220,
+     "quote": "The Glaxion Polar Skin can be bought during Tennobaum season from market for 20 {{Resource|Platinum}}."
     }
    }
   ]
@@ -4854,6 +5993,23 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis": {
+  "name": "Silva & Aegis Day of the Dead Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Silva & Aegis Day of the Dead Skin",
+     "url": "https://wiki.warframe.com/w/Silva_&_Aegis_Day_of_the_Dead_Skin",
+     "revid": 2763795,
+     "quote": "This skin is available for purchase for limited time from in-game market during [[Nights of Naberus]] separately for {{pc|20}} or as part of [[Day of the Dead Weapon Skin Pack IV]] {{pc|180}}"
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Halloween/HalloweenSimulor": {
   "name": "Simulor Day of the Dead Skin",
   "routes": [
@@ -5062,6 +6218,227 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerA": {
+  "name": "LET'S GO",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerB": {
+  "name": "ZANUKA?!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerC": {
+  "name": "SILENCE!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerD": {
+  "name": "ERROR!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerG": {
+  "name": "WORM!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerH": {
+  "name": "CICERO",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerI": {
+  "name": "KILL IT!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerJ": {
+  "name": "GET THEM!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerK": {
+  "name": "GET REKT",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerL": {
+  "name": "DESTROY ALL!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerN": {
+  "name": "WHAT THE...?",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerO": {
+  "name": "SLIPPERY",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerP": {
+  "name": "SSSICK!!!!",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "revid": 2815940,
+     "quote": "Custom-built K-Drives may be obtained by assembling individual parts traded from [[Standing]]; with each {{Faction|Ventkids}} Ranking causing more parts to become available. Alternatively, players can spend {{Resource|Platinum}} to purchase a randomly assembled K-Drive through the Ventkids' '''Daily Specials'''. Players can manage their K-Drives in the '''Vehicles''' section of the Arsenal, where players can select their currently active K-Drive as well as mod their custom K-Drives."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Kubrows/Fur/DaybreakKubrowFur": {
   "name": "Daybreak Kubrow Fur Pattern",
   "routes": [
@@ -5094,6 +6471,74 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/LunarNewYear/CNY2025ScytheSkin": {
+  "name": "Hespar Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Hespar Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Hespar_Lunaeus_Skin",
+     "revid": 2773857,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Smoky Quartz Bundle]] {{pc|215}} and [[Noble Opal Bundle]] {{pc|805}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/LNY2024Nukor": {
+  "name": "Nukor Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nukor Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Nukor_Lunaeus_Skin",
+     "revid": 2773852,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Red Coral Bundle]] {{pc|135}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/LNY2024Ogris": {
+  "name": "Ogris Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Ogris Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Ogris_Lunaeus_Skin",
+     "revid": 2773853,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Dragon Stone Bundle]] {{pc|575}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/LNY2025BoltorSkin": {
+  "name": "Boltor Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Boltor Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Boltor_Lunaeus_Skin",
+     "revid": 2773856,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Pink Topaz Bundle]] {{pc|590}} and [[Noble Opal Bundle]] {{pc|805}}."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/LunarNewYear/LNYHookSword": {
   "name": "Dual Swords Lunaeus Skin",
   "routes": [
@@ -5106,6 +6551,108 @@
      "page": "Dual Swords Lunaeus Skin",
      "url": "https://wiki.warframe.com/w/Dual_Swords_Lunaeus_Skin",
      "quote": "the Market separately for 75, or as part of the Fire Agate Bundle for 295."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020AcceltraSkin": {
+  "name": "Acceltra Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Acceltra Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Acceltra_Lunaeus_Skin",
+     "revid": 2773833,
+     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Luminous Brilliance Bundle]] {{pc|470}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020OrthosSkin": {
+  "name": "Orthos Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Orthos Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Orthos_Lunaeus_Skin",
+     "revid": 2773835,
+     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Luminous Brilliance Bundle]] {{pc|470}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020PyranaSkin": {
+  "name": "Pyrana Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Pyrana Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Pyrana_Lunaeus_Skin",
+     "revid": 2773836,
+     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Luminous Brilliance Bundle]] {{pc|470}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023CedoSkin": {
+  "name": "Cedo Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Cedo Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Cedo_Lunaeus_Skin",
+     "revid": 2773847,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Quartz Renewal Bundle]] {{pc|135}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023CernosSkin": {
+  "name": "Cernos Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Cernos Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Cernos_Lunaeus_Skin",
+     "revid": 2773849,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Emerald Renewal Bundle]] {{pc|500}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023NagantakaSkin": {
+  "name": "Nagantaka Lunaeus Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nagantaka Lunaeus Skin",
+     "url": "https://wiki.warframe.com/w/Nagantaka_Lunaeus_Skin",
+     "revid": 2773848,
+     "quote": "The {{PAGENAME}} is available during [[Lunar Renewal]] from the [[Market]] separately for {{pc|25}}, or as part of the [[Garnet Renewal Bundle]] {{pc|265}}."
     }
    }
   ]
@@ -5138,6 +6685,40 @@
      "page": "Mag Opal Skin",
      "url": "https://wiki.warframe.com/w/Mag_Opal_Skin",
      "quote": "The Mag Opal Skin was available through the Nintendo store via the Esteem Pack III[1]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/CephalonSugatraDangle": {
+  "name": "Boolean Sugatra",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Nightwave Cred Offerings.",
+    "place": "Nightwave Cred Offerings",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Boolean Sugatra",
+     "url": "https://wiki.warframe.com/w/Boolean_Sugatra",
+     "revid": 2801911,
+     "quote": "* Can be acquired as a [[Nightwave/Offerings|Nightwave Cred Offering]] for {{Nc|30}} on a rotational basis."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangleRefresh": {
+  "name": "Pyra Opula Sugatra",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Available through Prime Resurgence.",
+    "place": "Prime Resurgence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Pyra Opula Sugatra",
+     "url": "https://wiki.warframe.com/w/Pyra_Opula_Sugatra",
+     "revid": 2768857,
+     "quote": "Acquired from [[Prime Resurgence]] for 6 {{Resource|Aya}}."
     }
    }
   ]
@@ -5234,6 +6815,23 @@
      "page": "Obsidian Azura Sugatra",
      "url": "https://wiki.warframe.com/w/Obsidian_Azura_Sugatra",
      "quote": "No longer available."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra": {
+  "name": "Alumeti Prime Sugatra",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Available through Prime Access or Prime Resurgence.",
+    "place": "Prime Access / Prime Resurgence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Alumeti Prime Sugatra",
+     "url": "https://wiki.warframe.com/w/Alumeti_Prime_Sugatra",
+     "revid": 2813731,
+     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 1 {{Resource|Regal Aya}} when it is in rotation."
     }
    }
   ]
@@ -5366,22 +6964,6 @@
    }
   ]
  },
- "/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin": {
-  "name": "Glaive Daybreak Skin",
-  "routes": [
-   {
-    "kind": "reward",
-    "text": "Available through the listed route.",
-    "place": "Reward",
-    "source": {
-     "archive": "wiki_pdf_archive",
-     "page": "Glaive Daybreak Skin",
-     "url": "https://wiki.warframe.com/w/Glaive_Daybreak_Skin",
-     "quote": "Volume 6, available from May 15th, 2024 and to September 3rd, 2024."
-    }
-   }
-  ]
- },
  "/Lotus/Upgrades/Skins/Nightwave/DaybreakCedoSkin": {
   "name": "Cedo Daybreak Skin",
   "routes": [
@@ -5394,6 +6976,22 @@
      "page": "Cedo Daybreak Skin",
      "url": "https://wiki.warframe.com/w/Cedo_Daybreak_Skin",
      "quote": "Mix Volume 6, available from May 15th, 2024 and to September 3rd, 2024."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Nightwave/DayBreakGlaiveSkin": {
+  "name": "Glaive Daybreak Skin",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Available through the listed route.",
+    "place": "Reward",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Glaive Daybreak Skin",
+     "url": "https://wiki.warframe.com/w/Glaive_Daybreak_Skin",
+     "quote": "Volume 6, available from May 15th, 2024 and to September 3rd, 2024."
     }
    }
   ]
@@ -5442,6 +7040,23 @@
      "page": "Eukar Claw Skin",
      "url": "https://wiki.warframe.com/w/Eukar_Claw_Skin",
      "quote": "Volume 4, Available from May 24th, 2023."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin": {
+  "name": "Nvidia Braton",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Braton",
+     "url": "https://wiki.warframe.com/w/Braton",
+     "revid": 2773809,
+     "quote": "A fully built Braton can be purchased from the [[Market]] for {{cc|25,000}}."
     }
    }
   ]
@@ -5558,6 +7173,23 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Promo/WeGame/WeGameMacheteSkin": {
+  "name": "Lunaeus Machete Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lunaeus Machete Skin",
+     "url": "https://wiki.warframe.com/w/Lunaeus_Machete_Skin",
+     "revid": 2773825,
+     "quote": "Temporarily available for purchase from Market during Lunar Renewal celebration as part of [[Start Anew Bundle]] {{pc|185}}."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Scarves/DOTD2025MonarchSyandana": {
   "name": "Monarcierro Day of the Dead Syandana",
   "routes": [
@@ -5570,6 +7202,125 @@
      "page": "Monarcierro Day of the Dead Syandana",
      "url": "https://wiki.warframe.com/w/Monarcierro_Day_of_the_Dead_Syandana",
      "quote": "Obtained from the following Nightwave season(s): Nora's Mix: Dreams of the Dead — Rank 30 Syandana Market One- Offs Abrasys Syandana • Abrasys Day of the Dead Syandana • Aculea Syandana • Ahlto Syandana • Akrabu Syandana • Altra Syandana • Amphor Syandana • Apoxys Syandana • Artifex Syandana • Asa Syandana"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/DuelistSyandana": {
+  "name": "Durumi Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Durumi Syandana",
+     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
+     "revid": 2813725,
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/FlameScarfRefresh": {
+  "name": "Pyra Opula Syandana",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Pyra Opula Syandana",
+     "url": "https://wiki.warframe.com/w/Pyra_Opula_Syandana",
+     "revid": 2768797,
+     "quote": "Purchase from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/HalloweenErosionCape": {
+  "name": "Abrasys Day of the Dead Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Abrasys Day of the Dead Syandana",
+     "url": "https://wiki.warframe.com/w/Abrasys_Day_of_the_Dead_Syandana",
+     "revid": 2775102,
+     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|50}}, or as a bundled item from [[Day of the Dead Threads II]] for {{pc|80}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/HalloweenFireFlyScarf": {
+  "name": "Igaro Day of the Dead Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Igaro Day of the Dead Syandana",
+     "url": "https://wiki.warframe.com/w/Igaro_Day_of_the_Dead_Syandana",
+     "revid": 2775105,
+     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|90}}, or as a bundled item from [[Day of the Dead Threads]] for {{pc|130}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/HalloweenGrnBannerScarf": {
+  "name": "Vanquished Banner Day of the Dead",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Vanquished Banner Day of the Dead",
+     "url": "https://wiki.warframe.com/w/Vanquished_Banner_Day_of_the_Dead",
+     "revid": 2775117,
+     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|75}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/HalloweenKyropteraScarf": {
+  "name": "Kyroptera Day of the Dead Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Kyroptera Day of the Dead Syandana",
+     "url": "https://wiki.warframe.com/w/Kyroptera_Day_of_the_Dead_Syandana",
+     "revid": 2775111,
+     "quote": "Sold during [[Halloween]] only. Purchaseable from the [[Market]] for {{pc|50}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/HolidayTurtleNeckScarf": {
+  "name": "Imperator Festive Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Imperator Festive Syandana",
+     "url": "https://wiki.warframe.com/w/Imperator_Festive_Syandana",
+     "revid": 2768688,
+     "quote": "Only purchaseable during [[Tennobaum]] from the [[Market]] for {{pc|50}}, or as a bundled item from [[Winter Bundle]] for {{pc|280}} for the accessory pack."
     }
    }
   ]
@@ -5638,6 +7389,23 @@
    }
   ]
  },
+ "/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana": {
+  "name": "Sphatika Prime Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Available through Prime Access or Prime Resurgence.",
+    "place": "Prime Access / Prime Resurgence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Sphatika Prime Syandana",
+     "url": "https://wiki.warframe.com/w/Sphatika_Prime_Syandana",
+     "revid": 2813301,
+     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 2 {{Resource|Regal Aya}} when it is in rotation."
+    }
+   }
+  ]
+ },
  "/Lotus/Upgrades/Skins/Scarves/PS4ArmScarf": {
   "name": "Yomo Obsidian Syandana",
   "routes": [
@@ -5666,6 +7434,23 @@
      "page": "Third Party Deals and Rewards",
      "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
      "quote": "The PlayStation Plus Booster Pack V includes: 100 Platinum Platinum 100,000 Credits Credits Obsidian Sedai Syandana Affinity Booster (7 days)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana": {
+  "name": "Garkulek Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Garkulek Syandana",
+     "url": "https://wiki.warframe.com/w/Garkulek_Syandana",
+     "revid": 2813328,
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|105}}, or acquired as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Belfri Ephemera}}."
     }
    }
   ]
@@ -5874,6 +7659,142 @@
      "page": "Aspirant Syandana",
      "url": "https://wiki.warframe.com/w/Aspirant_Syandana",
      "quote": "Obtained during limited time event Operation: Atramentum for 60 Nightmare T atters."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask": {
+  "name": "Gast Sentinel Mask",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "revid": 2815979,
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Masks/LNYDragonMask": {
+  "name": "Dragondance Sentinel Mask",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dragondance Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
+     "revid": 2791360,
+     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin": {
+  "name": "Gast Sentinel Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "revid": 2815979,
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Skins/LNYDragonSentinelSkin": {
+  "name": "Dragondance Sentinel Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dragondance Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
+     "revid": 2791360,
+     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail": {
+  "name": "Gast Sentinel Tail",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "revid": 2815979,
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Tails/LNYDragonTail": {
+  "name": "Dragondance Sentinel Tail",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dragondance Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
+     "revid": 2791360,
+     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings": {
+  "name": "Gast Sentinel Wings",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "revid": 2815979,
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Wings/LNYDragonWings": {
+  "name": "Dragondance Sentinel Wings",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dragondance Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Dragondance_Sentinel_Skin_Bundle",
+     "revid": 2791360,
+     "quote": "The '''{{PAGENAME}}''' can be purchased from the [[Market]] for {{pc|{{#var:BundleCost}}}} during [[Lunar New Year]]."
     }
    }
   ]
@@ -6502,6 +8423,23 @@
      "page": "Prime Resurgence",
      "url": "https://wiki.warframe.com/w/Prime_Resurgence",
      "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
+    }
+   }
+  ]
+ },
+ "SolNode139": {
+  "name": "Lex",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lex",
+     "url": "https://wiki.warframe.com/w/Lex",
+     "revid": 2796601,
+     "quote": "A built Lex can be purchased from the [[Market]] for {{cc|50,000}}."
     }
    }
   ]

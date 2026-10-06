@@ -1,2114 +1,2233 @@
 {
-  "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultABronze": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultAGold": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultAPlatinum": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultASilver": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjection": {
-    "name": "Meso Relic",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Void mission rewards.",
-        "place": "Void missions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Void Relic",
-          "url": "https://wiki.warframe.com/w/Void_Relic",
-          "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultABronze": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultAGold": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultAPlatinum": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultASilver": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBBronze": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBGold": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBPlatinum": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBSilver": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjection": {
-    "name": "Neo Relic",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Void mission rewards.",
-        "place": "Void missions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Void Relic",
-          "url": "https://wiki.warframe.com/w/Void_Relic",
-          "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultABronze": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultAGold": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultAPlatinum": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultASilver": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBBronze": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBGold": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBPlatinum": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBSilver": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T4VoidProjection": {
-    "name": "Axi Relic",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Void mission rewards.",
-        "place": "Void missions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Void Relic",
-          "url": "https://wiki.warframe.com/w/Void_Relic",
-          "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultABronze": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultAGold": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultAPlatinum": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultASilver": {
-    "name": "|ERA| |CATEGORY| Relic",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia with Aya when the relic is available.",
-        "place": "Maroo's Bazaar",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T5VoidProjectionImmortal": {
-    "name": "Requiem Relic",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Void mission rewards.",
-        "place": "Void missions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Void Relic",
-          "url": "https://wiki.warframe.com/w/Void_Relic",
-          "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishBItem": {
-    "name": "Xiran",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Catch Xiran while fishing in Duviri.",
-        "place": "Duviri fishing",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Xiran",
-          "url": "https://wiki.warframe.com/w/Xiran",
-          "quote": "Xiran is a species of fish in Duviri."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsRareDogTag": {
-    "name": "Flawless Sentient Core",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn by capturing Eidolons in the Plains of Eidolon at night.",
-        "place": "Plains of Eidolon",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Sentient Core",
-          "url": "https://wiki.warframe.com/w/Sentient_Core",
-          "quote": "Location: Eidolons found roaming the Plains of Eidolon on Earth at night General Information T ype Resource Drop Amount 1-1x Helminth Secretions Sentient Appetite (10) Sell Price Cannot Sell Introduced Update 22."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/LephantisShardItem": {
-    "name": "Hemocyte Cystolith",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Hemocytes in Plague Star bounties.",
-        "place": "Plains of Eidolon",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Hemocyte Cystolith",
-          "url": "https://wiki.warframe.com/w/Hemocyte_Cystolith",
-          "quote": "com/droptables Maintenance 📝 Update Infobox Data Hemocyte Cystoliths are a resource dropped by the Hemocyte during Operation: Plague Star, and used to build that event's clan trophies."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/Fish/Duviri/DuviriFishBItem": {
-    "name": "Xiran",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Catch Xiran while fishing in Duviri.",
-        "place": "Duviri fishing",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Xiran",
-          "url": "https://wiki.warframe.com/w/Xiran",
-          "quote": "Xiran is a species of fish in Duviri."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/AntiSerumInjector": {
-    "name": "Zealot Derelict Code",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Complete three Infestation Outbreak missions.",
-        "place": "Infestation Outbreaks",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Zealot Derelict Code",
-          "url": "https://wiki.warframe.com/w/Zealot_Derelict_Code",
-          "quote": "Zealot Derelict Codes can be obtained by completing three Infestation Outbreak missions."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraInfestedCreds": {
-    "name": "Emissary Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Emissary",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Series 2",
-          "url": "https://wiki.warframe.com/w/Nightwave/Series_2",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Emissary Creds x150 Rank 2 - 20,000: Emissary Sigil Rank 3 - 30,000: Robotic Slots x2 Rank 4 - 40,000: Nora Stencil Rank 5 - 50,000: Keratose Sugatra Rank 6 - 60,000: Emissary Creds x50 Rank 7 - 70,000: Efficient Beams (Convectrix Augment) Rank 8 - 80,000: Forma Bundle (3x Forma) Rank 9 - 90,000: Emissary Emblem Rank 10 - 100,000: Arlo Statue – Noggle Statue Rank 11 - 110,000: Orokin Reactor Rank 12 - 120,000: Emissary Creds x50 Rank 13 - 130,000: Kuva x20,000 Rank 14 - 140,000: Warframe Slot Rank 15 - 150,000: Devotee Noggle Bundle Rank 16 - 160,000: Emissary Creds x50 Rank 17 - 170,000: Exilus Warframe Adapter Rank 18 - 180,000: Ancient – Scrawl (K-Drive cosmetic) Rank 19 - 190,000: Spore Ephemera Rank 20 - 200,000: Exposing Harpoon (Harpak Augment) Rank 21 - 210,000: Emissary Creds x50 Rank 22 - 220,000: Two-Handed Nikana Maligna Skin Rank 23 - 230,000: Meticulous Aim (Vulkar Augment) Rank 24 - 240,000: Emissary Creds x50 Rank 25 - 250,000: 3x Forma Bundle Rank 26 - 260,000: Umbra Forma Rank 27 - 270,000: Arcane Grace Rank 28 - 280,000: Protosomid Shoulder Guard Rank 29 - 290,000: Chitoid Sentinel Bundle Rank 30 - 300,000: Emissary Operator Collection Bonus Rank 1-30 - 300,000+: Emissary Creds x15 every rank ◦ • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • Edit Trivia [edit | edit source] It is possible that parts of Nightwave Series 2 were originally going to be the event mentioned by Rebecca during Devstream 97."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionEightCreds": {
-    "name": "Nora's Mix Vol. 4 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 4.",
-        "place": "Nora's Mix Volume 4",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 4",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_4",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionElevenCreds": {
-    "name": "Nora's Mix Vol. 7 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 7.",
-        "place": "Nora's Mix Volume 7",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 7",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_7",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionFiveCreds": {
-    "name": "Nora's Mix Vol. 1 Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Nora's Mix Volume 1",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 1",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_1",
-          "quote": "It had 30 Ranks using Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionFourteenCreds": {
-    "name": "Nora's Mix:\r\nDreams of the Dead Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Nora's Mix: Dreams of the Dead",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix: Dreams of the Dead",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix:_Dreams_of_the_Dead",
-          "quote": "It had 30 Ranks using Nora's Mix: Dreams of the Dead Cred as currency, and could be continued for 150 more ranks after max for additional Creds."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionNineCreds": {
-    "name": "Nora's Mix Vol. 5 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 5.",
-        "place": "Nora's Mix Volume 5",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 5",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_5",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionSevenCreds": {
-    "name": "Nora's Mix Vol. 3 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 3.",
-        "place": "Nora's Mix Volume 3",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 3",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_3",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionSixCreds": {
-    "name": "Nora's Mix Vol. 2 Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Nora's Mix Volume 2",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 2",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_2",
-          "quote": "It had 30 Ranks using Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds": {
-    "name": "Amir's Shockwave Cred",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Earn by ranking in Amir's Shockwave.",
-        "place": "Amir's Shockwave",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Amir's Shockwave",
-          "url": "https://wiki.warframe.com/w/Nightwave/Amir's_Shockwave",
-          "quote": "It has 30 Ranks using Amir's Shockwave Cred as currency, and can be continued for 150 more ranks after max for additional Creds."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionTenCreds": {
-    "name": "Nora's Mix Vol. 6 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 6.",
-        "place": "Nora's Mix Volume 6",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 6",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_6",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionThirteenCreds": {
-    "name": "Nora's Mix Vol. 9 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 9.",
-        "place": "Nora's Mix Volume 9",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 9",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_9",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionThreeCreds": {
-    "name": "INTERMISSION III CRED",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Intermission III",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Intermission III",
-          "url": "https://wiki.warframe.com/w/Nightwave/Intermission_III",
-          "quote": "It has 30 Ranks using Intermission III Cred as currency, and can be continued for 60 more ranks after max for additional Creds."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionTwelveCreds": {
-    "name": "Nora's Mix Vol. 8 Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Nora's Mix Volume 8.",
-        "place": "Nora's Mix Volume 8",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Nora's Mix Volume 8",
-          "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_8",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraIntermissionTwoCreds": {
-    "name": "Intermission II Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Intermission II",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Intermission II",
-          "url": "https://wiki.warframe.com/w/Nightwave/Intermission_II",
-          "quote": "It has 30 Ranks using Intermission II Cred as currency, and can be continued for 60 more ranks after max for additional Creds."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraSeasonThreeCreds": {
-    "name": "Crystal Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Glassmaker.",
-        "place": "Glassmaker",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Series 3",
-          "url": "https://wiki.warframe.com/w/Nightwave/Series_3",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Crystal Cred x150 Rank 2 - 20,000: Glassmaker – Sigil Rank 3 - 30,000: Weapon Slots x2 Rank 4 - 40,000: Glassmaker – Emblem • ◦ ◦ ◦ ▪ ▪ ▪ ▪ ▪ ▪ ▪ • ◦ ◦ ◦ • • • • Edit Rank 5 - 50,000: Boolean Sugatra Rank 6 - 60,000: Crystal Cred x50 Rank 7 - 70,000: Deadly Maneuvers (Magnus Augment) Rank 8 - 80,000"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraWolfCreds": {
-    "name": "Wolf Cred",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from The Wolf of Saturn Six.",
-        "place": "The Wolf of Saturn Six",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Series 1",
-          "url": "https://wiki.warframe.com/w/Nightwave/Series_1",
-          "quote": "Ranking Rewards [edit | edit source] • • ◦ • Edit In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Saturn Six – Sigil Rank 2 - 20,000: Wolf of Saturn Six – Glyph (Light) and Wolf of Saturn Six – Glyph (Dark) Rank 3 - 30,000: Wolf Cred x50 Rank 4 - 40,000: Weapon Slot x2 Rank 5 - 50,000: The Wolf – Noggle Statue Rank 6 - 60,000: Wolf Cred x50 Rank 7 - 70,000: 3x Forma Bundle Rank 8 - 80,000: Warframe Slot Rank 9 - 90,000: Saturn Six – Emblem Rank 10 - 100,000: Wolf Salute – Emote Rank 11 - 110,000: Orokin Catalyst Rank 12 - 120,000: Wolf Cred x50 Rank 13 - 130,000: Nightwave – Sigil Rank 14 - 140,000: Wild Frenzy (Grakata Augment) Rank 15 - 150,000: Kuva x20,000 Rank 16 - 160,000: Wolf Cred x50 Rank 17 - 170,000: Wolf – Scrawl (K-Drive cosmetic) Rank 18 - 180,000: Bursting Mass, (Mutalist Quanta Augment) Rank 19 - 190,000: Kuva x20,000 Rank 20 - 200,000: Wolf Cred x50 Rank 21 - 210,000: Nightwave – Emblem Rank 22 - 220,000: Napalm Grenades (Penta Augment) Rank 23 - 230,000: Saturn Six – Captura Scene Rank 24 - 240,000: Wolf Cred x50 Rank 25 - 250,000: Arcane Energize Rank 26 - 260,000: Wolf Howl – Emote Rank 27 - 270,000: 3x Forma Bundle Rank 28 - 280,000: Saturn Six Syandana Rank 29 - 290,000: Umbra Forma Rank 30 - 300,000: Saturn Six Armor Set Bonus Rank 1-30 - 300,000+: Wolf Cred x15 every rank References [edit | edit source] ↑https://forums."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/NoraWolfTwoCreds": {
-    "name": "Intermission I Cred",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
-        "place": "Intermission",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Nightwave/Intermission I",
-          "url": "https://wiki.warframe.com/w/Nightwave/Intermission_I",
-          "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Intermission I Creds x100 Rank 2 - 20,000: Endo x2,000 Rank 3 - 30,000: Robotic Slots x2 Rank 4 - 40,000: Orokin Cell x3 Rank 5 - 50,000: Gamma Color Picker Rank 6 - 60,000: Intermission I Creds x50 Rank 7 - 70,000: Kuva x10,000 Rank 8 - 80,000: Rift Sigil Rank 9 - 90,000: 3x Forma Bundle Rank 10 -"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileCorpusShipMedCargoRoom": {
-    "name": "Artillery Battery Scene",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Unlocked by default.",
-        "place": "Captura",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ARTILLERY BATTERY SCENE Unlocked by default"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonHarrowRedVeilTemple": {
-    "name": "Lyon's Temple Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Lyon Allard",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "LYON'S TEMPLE DATE Rewarded weekly by inbox after romancing Lyon Allard"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonLuasPrey": {
-    "name": "Lyon's Lua Circulus Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Lyon Allard",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "LYON'S LUA CIRCULUS DATE Rewarded weekly by inbox after romancing Lyon Allard"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonUmbraShrine": {
-    "name": "Lyon's Umbra Courtyard Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Lyon Allard",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "LYON'S UMBRA COURTYARD DATE Rewarded weekly by inbox after romancing Lyon Allard"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonWraithQuestVallaGlariosArena": {
-    "name": "Lyon's Cold Below Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Lyon Allard",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "LYON'S COLD BELOW DATE Rewarded weekly by inbox after romancing Lyon Allard"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonZarParkHub": {
-    "name": "Lyon's Chrysalith Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Lyon Allard",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "LYON'S CHRYSALITH DATE Rewarded weekly by inbox after romancing Lyon Allard"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieCapRoomNarrow": {
-    "name": "Marie's Sanctum Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Marie Leroux",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "MARIE'S SANCTUM DATE Rewarded weekly by inbox after romancing Marie Leroux"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieCetusTown": {
-    "name": "Marie's Cetus Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Marie Leroux",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "MARIE'S CETUS DATE Rewarded weekly by inbox after romancing Marie Leroux"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieDrifterCamp": {
-    "name": "Marie's Drifter Camp Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Marie Leroux",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "MARIE'S DRIFTER CAMP DATE Rewarded weekly by inbox after romancing Marie Leroux"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieDuviriIsleSignatureAmphitheatre": {
-    "name": "Marie's Amphitheater Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Marie Leroux",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "MARIE'S AMPHITHEATER DATE Rewarded weekly by inbox after romancing Marie Leroux"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieVentKids": {
-    "name": "Marie's Ventkid Clubhouse Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Marie Leroux",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "MARIE'S VENTKID CLUBHOUSE DATE Rewarded weekly by inbox after romancing Marie Leroux"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDerelictHub": {
-    "name": "Roathe's Orokin Ruins Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Roathe",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ROATHE'S OROKIN RUINS DATE Rewarded weekly by inbox after romancing Roathe"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDuviriThroneRoom": {
-    "name": "Roathe's Duviri Throneroom Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Roathe",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ROATHE'S DUVIRI THRONEROOM DATE Rewarded weekly by inbox after romancing Roathe"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheSentientConTallJunctionOne": {
-    "name": "Roathe's Murex Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Roathe",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ROATHE'S MUREX DATE Rewarded weekly by inbox after romancing Roathe"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheUmbraChamber": {
-    "name": "Roathe's Lua Containment Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Roathe",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ROATHE'S LUA CONTAINMENT DATE Rewarded weekly by inbox after romancing Roathe"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheZarParkA": {
-    "name": "Roathe's Zariman Park Date",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Rewarded weekly by inbox after romancing the listed character.",
-        "place": "Roathe",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ROATHE'S ZARIMAN PARK DATE Rewarded weekly by inbox after romancing Roathe"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosCenote": {
-    "name": "Deimos Cenote Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Deimos Captura containers in Isolation Vaults.",
-        "place": "Isolation Vaults",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "DEIMOS CENOTE SCENE Dropped from Deimos Captura Container in Isolation Vaults"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityAssassinate": {
-    "name": "Gas City Alad's Laboratory Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY ALAD'S LABORATORY SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConCornerA": {
-    "name": "Gas City Upper Logistics Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY UPPER LOGISTICS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConCornerEOpen": {
-    "name": "Gas City Dead Exit Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY DEAD EXIT SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConPlusDOpen": {
-    "name": "Gas City Central Drop Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY CENTRAL DROP SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConStraightEOpen": {
-    "name": "Gas City Walkway Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY WALKWAY SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConVerticalA": {
-    "name": "Gas City Lifts Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY LIFTS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnector14Alt": {
-    "name": "Gas City Cloud Vista Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY CLOUD VISTA SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnectorTwo": {
-    "name": "Gas City Corridors Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY CORRIDORS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityExitFour": {
-    "name": "Gas City Lower Foyer Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY LOWER FOYER SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityGasConPlusC": {
-    "name": "Gas City Element Distribution Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY ELEMENT DISTRIBUTION SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityIntermediateFive": {
-    "name": "Gas City Regulators Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY REGULATORS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityIntermediateSix": {
-    "name": "Gas City Elemental Refinement Scene",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
-        "place": "Jupiter Secret Laboratories",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GAS CITY ELEMENTAL REFINEMENT SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileGrineerGalleonDefense": {
-    "name": "Grineer Galleon Cargo Scene",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Unlocked by default.",
-        "place": "Captura",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "GRINEER GALLEON CARGO SCENE Unlocked by default"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTileInfestedPurify02Objective": {
-    "name": "Infested Ship Hologram Scene",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Unlocked by default.",
-        "place": "Captura",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "INFESTED SHIP HOLOGRAM SCENE Unlocked by default"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/MiscItems/PhotoboothTilePlayerShip": {
-    "name": "Orbiter Scene",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from the Captura menu.",
-        "place": "Captura menu",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "ORBITER SCENE Purchased from the Captura Menu"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/PhotoBooth/PhotoboothTileRJLasXStadiumBossArena": {
-    "name": "Technocyte Coda Stadium Scene",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Vanquish a Technocyte Coda.",
-        "place": "Technocyte Coda",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "TECHNOCYTE CODA STADIUM SCENE Vanquish a T echnocyte Coda"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena": {
-    "name": "Perita Manifestation Scene",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Roathe's Surplus.",
-        "place": "Roathe's Surplus",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Captura",
-          "url": "https://wiki.warframe.com/w/Captura",
-          "quote": "PERITA MANIFESTATION SCENE Purchased from Roathe's Surplus"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/Research/CipherPlus": {
-    "name": "Corpus Cipher",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Operation: Arid Fear event.",
-        "place": "Operation: Arid Fear",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Corpus Cipher",
-          "url": "https://wiki.warframe.com/w/Corpus_Cipher",
-          "quote": "” —In-Game Description Corpus Cipher is a special component which could only be received as rewards in special alerts during the Operation: Arid Fear."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/Research/DataMassPlus": {
-    "name": "Corpus Datamass",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Operation: Arid Fear event.",
-        "place": "Operation: Arid Fear",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Corpus Datamass",
-          "url": "https://wiki.warframe.com/w/Corpus_Datamass",
-          "quote": "” —In-Game Description Corpus Datamass is a special component found only as rewards in special alerts during the Operation: Arid Fear."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipChristmasifier": {
-    "name": "Festive Interior Decorations",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from the Market for Credits.",
-        "place": "Market",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Festive Interior Decorations Available during Christmas from the Market Credits 1"
-        },
-        "price": {
-          "amount": 1,
-          "currency": "Credits"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/LisetPropShawzinTwitch": {
-    "name": "Iridos Shawzin",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia for 7 Aya.",
-        "place": "Varzia",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Now available from Varzia 7 Aya"
-        },
-        "price": {
-          "amount": 7,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Nightwave1999OnLyneRunningLate2Poster": {
-    "name": "On-lyne Running Late Promo Poster",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from The Hex for 5,000 Standing.",
-        "place": "The Hex",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "On-Lyne Running Late Promo Poster Standing 5,000"
-        },
-        "price": {
-          "amount": 5000,
-          "currency": "Standing"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Nightwave1999OnLyneRunningLatePoster": {
-    "name": "On-lyne Running Late Album Cover Display",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from The Hex for 5,000 Standing.",
-        "place": "The Hex",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "On-Lyne Running Late Album Cover Display Standing 5,000"
-        },
-        "price": {
-          "amount": 5000,
-          "currency": "Standing"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/OculystStatue": {
-    "name": "The New War Orbiter Decoration",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Orbiter Decorations event.",
-        "place": "TennoCon",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "The New War Orbiter Decoration A part of the T ennoCon 2020 Digital Pack"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentDomestikDrone": {
-    "name": "Festive Domestik Ornament",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Orbiter Decorations event.",
-        "place": "Tennobaum",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Festive Domestik Ornament T ennobaum 2025 Reward"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentEndosphere": {
-    "name": "Festive Endosphere Ornament",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Orbiter Decorations event.",
-        "place": "Tennobaum",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Festive Endosphere Ornament T ennobaum 2025 Reward"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentRelic": {
-    "name": "Festive Relic Ornament",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Orbiter Decorations event.",
-        "place": "Tennobaum",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Festive Relic Ornament T ennobaum 2025 Reward"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipDecos/Props/ShadowgrapherEaselShipDeco": {
-    "name": "Follie's Shadowgraph",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Operation: Atramentum event.",
-        "place": "Operation: Atramentum",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Decorations/Orbiter Decorations",
-          "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
-          "quote": "Follie's Shadowgraph Delivered after the conclusion of Operation: Atramentum"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipFeatureItems/ArsenalFeatureItem": {
-    "name": "Arsenal Segment",
-    "routes": [
-      {
-        "kind": "quest",
-        "text": "Obtain during the Vor's Prize quest.",
-        "place": "Vor's Prize",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Orbiter Segments",
-          "url": "https://wiki.warframe.com/w/Orbiter_Segments",
-          "quote": "Arsenal Segment [edit | edit source] • ◦ ◦ ◦ ◦ • ◦ ◦ • ◦ ◦ ◦ • ◦ ◦ ◦ ◦ • • • The Arsenal Segment is the first segment, obtained in order for the newly awakened T enno to arm accordingly."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipFeatureItems/FoundryFeatureItem": {
-    "name": "FOUNDRY SEGMENT",
-    "routes": [
-      {
-        "kind": "quest",
-        "text": "Obtain during the Vor's Prize quest.",
-        "place": "Vor's Prize",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Orbiter Segments",
-          "url": "https://wiki.warframe.com/w/Orbiter_Segments",
-          "quote": "Foundry Segment [edit | edit source] The Foundry Segment is the third segment obtained, which is obtained in order to remove Captain Vor's Ascaris implant, and unlocks the ability to use the Foundry to build items."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipFeatureItems/SocialMenuFeatureItem": {
-    "name": "COMMS SEGMENT",
-    "routes": [
-      {
-        "kind": "quest",
-        "text": "Obtain during the introduction to Spy missions.",
-        "place": "Spy missions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Orbiter Segments",
-          "url": "https://wiki.warframe.com/w/Orbiter_Segments",
-          "quote": "Communications Segment [edit | edit source] The Communications Segment is the second segment obtained, which unlocks the Market."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/ShipFeatureItems/VoidProjectionFeatureItem": {
-    "name": "VOID RELIC SEGMENT",
-    "routes": [
-      {
-        "kind": "quest",
-        "text": "Obtain by completing the Mars Junction mission on Earth.",
-        "place": "Mars Junction",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Void Relic",
-          "url": "https://wiki.warframe.com/w/Void_Relic",
-          "quote": "T o perform refinement themselves, players must complete the Mars Junction mission on Earth and install the Void Relic Segment they receive in their Orbiter."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SongItems/DevourerSongItem": {
-    "name": "Devourer",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Scan the Devourer fragment in the Plains of Eidolon.",
-        "place": "Plains of Eidolon",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Fragments",
-          "url": "https://wiki.warframe.com/w/Fragments",
-          "quote": "Devourer Planet/Region Scans Required Plains of Eidolon"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SongItems/NightwaveFablesSongItem": {
-    "name": "A Byte-sized Adventure",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from The Hex for 5,000 Standing.",
-        "place": "The Hex",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Fragments",
-          "url": "https://wiki.warframe.com/w/Fragments",
-          "quote": "A Byte-Sized Adventure 5,000 (The Hex)"
-        },
-        "price": {
-          "amount": 5000,
-          "currency": "Standing"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SongItems/NightwaveRunningLateSongItem": {
-    "name": "Running Late",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from The Hex for 5,000 Standing.",
-        "place": "The Hex",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Fragments",
-          "url": "https://wiki.warframe.com/w/Fragments",
-          "quote": "Running Late 5,000 (The Hex)"
-        },
-        "price": {
-          "amount": 5000,
-          "currency": "Standing"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SongItems/ProteaPrimeSongItem": {
-    "name": "Protea Prime Theme",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia for 5 Aya.",
-        "place": "Varzia",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Fragments",
-          "url": "https://wiki.warframe.com/w/Fragments",
-          "quote": "Protea Prime Theme \"Double Time\" 5 Aya Varzia"
-        },
-        "price": {
-          "amount": 5,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SongItems/YareliPrimeSongItem": {
-    "name": "Yareli Prime Theme 'Waverider'",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase from Varzia for 5 Aya.",
-        "place": "Varzia",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Fragments",
-          "url": "https://wiki.warframe.com/w/Fragments",
-          "quote": "Varzia Yareli Prime Theme \"Waverider\" 5 Aya"
-        },
-        "price": {
-          "amount": 5,
-          "currency": "Aya"
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SyndicateDogTags/CephalonRareDogTag": {
-    "name": "Genius Datum",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Find it in daily Syndicate Alert missions.",
-        "place": "Syndicate Alerts",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Syndicate Medallions",
-          "url": "https://wiki.warframe.com/w/Syndicate_Medallions",
-          "quote": "Types [edit | edit source] Faction Medallions [edit | edit source] Medallions for faction syndicates can be found on the daily Syndicate Alert missions."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Items/SyndicateDogTags/RedVeilRareDogTag": {
-    "name": "Exalted Mark",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Find it in daily Syndicate Alert missions.",
-        "place": "Syndicate Alerts",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Syndicate Medallions",
-          "url": "https://wiki.warframe.com/w/Syndicate_Medallions",
-          "quote": "Types [edit | edit source] Faction Medallions [edit | edit source] Medallions for faction syndicates can be found on the daily Syndicate Alert missions."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/PickUps/Nightwave/CephalonFissureTimePointItem": {
-    "name": "Cephalite Resonance",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the NightwaveSeries 3 event.",
-        "place": "Glass Fissures",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Cephalite Resonance",
-          "url": "https://wiki.warframe.com/w/Cephalite_Resonance",
-          "quote": "” —In-game Description Cephalite Resonance is a unique resource that drops during NightwaveSeries 3."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalBarrel": {
-    "name": "Dera Vandal Barrel",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Dera Vandal",
-          "url": "https://wiki.warframe.com/w/Dera_Vandal",
-          "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalReceiver": {
-    "name": "Dera Vandal Receiver",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Dera Vandal",
-          "url": "https://wiki.warframe.com/w/Dera_Vandal",
-          "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalStock": {
-    "name": "Dera Vandal Stock",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Dera Vandal",
-          "url": "https://wiki.warframe.com/w/Dera_Vandal",
-          "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithReceiver": {
-    "name": "Karak Wraith Receiver",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Karak Wraith",
-          "url": "https://wiki.warframe.com/w/Karak_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithStock": {
-    "name": "Karak Wraith Stock",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Karak Wraith",
-          "url": "https://wiki.warframe.com/w/Karak_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithBarrel": {
-    "name": "Latron Wraith Barrel",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Latron Wraith",
-          "url": "https://wiki.warframe.com/w/Latron_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithReceiver": {
-    "name": "Latron Wraith Receiver",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Latron Wraith",
-          "url": "https://wiki.warframe.com/w/Latron_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithStock": {
-    "name": "Latron Wraith Stock",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Latron Wraith",
-          "url": "https://wiki.warframe.com/w/Latron_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/SagekPrimeStock": {
-    "name": "Sagek Prime Stock",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Earn from Rotation A of The Perita Rebellion or buy from Roathe for Maphica.",
-        "place": "The Perita Rebellion",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Sagek Prime",
-          "url": "https://wiki.warframe.com/w/Sagek_Prime",
-          "quote": "Acquisition Sagek Prime's main and component blueprints are obtained from Rotation A of The Perita Rebellion, available after completing The Old Peace quest."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalBarrel": {
-    "name": "Snipetron Vandal Barrel",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Snipetron Vandal",
-          "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
-          "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalReceiver": {
-    "name": "Snipetron Vandal Receiver",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Snipetron Vandal",
-          "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
-          "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalStock": {
-    "name": "Snipetron Vandal Stock",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Snipetron Vandal",
-          "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
-          "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithBarrel": {
-    "name": "Strun Wraith Barrel",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Strun Wraith",
-          "url": "https://wiki.warframe.com/w/Strun_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Fourth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithReceiver": {
-    "name": "Strun Wraith Receiver",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Twin Vipers Wraith",
-          "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel": {
-    "name": "Twin Vipers Wraith Barrels",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Twin Vipers Wraith",
-          "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver": {
-    "name": "Twin Vipers Wraith Receivers",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Invasion rewards.",
-        "place": "Invasions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Twin Vipers Wraith",
-          "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
-          "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Game/Projections/T1VoidProjection": {
-    "name": "Lith Relic",
-    "routes": [
-      {
-        "kind": "drop",
-        "text": "Earn from Void mission rewards.",
-        "place": "Void missions",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Void Relic",
-          "url": "https://wiki.warframe.com/w/Void_Relic",
-          "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
-        }
-      }
-    ]
-  }
+ "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultABronze": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultAGold": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultAPlatinum": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T1VoidProjectionProteaIvaraVaultASilver": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjection": {
+  "name": "Meso Relic",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Void mission rewards.",
+    "place": "Void missions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Void Relic",
+     "url": "https://wiki.warframe.com/w/Void_Relic",
+     "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultABronze": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultAGold": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultAPlatinum": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultASilver": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBBronze": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBGold": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBPlatinum": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T2VoidProjectionProteaIvaraVaultBSilver": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjection": {
+  "name": "Neo Relic",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Void mission rewards.",
+    "place": "Void missions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Void Relic",
+     "url": "https://wiki.warframe.com/w/Void_Relic",
+     "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultABronze": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultAGold": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultAPlatinum": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultASilver": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBBronze": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBGold": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBPlatinum": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionProteaIvaraVaultBSilver": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjection": {
+  "name": "Axi Relic",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Void mission rewards.",
+    "place": "Void missions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Void Relic",
+     "url": "https://wiki.warframe.com/w/Void_Relic",
+     "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultABronze": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultAGold": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultAPlatinum": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionProteaIvaraVaultASilver": {
+  "name": "|ERA| |CATEGORY| Relic",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia with Aya when the relic is available.",
+    "place": "Maroo's Bazaar",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "3Patch History 4References 5See Also ▲ Details [edit | edit source] Vaulted Void Relics can only be purchased from Varzia in Maroo's Bazaar (and from the Market console in the player's Base of Operations) using Aya, while vaulted items and cosmetics can be directly purchased using the premium currency Regal Aya."
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T5VoidProjectionImmortal": {
+  "name": "Requiem Relic",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Void mission rewards.",
+    "place": "Void missions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Void Relic",
+     "url": "https://wiki.warframe.com/w/Void_Relic",
+     "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/Duviri/Resource/Fish/DuviriFishBItem": {
+  "name": "Xiran",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Catch Xiran while fishing in Duviri.",
+    "place": "Duviri fishing",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Xiran",
+     "url": "https://wiki.warframe.com/w/Xiran",
+     "quote": "Xiran is a species of fish in Duviri."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/Eidolon/Resources/QuillsRareDogTag": {
+  "name": "Flawless Sentient Core",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn by capturing Eidolons in the Plains of Eidolon at night.",
+    "place": "Plains of Eidolon",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sentient Core",
+     "url": "https://wiki.warframe.com/w/Sentient_Core",
+     "quote": "Location: Eidolons found roaming the Plains of Eidolon on Earth at night General Information T ype Resource Drop Amount 1-1x Helminth Secretions Sentient Appetite (10) Sell Price Cannot Sell Introduced Update 22."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/Eidolon/Resources/SentientShards/LephantisShardItem": {
+  "name": "Hemocyte Cystolith",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Hemocytes in Plague Star bounties.",
+    "place": "Plains of Eidolon",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Hemocyte Cystolith",
+     "url": "https://wiki.warframe.com/w/Hemocyte_Cystolith",
+     "quote": "com/droptables Maintenance 📝 Update Infobox Data Hemocyte Cystoliths are a resource dropped by the Hemocyte during Operation: Plague Star, and used to build that event's clan trophies."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Fish/Duviri/DuviriFishBItem": {
+  "name": "Xiran",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Catch Xiran while fishing in Duviri.",
+    "place": "Duviri fishing",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Xiran",
+     "url": "https://wiki.warframe.com/w/Xiran",
+     "quote": "Xiran is a species of fish in Duviri."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/AntiSerumInjector": {
+  "name": "Zealot Derelict Code",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Complete three Infestation Outbreak missions.",
+    "place": "Infestation Outbreaks",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Zealot Derelict Code",
+     "url": "https://wiki.warframe.com/w/Zealot_Derelict_Code",
+     "quote": "Zealot Derelict Codes can be obtained by completing three Infestation Outbreak missions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraInfestedCreds": {
+  "name": "Emissary Cred",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Emissary",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Series 2",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_2",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Emissary Creds x150 Rank 2 - 20,000: Emissary Sigil Rank 3 - 30,000: Robotic Slots x2 Rank 4 - 40,000: Nora Stencil Rank 5 - 50,000: Keratose Sugatra Rank 6 - 60,000: Emissary Creds x50 Rank 7 - 70,000: Efficient Beams (Convectrix Augment) Rank 8 - 80,000: Forma Bundle (3x Forma) Rank 9 - 90,000: Emissary Emblem Rank 10 - 100,000: Arlo Statue – Noggle Statue Rank 11 - 110,000: Orokin Reactor Rank 12 - 120,000: Emissary Creds x50 Rank 13 - 130,000: Kuva x20,000 Rank 14 - 140,000: Warframe Slot Rank 15 - 150,000: Devotee Noggle Bundle Rank 16 - 160,000: Emissary Creds x50 Rank 17 - 170,000: Exilus Warframe Adapter Rank 18 - 180,000: Ancient – Scrawl (K-Drive cosmetic) Rank 19 - 190,000: Spore Ephemera Rank 20 - 200,000: Exposing Harpoon (Harpak Augment) Rank 21 - 210,000: Emissary Creds x50 Rank 22 - 220,000: Two-Handed Nikana Maligna Skin Rank 23 - 230,000: Meticulous Aim (Vulkar Augment) Rank 24 - 240,000: Emissary Creds x50 Rank 25 - 250,000: 3x Forma Bundle Rank 26 - 260,000: Umbra Forma Rank 27 - 270,000: Arcane Grace Rank 28 - 280,000: Protosomid Shoulder Guard Rank 29 - 290,000: Chitoid Sentinel Bundle Rank 30 - 300,000: Emissary Operator Collection Bonus Rank 1-30 - 300,000+: Emissary Creds x15 every rank ◦ • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • Edit Trivia [edit | edit source] It is possible that parts of Nightwave Series 2 were originally going to be the event mentioned by Rebecca during Devstream 97."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionEightCreds": {
+  "name": "Nora's Mix Vol. 4 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 4.",
+    "place": "Nora's Mix Volume 4",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 4",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_4",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionElevenCreds": {
+  "name": "Nora's Mix Vol. 7 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 7.",
+    "place": "Nora's Mix Volume 7",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 7",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_7",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionFiveCreds": {
+  "name": "Nora's Mix Vol. 1 Cred",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Nora's Mix Volume 1",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 1",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_1",
+     "quote": "It had 30 Ranks using Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionFourteenCreds": {
+  "name": "Nora's Mix:\r\nDreams of the Dead Cred",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Nora's Mix: Dreams of the Dead",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix: Dreams of the Dead",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix:_Dreams_of_the_Dead",
+     "quote": "It had 30 Ranks using Nora's Mix: Dreams of the Dead Cred as currency, and could be continued for 150 more ranks after max for additional Creds."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionNineCreds": {
+  "name": "Nora's Mix Vol. 5 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 5.",
+    "place": "Nora's Mix Volume 5",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 5",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_5",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionSevenCreds": {
+  "name": "Nora's Mix Vol. 3 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 3.",
+    "place": "Nora's Mix Volume 3",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 3",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_3",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionSixCreds": {
+  "name": "Nora's Mix Vol. 2 Cred",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Nora's Mix Volume 2",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 2",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_2",
+     "quote": "It had 30 Ranks using Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionSixteenCreds": {
+  "name": "Amir's Shockwave Cred",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Earn by ranking in Amir's Shockwave.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir's_Shockwave",
+     "quote": "It has 30 Ranks using Amir's Shockwave Cred as currency, and can be continued for 150 more ranks after max for additional Creds."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionTenCreds": {
+  "name": "Nora's Mix Vol. 6 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 6.",
+    "place": "Nora's Mix Volume 6",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 6",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_6",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionThirteenCreds": {
+  "name": "Nora's Mix Vol. 9 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 9.",
+    "place": "Nora's Mix Volume 9",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 9",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_9",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionThreeCreds": {
+  "name": "INTERMISSION III CRED",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Intermission III",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Intermission III",
+     "url": "https://wiki.warframe.com/w/Nightwave/Intermission_III",
+     "quote": "It has 30 Ranks using Intermission III Cred as currency, and can be continued for 60 more ranks after max for additional Creds."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionTwelveCreds": {
+  "name": "Nora's Mix Vol. 8 Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Nora's Mix Volume 8.",
+    "place": "Nora's Mix Volume 8",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Nora's Mix Volume 8",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora's_Mix_Volume_8",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Nora's Mix Vol."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionTwoCreds": {
+  "name": "Intermission II Cred",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Intermission II",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Intermission II",
+     "url": "https://wiki.warframe.com/w/Nightwave/Intermission_II",
+     "quote": "It has 30 Ranks using Intermission II Cred as currency, and can be continued for 60 more ranks after max for additional Creds."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraSeasonThreeCreds": {
+  "name": "Crystal Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Glassmaker.",
+    "place": "Glassmaker",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Series 3",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_3",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Crystal Cred x150 Rank 2 - 20,000: Glassmaker – Sigil Rank 3 - 30,000: Weapon Slots x2 Rank 4 - 40,000: Glassmaker – Emblem • ◦ ◦ ◦ ▪ ▪ ▪ ▪ ▪ ▪ ▪ • ◦ ◦ ◦ • • • • Edit Rank 5 - 50,000: Boolean Sugatra Rank 6 - 60,000: Crystal Cred x50 Rank 7 - 70,000: Deadly Maneuvers (Magnus Augment) Rank 8 - 80,000"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraWolfCreds": {
+  "name": "Wolf Cred",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from The Wolf of Saturn Six.",
+    "place": "The Wolf of Saturn Six",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Series 1",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_1",
+     "quote": "Ranking Rewards [edit | edit source] • • ◦ • Edit In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Saturn Six – Sigil Rank 2 - 20,000: Wolf of Saturn Six – Glyph (Light) and Wolf of Saturn Six – Glyph (Dark) Rank 3 - 30,000: Wolf Cred x50 Rank 4 - 40,000: Weapon Slot x2 Rank 5 - 50,000: The Wolf – Noggle Statue Rank 6 - 60,000: Wolf Cred x50 Rank 7 - 70,000: 3x Forma Bundle Rank 8 - 80,000: Warframe Slot Rank 9 - 90,000: Saturn Six – Emblem Rank 10 - 100,000: Wolf Salute – Emote Rank 11 - 110,000: Orokin Catalyst Rank 12 - 120,000: Wolf Cred x50 Rank 13 - 130,000: Nightwave – Sigil Rank 14 - 140,000: Wild Frenzy (Grakata Augment) Rank 15 - 150,000: Kuva x20,000 Rank 16 - 160,000: Wolf Cred x50 Rank 17 - 170,000: Wolf – Scrawl (K-Drive cosmetic) Rank 18 - 180,000: Bursting Mass, (Mutalist Quanta Augment) Rank 19 - 190,000: Kuva x20,000 Rank 20 - 200,000: Wolf Cred x50 Rank 21 - 210,000: Nightwave – Emblem Rank 22 - 220,000: Napalm Grenades (Penta Augment) Rank 23 - 230,000: Saturn Six – Captura Scene Rank 24 - 240,000: Wolf Cred x50 Rank 25 - 250,000: Arcane Energize Rank 26 - 260,000: Wolf Howl – Emote Rank 27 - 270,000: 3x Forma Bundle Rank 28 - 280,000: Saturn Six Syandana Rank 29 - 290,000: Umbra Forma Rank 30 - 300,000: Saturn Six Armor Set Bonus Rank 1-30 - 300,000+: Wolf Cred x15 every rank References [edit | edit source] ↑https://forums."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraWolfTwoCreds": {
+  "name": "Intermission I Cred",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was the currency for a concluded Nightwave series.",
+    "place": "Intermission",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Nightwave/Intermission I",
+     "url": "https://wiki.warframe.com/w/Nightwave/Intermission_I",
+     "quote": "Ranking Rewards [edit | edit source] In the order of ranking and total cumulative standing respectively: Rank 1 - 10,000: Intermission I Creds x100 Rank 2 - 20,000: Endo x2,000 Rank 3 - 30,000: Robotic Slots x2 Rank 4 - 40,000: Orokin Cell x3 Rank 5 - 50,000: Gamma Color Picker Rank 6 - 60,000: Intermission I Creds x50 Rank 7 - 70,000: Kuva x10,000 Rank 8 - 80,000: Rift Sigil Rank 9 - 90,000: 3x Forma Bundle Rank 10 -"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileCorpusShipMedCargoRoom": {
+  "name": "Artillery Battery Scene",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Unlocked by default.",
+    "place": "Captura",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ARTILLERY BATTERY SCENE Unlocked by default"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonHarrowRedVeilTemple": {
+  "name": "Lyon's Temple Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Lyon Allard",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "LYON'S TEMPLE DATE Rewarded weekly by inbox after romancing Lyon Allard"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonLuasPrey": {
+  "name": "Lyon's Lua Circulus Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Lyon Allard",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "LYON'S LUA CIRCULUS DATE Rewarded weekly by inbox after romancing Lyon Allard"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonUmbraShrine": {
+  "name": "Lyon's Umbra Courtyard Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Lyon Allard",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "LYON'S UMBRA COURTYARD DATE Rewarded weekly by inbox after romancing Lyon Allard"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonWraithQuestVallaGlariosArena": {
+  "name": "Lyon's Cold Below Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Lyon Allard",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "LYON'S COLD BELOW DATE Rewarded weekly by inbox after romancing Lyon Allard"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateLyonZarParkHub": {
+  "name": "Lyon's Chrysalith Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Lyon Allard",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "LYON'S CHRYSALITH DATE Rewarded weekly by inbox after romancing Lyon Allard"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieCapRoomNarrow": {
+  "name": "Marie's Sanctum Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Marie Leroux",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "MARIE'S SANCTUM DATE Rewarded weekly by inbox after romancing Marie Leroux"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieCetusTown": {
+  "name": "Marie's Cetus Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Marie Leroux",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "MARIE'S CETUS DATE Rewarded weekly by inbox after romancing Marie Leroux"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieDrifterCamp": {
+  "name": "Marie's Drifter Camp Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Marie Leroux",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "MARIE'S DRIFTER CAMP DATE Rewarded weekly by inbox after romancing Marie Leroux"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieDuviriIsleSignatureAmphitheatre": {
+  "name": "Marie's Amphitheater Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Marie Leroux",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "MARIE'S AMPHITHEATER DATE Rewarded weekly by inbox after romancing Marie Leroux"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateMarieVentKids": {
+  "name": "Marie's Ventkid Clubhouse Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Marie Leroux",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "MARIE'S VENTKID CLUBHOUSE DATE Rewarded weekly by inbox after romancing Marie Leroux"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDerelictHub": {
+  "name": "Roathe's Orokin Ruins Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Roathe",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ROATHE'S OROKIN RUINS DATE Rewarded weekly by inbox after romancing Roathe"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheDuviriThroneRoom": {
+  "name": "Roathe's Duviri Throneroom Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Roathe",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ROATHE'S DUVIRI THRONEROOM DATE Rewarded weekly by inbox after romancing Roathe"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheSentientConTallJunctionOne": {
+  "name": "Roathe's Murex Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Roathe",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ROATHE'S MUREX DATE Rewarded weekly by inbox after romancing Roathe"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheUmbraChamber": {
+  "name": "Roathe's Lua Containment Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Roathe",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ROATHE'S LUA CONTAINMENT DATE Rewarded weekly by inbox after romancing Roathe"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDateRoatheZarParkA": {
+  "name": "Roathe's Zariman Park Date",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Rewarded weekly by inbox after romancing the listed character.",
+    "place": "Roathe",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ROATHE'S ZARIMAN PARK DATE Rewarded weekly by inbox after romancing Roathe"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileDeimosCenote": {
+  "name": "Deimos Cenote Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Deimos Captura containers in Isolation Vaults.",
+    "place": "Isolation Vaults",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "DEIMOS CENOTE SCENE Dropped from Deimos Captura Container in Isolation Vaults"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityAssassinate": {
+  "name": "Gas City Alad's Laboratory Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY ALAD'S LABORATORY SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConCornerA": {
+  "name": "Gas City Upper Logistics Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY UPPER LOGISTICS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConCornerEOpen": {
+  "name": "Gas City Dead Exit Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY DEAD EXIT SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConPlusDOpen": {
+  "name": "Gas City Central Drop Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY CENTRAL DROP SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConStraightEOpen": {
+  "name": "Gas City Walkway Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY WALKWAY SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConVerticalA": {
+  "name": "Gas City Lifts Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY LIFTS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnector14Alt": {
+  "name": "Gas City Cloud Vista Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY CLOUD VISTA SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityConnectorTwo": {
+  "name": "Gas City Corridors Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY CORRIDORS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityExitFour": {
+  "name": "Gas City Lower Foyer Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY LOWER FOYER SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityGasConPlusC": {
+  "name": "Gas City Element Distribution Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY ELEMENT DISTRIBUTION SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityIntermediateFive": {
+  "name": "Gas City Regulators Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY REGULATORS SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGasCityIntermediateSix": {
+  "name": "Gas City Elemental Refinement Scene",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from violet storage lockers in Jupiter's Secret Laboratories.",
+    "place": "Jupiter Secret Laboratories",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GAS CITY ELEMENTAL REFINEMENT SCENE Dropped from violet Storage Lockers inside Secret Laboratories on Jupiter"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileGrineerGalleonDefense": {
+  "name": "Grineer Galleon Cargo Scene",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Unlocked by default.",
+    "place": "Captura",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "GRINEER GALLEON CARGO SCENE Unlocked by default"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileInfestedPurify02Objective": {
+  "name": "Infested Ship Hologram Scene",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Unlocked by default.",
+    "place": "Captura",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "INFESTED SHIP HOLOGRAM SCENE Unlocked by default"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTilePlayerShip": {
+  "name": "Orbiter Scene",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from the Captura menu.",
+    "place": "Captura menu",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "ORBITER SCENE Purchased from the Captura Menu"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/PhotoBooth/PhotoboothTileRJLasXStadiumBossArena": {
+  "name": "Technocyte Coda Stadium Scene",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Vanquish a Technocyte Coda.",
+    "place": "Technocyte Coda",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "TECHNOCYTE CODA STADIUM SCENE Vanquish a T echnocyte Coda"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/PhotoBooth/TauOldPeace/PhotoboothTileTauOldPeaceObjLiminalBossArena": {
+  "name": "Perita Manifestation Scene",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Roathe's Surplus.",
+    "place": "Roathe's Surplus",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Captura",
+     "url": "https://wiki.warframe.com/w/Captura",
+     "quote": "PERITA MANIFESTATION SCENE Purchased from Roathe's Surplus"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Research/CipherPlus": {
+  "name": "Corpus Cipher",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Operation: Arid Fear event.",
+    "place": "Operation: Arid Fear",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Corpus Cipher",
+     "url": "https://wiki.warframe.com/w/Corpus_Cipher",
+     "quote": "” —In-Game Description Corpus Cipher is a special component which could only be received as rewards in special alerts during the Operation: Arid Fear."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Research/DataMassPlus": {
+  "name": "Corpus Datamass",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Operation: Arid Fear event.",
+    "place": "Operation: Arid Fear",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Corpus Datamass",
+     "url": "https://wiki.warframe.com/w/Corpus_Datamass",
+     "quote": "” —In-Game Description Corpus Datamass is a special component found only as rewards in special alerts during the Operation: Arid Fear."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipChristmasifier": {
+  "name": "Festive Interior Decorations",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from the Market for Credits.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Festive Interior Decorations Available during Christmas from the Market Credits 1"
+    },
+    "price": {
+     "amount": 1,
+     "currency": "Credits"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/LisetPropShawzinTwitch": {
+  "name": "Iridos Shawzin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia for 7 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Now available from Varzia 7 Aya"
+    },
+    "price": {
+     "amount": 7,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Nightwave1999OnLyneRunningLate2Poster": {
+  "name": "On-lyne Running Late Promo Poster",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from The Hex for 5,000 Standing.",
+    "place": "The Hex",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "On-Lyne Running Late Promo Poster Standing 5,000"
+    },
+    "price": {
+     "amount": 5000,
+     "currency": "Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Nightwave1999OnLyneRunningLatePoster": {
+  "name": "On-lyne Running Late Album Cover Display",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from The Hex for 5,000 Standing.",
+    "place": "The Hex",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "On-Lyne Running Late Album Cover Display Standing 5,000"
+    },
+    "price": {
+     "amount": 5000,
+     "currency": "Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/OculystStatue": {
+  "name": "The New War Orbiter Decoration",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
+    "place": "TennoCon",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "The New War Orbiter Decoration A part of the T ennoCon 2020 Digital Pack"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentDomestikDrone": {
+  "name": "Festive Domestik Ornament",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
+    "place": "Tennobaum",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Festive Domestik Ornament T ennobaum 2025 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentEndosphere": {
+  "name": "Festive Endosphere Ornament",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
+    "place": "Tennobaum",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Festive Endosphere Ornament T ennobaum 2025 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentRelic": {
+  "name": "Festive Relic Ornament",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Orbiter Decorations event.",
+    "place": "Tennobaum",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Festive Relic Ornament T ennobaum 2025 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/ShadowgrapherEaselShipDeco": {
+  "name": "Follie's Shadowgraph",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Operation: Atramentum event.",
+    "place": "Operation: Atramentum",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Follie's Shadowgraph Delivered after the conclusion of Operation: Atramentum"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipFeatureItems/ArsenalFeatureItem": {
+  "name": "Arsenal Segment",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Obtain during the Vor's Prize quest.",
+    "place": "Vor's Prize",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Orbiter Segments",
+     "url": "https://wiki.warframe.com/w/Orbiter_Segments",
+     "quote": "Arsenal Segment [edit | edit source] • ◦ ◦ ◦ ◦ • ◦ ◦ • ◦ ◦ ◦ • ◦ ◦ ◦ ◦ • • • The Arsenal Segment is the first segment, obtained in order for the newly awakened T enno to arm accordingly."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipFeatureItems/FoundryFeatureItem": {
+  "name": "FOUNDRY SEGMENT",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Obtain during the Vor's Prize quest.",
+    "place": "Vor's Prize",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Orbiter Segments",
+     "url": "https://wiki.warframe.com/w/Orbiter_Segments",
+     "quote": "Foundry Segment [edit | edit source] The Foundry Segment is the third segment obtained, which is obtained in order to remove Captain Vor's Ascaris implant, and unlocks the ability to use the Foundry to build items."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipFeatureItems/SocialMenuFeatureItem": {
+  "name": "COMMS SEGMENT",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Obtain during the introduction to Spy missions.",
+    "place": "Spy missions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Orbiter Segments",
+     "url": "https://wiki.warframe.com/w/Orbiter_Segments",
+     "quote": "Communications Segment [edit | edit source] The Communications Segment is the second segment obtained, which unlocks the Market."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipFeatureItems/VoidProjectionFeatureItem": {
+  "name": "VOID RELIC SEGMENT",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Obtain by completing the Mars Junction mission on Earth.",
+    "place": "Mars Junction",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Void Relic",
+     "url": "https://wiki.warframe.com/w/Void_Relic",
+     "quote": "T o perform refinement themselves, players must complete the Mars Junction mission on Earth and install the Void Relic Segment they receive in their Orbiter."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SongItems/DevourerSongItem": {
+  "name": "Devourer",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Scan the Devourer fragment in the Plains of Eidolon.",
+    "place": "Plains of Eidolon",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Fragments",
+     "url": "https://wiki.warframe.com/w/Fragments",
+     "quote": "Devourer Planet/Region Scans Required Plains of Eidolon"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SongItems/NightwaveFablesSongItem": {
+  "name": "A Byte-sized Adventure",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from The Hex for 5,000 Standing.",
+    "place": "The Hex",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Fragments",
+     "url": "https://wiki.warframe.com/w/Fragments",
+     "quote": "A Byte-Sized Adventure 5,000 (The Hex)"
+    },
+    "price": {
+     "amount": 5000,
+     "currency": "Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SongItems/NightwaveRunningLateSongItem": {
+  "name": "Running Late",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from The Hex for 5,000 Standing.",
+    "place": "The Hex",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Fragments",
+     "url": "https://wiki.warframe.com/w/Fragments",
+     "quote": "Running Late 5,000 (The Hex)"
+    },
+    "price": {
+     "amount": 5000,
+     "currency": "Standing"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SongItems/ProteaPrimeSongItem": {
+  "name": "Protea Prime Theme",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia for 5 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Fragments",
+     "url": "https://wiki.warframe.com/w/Fragments",
+     "quote": "Protea Prime Theme \"Double Time\" 5 Aya Varzia"
+    },
+    "price": {
+     "amount": 5,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SongItems/YareliPrimeSongItem": {
+  "name": "Yareli Prime Theme 'Waverider'",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Varzia for 5 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Fragments",
+     "url": "https://wiki.warframe.com/w/Fragments",
+     "quote": "Varzia Yareli Prime Theme \"Waverider\" 5 Aya"
+    },
+    "price": {
+     "amount": 5,
+     "currency": "Aya"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SyndicateDogTags/CephalonRareDogTag": {
+  "name": "Genius Datum",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Find it in daily Syndicate Alert missions.",
+    "place": "Syndicate Alerts",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Syndicate Medallions",
+     "url": "https://wiki.warframe.com/w/Syndicate_Medallions",
+     "quote": "Types [edit | edit source] Faction Medallions [edit | edit source] Medallions for faction syndicates can be found on the daily Syndicate Alert missions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SyndicateDogTags/RedVeilRareDogTag": {
+  "name": "Exalted Mark",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Find it in daily Syndicate Alert missions.",
+    "place": "Syndicate Alerts",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Syndicate Medallions",
+     "url": "https://wiki.warframe.com/w/Syndicate_Medallions",
+     "quote": "Types [edit | edit source] Faction Medallions [edit | edit source] Medallions for faction syndicates can be found on the daily Syndicate Alert missions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/PickUps/Nightwave/CephalonFissureTimePointItem": {
+  "name": "Cephalite Resonance",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the NightwaveSeries 3 event.",
+    "place": "Glass Fissures",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Cephalite Resonance",
+     "url": "https://wiki.warframe.com/w/Cephalite_Resonance",
+     "quote": "” —In-game Description Cephalite Resonance is a unique resource that drops during NightwaveSeries 3."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalBarrel": {
+  "name": "Dera Vandal Barrel",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Dera Vandal",
+     "url": "https://wiki.warframe.com/w/Dera_Vandal",
+     "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalReceiver": {
+  "name": "Dera Vandal Receiver",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Dera Vandal",
+     "url": "https://wiki.warframe.com/w/Dera_Vandal",
+     "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DeraVandalStock": {
+  "name": "Dera Vandal Stock",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Dera Vandal",
+     "url": "https://wiki.warframe.com/w/Dera_Vandal",
+     "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithReceiver": {
+  "name": "Karak Wraith Receiver",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Karak Wraith",
+     "url": "https://wiki.warframe.com/w/Karak_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithStock": {
+  "name": "Karak Wraith Stock",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Karak Wraith",
+     "url": "https://wiki.warframe.com/w/Karak_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithBarrel": {
+  "name": "Latron Wraith Barrel",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Latron Wraith",
+     "url": "https://wiki.warframe.com/w/Latron_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithReceiver": {
+  "name": "Latron Wraith Receiver",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Latron Wraith",
+     "url": "https://wiki.warframe.com/w/Latron_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/LatronWraithStock": {
+  "name": "Latron Wraith Stock",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Latron Wraith",
+     "url": "https://wiki.warframe.com/w/Latron_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/SagekPrimeStock": {
+  "name": "Sagek Prime Stock",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Earn from Rotation A of The Perita Rebellion or buy from Roathe for Maphica.",
+    "place": "The Perita Rebellion",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sagek Prime",
+     "url": "https://wiki.warframe.com/w/Sagek_Prime",
+     "quote": "Acquisition Sagek Prime's main and component blueprints are obtained from Rotation A of The Perita Rebellion, available after completing The Old Peace quest."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalBarrel": {
+  "name": "Snipetron Vandal Barrel",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Snipetron Vandal",
+     "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
+     "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalReceiver": {
+  "name": "Snipetron Vandal Receiver",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Snipetron Vandal",
+     "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
+     "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/SnipetronVandalStock": {
+  "name": "Snipetron Vandal Stock",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Snipetron Vandal",
+     "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
+     "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithBarrel": {
+  "name": "Strun Wraith Barrel",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Strun Wraith",
+     "url": "https://wiki.warframe.com/w/Strun_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Fourth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithReceiver": {
+  "name": "Strun Wraith Receiver",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Twin Vipers Wraith",
+     "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithBarrel": {
+  "name": "Twin Vipers Wraith Barrels",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Twin Vipers Wraith",
+     "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithReceiver": {
+  "name": "Twin Vipers Wraith Receivers",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Invasion rewards.",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Twin Vipers Wraith",
+     "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
+     "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T1VoidProjection": {
+  "name": "Lith Relic",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Earn from Void mission rewards.",
+    "place": "Void missions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Void Relic",
+     "url": "https://wiki.warframe.com/w/Void_Relic",
+     "quote": "2Requiem Mods 4Notes 5Trivia 6Media 7Patch History 8References 9Further Reading Acquisition [edit | edit source] Void Relics are received as rewards in missions — primarily endless missions (although some non-endless missions, such as Spy, have a chance of rewarding a Void Relic upon completion)."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/Events/RoadToTauEvent/RoadToTauEventResource": {
+  "name": "Moonflesh",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Operation: Taubound.",
+    "place": "Operation: Taubound",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Moonflesh",
+     "url": "https://wiki.warframe.com/w/Moonflesh",
+     "revid": 2816012,
+     "quote": "'''Moonflesh''' can be gotten by completing missions on [[Eris]] during [[Epoch Operation: Taubound]].<!--;where each mission completion will reward ? {{Resource|Moonflesh}}, or ? on [[Steel Path]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/ArthurPagerShipDeco": {
+  "name": "Arthur's KinePage",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "After completing The Lotus Eaters, the player will receive Arthur's KinePage as an Orbiter Decoration in a message from Loid.",
+    "place": "Loid",
+    "source": {
+     "archive": "wiki_store",
+     "page": "KinePage",
+     "url": "https://wiki.warframe.com/w/KinePage",
+     "revid": 2798867,
+     "quote": "After completing The Lotus Eaters, the player will receive [[Arthur]]'s KinePage as an [[Orbiter]] [[Decorations|Decoration]] in a message from [[Loid (Original)|Loid]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/LisetPropMandolinGrineer": {
+  "name": "Corbu Shawzin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Shawzin",
+     "url": "https://wiki.warframe.com/w/Shawzin",
+     "revid": 2789349,
+     "quote": "There are multiple variants of Shawzin available in the [[Market]], which grant the player the Orbiter decoration of the purchased instrument. Upon acquiring any Shawzin, the player will also receive the unique Shawzin emote."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/LisetPropShawzinDuviri": {
+  "name": "Courtly Shawzin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Shawzin",
+     "url": "https://wiki.warframe.com/w/Shawzin",
+     "revid": 2789349,
+     "quote": "There are multiple variants of Shawzin available in the [[Market]], which grant the player the Orbiter decoration of the purchased instrument. Upon acquiring any Shawzin, the player will also receive the unique Shawzin emote."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/LisetPropIceblade": {
+  "name": "Icebound Neote Decoration",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Durumi Syandana",
+     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
+     "revid": 2813725,
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipFeatureItems/RailjackKeyShipFeatureItem": {
+  "name": "RELIQUARY KEY",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market or as part of a bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Railjack/Main",
+     "url": "https://wiki.warframe.com/w/Railjack/Main",
+     "revid": 2807867,
+     "quote": "A Railjack is constructed during the [[Rising Tide]] quest, which requires completion of [[The War Within]]. The building can alternatively be bypassed by purchasing the [[Starter Railjack Bundle]] in the [[Market]] for {{pc|175}}, containing a fully built Railjack, 4 Crew Member Slots, and 4 Component & Armament slots; obtaining the Railjack this way will count the Rising Tide quest as completed."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Focus/WardLensLua": {
+  "name": "Lua Unairu Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ }
 }

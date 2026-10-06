@@ -1,349 +1,961 @@
 {
-  "/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall": {
-    "name": "Corrupted Bombard Specter",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Obtain from Baro Ki'Teer.",
-        "place": "Baro Ki'Teer",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Specter",
-          "url": "https://wiki.warframe.com/w/Specter",
-          "quote": "The Corrupted Bombard Specter Blueprint was introduced as a Baro Ki'T eer exclusive specter, available for 100 and 50,000 between February 24–26, 2017 on PC."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/Consumable/StalkerBall": {
-    "name": "Stalker Specter",
-    "routes": [
-      {
-        "kind": "event",
-        "text": "Reward from the Operation: Belly of the Beast event.",
-        "place": "Nightwave and Operations",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Specter",
-          "url": "https://wiki.warframe.com/w/Specter",
-          "quote": "The Stalker Specter Blueprint was a reward from Nightwave's Nora's Mix Volume 7 and returned as a reward in Operation: Belly of the Beast."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/SelfShotgunAmmo": {
-    "name": "Shotgun Ammo Box",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it was a Login Reward.",
-        "place": "Login Rewards",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Shotgun Ammo Box",
-          "url": "https://wiki.warframe.com/w/Shotgun_Ammo_Box",
-          "quote": "This item was previously obtainable as a Login Reward."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/TeamAmmoTotem": {
-    "name": "Squad Ammo Restore (Small)",
-    "routes": [
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 500,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Ammo Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      },
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 250000,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Ammo Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/TeamEnergyTotem": {
-    "name": "Squad Energy Restore (Small)",
-    "routes": [
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 500,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Energy Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Energy_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      },
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 250000,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Energy Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Energy_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/TeamHeal": {
-    "name": "Squad Health Restore (Small)",
-    "routes": [
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 500,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Health Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      },
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 250000,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Health Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/TeamHealTotem": {
-    "name": "Squad Health Restore (Small)",
-    "routes": [
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 500,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Health Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      },
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 250000,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Health Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Restoratives/TeamShieldTotem": {
-    "name": "Squad Shield Restore (Small)",
-    "routes": [
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 500,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Shield Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Shield_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      },
-      {
-        "kind": "market",
-        "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
-        "place": "Market",
-        "price": {
-          "amount": 250000,
-          "currency": "Credits"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Squad Shield Restore",
-          "url": "https://wiki.warframe.com/w/Squad_Shield_Restore",
-          "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."
-        }
-      }
-    ]
-  },
-  "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit": {
-    "name": "Prisma Shade",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase Prisma Shade from Baro Ki'Teer for 500 Ducats and 300,000 Credits when offered.",
-        "place": "Baro Ki'Teer",
-        "price": {
-          "amount": 500,
-          "currency": "Ducats"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Baro Ki'Teer",
-          "url": "https://wiki.warframe.com/w/Baro_Ki'Teer",
-          "quote": "Prisma Shade Ducats 500 Credits 300,000"
-        }
-      }
-    ]
-  },
-  "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert": {
-    "name": "Primed Polar Magazine",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase Primed Polar Magazine unranked from Baro Ki'Teer for 390 Ducats and 210,000 Credits when it is in stock.",
-        "place": "Baro Ki'Teer",
-        "price": {
-          "amount": 390,
-          "currency": "Ducats"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Primed Polar Magazine",
-          "url": "https://wiki.warframe.com/w/Primed_Polar_Magazine",
-          "quote": "This mod can be purchased unranked from the Void Trader Baro Ki'T eer for 210,000 and 390."
-        }
-      }
-    ]
-  },
-  "/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod": {
-    "name": "Helminth Ferocity",
-    "routes": [
-      {
-        "kind": "reward",
-        "text": "Receive Helminth Ferocity by incubating a Helminth Charger.",
-        "place": "Helminth Charger",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Helminth Ferocity",
-          "url": "https://wiki.warframe.com/w/Helminth_Ferocity",
-          "quote": "This mod was unique to the Helminth Charger and was granted to players upon incubating of a Helminth Charger."
-        }
-      }
-    ]
-  },
-  "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun": {
-    "name": "Resilient Focus",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: the page says there is currently no way to obtain this mod.",
-        "place": "Unavailable",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Resilient Focus",
-          "url": "https://wiki.warframe.com/w/Resilient_Focus",
-          "quote": "There is currently no way to obtain this mod."
-        }
-      }
-    ]
-  },
-  "/Lotus/Powersuits/Excalibur/ExcaliburPrime": {
-    "name": "Excalibur Prime",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
-        "place": "Founder program",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
-        }
-      }
-    ]
-  },
-  "/Lotus/Weapons/Tenno/Archwing/Melee/VoidTraderArchsword/VTArchSwordWeapon": {
-    "name": "<ARCHWING> Prisma Veritux",
-    "routes": [
-      {
-        "kind": "vendor",
-        "text": "Purchase Prisma Veritux from Baro Ki'Teer for 550 Ducats and 150,000 Credits when it is in stock.",
-        "place": "Baro Ki'Teer",
-        "price": {
-          "amount": 550,
-          "currency": "Ducats"
-        },
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prisma Veritux",
-          "url": "https://wiki.warframe.com/w/Prisma_Veritux",
-          "quote": "The Prisma Veritux is potentially sold by Baro Ki'T eer in the Concourse section of the T ennoRelay for 150,000 and 550."
-        }
-      }
-    ]
-  },
-  "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime": {
-    "name": "Skana Prime",
-    "routes": [
-      {
-        "kind": "not_obtainable",
-        "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
-        "place": "Founder program",
-        "source": {
-          "archive": "wiki_pdf_archive",
-          "page": "Prime Resurgence",
-          "url": "https://wiki.warframe.com/w/Prime_Resurgence",
-          "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
-        }
-      }
-    ]
-  }
+ "/Lotus/Types/Restoratives/Consumable/CorruptedBombardBall": {
+  "name": "Corrupted Bombard Specter",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Obtain from Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Specter",
+     "url": "https://wiki.warframe.com/w/Specter",
+     "quote": "The Corrupted Bombard Specter Blueprint was introduced as a Baro Ki'T eer exclusive specter, available for 100 and 50,000 between February 24–26, 2017 on PC."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/Consumable/StalkerBall": {
+  "name": "Stalker Specter",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from the Operation: Belly of the Beast event.",
+    "place": "Nightwave and Operations",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Specter",
+     "url": "https://wiki.warframe.com/w/Specter",
+     "quote": "The Stalker Specter Blueprint was a reward from Nightwave's Nora's Mix Volume 7 and returned as a reward in Operation: Belly of the Beast."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/SelfShotgunAmmo": {
+  "name": "Shotgun Ammo Box",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it was a Login Reward.",
+    "place": "Login Rewards",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Shotgun Ammo Box",
+     "url": "https://wiki.warframe.com/w/Shotgun_Ammo_Box",
+     "quote": "This item was previously obtainable as a Login Reward."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/TeamAmmoTotem": {
+  "name": "Squad Ammo Restore (Small)",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 500,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Ammo Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 250000,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Ammo Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Ammo_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Ammo Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/TeamEnergyTotem": {
+  "name": "Squad Energy Restore (Small)",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 500,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Energy Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Energy_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 250000,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Energy Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Energy_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Energy Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/TeamHeal": {
+  "name": "Squad Health Restore (Small)",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 500,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Health Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 250000,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Health Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/TeamHealTotem": {
+  "name": "Squad Health Restore (Small)",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 500,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Health Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 250000,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Health Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Health_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Health Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Restoratives/TeamShieldTotem": {
+  "name": "Squad Shield Restore (Small)",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 1x blueprint from the Market for 500 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 500,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Shield Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Shield_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase its reusable 10x blueprint from the Market for 250,000 Credits.",
+    "place": "Market",
+    "price": {
+     "amount": 250000,
+     "currency": "Credits"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Squad Shield Restore",
+     "url": "https://wiki.warframe.com/w/Squad_Shield_Restore",
+     "quote": "The reusable blueprints for 1x and 10x Squad Shield Restore (Small) can be purchased from market for 500 and 250,000 respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Sentinels/SentinelPowersuits/PrismaShadePowerSuit": {
+  "name": "Prisma Shade",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase Prisma Shade from Baro Ki'Teer for 500 Ducats and 300,000 Credits when offered.",
+    "place": "Baro Ki'Teer",
+    "price": {
+     "amount": 500,
+     "currency": "Ducats"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Baro Ki'Teer",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer",
+     "quote": "Prisma Shade Ducats 500 Credits 300,000"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Archwing/Rifle/Expert/ArchwingWeaponFreezeDamageModExpert": {
+  "name": "Primed Polar Magazine",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase Primed Polar Magazine unranked from Baro Ki'Teer for 390 Ducats and 210,000 Credits when it is in stock.",
+    "place": "Baro Ki'Teer",
+    "price": {
+     "amount": 390,
+     "currency": "Ducats"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Primed Polar Magazine",
+     "url": "https://wiki.warframe.com/w/Primed_Polar_Magazine",
+     "quote": "This mod can be purchased unranked from the Void Trader Baro Ki'T eer for 210,000 and 390."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Sentinel/Kubrow/ChargerFinisherMod": {
+  "name": "Helminth Ferocity",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Receive Helminth Ferocity by incubating a Helminth Charger.",
+    "place": "Helminth Charger",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Helminth Ferocity",
+     "url": "https://wiki.warframe.com/w/Helminth_Ferocity",
+     "quote": "This mod was unique to the Helminth Charger and was granted to players upon incubating of a Helminth Charger."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Warframe/AvatarDamageResistanceStun": {
+  "name": "Resilient Focus",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: the page says there is currently no way to obtain this mod.",
+    "place": "Unavailable",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Resilient Focus",
+     "url": "https://wiki.warframe.com/w/Resilient_Focus",
+     "quote": "There is currently no way to obtain this mod."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Excalibur/ExcaliburPrime": {
+  "name": "Excalibur Prime",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
+    "place": "Founder program",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
+    }
+   }
+  ]
+ },
+ "/Lotus/Weapons/Tenno/Archwing/Melee/VoidTraderArchsword/VTArchSwordWeapon": {
+  "name": "<ARCHWING> Prisma Veritux",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase Prisma Veritux from Baro Ki'Teer for 550 Ducats and 150,000 Credits when it is in stock.",
+    "place": "Baro Ki'Teer",
+    "price": {
+     "amount": 550,
+     "currency": "Ducats"
+    },
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prisma Veritux",
+     "url": "https://wiki.warframe.com/w/Prisma_Veritux",
+     "quote": "The Prisma Veritux is potentially sold by Baro Ki'T eer in the Concourse section of the T ennoRelay for 150,000 and 550."
+    }
+   }
+  ]
+ },
+ "/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime": {
+  "name": "Skana Prime",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable: it remains exclusive to the original Founder program.",
+    "place": "Founder program",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Prime Resurgence",
+     "url": "https://wiki.warframe.com/w/Prime_Resurgence",
+     "quote": "No, Excalibur Prime, Lato Prime, and Skana Prime remain exclusive to the original Founder program."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Banshee/SonarPvPAugmentCard": {
+  "name": "Augmented Sonar",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Suda or The Perrin Sequence.",
+    "place": "Cephalon Suda / The Perrin Sequence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Resonance",
+     "url": "https://wiki.warframe.com/w/Resonance",
+     "revid": 2813420,
+     "quote": "*This mod can be acquired by attaining the rank of '''Genius''' under {{Faction|Cephalon Suda}}, or the rank of '''Partner''' under {{Faction|The Perrin Sequence}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard": {
+  "name": "Infernum",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Steel Meridian or The Perrin Sequence.",
+    "place": "Steel Meridian / The Perrin Sequence",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Infernum",
+     "url": "https://wiki.warframe.com/w/Infernum",
+     "revid": 2815139,
+     "quote": "*This mod can be acquired by attaining the rank of '''General''' under {{Faction|Steel Meridian}}, or the rank of '''Partner''' under {{Faction|The Perrin Sequence}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard": {
+  "name": "Gastroparesis",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Steel Meridian or Red Veil.",
+    "place": "Steel Meridian / Red Veil",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gastroparesis",
+     "url": "https://wiki.warframe.com/w/Gastroparesis",
+     "revid": 2816197,
+     "quote": "*This mod can be acquired by attaining the rank of '''General''' under {{Faction|Steel Meridian}}, or the rank of '''Exalted''' under {{Faction|Red Veil}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard": {
+  "name": "Cold Front",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Suda or Steel Meridian.",
+    "place": "Cephalon Suda / Steel Meridian",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Cold Front",
+     "url": "https://wiki.warframe.com/w/Cold_Front",
+     "revid": 2813483,
+     "quote": "*This mod can be acquired by attaining the rank of '''General''' under {{Faction|Steel Meridian}}, or the rank of '''Genius''' under {{Faction|Cephalon Suda}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Powersuits/Oraxia/BroodAugmentCard": {
+  "name": "Brood's Oversurge",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Suda or New Loka.",
+    "place": "Cephalon Suda / New Loka",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Brood's Oversurge",
+     "url": "https://wiki.warframe.com/w/Brood's_Oversurge",
+     "revid": 2815754,
+     "quote": "*'''Brood's Oversurge''' can be acquired by attaining the rank of '''Genius''' under {{Faction|Cephalon Suda}}, or the rank of '''Flawless''' under {{Faction|New Loka}}, and spending {{sc|25,000}} to purchase."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod": {
+  "name": "Prototype Shock Coils",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Amir's Shockwave Nightwave.",
+    "place": "Amir's Shockwave Nightwave",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Prototype Shock Coils",
+     "url": "https://wiki.warframe.com/w/Prototype_Shock_Coils",
+     "revid": 2814671,
+     "quote": "* '''Prototype Shock Coils''' can be obtained by reaching Rank 10 with [[Nightwave]] during [[Nightwave/Amir's Shockwave|Amir's Shockwave]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveLasGooAKAugmentMod": {
+  "name": "Overpressured Rounds",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Reward from Amir's Shockwave Nightwave.",
+    "place": "Amir's Shockwave Nightwave",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Overpressured Rounds",
+     "url": "https://wiki.warframe.com/w/Overpressured_Rounds",
+     "revid": 2814672,
+     "quote": "* '''Overpressured Rounds''' can be obtained by reaching Rank 25 with [[Nightwave]] during [[Nightwave/Amir's Shockwave|Amir's Shockwave]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert": {
+  "name": "Primed Charged Chamber",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Primed Chamber",
+     "url": "https://wiki.warframe.com/w/Primed_Chamber",
+     "revid": 2798700,
+     "quote": "*This mod can be purchased '''unranked''' from [[Baro Ki'Teer]] for {{dc|2,995}} and {{cc|1,000,000}}. Note however that Baro Ki'Teer's stock changes with each appearance, and may not have this item available every time."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T3VoidProjectionVoltOdonataPrimeBronze": {
+  "name": "Neo O1 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic\n|Axi M5 Relic\n|Axi V8 Relic\n|Neo O1 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionBaroAkmagnusPrimeBronze": {
+  "name": "Axi M5 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic\n|Axi M5 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionMagNovaVaultBBronze": {
+  "name": "Axi A5 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionPBronze": {
+  "name": "Axi A2 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/Projections/T4VoidProjectionVoltOdonataPrimeBronze": {
+  "name": "Axi V8 Intact",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Sold by Baro Ki'Teer.",
+    "place": "Baro Ki'Teer",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Baro Ki'Teer/TennoCon Items",
+     "url": "https://wiki.warframe.com/w/Baro_Ki'Teer/TennoCon_Items",
+     "revid": 2814764,
+     "quote": "Baro's '''TennoCon Relay''' was open from July 11, 2026, at 11 a.m. ET to July 18, 2026, at 11 a.m. ET.<br>*''{{Resource|Baro's Relay Ticket}} is required''</div>\n{{PrettyCollapsible\n|Width_Collapsed=100%\n|Width_Expanded=100%\n|Height=28px\n|Icon=none\n|Icon_Size=25px\n|Icon_Space=3px\n|Title=View Tennocon 2026}}<div class=\"NavFrame tabber-borderless\" style=\"position: relative;\">{{Edit|Baro Ki'Teer/TennoCon Items}}\n<div class=\"noSelect\" style=\"position: absolute; top: 28px; right: 2px;\">[[Baro Ki'Teer/Trades|<span class=\"mw-ui-button mw-ui-progressive;\" style=\"font-size: 15px;\">Item Planner</span>]]</div>\n{{BaroCurrentOfferings|buildCurrentOfferings|allItems=false|extraItems=true\n|Verminia Cosplay Community Display\n|Singing Lotus Community Glyph\n|Exploration Poster\n|Primed Expel The Murmur\n|The New War Login Music\n|Primed Cleanse The Murmur\n|Domestik Ki'Teer Drone (Lavender Ice)\n|Primed Bane of The Murmur\n|The Seven Crimes of Kullervo Login Music\n|Kuva Glyph\n|Atrox Gene-Masking Kit\n|Prisma Livery\n|Primed Venomous Clip\n|Lua's Prey Login Music\n|Koumei Dice Glyph\n|Hellshell Domestik Drone\n|Primed Ammo Chain\n|Murmur Glyph\n|The Sacrifice Login Music\n|Loid Floof\n|Necraloid Floof\n|Xoris Elixis Skin\n|Primed Combustion Rounds\n|Veilbreaker Login Music\n|Grineer Glyph\n|Jade Immortal Skin\n|Boar Elixis Skin\n|Noggle Statue - Prime Grineer\n|Community Clem Comic Glyph\n|1999 Drippy Glyph\n|Ava-Clem Community Glyph\n|Flare Varleon & Lizzie Poster Display\n|Primed Chamber\n|TennoCon Crt Glyph\n|TennoCon Crt Emote\n|3 Day Affinity Booster\n|3 Day Credit Booster\n|3 Day Mod Drop Chance Booster\n|3 Day Resource Booster\n|Astral Twilight\n|Buzz Kill\n|Collision Force\n|Combo Fury\n|Combo Killer\n|Crash Course\n|Fanged Fusillade\n|Full Contact\n|High Voltage\n|Jolt\n|Maim\n|Mark of the Beast\n|Primed Animal Instinct\n|Primed Bane of Corpus\n|Primed Bane of Orokin\n|Primed Bane of Grineer\n|Primed Bane of Infested\n|Primed Charged Shell\n|Primed Chilling Grasp\n|Primed Cleanse Corpus\n|Primed Cleanse Orokin\n|Primed Cleanse Grineer\n|Primed Cleanse Infested\n|Primed Continuity\n|Primed Cryo Rounds\n|Primed Expel Corpus\n|Primed Expel Orokin\n|Primed Expel Grineer\n|Primed Expel Infested\n|Primed Fast Hands\n|Primed Fever Strike\n|Primed Flow\n|Primed Heated Charge\n|Primed Heavy Trauma\n|Primed Morphic Transformer\n|Primed Pack Leader\n|Primed Pistol Ammo Mutation\n|Primed Pistol Gambit\n|Primed Sniper Ammo Mutation\n|Primed Point Blank\n|Primed Pressure Point\n|Primed Quickdraw\n|Primed Ravage\n|Primed Regen\n|Primed Reach\n|Primed Rifle Ammo Mutation\n|Primed Rubedo-Lined Barrel\n|Primed Shotgun Ammo Mutation\n|Primed Slip Magazine\n|Primed Smite Corpus\n|Primed Smite Orokin\n|Primed Smite Grineer\n|Primed Smite Infested\n|Primed Tactical Pump\n|Primed Target Cracker\n|Pummel\n|Scattering Inferno\n|Scorch\n|Shell Shock\n|Split Flights\n|Sweeping Serration\n|Tempo Royale\n|Thermite Rounds\n|Vermillion Storm\n|Volcanic Edge\n|Voltaic Strike\n|Primed Fulmination\n|Primed Steady Hands\n|Primed Stabilizer\n|Primed Counterbalance\n|Primed Smite The Murmur\n|Primed Magazine Warp\n|Primed Redirection\n|Primed Firestorm\n|Primed Convulsion\n|Primed Ammo Stock\n|Primed Dual Rounds\n|Primed Deadly Efficiency\n|Aged Claret of Denas\n|Akka Luxxum Ornament\n|Altra Sentinel Mask\n|Altra Sentinel Skin\n|Altra Sentinel Tail\n|Altra Sentinel Wings\n|Anpu Staff Skin\n|Anpu Sugatra\n|Archwing Articula\n|Asra Luxxum Ornament\n|Axi A2 Relic\n|Axi A5 Relic\n|Axi M5 Relic\n|Axi V8 Relic"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Components/RelayThermicStrutBlueprint": {
+  "name": "Relay Strut Component",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "This item can be crafted from Trembera Essence.",
+    "place": "Foundry",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Relay Strut Component",
+     "url": "https://wiki.warframe.com/w/Relay_Strut_Component",
+     "revid": 2660284,
+     "quote": "'''{{PAGENAME}}''' can be crafted from {{Resource|Trembera Essence}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/AttackLensLuaBlueprint": {
+  "name": "Lua Madurai Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/DefenseLensLuaBlueprint": {
+  "name": "Lua Vazarin Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/PowerLensLuaBlueprint": {
+  "name": "Lua Zenurik Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/TacticLensLuaBlueprint": {
+  "name": "Lua Naramon Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Lens/WardLensLuaBlueprint": {
+  "name": "Lua Unairu Lens",
+  "routes": [
+   {
+    "kind": "drop",
+    "text": "Blueprint reward from Rotation C Lua Disruption.",
+    "place": "Lua Disruption",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lua Lens",
+     "url": "https://wiki.warframe.com/w/Lua_Lens",
+     "revid": 2797097,
+     "quote": "Their blueprint can be acquired as a Rotation C [[Lua]] [[Disruption]] reward or traded between players. Lua Lenses require an '''[[Eidolon Lens|Eidolon Focus Lens]]''' from any of the 5 Focus Schools to craft."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowGripBlueprint": {
+  "name": "Nunchasa Grip",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowLowerLimbBlueprint": {
+  "name": "Nunchasa Lower Limb",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowStringBlueprint": {
+  "name": "Nunchasa String",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistBowUpperLimbBlueprint": {
+  "name": "Nunchasa Upper Limb",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nunchasa",
+     "url": "https://wiki.warframe.com/w/Nunchasa",
+     "revid": 2815963,
+     "quote": "Nunchasa's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistPistolsBarrelBlueprint": {
+  "name": "Aksondol Barrel",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica or Son.",
+    "place": "Cephalon Melica / Son",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Aksondol",
+     "url": "https://wiki.warframe.com/w/Aksondol",
+     "revid": 2815581,
+     "quote": "Aksondol's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistPistolsLinkBlueprint": {
+  "name": "Aksondol Link",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica or Son.",
+    "place": "Cephalon Melica / Son",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Aksondol",
+     "url": "https://wiki.warframe.com/w/Aksondol",
+     "revid": 2815581,
+     "quote": "Aksondol's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/DuelistPistolsReceiverBlueprint": {
+  "name": "Aksondol Receiver",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase from Cephalon Melica or Son.",
+    "place": "Cephalon Melica / Son",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Aksondol",
+     "url": "https://wiki.warframe.com/w/Aksondol",
+     "revid": 2815581,
+     "quote": "Aksondol's blueprints can be purchased from [[Cephalon Melica]] on [[Yuvan Peak]], [[Earth]], or the [[Chrysalith]], [[Zariman Ten Zero]], for {{Resource|Entropic Kuva}}, which are dropped by [[Entropic Eximus]] in the Zariman."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBladeBlueprint": {
+  "name": "Dorrclave Blade",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's cons",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dorrclave",
+     "url": "https://wiki.warframe.com/w/Dorrclave",
+     "revid": 2812872,
+     "quote": "Dorrclave's main and component blueprints are acquired from [[Research/Dagath's Hollow|Dagath's Hollow]] within the [[Clan Dojo]]. Unlike most Clan Dojo rooms, Dorrclave does not require [[Research]] and can be acquired immediately following the room's construction."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipHiltBlueprint": {
+  "name": "Dorrclave Hilt",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's cons",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dorrclave",
+     "url": "https://wiki.warframe.com/w/Dorrclave",
+     "revid": 2812872,
+     "quote": "Dorrclave's main and component blueprints are acquired from [[Research/Dagath's Hollow|Dagath's Hollow]] within the [[Clan Dojo]]. Unlike most Clan Dojo rooms, Dorrclave does not require [[Research]] and can be acquired immediately following the room's construction."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipStringBlueprint": {
+  "name": "Dorrclave String",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Dorrclave's main and component blueprints are acquired from Dagath's Hollow within the Clan Dojo. Unlike most Clan Dojo rooms, Dorrclave does not require Research and can be acquired immediately following the room's cons",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Dorrclave",
+     "url": "https://wiki.warframe.com/w/Dorrclave",
+     "revid": 2812872,
+     "quote": "Dorrclave's main and component blueprints are acquired from [[Research/Dagath's Hollow|Dagath's Hollow]] within the [[Clan Dojo]]. Unlike most Clan Dojo rooms, Dorrclave does not require [[Research]] and can be acquired immediately following the room's construction."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/ZanukaPetParts/ZanukaPetPartBodyBBlueprint": {
+  "name": "Garmr Core",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gammacor",
+     "url": "https://wiki.warframe.com/w/Gammacor",
+     "revid": 2815272,
+     "quote": "The Gammacor's blueprint can be purchased from the [[Market]]. Alternatively, it can be acquired from completing the [[Uranus]] to [[Neptune]] [[Junction]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBDeckBlueprint": {
+  "name": "Feverspine",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Blueprint reward from the K-Drive Race \"Dead Drop\".",
+    "place": "K-Drive Race",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Feverspine",
+     "url": "https://wiki.warframe.com/w/Feverspine",
+     "revid": 2747557,
+     "quote": "The blueprint can be acquired by completing the [[K-Drive Race]] '''\"Dead Drop\"''' on the [[Cambion Drift]]. Note: Active races rotate on a daily basis and thus it is not available every day."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBEngineBlueprint": {
+  "name": "Gristlebuck",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Blueprint reward from the K-Drive Race \"Muck and Mire\".",
+    "place": "K-Drive Race",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Gristlebuck",
+     "url": "https://wiki.warframe.com/w/Gristlebuck",
+     "revid": 2248096,
+     "quote": "The blueprint can be acquired by completing the [[K-Drive Race]] '''\"Muck and Mire\"''' on the [[Cambion Drift]]. Note: Active races rotate on a daily basis and thus it is not available every day."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Vehicles/Hoverboard/HoverboardParts/PartComponents/HoverboardInfestedB/HoverboardInfestedBFrontBlueprint": {
+  "name": "Nodulite",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Blueprint reward from the K-Drive Race \"Exocrine Flow\".",
+    "place": "K-Drive Race",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Nodulite",
+     "url": "https://wiki.warframe.com/w/Nodulite",
+     "revid": 2216780,
+     "quote": "The blueprint can be acquired by completing the [[K-Drive Race]] '''\"Exocrine Flow\"''' on the [[Cambion Drift]]. Note: Active races rotate on a daily basis and thus it is not available every day."
+    }
+   }
+  ]
+ },
+ "SolNode139": {
+  "name": "Lex",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Lex",
+     "url": "https://wiki.warframe.com/w/Lex",
+     "revid": 2796601,
+     "quote": "A built Lex can be purchased from the [[Market]] for {{cc|50,000}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Keys/ProteaQuest/ProteaQuestMissionFour": {
+  "name": "THE XORIS",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "The blueprint, core, handle, and blade are all obtained during The Deadlock Protocol. Additional blueprints and parts can be bought from Cephalon Simaris and respectively.",
+    "place": "Blueprint reward",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Xoris",
+     "url": "https://wiki.warframe.com/w/Xoris",
+     "revid": 2804714,
+     "quote": "The blueprint, core, handle, and blade are all obtained during [[The Deadlock Protocol]]. Additional blueprints and parts can be bought from [[Cephalon Simaris]] for {{sc|100,000}} and {{sc|15,000}} respectively."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Keys/VeyHekKey": {
+  "name": "Vay Hek Frequency Triangulator",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchasable from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki_store",
+     "page": "Vay Hek Frequency Triangulator",
+     "url": "https://wiki.warframe.com/w/Vay_Hek_Frequency_Triangulator",
+     "revid": 2224966,
+     "quote": "The Triangulator's blueprint was obtained from the Lotus in an inbox message, with duplicate blueprints available in the [[Market]]. The resources needed to craft the key were [[Beacons (Prosecutor)|Beacons]] (not to be confused with the [[Gear]] item), which could be obtained from [[Guardsman#Variants|Prosecutors]] in the [[Grineer Shipyard|Grineer Shipyards]] on [[Ceres]]. Prosecutors would drop 1-2 Beacons of one type each, with Delta Beacons being the rarest. The Prosecutor's element did not affect which Beacon dropped."
+    }
+   }
+  ]
+ }
 }

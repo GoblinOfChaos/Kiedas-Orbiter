@@ -1,0 +1,112 @@
+# Wiki route skips
+
+- **Haalvu** (/Lotus/Weapons/Sentients/SentOctaMiniGun/SentOctaMiniGun): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Lato Prime** (/Lotus/Weapons/Tenno/Pistol/LatoPrime): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Augmented Sonar** (/Lotus/Powersuits/Banshee/SonarPvPAugmentCard): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Infernum** (/Lotus/Powersuits/DemonFrame/DemonFrameFireBallAugmentCard): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Gastroparesis** (/Lotus/Powersuits/Devourer/DevourerPassiveAugmentCard): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Cold Front** (/Lotus/Powersuits/Frost/IceShieldAugmentTwoCard): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Brood's Oversurge** (/Lotus/Powersuits/Oraxia/BroodAugmentCard): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Prototype Shock Coils** (/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Overpressured Rounds** (/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveLasGooAKAugmentMod): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Primed Charged Chamber** (/Lotus/Upgrades/Mods/Rifle/Expert/SniperReloadDamageModExpert): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Techrot Shoulder Plates** (/Lotus/Upgrades/Skins/Armor/Inf1999Armor/Inf1999ArmorA): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Techrot Chest Plate** (/Lotus/Upgrades/Skins/Armor/Inf1999Armor/Inf1999ArmorC): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Techrot Leg Plates** (/Lotus/Upgrades/Skins/Armor/Inf1999Armor/Inf1999ArmorL): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Frakta Shoulder Guard** (/Lotus/Upgrades/Skins/Armor/NWIIIBossArmor/NWIIIBossAArmor): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Opula Shoulder Armor** (/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Opula Chest Armor** (/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Opula Leg Armor** (/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Naktavyre Shoulder Armor** (/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorA): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Naktavyre Chest Armor** (/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorC): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Naktavyre Leg Armor** (/Lotus/Upgrades/Skins/Armor/SentNewWarArmor/SentNewWarArmorL): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Naimore Shoulder Plates** (/Lotus/Upgrades/Skins/Armor/TnIceArmor/TnIceArmorA): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Naimore Chest Plate** (/Lotus/Upgrades/Skins/Armor/TnIceArmor/TnIceArmorC): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Naimore Leg Plates** (/Lotus/Upgrades/Skins/Armor/TnIceArmor/TnIceArmorL): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Xaku Raya Helmet** (/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Jade Coven Skin** (/Lotus/Upgrades/Skins/Choir/SWCovenJadeSkin): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Mandonel Chythedra Skin** (/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Qorvex Basilica Helmet** (/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Qorvex Basilica Skin** (/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Isageum Signa** (/Lotus/Upgrades/Skins/Crowns/DuelistCrown): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Conquera Cateura Signa** (/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Gothica Signa** (/Lotus/Upgrades/Skins/Crowns/SWGothicaSignaCrown): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Vermis Signa** (/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Banshee Threnodia Helmet** (/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Banshee Threnodia Skin** (/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Narin Baridegi Helmet** (/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Conquera III Ephemera** (/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Gangrim Ephemera** (/Lotus/Upgrades/Skins/Effects/DuelistEphemera): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Belfri Ephemera** (/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lacera Scorn Skin** (/Lotus/Upgrades/Skins/Events/AcolyteStalkerMios): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Excalibur Dex Skin** (/Lotus/Upgrades/Skins/Excalibur/ExcaliburDexSkin): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Glaxion Festive Skin** (/Lotus/Upgrades/Skins/Festivities/XmasGlaxion): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Citrine Heliotropia Helmet** (/Lotus/Upgrades/Skins/Geode/SWCitrineHeliotropiaHelmet): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Silva & Aegis Day of the Dead Skin** (/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Hespar Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/CNY2025ScytheSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Nukor Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/LNY2024Nukor): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Ogris Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/LNY2024Ogris): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Boltor Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/LNY2025BoltorSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Acceltra Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020AcceltraSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Orthos Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020OrthosSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Pyrana Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/Lunar2020PyranaSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Cedo Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023CedoSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Cernos Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023CernosSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Nagantaka Lunaeus Skin** (/Lotus/Upgrades/Skins/LunarNewYear/Lunar2023NagantakaSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Boolean Sugatra** (/Lotus/Upgrades/Skins/MeleeDangles/CephalonSugatraDangle): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Pyra Opula Sugatra** (/Lotus/Upgrades/Skins/MeleeDangles/FireMeleeDangleRefresh): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Alumeti Prime Sugatra** (/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Jack O'Naut Keychain Sugatra** (/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Arca Titron Raya Skin** (/Lotus/Upgrades/Skins/Nightwave/CosmosArcaTitronSkin): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Nvidia Braton** (/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lunaeus Machete Skin** (/Lotus/Upgrades/Skins/Promo/WeGame/WeGameMacheteSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Rhino Dex Skin** (/Lotus/Upgrades/Skins/Rhino/RhinoDexSkin): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Boolean Syandana** (/Lotus/Upgrades/Skins/Scarves/CephSyandana): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Durumi Syandana** (/Lotus/Upgrades/Skins/Scarves/DuelistSyandana): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Pyra Opula Syandana** (/Lotus/Upgrades/Skins/Scarves/FlameScarfRefresh): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Abrasys Day of the Dead Syandana** (/Lotus/Upgrades/Skins/Scarves/HalloweenErosionCape): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Igaro Day of the Dead Syandana** (/Lotus/Upgrades/Skins/Scarves/HalloweenFireFlyScarf): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Vanquished Banner Day of the Dead** (/Lotus/Upgrades/Skins/Scarves/HalloweenGrnBannerScarf): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Kyroptera Day of the Dead Syandana** (/Lotus/Upgrades/Skins/Scarves/HalloweenKyropteraScarf): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Imperator Festive Syandana** (/Lotus/Upgrades/Skins/Scarves/HolidayTurtleNeckScarf): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Globakk Syandana** (/Lotus/Upgrades/Skins/Scarves/LasNightwaveCape): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Sphatika Prime Syandana** (/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Garkulek Syandana** (/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Reliquia Syandana** (/Lotus/Upgrades/Skins/Scarves/SWReliquiaSyandana): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Gast Sentinel Mask** (/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Dragondance Sentinel Mask** (/Lotus/Upgrades/Skins/Sentinels/Masks/LNYDragonMask): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Gast Sentinel Skin** (/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Dragondance Sentinel Skin** (/Lotus/Upgrades/Skins/Sentinels/Skins/LNYDragonSentinelSkin): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Gast Sentinel Tail** (/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Dragondance Sentinel Tail** (/Lotus/Upgrades/Skins/Sentinels/Tails/LNYDragonTail): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Gast Sentinel Wings** (/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Dragondance Sentinel Wings** (/Lotus/Upgrades/Skins/Sentinels/Wings/LNYDragonWings): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Amir's Shades** (/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Kyndryn Gunblade Skin** (/Lotus/Upgrades/Skins/Weapons/Redeemer/TnSpikeGunbladeSkin): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Wisp Dex Skin** (/Lotus/Upgrades/Skins/Wisp/DexWispSkin): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Kalsawi Emote** (/Lotus/Types/Items/Emotes/DuelistEmote): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Universal Gemini Emote** (/Lotus/Types/Items/Emotes/GeminiEmote): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Banshee Sonatus Glyph** (/Lotus/Types/StoreItems/AvatarImages/BansheeDeluxeGlyph): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Red/white/blue** (/Lotus/Types/StoreItems/SuitCustomizations/ColourPickerRWBItem): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Phasic Cells** (/Lotus/Types/Items/MiscItems/MechSurvivalEventCreds): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Icebound Neote Decoration** (/Lotus/Types/Items/ShipDecos/Props/LisetPropIceblade): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **RELIQUARY KEY** (/Lotus/Types/Items/ShipFeatureItems/RailjackKeyShipFeatureItem): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lua Unairu Lens** (/Lotus/Upgrades/Focus/WardLensLua): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lua Madurai Lens** (/Lotus/Types/Recipes/Lens/AttackLensLuaBlueprint): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lua Vazarin Lens** (/Lotus/Types/Recipes/Lens/DefenseLensLuaBlueprint): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lua Zenurik Lens** (/Lotus/Types/Recipes/Lens/PowerLensLuaBlueprint): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lua Naramon Lens** (/Lotus/Types/Recipes/Lens/TacticLensLuaBlueprint): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lua Unairu Lens** (/Lotus/Types/Recipes/Lens/WardLensLuaBlueprint): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Lex** (SolNode139): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Vesper Relay** (SolNode239): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Recall: Hunhullus** (SolNode250): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Recall: Dactolyst** (SolNode251): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Isleweaver** (/Lotus/Types/Keys/DuviriMITW/DuviriMITWEventKey): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Isleweaver** (/Lotus/Types/Keys/DuviriMITW/DuviriMITWKey): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Operation: Orphix Venom** (/Lotus/Types/Keys/MechSurvivalCorpusShip): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Operation: Orphix Venom** (/Lotus/Types/Keys/MechSurvivalCorpusShipEndurance): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Operation: Orphix Venom** (/Lotus/Types/Keys/MechSurvivalGasCity): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Operation: Orphix Venom** (/Lotus/Types/Keys/MechSurvivalGrineerGalleon): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **Operation: Orphix Venom** (/Lotus/Types/Keys/MechSurvivalGrineerGalleonEndurance): A clean fact was selected, but no verbatim page quote and current route could be constructed without guessing.
+- **THE XORIS** (/Lotus/Types/Keys/ProteaQuest/ProteaQuestMissionFour): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.
+- **Vay Hek Frequency Triangulator** (/Lotus/Types/Keys/VeyHekKey): Partial route: the source contains a number or template value; the generated sentence deliberately drops that value.

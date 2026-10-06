@@ -15,6 +15,9 @@ function stringValues(value, path = [], result = []) {
 
 test('wiki templates expand to plain acquisition words or fail as one sentence', () => {
   assert.equal(expandWikiTemplates('{{pc|30}} for 1500 [[Alloy Plate]].'), '30 Platinum for 1500 [[Alloy Plate]].')
+  assert.equal(expandWikiTemplates('{{Nc|20}}'), '20 creds')
+  assert.equal(expandWikiTemplates('{{Nc|20}} creds'), '20 creds')
+  assert.equal(expandWikiTemplates('{{dc|410}}'), '410 Ducats')
   assert.equal(expandWikiTemplates('{{Resource|Pathos Clamp|Pathos Clamps}}'), 'Pathos Clamps')
   assert.equal(expandWikiTemplates('{{D|Electricity}} {{WF|Ash}} {{M|Mod name}} {{Companion|Kubrow}}'), 'Electricity Ash Mod name Kubrow')
   assert.equal(expandWikiTemplates('{{unknown-template|value}}'), null)

@@ -30,8 +30,10 @@ fi
 
 echo "DELEGATING: provider=$provider model=$model effort=${effort:-default} cost=\"$cost\"" >&2
 
+mkdir -p "$HOME/.cache/codex-tmp"   # Codex temp files go to DISK: /tmp is RAM (tmpfs) and counts against the memory cap
+
 case $provider in
-  codex) exec flatpak-spawn --host --directory="$PWD" systemd-run --user --scope --quiet --slice=claude-agent.slice nice -n 19 ionice -c3 codex exec -m "$model" ${effort:+-c "model_reasoning_effort=\"$effort\""} "$@";;
+  codex) exec flatpak-spawn --host --directory="$PWD" systemd-run --user --scope --quiet --slice=claude-agent.slice --setenv=TMPDIR="$HOME/.cache/codex-tmp" nice -n 19 ionice -c3 codex exec -m "$model" ${effort:+-c "model_reasoning_effort=\"$effort\""} "$@";;
   agy)   exec nice -n 19 agy --model "$model" ${effort:+--effort "$effort"} "$@";;
   *)     usage;;
 esac

@@ -31,7 +31,9 @@ cwd = data.get("cwd") or ""
 if not command:
     sys.exit(0)
 
-SLICE = "systemd-run --user --scope --quiet --slice=claude-agent.slice"
+# TMPDIR on disk: /tmp is RAM (tmpfs) and files there count against the cap (21 GB of leftover
+# proof copies filled it on 2026-10-06 and got small processes OOM-killed).
+SLICE = "systemd-run --user --scope --quiet --slice=claude-agent.slice --setenv=TMPDIR=/home/jedwards/.cache/claude-tmp"
 
 # Already capped, or capped by its own launcher (delegate/delegate-run join the slice themselves).
 if "claude-agent.slice" in command or "systemd-run" in command or ".claude/bin/delegate" in command:

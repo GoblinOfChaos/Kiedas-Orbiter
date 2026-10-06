@@ -13,3 +13,6 @@ Set up 2026-10-06 after repeated out-of-memory freezes. Evidence: the kernel log
 
 Test rule (also in briefs COMMON.md and HANDOFF.md): always `node --test --test-concurrency=2` (real-data tests load ~1 GB per process; Node's default is one per CPU core).
 Not covered: subagents, MCP servers, the editor's Codex app-server, Claude Code itself.
+
+## Addendum 2026-10-06 14:30: /tmp is RAM and was the thing filling the cap
+At 14:22 two kernel out-of-memory warnings fired inside the shared slice although the running programs used only ~260 MB. `memory.stat` showed 9.7 GB of `shmem`: `/tmp` is tmpfs on this machine and held 21 GB, mostly ~2.1 GB "before" proof copies of the repo that Codex jobs made (`git archive HEAD`) and never deleted, plus test temp folders. Fixes: the stale folders were deleted by exact name (21 GB -> 0.4 GB); `delegate` now runs Codex with `TMPDIR=~/.cache/codex-tmp` and `cap-memory.sh` runs wrapped commands with `TMPDIR=~/.cache/claude-tmp` (both on disk); COMMON.md rule 5 forbids temp copies in /tmp and requires deleting them. Check any time: `df -h /tmp` and the slice's `memory.stat` (shmem).

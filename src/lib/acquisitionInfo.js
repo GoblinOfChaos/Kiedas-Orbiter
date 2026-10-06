@@ -1503,6 +1503,14 @@ function buildResourceSources(displayName, wikiResource, deSources, supplemental
   return sources;
 }
 
+function legacyResourceText(location) {
+  const text = String(location || '').trim().replace(/[.]+$/, '')
+  if (/^(?:available|awarded|possible reward|rewarded|purchased|sold|obtained|acquired|can be)\b/i.test(text)) {
+    return `${text}.`
+  }
+  return `Found at ${text}.`
+}
+
 function getBundledResourceDrops(uniqueName) {
   const item = bundledWarframeAcquisitionIndex.get(canonicalPath(uniqueName));
   if (!Array.isArray(item?.drops)) return null;
@@ -2021,7 +2029,7 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
   const bundledResource = bundledWikiResourceSourcesIndex.get(displayLower)
     || (() => {
       const legacy = wikiResourceIndex?.get(displayLower) || bundledWikiResourceIndex.get(displayLower);
-      return legacy?.location ? { foundText: `Found at ${legacy.location}.`, drops: [], otherSections: [], url: getWikiLink(dropIndexKey, displayName)?.url } : null;
+      return legacy?.location ? { foundText: legacyResourceText(legacy.location), drops: [], otherSections: [], url: getWikiLink(dropIndexKey, displayName)?.url } : null;
     })();
   if (resourceRoute
     && (dropSources.length > 0 || itemDrops?.length > 0 || bundledResource)) {

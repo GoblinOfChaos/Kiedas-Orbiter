@@ -219,6 +219,7 @@ export function toCurrentSourceSentences(rawText) {
     }
     const sentence = normalizeRouteSentence(removeHistoricalClauses(residueFree.text)
       .replace(/\s+([,.;:!?])/g, '$1')
+      .replace(/\.{2,}/g, '.')
       .replace(/\s{2,}/g, ' ')
       .trim())
     if (!sentence || isHistoricalClause(sentence) || isUnclean(sentence)) {

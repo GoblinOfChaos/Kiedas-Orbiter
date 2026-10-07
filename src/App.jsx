@@ -17,7 +17,7 @@ import { IS_PREVIEW } from './lib/buildProfile';
 import PreviewAppShell from './preview/shell/PreviewAppShell';
 import { NAV_ICON_NAMES, STABLE_NAV_ITEMS } from './preview/navigation';
 import { ErrorBoundary, CriticalLoadErrorScreen } from './components/ErrorBoundary';
-import { installUiDelegation } from './lib/logging/logger';
+import { event, installUiDelegation } from './lib/logging/logger';
 import { WikiNavigationProvider } from './contexts/WikiNavigationContext';
 import { buildScannerHookedNotification } from './lib/scannerNotification';
 
@@ -256,9 +256,12 @@ function AppContent() {
   const [scannerStatus, setScannerStatus] = useState('idle'); // 'idle' | 'waiting' | 'active'
 
   const { uiIcon } = useUIIcons(NAV_ICON_NAMES);
-  const { t } = useUi();
+  const { t, ready } = useUi();
   const scannerTRef = useRef(t);
   scannerTRef.current = t;
+  const scannerReadyRef = useRef(ready);
+  scannerReadyRef.current = ready;
+  const scannerHookedPendingRef = useRef(false);
 
   useEffect(() => installUiDelegation(document), []);
   useEffect(() => {
@@ -274,10 +277,23 @@ function AppContent() {
   // Show toast when scanner latches onto Warframe (single notification, main window only)
   useEffect(() => {
     const unsub = listen('scanner-hooked', () => {
+      if (!scannerReadyRef.current) {
+        scannerHookedPendingRef.current = true;
+        event('scanner.notification.deferred', { status: 'locale_not_ready' });
+        return;
+      }
+      event('scanner.notification.shown', { status: 'shown' });
       invoke('show_notification', buildScannerHookedNotification(scannerTRef.current)).catch(() => {});
     });
     return () => {unsub.then((f) => f());};
   }, []);
+
+  useEffect(() => {
+    if (!ready || !scannerHookedPendingRef.current) return;
+    scannerHookedPendingRef.current = false;
+    event('scanner.notification.shown', { status: 'shown' });
+    invoke('show_notification', buildScannerHookedNotification(scannerTRef.current)).catch(() => {});
+  }, [ready]);
 
   // Toggle .sidebar-mode on <body> when entering/exiting sidebar mode
   useEffect(() => {

@@ -50,11 +50,11 @@ function makePart(name, index, extra = {}) {
   return { name, unique_name: `/part-${index}`, image: `/part-${index}.png`, quantity: 0, need: 1, ...extra }
 }
 
-function renderCard(PrimeSetCard, UiContext, cardSet, dropIndex = {}) {
+function renderCard(PrimeSetCard, UiContext, cardSet, dropIndex = {}, exportData = {}) {
   return renderToString(React.createElement(UiContext.Provider, {
     value: { t, ui: {}, locale: 'en', ready: true, i18nData: null },
   }, React.createElement(PrimeSetCard, {
-    set: cardSet, primePrices: {}, isPriceLoading: false, dropIndex, uiPath: '',
+    set: cardSet, primePrices: {}, isPriceLoading: false, dropIndex, exportData, uiPath: '',
     resolveImgFallback: null, toggle: () => {}, t,
   })))
 }
@@ -95,9 +95,15 @@ test('SSR keeps five and six part grids shrink-safe and wraps at the cell minimu
   }
   const source = [{ type: 'relic', relicName: 'Lith', rarity: 'common' }]
   const sourceIndex = { '/part-1': source, '/part-6': source }
+  const exportData = {
+    ExportRecipes: {}, ExportRewards: {},
+    ExportRelics: {
+      '/Relics/LithA1': { name: 'Lith A1 Relic', relicRewards: [1, 2, 3, 4, 5, 6].map((index) => ({ rewardName: `/part-${index}`, rarity: 'COMMON' })) },
+    },
+  }
 
   for (const cardSet of [fivePartSet, sixPartSet]) {
-    const html = renderCard(PrimeSetCard, UiContext, cardSet, sourceIndex)
+    const html = renderCard(PrimeSetCard, UiContext, cardSet, sourceIndex, exportData)
     assert.match(html, /repeat\(auto-fit, minmax\(min\(64px, 100%\), 1fr\)\)/)
     assert.doesNotMatch(html, /repeat\(\d+,\s*1fr\)/)
     assert.match(html, /min-w-0[^\"]*break-words/)

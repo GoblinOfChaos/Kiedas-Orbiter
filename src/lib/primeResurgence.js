@@ -1,5 +1,6 @@
-import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
+import { relicRewardPool } from './relicEntry.js'
 import { compareText } from './textCompare.js'
+import { buildItemRelics } from './acquisitionModel/buildItemAcquisition.js'
 const PRIME_REWARD_RE = /Prime.*(?:Blueprint|Barrel|Receiver|Stock|Blade|Handle|Link|Gauntlet|Head|Disc|Grip|Boot|Chain|String|UpperLimb|LowerLimb|Carapace|Cerebrum|Systems|Chassis|Neuroptics|Guard|Hilt|Ornament|Stars|Holster|Pouch|Band)$/i
 
 export function canonicalPrimePath(value) {
@@ -67,27 +68,27 @@ function inventoryIndex(inventoryData) {
 
 function partIsPrime(uniqueName) { return PRIME_REWARD_RE.test(uniqueName?.split('/').pop() || '') }
 
+export function buildPrimeResurgenceRelics(uniqueName, exportData) {
+  return buildItemRelics(uniqueName, { exportData }).map(({ relic }) => relic)
+}
+
 export function buildPrimeResurgenceModel(trader, exportData, inventoryData) {
   if (!trader?.inventory || !exportData) return { equipment: [], cosmetics: [], bundles: [] }
   const relics = exportData.ExportRelics || {}
   const rewards = exportData.ExportRewards || {}
   const recipes = recipeIndex(exportData)
   const owned = inventoryIndex(inventoryData)
-  const rewardToRelics = new Map()
   const rewardTypes = new Map()
+  const modelRelics = (uniqueName) => buildPrimeResurgenceRelics(uniqueName, exportData)
 
   for (const projection of trader.inventory.filter((entry) => isProjectionPath(entry.uniqueName))) {
     const key = projection.uniqueName.replace('/StoreItems/', '/')
     const relic = relics[projection.uniqueName] || relics[key]
-    const normalizedRelic = relic ? normalizeRelicEntry(relic, projection.uniqueName) : null
-    const label = normalizedRelic?.era && normalizedRelic?.category ? `${normalizedRelic.era} ${normalizedRelic.category}` : projection.item
     for (const reward of rewardList(rewards, relic)) {
       const type = reward.type || reward.rewardItem
       const normalized = canonicalPrimePath(type)
       if (!normalized || !partIsPrime(type)) continue
       rewardTypes.set(normalized, type)
-      if (!rewardToRelics.has(normalized)) rewardToRelics.set(normalized, new Set())
-      rewardToRelics.get(normalized).add(label)
     }
   }
 
@@ -109,11 +110,10 @@ export function buildPrimeResurgenceModel(trader, exportData, inventoryData) {
       : resolvedParentNameRaw
     if (!equipment.has(parentKey)) {
       const parentRecipe = recipes.byResult.get(parentKey)
-      equipment.set(parentKey, { uniqueName: match.recipe.resultType, name: resolvedParentName, blueprint: parentRecipe?.blueprint || null, recipe: parentRecipe?.recipe || match.recipe, rewardKeys: new Set(), relics: new Set() })
+      equipment.set(parentKey, { uniqueName: match.recipe.resultType, name: resolvedParentName, blueprint: parentRecipe?.blueprint || null, recipe: parentRecipe?.recipe || match.recipe, rewardKeys: new Set() })
     }
     const item = equipment.get(parentKey)
     item.rewardKeys.add(rewardKey)
-    for (const relic of rewardToRelics.get(rewardKey) || []) item.relics.add(relic)
   }
 
   const equipmentCards = [...equipment.values()].map((item) => {
@@ -141,10 +141,10 @@ export function buildPrimeResurgenceModel(trader, exportData, inventoryData) {
       // so a missing entry correctly means have=0 rather than "unknown".
       const have = Math.max(entry?.quantity ?? 0, entry?.crafted ?? 0)
       const need = needMap.get(canonicalPrimePath(uniqueName)) ?? 1
-      return { uniqueName, name: resolveName(uniqueName, uniqueName, exportData), owned: have >= need, have, need, isBlueprint: /Blueprint$/i.test(uniqueName), relics: [...(rewardToRelics.get(canonicalPrimePath(uniqueName)) || [])] }
+      return { uniqueName, name: resolveName(uniqueName, uniqueName, exportData), owned: have >= need, have, need, isBlueprint: /Blueprint$/i.test(uniqueName), relics: modelRelics(uniqueName) }
     })
     const parent = owned.get(canonicalPrimePath(item.uniqueName))
-    return { type: 'equipment', uniqueName: item.uniqueName, name: item.name, owned: !!parent && (!!parent.owned || !!parent.mastered || (parent.quantity || 0) > 0), mastered: !!parent?.mastered, parts, relics: [...item.relics].sort() }
+    return { type: 'equipment', uniqueName: item.uniqueName, name: item.name, owned: !!parent && (!!parent.owned || !!parent.mastered || (parent.quantity || 0) > 0), mastered: !!parent?.mastered, parts, relics: modelRelics(item.uniqueName) }
   })
 
   const equipmentKeys = new Set(equipmentCards.map((item) => canonicalPrimePath(item.uniqueName)))

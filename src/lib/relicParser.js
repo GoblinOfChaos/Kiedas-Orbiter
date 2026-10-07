@@ -297,7 +297,7 @@ export function getRelicCatalog(exportData, locale = 'en') {
     // Immortal/Omnia-style tables whose category strings are named like
     // Requiem eras (for example "Requiem IV"), but they are not Prime relics
     // and can contain adapters, stars, and other non-Prime rewards.
-    if (!['Lith', 'Meso', 'Neo', 'Axi'].includes(era)) continue;
+    if (!['Lith', 'Meso', 'Neo', 'Axi', 'Vanguard'].includes(era)) continue;
 
     const key = `${era} ${category}`;
     if (seen.has(key)) continue;

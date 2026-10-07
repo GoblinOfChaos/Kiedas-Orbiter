@@ -11,6 +11,7 @@ import {
 import { getItemDrops } from '../../lib/acquisitionData';
 import { buildIngredientSourceRows, buildRelicRarityIndex, prepareAcquisitionSources } from '../../lib/relicSources';
 import { ACQUISITION_MODEL_INGREDIENT_RELICS, buildIngredientRowsWithModel } from '../../lib/acquisitionModel/ingredientRelicRows';
+import { ACQUISITION_MODEL_RELICS, replaceComponentRelicRows, replaceRelicRows } from '../../lib/acquisitionModel/relicRows';
 import BlueprintAcquisitionBox from '../../components/BlueprintAcquisitionBox';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
@@ -92,11 +93,17 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
 
   if (!item) return null;
 
-  const displaySources = prepareAcquisitionSources(sources, {
+  const ownRows = ACQUISITION_MODEL_RELICS
+    ? replaceRelicRows(uniqueName, sources, ingredientRelicContext, { t })
+    : sources;
+  const displaySources = prepareAcquisitionSources(ownRows, {
     rarityIndex: relicRarityIndex,
     itemType: recipe?.blueprintUniqueName || uniqueName,
   });
-  const displayComponentSources = prepareAcquisitionSources(componentSources, {
+  const componentRows = ACQUISITION_MODEL_RELICS
+    ? replaceComponentRelicRows(componentSources, recipe, ingredientRelicContext, { t })
+    : componentSources;
+  const displayComponentSources = prepareAcquisitionSources(componentRows, {
     rarityIndex: relicRarityIndex,
     itemType: recipe?.blueprintUniqueName || uniqueName,
   });
@@ -285,6 +292,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
                 getSourceLabel={getSourceLabel}
                 formatChance={formatChance}
                 originSources={sources}
+                relicModelContext={ingredientRelicContext}
                 variant="preview"
               />
               {recipe.ingredients?.length > 0 &&

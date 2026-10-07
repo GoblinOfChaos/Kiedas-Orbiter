@@ -72,7 +72,7 @@ test('Prime Set cards use a memoized component with stable source lookup ownersh
   const cardSource = fsSync.readFileSync(pathSync.resolve('src/components/PrimeSetCard.jsx'), 'utf8')
   const inventorySource = fsSync.readFileSync(pathSync.resolve('src/screens/Inventory.jsx'), 'utf8')
   assert.match(cardSource, /export default memo\(PrimeSetCard\)/)
-  assert.match(cardSource, /buildRelicTooltipRows\(partSources/)
+  assert.match(cardSource, /buildTooltipRelicRows\(part\.unique_name, part\.name, \{ exportData \}, \{ t \}\)/)
   assert.match(inventorySource, /import PrimeSetCard from ['"]\.\.\/components\/PrimeSetCard['"];/)
   assert.match(inventorySource, /buildRelicRarityIndex\(exportData\)/)
   assert.match(inventorySource, /ACQUISITION_MODEL_TOOLTIP_RELICS/)

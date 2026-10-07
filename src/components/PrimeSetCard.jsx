@@ -4,7 +4,7 @@ import { Tooltip } from './UI'
 import { convertFileSrc } from '../lib/logging/tauri'
 import { formatChance } from './AcquisitionDrawer'
 import { getCachedPrimeSetPartSources } from '../lib/primeSetParts'
-import { buildRelicTooltipRows } from '../lib/relicSources'
+import { buildTooltipRelicRows } from '../lib/acquisitionModel/tooltipRelicRows'
 
 export function getPrimeSetPartLabel(setName, partName) {
   const name = partName ?? ''
@@ -13,7 +13,7 @@ export function getPrimeSetPartLabel(setName, partName) {
   return name
 }
 
-function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, relicRarityIndex, uiPath, resolveImgFallback, toggle, t }) {
+function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, exportData, uiPath, resolveImgFallback, toggle, t }) {
   const isParentOwned = set.owned
   const isParentMastered = set.mastered
   const partsMet = set.parts.filter((p) => (p.crafted !== undefined ? p.crafted >= (p.need ?? 1) : p.quantity >= (p.need ?? 1))).length
@@ -55,7 +55,7 @@ function PrimeSetCard({ set, primePrices, isPriceLoading, dropIndex, relicRarity
           const need = part.need ?? 1
           const met = part.crafted !== undefined ? part.crafted >= need : part.quantity >= need
           const partSources = getCachedPrimeSetPartSources(part, dropIndex)
-          const relicRows = buildRelicTooltipRows(partSources, { rarityIndex: relicRarityIndex, itemType: part.unique_name, t })
+          const relicRows = buildTooltipRelicRows(part.unique_name, part.name, { exportData }, { t })
           const partPrice = primePrices?.[part.unique_name] ?? 0
           return <div key={pi} className={`flex min-w-0 flex-col items-center justify-center gap-1.5 ${partCellPadding} h-full ${met ? 'bg-green-500/5' : 'bg-black/20'} relative break-words`}>
             <div className="w-full h-5 flex items-center justify-center">

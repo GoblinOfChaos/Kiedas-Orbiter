@@ -3,6 +3,7 @@ import {
   getRelicCatalog,
   getRelicRewardChance,
 } from '../relicParser.js';
+import { deRelicTruth } from '../acquisitionModel/deRelicTruth.js';
 
 export const RELIC_REFINEMENTS = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
@@ -28,12 +29,6 @@ function ownedByKey(inventoryData) {
     });
   }
   return result;
-}
-
-function rewardMatches(reward, row) {
-  const rewardKey = canonical(reward.uniqueName);
-  const itemKey = canonical(row.itemType);
-  return rewardKey === itemKey || lower(reward.name) === lower(row.name);
 }
 
 // One pass over the whole drop index (52k rows) instead of one pass PER relic (430 relics = 10+ second UI
@@ -94,6 +89,7 @@ export function buildRelicPlaces({ ledger = [], inventoryData, exportData, dropI
   const needed = ledger.filter((row) => Number(row.stillNeeded) > 0);
   const owned = ownedByKey(inventoryData);
   const relicCatalog = catalog ?? getRelicCatalog(exportData);
+  const modelByItem = new Map(needed.map((row) => [canonical(row.itemType), deRelicTruth(row.itemType, exportData) ?? []]));
 
   return relicCatalog.map((relic) => {
     const ownedEntry = owned.get(lower(relic.key));
@@ -102,7 +98,12 @@ export function buildRelicPlaces({ ledger = [], inventoryData, exportData, dropI
       return counts;
     }, {});
     const coveredItems = needed.flatMap((row) => {
-      const reward = relic.rewards.find((candidate) => rewardMatches(candidate, row));
+      const modelFact = modelByItem.get(canonical(row.itemType))
+        ?.find((candidate) => lower(candidate.relic) === lower(relic.key));
+      if (!modelFact) return [];
+      // The model decides the item-to-relic relation and tier. The catalog
+      // remains only to obtain the fixed refinement chance for that DE tier.
+      const reward = relic.rewards.find((candidate) => String(candidate.rarity || '').toUpperCase() === modelFact.tier);
       if (!reward) return [];
       const chances = RELIC_REFINEMENTS.reduce((values, refinement) => {
         values[refinement] = getRelicRewardChance(reward, refinement, relic.rewards);

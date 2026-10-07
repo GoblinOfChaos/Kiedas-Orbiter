@@ -1416,7 +1416,7 @@ export default function Inventory() {
                 primePrices={primePrices}
                 isPriceLoading={isPriceLoading}
                 dropIndex={dropIndex}
-                relicRarityIndex={relicRarityIndex}
+                exportData={exportData}
                 uiPath={uiPath}
                 resolveImgFallback={resolveImgFallback}
                 toggle={toggle}

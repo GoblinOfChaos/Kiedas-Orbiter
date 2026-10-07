@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { resolveBlueprintOrigin } from '../lib/acquisitionData';
 import { buildBlueprintAcquisitionRows } from '../lib/relicSources';
+import { ACQUISITION_MODEL_RELICS, replaceRelicRows } from '../lib/acquisitionModel/relicRows';
 
 function blueprintWord(t) {
   return String(t('acquisition_drawer.blueprint_label') || 'Blueprint').replace(/[：:]\s*$/, '').trim();
@@ -38,6 +39,7 @@ export default function BlueprintAcquisitionBox({
   getSourceLabel,
   formatChance,
   originSources = [],
+  relicModelContext = null,
   variant = 'preview',
 }) {
   const [expandedGroups, setExpandedGroups] = useState({});
@@ -53,7 +55,10 @@ export default function BlueprintAcquisitionBox({
     blueprintOrigin,
     originSources,
   );
-  const sourceRows = sourceRowsWithUniqueLabels(rows, getSourceLabel, t);
+  const modelRows = ACQUISITION_MODEL_RELICS
+    ? replaceRelicRows(recipe.blueprintUniqueName, rows, relicModelContext || {}, { t })
+    : rows;
+  const sourceRows = sourceRowsWithUniqueLabels(modelRows, getSourceLabel, t);
   if (sourceRows.length === 0) return null;
 
   const preview = variant === 'preview';

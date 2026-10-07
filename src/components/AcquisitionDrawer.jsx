@@ -12,6 +12,7 @@ import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 import { event } from '../lib/logging/logger';
 import { buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel, prepareAcquisitionSources } from '../lib/relicSources';
 import { ACQUISITION_MODEL_INGREDIENT_RELICS, buildIngredientRowsWithModel } from '../lib/acquisitionModel/ingredientRelicRows';
+import { ACQUISITION_MODEL_RELICS, replaceComponentRelicRows, replaceRelicRows } from '../lib/acquisitionModel/relicRows';
 import { sourceLabel } from '../lib/sourceLabel';
 import BlueprintAcquisitionBox from './BlueprintAcquisitionBox';
 
@@ -236,11 +237,17 @@ export default function AcquisitionDrawer({ item, onClose }) {
   const rootClassName = 'fixed bottom-0 left-0 right-0 z-40 bg-kronos-bg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]';
   const innerClassName = 'max-w-6xl mx-auto px-6 py-4';
   const sourcesGridClassName = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 overflow-y-auto';
-  const displaySources = prepareAcquisitionSources(sources, {
+  const ownRows = ACQUISITION_MODEL_RELICS
+    ? replaceRelicRows(uniqueName, sources, ingredientRelicContext, { t })
+    : sources;
+  const displaySources = prepareAcquisitionSources(ownRows, {
     rarityIndex: relicRarityIndex,
     itemType: recipe?.blueprintUniqueName || uniqueName,
   });
-  const displayComponentSources = prepareAcquisitionSources(componentSources, {
+  const componentRows = ACQUISITION_MODEL_RELICS
+    ? replaceComponentRelicRows(componentSources, recipe, ingredientRelicContext, { t })
+    : componentSources;
+  const displayComponentSources = prepareAcquisitionSources(componentRows, {
     rarityIndex: relicRarityIndex,
     itemType: recipe?.blueprintUniqueName || uniqueName,
   });
@@ -352,6 +359,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
               getSourceLabel={getSourceLabel}
               formatChance={formatChance}
               originSources={sources}
+              relicModelContext={ingredientRelicContext}
               variant="stable"
             />
             {recipe.ingredients?.length > 0 &&

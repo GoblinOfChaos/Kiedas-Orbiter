@@ -1,38 +1,8 @@
 import { buildItemRelics } from './buildItemAcquisition.js'
 import { getRelicSourceLabel } from '../relicSources.js'
-import { compareTextNumeric } from '../textCompare.js'
+import { ACQUISITION_MODEL_RELICS, compareModelRelics, modelRelicSource } from './relicRows.js'
 
-export const ACQUISITION_MODEL_TOOLTIP_RELICS = true
-
-const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Vanguard']
-const eraRank = new Map(ERA_ORDER.map((era, index) => [era, index]))
-
-function relicParts(relic) {
-  const [era = '', ...code] = String(relic || '').split(/\s+/)
-  return { era, code: code.join(' ') }
-}
-
-function compareRelics(left, right) {
-  const leftParts = relicParts(left.relic)
-  const rightParts = relicParts(right.relic)
-  const leftRank = eraRank.get(leftParts.era) ?? ERA_ORDER.length
-  const rightRank = eraRank.get(rightParts.era) ?? ERA_ORDER.length
-  if (leftRank !== rightRank) return leftRank - rightRank
-  const eraComparison = compareTextNumeric(leftParts.era, rightParts.era)
-  if (eraComparison !== 0) return eraComparison
-  const codeComparison = compareTextNumeric(leftParts.code, rightParts.code)
-  return codeComparison || compareTextNumeric(left.relic, right.relic)
-}
-
-function sourceFor(relic) {
-  return {
-    type: 'relic',
-    relicName: relic.relic,
-    rarity: relic.tier,
-    ...(relic.tiers ? { tiers: relic.tiers } : {}),
-    ...(relic.tierConflict ? { tierConflict: true } : {}),
-  }
-}
+export const ACQUISITION_MODEL_TOOLTIP_RELICS = ACQUISITION_MODEL_RELICS
 
 function labelFor(source, t) {
   if (!source.tierConflict) return getRelicSourceLabel(source, t)
@@ -48,9 +18,9 @@ export function buildTooltipRelicRows(itemUniqueName, itemName, ctx = {}, { t = 
   void itemName
   return buildItemRelics(itemUniqueName, ctx)
     .slice()
-    .sort(compareRelics)
+    .sort(compareModelRelics)
     .map((relic) => {
-      const source = sourceFor(relic)
+      const source = modelRelicSource(relic, { t, displayConflictSuffix: false })
       return { source, label: labelFor(source, t) }
     })
 }

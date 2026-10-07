@@ -37,7 +37,10 @@ export function normalizeRelicEntry(entry, uniqueName) {
 
   const tier = /^T(\d)VoidProjection/i.exec(leafOf(un))?.[1];
   const era = entry?.era || nameEra || TIER_ERA[tier] || null;
-  const category = entry?.category || nameMatch?.[2] || (nameEra && nameTokens[1] ? nameTokens[1] : null);
+  // warframe-items supplies a generic `category: "Relics"` for newer entries
+  // after its map is merged with DE data. A concrete code in the DE/display
+  // name is authoritative; otherwise preserve the old-schema category.
+  const category = nameMatch?.[2] || entry?.category || (nameEra && nameTokens[1] ? nameTokens[1] : null);
   const quality = entry?.quality || relicQualityFromPath(un);
 
   let icon = entry?.icon ?? null;

@@ -12,6 +12,7 @@ import { formatNumber } from "../lib/formatNumber";
 import PreviewMarketLayout from "../components/PreviewMarketLayout";
 import { compareText } from "../lib/textCompare";
 import {
+import { awardsMastery } from '../lib/masteryState';
   TrendingUp,
   Package,
   Eye,
@@ -556,8 +557,8 @@ export default function Market({ onNavigate }) {
       if (stockFilter === "sell_plat" && item.decision !== "sell_plat") return false;
       if (stockFilter === "ducats" && item.decision !== "ducats") return false;
       if (stockFilter === "duplicates" && !item.isDuplicate) return false;
-      if (stockFilter === "mastered" && (item.isRiven || !item.isMastered)) return false;
-      if (stockFilter === "unmastered" && (item.isRiven || item.isMastered)) return false;
+      if (stockFilter === "mastered" && (item.isRiven || !awardsMastery(item) || !item.isMastered)) return false;
+      if (stockFilter === "unmastered" && (item.isRiven || !awardsMastery(item) || item.isMastered)) return false;
       if (stockSearch.trim() && !item.name.toLowerCase().includes(stockSearch.toLowerCase())) return false;
       return true;
     });

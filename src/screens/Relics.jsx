@@ -32,7 +32,7 @@ import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewRelicsLayout from '../components/PreviewRelicsLayout';
 import { compareTextNumeric } from '../lib/textCompare';
 
-const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Requiem', 'Omnia'];
+const ERA_ORDER = ['Lith', 'Meso', 'Neo', 'Axi', 'Vanguard', 'Requiem', 'Omnia'];
 const QUALITY_ORDER = ['Intact', 'Exceptional', 'Flawless', 'Radiant'];
 
 export default function Relics() {

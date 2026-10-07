@@ -75,7 +75,8 @@ test('Prime Set cards use a memoized component with stable source lookup ownersh
   assert.match(cardSource, /buildRelicTooltipRows\(partSources/)
   assert.match(inventorySource, /import PrimeSetCard from ['"]\.\.\/components\/PrimeSetCard['"];/)
   assert.match(inventorySource, /buildRelicRarityIndex\(exportData\)/)
-  assert.match(inventorySource, /buildRelicTooltipRows\(sortByChanceDesc\(uniq\.filter\(\(s\) => s\.type === 'relic'\)\)/)
+  assert.match(inventorySource, /ACQUISITION_MODEL_TOOLTIP_RELICS/)
+  assert.match(inventorySource, /buildTooltipRelicRows\(item\.unique_name, item\.name, tooltipRelicContext, \{ t \}\)/)
   assert.match(inventorySource, /<PrimeSetCard[\s\S]+key=\{set\.setPath \|\| set\.unique_name \|\| set\.name\}/)
 })
 

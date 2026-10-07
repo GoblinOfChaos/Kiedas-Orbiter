@@ -65,6 +65,5 @@ this task's structural attribution scope.
   needed to make Narin fully pass.
 - Rust was not compiled or executed per task restrictions. The Node parity
   fixture covers the merge output shape and the existing adapter/merge tests
-  cover individual field behavior; coordinator compilation/runtime validation
   remains a follow-up.
 - No commit or push was performed.

@@ -90,7 +90,6 @@ source; use the island and the listed search landmarks.
 
 The app includes every slot exposed by the current `ExportCodex`, but no
 reliable public guide currently maps individual Isleweaver fragment IDs to
-fixed positions. Search the Isleweaver landscape methodically with a Codex or
 Synthesis Scanner and treat the app's item identity as the authoritative
 completion key. Do not assume a slot number is a map coordinate.
 

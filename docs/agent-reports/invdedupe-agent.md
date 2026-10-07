@@ -47,4 +47,3 @@ Implemented Preview inventory deduplication. `all` now has no duplicate canonica
 ## Suggested follow-ups
 
 - Translate/visually review the DE-leaf suffix presentation in every supported locale.
-- Run the normal Preview build and live inventory transition check when the coordinator permits builds.

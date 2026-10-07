@@ -20,7 +20,6 @@ DE wrapper, an array, or an equivalent record map and always emits a
 | `abilities[].uniqueName` | `abilities[].abilityUniqueName` | renamed | nested app shape |
 | `abilities[].name` | `abilities[].abilityName` | renamed | nested app shape |
 | `abilities[].description` | same field | direct | nested unknown fields are ignored |
-| `icon`, `longDescription`, `variantType`, `additionalItems`, `nemesisUpgradeTag`, `platinumCost`, `excludeFromMarket`, `introducedAt`, `maxLevelCap`, `excludeFromCodex` | absent or app-only | omitted | images, codex enrichment, and commerce metadata remain merge-layer responsibilities |
 | polarities | absent from these DE records | omitted | no polarity value is invented |
 
 The adapter's complete top-level allow-list is: `uniqueName`, `name`,

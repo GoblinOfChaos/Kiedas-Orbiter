@@ -39,4 +39,3 @@
 
 ## Suggested follow-ups
 
-- Coordinator should perform Preview-only live checks for screen-open, hotkey arm, reroll, confirmation, prompt hide/show race, and Wiki target consumption.

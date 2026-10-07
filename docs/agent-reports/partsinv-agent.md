@@ -1,4 +1,3 @@
-# Agent report: Inventory parts
 
 ## Plan
 
@@ -6,8 +5,6 @@
 2. Add a non-Prime recipe-part projection that preserves every existing bucket and appends compact `parts` entries to `all`.
 3. Add the Preview-only Parts tab, parent-aware search/sort, and component-specific acquisition lookup.
 4. Add finite Node tests/static checks for synthetic data, real merged Narin/Prime controls, and bucket-count regression; extend completeness reporting and write real counts to `docs/agent-reports/partsinv.md`.
-
-Implementation is authorized by the coordinator brief. No builds, bundlers, Rust/Cargo commands, commits, pushes, live app changes, inventory writes, or market writes will be used.
 
 ## Summary
 

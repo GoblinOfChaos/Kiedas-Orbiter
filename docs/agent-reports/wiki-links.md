@@ -1,4 +1,3 @@
-# Agent report: wiki-links
 
 ## Plan
 
@@ -51,11 +50,9 @@
 
 ## Open questions and risks
 
-- Runtime behavior was not exercised because builds/tests and the running app are out of scope. The child-webview Rust change therefore still needs coordinator runtime validation.
 - The existing Wiki webview continues to allow non-Fandom navigation inside its browser surface, preserving prior behavior; app-originated non-Wiki links remain external.
 - The new context intentionally accepts only HTTPS `wiki.warframe.com`; alternate hosts, HTTP, Fandom, and malformed targets are ignored.
 
 ## Suggested follow-ups
 
 - In a permitted validation environment, open a drawer Wiki link, open a second drawer link while Wiki is active, verify the target changes in the existing tab, and test a Fandom URL is rejected.
-- Have the coordinator review the Rust callback behavior on each supported platform before merging.

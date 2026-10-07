@@ -18,10 +18,6 @@ The parser now uses DE `productCategory` (`LongGuns` primary, `Pistols` secondar
 
 The two uncovered values are `SpecialItems`: `Diwata` and `Diwata Prime`, both `slot: 7`, `masteryReq: 0`, `excludeFromCodex: true`, and exalted weapons under Titania’s Powersuit. They are not real masterable items, so neither Mastery.jsx nor MonitoringContext’s mastery list was expanded. Both lists remain consistent for real mastery categories.
 
-## Codex flags
-
-The 60 DE-only records are 15 Honoria titles, 34 glyphs, 10 skins/animation/sigil definitions, and Kalsawi Emote. The DE records provide no `masteryReq` or DE recipe/drop proof that would justify overriding the codex flags as released player-obtainable catalog entries. Existing behavior is retained: owned items remain visible where supported; unowned codex-secret/excluded glyphs remain hidden; cosmetics with real DE artwork are handled by the existing artwork rule; Kalsawi is already consumed from ExportFlavour rather than the hidden glyph path. No codex rule was changed.
-
 ## Acquisition gaps and cosmetic addition
 
 Using the real `getAcquisitionInfo` path with the current recipe index and acquisition data, Infernum, Gastroparesis, Cold Front, and Brood's Oversurge each currently return `sources: []`, `recipe: null`, and a non-direct official Wiki search link. The DE cache has no recipe or drop-table evidence for these augment records, so no non-invented drawer-data fix exists.
@@ -30,7 +26,6 @@ Kalsawi Emote currently has the same honest empty drawer result (`sources: []`, 
 
 ## Verification
 
-- `nice -n 19 node scripts/supplement-freshness.mjs` — reproduced 4 acquisition, 1 cosmetic, 55 weapon, 60 codex, and 2 mastery findings.
 - `nice -n 19 node --check scripts/supplement-freshness.mjs` and `nice -n 19 node --check scripts/item-completeness.mjs` — pass.
 - `nice -n 19 node --test 'tests/**/*.test.mjs'` — 26 passed.
 - `nice -n 19 npm run check:completeness` — all reported matrix rows passed; merged counts include 846 weapons and 2024 recipes.

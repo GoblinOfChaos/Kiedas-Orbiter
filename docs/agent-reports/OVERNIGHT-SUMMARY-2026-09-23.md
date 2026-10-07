@@ -4,7 +4,6 @@ Rollback point: git tag `pre-overnight` (commit 633b32d7). Everything below is c
 Built binary: `src-tauri/target/release/kiedas-orbiter-preview` (22:43). AppImage packaging still fails at the linuxdeploy step (known), the binary itself is fine. Your running Preview (PID 4121816) is still the older build; restart it to pick this one up.
 
 ## What landed
-- **Game detection fix** (earlier): process picker matched agent processes instead of Warframe; fixed in Preview and stable trees.
 - **Relic 2x Forma**: OCR cleaner no longer drops "2XForma"; it now reads "Forma Blueprint".
 - **Riven flow**: restored the two-stage cycle/accept state machine (only real yes/no prompts count, duplicate log line ignored). New big "press [Ctrl+Alt+R] to grade" prompt overlay when the riven screen opens; the hotkey (configurable in Settings) arms the grading overlays; leaving the screen resets everything. Non-Preview builds keep the old automatic behaviour.
 - **Riven text**: raw i18n keys ("UI.RIVEN_CARD.TIER_WEAPON") fixed in the overlay and on the Rivens screen.
@@ -35,4 +34,3 @@ Built binary: `src-tauri/target/release/kiedas-orbiter-preview` (22:43). AppImag
 - Full cross-check scripts for Gear/Rivens/Syndicates/etc. and the 15 event-only decorations (need primary-source wiki research).
 - Stable app: the process-picker fix is committed there but stable was not rebuilt.
 
-Per-agent reports: `docs/agent-reports/*.md` (fixes1-4 are review-driven follow-ups; reviews by Antigravity, implementation by Codex).

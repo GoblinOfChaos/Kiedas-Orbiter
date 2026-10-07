@@ -27,5 +27,4 @@ in this sandbox. No network fetch was attempted.
 Run the finite cache fetch on a network-enabled machine, then rerun the parity
 test and record literal mismatch counts for Warframes and Weapons. Rust was not
 compiled by design; the new module and both loader call sites require the
-coordinator's normal compile-time check.
 

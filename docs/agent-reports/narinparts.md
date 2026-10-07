@@ -1,9 +1,7 @@
-# Agent report: Narin parts completeness
 
 ## Plan
 
 1. Read the completeness plan/matrix and audit every `getAcquisitionInfo` return branch for a recipe-bearing result.
-2. Preserve the coordinator's dropIndex fix, add recipe propagation to remaining recipe-dropping branches, and add synthetic/all-craftable regression coverage.
 3. Add conditional component-blueprint indicators, shared drawer-open evidence logging, and the required English i18n key.
 4. Run finite static/Node checks only, measure the merged real-data recipe set, and record limitations without committing.
 

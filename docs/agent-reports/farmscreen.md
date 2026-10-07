@@ -32,4 +32,3 @@ No Cargo, Tauri, Vite, npm, pnpm, build, compiler, commit, push, or live warfram
 
 - UI rendering, visual spacing, responsive behavior, keyboard interaction, and runtime log delivery were not visually verified because the UI could not be run under the task constraints.
 - Runtime currently exposes the existing DE-backed `dropIndex` rather than the parsed Stage 1 drop-table/wiki bundle. Missing metadata remains absent and is not guessed; richer node/faction/planet honesty requires wiring that prepared store into monitoring.
-- No migration was needed. Existing user targets are preserved and never deleted.

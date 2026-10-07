@@ -4,8 +4,6 @@
 
 This report covers the frozen working-tree snapshot captured on 2026-09-03. Background build, source, dependency, integration, localization, inventory, and bulk-data checks are substantially complete. Linux screen-by-screen runtime work and coordinated Warframe gameplay remain open; this document is therefore not the final release verdict.
 
-No program source, installed application, primary user data, Warframe.Market order, or release was changed. The only repository additions are this audit report suite.
-
 ## Frozen target
 
 - Git HEAD: `07cfa9d22353df601b98ee53ac27879a22b98789`

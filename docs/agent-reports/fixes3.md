@@ -2,7 +2,6 @@ Plan
 
 1. Verify each fixes3 finding against the assigned source files.
 2. Apply only the confirmed minimal changes: restore the out-of-provider wiki fallback, make Wiki initialization consume the latest pending target without syncing over it, and reject Fandom URLs in `sync_wiki_tab`.
-3. Leave `AcquisitionDrawer.jsx` unchanged because its existing delegation is covered by the context fallback.
 4. Run non-compiling static checks and record exact results, risks, and open questions.
 
 Summary

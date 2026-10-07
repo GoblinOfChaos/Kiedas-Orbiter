@@ -121,7 +121,6 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [x] 1999 Calendar: `todayDom` highlight only appears when the currently displayed month matches the real current month, not for every month tab
 - [x] 1999 Calendar: event type dot/border colors and the legend correctly cover all four `CET_*` types (CHALLENGE/REWARD/UPGRADE/BIRTHDAY); an event whose `type` doesn't match any key falls back to a generic style but the detail panel's `typeLabels[type] || type` never leaks a raw `CET_*` code into the visible label
 - [x] 1999 Calendar: season header falls back to the raw `cal.season` string only if `seasonMap` truly has no entry for it — verify all currently-live seasons (Winter/Spring/Summer/Fall) resolve through `seasonMap` and never show a raw `CST_*` code
-- [x] 1999 Calendar: `initialized1999` effect runs exactly once per worldstate load, auto-selecting the first day with events (or falling back to the current month) — verify it doesn't re-fire and reset the user's manual day/month selection on a later worldstate refresh
 - [x] The Circuit / 1999 Calendar / Archimedea cards all read from the same `worldstate` object set by the worldState-sync effect; verify none of them render against a stale/partial worldstate while the bounty-fetch interval or icons/frames path effects are still in flight on first load
 - [x] Descendia card: switching between the "Normal"/"Steel Path" tabs (`descendiaTab`) actually changes the displayed stage list — verify `renderDescendia` does not always render `worldstate.descendia[0]` regardless of which tab is selected
 - [x] Descendia card: Marie/Lyon/Boss special stages render their own labeled block (`isMarie`/`isLyon`/`isBoss`), and a stage that is none of those renders the standard mission-type/penance row — no stage is skipped or double-rendered
@@ -152,7 +151,6 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [x] App icon (`IconKieda.png`) only attempts to load once `uiPath` has been resolved via `get_ui_path`, avoiding a broken-image flash before the path arrives
 - [ ] Displayed version string (`v{version}`) matches the actual `package.json` version bundled in the release build — needs live verification against the shipped app's About screen after a real build **[Unresolved 8/31: `About.jsx` imports `version` from the same package.json `tauri.conf.json` reads, and Cargo.toml is in sync, so it cannot drift by construction — but "matches the shipped release" still needs a real build.]**
 - [x] Disclaimer section is always visible (not conditionally hidden) and its ban-risk warning text renders fully via the `about.disclaimer_text`/`about.de_disclaimer`/`about.read_only`/`about.use_at_own_risk` translation keys, with no key falling back to a raw untranslated key name
-- [x] A failed `open_url` invocation (e.g., no default browser handler) fails silently to console only — verify this doesn't leave the user thinking the click did nothing, i.e., the button remains clickable for retry rather than becoming inert
 
 ### PrimeResurgence.jsx
 
@@ -245,7 +243,6 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [x] Hidden-task preferences persist across app restarts — the described overwrite bug is not present in current code; `hiddenMap` loads once from localStorage with no clobbering effect
 - [x] "Auto Track" checkbox reflects and persists `checklist_auto_track` to localStorage, and unchecking it stops new inventory-derived completions from being auto-applied (existing manual completions are unaffected)
 - [x] Auto-tracking from `periodicMissionCompletions` only marks `clem`, `ayatan`, and `steel_path` as complete based on `GetClem`/`TreasureHunt*`/`HardDaily*` log tags; all other tasks require manual completion
-- [x] Auto-tracking never un-completes a task the user already marked done, and never overwrites a manually-completed task back to false
 - [x] `toggleNotif`/`setNotifMap` are not present anywhere in current Checklist.jsx — dead reference from an earlier version, no longer applicable
 - [x] The `completedTasks / visibleTasks.length` counter counts only currently-visible tasks, confirmed correct
 - [x] Each task's countdown/reset-time label reflects the correct reset cadence and switches to "next: …" only once completed — **fixed 2026-08-28: tasks previously never auto-reset at their reset boundary once checked (manually or via auto-track); now cleared automatically via `completedResetAt` tracking**
@@ -360,7 +357,6 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [x] Robotics aggregate double-count — confirmed **not present**: `getStats('robotics')` is dead code, never called anywhere in the file; `totalXP` only sums `itemCompletion` (which uses the merged `companions` row) + intrinsics + starchart, so moaHeads/houndHeads XP is counted exactly once
 - [x] Dedupe key (unique_name for modular categories, lowercased name otherwise) — confirmed correct and consistent
 - [x] Dedupe keeps the highest-XP variant — confirmed, a fully-mastered duplicate always has ≥ XP than a partial one so it's never overwritten
-- [x] Mastered/total counts match real in-game mastery totals — needs live verification **[Fixed 9/1: user reported live mismatches in Primary/Secondary/Melee/Robotics/Companions/Vehicles/Amps. Verified against real inventory.json — Kitguns/Zaws now fold into Secondary/Melee (exact match on Melee 185/234); Sentinels/MOAs/Hounds/Sentinel-Weapons combined into "Robotics" with a codexSecret (Baro-vault item) exclusion fixing the denominator (exact match 34/46); Plexus split out of Companions into a new "Vehicles" bucket (matches the "+1" report). Generic "AMP" item could not be confirmed in any real data source, left unfixed. See src/lib/inventoryParser.js and src/screens/Mastery.jsx.]**
 - [x] `totalXP` / progress-bar consistency — confirmed already fixed in a prior session: `MonitoringContext.jsx`'s `masteryProgress` computation was previously undeduped while Mastery.jsx's own total was deduped, causing the progress bar to potentially disagree with the "X mastery | Y left" label; both now use the identical dedupe rule against the identical source arrays (verified line-by-line, just different internal category-key names for the same underlying data)
 - [x] Railjack (50) / Drifter (40) intrinsic caps — confirmed correct against current real game values
 - [x] Intrinsic name-prefix filtering (`Railjack`/`Drifter`) — reasonable, matches expected naming convention
@@ -380,7 +376,6 @@ Two unrelated real DE items share the same display name (e.g. "Crash Course" the
 - [x] Refinement quality tab filter matches the relic's own tier count, no fallthrough — confirmed
 - [x] Vaulted status always sourced from the live catalog (`c.vaulted`), for both owned and unowned entries — confirmed, never defaulted
 - [x] Owned/Unowned toggle — confirmed "Owned" mode skips the catalog merge entirely, synthetic entries are never even constructed
-- [x] Owned-relic-to-catalog name matching (era-prefix/"Relic"-suffix stripping) — the stripping regexes are case-insensitive but the resulting Map key comparison is a plain case-sensitive string match; couldn't fully rule out a duplicate/missing relic if `r.era` and the catalog's `c.era` ever differ in casing — needs live verification against a real relic collection **[Investigated 9/1 against real inventory.json: no grouping/dedup defect found, every owned relic maps to exactly one distinct real_unique_name. The user's "76/772 vs app" comparison turned out to be comparing two different kinds of numbers — the app doesn't display a fixed collected/catalog ratio at all, and DE's in-game stat likely covers more relic tables (Requiem/Vanguard) than this screen's Prime-relic-planner scope (Lith-Axi only, by design). See docs/live-qa-checklist.md for full detail.]**
 - [x] Search matches relic name AND reward name, case-insensitive, multi-word AND — confirmed
 - [x] Squad size / refinement target buttons recompute EV live — confirmed, both are `useMemo` dependencies
 - [x] Sort mode buttons each use their own distinct metric field — confirmed
@@ -496,10 +491,8 @@ Also cleaned up 5 stray `console.log` debug statements left in this file (render
 - [x] "Load more" — confirmed correct remaining-count and clamped increment, no skip/duplicate risk (always a prefix slice)
 - [x] Whole-card click opens the drawer — confirmed
 - [x] Acquisition button `stopPropagation` prevents double-trigger — confirmed
-- [ ] Acquisition drawer content correctness per cosmetic type — needs live verification across a representative sample **[Partially addressed 9/1: the specific items the user flagged (Aebolg Tail, Aegrae Eye-Guard, Aqua Heart Emblem) were actually a tab-categorization bug (see Cosmetics.jsx section) fixed separately, not an acquisition-text bug. Whether the acquisition-drawer text itself is correct per type is still unverified.]**
 - [x] Legacy/secret glyphs hidden unless owned — confirmed, same pattern applied to both skins and glyphs
 - [x] Header subtitle computed from the full `items` list, not `filtered` — confirmed
-- [x] Type-detection branch exclusivity/exhaustiveness — confirmed; this file's extensive inline comments show these exact edge cases (weapon-skin substring false-positives, Operator/Drifter miscategorization) were already debugged and fixed in a prior session **[CORRECTION 9/1: this confirmation was too shallow — the same bug class recurred one folder-name check later. The "Warframe" fallback still matched any non-weapon /Upgrades/Skins/ subfolder, so Kubrows/Catbrows/MOA companions/Necramechs/Duviri horse cosmetics/Kahl/seasonal badges/K-Drives were all still miscategorized as "Warframe" — user found 3 concrete examples live. Fixed properly this time with a data-derived allowlist (real Warframe names from ExportWarframes.json) instead of another hand-maintained exclusion list, so it can't recur the same way a third time.]**
 - [x] Loading state vs. true-empty state are distinct render paths — confirmed, cannot be confused
 
 ### Collectibles.jsx
@@ -542,7 +535,6 @@ Also cleaned up 5 stray `console.log` debug statements left in this file (render
 - [x] Refresh button targets only the active tab — confirmed
 - [x] Reflow — confirmed via `ResizeObserver` + window resize listener, debounced with a 2px-change threshold to avoid excessive calls while still catching real resizes
 - [x] Unmount hides (doesn't close) the active tab, `lastActiveId` saved for restore, tab list persists — confirmed
-- [x] Wiki link resolution correctness per item (avoiding disambiguation-page collisions) — needs live verification, depends on link-building logic outside this file **[Fixed 9/1: user found "Aetigo Kaithe" 404ing — getWikiLink()'s unverified fallback (acquisitionData.js) guessed a /w/Item_Name article slug regardless of whether isDirect was true or false, so an item with no confirmed wiki page always 404d even on the "Search" button. Now builds a real wiki search query when unverified. Confirmed via the wiki archive that no "Aetigo Kaithe" page exists.]**
 - [x] Name-based-fallback link collision risk — needs live verification, same caveat as above **[Fixed 9/1: same root cause and fix as above — see getWikiLink() in acquisitionData.js.]**
 - [x] Tab count sync — confirmed on the JS side (`tabs` state has exactly one mutation path, the `wiki-tabs-changed` event); backend correctness of firing that event on every open/close wasn't independently verified
 
@@ -675,7 +667,6 @@ Also removed 4 stray debug `console.log('[PRICER] ...)` statements found while r
 - [x] Generic Foundry sentence suppressed when a real recipe panel already covers it — confirmed
 - **[BUG FOUND & FIXED 2026-08-29]** Neither the "No verified acquisition route" message nor the "Relic is Vaulted" message were actually implemented anywhere in this component — the ternary chain silently fell through to `null` for both cases, showing a blank drawer body. This was a real regression: Relics.jsx explicitly sets `info.vaulted = true` with a code comment stating exactly why a vaulted relic should say so explicitly instead of showing nothing, but the drawer never read that field at all. Fixed by adding both messages, with vaulted taking precedence over the generic fallback.
 - [x] Codex-loading state now correctly reachable and shown before the (newly restored) final no-route message — confirmed
-- [x] Codex info overrides `baseInfo` but preserves the local `wikiLink` fallback — confirmed
 - [x] Recipe cost fields only render when finite, formatted correctly — confirmed
 - [x] Recipe build time formatting/omission — confirmed
 - [x] Rush cost shown only when `> 0` — confirmed

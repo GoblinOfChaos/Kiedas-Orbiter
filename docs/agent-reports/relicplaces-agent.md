@@ -1,4 +1,3 @@
-# Agent report
 
 ## Plan
 
@@ -37,7 +36,6 @@ marketplace operation was performed.
 
 ## Open questions and risks
 
-The real-data proof and visual UI verification remain coordinator follow-ups;
 the required explicit input files were not accessed outside this worktree.
 The new English strings intentionally rely on the existing English fallback
 for the 14 other locale files and need translation later.

@@ -8,7 +8,6 @@ player-facing acquisition from an internal export field without checking real
 data.
 
 This plan combines the strongest patterns found in WFHelper, warframe-item-pull,
-Codex, and the wiki module scraper. It deliberately does not copy their
 runtime architectures or add live web requests to the app.
 
 ## Current boundaries
@@ -209,8 +208,6 @@ real-data tests.
 - `src/lib/inventoryParser.js`
 - `src/lib/dropsParser.js`
 - relevant tests under `src/` or `tests/`
-
-Adopt the useful part of Codex's model:
 
 - canonical path is the primary key
 - aliases are explicit

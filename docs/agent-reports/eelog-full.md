@@ -31,4 +31,3 @@
 
 # Suggested follow-ups
 
-Translate the five new fallback strings in the non-English locale files. Compile/runtime validation remains for the coordinator because it was explicitly prohibited here.

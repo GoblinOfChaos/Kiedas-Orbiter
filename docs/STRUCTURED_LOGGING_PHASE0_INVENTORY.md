@@ -34,7 +34,6 @@ build fields are optional or structured as defined by the shared contract.
   `data/user/logs/session-<id>.jsonl`.
 - Frontend IPC and fetch calls use the shared logging wrappers; convert-only
   asset URL helpers remain direct because they are not IPC operations.
-- The app shell owns delegated UI capture and screen context. `PageLayout`
   supplies the shared scroll identity; Inventory is the reference scroll
   implementation.
 

@@ -1,14 +1,10 @@
-# Agent report
 
 ## Plan
 
 1. Run the supplement freshness analyzer against the supplied DE cache and preview baseline; inspect the exact DE records behind each finding.
-2. Trace inventory weapon bucketing, mastery categorization, and codex filtering, then implement only DE-supported rule changes with focused fixtures.
 3. Re-run the analyzer and static/Node checks without compiling or bundling; record before/after counts, classifications, acquisition-drawer evidence, risks, and any blocked items.
 
 ## Summary
-
-Implemented DE-backed weapon bucket classification and regression fixtures. No mastery-category, codex, acquisition, or cosmetic supplement rule was changed because the DE evidence did not prove a real missing masterable/catalog item. Bayonet attachment definitions remain excluded after a recipe/acquisition check.
 
 ## Files changed
 
@@ -21,7 +17,6 @@ An unrelated generated timestamp in `docs/agent-reports/matrix.md` was restored;
 
 ## Verification
 
-- `nice -n 19 node scripts/supplement-freshness.mjs` — reproduced 4 acquisition, 1 cosmetic, 55 weapon, 60 codex, and 2 mastery findings.
 - `nice -n 19 node --check scripts/supplement-freshness.mjs` — pass.
 - `nice -n 19 node --check scripts/item-completeness.mjs` — pass.
 - `nice -n 19 node --test 'tests/**/*.test.mjs'` — 26 passed.

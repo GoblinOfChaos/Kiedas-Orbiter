@@ -27,7 +27,6 @@ This backlog is in progress. `Confirmed` means directly demonstrated by source, 
 
 - Status: Confirmed in frozen AppImage runtime
 - Evidence: On the first isolated launch, before `disclaimer-accepted` existed, app output logged `[OCR] Capture via xcap Monitor` and `Screenshot probe: granted`; the isolated settings file then contained `screenshot_probe_granted: true` while still lacking disclaimer acceptance.
-- Impact: The application captures the display to probe screenshot capability before the user accepts the warning explaining memory/screen-related behavior.
 - Boundary: Gate all capture, OCR, detector, and permission probes behind explicit onboarding consent and test that no capture API is called beforehand. No fix was made.
 
 ### OCR-LIVE-001 — Reward OCR resolves a Prime component as the parent blueprint
@@ -53,7 +52,6 @@ This backlog is in progress. `Confirmed` means directly demonstrated by source, 
 - Status: Confirmed by source
 - Evidence: `resolve_path` performs only `get_data_root().join(relative)`; note/map commands join unvalidated filenames; `read_file_bytes` and `resolve_asset_path` accept an unvalidated relative value.
 - Actual: Absolute paths and parent traversal are not rejected or canonicalized against an allowed root. `delete_note` passes the resulting path to `remove_file`.
-- Impact: A compromised webview or future frontend defect can read, overwrite, or delete files accessible to the app user outside the intended data folders.
 - Boundary: Define explicit roots per command, reject absolute/parent components, canonicalize safely, and add traversal/absolute/symlink regression tests. No exploit was executed and no file was changed.
 
 ### PKG-UPD-002 — Published Windows/macOS updater entries are unusable

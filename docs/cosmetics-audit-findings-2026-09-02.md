@@ -268,4 +268,3 @@ These are audit recommendations only; no fixes were applied.
 
 ## Audit integrity note
 
-The repository was already dirty before this audit. Existing modified and untracked files were treated as user work and were not altered. The only intended workspace addition from this audit is this report.

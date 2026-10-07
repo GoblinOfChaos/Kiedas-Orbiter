@@ -2,7 +2,6 @@
 
 ## Plan
 
-1. Inventory the four agent diffs and the current worktree, including overlapping files and new files.
 2. Reproduce branch-only files verbatim and hand-merge shared wiring, adapters, parsers, tests, manifests, and reports so the mods slice and all four incoming slices coexist.
 3. Run only permitted finite static/data checks: Node tests, completeness against the specified real data, freshness, rustfmt checks, and source/signature review. No builds, compilation, commits, pushes, or live writes.
 4. Record every conflict/resolution, final matrix evidence, open questions, and exact verification results.

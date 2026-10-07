@@ -50,10 +50,8 @@ Other checks: `node --check` passed for both scripts and the JS client; `rustfmt
 
 ## Open questions / follow-ups
 
-- Rust gzip and SHA-256 currently invoke host `gzip` and `sha256sum`; this needs coordinator review for Windows/macOS portability and dependency policy.
 - The Rust interface has no `force` parameter despite the plan's 24-hour/force requirement; current behavior honors the 24-hour check only.
 - The referenced `docs/revamp/stage-4/COMMAND-CENTER-IMPLEMENTATION-PLAN.md` §9.8 file was absent from this worktree.
-- Rust compilation and live Tauri command testing remain coordinator work.
 
 ## Files created/modified
 

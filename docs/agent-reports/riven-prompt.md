@@ -1,4 +1,3 @@
-# Agent report: riven-prompt
 
 ## Plan
 
@@ -41,7 +40,6 @@
 ## Open questions and risks
 
 - Live overlay timing, global-hotkey registration, and 1080p/1440p rendering cannot be runtime-verified in this worktree.
-- The default hotkey may conflict with a user binding; Settings can change or remove it before registration.
 - The 14 copied locale strings require translation review.
 
 ## Suggested follow-ups

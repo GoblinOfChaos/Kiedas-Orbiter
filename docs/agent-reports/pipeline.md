@@ -1,4 +1,3 @@
-# Agent report: direct DE export pipeline
 
 ## Plan
 
@@ -69,5 +68,4 @@ versioned-cache design; no application code or external data was modified.
 
 - Review the semantic mismatch categories before implementing a DE adapter.
 - Decide whether a generated full-diff artifact is desired before Phase 2.
-- Coordinator may perform the Preview-only build/runtime validation separately
   under the repository CPU rules.

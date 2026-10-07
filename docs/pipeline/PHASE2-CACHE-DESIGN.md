@@ -55,7 +55,6 @@ the data age/source state. No retry loop should run in the background.
 ## Cadence and politeness
 
 Check the index once at startup and no more than once per 24 hours unless the
-user explicitly invokes refresh. Category requests are sequential and at
 least one second apart when more than one changed asset must be downloaded.
 Hashes, ETags, or Last-Modified values should prevent unchanged downloads.
 World-state and other higher-churn sources keep their existing separate

@@ -31,10 +31,8 @@ Implemented. The adapter is memory-only and English remains unchanged.
 ## Open questions and risks
 
 - Real DE-vs-mirror literal parity counts are unavailable because the permitted cache has no `de`, `fr`, or `ja` locale files and network access was not used.
-- Rust compilation remains intentionally unverified. The coordinator should compile the Preview feature before merge.
 - The parity test's real-file branch will run once the finite cache fetch populates locale fixtures.
 
 ## Suggested follow-ups
 
 - Run `nice -n 19 node scripts/de-export/de-export.mjs fetch --cache-dir /home/jedwards/.cache/kiedas-de-export` on a network-enabled machine, then rerun the parity test and record Warframe/Weapon mismatch counts.
-- Perform the U2 non-English runtime canary and full item matrix in the Preview app after coordinator compilation.

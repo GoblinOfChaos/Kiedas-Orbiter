@@ -27,7 +27,6 @@ test command was run under the no-compilation instruction.
 - Shared Regions keep mirror names/system names and graph fields; DE numeric
   identity fields are normalized and overlaid.
 - Shared Keys keep mirror names, descriptions, stages, rewards, icons, and
-  replay metadata; only codex flags overlay and absent fields fill.
 - DE-only records retain literal DE English text and receive no synthetic
   stages, rewards, graph, or replay fields.
 - The Rust adapter validates unique-name-derived records, requires non-empty
@@ -60,5 +59,4 @@ test command was run under the no-compilation instruction.
 
 ## Follow-up
 
-Run the Rust unit tests and the real completeness matrix in the coordinator
 environment, then verify one live refresh and one forced refresh transition.

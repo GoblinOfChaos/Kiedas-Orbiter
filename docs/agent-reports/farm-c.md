@@ -1,4 +1,3 @@
-# farm-c agent report
 
 ## Fix round
 

@@ -2,8 +2,6 @@
 
 ## Decision
 
-Replace the per-card info-icon tooltip shipped for #80 (Mods/Rivens only, sparse/hardcoded-JSON-backed) with a universal click-to-open bottom drawer showing "how do I get this," available on every item card across every tab: Mods, Rivens, Equipment/weapons, Warframes, Inventory, Arcanes — anywhere an item card is rendered, owned or not, since the user may want acquisition info for plat-farming or collection purposes regardless of ownership status.
-
 This explicitly supersedes (not extends) the #80 tooltip work — commit `ce6ed8c`'s per-card info icon and header-level Rivens tooltip should be removed as part of implementing this, not left running alongside the new drawer.
 
 ## Interaction model
@@ -11,7 +9,6 @@ This explicitly supersedes (not extends) the #80 tooltip work — commit `ce6ed8
 - **Trigger:** click anywhere on an item card. No card currently has an `onClick` handler (confirmed for `ModCard`/`RivenCard`; verify for Equipment/Warframe/Inventory card components during implementation), so the whole card is available as the click target — no dedicated icon needed.
 - **Toggle:** clicking the currently-open card's card again closes the drawer.
 - **Swap:** clicking a *different* card while the drawer is already open swaps its content to the newly-clicked item, staying open — does not require closing first.
-- **Position:** a bottom drawer, full width of the content area, sliding up below the grid. Not a modal — the grid stays visible and interactive above it (user rejected fixed-edge-dock and floating-near-card positioning during visual brainstorming, in favor of this).
 
 ## Content
 
@@ -20,8 +17,6 @@ For each item, the drawer shows a **full ranked list** of every known acquisitio
 **Fallback (nothing known):** the drawer still opens — never a dead end — and shows a Warframe Wiki *search* link (not a direct deep link, since search doesn't break when an item's name doesn't map cleanly to a wiki URL slug; direct links were considered and rejected for exactly this maintenance reason).
 
 ## Data sourcing strategy
-
-The current #80 implementation is backed entirely by a one-time port of wfinfo-ng's hand-curated `component_acquisition_overrides.json`/`mod_acquisition_overrides.json` (997 combined entries) — this is why many items show up with no real data. Per user direction ("realistically there are guides online... there shouldn't be any lack of acquisitions"), this redesign prioritizes structured data over hand-curation:
 
 Confirmed via research (2026-08-09) before committing to this layering:
 

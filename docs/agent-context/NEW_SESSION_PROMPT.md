@@ -11,6 +11,4 @@ Start by reading, in this order:
 
 Current state: the 20:40 build on 2026-10-03 is deployed (commit 4b64f92d, rollback copies .bak-2040 / .bak-1801 / .bak-1657 in ~/AppImages). All fixes are merged, JS suite 252 pass, native tests 48 pass. I have not checked this build yet; I will go through the checklist and report problems with screenshots.
 
-Rules that matter most: new problems I report are cataloged first (report + checklist, cause investigated read-only) and fixed only when I say so; any build needs my explicit yes with the exact command first; delegate all fixes to Codex gpt-5.6-luna (included in ChatGPT Plus), I am low on Claude usage so you only investigate, review, merge and update the two files; state provider/model/cost before delegating; acquisition text says how to get an item NOW (no history); consistency across drawers; never tick my checkboxes; never close my running app.
-
 First task: give me a three-line status and wait for my checklist results.

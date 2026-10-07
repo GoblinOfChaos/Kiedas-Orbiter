@@ -4,8 +4,6 @@ Status: Stage 2 investigation completed as far as the current official public do
 
 ## Verified current API contract
 
-The current public documentation describes `POST https://api.warframe.market/v2/order` as the create-order endpoint. Its documented request body uses `itemId`, `type`, `platinum`, `quantity`, and `visible`; `rank`, `charges`, `subtype`, and sculpture star fields are conditional item modifiers. The docs require authentication, a verified account, and a non-banned user for creation. [Orders API](https://docs.warframe.market/docs/api/orders/)
-
 The same documentation describes `GET /v2/orders/my` for authenticated users' orders and says the public v2 API is still below 1.0. [Orders API](https://docs.warframe.market/docs/api/orders/), [Introduction](https://docs.warframe.market/docs/intro/)
 
 The existing app follows that documented ordinary-order route in `src-tauri/src/market.rs`: it sends the stored token as both `Authorization: Bearer ...` and `Cookie: JWT=...`, plus `Platform`, `Crossplay`, `Language`, `Accept`, and an identifying `User-Agent`. The official docs say OAuth 2.0 is not yet available to public integrations and that integrations still rely on the existing v1 authorization flow, but they do not specify this JWT header/cookie combination. [Introduction](https://docs.warframe.market/docs/intro/)
@@ -38,8 +36,6 @@ Until Warframe.market publishes or confirms the Riven/contract request shape and
 5. What endpoint-specific rate limit, account requirement, and validation rules apply to auction creation?
 
 These questions remain intentionally unresolved rather than inferred from undocumented website traffic, third-party clients, or the legacy v1 API.
-
-## Verification round 2 - official docs supplied by the user (2026-09-23)
 
 Sources read: https://docs.warframe.market/docs/api/overview , /docs/api/manifests , /docs/api/orders , /docs/data-models (docs v0.25.0). Read-only GETs to https://api.warframe.market/v2/riven/attributes and /v2/riven/weapons (public, no auth, 2 requests).
 

@@ -1,8 +1,5 @@
-# Audit Follow-Up — Claude, 2026-09-03 (continuation of the Codex audit in this directory)
 
 ## Status
-
-This continues the audit in `MASTER-REPORT.md`/`FAILURES.md` (Codex, same day). That audit was itself explicitly incomplete — its own status line says so, and its "work still required" section lists the screen-by-screen runtime pass, overlay testing, and the live gameplay matrix as not yet done. This document covers work done after that point:
 
 - Live runtime screenshots of 9 screens (Dashboard, Prime Resurgence, Market, Inventory, Foundry, Mods, Rivens, Relics, Cosmetics) — confirmed rendering correctly.
 - Source-level review of the remaining 11 screens (RelicPlanner, Collectibles, Adversaries, Wiki, About, Mastery, Maps, Notes, Checklist, Settings, History) by parallel review agents.
@@ -60,7 +57,6 @@ Two compounding bugs in the show/hide path:
 - Live-reproduced this session: a Riven comparison overlay stayed visible on screen after the in-game Riven menu was closed. Cleared manually via `xdotool windowunmap` (window manager level); the app's own internal state was left inconsistent (still believed the overlay visible) until the app was restarted.
 
 **H2 — Live-confirmed reward misidentification, root cause found**
-`src/lib/relicParser.js`, `fuzzyMatchReward()`, lines 823-850. The scoring loop only checks whether every word in a *candidate* name appears in the OCR text — never the reverse. A general/parent name (e.g. "Yareli Prime Blueprint") and a more specific component name (e.g. "Yareli Prime Chassis Blueprint") both score a perfect 1.0 against OCR text "Yareli Prime Chassis Blueprint," because the parent is never penalized for missing "Chassis." Ties go to whichever candidate appears first in the DE drop-table manifest order — arbitrary, not correctness-based. Reproduced live on 2026-09-03 (see Codex's OCR-LIVE-001) and now root-caused.
 
 **H3 — Fabricated reward data on low-confidence OCR**
 `src/contexts/MonitoringContext.jsx:1113-1120`. When no fuzzy match clears the 0.65 threshold, the code invents a synthetic item: a `uniqueName` that doesn't exist in any export table, and a ducat value guessed from a naive "contains the word BLUEPRINT" check (15 or 45). Directly conflicts with the project's own documented "zero fallback text, nothing invented" rule (`docs/RECURRING_ERRORS_REPORT.md`).
@@ -82,8 +78,6 @@ Two compounding bugs in the show/hide path:
 
 **H9 — Linux memory reads can silently return stale data as fresh**
 `src-tauri/src/mem_reader.rs:66-73`. `read_at`/`pread64` can do a short read without erroring; the return value's byte count is discarded entirely, so a short read looks identical to a full success. `Vec::resize` (used to size the read buffer) doesn't re-zero on a no-op resize, so a short read leaves stale prior-cycle bytes in the tail of the buffer, which then gets treated as fresh EE.log content — potentially silently missing a cycle's worth of real game events. The Windows sibling function and `memory_scan.rs`'s own Linux scanner both correctly check for this; only this one function omits it.
-
-**H10 — Stale/non-primary data source** *(Codex, re-confirmed still open)*, **H11 — Path traversal in file commands** *(Codex, re-confirmed still open)*, **H12 — Exposed JWT credential** *(Codex, re-confirmed still open)*, **H13 — Clean-install packaged resource path mismatch** *(Codex, re-confirmed still open)*, **H14 — Notifications never fire** *(Codex, re-confirmed still open)* — see FAILURES.md for full detail, not re-derived here.
 
 ### Medium
 
@@ -113,8 +107,6 @@ Two compounding bugs in the show/hide path:
 
 **M7 — "Reroll Potential %" is presented as more precise than it is**
 `pricer.rs:276-330`. The displayed percentage derives from the weapon's overall market price distribution, not anything conditioned on the riven's actual current roll. A separate `expected_on_reroll` field is a pure unused duplicate of `expected_value` under a different name.
-
-**M8 — Windows/macOS updater entries are broken** *(Codex, re-confirmed still open)*, **M9 — CSP broader than necessary** *(Codex, re-confirmed still open)*, **M10 — Async listener unmount race** *(Codex, re-confirmed still open)*, **M11 — Dependency CVEs unaddressed** *(Codex, re-confirmed still open)* — see FAILURES.md.
 
 ### Low
 

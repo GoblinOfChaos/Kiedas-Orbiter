@@ -21,4 +21,3 @@
 
 ## Follow-ups
 
-- Coordinator should perform the permitted live transition/reload validation when the preview app is available.

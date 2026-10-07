@@ -37,4 +37,3 @@ Verified target manifest paths:
 
 ## Suggested follow-ups
 
-- Re-run the full matrix after the coordinator applies the branch's runtime cache merge and performs live transition testing.

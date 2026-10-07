@@ -23,6 +23,5 @@ executing its esbuild bundle is prohibited by the task's no-bundler rule.
 
 ## Remaining verification
 
-Visual WebKitGTK rendering, selector keyboard interaction, and live user data
 values remain unverified. No live Warframe API or warframe.market write was
 performed.

@@ -3,7 +3,6 @@ Worktree: this directory. Files you may edit: ONLY the locale files in src/lib/i
 Read docs/RECURRING_ERRORS_REPORT.md section 18 and its 2026-10-03 addendum first.
 
 ## The problem
-tests/fixtures/i18n-identical-baseline.json lists, per locale, about 70 to 215 UI strings that are identical to the English text and that the tests therefore ACCEPT. Nobody audited them. Example found by the user: de.json still had "Grade Rivens" for ui.settings.hotkey_action_grade_rivens (the correct German is "Rivens bewerten"; other locales already translate it). Real English UI text can therefore still show in every language.
 
 ## Your job, per locale
 1. List every entry of the baseline for the locale. For each, decide: (A) legitimately identical: game proper nouns that this locale file keeps in English elsewhere (Warframe, Orokin, Void, Tenno, Forma, Endo, Kuva, Riven names...), brand/product names (Discord, GitHub, Kieda's Orbiter), pure numbers/codes/placeholders, keyboard key names, units, or a word that is genuinely the same in that language; or (B) real English UI text that must be translated.

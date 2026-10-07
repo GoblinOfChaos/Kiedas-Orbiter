@@ -61,7 +61,6 @@ use rather than hunted down.
 ### Mastery
 - [x] ~~Mastery mismatch across several categories.~~ **Fixed 9/1**, verified against your real inventory.json — 3 of 4 confirmed:
   - Kitguns/Zaws folded into Secondary/Melee's real total (DE tracks them there, not separately) — Melee now reproduces your exact reported 185/234; dedicated Kitgun/Zaw tabs stay as display-only breakdowns.
-  - Sentinels/MOAs/Hounds/Sentinel-Weapons combined into one "Robotics" total matching DE's own grouping; root cause of the gap was Prisma Shade + its weapon (a Baro-vault item DE hides from the Codex) inflating the denominator — excluding it reproduces your exact 34/46. "Companions" now correctly means Kavats/Kubrows/Predasites/Vulpaphylas only.
   - Plexus was miscounted inside Companions — now its own row combined into a "Vehicles" total with Archwings/Necramechs/K-Drives, matching your "+1" exactly.
   - The generic "AMP" item **could not be confirmed** — checked every amp path in the real export data and your real inventory, found nothing matching. Left unfixed rather than guessed; if you can find its internal name in-game that would help. [L363]
 

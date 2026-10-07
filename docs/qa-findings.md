@@ -101,7 +101,6 @@ still open.
   it's just not discoverable. No double-click-to-zoom feature exists at all currently.
 - **In-game sidebar overlay "never seen it"** — there is no default hotkey; it must be
   bound manually in Settings → Hotkeys → "Toggle Ingame Menu". Nothing in the app currently
-  explains this. A "How To" / feature guide (user's suggestion) would help here and for
   hotkeys/shortcuts generally — not built yet, flagged as a good follow-up feature.
 - **Prime Resurgence bundles "not owned"** — the `owned: false` hardcode fix (#13) is real
   and correct, but this player currently has zero bundles in inventory to verify visually
@@ -231,7 +230,6 @@ Full detail with line numbers and upstream commit hashes in `docs/upstream-diff-
 
 **First pass (wiki-only) was wrong and got corrected mid-session — recorded here for the full
 picture.** Started by researching wiki.warframe.com and hand-entering per-category totals
-(`wikiTotal`) and location snippets. Live testing immediately falsified two of them: the user's
 real save showed 58/55 Somachord tunes (over 100%) and had Leverian cards (`Oraxia`, `Runner`,
 `Brawler`) that didn't exist in ANY wiki fetch. Investigating `Runner`/`Brawler` found they're
 DE's internal codenames for Gauss and Atlas respectively (confirmed via `ExportCodex.json`'s
@@ -286,7 +284,6 @@ other export tables) and rebuilt Collectibles.jsx around it:
 
 ## Notification Manager: 46 missing translation keys + Foundry never fires on completion (2026-08-20)
 
-User noticed the "Add Notification" dropdown showing raw keys (`ui.notif_mgr.trig_void_traces`
 etc) instead of labels for 8 of the 11 triggers. Investigating found the real scope was much
 bigger: searched every `ui.notif_mgr.*` key referenced anywhere in `notificationManager.js`
 against `en.json` and found **46 of them didn't exist at all** - not just trigger/column/option
@@ -300,7 +297,6 @@ Notification Manager's message content had never actually been translated. Added
 (plus one new one, see below) with real English text and matching `{param}` placeholders,
 cross-checked against each `evaluate*` function's actual `tr()` call to get the params right.
 
-Separately, user reported enabling Foundry notifications and getting nothing when an item
 finished. Root cause: `evaluateFoundry` only ever fired a notification in the pre-completion
 "advance" window (config: "notify when remaining time is N minutes") and explicitly `continue`d
 past any item where `finishTime <= now` - i.e. once actually complete, it never notified at all,
@@ -321,7 +317,6 @@ state across restarts rather than the current in-memory Set) rather than a quick
 
 ## In-game sidebar overlay: two compounding bugs, both fixed (2026-08-20)
 
-User had never once seen the sidebar overlay work, matching the earlier QA note. Root-caused two
 separate, compounding bugs:
 
 1. **HotkeyRecorder gave zero feedback about what it needed.** `Settings.jsx`'s `HotkeyRecorder`
@@ -338,7 +333,6 @@ separate, compounding bugs:
    `setExportData(exports)` on the next line ever ran. Result: `exportData`/`dict` stayed null
    forever in the overlay, the worldstate fetch never even attempted (gated on `dict` being
    populated), and Dashboard's "Loading worldstate..." spinner never cleared - permanently, on
-   every single overlay open. Confirmed via the user's live run log
    (`[SIDEBAR-TOGGLE] ENTER done side=left` fired correctly, proving the hotkey/window-show path
    was fine and the break was purely in the data pipeline). Fixed by deleting the broken block -
    it was fully redundant with the correct, working wfcd-supplement merge later in the same file
@@ -350,7 +344,6 @@ behind never having a working overlay (Wiki.jsx sidebar-toggle reflow, SidebarOv
 drag/auto-hide) become testable for the first time.
 
 **SidebarOverlay resize-handle - confirmed live 2026-08-20, fixed.** With the overlay finally
-loading, user immediately hit the resize-handle bug flagged earlier as unverified: dragging to
 resize would glitch, and releasing the mouse didn't end the drag - it stayed "in movement"
 permanently. Root cause matched the flagged concern exactly: `onResizeStart` in
 `SidebarOverlay.jsx` only cleaned up on `pointerup`, with no `pointercancel` handler. Every
@@ -380,6 +373,5 @@ would've stayed pinned to the now-max-grown window's edge instead of the visible
 `absolute` within the same width-clipped container so it tracks the cursor correctly during drag.
 Also had to account for `side: "right"` placement growing the native window leftward (its right
 edge stays pinned to the monitor edge per `set_sidebar_width`'s `target_x` calc in `main.rs`) by
-conditionally margin-anchoring the visible content to the correct edge - the user's own setup uses
 `side: left`, so this specific branch is unverified live and worth a look if anyone runs the
 sidebar on the right.

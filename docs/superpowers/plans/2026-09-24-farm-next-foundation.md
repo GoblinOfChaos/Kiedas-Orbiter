@@ -13,7 +13,6 @@
 ## Global Constraints
 
 - Preview repo only (`/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center`); stable untouched; nothing pushed.
-- No new npm or cargo dependencies. No builds, no `cargo`, no `tauri`, no `vite` run by implementers (the coordinator compiles). Static checks: `node --check`, `node --test`.
 - Primary sources only: DE PublicExport, DE drop tables (`https://www.warframe.com/droptables`), `https://wiki.warframe.com`. Fandom banned. Network politeness: >=1.2 s between wiki requests, `User-Agent: KiedasOrbiter/1.0 (data refresh)`; conditional requests for the drop tables.
 - Never guess game data: unknown => `unknown`/`null` with a visible label, never a fabricated value.
 - Chance values in code are fractions (0-1); UI/percent conversion only at display. Drop chances are always shown, never hidden.
@@ -122,7 +121,6 @@ test('KNOWN_SECTIONS lists exactly the 20 documented ids', () => assert.equal(KN
 - [ ] **Step 2: Run to verify failure:** `cd /home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center && nice -n 19 node --test tests/farming/dropTablesParse.test.mjs` -> FAIL (module not found).
 - [ ] **Step 3: Implement.** Section split `html.split(/<h3 id="([A-Za-z]+)">[^<]*<\/h3>/)`; throw `DropTablesFormatError` for any id not in `KNOWN_SECTIONS` and for any `<tr>` that is not one of the recognised shapes; decode HTML entities; the percent regex is `^(.*?)\s*\((\d+(?:\.\d+)?)%\)$`; chance = percent/100; skip only `class="blank-row"` rows. Place-style: `<th>` with one cell that starts with `Rotation` sets `rotation`, other one-cell `<th>` sets `place` and resets rotation to `null`; two-cell `<td>` rows are `item` + `rarity (chance)`. By-source: `<th>Source</th><th colspan=2>... Drop Chance: p%</th>` sets `source`/`sourceChance`; three-cell rows `['', item, 'Rarity (p%)']`. `stats.rows` = total rows; `stats.places` = distinct `place` or `source`. `validateDropTables`: (a) all chances in (0,1]; (b) for `missionRewards` groups keyed `(place, rotation)` the summed chance must be within 1 +- 0.0015, otherwise **warning** naming the group (never error; documented exceptions: event multi-roll and Duviri tiers); (c) if `previous` given and `stats.rows < 0.8 * previous.stats.rows` -> error `row count dropped ...`.
 - [ ] **Step 4: Run tests -> PASS.** Also run a real-data check (read-only, not part of `node --test`): `nice -n 19 node -e "..."` parsing `/tmp/droptables.html` if present, print `stats` and warnings; expected about 10.3k mission rows, 441 places, 4 warnings.
-- [ ] **Step 5: Commit** `git add src/lib/deDropTables tests/farming/dropTablesParse.test.mjs && git commit -m "feat(farm-next): DE drop table parser with validation"` (coordinator commits for sandboxed agents).
 
 ### Task 2: DE drop-table refresh script and snapshot
 
@@ -165,7 +163,6 @@ test('KNOWN_SECTIONS lists exactly the 20 documented ids', () => assert.equal(KN
 - JS: `export function createWikiStore({ invoke })` returning `{ getIndex(): Promise<Index>, getModule(title): Promise<{title,kind,revid,data:any}> (memoised per title), stale(): Promise<boolean> }`.
 
 - [ ] **Step 1: failing JS tests** with a fake `invoke`: `getModule` memoises (one invoke for two calls); unknown title rejects with a clear message; `stale()` true when `checkedAt` older than 24 h.
-- [ ] **Step 2-4:** implement JS (tests pass). Implement Rust conservatively mirroring existing helpers (`write_bytes_atomic`, `write_json_atomic`, `reqwest::Client`, `resolve_path`); **do not compile** (coordinator builds). Re-read the Rust for borrow/async errors twice.
 - [ ] **Step 5: Commit.**
 
 ### Task 5: Requirements engine
@@ -230,6 +227,5 @@ Recipes and catalog come from the player's exported `inventory.json` via the sam
 
 ## Self-Review (spec coverage)
 
-- Spec section 1 (intent, Conclave rule, filter off): Tasks 7-8. Section 2 (screen): out of scope (Stage 2 plan). Section 3 (honesty levels): Task 7. Sections 4.1/4.2 (updates, drop-table parsing): Tasks 1-4. Section 5 (ranking): Task 8. Section 6 (units): Tasks 5-8. Section 7 (verification): property tests in Tasks 5, 6, 8 and proof in Task 9. Section 8 stages 2-4 (screen, relics, 9.8 remainder): separate plans after the user has seen Task 9's numbers.
 - Placeholder scan: field-level details that depend on real markup (by-item table shape, recipe output-quantity field, Conclave matchers) are assigned as "read the real data first" steps with the target shape fixed above.
 - Type consistency: `Row`, `Index`, `leaves`, `ledger row`, `Source`, `Place`, `RankedPlace` are defined once and reused with the same field names.

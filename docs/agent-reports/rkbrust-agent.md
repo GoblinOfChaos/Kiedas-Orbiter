@@ -1,4 +1,3 @@
-# Agent report
 
 ## Plan
 
@@ -57,6 +56,5 @@ from Rust runtime adoption.
 
 ## Suggested follow-ups
 
-Run the Rust test/build checks in a dedicated coordinator environment before
 shipping, then run the live refresh and completeness matrix against fresh DE
 cache data.

@@ -1,4 +1,3 @@
-# Agent report: Regions / Keys / Bundles shadow adapters
 
 ## Plan
 

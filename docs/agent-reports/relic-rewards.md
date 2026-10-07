@@ -29,11 +29,9 @@ The relic slice now passes the completeness matrix: 108/108 refinement variants 
 
 ## Open questions and risks
 
-- Runtime/Tauri build and live UI rendering were not run, per task restrictions. The coordinator should refresh the Preview data and inspect one new relic in Relics and Relic Planner.
 - The completeness command's overall exit remains red for unrelated mods/cosmetics work; relics are green.
 - The adapter relies on DE's stable `Lith|Meso|Neo|Axi <letter><number> Relic` display-name form for catalog fields. Records outside that Prime-relic form remain unmodified for those derived fields and are not forced into the Prime catalog.
 
 ## Suggested follow-ups
 
-- Have the coordinator rerun the matrix after integrating the worktree and perform the requested live Preview refresh.
 - Address the separately reported mod/cosmetic completeness failures in their own adoption slices.

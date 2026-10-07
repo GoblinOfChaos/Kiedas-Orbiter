@@ -39,6 +39,5 @@ prints per-relic coverage when run by the coordinator.
 - The preview UI was not launched, so drawer navigation, responsive layout,
   fallback rendering, and visual spacing remain unverified.
 - The acquisition drawer must resolve the catalog relic unique name against
-  the coordinator's refreshed Preview indexes; this was checked by source
   wiring only, not live rendering.
 - The proof uses the existing parser/catalog and does not fetch live DE data.

@@ -2,8 +2,6 @@
 
 ## Before / after
 
-The regression fixture modeled two recipe-less user targets plus enemy, bounty, and mission sources.
-
 | Check | Before reviewed behavior | After |
 | --- | ---: | ---: |
 | Direct/acquirable fixture ledger rows | 0 | 2 |
@@ -19,7 +17,6 @@ The real proof reads `/home/jedwards/.local/share/kiedas-orbiter-preview/data/ex
 
 ## Changes
 
-- Mark screen-model user targets acquirable by default, preserving explicit `false`.
 - Prefer node, relic, enemy, and bounty names over provenance labels; use `region` for mission planets.
 - Match source rows by both item type and display name.
 - Add deduplicated component `subIngredients` recipes to expansion.

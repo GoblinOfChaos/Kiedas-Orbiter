@@ -26,7 +26,6 @@ Real run: `nice -n 19 node scripts/de-drop-tables/fetch.mjs /home/jedwards/.cach
 
 - `docs/revamp/stage-4/COMMAND-CENTER-IMPLEMENTATION-PLAN.md` is absent from this worktree, so section 9.8 could not be reread; the supplied plan and spec were used.
 - The live page has real padded/stage rows beyond the simplified fixture markup; extraction was adapted minimally and kept the fixed row interfaces.
-- The live page's zero-percent under-review rows make the strict validation reject the current page. Coordinator should decide policy from the primary DE data before enabling refresh acceptance.
 
 ## Files created or modified
 

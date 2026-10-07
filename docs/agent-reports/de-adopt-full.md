@@ -1,4 +1,3 @@
-# Agent report: de-adopt slice 1
 
 ## Plan
 
@@ -49,7 +48,6 @@ shield records, 14 sprint speeds, and nine `exalted` lists.
 
 ## Open questions and risks
 
-- The adapter intentionally omits app-only icons, long codex descriptions,
   variants, commerce fields, and polarities. A later app integration must
   merge those from the existing dictionary/image/commerce layers.
 - The DE cache is currently English; the adapter rejects non-English locale

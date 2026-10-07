@@ -40,7 +40,6 @@ change the result. The repo-bundled inputs (`src-tauri/data/assets/data/*.json`,
 ## Scope
 
 Audited: the catalogs the app builds from export data alone, i.e. the ones every
-user sees regardless of what they own — the Inventory screen tabs, the Mods
 screen catalog, and the four Cosmetics screen catalogs. `parseInventory()` is
 invoked with an empty raw inventory so only those ownership-independent catalogs
 are produced, and each list is checked with the exact resolver its screen uses.

@@ -29,4 +29,3 @@ The brief's compatibility-ledger figure of 280 DE-only relics/arcanes is not rep
 ## Risks and follow-ups
 
 - The local Preview data directory has no `export/AcquisitionItems.json`, so the exact post-merge acquisition allowlist result for all DE arcane names could not be computed from the runtime input. This is an open verification item, not guessed.
-- Rust compilation and runtime refresh behavior are unverified by instruction. Review `de_relics.rs` and the mirror-newer branches before coordinator integration.

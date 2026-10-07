@@ -6,8 +6,6 @@
 
 **Architecture — confirmed by external research (2026-08-08):** Before implementing, we checked whether a reusable library or better dataset exists for "which relics drop part X" matching. Finding: no npm package/crate implements this (every existing open-source Warframe relic tool is a full standalone app, several explicitly unfinished on this exact feature), and the matching logic itself is trivial (invert a reward table, filter by wishlist, tally by relic) — not complex enough to warrant depending on a third-party package. WFCD's `warframe-drop-data`/`@wfcd/relics` is confirmed to already be the right data shape (relic→rewards, invertible to item→relics) and this app's `relicParser.js`/`dropsParser.js` are already built on that same WFCD data pipeline. **Recommendation: hand-write the matching logic directly against this app's existing `relicParser.js`/`dropsParser.js` (as this plan already does below) — do not port wfinfo-ng's Python line-by-line, and do not look for a third-party matching library.** wfinfo-ng's `RELIC_PLANNER_TAB.py` is retained below only as a conceptual reference for the need-list UX (search/add/remove/"add all missing"), not as source code to port.
 
-Build a searchable "need list" (parts the user wants) entirely client-side, reusing `getAllRelicRewards`/`getRewardInventoryContext` (`relicParser.js`) and `buildDropIndex`/`getDropSources` (`dropsParser.js`) which already give per-part ownership status and per-relic reward tables — no new Rust command needed, this is a pure data-reshaping + new-screen task. Register the screen in `App.jsx`'s nav/routing following the exact pattern `Relics.jsx` already uses.
-
 **Tech Stack:** React 18, existing `MonitoringContext`, `relicParser.js`, `dropsParser.js`. No Rust changes.
 
 ## Global Constraints
@@ -25,7 +23,6 @@ Build a searchable "need list" (parts the user wants) entirely client-side, reus
 - Test: `src/lib/relicPlanner.test.js`
 
 **Interfaces:**
-- Consumes: `exportData` (for `getAllRelicRewards`/relic reward tables), `inventoryData` (for ownership via `getRewardInventoryContext`), a `needList: string[]` of reward `uniqueName`s the user wants.
 - Produces: `planRelics(needList, exportData, inventoryData, locale) -> PlannedRelic[]`, where `PlannedRelic = {relicUniqueName, name, era, ownedCount, matchedNeeds: string[], vaulted: boolean}`, sorted by `(-ownedCount, -matchedNeeds.length)` matching wfinfo-ng's `_compute()` sort.
 
 - [ ] **Step 1: Read wfinfo-ng's `_compute()` in full**

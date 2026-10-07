@@ -1,4 +1,3 @@
-# DE official localisation: real-data parity (coordinator measurement, 2026-09-25)
 
 Method: DE `Export<Category>_<locale>.json` (fetched from content.warframe.com via `scripts/de-export/de-export.mjs fetch`, cached under ~/.cache/kiedas-de-export/assets/<locale>/) compared record by record (by uniqueName) with the community mirror text: mirror `name` loctag resolved through the mirror `dict.<locale>.json` (raw.githubusercontent.com/calamity-inc/warframe-public-export-plus). "same" = identical after trim.
 

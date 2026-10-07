@@ -11,6 +11,7 @@ import { useMonitoring } from '../contexts/MonitoringContext';
 import { useWikiNavigation } from '../contexts/WikiNavigationContext';
 import { event } from '../lib/logging/logger';
 import { buildIngredientSourceRows, buildRelicRarityIndex, getRelicSourceLabel, prepareAcquisitionSources } from '../lib/relicSources';
+import { ACQUISITION_MODEL_INGREDIENT_RELICS, buildIngredientRowsWithModel } from '../lib/acquisitionModel/ingredientRelicRows';
 import { sourceLabel } from '../lib/sourceLabel';
 import BlueprintAcquisitionBox from './BlueprintAcquisitionBox';
 
@@ -226,6 +227,7 @@ export default function AcquisitionDrawer({ item, onClose }) {
   const [expandedGroups, setExpandedGroups] = useState({});
   const { displayName, uniqueName, info, wikiLink, openWikiLink, recipe, sources, componentSources, codexLoading } = useAcquisitionDrawerData(item);
   const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
+  const ingredientRelicContext = useMemo(() => ({ exportData }), [exportData]);
 
   if (!item) return null;
 
@@ -359,7 +361,10 @@ export default function AcquisitionDrawer({ item, onClose }) {
               // pattern, see GitHub #114); fall back to the static warframe-items file
               // only when the live index has no entry, so its isFakeVendorPurchaseDrop
               // filtering still covers any items dropIndex doesn't.
-              const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
+              const existingRows = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
+              const drops = ACQUISITION_MODEL_INGREDIENT_RELICS
+                ? buildIngredientRowsWithModel(ingredient, existingRows, ingredientRelicContext, { t })
+                : existingRows;
               return (
               <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="rounded bg-white/5 px-2 py-1 text-[12px] text-kronos-text">
                 <div className="flex items-start justify-between gap-2">

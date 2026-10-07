@@ -21,6 +21,8 @@ import {
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'))
+const TEMP_ROOT = fs.mkdtempSync(path.join(process.env.TMPDIR, 'kiedas-p42-'))
+fs.symlinkSync(path.join(ROOT, 'node_modules'), path.join(TEMP_ROOT, 'node_modules'), 'dir')
 const en = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/lib/i18n/en.json'), 'utf8'))
 const t = (key, values = {}) => Object.entries(values).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, String(value)), en.ui?.[key] || key)
 
@@ -53,6 +55,9 @@ async function loadDrawer() {
       buildApi.onLoad({ filter: /.*/, namespace: 'p42-acquisition-stub' }, () => ({ contents: `
         export function getItemDrops(key) { return globalThis.__P42_ITEM_DROPS__?.[key] || null }
         export function getItemRecipe() { return null }
+        export function getWikiLink() { return null }
+        export function isCraftable() { return false }
+        export const WARFRAME_ACQUISITIONS = {}
         export function resolveBlueprintOrigin() { return null }
       `, loader: 'js' }))
       buildApi.onResolve({ filter: /MonitoringContext(?:\.jsx)?$/ }, () => ({ path: 'p42-monitoring-context', namespace: 'p42-monitoring-stub' }))
@@ -63,7 +68,7 @@ async function loadDrawer() {
       `, loader: 'js', resolveDir: ROOT }))
     } }],
   }).then(async (result) => {
-    const file = path.join(fs.mkdtempSync(path.join(ROOT, 'tests/.cache/p42-drawer-')), 'drawer.mjs')
+    const file = path.join(TEMP_ROOT, 'drawer.mjs')
     fs.writeFileSync(file, result.outputFiles[0].text)
     return import(`${pathToFileURL(file).href}?${Date.now()}`)
   })
@@ -238,6 +243,9 @@ test('P42 reproduces the real Ash Prime drawer and shows all four groups with DE
   assert.match(html, /Axi N2 \(Uncommon\)/)
   assert.match(html, /Axi B1 \(Common\)/)
   assert.match(html, /Neo N5 \(Uncommon\)/)
+  assert.match(html, /Vanguard P1 \(Common\)/)
+  assert.match(html, /Vanguard M1 \(Common\)/)
+  assert.match(html, /Vanguard C1 \(Uncommon\)/)
   assert.doesNotMatch(html, /Axi N2 Relic|Axi B1 Relic|Neo N5 Relic/)
 })
 
@@ -305,4 +313,8 @@ test('P42 prints the requested Prime samples with the DE tier beside each row', 
     }
     if (!printed) console.log(`${name}: no DE ExportRelics rows (the final drawer has no relic rows for this Prime item)`)
   }
+})
+
+test.after(() => {
+  fs.rmSync(TEMP_ROOT, { recursive: true, force: true })
 })

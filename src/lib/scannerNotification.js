@@ -1,12 +1,23 @@
-import { getLocaleSync, loadLocale } from './i18n.js';
+import { warn as logWarn } from './logging/logger.js';
 
 const ENGLISH_FALLBACKS = {
   'app.scanner_title': 'Scanner',
   'app.scanner_hooked_message': 'Log scanner hooked into Warframe',
 };
 
+// i18n.js uses Vite's import.meta.glob, which only exists in a Vite bundle. It is
+// imported dynamically (not at the top) so this module can still be loaded by plain
+// Node tests; in the app the import resolves normally.
+let getLocaleSync = () => null;
 // Start loading the synchronous fallback before the scanner can emit its first event.
-void loadLocale('en');
+import('./i18n.js')
+  .then((i18n) => {
+    getLocaleSync = i18n.getLocaleSync;
+    return i18n.loadLocale('en');
+  })
+  .catch((error) => {
+    logWarn('i18n.locale_load_failed', {}, { error });
+  });
 
 function translatedScannerText(getT, key) {
   const translated = getT(key);

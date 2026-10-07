@@ -16,9 +16,7 @@
 
 let _cache = {}
 
-const _loaders = typeof import.meta.glob === 'function'
-  ? import.meta.glob('./i18n/*.json', { eager: false })
-  : {}
+const _loaders = import.meta.glob('./i18n/*.json', { eager: false })
 
 /**
  * @param {string} locale — e.g. 'en', 'de', 'tc'

@@ -14,6 +14,17 @@ function CardImage({ uniqueName, name, EI, nameToImage, uniqueNameToName, classN
   return <ItemImage src={src} className={`object-contain ${className}`} placeholderClassName="h-full w-full rounded-lg bg-white/5" />
 }
 
+function RelicList({ relics, limit, separator, className }) {
+  const [open, setOpen] = useState(false)
+  if (!relics?.length) return null
+  const shown = open ? relics : relics.slice(0, limit)
+  const hidden = relics.length - shown.length
+  return <span className={className}>
+    {shown.join(separator)}
+    {relics.length > limit && <button type="button" onClick={() => setOpen(!open)} className="ml-1 font-black text-kronos-accent">{open ? '−' : `+${hidden}`}</button>}
+  </span>
+}
+
 function PartRow({ part, imageProps, item, t }) {
   const isMainBlueprint = part.uniqueName === item.blueprint
   const displayName = (!part.name || part.name.toLowerCase() === 'blueprint') && isMainBlueprint ? item.name : part.name
@@ -22,7 +33,7 @@ function PartRow({ part, imageProps, item, t }) {
   return <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-black/15 px-2 py-1.5">
     <CardImage {...imageProps} uniqueName={displayUniqueName} name={displayName} className="h-8 w-8" />
     <div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold">{displayName}</p><p className={`text-[9px] uppercase tracking-wider ${part.owned ? 'text-emerald-300' : 'text-kronos-dim'}`}>{part.need > 1 ? `${part.have}/${part.need}${part.owned ? ' · ' + t('prime_resurgence.owned') : ''}` : (part.owned ? t('prime_resurgence.owned') : t('prime_resurgence.missing'))}{part.isBlueprint ? ' · ' + t('prime_resurgence.blueprint') : ''}</p></div>
-    {part.relics.length > 0 && <span className="text-[9px] text-kronos-dim">{part.relics.join(', ')}</span>}
+    <RelicList relics={part.relics} limit={4} separator=", " className="text-[9px] text-kronos-dim" />
     {IS_PREVIEW && <FarmingTargetAction item={{ uniqueName: displayUniqueName, name: displayName }} />}
   </div>
 }
@@ -32,7 +43,7 @@ function EquipmentCard({ item, imageProps, t }) {
   return <Card className="overflow-hidden p-0">
     <div className="flex min-h-[150px] items-center gap-3 border-b border-white/10 p-3">
       <CardImage {...imageProps} uniqueName={item.uniqueName} name={item.name} className="h-28 w-28 shrink-0" />
-      <div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><h3 className="text-sm font-black">{item.name}</h3><span className={`shrink-0 rounded-full px-2 py-1 text-[9px] font-black uppercase ${item.owned ? 'bg-emerald-400 text-black' : 'bg-white/10 text-kronos-dim'}`}>{item.owned ? t('prime_resurgence.owned') : t('prime_resurgence.missing_count', { missing })}</span></div><p className="mt-2 text-[10px] text-kronos-dim">{t('prime_resurgence.relic_rewards_note')}</p><p className="mt-1 text-[10px] text-kronos-accent">{item.relics.join(' · ')}</p></div>
+      <div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><h3 className="text-sm font-black">{item.name}</h3><span className={`shrink-0 rounded-full px-2 py-1 text-[9px] font-black uppercase ${item.owned ? 'bg-emerald-400 text-black' : 'bg-white/10 text-kronos-dim'}`}>{item.owned ? t('prime_resurgence.owned') : t('prime_resurgence.missing_count', { missing })}</span></div><p className="mt-2 text-[10px] text-kronos-dim">{t('prime_resurgence.relic_rewards_note')}</p><p className="mt-1 text-[10px] text-kronos-accent"><RelicList relics={item.relics} limit={6} separator=" · " /></p></div>
     </div>
     <div className="space-y-1.5 p-3"><p className="mb-2 text-[10px] font-black uppercase tracking-widest text-kronos-dim">{t('prime_resurgence.available_pieces')}</p>{item.parts.map((part) => <PartRow key={part.uniqueName} part={part} imageProps={imageProps} item={item} t={t} />)}</div>
   </Card>

@@ -3,6 +3,7 @@ import { getItemDrops } from '../acquisitionData.js'
 import { buildDropIndex } from '../dropsParser.js'
 import { buildBlueprintSourceRows, buildIngredientSourceRows, buildRelicRarityIndex, normalizeRelicName, normalizeRelicSources } from '../relicSources.js'
 import { getRelicCatalog } from '../relicParser.js'
+import { deRelicTruth } from './deRelicTruth.js'
 
 const canonicalPath = (value) => String(value || '').replaceAll('/StoreItems/', '/')
 const foundryText = (value) => /\b(?:built|crafted|craftable|made) (?:in |at )?(?:the )?foundry\b|\bfoundry from a blueprint\b|^\s*(?:build cost|rush|components)\s*:/i.test(String(value || ''))
@@ -116,6 +117,12 @@ function collectRelics(sources, ctx) {
   })
 }
 
+/** Build only the model's relic facts, without constructing display routes. */
+export function buildItemRelics(itemUniqueName, ctx = {}, fallbackSources = []) {
+  const uniqueName = canonicalPath(itemUniqueName)
+  return deRelicTruth(uniqueName, ctx.exportData) ?? collectRelics(fallbackSources, ctx)
+}
+
 /**
  * Build a display-independent acquisition record. The caller provides the
  * existing indexes; this module never mutates them or performs I/O.
@@ -136,7 +143,11 @@ export function buildItemAcquisition(itemUniqueName, name, ctx = {}) {
     relicRows.push(...(blueprintInfo.sources || []), ...buildBlueprintSourceRows(name, recipe, ctx.dropIndex || {}, fallback(recipe.blueprintUniqueName) || [], ctx.rarityIndex || null))
   }
   const build = buildSection(recipe, ctx, relicRows)
-  const relics = collectRelics(relicRows, ctx)
+  // DE reward identities are authoritative for the model-level relic set and
+  // tier.  Acquisition source lists can contain generic ingredients or a
+  // display-name match, neither of which proves that the reward belongs to
+  // this item's own recipe tree.
+  const relics = buildItemRelics(uniqueName, ctx, relicRows)
   const routes = rowsToRoutes(itemInfo.sources)
   return {
     uniqueName,

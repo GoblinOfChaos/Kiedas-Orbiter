@@ -9,7 +9,68 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'))
 
 // Imported after real-data-harness registers its JSON module hook.
-const { buildItemAcquisition } = await import('../../src/lib/acquisitionModel/buildItemAcquisition.js')
+const { buildItemAcquisition, buildItemRelics } = await import('../../src/lib/acquisitionModel/buildItemAcquisition.js')
+
+function deRelicTruthForTest(itemUniqueName, recipeByResult) {
+  const targets = new Set([canonicalPath(itemUniqueName)])
+  const itemRecipe = recipeByResult.get(canonicalPath(itemUniqueName))
+  if (itemRecipe) {
+    targets.add(itemRecipe.blueprintUniqueName)
+    for (const ingredient of itemRecipe.recipe.ingredients || []) {
+      const ingredientType = canonicalPath(ingredient.ItemType || ingredient.itemType)
+      if (!ingredientType) continue
+      targets.add(ingredientType)
+      const ingredientRecipe = recipeByResult.get(ingredientType)
+      if (ingredientRecipe) targets.add(ingredientRecipe.blueprintUniqueName)
+    }
+  }
+  return { targets, recipeByResult }
+}
+
+async function realContext() {
+  const harness = await loadRealHarness({ locale: 'en' })
+  const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js')
+  const { buildDropIndex } = await import('../../src/lib/dropsParser.js')
+  const { buildRelicRarityIndex, normalizeRelicName } = await import('../../src/lib/relicSources.js')
+  const { normalizeRelicEntry, relicRewardPool } = await import('../../src/lib/relicEntry.js')
+  const { loadAcquisitionData, getItemDrops } = await import('../../src/lib/acquisitionData.js')
+  await loadAcquisitionData()
+  const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
+  const ctx = { ...indexes, dropIndex: buildDropIndex(harness.exportsBundle), rarityIndex: buildRelicRarityIndex(harness.exportsBundle), getItemDrops, exportData: harness.exportsBundle }
+  const recipeByResult = new Map()
+  for (const [blueprintUniqueName, recipe] of Object.entries(harness.exportsBundle.ExportRecipes || {})) {
+    if (recipe?.resultType) recipeByResult.set(canonicalPath(recipe.resultType), { blueprintUniqueName: canonicalPath(blueprintUniqueName), recipe })
+  }
+  const rewardsByTarget = new Map()
+  for (const [relicUniqueName, entry] of Object.entries(harness.exportsBundle.ExportRelics || {})) {
+    const normalized = normalizeRelicEntry(entry, relicUniqueName)
+    if (!normalized.era || !normalized.category) continue
+    const relic = normalizeRelicName(`${normalized.era} ${normalized.category}`)
+    for (const reward of relicRewardPool(entry, harness.exportsBundle.ExportRewards, relicUniqueName)) {
+      const target = canonicalPath(reward?.type)
+      if (!target || !reward?.rarity) continue
+      const targetRewards = rewardsByTarget.get(target) || new Map()
+      const tiers = targetRewards.get(relic) || new Set()
+      tiers.add(String(reward.rarity).toUpperCase())
+      targetRewards.set(relic, tiers)
+      rewardsByTarget.set(target, targetRewards)
+    }
+  }
+  const truthRows = (uniqueName) => {
+    const { targets } = deRelicTruthForTest(uniqueName, recipeByResult)
+    const relics = new Map()
+    for (const target of targets) for (const [relic, tiers] of rewardsByTarget.get(target) || []) {
+      const combined = relics.get(relic) || new Set()
+      for (const tier of tiers) combined.add(tier)
+      relics.set(relic, combined)
+    }
+    return [...relics].sort(([left], [right]) => left.localeCompare(right)).map(([relic, tierSet]) => {
+      const tiers = [...tierSet].sort()
+      return { relic, tier: tiers[0] || null, ...(tiers.length > 1 ? { tiers, tierConflict: true } : {}) }
+    })
+  }
+  return { harness, ctx, truthRows }
+}
 
 function fixtureContext({ infoByPath = {}, recipes = new Map(), names = {} } = {}) {
   return {
@@ -75,14 +136,7 @@ test('synthetic: multiple DE tiers for one relic are retained and flagged', () =
 })
 
 test('real data: Ash Prime parts retain DE Vanguard relics and Nunchasa does not lead with Foundry text', { skip: !haveRealData }, async () => {
-  const harness = await loadRealHarness({ locale: 'en' })
-  const { buildAllAcquisitionIndexes } = await import('../../src/lib/acquisitionInfo.js')
-  const { buildDropIndex } = await import('../../src/lib/dropsParser.js')
-  const { buildRelicRarityIndex } = await import('../../src/lib/relicSources.js')
-  const { loadAcquisitionData, getItemDrops } = await import('../../src/lib/acquisitionData.js')
-  await loadAcquisitionData()
-  const indexes = buildAllAcquisitionIndexes(harness.exportsBundle)
-  const ctx = { ...indexes, dropIndex: buildDropIndex(harness.exportsBundle), rarityIndex: buildRelicRarityIndex(harness.exportsBundle), getItemDrops, exportData: harness.exportsBundle }
+  const { harness, ctx } = await realContext()
   const ashItem = harness.exportsBundle.AcquisitionItems.find((item) => item.name === 'Ash Prime')
   assert.ok(ashItem, 'missing real-data acquisition record for Ash Prime')
   const ash = ashItem.components.filter((component) => ['Blueprint', 'Chassis', 'Neuroptics', 'Systems'].includes(component.name)).map((component) => {
@@ -105,4 +159,50 @@ test('real data: Ash Prime parts retain DE Vanguard relics and Nunchasa does not
   assert.ok(!nunchasa.routes.some((route) => /^\s*components\s*:/i.test(route.text)), JSON.stringify(nunchasa.routes))
   assert.equal(nunchasa.build?.credits, 20000)
   assert.equal(nunchasa.build?.rush, 25)
+})
+
+test('real data: P57 named relic records use only their exact DE reward identities', { skip: !haveRealData }, async () => {
+  const { harness, ctx, truthRows } = await realContext()
+  const subjects = (await import('../../scripts/item-completeness.mjs')).discoverSubjects(harness)
+  for (const name of ['Hydroid Prime', 'Sevagoth Prime', 'Umbra Forma', 'Exilus Weapon Adapter', 'Boot Trophy']) {
+    const subject = subjects.find((entry) => entry.name === name && entry.category !== 'recipes')
+    const actual = buildItemAcquisition(subject.uniqueName, name, ctx).relics.map(({ relic, tier, tiers, tierConflict }) => ({ relic, tier, ...(tiers ? { tiers } : {}), ...(tierConflict ? { tierConflict } : {}) }))
+    assert.deepEqual(actual, truthRows(subject.uniqueName), name)
+  }
+})
+
+test('real data: every acquisition-model relic set and tier exactly matches its DE reward rows', { skip: !haveRealData, timeout: 180000 }, async () => {
+  const { harness, ctx, truthRows } = await realContext()
+  const { discoverSubjects } = await import('../../scripts/item-completeness.mjs')
+  const mismatches = []
+  for (const subject of discoverSubjects(harness)) {
+    const actual = buildItemRelics(subject.uniqueName, ctx).map(({ relic, tier, tiers, tierConflict }) => ({ relic, tier, ...(tiers ? { tiers } : {}), ...(tierConflict ? { tierConflict } : {}) }))
+    const expected = truthRows(subject.uniqueName)
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) mismatches.push({ name: subject.name, actual, expected })
+  }
+  assert.deepEqual(mismatches, [], `DE relic mismatches: ${JSON.stringify(mismatches.slice(0, 5))}`)
+})
+
+test('real data: DE-only tiers keep three single tiers and three genuine conflicts', { skip: !haveRealData }, async () => {
+  const { harness, ctx } = await realContext()
+  const subjects = (await import('../../scripts/item-completeness.mjs')).discoverSubjects(harness)
+  const subjectFor = (name) => subjects.find((subject) => subject.name === name && subject.category !== 'recipes')
+  const row = (name, relic) => buildItemAcquisition(subjectFor(name).uniqueName, name, ctx).relics.find((entry) => entry.relic === relic)
+  assert.deepEqual(row('Citrine Prime', 'Neo C11'), { relic: 'Neo C11', tier: 'COMMON', source: 'de-exportrelics', provenance: [{ kind: 'de-exportrelics' }] })
+  assert.deepEqual(row('Ayatan Amber Star', 'Requiem I'), { relic: 'Requiem I', tier: 'COMMON', source: 'de-exportrelics', provenance: [{ kind: 'de-exportrelics' }] })
+  assert.deepEqual(row('Forma', 'Axi A10'), { relic: 'Axi A10', tier: 'COMMON', source: 'de-exportrelics', provenance: [{ kind: 'de-exportrelics' }] })
+  for (const [name, relic, tiers] of [['Odonata Prime', 'Axi V8', ['COMMON', 'UNCOMMON']], ['Sevagoth Prime', 'Lith S20', ['RARE', 'UNCOMMON']], ['Forma', 'Meso D1', ['COMMON', 'UNCOMMON']]]) {
+    assert.deepEqual(row(name, relic)?.tiers, tiers, `${name} ${relic}`)
+    assert.equal(row(name, relic)?.tierConflict, true, `${name} ${relic}`)
+  }
+})
+
+test('real data: DE-absent generic relic rows are not attributed to three unrelated items', { skip: !haveRealData }, async () => {
+  const { harness, ctx } = await realContext()
+  const subjects = (await import('../../scripts/item-completeness.mjs')).discoverSubjects(harness)
+  const subjectFor = (name) => subjects.find((subject) => subject.name === name && subject.category !== 'recipes')
+  for (const [name, relic] of [['Sevagoth Prime', 'Axi B10'], ['Burston Prime', 'Lith S20'], ['Nautilus Prime', 'Neo H5']]) {
+    const actual = buildItemAcquisition(subjectFor(name).uniqueName, name, ctx).relics
+    assert.equal(actual.some((entry) => entry.relic === relic), false, `${name} must not include ${relic}`)
+  }
 })

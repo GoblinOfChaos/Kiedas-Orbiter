@@ -1,41 +1,66 @@
-P56 acquisition model report
+# P56
 
-Root cause
+P56's side-by-side acquisition model, its real-data harness test, and comparison reports remain the base for this work. P57 replaces only the model's relic/tier derivation with exact DE reward identities.
 
-The existing drawers build their own rows from different entry points. In the shared path, `src/lib/acquisitionInfo.js:2011-2027` is the real ingredient/relic lookup: it adds the item, result, blueprint, and display identities to `sourceKeys`, then reads each key from `dropIndex`. DE tier identity bridging is in `src/lib/relicSources.js:86-89` and `128-153`; it links a recipe blueprint to its result and resolves rarity through that alias set. The narrower drawer helper at `src/lib/relicSources.js:304-320` only starts from an ingredient path plus its display fallback, which explains why it can miss a relation that the shared acquisition path can resolve.
+# P57 - DE relic agreement
 
-What changed
+## Root cause and change
 
-- Added `src/lib/acquisitionModel/buildItemAcquisition.js`. It is a pure, side-by-side model which takes the existing indexes in `ctx`, delegates to `getAcquisitionInfo`, `buildBlueprintSourceRows`, `buildIngredientSourceRows`, `normalizeRelicSources`, `buildRelicRarityIndex`, `buildDropIndex`, and `getRelicCatalog`, and does no I/O.
-- Recipe credits, time, rush cost, and ingredient facts are now exclusively in `build`; Foundry, `Build cost`, `Rush`, and `Components` rows are filtered from `routes`.
-- Relics are collected for the item, its blueprint, and every ingredient. One source is normalized at a time so duplicate DE tiers are retained and emitted as `tiers` plus `tierConflict` instead of being silently collapsed. Each route and relic has provenance.
-- Added synthetic plus real-data coverage in `tests/acquisition-model/buildItemAcquisition.test.mjs`.
-- Added `scripts/acquisition-model-compare.mjs`, which reuses the existing drawer-equivalent builders for every `discoverSubjects()` item and writes only `docs/agent-context/reports/acquisition-model-diff.json` and `.md`.
+P56 collected relics from the acquisition-source lists assembled in `src/lib/acquisitionModel/buildItemAcquisition.js:74-116`. Those lists include generic ingredient routes and display-name lookup results (`:77-84`), then `collectRelics` retained their source tier (`:94-116`). That allowed a generic Forma route, or an unrelated same-name route such as Boot Trophy, to be attributed to the requested item.
 
-Before/after proof
+Added `src/lib/acquisitionModel/deRelicTruth.js:7-74`. It indexes DE `ExportRelics`/`ExportRewards` once, selects only the item, its blueprint, direct ingredients, and those ingredients' blueprints (`:45-56`), and returns every exact DE tier, setting `tierConflict` whenever one target has multiple DE tiers (`:65-73`). `buildItemRelics` now prefers those DE facts at `buildItemAcquisition.js:120-124`; `buildItemAcquisition` uses it at `:146-150`. The legacy source collector remains only as the no-DE-data fallback for synthetic/headless callers.
 
-- `git stash`/worktree metadata writes are blocked by the read-only linked-worktree git directory. I used the required disk-backed temp-copy proof instead, under `/var/home/jedwards/.cache/codex-tmp` (never `/tmp`), with source and test files copied and `node_modules` only symlinked (not copied). The baseline copy omitted only `buildItemAcquisition.js`; its throttled test exited 1 with `ERR_MODULE_NOT_FOUND` for that module. The temporary copy was deleted.
-- After implementation: `timeout 240 nice -n 19 node --test --test-concurrency=2 tests/acquisition-model/buildItemAcquisition.test.mjs 2>&1 | tail -n 60` passed (5 tests).
-- Comparison: `timeout 540 nice -n 19 node --max-old-space-size=3500 scripts/acquisition-model-compare.mjs 2>&1 | tail -n 40` passed: 20,416 subjects, 5,306 differing records. The summary reports 58 old Foundry-leading rows, 138 relic-missing-in-old records, 17 tier differences, 76 old-only routes, and 5,083 no-acquisition-in-both records.
+## Tests and before/after proof
 
-Real-data outputs
+- Added real-data tests in `tests/acquisition-model/buildItemAcquisition.test.mjs:164-207`:
+  - the five named false-positive records;
+  - every `discoverSubjects()` model relic set/tier against independently built DE truth rows;
+  - three single-tier and three genuine-conflict cases;
+  - three DE-absent generic rows.
+- Before proof: a source-only copy under `$TMPDIR` (disk-backed `~/.cache/codex-tmp`, never `/tmp`) used the P56 committed model plus the new test. `timeout 240 nice -n 19 node --test --test-concurrency=2 tests/acquisition-model/buildItemAcquisition.test.mjs 2>&1 | tail -n 60` exited 1.
+- After proof: the identical command exited 0 (the P57 file passed in 15.9 s).
+- The temporary proof copy was deleted. A detached `git worktree` proof was unavailable because the linked-worktree administrative directory is mounted read-only; no stash was attempted.
 
-- Ash Prime Blueprint: Axi I3, Lith S3, Lith V7, Meso C1, Meso S3, Vanguard E1 (all Uncommon in the current DE bundle).
-- Ash Prime Chassis: Axi B1, Axi K12, Lith V8, Meso V2, Neo N4, Vanguard M1 (all Common).
-- Ash Prime Neuroptics: Axi N2, Meso N2, Meso P12, Meso V4, Neo A4, Neo N3, Neo V4 (Uncommon), Vanguard P1 (Common).
-- Ash Prime Systems: Axi A7, Axi N1, Neo A10 (Rare), Neo N5 and Vanguard C1 (Uncommon).
-- Nunchasa routes no longer lead with Foundry/build facts; its build is 20,000 Credits, 86,400 seconds, 25 Platinum rush, with Upper Limb, String, Grip, and Lower Limb ingredients.
-- Narin routes are Everview Arc, Tuvul Commons, Oro Works, Halako Perimeter, and The Greenway; its build is 25,000 Credits, 259,200 seconds, 50 Platinum rush, with Neuroptics, Chassis, Systems, and Orokin Cell ingredients.
-- DE ExportRelics `Meso D1` (`/Lotus/Types/Game/Projections/T2VoidProjectionABronze`) has two `/Lotus/StoreItems/Types/Recipes/Components/FormaBlueprint` rows: one Uncommon and one Common, both count 2. The model preserves that conflict rather than selecting a tier by guess.
+## DE tier evidence
 
-Unverified or skipped
+Each `x4` is the four DE refinement records carrying the same reward row. The full-catalog test checks every relic row; the listed named unresolved cases resolve as follows.
 
-- Wiki-audit relic-set comparison was skipped. The absolute `wiki_store/`/`scratchwiki/` location exists, but there was no stable machine-readable relic-set schema selected by the comparison; the report records that reason. No network was used.
-- The required broad suite was run throttled. It produced 64 passes and one unrelated failure: `tests/farming/acquisitionText.test.mjs` cannot read the git-ignored `scratchwiki/wiki-resource-pages.json` in this worktree (`ENOENT`). Per the brief, I did not create or alter that missing wiki artifact.
-- No app build, deployment, network request, existing `src` file, data file, i18n file, or Rust file was changed.
+| Item / relic | Exact matching DE reward row(s) | Model output |
+| --- | --- | --- |
+| Forma Axi A10, A12, A13 | `/Lotus/Types/Recipes/Components/FormaBlueprint` Common x4 | Common |
+| Ayatan Amber Star Requiem I-IV | `/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentB` Common x4, each | Common, each |
+| Sevagoth Prime Axi B10; Neo H5 | none; none | omitted; omitted |
+| Burston Prime Lith S20; Neo H5 | none; `BurstonPrimeReceiver` Common x4 | omitted; Common |
+| Bronco Prime Lith S20; Meso E8 | `BroncoPrimeReceiver` Common x4; none | Common; omitted |
+| Ballistica Prime Lith S20; Meso E8; Axi N14 | `PrimeBallisticaLowerLimb` Common x4; none; none | Common; omitted; omitted |
+| Nautilus Prime Axi N14; Neo H5 | `NautilusPrimeCerebrum` Rare x4; none | Rare; omitted |
 
-Exact deliverables created
+The conflict checks retain, rather than choose between, all DE tiers: Odonata Prime/Axi V8 is Common+Uncommon; Sevagoth Prime/Lith S20 is Rare+Uncommon; Forma/Meso D1 is Common+Uncommon. Citrine Prime/Neo C11 is Common only.
 
+## Comparison report
+
+`scripts/acquisition-model-compare.mjs` now writes `category` on every difference, category counts for `no-acquisition-in-both`, and a route-only-in-old subclass with count plus no more than five names. Current 76 route-only-old records are all `foundry-build-sentence` (Nunchasa, Aksondol, Atterax Desert-Camo Skin, Hek Desert-Camo Skin, Karak Desert-Camo Skin).
+
+| Class | Before | After |
+| --- | ---: | ---: |
+| foundry-text-leads-old | 58 | 58 |
+| no-acquisition-in-both | 5,083 | 5,084 |
+| relic-missing-in-old | 138 | 139 |
+| relic-missing-in-model | 0 | 56 |
+| route-only-in-old | 76 | 76 |
+| tier-differs | 17 | 13 |
+
+The comparison counts describe differences from the legacy drawers, not DE correctness. The whole-catalog P57 test is the DE invariant and passed with zero mismatches. Regeneration passed: 20,416 subjects and 5,355 differences.
+
+## Validation and blocked work
+
+- Passed: P57 real-data test file (before/after evidence above); comparison regeneration; `git diff --check`.
+- Broad throttled suite: 64 passed, 1 failed. `tests/farming/acquisitionText.test.mjs:55` requires the missing, git-ignored `scratchwiki/wiki-resource-pages.json` and failed with `ENOENT`. This is unrelated to P57; per the brief it was not created or changed.
+- No build, deployment, network access, Rust, data, i18n, `src-tauri`, or existing non-`src/lib/acquisitionModel` source file was changed. Wiki audit remains skipped because no stable machine-readable relic-set schema is selected.
+
+## Exact P57 files changed
+
+- `src/lib/acquisitionModel/deRelicTruth.js`
 - `src/lib/acquisitionModel/buildItemAcquisition.js`
 - `tests/acquisition-model/buildItemAcquisition.test.mjs`
 - `scripts/acquisition-model-compare.mjs`
@@ -43,6 +68,4 @@ Exact deliverables created
 - `docs/agent-context/reports/acquisition-model-diff.md`
 - `AGENT_REPORT.md`
 
-Workspace hygiene note
-
-The broad pre-existing UI tests regenerate three tracked files under `tests/.cache/`. They are not model/source changes. Restoring them with git is blocked by the same read-only linked-worktree `.git/worktrees/acq-model/index.lock` path; their generated modifications remain visible in `git status` and should be discarded by the coordinator from a normal writable git environment.
+The three pre-existing modified tracked files under `tests/.cache/` were preserved. Test-created untracked cache directories were deleted.

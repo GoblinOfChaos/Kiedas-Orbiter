@@ -66,6 +66,20 @@ function routeSet(rows) {
     .map(sourceText).filter(Boolean))
 }
 
+function routeOnlyInOldSubclass(oldResult, model) {
+  const modelRoutes = new Set(model.routes.map((row) => row.text))
+  const oldOnly = (oldResult.info.sources || []).filter((source) => source?.type !== 'relic' && source?.type !== 'unresearched' && source?.type !== 'status')
+    .filter((source) => {
+      const text = sourceText(source)
+      return text && !modelRoutes.has(text)
+    })
+  if (oldOnly.length === 0) return null
+  if (oldOnly.every((source) => foundryText(sourceText(source)) || /^\s*(?:build cost|rush|components)\s*:/i.test(sourceText(source)))) return 'foundry-build-sentence'
+  if (oldOnly.every((source) => /\b(?:sold by|purchase|market|credits|platinum|ducats|standing)\b/i.test(sourceText(source)))) return 'vendor-price'
+  if (oldOnly.every((source) => /drop.?tables?|DropsAll/i.test(String(source.source || '')) || ['mission', 'relic', 'bounty', 'rotation'].includes(source.type))) return 'drop-table-route'
+  return 'other'
+}
+
 function wikiAuditStatus() {
   const dir = '/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/wiki_store'
   const scratch = '/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/scratchwiki'
@@ -90,7 +104,8 @@ function classify(subject, oldResult, model) {
   if ([...oldRoutes].some((route) => !modelRoutes.has(route))) classes.push('route-only-in-old')
   if ([...modelRoutes].some((route) => !oldRoutes.has(route))) classes.push('route-only-in-model')
   if (oldRoutes.size === 0 && modelRoutes.size === 0 && oldRelics.size === 0 && modelRelics.size === 0) classes.push('no-acquisition-in-both')
-  return { uniqueName: subject.uniqueName, name: subject.name, classes: [...new Set(classes)], oldRelics: [...oldRelics].map(([relic, tiers]) => ({ relic, tiers: [...tiers].sort() })), modelRelics: model.relics.map((row) => ({ relic: row.relic, tier: row.tier, tiers: row.tiers || null })), oldRoutes: [...oldRoutes], modelRoutes: [...modelRoutes] }
+  const routeOnlyInOld = classes.includes('route-only-in-old') ? routeOnlyInOldSubclass(oldResult, model) : null
+  return { uniqueName: subject.uniqueName, name: subject.name, category: subject.category, classes: [...new Set(classes)], ...(routeOnlyInOld ? { routeOnlyInOld } : {}), oldRelics: [...oldRelics].map(([relic, tiers]) => ({ relic, tiers: [...tiers].sort() })), modelRelics: model.relics.map((row) => ({ relic: row.relic, tier: row.tier, tiers: row.tiers || null })), oldRoutes: [...oldRoutes], modelRoutes: [...modelRoutes] }
 }
 
 const harness = await loadRealHarness({ locale: 'en' })
@@ -121,7 +136,20 @@ for (const subject of discoverSubjects(harness)) {
 }
 const counts = {}
 for (const entry of differences) for (const type of entry.classes) counts[type] = (counts[type] || 0) + 1
-const report = { generatedAt: new Date().toISOString(), subjects: discoverSubjects(harness).length, wikiAudit: wikiAuditStatus(), counts, differences }
+const noAcquisitionInBothCategories = {}
+for (const entry of differences.filter((entry) => entry.classes.includes('no-acquisition-in-both'))) {
+  noAcquisitionInBothCategories[entry.category] = (noAcquisitionInBothCategories[entry.category] || 0) + 1
+}
+const routeOnlyInOld = {}
+for (const entry of differences.filter((entry) => entry.classes.includes('route-only-in-old'))) {
+  const subclass = entry.routeOnlyInOld || 'other'
+  const summary = routeOnlyInOld[subclass] || { count: 0, names: [] }
+  summary.count++
+  if (summary.names.length < 5) summary.names.push(entry.name)
+  routeOnlyInOld[subclass] = summary
+}
+const classifications = { noAcquisitionInBoth: { categoryCounts: noAcquisitionInBothCategories }, routeOnlyInOld }
+const report = { generatedAt: new Date().toISOString(), subjects: discoverSubjects(harness).length, wikiAudit: wikiAuditStatus(), counts, classifications, differences }
 fs.mkdirSync(outputDir, { recursive: true })
 fs.writeFileSync(jsonOutput, `${JSON.stringify(report, null, 2)}\n`)
 const lines = ['# Acquisition model comparison', '', `Subjects: ${report.subjects}`, '', '## Counts', '']
@@ -129,6 +157,10 @@ for (const [type, count] of Object.entries(counts).sort()) {
   const examples = differences.filter((entry) => entry.classes.includes(type)).slice(0, 5).map((entry) => entry.name).join(', ')
   lines.push(`- ${type}: ${count}${examples ? ` (${examples})` : ''}`)
 }
+lines.push('', '## No acquisition in both: categories', '')
+for (const [category, count] of Object.entries(noAcquisitionInBothCategories).sort()) lines.push(`- ${category}: ${count}`)
+lines.push('', '## Route only in old: subclasses', '')
+for (const [subclass, summary] of Object.entries(routeOnlyInOld).sort()) lines.push(`- ${subclass}: ${summary.count}${summary.names.length ? ` (${summary.names.join(', ')})` : ''}`)
 lines.push('', '## Wiki audit', '', `${report.wikiAudit.compared ? 'Compared' : 'Skipped'}: ${report.wikiAudit.reason}`, '')
 fs.writeFileSync(markdownOutput, lines.join('\n'))
 console.log(`acquisition-model comparison: ${report.subjects} subjects, ${differences.length} differences; report written to ${path.relative(ROOT, jsonOutput)}`)

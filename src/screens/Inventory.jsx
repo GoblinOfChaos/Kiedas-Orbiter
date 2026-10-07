@@ -31,6 +31,7 @@ import PrimeSetCard from '../components/PrimeSetCard';
 import { getGridColumnCount, getMeasuredRowStride, getScrollKeyTarget, getScrollTopForFirstItem, getVirtualScrollMaximum, getVirtualScrollModel, settleScrollJump } from '../lib/inventoryScroll.js';
 import { sourceLabel } from '../lib/sourceLabel.js';
 import { buildRelicRarityIndex, buildRelicTooltipRows } from '../lib/relicSources.js';
+import { ACQUISITION_MODEL_TOOLTIP_RELICS, buildTooltipRelicRows } from '../lib/acquisitionModel/tooltipRelicRows.js';
 import { compareText, compareTextBase } from '../lib/textCompare';
 
 
@@ -217,6 +218,7 @@ export default function Inventory() {
   };
   const { inventoryData, exportData, isInventoryLoading, allPrices, isPriceLoading, priceFetchProgress, dropIndex, recipeResultIndex, exaltedWeaponIndex, marketIndex, alwaysAvailableIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, relicStateIndex, exportVendorIndex, ExportImages, ExportTextIcons, cardImagesPath, exportComponentIndex } = useMonitoring();
   const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
+  const tooltipRelicContext = useMemo(() => ({ exportData }), [exportData]);
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
@@ -1753,7 +1755,6 @@ export default function Inventory() {
                       const itemNorm = item.unique_name ? item.unique_name.replace('/StoreItems/', '/') : '';
                       const itemBlueprintNorm = itemNorm.replace(/Component$/i, 'Blueprint');
                       const itemSources = dropIndex?.[itemNorm] || dropIndex?.[itemBlueprintNorm] || dropIndex?.['display:' + (item.name || '').toLowerCase().trim()] || [];
-                      if (itemSources.length === 0) return null;
                       const dedupKey = (s) => {
                         if (s.type === 'mission') return 'm:' + sourceLabel(s);
                         if (s.type === 'relic') return 'r:' + sourceLabel(s);
@@ -1764,7 +1765,9 @@ export default function Inventory() {
                       const seen = {};
                       const uniq = itemSources.filter((s) => {const k = dedupKey(s);if (seen[k]) return false;seen[k] = true;return true;});
                       const missionSources = sortMissionRotationGroups(uniq.filter((s) => s.type === 'mission')).slice(0, 5);
-                      const relicSources = buildRelicTooltipRows(sortByChanceDesc(uniq.filter((s) => s.type === 'relic')), { rarityIndex: relicRarityIndex, itemType: item.unique_name, t }).slice(0, 5);
+                      const relicSources = ACQUISITION_MODEL_TOOLTIP_RELICS
+                        ? buildTooltipRelicRows(item.unique_name, item.name, tooltipRelicContext, { t })
+                        : buildRelicTooltipRows(sortByChanceDesc(uniq.filter((s) => s.type === 'relic')), { rarityIndex: relicRarityIndex, itemType: item.unique_name, t }).slice(0, 5);
                       const enemySources = sortByChanceDesc(uniq.filter((s) => s.type === 'enemy')).slice(0, 4);
                       const bountySources = sortByChanceDesc(uniq.filter((s) => s.type === 'bounty')).slice(0, 3);
                       const otherSources = sortByChanceDesc(uniq.filter((s) => !['mission', 'relic', 'enemy', 'bounty'].includes(s.type))).slice(0, 3);

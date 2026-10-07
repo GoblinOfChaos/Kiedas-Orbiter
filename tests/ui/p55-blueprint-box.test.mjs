@@ -48,6 +48,9 @@ async function loadDrawer() {
       buildApi.onLoad({ filter: /.*/, namespace: 'p55-acquisition-stub' }, () => ({ contents: `
         export function getItemDrops(key) { return globalThis.__P55_ITEM_DROPS__?.[key] || null }
         export function getItemRecipe() { return null }
+        export function getWikiLink() { return null }
+        export function isCraftable() { return false }
+        export const WARFRAME_ACQUISITIONS = {}
         export function resolveBlueprintOrigin(name) { return globalThis.__P55_BLUEPRINT_ORIGINS__?.[name] || null }
       `, loader: 'js' }))
       buildApi.onResolve({ filter: /MonitoringContext(?:\.jsx)?$/ }, () => ({ path: 'p55-monitoring-context', namespace: 'p55-monitoring-stub' }))

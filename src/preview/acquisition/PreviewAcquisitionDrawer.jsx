@@ -10,6 +10,7 @@ import {
 } from '../../components/AcquisitionDrawer';
 import { getItemDrops } from '../../lib/acquisitionData';
 import { buildIngredientSourceRows, buildRelicRarityIndex, prepareAcquisitionSources } from '../../lib/relicSources';
+import { ACQUISITION_MODEL_INGREDIENT_RELICS, buildIngredientRowsWithModel } from '../../lib/acquisitionModel/ingredientRelicRows';
 import BlueprintAcquisitionBox from '../../components/BlueprintAcquisitionBox';
 import ItemImage from '../../components/ItemImage';
 import BugReporterModal from '../../components/BugReporterModal';
@@ -35,6 +36,7 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
   const previousFocusRef = useRef(null);
   const headingId = 'preview-acq-drawer-title';
   const relicRarityIndex = useMemo(() => buildRelicRarityIndex(exportData), [exportData]);
+  const ingredientRelicContext = useMemo(() => ({ exportData }), [exportData]);
 
   // Reset the disclosure/scroll state whenever the drawer starts showing a
   // different item (the drawer stays mounted, only `item` changes) so a
@@ -288,7 +290,10 @@ export default function PreviewAcquisitionDrawer({ item, onClose }) {
               {recipe.ingredients?.length > 0 &&
                 <div className="preview-acq-ingredients">
                   {recipe.ingredients.map((ingredient, i) => {
-                    const drops = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
+                    const existingRows = buildIngredientSourceRows(ingredient, dropIndex, getItemDrops(ingredient.itemType), relicRarityIndex);
+                    const drops = ACQUISITION_MODEL_INGREDIENT_RELICS
+                      ? buildIngredientRowsWithModel(ingredient, existingRows, ingredientRelicContext, { t })
+                      : existingRows;
                     return (
                       <div key={`${ingredient.itemType || ingredient.name}-${i}`} className="preview-acq-ingredient">
                         <div className="preview-acq-ingredient-row">

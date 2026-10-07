@@ -1,71 +1,51 @@
-# P56
+# P62 - ingredient drawer relic rows
 
-P56's side-by-side acquisition model, its real-data harness test, and comparison reports remain the base for this work. P57 replaces only the model's relic/tier derivation with exact DE reward identities.
+## Root cause
 
-# P57 - DE relic agreement
+`src/lib/relicSources.js:304-310` passes an ingredient's exact item type to `getDropSourcesWithFallback`. That reader only joins an exact drop-index key and an optional display-name key (`src/lib/dropsParser.js:689-696`). `buildDropIndex` indexes relic rewards under the raw DE reward identity (`src/lib/dropsParser.js:649-670`). The three Vanguard manifests carry `AshPrimeHelmetBlueprint` (P1/Common), `AshPrimeChassisBlueprint` (M1/Common), and `AshPrimeSystemsBlueprint` (C1/Uncommon), while the drawer ingredients use the corresponding `...Component` paths. Therefore the old lookup never reaches those three reward rows. I did not change that legacy lookup.
 
-## Root cause and change
+## Change
 
-P56 collected relics from the acquisition-source lists assembled in `src/lib/acquisitionModel/buildItemAcquisition.js:74-116`. Those lists include generic ingredient routes and display-name lookup results (`:77-84`), then `collectRelics` retained their source tier (`:94-116`). That allowed a generic Forma route, or an unrelated same-name route such as Boot Trophy, to be attributed to the requested item.
+- Added `src/lib/acquisitionModel/ingredientRelicRows.js`. `buildIngredientRowsWithModel()` preserves every non-relic source object, replaces all relic rows with `buildItemRelics()` DE facts, orders them Lith, Meso, Neo, Axi, Vanguard and then numeric code, and exposes `ACQUISITION_MODEL_INGREDIENT_RELICS`.
+- Conflict rows carry every translated DE tier in the existing drawer label shape, because `getRelicSourceLabel()` supports one rarity field only.
+- `src/components/AcquisitionDrawer.jsx:14,230,364-367` and `src/preview/acquisition/PreviewAcquisitionDrawer.jsx:13,39,293-296` now memoize `{ exportData }` and select the helper only while the switch is on. The model's DE index remains cached by `exportData`; it is not rebuilt on each render.
+- The Blueprint box component was not changed. Test-only module stubs in the two existing SSR files were extended for the helper's transitive imports.
 
-Added `src/lib/acquisitionModel/deRelicTruth.js:7-74`. It indexes DE `ExportRelics`/`ExportRewards` once, selects only the item, its blueprint, direct ingredients, and those ingredients' blueprints (`:45-56`), and returns every exact DE tier, setting `tierConflict` whenever one target has multiple DE tiers (`:65-73`). `buildItemRelics` now prefers those DE facts at `buildItemAcquisition.js:120-124`; `buildItemAcquisition` uses it at `:146-150`. The legacy source collector remains only as the no-DE-data fallback for synthetic/headless callers.
+## Ash Prime relic lists (real data)
 
-## Tests and before/after proof
+Before proof used the committed drawer call sites in a disk-backed `$TMPDIR` copy, with the current regression assertions. It failed at the missing `Vanguard P1 (Common)` assertion. The old displayed relic lists were:
 
-- Added real-data tests in `tests/acquisition-model/buildItemAcquisition.test.mjs:164-207`:
-  - the five named false-positive records;
-  - every `discoverSubjects()` model relic set/tier against independently built DE truth rows;
-  - three single-tier and three genuine-conflict cases;
-  - three DE-absent generic rows.
-- Before proof: a source-only copy under `$TMPDIR` (disk-backed `~/.cache/codex-tmp`, never `/tmp`) used the P56 committed model plus the new test. `timeout 240 nice -n 19 node --test --test-concurrency=2 tests/acquisition-model/buildItemAcquisition.test.mjs 2>&1 | tail -n 60` exited 1.
-- After proof: the identical command exited 0 (the P57 file passed in 15.9 s).
-- The temporary proof copy was deleted. A detached `git worktree` proof was unavailable because the linked-worktree administrative directory is mounted read-only; no stash was attempted.
+- Blueprint: Axi I3 (Uncommon), Lith S3 (Uncommon), Lith V7 (Uncommon), Meso C1 (Uncommon), Meso S3 (Uncommon), Vanguard E1 (Uncommon).
+- Neuroptics: Axi N2 (Uncommon), Meso N2 (Uncommon), Meso P12 (Uncommon), Meso V4 (Uncommon), Neo A4 (Uncommon), Neo N3 (Uncommon), Neo V4 (Uncommon).
+- Chassis: Axi B1 (Common), Axi K12 (Common), Lith V8 (Common), Meso V2 (Common), Neo N4 (Common).
+- Systems: Neo N5 (Uncommon), Axi A7 (Rare), Axi N1 (Rare), Neo A10 (Rare).
 
-## DE tier evidence
+After the model replacement, the Blueprint box is unchanged. The ingredient sets retain those rows and add: Neuroptics `Vanguard P1 (Common)`, Chassis `Vanguard M1 (Common)`, and Systems `Vanguard C1 (Uncommon)`. The Preview drawer SSR test renders all three literal labels. The helper orders the final relic display rows by era/code as specified rather than by the legacy drop source order.
 
-Each `x4` is the four DE refinement records carrying the same reward row. The full-catalog test checks every relic row; the listed named unresolved cases resolve as follows.
+## Tests and evidence
 
-| Item / relic | Exact matching DE reward row(s) | Model output |
-| --- | --- | --- |
-| Forma Axi A10, A12, A13 | `/Lotus/Types/Recipes/Components/FormaBlueprint` Common x4 | Common |
-| Ayatan Amber Star Requiem I-IV | `/Lotus/Types/Items/FusionTreasures/OroFusexOrnamentB` Common x4, each | Common, each |
-| Sevagoth Prime Axi B10; Neo H5 | none; none | omitted; omitted |
-| Burston Prime Lith S20; Neo H5 | none; `BurstonPrimeReceiver` Common x4 | omitted; Common |
-| Bronco Prime Lith S20; Meso E8 | `BroncoPrimeReceiver` Common x4; none | Common; omitted |
-| Ballistica Prime Lith S20; Meso E8; Axi N14 | `PrimeBallisticaLowerLimb` Common x4; none; none | Common; omitted; omitted |
-| Nautilus Prime Axi N14; Neo H5 | `NautilusPrimeCerebrum` Rare x4; none | Rare; omitted |
+- Before/after proof: a data-excluding, disk-backed copy under `$TMPDIR/kiedas-p62-before-proof-20261007` used HEAD versions of the two drawer call sites and the current P42 test. The throttled command exited 1 specifically because `Vanguard P1 (Common)` was absent. The copy and all proof logs were deleted afterward.
+- Passed, throttled: `timeout 240 nice -n 19 node --test --test-concurrency=2 tests/acquisition-model/ingredientRelicRows.test.mjs tests/ui/p42-prime-drawer-ssr.test.mjs tests/ui/p55-blueprint-box.test.mjs 2>&1 | tail -n 60` (3 files, 0 failures).
+- Passed, direct evidence from `ingredientRelicRows.test.mjs`: 5 tests; synthetic replacement/non-relic/order/conflict-label coverage; switch-off identity coverage; Ash P1/M1/C1 real-data coverage; 518 Prime recipe ingredients with zero model-row/DE-fact mismatches; Blueprint-box audit.
+- Blueprint-box audit: 1,245 recipes checked. Two existing box/model relic-set discrepancies were reported, not changed: `Exilus Weapon Adapter` and `Forma`.
+- Passed, real SSR: `p42-prime-drawer-ssr.test.mjs` rendered P1/M1/C1 for Ash Prime. `p55-blueprint-box.test.mjs` also passed.
+- `git diff --check` passed before the report write.
 
-The conflict checks retain, rather than choose between, all DE tiers: Odonata Prime/Axi V8 is Common+Uncommon; Sevagoth Prime/Lith S20 is Rare+Uncommon; Forma/Meso D1 is Common+Uncommon. Citrine Prime/Neo C11 is Common only.
+## Wider suite status
 
-## Comparison report
+The required throttled suite completed with 67 passing and 2 failing test files. These are outside P62 and were not changed:
 
-`scripts/acquisition-model-compare.mjs` now writes `category` on every difference, category counts for `no-acquisition-in-both`, and a route-only-in-old subclass with count plus no more than five names. Current 76 route-only-old records are all `foundry-build-sentence` (Nunchasa, Aksondol, Atterax Desert-Camo Skin, Hek Desert-Camo Skin, Karak Desert-Camo Skin).
+- `tests/farming/acquisitionText.test.mjs`: `ENOENT` for the git-ignored `scratchwiki/wiki-resource-pages.json` fixture.
+- `tests/farming/vendorPlaces.test.mjs`: `Rahn Prism should be under The Quills in Vendors` assertion failed.
 
-| Class | Before | After |
-| --- | ---: | ---: |
-| foundry-text-leads-old | 58 | 58 |
-| no-acquisition-in-both | 5,083 | 5,084 |
-| relic-missing-in-old | 138 | 139 |
-| relic-missing-in-model | 0 | 56 |
-| route-only-in-old | 76 | 76 |
-| tier-differs | 17 | 13 |
+No build, deployment, network request, Rust, data file, `src-tauri`, `src/lib/i18n.js`, `src/lib/scannerNotification.js`, `Inventory.jsx`, or Blueprint-box component was changed. Live-app verification is intentionally skipped because this task forbids a build/deploy.
 
-The comparison counts describe differences from the legacy drawers, not DE correctness. The whole-catalog P57 test is the DE invariant and passed with zero mismatches. Regeneration passed: 20,416 subjects and 5,355 differences.
+## Exact changed files
 
-## Validation and blocked work
-
-- Passed: P57 real-data test file (before/after evidence above); comparison regeneration; `git diff --check`.
-- Broad throttled suite: 64 passed, 1 failed. `tests/farming/acquisitionText.test.mjs:55` requires the missing, git-ignored `scratchwiki/wiki-resource-pages.json` and failed with `ENOENT`. This is unrelated to P57; per the brief it was not created or changed.
-- No build, deployment, network access, Rust, data, i18n, `src-tauri`, or existing non-`src/lib/acquisitionModel` source file was changed. Wiki audit remains skipped because no stable machine-readable relic-set schema is selected.
-
-## Exact P57 files changed
-
-- `src/lib/acquisitionModel/deRelicTruth.js`
-- `src/lib/acquisitionModel/buildItemAcquisition.js`
-- `tests/acquisition-model/buildItemAcquisition.test.mjs`
-- `scripts/acquisition-model-compare.mjs`
-- `docs/agent-context/reports/acquisition-model-diff.json`
-- `docs/agent-context/reports/acquisition-model-diff.md`
+- `src/lib/acquisitionModel/ingredientRelicRows.js`
+- `src/components/AcquisitionDrawer.jsx`
+- `src/preview/acquisition/PreviewAcquisitionDrawer.jsx`
+- `tests/acquisition-model/ingredientRelicRows.test.mjs`
+- `tests/ui/p42-prime-drawer-ssr.test.mjs`
+- `tests/ui/p55-blueprint-box.test.mjs`
 - `AGENT_REPORT.md`
-
-The three pre-existing modified tracked files under `tests/.cache/` were preserved. Test-created untracked cache directories were deleted.

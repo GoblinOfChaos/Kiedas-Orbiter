@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Enforces the public-text rule (scripts/check-public-text.py) on every commit.
+# Installed for all worktrees via core.hooksPath (see docs/agent-context/ops/public-text-rule.md).
+exec python3 "$(dirname "$0")/../scripts/check-public-text.py" "$1"

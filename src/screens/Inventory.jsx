@@ -7,6 +7,7 @@
  */
 import { useState, useCallback, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
+import { awardsMastery } from '../lib/masteryState'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
@@ -674,6 +675,7 @@ export default function Inventory() {
         for (const f of filterKeys) {
           const state = currentFilters[f];
           if (state === undefined) continue;
+          if (f === 'mastered' && !awardsMastery(item)) return false;
           if (state === 'yes') {
             if (f === 'owned' && !item.owned) return false;
             if (f === 'mastered' && !item.mastered) return false;

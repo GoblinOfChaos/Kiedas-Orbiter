@@ -1,0 +1,4745 @@
+{
+ "summary": {
+  "appItemsCompared": 3844,
+  "onWikiList": 816,
+  "notOnWikiList": 3028,
+  "notOnWikiByBucket": {
+   "weapons": 127,
+   "companions": 25,
+   "parts": 881,
+   "prime_parts": 598,
+   "all": 1397
+  },
+  "notOnWikiByCategory": {
+   "zaws": 26,
+   "weapons": 101,
+   "companions": 20,
+   "beasts": 5,
+   "parts": 881,
+   "prime_parts": 598,
+   "Arcanes": 154,
+   "consumables": 114,
+   "resources": 1116,
+   "rivens": 13
+  },
+  "notOnWikiWithMasteryReq": 143,
+  "wikiListNotInApp": 101,
+  "wikiItemsFlaggedNotMasterableByApp": 13,
+  "wikiItemsWithNoMasteryReqInDE": 31,
+  "itemsWhoseMasterableDiffersBetweenTabs": 56
+ },
+ "notOnWikiSample": [
+  {
+   "name": "Ekwana Ii Jai",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Ii Ruhang",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Jai",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Jai Ii",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Ruhang",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Ruhang Ii",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Jai",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Jai Ii",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Jayap",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Korb",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Kroostra",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Kwath",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Laka",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Peye",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Plague Akwin",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Plague Bokwin",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ruhang",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ruhang Ii",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Seekalla",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Shtung",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ii Jai",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ii Ruhang",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Jai",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Jai Ii",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ruhang",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ruhang Ii",
+   "bucket": "weapons",
+   "category": "zaws",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Valkyr Prime Talons",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Landslide Fists Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Regulators Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Exalted Prime Blade",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Dex Pixia Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Diwata Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Garuda Prime Talons",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shattered Lash Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Balefire Charger Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Whipclaw Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Iron Staff Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shadow Clones Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Desert Wind Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Artemis Bow Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shadow Claws Prime",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Lehan Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Tyli Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Alcrom Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Krisys Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Drex Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Drimper Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Tian Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Jonsin Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Gauth Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hona Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Aegron Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Trux Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Harpen Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hextra Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Munit Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Phazor Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Atheca Gyro",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Adlet Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Garmr Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Raiju Core",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Cela Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Urga Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zubb Bracket",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Wanz Stabilizer",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hinta Stabilizer",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Frak Stabilizer",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Arc Twelve",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Wingnut",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Step Tens",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hothead",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Dink-A-Donk",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Fatboys",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Highbrow",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Two-Sloops",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Thugs",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Gristlebuck",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Nodulite",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Steeba",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Coldfusor",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Beaky",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Twin Kavats",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Exard Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Dissic Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Propa Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Suo Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Plaga Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Certus Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Macro Thymoid",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Macro Arcroid",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Arcroid",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Thymoid",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Palmaris",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Ulnaris",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Mote Prism",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Pencha Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shraksun Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Klebrik Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Clapkra Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Juttni Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Lohrin Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Phahd Scaffold",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Anspatha Brace",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Brash",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shrewd",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Steadyslam",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Tremor",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Deepbreath",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Bellows",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Bashrack",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Stitch",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Splat",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Killstream",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Slapneedle",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zipneedle",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Slap",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zip",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Sparkfire",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Thunderdrum",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Ramflare",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Flutterfire",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Swiftfire",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zipfire",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Ramble",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Lovetap",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Haymaker",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Gibber",
+   "bucket": "weapons",
+   "category": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Adra Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Arioli Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Chow Chow (Chesa Kubrow)",
+   "bucket": "companions",
+   "category": "beasts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Chiten Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Desus Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Elasmun Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Elsa Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ibexan Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Iranon Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Leptosam Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Monachod Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Yip (Panzer Vulpaphyla)",
+   "bucket": "companions",
+   "category": "beasts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Phijar Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Plagen Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Poxi Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Rascal (Raksa Kubrow)",
+   "bucket": "companions",
+   "category": "beasts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Princess II (Sahasa Kubrow)",
+   "bucket": "companions",
+   "category": "beasts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mouser (Smeeta Kavat)",
+   "bucket": "companions",
+   "category": "beasts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Tethron Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Virox Antigen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Zarim Mutagen",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Hax (Moa)",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hound",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Fetch.exe (Hound)",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hound",
+   "bucket": "companions",
+   "category": "companions",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ash Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ash Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ash Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ash Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Atlas Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Atlas Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Atlas Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Atlas Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Banshee Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Banshee Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Banshee Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Banshee Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Baruuk Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Baruuk Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Baruuk Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Baruuk Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Caliban Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Caliban Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Caliban Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Caliban Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Chroma Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Chroma Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Chroma Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Chroma Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Volt Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Citrine Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Citrine Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Citrine Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Citrine Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Cyte-09 Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Cyte-09 Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Cyte-09 Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Cyte-09 Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dagath Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dagath Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dagath Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dagath Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dante Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dante Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dante Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Dante Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ember Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ember Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ember Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ember Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Equinox Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Equinox Night Aspect",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Equinox Day Aspect",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Excalibur Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Excalibur Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Excalibur Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Excalibur Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Excalibur Umbra Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Follie Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Follie Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Follie Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Follie Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Frost Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Frost Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Frost Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Frost Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gara Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gara Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gara Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gara Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Garuda Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Garuda Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Garuda Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Garuda Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gauss Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gauss Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gauss Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gauss Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Grendel Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Grendel Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Grendel Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Grendel Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gyre Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gyre Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gyre Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Gyre Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Harrow Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Harrow Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Harrow Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Harrow Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hildryn Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hildryn Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hildryn Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hildryn Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hydroid Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hydroid Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hydroid Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Hydroid Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Inaros Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Inaros Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Inaros Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Inaros Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ivara Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ivara Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ivara Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Ivara Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Jade Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Jade Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Jade Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Jade Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Khora Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Khora Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Khora Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Khora Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Koumei Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Koumei Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Koumei Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Koumei Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Kullervo Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Kullervo Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Kullervo Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Kullervo Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Lavos Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Lavos Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Lavos Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Lavos Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Limbo Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Limbo Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Limbo Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Limbo Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Loki Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Loki Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Loki Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Loki Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mag Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mag Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mag Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mag Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mesa Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mesa Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mesa Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mesa Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mirage Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mirage Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mirage Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Mirage Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nekros Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nekros Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nekros Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nekros Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nezha Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nezha Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nezha Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nezha Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nidus Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nidus Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nidus Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nidus Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nokko Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nokko Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nokko Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nokko Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nova Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nova Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nova Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nova Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nyx Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nyx Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nyx Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Nyx Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oberon Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oberon Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oberon Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oberon Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Octavia Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Octavia Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Octavia Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Octavia Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oraxia Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oraxia Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oraxia Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Oraxia Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Protea Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Protea Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Protea Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Protea Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Qorvex Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Qorvex Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Qorvex Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Qorvex Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Revenant Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Revenant Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Revenant Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Revenant Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Rhino Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Rhino Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Rhino Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Rhino Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Saryn Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Saryn Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Saryn Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Saryn Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sevagoth Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sevagoth Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sevagoth Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sevagoth Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sirius & Orion Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sirius & Orion Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sirius & Orion Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Sirius & Orion Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Styanax Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Styanax Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Styanax Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Styanax Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Temple Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Temple Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Temple Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Temple Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Titania Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Titania Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Titania Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Titania Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Trinity Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Trinity Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Trinity Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Trinity Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Uriel Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Uriel Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Uriel Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Uriel Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Valkyr Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Valkyr Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Valkyr Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Valkyr Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Vauban Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Vauban Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Vauban Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Vauban Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Volt Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Volt Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Volt Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Voruna Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Voruna Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Voruna Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Voruna Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wisp Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wisp Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wisp Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wisp Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wukong Blueprint",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wukong Neuroptics",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wukong Chassis",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  },
+  {
+   "name": "Wukong Systems",
+   "bucket": "parts",
+   "category": "parts",
+   "masteryReq": null,
+   "masterable": true
+  }
+ ],
+ "notOnWikiWithMasteryReq": [
+  {
+   "name": "Ekwana Ii Jai",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Ii Ruhang",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Jai",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Jai Ii",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Ruhang",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ekwana Ruhang Ii",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Jai",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Jai Ii",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Jayap",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Korb",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Kroostra",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Kwath",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Laka",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Peye",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Plague Akwin",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Plague Bokwin",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ruhang",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ruhang Ii",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Seekalla",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Shtung",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ii Jai",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ii Ruhang",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Jai",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Jai Ii",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ruhang",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Vargeet Ruhang Ii",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Valkyr Prime Talons",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Landslide Fists Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Regulators Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Exalted Prime Blade",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Dex Pixia Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Diwata Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Garuda Prime Talons",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shattered Lash Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Balefire Charger Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Whipclaw Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Iron Staff Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shadow Clones Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Desert Wind Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Artemis Bow Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shadow Claws Prime",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Lehan Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Tyli Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Alcrom Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Krisys Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Drex Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Drimper Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Tian Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Jonsin Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Gauth Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hona Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Aegron Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Trux Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Harpen Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hextra Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Munit Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Phazor Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Atheca Gyro",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Adlet Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Garmr Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Raiju Core",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Cela Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Urga Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zubb Bracket",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Wanz Stabilizer",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hinta Stabilizer",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Frak Stabilizer",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Arc Twelve",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Wingnut",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Step Tens",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Hothead",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Dink-A-Donk",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Fatboys",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Highbrow",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Two-Sloops",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Thugs",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Gristlebuck",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Nodulite",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Steeba",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Coldfusor",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Beaky",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Twin Kavats",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Exard Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Dissic Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Propa Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Suo Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Plaga Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Certus Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Macro Thymoid",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Macro Arcroid",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Arcroid",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Thymoid",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Palmaris",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Ulnaris",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Mote Prism",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Pencha Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shraksun Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Klebrik Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Clapkra Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Juttni Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Lohrin Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Phahd Scaffold",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Anspatha Brace",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Brash",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Shrewd",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Steadyslam",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Tremor",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Deepbreath",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Bellows",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Bashrack",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Stitch",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Splat",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Killstream",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Slapneedle",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zipneedle",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Slap",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zip",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Sparkfire",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Thunderdrum",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Ramflare",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Flutterfire",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Swiftfire",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Zipfire",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Ramble",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Lovetap",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Haymaker",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Gibber",
+   "bucket": "weapons",
+   "masteryReq": 0,
+   "masterable": true
+  },
+  {
+   "name": "Adra Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Arioli Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Chiten Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Desus Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Elasmun Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Elsa Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Ibexan Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Iranon Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Leptosam Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Monachod Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Phijar Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Plagen Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Poxi Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Tethron Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Virox Antigen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  },
+  {
+   "name": "Zarim Mutagen",
+   "bucket": "companions",
+   "masteryReq": 0,
+   "masterable": false
+  }
+ ],
+ "wikiItemsFlaggedNotMasterableByApp": [
+  {
+   "name": "Lambeo Moa",
+   "wikiSection": "MOA",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Nychus Moa",
+   "wikiSection": "MOA",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Oloro Moa",
+   "wikiSection": "MOA",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Para Moa",
+   "wikiSection": "MOA",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Dorma Hound",
+   "wikiSection": "Hound",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Bhaira Hound",
+   "wikiSection": "Hound",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Hec Hound",
+   "wikiSection": "Hound",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Cantic Prism",
+   "wikiSection": "Amp",
+   "wikiPoints": 3000
+  },
+  {
+   "name": "Shwaak Prism",
+   "wikiSection": "Amp",
+   "wikiPoints": 3000
+  },
+  {
+   "name": "Granmu Prism",
+   "wikiSection": "Amp",
+   "wikiPoints": 3000
+  },
+  {
+   "name": "Rahn Prism",
+   "wikiSection": "Amp",
+   "wikiPoints": 3000
+  },
+  {
+   "name": "Venari",
+   "wikiSection": "Beast",
+   "wikiPoints": 6000
+  },
+  {
+   "name": "Venari Prime",
+   "wikiSection": "Beast",
+   "wikiPoints": 6000
+  }
+ ],
+ "flagDisagreement": [
+  {
+   "name": "Sirocco",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Lehan Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Tyli Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Alcrom Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Krisys Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Drex Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Lambeo Moa",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Nychus Moa",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Oloro Moa",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Para Moa",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Drimper Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Tian Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Jonsin Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Gauth Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Hona Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Aegron Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Trux Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Harpen Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Hextra Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Munit Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Phazor Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Atheca Gyro",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Adlet Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Garmr Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Raiju Core",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Dorma Hound",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Bhaira Hound",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Hec Hound",
+   "flags": {
+    "weapons": true,
+    "companions": true,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Cela Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Urga Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Zubb Bracket",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Wanz Stabilizer",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Hinta Stabilizer",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Frak Stabilizer",
+   "flags": {
+    "weapons": true,
+    "companions": false,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Flatbelly",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Runway",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Feverspine",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Bad Baby",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Cantic Prism",
+   "flags": {
+    "weapons": true,
+    "amps": false,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Lega Prism",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Klamora Prism",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Arcroid",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Mote Prism",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Raplak Prism",
+   "flags": {
+    "weapons": true
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Shwaak Prism",
+   "flags": {
+    "weapons": true,
+    "amps": false,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Granmu Prism",
+   "flags": {
+    "weapons": true,
+    "amps": false,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Pencha Scaffold",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Shraksun Scaffold",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Klebrik Scaffold",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Clapkra Brace",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Juttni Brace",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Lohrin Brace",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Rahn Prism",
+   "flags": {
+    "weapons": true,
+    "amps": false,
+    "all": false
+   },
+   "onWiki": true
+  },
+  {
+   "name": "Anspatha Brace",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Tremor",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  },
+  {
+   "name": "Bashrack",
+   "flags": {
+    "weapons": true,
+    "all": false
+   },
+   "onWiki": false
+  }
+ ],
+ "wikiListNotInApp": [
+  {
+   "name": "1st Crew Member",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "2nd Crew Member",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "3rd Crew Member",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Ability Kinesis and Overseer",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Adrenaline Surge",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Advanced Gunnery",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Aeronaut",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Anastasis",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Applied Omni",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Archwing Fury",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Archwing Slingshot",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Archwing Tactical Blink and Necramech Cooldown",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Boost",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Boosted Scavenger",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Born Survivor",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Cavalier Strength",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Cheat Death",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Chesa Kubrow",
+   "section": "Beast",
+   "points": 6000
+  },
+  {
+   "name": "Cold Trigger",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Command Link",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Competency Gain",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Competency Retraining",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Deadly Decrees",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Deft Defender",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Deploy Necramechs",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Determination",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Dome Charge Forge",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Drift Maneuver",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Elite Crewmates",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Endurance Racer",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Equestrian Bond",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Excalibur Prime",
+   "section": "Founders Pack",
+   "points": 6000
+  },
+  {
+   "name": "Excalibur Umbra Prime",
+   "section": "WARFRAME (China) Founders Pack",
+   "points": 6000
+  },
+  {
+   "name": "Expanded Arsenal",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Expanded Decrees",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Fast Travel",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Flush Heat Sinks",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Forge Accelerator",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Fortifying Decrees",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Fresh Hand",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Full Optimization",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Herd Travel",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "High Value Vendor",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Hoof Stomp",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Join Warp",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Lato Prime",
+   "section": "Founders Pack",
+   "points": 3000
+  },
+  {
+   "name": "Lucky Opener",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Maximized Arsenal",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Mote Amp",
+   "section": "Amp",
+   "points": 3000
+  },
+  {
+   "name": "Muscle Mass",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Necramech Fury",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Necramech Haste",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Neural Pulse",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "On Call",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Optimized Forge",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Ordnance Forge",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Overpowering Abilities",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Panzer Vulpaphyla",
+   "section": "Beast",
+   "points": 6000
+  },
+  {
+   "name": "Phantom Eye",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Plexus",
+   "section": "Railjack",
+   "points": 6000
+  },
+  {
+   "name": "Precision Power",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Prisma Burst Laser",
+   "section": "Robotic",
+   "points": 3000
+  },
+  {
+   "name": "Prisma Shade",
+   "section": "Sentinel",
+   "points": 6000
+  },
+  {
+   "name": "Railjack Blink",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Raksa Kubrow",
+   "section": "Beast",
+   "points": 6000
+  },
+  {
+   "name": "Ram Jammer",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Ramming Speed",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Rapid Support",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Recall Warp",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Reflex Aim",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Restorative Decree",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Sahasa Kubrow",
+   "section": "Beast",
+   "points": 6000
+  },
+  {
+   "name": "Sharpshooter’s Bounty",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Skana Prime",
+   "section": "Founders Pack",
+   "points": 3000
+  },
+  {
+   "name": "Smeeta Kavat",
+   "section": "Beast",
+   "points": 6000
+  },
+  {
+   "name": "Smooth Path",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Steadfast Dismount",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Stranger in Black",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Summon Kaithe",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Swift Tactics",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Swifter Abilities",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Swifter Strike",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Tactical Efficiency",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Tactical Response",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Tactical System",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Target Sync",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Tenacity",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Tough As Old Boots",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Transference Sync",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Transference Synergy",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Treasure Finder",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Unique Identity",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Unusual Crewmates",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Vector Maneuver",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Vectored Evasion",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Vengeful Archwing",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Vigilant Archwing",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Vigilant Necramech",
+   "section": "Railjack Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Warframe Abundance",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Warframe Diversity",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  },
+  {
+   "name": "Weaponmaster",
+   "section": "Drifter Intrinsic",
+   "points": 1500
+  }
+ ]
+}

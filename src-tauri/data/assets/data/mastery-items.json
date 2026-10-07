@@ -1,0 +1,8240 @@
+{
+ "generatedFrom": [
+  {
+   "page": "Mastery Rank Checklist",
+   "revid": 2815690
+  },
+  {
+   "page": "Hidden Mastery",
+   "revid": 2788291
+  }
+ ],
+ "count": 909,
+ "items": [
+  {
+   "name": "1st Crew Member",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "2nd Crew Member",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "3rd Crew Member",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ability Kinesis and Overseer",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Acceltra",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Acceltra Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ack & Brunt",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Acrid",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Adarza Kavat",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Adrenaline Surge",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Advanced Gunnery",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aegrit",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aeolak",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aeronaut",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Afentis",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Afentis Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Afuris",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Afuris Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Agkuza",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akarius",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akarius Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akaten",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akbolto",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akbolto Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akbronco",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akbronco Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akjagara",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akjagara Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aklato",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aklex",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aklex Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akmagnus",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akmagnus Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aksomati",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aksomati Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Aksondol",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akstiletto",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akstiletto Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akvasto",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akvasto Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Akzani",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Alternox",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Alternox Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Amanata",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ambassador",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Amesha",
+   "section": "Archwing",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Amphis",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Amprex",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Anastasis",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Angstrum",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Anku",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ankyros",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ankyros Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Applied Omni",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Arbucep",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Arca Plasmor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Arca Scisco",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Arca Titron",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Archwing Fury",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Archwing Slingshot",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Archwing Tactical Blink and Necramech Cooldown",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Argo & Vel",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Argonak",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Artax",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Arum Spinosa",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ash",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ash Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Astilla",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Astilla Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Athodai",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Athodai Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Atlas",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Atlas Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Atomos",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Atterax",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Attica",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "AX-52",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Azima",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Azothane",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bad Baby",
+   "section": "K-Drive",
+   "points": 6000,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Balla",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ballistica",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ballistica Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Banshee",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Banshee Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Baruuk",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Baruuk Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Basmu",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Batoten",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Battacor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Baza",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Baza Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bhaira Hound",
+   "section": "Hound",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bo Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boar",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boar Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boltace",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bolto",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boltor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boltor Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bonewidow",
+   "section": "Necramech",
+   "points": 8000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boost",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Boosted Scavenger",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Born Survivor",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Brakk",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Braton",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Braton Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Braton Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Broken Scepter",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Broken War",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bronco",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bronco Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Bubonico",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Burst Laser",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Burst Laser Prime",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Burston",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Burston Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Buzlok",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cadus",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Caliban",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Caliban Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cantare",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cantic Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Carmine Penta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Carrier",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Carrier Prime",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cassowar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Castanas",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Catabolyst",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Catchmoon",
+   "section": "Kitgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Caustacyst",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cavalier Strength",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cedo",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cedo Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Centaur",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ceramic Dagger",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cerata",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cernos",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cernos Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cestra",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ceti Lacera",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cheat Death",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Chesa Kubrow",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Chroma",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Chroma Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cinta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Citrine",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Citrine Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cobra & Crane",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cobra & Crane Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Bassocyst",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Bubonico",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Catabolyst",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Caustacyst",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Hema",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Hirudo",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Mire",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Motovore",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Pathocyst",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Pox",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Sporothrix",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Synapse",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Coda Tysis",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cold Trigger",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Command Link",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Competency Gain",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Competency Retraining",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Convectrix",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Corinth",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Corinth Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cortege",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Corufell",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Corufell Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Corvas",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Corvas Prime",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Crescent Vulpaphyla",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cronus",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cryotra",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cyanex",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cyath",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cycron",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cyngas",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Cyte-09",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dagath",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Daikyu",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Daikyu Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dakra Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dante",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dark Dagger",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dark Split-Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dark Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deadly Decrees",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deconstructor",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deconstructor Prime",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deft Defender",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dehtat",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deploy Necramechs",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dera",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dera Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Despair",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Destreza",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Destreza Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Determination",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deth Machine Rifle",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Deth Machine Rifle Prime",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dethcube",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dethcube Prime",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Detron",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dex Dakra",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dex Furis",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dex Nikana",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dex Sybaris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Diriga",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Djinn",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dokrahm",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dome Charge Forge",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dorma Hound",
+   "section": "Hound",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dorrclave",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dragon Nikana",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Drakgoon",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dread",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Drift Maneuver",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Cestra",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Cleavers",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Coda Torxica",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Decurion",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Ether",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Heat Swords",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Ichor",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Kamas",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Kamas Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Keres",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Keres Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Raza",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Skana",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Toxocyst",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Viciss",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Zoren",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Dual Zoren Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Edun",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "EFV-5 Jupiter",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "EFV-8 Mars",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ekhein",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Elite Crewmates",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Elytron",
+   "section": "Archwing",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ember",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ember Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Embolist",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Endura",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Endurance Racer",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Enkaus",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Epitaph",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Epitaph Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Equestrian Bond",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Equinox",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Equinox Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ether Daggers",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ether Reaper",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ether Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Euphona Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Evensong",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Excalibur",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Excalibur Prime",
+   "section": "Founders Pack",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Excalibur Umbra",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Excalibur Umbra Prime",
+   "section": "WARFRAME (China) Founders Pack",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Exergis",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Expanded Arsenal",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Expanded Decrees",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Falcor",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fang",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fang Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fast Travel",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Felarx",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ferrox",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Feverspine",
+   "section": "K-Drive",
+   "points": 6000,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Flatbelly",
+   "section": "K-Drive",
+   "points": 6000,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fluctus",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Flush Heat Sinks",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Flux Rifle",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Follie",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Forge Accelerator",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fortifying Decrees",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fragor",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fragor Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fresh Hand",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Frost",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Frost Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Full Optimization",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fulmin",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fulmin Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Furax",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Furax Wraith",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Furis",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Fusilai",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Galariak Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Galatine",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Galatine Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Galvacord",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gammacor",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gara",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gara Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Garuda",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Garuda Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gauss",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gauss Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gazal Machete",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gaze",
+   "section": "Kitgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ghoulsaw",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Glaive",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Glaive Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Glaxion",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Glaxion Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gorgon",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gorgon Wraith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gotva Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Grakata",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gram",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gram Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Granmu Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Grattler",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Grendel",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Grendel Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Grimoire",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Grinlok",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Guandao",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Guandao Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gunsen",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gunsen Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gyre",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Gyre Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Haalvu",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Halikar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Halikar Wraith",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Harmony",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Harpak",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Harrow",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Harrow Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hate",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Heat Dagger",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Heat Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hec Hound",
+   "section": "Hound",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hek",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Heliocor",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Helios",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Helios Prime",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Helminth Charger",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Helstrum",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hema",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Herd Travel",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hespar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Higasa",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "High Value Vendor",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hikou",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hikou Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hildryn",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hildryn Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hind",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hirudo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hoof Stomp",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Huras Kubrow",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hydroid",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hydroid Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hystrix",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Hystrix Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ignis",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ignis Wraith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Imperator",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Imperator Vandal",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Inaros",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Inaros Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Innodem",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Itzal",
+   "section": "Archwing",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ivara",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ivara Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Jade",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Jat Kittag",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Jat Kusar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Javlok",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Jaw Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Join Warp",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kama",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Karak",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Karak Wraith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Karyst",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Karyst Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kaszas",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Keratinos",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kesheg",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kestrel",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kestrel Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Khora",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Khora Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Klamora Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Knell",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Knell Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Knux",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kogake",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kogake Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kohm",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kohmak",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Komorex",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kompressa",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kompressa Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Korrudo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Korumm",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Koumei",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kraken",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kreska",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Krohkur",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kronen",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kronen Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kronsh",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kullervo",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kulstar",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kunai",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Ayanga",
+   "section": "Archgun",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Brakk",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Bramma",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Chakkhurr",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Drakgoon",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Ghoulsaw",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Grattler",
+   "section": "Archgun",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Hek",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Hind",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Karak",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Kohm",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Kraken",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Nukor",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Ogris",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Quartakk",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Seer",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Shildeg",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Sobek",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Tonkor",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Twin Stubbas",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Kuva Zarr",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lacera",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lacerten",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Laetum",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lambeo Moa",
+   "section": "MOA",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lanka",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Larkspur",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Larkspur Prime",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Laser Rifle",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lato",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lato Prime",
+   "section": "Founders Pack",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lato Vandal",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Latron",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Latron Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Latron Wraith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lavos",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lavos Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lecta",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lega Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lenz",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lesion",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lex",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lex Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Limbo",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Limbo Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Loki",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Loki Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Lucky Opener",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Machete",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Machete Wraith",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mag",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mag Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Magistar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Magnus",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Magnus Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mandonel",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mara Detron",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Marelok",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Masseter",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Masseter Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mausolon",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Maximized Arsenal",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Medjay Predasite",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mesa",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mesa Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mewan",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mios",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mirage",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mirage Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mire",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Miter",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Bo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Braton",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Furax",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Furis",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Kunai",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Paris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mk1-Strun",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Morgha",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mote Amp",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Multron",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Muscle Mass",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mutalist Cernos",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Mutalist Quanta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nagantaka",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nagantaka Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nami Skyla",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nami Skyla Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nami Solo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Narin",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nataruk",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nautilus",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nautilus Prime",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Necramech Fury",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Necramech Haste",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Needlenose",
+   "section": "K-Drive",
+   "points": 6000,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nekros",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nekros Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nepheri",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Neural Pulse",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nezha",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nezha Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nidus",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nidus Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nikana",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nikana Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ninkondi",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ninkondi Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nokko",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nova",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nova Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nukor",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nunchasa",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nychus Moa",
+   "section": "MOA",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nyx",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Nyx Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Oberon",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Oberon Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Obex",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Octavia",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Octavia Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ocucor",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Odonata",
+   "section": "Archwing",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Odonata Prime",
+   "section": "Archwing",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ogris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ohma",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Okina",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Okina Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Oloro Moa",
+   "section": "MOA",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "On Call",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Onorix",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Onos",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ooltha",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Opticor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Opticor Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Optimized Forge",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Oraxia",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ordnance Forge",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Orthos",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Orthos Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Orvius",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Overpowering Abilities",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Oxylus",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pandero",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pandero Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pangolin Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pangolin Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Panthera",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Panthera Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Panzer Vulpaphyla",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Para Moa",
+   "section": "MOA",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Paracesis",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Paracyst",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Paris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Paris Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pathocyst",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pennant",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Penta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Perigale",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Perigale Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Phaedra",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Phage",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Phantasma",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Phantasma Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Phantom Eye",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pharaoh Predasite",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Phenmor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Plague Keewar",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Plague Kripath",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Plasma Sword",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Plexus",
+   "section": "Railjack",
+   "points": 6000,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Plinx",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pox",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Praedos",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Precision Power",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pride",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prime Laser Rifle",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Angstrum",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Burst Laser",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Dual Cleavers",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Dual Decurions",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Gorgon",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Grakata",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Grinlok",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Lenz",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Machete",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Obex",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Ohma",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Shade",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Skana",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Tetra",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Twin Gremlins",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prisma Veritux",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Proboscis Cernos",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Protea",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Protea Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prova",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Prova Vandal",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pulmonars",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pupacyst",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Purgator 1",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pyrana",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Pyrana Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Qorvex",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quanta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quanta Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quartakk",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quassus",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quassus Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quatz",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Quellor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rabvee",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rahn Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Railjack Blink",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Raksa Kubrow",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rakta Ballistica",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rakta Cernos",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rakta Dark Dagger",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ram Jammer",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ramming Speed",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rapid Support",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Raplak Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rathbone",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rattleguts",
+   "section": "Kitgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rauta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Reaper Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Recall Warp",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Reconifex",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Redeemer",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Redeemer Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Reflex Aim",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Restorative Decree",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Revenant",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Revenant Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rhino",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rhino Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Riot-848",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ripkas",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rubico",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rubico Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Rumblejack",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Runway",
+   "section": "K-Drive",
+   "points": 6000,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Ruvox",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sagek Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sahasa Kubrow",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sampotes",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sancti Castanas",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sancti Magistar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sancti Tigris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sarofang",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sarofang Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sarpa",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Saryn",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Saryn Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Scindo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Scindo Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Scoliac",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Scourge",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Scourge Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Scyotid",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Secura Dual Cestra",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Secura Lecta",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Secura Penta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Seer",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sepfahn",
+   "section": "Zaw",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sepulcrum",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Serro",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sevagoth",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sevagoth Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Shade",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Shade Prime",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Shaku",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sharpshooter’s Bounty",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Shedu",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sheev",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Shwaak Prism",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sibear",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sicarus",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sicarus Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sigma & Octantis",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Silva & Aegis",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Silva & Aegis Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Simulor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sirius & Orion",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sirocco",
+   "section": "Amp",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Skana",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Skana Prime",
+   "section": "Founders Pack",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Skiajati",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Slaytra",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sly Vulpaphyla",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Smeeta Kavat",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Smooth Path",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Snipetron",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Snipetron Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sobek",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Soma",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Soma Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sonicor",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Spectra",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Spectra Vandal",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Spinnerex",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Spira",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Spira Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sporelacer",
+   "section": "Kitgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sporothrix",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stahlta",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Staticor",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Steadfast Dismount",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Steflos",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Steflos Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stinger",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stradavar",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stradavar Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stranger in Black",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stropha",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Strun",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Strun Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Strun Wraith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stubba",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Stug",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Styanax",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Styanax Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Summon Kaithe",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sun & Moon",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sunika Kubrow",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Supra",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Supra Vandal",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sweeper",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sweeper Prime",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Swift Tactics",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Swifter Abilities",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Swifter Strike",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Syam",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sybaris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sybaris Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Sydon",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Synapse",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Synoid Gammacor",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Synoid Heliocor",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Synoid Simulor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tactical Efficiency",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tactical Response",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tactical System",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tak & Lug",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Talons",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Target Sync",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tatsu",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tatsu Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Taxon",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tazicor",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tekko",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tekko Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Telos Akbolto",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Telos Boltace",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Telos Boltor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Temple",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenacity",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Agendus",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Arca Plasmor",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Cycron",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Detron",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Diplos",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Envoy",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Exec",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Ferrox",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Flux Rifle",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Glaxion",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Grigori",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Livia",
+   "section": "Melee",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Plinx",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Quanta",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Spirex",
+   "section": "Secondary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenet Tetra",
+   "section": "Primary",
+   "points": 4000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenora",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tenora Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tetra",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Thalys",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Thornbak",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tiberon",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tiberon Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tigris",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tigris Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tipedo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tipedo Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Titania",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Titania Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tombfinger",
+   "section": "Kitgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tonbo",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tonkkatt",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tonkor",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Torid",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tough As Old Boots",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Transference Sync",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Transference Synergy",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Treasure Finder",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Trinity",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Trinity Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Trumna",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Trumna Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Basolk",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Grakatas",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Gremlins",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Kohmak",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Krohkur",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Rogga",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Vipers",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Twin Vipers Wraith",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Tysis",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Unique Identity",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Unusual Crewmates",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Uriel",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vadarya Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Valkyr",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Valkyr Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vasca Kavat",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vastilok",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vasto",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vasto Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vauban",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vauban Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vaykor Hek",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vaykor Marelok",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vaykor Sydon",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vectis",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vectis Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vector Maneuver",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vectored Evasion",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Veldt",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Velocitus",
+   "section": "Archgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Velox",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Velox Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Venari",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Venari Prime",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Venato",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Venato Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vengeful Archwing",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Venka",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Venka Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Verdilac",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Verglas",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Verglas Prime",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vericres",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Veritux",
+   "section": "Archmelee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vermisplicer",
+   "section": "Kitgun",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vesper 77",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vigilant Archwing",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vigilant Necramech",
+   "section": "Railjack Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vinquibus",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Viper",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Viper Wraith",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vitrica",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vizier Predasite",
+   "section": "Beast",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Voidrig",
+   "section": "Necramech",
+   "points": 8000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Volnus",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Volnus Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Volt",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Volt Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Voruna",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Voruna Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vulcax",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vulkar",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vulkar Wraith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Vulklok",
+   "section": "Robotic",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "War",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "War Prime",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Warframe Abundance",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Warframe Diversity",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Weaponmaster",
+   "section": "Drifter Intrinsic",
+   "points": 1500,
+   "kind": null,
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wisp",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wisp Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wolf Sledge",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wrath",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wukong",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wukong Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wyrm",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Wyrm Prime",
+   "section": "Sentinel",
+   "points": 6000,
+   "kind": "Companion",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Xaku",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Xaku Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Xoris",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery",
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Yareli",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Yareli Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zakti",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zakti Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zarr",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zenistar",
+   "section": "Melee",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zenith",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zephyr",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zephyr Prime",
+   "section": "Warframe",
+   "points": 6000,
+   "kind": "WF",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zhuge",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zhuge Prime",
+   "section": "Primary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zylok",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zylok Prime",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  },
+  {
+   "name": "Zymos",
+   "section": "Secondary",
+   "points": 3000,
+   "kind": "Weapon",
+   "sources": [
+    "hidden-mastery"
+   ]
+  }
+ ]
+}

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { event as logEvent } from '../lib/logging/logger'
+import { awardsMastery } from '../lib/masteryState'
 import { Check, Hammer, Search, Star } from 'lucide-react'
 import { PageLayout, Card, Input, Tabs, MonitorState } from '../components/UI'
 import { useMonitoring } from '../contexts/MonitoringContext'
@@ -385,7 +386,7 @@ export default function Foundry() {
       // Items with no mastery state of their own (e.g. non-Head Zanuka Hound
       // body/legs/tail parts) belong in every ownership view but never in a
       // mastery-based filter - they can't be "mastered" or "unmastered".
-      (masteryFilter === 'all' || (item.masterable === false ? false : (masteryFilter === 'mastered' ? item.mastered : !item.mastered)))
+      (masteryFilter === 'all' || (!awardsMastery(item) ? false : (masteryFilter === 'mastered' ? item.mastered : !item.mastered)))
     )).sort((a, b) => compareText(a.name, b.name))
   }, [items, search, ownershipFilter, readyOnly, masteryFilter])
   // Diagnostic (2026-09-24, Narin parts missing report).

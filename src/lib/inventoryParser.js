@@ -24,7 +24,58 @@
 import { BLUEPRINT_SUFFIX } from './warframeUtils.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 import { debug as logDebug } from './logging/logger.js'
+import { isIncarnonWeapon } from './incarnonState.js'
 import placeholderExceptions from '../../src-tauri/data/assets/data/placeholder-exceptions.json' with { type: 'json' }
+
+// Members are the Incarnon Genesis tables on the saved official wiki page
+// "Incarnon" (revid 2811377), resolved to DE PublicExport unique names.
+const INCARNON_FAMILY_MAP = new Map(Object.entries({
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BoarIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Shotgun/FullAutoShotgun', '/Lotus/Weapons/Tenno/Shotgun/PrimeBoar'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BoltorIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/BoltoRifle', '/Lotus/Weapons/Syndicates/ArbitersOfHexis/LongGuns/AHBoltor', '/Lotus/Weapons/Tenno/LongGuns/PrimeBoltor/PrimeBoltor'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BratonIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/Rifle', '/Lotus/Weapons/Tenno/Rifle/StartingRifle', '/Lotus/Weapons/Tenno/Rifle/BratonPrime', '/Lotus/Weapons/Tenno/Rifle/VIPRifle'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/BurstonIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/BurstRifle', '/Lotus/Weapons/Tenno/LongGuns/PrimeBurston/PrimeBurston'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/DeraIncarnonUnlocker': ['/Lotus/Weapons/ClanTech/Energy/EnergyRifle', '/Lotus/Weapons/ClanTech/Energy/DeraVandal'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/DreadIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Bows/StalkerBow'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/GorgonIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/HeavyRifle', '/Lotus/Weapons/Grineer/LongGuns/WraithGorgon/WraithGorgon', '/Lotus/Weapons/Grineer/LongGuns/VoidTraderGorgon/VTGorgon'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/LatronIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/SemiAutoRifle', '/Lotus/Weapons/Tenno/Rifle/LatronPrime', '/Lotus/Weapons/Tenno/LongGuns/WraithLatron/WraithLatron'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/MiterIncarnonUnlocker': ['/Lotus/Weapons/Grineer/LongGuns/GrineerSawbladeGun/SawBladeGun'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/ParisIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Bows/HuntingBow', '/Lotus/Weapons/MK1Series/MK1Paris', '/Lotus/Weapons/Tenno/Bows/PrimeHuntingBow'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/SomaIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/TennoAR', '/Lotus/Weapons/Tenno/LongGuns/PrimeSoma/PrimeSomaRifle'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/StrunIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Shotgun/Shotgun', '/Lotus/Weapons/MK1Series/MK1Strun', '/Lotus/Weapons/Tenno/LongGuns/PrimeStrun/PrimeStrunWeapon', '/Lotus/Weapons/Tenno/Shotgun/ShotgunVandal'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/SybarisIncarnonUnlocker': ['/Lotus/Weapons/Tenno/LongGuns/TnoLeverAction/TnoLeverActionRifle', '/Lotus/Weapons/Tenno/LongGuns/DexTheThird/DexTheThird', '/Lotus/Weapons/Tenno/LongGuns/PrimeSybaris/PrimeSybarisRifle'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/ToridIncarnonUnlocker': ['/Lotus/Weapons/ClanTech/Bio/BioWeapon'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Primary/VectisIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Rifle/TennoSniperRifle', '/Lotus/Weapons/Tenno/LongGuns/PrimeVectis/PrimeVectisRifle'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/AngstrumIncarnonUnlocker': ['/Lotus/Weapons/Corpus/Pistols/CrpHandRL/CorpusHandRocketLauncher', '/Lotus/Weapons/Corpus/Pistols/CrpHandRL/PrismaAngstrum'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/AtomosIncarnonUnlocker': ['/Lotus/Weapons/Grineer/Pistols/HeatGun/GrnHeatGun'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/BallisticaIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistols/AutomaticHandCrossbow/AutoCrossBow', '/Lotus/Weapons/Tenno/Pistols/PrimeBallistica/PrimeBallistica', '/Lotus/Weapons/Syndicates/RedVeil/Pistols/RVBallistica'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/BroncoIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistol/HandShotGun', '/Lotus/Weapons/Tenno/Pistol/BroncoPrime'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/CestraIncarnonUnlocker': ['/Lotus/Weapons/Corpus/Pistols/CorpusMinigun/CorpusMinigun'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/DespairIncarnonUnlocker': ['/Lotus/Weapons/Tenno/ThrowingWeapons/StalkerKunai'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/DualToxocystIncarnonUnlocker': ['/Lotus/Weapons/Infested/Pistols/InfVomitGun/InfVomitGunWep'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/FurisIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistol/AutoPistol', '/Lotus/Weapons/MK1Series/MK1Furis'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/GammacorIncarnonUnlocker': ['/Lotus/Weapons/Syndicates/CephalonSuda/Pistols/CSDroidArray', '/Lotus/Weapons/Syndicates/CephalonSuda/Pistols/CSSynoidGammacor'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/KunaiIncarnonUnlocker': ['/Lotus/Weapons/Tenno/ThrowingWeapons/Kunai', '/Lotus/Weapons/MK1Series/MK1Kunai'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/LatoIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistol/Pistol', '/Lotus/Weapons/Tenno/Pistol/LatoPrime', '/Lotus/Weapons/Tenno/Pistol/LatoVandal'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/LexIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistol/HeavyPistol', '/Lotus/Weapons/Tenno/Pistols/PrimeLex/PrimeLex'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/SicarusIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistol/BurstPistol', '/Lotus/Weapons/Tenno/Pistols/PrimeSicarus/PrimeSicarusPistol'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/StugIncarnonUnlocker': ['/Lotus/Weapons/Grineer/Pistols/GrineerCrossbow/GrineerGooGun'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/VastoIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistol/RevolverPistol', '/Lotus/Weapons/Tenno/Pistols/PrimeVasto/PrimeVastoPistol'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Secondary/ZylokIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Pistols/ConclaveLeverPistol/ConclaveLeverPistol', '/Lotus/Weapons/Tenno/Pistols/PrimeZylok/ZylokPrimePistol'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/AckAndBruntIncarnonUnlocker': ['/Lotus/Weapons/Grineer/Melee/GrineerTylAxeAndBoar/RegorAxeShield'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/AnkuIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Scythe/ParisScythe/ParisScythe'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/BoIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Staff/Staff', '/Lotus/Weapons/MK1Series/MK1Bo', '/Lotus/Weapons/Tenno/Melee/Staff/PrimeBo/PrimeBoWeapon'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/CeramicDaggerIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Dagger/CeramicDagger'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/DestrezaIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Swords/TnoRapier/TnoRapier', '/Lotus/Weapons/Tenno/Melee/Swords/PRapier/DestrezaPrime'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/DualIchorIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Axe/DualInfestedAxesWeapon'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/FuraxIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Fist/Fist', '/Lotus/Weapons/MK1Series/MK1Furax', '/Lotus/Weapons/Tenno/Melee/Fist/FuraxWraith'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/HateIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Scythe/StalkerScytheWeapon'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/MagistarIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Maces/PaladinMace/PaladinMaceWeapon', '/Lotus/Weapons/Syndicates/NewLoka/Melee/NLMagistar'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/NamiSoloIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Swords/CutlassAndPoignard/TennoCutlass'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/ObexIncarnonUnlocker': ['/Lotus/Weapons/Corpus/Melee/KickAndPunch/KickPunchWeapon', '/Lotus/Weapons/Corpus/Melee/KickAndPunch/PrismaObex'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/OkinaIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Swords/TennoSai/TennoSais', '/Lotus/Weapons/Tenno/Melee/Swords/PrimeOkina/PrimeOkina'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/SibearIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/Hammer/IceHammer/IceHammer'],
+  '/Lotus/Types/Items/MiscItems/IncarnonAdapters/Melee/SkanaIncarnonUnlocker': ['/Lotus/Weapons/Tenno/Melee/LongSword/LongSword', '/Lotus/Weapons/Tenno/Melee/LongSword/SkanaPrime', '/Lotus/Weapons/VoidTrader/PrismaSkana'],
+}).map(([family, members]) => [family, new Set(members)]));
 
 // ─── Riven Tag Data ───────────────────────────────────────────────────────────
 //
@@ -1461,9 +1512,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
   const subsumedSet = new Set((raw.InfestedFoundry?.ConsumedSuits ?? []).map(s => s.s).filter(Boolean));
   const evoList = raw.EvolutionProgress ?? [];
-  const incarnonTypes = new Set(evoList.map(e => e.ItemType).filter(Boolean));
-  const incarnonItemIds = new Set(evoList.map(e => String(e.ItemId?.$oid || e.ItemId || e.id || '')).filter(Boolean));
-  const incarnonLeaves = new Set(evoList.map(e => (e.ItemType || '').split('/').pop()?.toLowerCase()).filter(Boolean));
+  const evolutionProgress = new Set(evoList.map(e => e.ItemType).filter(Boolean));
+  const adapterFamilies = new Set((raw.MiscItems ?? [])
+    .map(item => item?.ItemType)
+    .filter(itemType => typeof itemType === 'string' && itemType.includes('IncarnonUnlocker')));
   const evolutionLevels = new Map(evoList.filter(e => e.ItemType).map(e => [e.ItemType, e.EvolutionLevel]));
 
   // ── createItem ──
@@ -1680,18 +1732,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       masterable: (isModular && !sourceItem && xp > 0) ? true : (entry?.masterable !== false),
       subsumed: subsumedSet.has(un),
       is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
-      is_incarnon: (() => {
-        if (sourceItem?.SkillTree != null) return true;
-        if (((sourceItem?.Features ?? 0) & 2) !== 0) return true;
-        if (incarnonTypes.has(un)) return true;
-        const sId = String(sourceItem?.ItemId?.$oid || sourceItem?.ItemId || sourceItem?.Id?.$oid || sourceItem?.Id || '');
-        if (sId && incarnonItemIds.has(sId)) return true;
-        const unLeaf = un.split('/').pop()?.toLowerCase() || '';
-        const nameLeaf = (typeof entry?.name === 'string' ? entry.name : '').split('/').pop()?.toLowerCase() || '';
-        if (incarnonLeaves.has(unLeaf) || incarnonLeaves.has(nameLeaf)) return true;
-        if ((sourceItem?.Upgrades || []).some(u => typeof u === 'string' && u.includes('Incarnon'))) return true;
-        return false;
-      })(),
+      is_incarnon: isIncarnonWeapon({ unique_name: un }, evolutionProgress, adapterFamilies, INCARNON_FAMILY_MAP),
       incarnon_evolution_level: evolutionLevels.get(un) ?? (evolutionLevels.get(un.split('/').pop()) ?? -1),
       quantity: sourceItem?.ItemCount ?? (sourceItem ? 1 : 0),
       formas: sourceItem?.Polarized ?? 0,

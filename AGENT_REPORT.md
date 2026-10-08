@@ -162,3 +162,47 @@ validation.
 - `tests/relics/vault-state.test.mjs`
 - `docs/agent-context/reports/vaulted-tag-before-after.md`
 - `AGENT_REPORT.md`
+
+---
+
+# P72 Prime Set vault status report
+
+## Root cause
+
+`src/screens/Inventory.jsx` built `unvaultedRewards` with `!relic.vaulted` and then classified a set as vaulted only when none of its parts were in that set. Relic vault state is three-valued: `true`, `false`, or `null`; therefore `!null` incorrectly marked unknown relic rewards as available. The inverse Prime Parts filter also treated a `null` set value as unvaulted.
+
+## Changes
+
+- Added `src/lib/acquisitionModel/relicVaultState.js`, the shared relic-source lookup and confirmed-vaulted predicate.
+- Moved `acquisitionInfo`'s existing confirmed-vaulted source predicate to that shared acquisition-model helper without changing its behavior.
+- Added `getPrimeSetVaultedStatus` and `matchesPrimeSetVaultFilter` to `src/lib/primeSets.js`.
+- Replaced the reward-name heuristic in `Inventory.jsx` with per-part relic-source classification and strict true/false filter matching.
+- Did not change `PrimeSetCard.jsx`: it has no vault-status label, so P72 requires no new card text or localization changes.
+
+## Tests and proof
+
+- Before proof copy: `/var/home/jedwards/.cache/codex-tmp/prime-set-vault-before-fSqp7y`.
+  `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/inventory/prime-set-vault.test.mjs` failed before the implementation because `primeSets.js` did not export `getPrimeSetVaultedStatus`.
+- After: `tests/inventory/prime-set-vault.test.mjs` passed (real-data coverage included).
+- Passed: `tests/ui/prime-set-card.test.mjs`.
+- Passed: `tests/inventory/mastery-filter.test.mjs`.
+- Passed: `tests/relics/vault-state.test.mjs`.
+- The full suite was not run: the prescribed full-suite glob includes existing tests that create `os.tmpdir()` proof directories, which conflicts with the P72/Common prohibition on creating temporary files under `/tmp`.
+
+## Before and after
+
+- Before: 107 vaulted, 59 available, 0 unknown.
+- After: 102 vaulted, 13 available, 51 unknown.
+- Changed states: 4 vaulted to unknown, 47 available to unknown, and 1 vaulted to available. The bounded name lists are in `docs/agent-context/reports/prime-set-vault-before-after.md`.
+
+## Exact files changed
+
+- `src/lib/acquisitionModel/relicVaultState.js` (new)
+- `src/lib/acquisitionInfo.js`
+- `src/lib/primeSets.js`
+- `src/screens/Inventory.jsx`
+- `tests/inventory/prime-set-vault.test.mjs` (new)
+- `docs/agent-context/reports/prime-set-vault-before-after.md` (new)
+- `AGENT_REPORT.md` (new)
+
+No network access, builds, commits, or deployment actions were performed.

@@ -18,8 +18,7 @@ import { loadAcquisitionData } from '../lib/acquisitionData';
 import AcquisitionDrawer, { useAcquisitionDrawer, formatChance } from '../components/AcquisitionDrawer';
 import PreviewAcquisitionDrawer from '../preview/acquisition/PreviewAcquisitionDrawer';
 import ModCard from '../components/ModCard';
-import { getRelicCatalog } from '../lib/relicParser';
-import { isPrimeSetOwned } from '../lib/primeSets.js';
+import { getPrimeSetVaultedStatus, isPrimeSetOwned, matchesPrimeSetVaultFilter } from '../lib/primeSets.js';
 import { getSetting } from '../lib/settings';
 import { ensureWfmItems, lookupWfmItem } from '../lib/wfmCache';
 import { formatNumber } from '../lib/formatNumber';
@@ -230,20 +229,6 @@ export default function Inventory() {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const unvaultedRewards = useMemo(() => {
-    if (!exportData) return new Set();
-    const catalog = getRelicCatalog(exportData);
-    const set = new Set();
-    for (const relic of catalog) {
-      if (!relic.vaulted) {
-        for (const reward of (relic.rewards || [])) {
-          if (reward.uniqueName) set.add(reward.uniqueName);
-          if (reward.name) set.add(reward.name.toLowerCase());
-        }
-      }
-    }
-    return set;
-  }, [exportData]);
   const [showFilterSortPanel, setShowFilterSortPanel] = useState(false);
   const [currentFilters, setCurrentFilters] = useState({});
   const [resourceFamily, setResourceFamily] = useState('all');
@@ -534,7 +519,7 @@ export default function Inventory() {
       return Object.values(inventoryData.primeSets ?? {}).map((set) => {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
-        const isVaulted = !(set.parts ?? []).some((p) => unvaultedRewards.has(p.unique_name) || unvaultedRewards.has(p.name?.toLowerCase()));
+        const vaulted = getPrimeSetVaultedStatus(set, dropIndex, relicStateIndex);
         // Part quantities remain available for the completion ring and
         // part-level indicators; they do not make the finished set owned.
         const ownedSet = isPrimeSetOwned(parent, set);
@@ -544,7 +529,7 @@ export default function Inventory() {
           image: set.image || parent.image,
           owned: ownedSet,
           mastered: parent.mastered ?? false,
-          vaulted: isVaulted,
+          vaulted,
           _value,
         };
       });
@@ -691,14 +676,14 @@ export default function Inventory() {
             if (f === 'necramech' && !item.is_necramech) return false;
             if (f === 'prime' && !item.is_prime) return false;
             if (f === 'socketed' && item.sockets <= 0) return false;
-            if (f === 'vaulted' && !item.vaulted) return false;
+            if (f === 'vaulted' && !matchesPrimeSetVaultFilter(item.vaulted, state)) return false;
           } else if (state === 'no') {
             if (f === 'owned' && item.owned) return false;
             if (f === 'mastered' && item.mastered) return false;
             if (f === 'subsumed' && item.subsumed) return false;
             if (f === 'prime' && item.is_prime) return false;
             if (f === 'socketed' && item.sockets > 0) return false;
-            if (f === 'vaulted' && item.vaulted) return false;
+            if (f === 'vaulted' && !matchesPrimeSetVaultFilter(item.vaulted, state)) return false;
           }
         }
         return true;

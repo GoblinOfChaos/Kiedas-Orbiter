@@ -15,6 +15,7 @@ import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVe
 import { buildRelicRarityIndex, countRelicRowsWithoutDeTier, normalizeRelicSources } from './relicSources.js';
 import { normalizeRelicEntry } from './relicEntry.js';
 import { getRelicVaultedStatus } from './relicParser.js';
+import { hasOnlyConfirmedVaultedRelicSources } from './acquisitionModel/relicVaultState.js';
 import { bareAcquisitionCategoryKey, getAcquisitionTextAuditCounts, isBareAcquisitionCategory, toCurrentSourceSentences } from './acquisitionText.js';
 import { sourceLabel } from './sourceLabel.js';
 import { debug } from './logging/logger.js';
@@ -1555,14 +1556,6 @@ export function buildRelicStateIndex(exportData) {
 
 function isConfirmedVaultedRelic(state) {
   return getRelicVaultedStatus(state?.relic, state?.relicKey) === true;
-}
-
-function hasOnlyConfirmedVaultedRelicSources(sources, relicStateIndex) {
-  if (!sources.length || sources.some((source) => source?.type !== 'relic')) return false;
-  return sources.every((source) => {
-    const relicName = String(source?.relicName || '').replace(/\s+Relic\b/i, '').trim().toLowerCase();
-    return isConfirmedVaultedRelic(relicStateIndex?.get(`relic:${relicName}`));
-  });
 }
 
 function vaultedAcquisitionInfo(recipe, dropIndexKey, displayName, sources = []) {

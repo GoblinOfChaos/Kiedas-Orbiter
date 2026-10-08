@@ -13,6 +13,8 @@ import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-
 import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wiki-extractor-acquisition.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 import { buildRelicRarityIndex, countRelicRowsWithoutDeTier, normalizeRelicSources } from './relicSources.js';
+import { normalizeRelicEntry } from './relicEntry.js';
+import { getRelicVaultedStatus } from './relicParser.js';
 import { bareAcquisitionCategoryKey, getAcquisitionTextAuditCounts, isBareAcquisitionCategory, toCurrentSourceSentences } from './acquisitionText.js';
 import { sourceLabel } from './sourceLabel.js';
 import { debug } from './logging/logger.js';
@@ -769,11 +771,12 @@ export function getAcquisitionInfo(...args) {
   const result = getAcquisitionInfoRaw(...args);
   const displayName = args[1] || '';
   const sources = normalizeAcquisitionRoutes(result.sources, { itemName: displayName });
-  if (sources.length === 0) acquisitionNormalizerStats.unresearchedEntries += 1;
+  const vaulted = result.vaulted === true;
+  if (sources.length === 0 && !vaulted) acquisitionNormalizerStats.unresearchedEntries += 1;
   return {
     ...result,
-    sources: sources.length ? sources : [{ type: 'unresearched', text: '' }],
-    unresearched: sources.length === 0,
+    sources: sources.length ? sources : (vaulted ? [] : [{ type: 'unresearched', text: '' }]),
+    unresearched: !vaulted && sources.length === 0,
   };
 }
 
@@ -1540,9 +1543,35 @@ export function buildWikiAcquisitionStatusIndex(data) {
 export function buildRelicStateIndex(exportData) {
   const index = new Map();
   for (const [uniqueName, relic] of Object.entries(exportData?.ExportRelics || {})) {
-    if (relic && typeof relic === 'object') index.set(canonicalPath(uniqueName), relic);
+    if (!relic || typeof relic !== 'object') continue;
+    const normalized = normalizeRelicEntry(relic, uniqueName);
+    const relicKey = normalized.era && normalized.category ? `${normalized.era} ${normalized.category}` : null;
+    const state = { relic, relicKey };
+    index.set(canonicalPath(uniqueName), state);
+    if (relicKey) index.set(`relic:${relicKey.toLowerCase()}`, state);
   }
   return index;
+}
+
+function isConfirmedVaultedRelic(state) {
+  return getRelicVaultedStatus(state?.relic, state?.relicKey) === true;
+}
+
+function hasOnlyConfirmedVaultedRelicSources(sources, relicStateIndex) {
+  if (!sources.length || sources.some((source) => source?.type !== 'relic')) return false;
+  return sources.every((source) => {
+    const relicName = String(source?.relicName || '').replace(/\s+Relic\b/i, '').trim().toLowerCase();
+    return isConfirmedVaultedRelic(relicStateIndex?.get(`relic:${relicName}`));
+  });
+}
+
+function vaultedAcquisitionInfo(recipe, dropIndexKey, displayName, sources = []) {
+  return {
+    sources,
+    recipe: recipe || null,
+    wikiLink: getWikiLink(dropIndexKey, displayName),
+    vaulted: true,
+  };
 }
 
 function formatWikiBlueprint(entry) {
@@ -1668,6 +1697,10 @@ export function buildAllAcquisitionIndexes(exportData) {
 
 function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
+  const directRelicState = relicStateIndex?.get(canonicalPath(dropIndexKey));
+  if (isConfirmedVaultedRelic(directRelicState)) {
+    return vaultedAcquisitionInfo(recipe, dropIndexKey, displayName);
+  }
   const verifiedRoutes = getVerifiedRoutes(dropIndexKey, displayName);
   if (verifiedRoutes?.length) {
     return {
@@ -2031,6 +2064,11 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
       const legacy = wikiResourceIndex?.get(displayLower) || bundledWikiResourceIndex.get(displayLower);
       return legacy?.location ? { foundText: legacyResourceText(legacy.location), drops: [], otherSections: [], url: getWikiLink(dropIndexKey, displayName)?.url } : null;
     })();
+  if (hasOnlyConfirmedVaultedRelicSources(dropSources, relicStateIndex)) {
+    const sources = normalizeRelicSources(dropSources)
+      .map(({ __relicSignature, state, chance, ...source }) => source);
+    return vaultedAcquisitionInfo(recipe, dropIndexKey, displayName, [...sources, ...wikiPageSupplementSources]);
+  }
   if (resourceRoute
     && (dropSources.length > 0 || itemDrops?.length > 0 || bundledResource)) {
     const deSources = itemDrops?.length > 0 ? itemDrops : dropSources;
@@ -2317,15 +2355,6 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
     const priceText = price ? ` for ${price}` : '';
     return {
       sources: [{ type: 'non-drop', text: `TennoGen skin - purchased via Steam Workshop/console store${priceText}.`, source: 'Warframe Wiki' }],
-      recipe: recipe || null,
-      wikiLink: getWikiLink(dropIndexKey, displayName),
-    };
-  }
-
-  const relicState = relicStateIndex?.get(canonicalPath(dropIndexKey));
-  if (relicState?.vaultedAt || relicState?.vaulted === true) {
-    return {
-      sources: [{ type: 'non-drop', text: 'Vaulted relic; no active drop source is listed in the current export.', source: 'DE export' }],
       recipe: recipe || null,
       wikiLink: getWikiLink(dropIndexKey, displayName),
     };

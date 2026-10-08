@@ -40,7 +40,7 @@ test('synthetic: past, missing, and Baro relic vault states are distinct', () =>
   const status = new Map(catalog.map((item) => [item.key, item.vaulted]));
   assert.equal(status.get('Lith P1'), true);
   assert.equal(status.get('Meso U1'), null);
-  assert.equal(status.get('Axi A2'), true);
+  assert.equal(status.get('Axi A2'), false);
 });
 
 test('real data: DE vault dates and the Baro exception have the required states', { skip: !haveRealData }, async () => {
@@ -59,7 +59,7 @@ test('real data: DE vault dates and the Baro exception have the required states'
   }
 
   for (const name of BARO_RELIC_NAMES) {
-    assert.equal(catalog.find((item) => item.key === name)?.vaulted, true, `${name} must remain vaulted`);
+    assert.equal(catalog.find((item) => item.key === name)?.vaulted, false, `${name} must not be vaulted`);
   }
 });
 

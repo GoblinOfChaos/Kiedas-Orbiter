@@ -937,6 +937,7 @@
     "acquisition_drawer.key_reward": "Anahtar ödülü",
     "acquisition_drawer.syndicate_fallback": "Sendika",
     "acquisition_drawer.vaulted_no_source": "Bu kalıntı kasada ve şu anda aktif bir edinme kaynağı yok.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "Öğe verileri kontrol ediliyor…",
     "acquisition_drawer.unresearched_route": "Bu öğenin nasıl edinileceği henüz araştırılmadı.",
     "acquisition_drawer.know_where_found": "Nerede bulunacağını biliyor musunuz?",

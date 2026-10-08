@@ -942,6 +942,7 @@
     "acquisition_drawer.key_reward": "Recompensa de llave",
     "acquisition_drawer.syndicate_fallback": "Sindicato",
     "acquisition_drawer.vaulted_no_source": "Esta reliquia está archivada y no tiene una fuente de obtención activa.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "Comprobando datos del objeto…",
     "acquisition_drawer.unresearched_route": "Aún no se ha investigado cómo obtener este objeto.",
     "acquisition_drawer.know_where_found": "¿Sabes dónde encontrarlo?",

@@ -266,7 +266,9 @@ export default function AcquisitionDrawer({ item, onClose }) {
           </button>
         </div>
 
-        {displaySources.length > 0 ?
+        {info?.vaulted === true ?
+          <p className="text-xs text-amber-400/90 italic">{t('acquisition_drawer.vaulted_check_wiki')}</p>
+        : displaySources.length > 0 ?
           <div className={sourcesGridClassName}>
             {displaySources.map((s, i) => {
               const { text, unconfirmed } = splitUnconfirmed(getSourceLabel(s, t, i18nData));
@@ -301,8 +303,6 @@ export default function AcquisitionDrawer({ item, onClose }) {
               );
             })}
           </div>
-        : info?.vaulted === true ?
-          <p className="text-xs text-amber-400/90 italic">{t('acquisition_drawer.vaulted_no_source')}</p>
         : recipe ? null : codexLoading ?
           <p className="text-xs text-kronos-dim italic">{t('acquisition_drawer.checking_item_data')}</p>
         : <div className="flex items-center justify-between gap-3">

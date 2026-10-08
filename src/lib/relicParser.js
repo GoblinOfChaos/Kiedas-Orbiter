@@ -87,10 +87,10 @@ function cleanName(name) {
 // DE's relic export normally represents vault state with a `vaultedAt`
 // timestamp rather than a boolean. A future timestamp means the relic is
 // still available; no timestamp means DE has not scheduled a vault for it.
-function getRelicVaultedStatus(entry, relicKey) {
+export function getRelicVaultedStatus(entry, relicKey) {
   // DE's export carries no vault metadata at all for Baro-exclusive relics
-  // (sold directly, never in the mission drop pool) - they're always vaulted.
-  if (BARO_RELIC_NAMES.includes(relicKey)) return true;
+  // (sold directly by Baro, never in the mission drop pool) - they are not vaulted.
+  if (BARO_RELIC_NAMES.includes(relicKey)) return false;
   if (typeof entry?.vaulted === 'boolean') return entry.vaulted;
   if (typeof entry?.isVaulted === 'boolean') return entry.isVaulted;
   if (Number.isFinite(entry?.vaultedAt)) {

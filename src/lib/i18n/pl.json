@@ -937,6 +937,7 @@
     "acquisition_drawer.key_reward": "Nagroda za klucz",
     "acquisition_drawer.syndicate_fallback": "Syndykat",
     "acquisition_drawer.vaulted_no_source": "Ta relikwia jest zarchiwizowana i nie ma aktywnego źródła zdobycia.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "Sprawdzanie danych przedmiotu…",
     "acquisition_drawer.unresearched_route": "Sposób zdobycia tego przedmiotu nie został jeszcze zbadany.",
     "acquisition_drawer.know_where_found": "Wiesz, gdzie to znaleźć?",

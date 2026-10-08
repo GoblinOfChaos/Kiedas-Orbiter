@@ -942,6 +942,7 @@
     "acquisition_drawer.key_reward": "キー報酬",
     "acquisition_drawer.syndicate_fallback": "シンジケート",
     "acquisition_drawer.vaulted_no_source": "この遺物は封印されており、現在有効な入手手段はありません。",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "アイテムデータを確認中…",
     "acquisition_drawer.unresearched_route": "このアイテムの入手方法はまだ調査されていません。",
     "acquisition_drawer.know_where_found": "入手場所をご存知ですか?",

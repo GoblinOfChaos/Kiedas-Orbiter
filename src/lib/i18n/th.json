@@ -942,6 +942,7 @@
     "acquisition_drawer.key_reward": "รางวัลกุญแจ",
     "acquisition_drawer.syndicate_fallback": "สหภาพ",
     "acquisition_drawer.vaulted_no_source": "โบราณวัตถุนี้ถูกเก็บเข้าคลังและไม่มีแหล่งที่มาที่ใช้งานอยู่",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "กำลังตรวจสอบข้อมูลไอเทม…",
     "acquisition_drawer.unresearched_route": "ยังไม่ได้ศึกษาวิธีรับไอเทมนี้",
     "acquisition_drawer.know_where_found": "รู้ไหมว่าจะหาได้จากที่ไหน?",

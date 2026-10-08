@@ -937,6 +937,7 @@
     "acquisition_drawer.key_reward": "Награда за ключ",
     "acquisition_drawer.syndicate_fallback": "Синдикат",
     "acquisition_drawer.vaulted_no_source": "Эта реликвия хранится в архиве и не имеет активного источника получения.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "Проверка данных предмета…",
     "acquisition_drawer.unresearched_route": "Способ получения этого предмета ещё не исследован.",
     "acquisition_drawer.know_where_found": "Знаете, где это найти?",

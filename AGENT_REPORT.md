@@ -1,38 +1,62 @@
-# P68 - relic vault state
+# P69 — Rahn Prism vendor placement
 
 ## Root cause
 
-`src/lib/relicParser.js:92-98` mapped a missing DE vault-status field to `false`. In the current local DE export that made 61 no-date relics indistinguishable from a relic with an explicit future vault date. `src/lib/farmingTargets/relicPlaces.js:127-136` then classified every non-`true` value as obtainable, and `src/screens/FarmingTargets.jsx:83` exposed its acquisition action for the same condition.
+`buildPreviewPlaceIndex` indexed vendor acquisition labels exactly as supplied. The
+real-data source uses `Rahn Prism Blueprint`, while the recipe ledger asks for the
+canonical catalog item `Rahn Prism`. The existing catalog-key normalizer at
+`src/lib/farmingTargets/screenModel.js:330` stripped only ` | Blueprint`, not a
+plain ` Blueprint` suffix, and `add` at lines 352–363 never converted the source
+label through that catalog lookup. Consequently, the `vendor:the quills` place
+existed but had no source reachable by the Rahn Prism ledger row.
 
 ## Change
 
-- `getRelicVaultedStatus()` now returns `null` when no DE vault metadata is present. It retains the explicit Baro exception—`Axi A2`, `Axi A5`, `Axi A8`, `Axi M5`, `Axi V8`, and `Neo O1` return `true`.
-- Farming Targets now treats only `vaulted === false` as obtainable and only then exposes How to get. Unknown entries are therefore neither vaulted nor presented as available.
-- Added `tests/relics/vault-state.test.mjs` coverage for synthetic states, real DE data, strict Relics filter partitions, and the Farming Targets conversion.
+`src/lib/farmingTargets/screenModel.js` now recognizes either Blueprint suffix
+spelling and canonicalizes each indexed source item through the existing
+export-name lookup before creating its place-index key and row. This preserves an
+unknown item label unchanged.
 
-## Before and after proof
+```diff
+diff --git a/src/lib/farmingTargets/screenModel.js b/src/lib/farmingTargets/screenModel.js
+@@
+-  const nameKey = (value) => vendorKey(value, normalizer).replace(/\s*\|\s*blueprint$/i, '');
++  const nameKey = (value) => vendorKey(value, normalizer).replace(/\s*(?:\|\s*)?blueprint$/i, '');
+@@
+-    const place = sourcePlace(normalizedSource, item, { dict, regions, normalizer });
++    const canonicalItem = itemNameForKey(item) || item;
++    const place = sourcePlace(normalizedSource, canonicalItem, { dict, regions, normalizer });
+@@
+-    const key = lower(item, normalizer);
++    const key = lower(canonicalItem, normalizer);
+@@
+-      item,
++      item: canonicalItem,
+```
 
-A disk-backed copy at `$TMPDIR/vault-state-proof-3` was created with `rsync -a --exclude=node_modules`; its dependency directory was symlinked rather than copied. The sandbox's `/home -> var/home` loop made rsync fail at the nominal path, so the same `$TMPDIR` inode was accessed through its canonical `/var/home` path. The proof copy's initial test run failed before source edits:
+## Before/after proof
 
-- synthetic missing-date assertion: `false !== null`;
-- real-data no-date assertion: `Lith K12 has no vault date but is not unknown` (`false !== null`);
-- Farming Targets assertion: `true !== false` for unknown `obtainable`.
+I used a new, disk-backed temporary proof copy under `$TMPDIR`, excluding
+`node_modules` and large data; it linked the existing dependencies and read-only
+asset data. The proof directory was deleted before handoff.
 
-The local real-data comparison changed `true/false/null` from `733/61/0` to `733/0/61`. The full changed list and consumer audit are in `docs/agent-context/reports/vault-state-before-after.md`; the 61 no-date display/unique names are in `docs/agent-context/reports/relics-unknown-vault.md`.
+All commands used `timeout 180 nice -n 19 node --test --test-concurrency=2`.
 
-## Tests
+| Test file | Before | After (proof) | After (worktree) |
+| --- | --- | --- | --- |
+| `tests/farming/vendorPlaces.test.mjs` | FAIL, exit 1: `Rahn Prism should be under The Quills in Vendors` | PASS, exit 0 | PASS, exit 0 |
+| `tests/farming/placeIndex.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
+| `tests/farming/screenModel.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
+| `tests/farming/ledger.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
+| `tests/farming/farmNext.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
+| `tests/farming/requirements.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
+| `tests/ui/farming-targets-ssr.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
+| `tests/relics/vault-state.test.mjs` | PASS, exit 0 | PASS, exit 0 | PASS, exit 0 |
 
-- Passed: `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/relics/vault-state.test.mjs 2>&1 | tail -n 60`.
-- Wider throttled suite: pending at report write time.
+`tests/farming/acquisitionText.test.mjs` was not run, exactly as directed. No
+build or network access was used. `git diff --check` passed.
 
-## Exact changed files
+## Files changed
 
-- `src/lib/relicParser.js`
-- `src/lib/farmingTargets/relicPlaces.js`
-- `src/screens/FarmingTargets.jsx`
-- `tests/relics/vault-state.test.mjs`
-- `docs/agent-context/reports/relics-unknown-vault.md`
-- `docs/agent-context/reports/vault-state-before-after.md`
+- `src/lib/farmingTargets/screenModel.js`
 - `AGENT_REPORT.md`
-
-No data files, Prime Sets, Foundry, Incarnon, mastery logic, build artifacts, commits, or network resources were changed.

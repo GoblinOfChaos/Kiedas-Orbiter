@@ -149,7 +149,7 @@ export default function Inventory() {
   const FILTER_CONFIG = {
     all: ['owned', 'mastered'],
     warframes: ['owned', 'mastered', 'subsumed', 'prime'],
-    weapons: ['owned', 'mastered', 'prime', 'primary', 'secondary', 'melee', 'incarnon'],
+    weapons: ['owned', 'mastered', 'prime', 'primary', 'secondary', 'melee', 'zaw', 'kitgun', 'incarnon'],
     companions: ['owned', 'mastered'],
     companion_weapons: ['owned', 'mastered'],
     archweapons: ['owned', 'mastered'],
@@ -192,11 +192,11 @@ export default function Inventory() {
   // Mutually-exclusive sub-type filters were previously rendered as independent
   // cycling toggles, so a user could select e.g. Primary AND Secondary at once
   // even though a weapon is only ever one type. Grouped here into single
-  // segmented controls (All/Primary/Secondary/Melee, All/Archwing/K-Drive/Necramech)
+  // segmented controls (All/Primary/Secondary/Melee/Zaw/Kitgun, All/Archwing/K-Drive/Necramech)
   // instead. The underlying per-key filter predicates (filteredItems, above) are
   // unchanged - only the control shape and the fact that selecting one member
   // clears its siblings changes.
-  const FILTER_GROUPS = { primary: 'weapon_type', secondary: 'weapon_type', melee: 'weapon_type', archwing: 'vehicle_type', kdrive: 'vehicle_type', necramech: 'vehicle_type' };
+  const FILTER_GROUPS = { primary: 'weapon_type', secondary: 'weapon_type', melee: 'weapon_type', zaw: 'weapon_type', kitgun: 'weapon_type', archwing: 'vehicle_type', kdrive: 'vehicle_type', necramech: 'vehicle_type' };
 
   const SORT_CONFIG = {
     all: [{ id: 'name', label: t('ui.inventory.sort_name') }, { id: 'xp', label: t('ui.inventory.sort_xp') }],
@@ -684,6 +684,8 @@ export default function Inventory() {
             if (f === 'primary' && item.weapon_type !== 'primary') return false;
             if (f === 'secondary' && item.weapon_type !== 'secondary') return false;
             if (f === 'melee' && item.weapon_type !== 'melee') return false;
+            if (f === 'zaw' && item.category !== 'zaws') return false;
+            if (f === 'kitgun' && item.category !== 'kitguns') return false;
             if (f === 'archwing' && item.vehicle_type !== 'archwing') return false;
             if (f === 'kdrive' && item.vehicle_type !== 'kdrive') return false;
             if (f === 'necramech' && !item.is_necramech) return false;
@@ -1205,7 +1207,7 @@ export default function Inventory() {
               const activeMember = members.find((m) => currentFilters[m] === 'yes');
               return (
                 <div key={groupId} className="flex gap-1">
-                  {[{ id: undefined, label: t('ui.inventory.tab_all') }, ...members.map((m) => ({ id: m, label: m.replace(/_/g, ' ') }))].
+                  {[{ id: undefined, label: t('ui.inventory.tab_all') }, ...members.map((m) => ({ id: m, label: m === 'zaw' ? t('category.zaws') : m === 'kitgun' ? t('category.kitguns') : m.replace(/_/g, ' ') }))].
                   map((opt) => (
                     <button
                       key={opt.label}

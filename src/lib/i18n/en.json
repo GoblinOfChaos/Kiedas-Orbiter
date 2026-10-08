@@ -1462,6 +1462,7 @@
     "acquisition_drawer.key_reward": "Key reward",
     "acquisition_drawer.syndicate_fallback": "Syndicate",
     "acquisition_drawer.vaulted_no_source": "This relic is vaulted and has no active acquisition source.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "Checking item data…",
     "acquisition_drawer.unresearched_route": "How to get this item has not been researched yet.",
     "acquisition_drawer.know_where_found": "Know where to find it?",

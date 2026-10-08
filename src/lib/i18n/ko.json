@@ -942,6 +942,7 @@
     "acquisition_drawer.key_reward": "열쇠 보상",
     "acquisition_drawer.syndicate_fallback": "신디케이트",
     "acquisition_drawer.vaulted_no_source": "이 유물은 봉인되어 있으며 현재 활성화된 입수 경로가 없습니다.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "아이템 데이터 확인 중…",
     "acquisition_drawer.unresearched_route": "이 아이템의 획득 방법은 아직 조사되지 않았습니다.",
     "acquisition_drawer.know_where_found": "어디서 구할 수 있는지 아시나요?",

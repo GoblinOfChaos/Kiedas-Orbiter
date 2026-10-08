@@ -937,6 +937,7 @@
     "acquisition_drawer.key_reward": "Нагорода за ключ",
     "acquisition_drawer.syndicate_fallback": "Синдикат",
     "acquisition_drawer.vaulted_no_source": "Ця реліквія в архіві та не має активного джерела отримання.",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "Перевірка даних предмета…",
     "acquisition_drawer.unresearched_route": "Спосіб отримання цього предмета ще не досліджено.",
     "acquisition_drawer.know_where_found": "Знаєте, де це знайти?",

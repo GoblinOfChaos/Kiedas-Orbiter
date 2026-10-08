@@ -942,6 +942,7 @@
     "acquisition_drawer.key_reward": "鑰匙獎勵",
     "acquisition_drawer.syndicate_fallback": "集團",
     "acquisition_drawer.vaulted_no_source": "此遺物已封存,目前沒有可用的取得來源。",
+    "acquisition_drawer.vaulted_check_wiki": "This item is currently vaulted, check wiki for details.",
     "acquisition_drawer.checking_item_data": "正在檢查物品資料…",
     "acquisition_drawer.unresearched_route": "尚未研究如何取得此物品。",
     "acquisition_drawer.know_where_found": "知道在哪裡可以找到嗎?",

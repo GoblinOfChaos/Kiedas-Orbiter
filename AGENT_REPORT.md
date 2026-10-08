@@ -62,3 +62,103 @@ modified because it is outside this task.
 - `tests/inventory/weapon-type-buttons.test.mjs`
 - `docs/agent-context/reports/weapon-type-before-after.md`
 - `AGENT_REPORT.md`
+
+---
+
+# P71 agent report: vaulted tag
+
+## Root cause
+
+`src/lib/acquisitionInfo.js` only had a late relic-specific fallback based on
+raw `vaultedAt`/`vaulted` values, so it neither distinguished unknown vault
+states nor modeled items whose every relic route is confirmed vaulted.
+`AcquisitionDrawer` could therefore render ordinary sources instead of the
+required wiki-directed vaulted prompt. The P71 test also initially treated
+the Baro Axi A8 export date as a normal past-date result, contrary to the
+owner's declared Baro precedence.
+
+## Changes
+
+- `src/lib/relicParser.js:90-99`
+  - Baro-exclusive relics return `false` before any export metadata. The
+    comment records that they are sold by Baro and not vaulted.
+  - Retained the established `vaulted`/`isVaulted` compatibility fields; a
+    record with no vault metadata remains `null`.
+- `src/lib/acquisitionInfo.js:770-780,1543-1575,1698-1703,2067-2070`
+  - Indexes normalised relic identity and evaluates confirmed vault status.
+  - Tags direct confirmed-vaulted relics, and items only when every known
+    route is a confirmed-vaulted relic. Unknown and available routes prevent
+    the tag.
+  - Keeps normalized model routes for non-drawer consumers; the UI suppresses
+    their display instead of breaking Farming Targets source coverage.
+- `src/components/AcquisitionDrawer.jsx:269-306`
+  - Shows `acquisition_drawer.vaulted_check_wiki` in place of source rows.
+    The existing wiki button and `wikiLink` remain directly below it.
+- `src/lib/i18n/{de,en,es,fr,it,ja,ko,pl,pt,ru,tc,th,tr,uk,zh}.json`
+  - Added `acquisition_drawer.vaulted_check_wiki`.
+- `tests/acquisition-model/vaulted-tag.test.mjs`
+  - Added synthetic and real-data coverage. The real-data past-date loop
+    excludes the six Baro relics, which are asserted separately as untagged.
+- `tests/relics/vault-state.test.mjs`
+  - Updated the Baro expectation to `false`.
+- `docs/agent-context/reports/vaulted-tag-before-after.md`
+  - Records proof details, before/after counts, and examples.
+
+## Before/after proof
+
+The required proof copy was created in
+`$TMPDIR/vaulted-tag-proof-copy-22pC1A` without `node_modules` or large test
+data. `git worktree add` and `git stash` were unavailable because the shared
+worktree Git metadata is read-only. In the copied `HEAD` baseline the P71
+test failed its synthetic confirmed-vaulted assertion and a real past-date
+relic assertion. The completed implementation passes the same test with real
+data: 727 tagged relics and 387 tagged items.
+
+## Test results
+
+- PASS — `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/acquisition-model/vaulted-tag.test.mjs`
+- PASS — `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/ui/i18n-vite-bundle.test.mjs`
+- PASS — `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/relics/vault-state.test.mjs`
+- PASS — `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/farming/acquisitionC1.test.mjs`
+- PASS — `git diff --check`
+- BLOCKED (unrelated fixture) — the wider suite reaches
+  `tests/farming/acquisitionText.test.mjs`, which fails before its assertions
+  because `scratchwiki/wiki-resource-pages.json` is absent. No unrelated
+  source or fixture was created.
+
+## Translation status
+
+`acquisition_drawer.vaulted_check_wiki` is English in all 15 locale files.
+Needs translation: de, es, fr, it, ja, ko, pl, pt, ru, tc, th, tr, uk, zh.
+
+## Unverified or skipped
+
+No build, network operation, or live UI run was performed, as P71 forbids
+builds and network access. The `$TMPDIR` proof copy was deleted after the
+reports were written. The wider-suite fixture blocker is the only incomplete
+validation.
+
+## Exact files changed
+
+- `src/components/AcquisitionDrawer.jsx`
+- `src/lib/acquisitionInfo.js`
+- `src/lib/relicParser.js`
+- `src/lib/i18n/de.json`
+- `src/lib/i18n/en.json`
+- `src/lib/i18n/es.json`
+- `src/lib/i18n/fr.json`
+- `src/lib/i18n/it.json`
+- `src/lib/i18n/ja.json`
+- `src/lib/i18n/ko.json`
+- `src/lib/i18n/pl.json`
+- `src/lib/i18n/pt.json`
+- `src/lib/i18n/ru.json`
+- `src/lib/i18n/tc.json`
+- `src/lib/i18n/th.json`
+- `src/lib/i18n/tr.json`
+- `src/lib/i18n/uk.json`
+- `src/lib/i18n/zh.json`
+- `tests/acquisition-model/vaulted-tag.test.mjs`
+- `tests/relics/vault-state.test.mjs`
+- `docs/agent-context/reports/vaulted-tag-before-after.md`
+- `AGENT_REPORT.md`

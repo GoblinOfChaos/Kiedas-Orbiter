@@ -126,14 +126,14 @@ export function buildRelicPlaces({ ledger = [], inventoryData, exportData, dropI
       level: 'source-only',
       badge: relic.vaulted ? 'vaulted' : 'source only',
       vaulted: relic.vaulted === true,
-      obtainable: relic.vaulted !== true,
+      obtainable: relic.vaulted === false,
       uniqueName: relic.uniqueName,
       era: relic.era,
       code: relic.name,
       ownedCount: Object.values(refinements).reduce((sum, count) => sum + count, 0),
       refinements,
       sources,
-      howToGet: !relic.vaulted && sources.length ? sources : [],
+      howToGet: relic.vaulted === false && sources.length ? sources : [],
     };
     return {
       place,

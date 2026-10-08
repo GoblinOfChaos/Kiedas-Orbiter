@@ -96,7 +96,7 @@ function getRelicVaultedStatus(entry, relicKey) {
   if (Number.isFinite(entry?.vaultedAt)) {
     return entry.vaultedAt <= Math.floor(Date.now() / 1000);
   }
-  return false;
+  return null;
 }
 
 /**

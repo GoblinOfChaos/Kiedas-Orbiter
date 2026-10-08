@@ -327,7 +327,7 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
   });
   const vendorNameCache = new Map();
   const exportNamesByKey = new Map();
-  const nameKey = (value) => vendorKey(value, normalizer).replace(/\s*\|\s*blueprint$/i, '');
+  const nameKey = (value) => vendorKey(value, normalizer).replace(/\s*(?:\|\s*)?blueprint$/i, '');
   for (const name of exportNames.values()) {
     const key = nameKey(name);
     if (!exportNamesByKey.has(key)) exportNamesByKey.set(key, name);
@@ -352,14 +352,15 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
   const add = (item, source) => {
     if (!item || !source) return;
     const normalizedSource = normalizeVendorSource(source);
-    const place = sourcePlace(normalizedSource, item, { dict, regions, normalizer });
+    const canonicalItem = itemNameForKey(item) || item;
+    const place = sourcePlace(normalizedSource, canonicalItem, { dict, regions, normalizer });
     if (!place) return;
     if (!places.has(place.id)) places.set(place.id, place);
-    const key = lower(item, normalizer);
+    const key = lower(canonicalItem, normalizer);
     if (!byItem.has(key)) byItem.set(key, []);
     const row = {
       placeId: place.id,
-      item,
+      item: canonicalItem,
       chance: normalizedSource.chance == null ? null : Number(normalizedSource.chance),
       rotation: normalizedSource.rotation ?? null,
       missionType: normalizedSource.missionType ?? null,

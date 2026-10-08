@@ -4013,7 +4013,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         const baseName = resultName.replace(BLUEPRINT_SUFFIX[locale] ?? ' Blueprint', '').replace(' Prime', ' Prime');
 
         // Check if player has the full item (owned)
-        const ownedItem = nameToItem.get(baseName) ?? nameToItem.get(baseName + ' Prime');
+        const ownedItem = nameToItem.get(baseName);
         const ownedCount = ownedItem ? (ownedItem.quantity ?? 1) : 0;
         const fullItemOwned = ownedCount > 0;
 

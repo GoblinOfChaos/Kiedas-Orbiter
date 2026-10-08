@@ -1,0 +1,236 @@
+{
+  "generatedAt": "2026-10-08T00:46:00.032Z",
+  "checks": {
+    "weaponTypeButtons": {
+      "unmatched": 171,
+      "groups": {
+        "kitguns | none": {
+          "count": 6,
+          "names": [
+            "Catchmoon",
+            "Gaze",
+            "Rattleguts",
+            "Sporelacer",
+            "Tombfinger",
+            "Vermisplicer"
+          ]
+        },
+        "weapons | none": {
+          "count": 128,
+          "names": [
+            "Adlet Core",
+            "Aegron Gyro",
+            "Alcrom Core",
+            "Amesha",
+            "Anspatha Brace",
+            "Arc Twelve",
+            "Arcroid",
+            "Artemis Bow Prime"
+          ]
+        },
+        "zaws | none": {
+          "count": 37,
+          "names": [
+            "Balla",
+            "Cyath",
+            "Dehtat",
+            "Dokrahm",
+            "Ekwana Ii Jai",
+            "Ekwana Ii Ruhang",
+            "Ekwana Jai",
+            "Ekwana Jai Ii"
+          ]
+        }
+      }
+    },
+    "consumedSuitsAndEvolution": {
+      "consumedSuits": {
+        "total": 55,
+        "matched": 55,
+        "unmatched": 0,
+        "unmatchedNames": []
+      },
+      "evolutionProgress": {
+        "total": 25,
+        "matched": 25,
+        "unmatched": 0,
+        "unmatchedNames": []
+      }
+    },
+    "incarnonFlag": {
+      "flagged": 103,
+      "byCategory": {
+        "primary": {
+          "withEvolutionProgress": 8,
+          "withoutEvolutionProgress": 30,
+          "withoutNames": [
+            "Afentis Prime",
+            "Alternox Prime",
+            "Ax-52",
+            "Boar Prime",
+            "Braton Prime",
+            "Bubonico",
+            "Burston Prime",
+            "Cedo Prime"
+          ]
+        },
+        "secondary": {
+          "withEvolutionProgress": 6,
+          "withoutEvolutionProgress": 16,
+          "withoutNames": [
+            "Aklex Prime",
+            "Cantare",
+            "Coda Catabolyst",
+            "Coda Pox",
+            "Coda Tysis",
+            "Dual Coda Torxica",
+            "Grimoire",
+            "Hystrix"
+          ]
+        },
+        "melee": {
+          "withEvolutionProgress": 11,
+          "withoutEvolutionProgress": 32,
+          "withoutNames": [
+            "Amanata",
+            "Cerata",
+            "Coda Caustacyst",
+            "Coda Hirudo",
+            "Coda Mire",
+            "Coda Motovore",
+            "Coda Pathocyst",
+            "Dex Nikana"
+          ]
+        }
+      }
+    },
+    "incarnonAdapters": {
+      "records": 21,
+      "quantity": 23,
+      "familyNames": [
+        "Angstrum Incarnon Genesis",
+        "Anku Incarnon Genesis",
+        "Atomos Incarnon Genesis",
+        "Bo Incarnon Genesis",
+        "Boltor Incarnon Genesis",
+        "Braton Incarnon Genesis",
+        "Bronco Incarnon Genesis",
+        "Ceramic Dagger Incarnon Genesis"
+      ]
+    },
+    "relicVaultState": {
+      "vaultDatePast": {
+        "count": 727,
+        "visibleVaulted": {
+          "true": 727,
+          "false": 0
+        },
+        "names": [
+          "Axi A1",
+          "Axi A10",
+          "Axi A11",
+          "Axi A12",
+          "Axi A13",
+          "Axi A14",
+          "Axi A15",
+          "Axi A16"
+        ]
+      },
+      "vaultDateFuture": {
+        "count": 0,
+        "visibleVaulted": {
+          "true": 0,
+          "false": 0
+        },
+        "names": []
+      },
+      "noVaultDate": {
+        "count": 61,
+        "visibleVaulted": {
+          "true": 0,
+          "false": 61
+        },
+        "names": [
+          "Axi A21",
+          "Axi A22",
+          "Axi A23",
+          "Axi B10",
+          "Axi C12",
+          "Axi D6",
+          "Axi N14",
+          "Axi P10"
+        ]
+      },
+      "baroException": {
+        "count": 6,
+        "visibleVaulted": {
+          "true": 6,
+          "false": 0
+        },
+        "names": [
+          "Axi A2",
+          "Axi A5",
+          "Axi A8",
+          "Axi M5",
+          "Axi V8",
+          "Neo O1"
+        ]
+      }
+    },
+    "primeSetsOwnership": {
+      "finishedOwnedPartMissing": {
+        "count": 96,
+        "names": [
+          "Acceltra Prime",
+          "Afentis Prime",
+          "Akarius Prime",
+          "Akbronco Prime",
+          "Aklex Prime",
+          "Akmagnus Prime",
+          "Akvasto Prime",
+          "Alternox Prime"
+        ]
+      },
+      "partOwnedFinishedMissing": {
+        "count": 64,
+        "names": [
+          "Afuris Prime",
+          "Akbolto Prime",
+          "Akjagara Prime",
+          "Aksomati Prime",
+          "Akstiletto Prime",
+          "Ankyros Prime",
+          "Athodai Prime",
+          "Ballistica Prime"
+        ]
+      }
+    },
+    "foundryOwnership": {
+      "fullItemOwnedByPlainName": 567,
+      "fullItemOwnedOnlyByPrimeFallback": 0
+    },
+    "ownedOnlyTabs": {
+      "arcanes": {
+        "owned": 154,
+        "catalog": 166
+      },
+      "mods": {
+        "owned": 1144,
+        "catalog": 1533
+      },
+      "consumables": {
+        "owned": 118,
+        "catalog": 176
+      },
+      "peely_pix": {
+        "owned": 25,
+        "catalog": 25
+      },
+      "landing_craft": {
+        "owned": 3,
+        "catalog": 7
+      }
+    }
+  },
+  "failures": []
+}

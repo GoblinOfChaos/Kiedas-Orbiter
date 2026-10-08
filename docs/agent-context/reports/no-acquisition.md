@@ -1,0 +1,463 @@
+No-acquisition Inventory items (P65)
+Generated: 2026-10-08T00:46:00.032Z
+
+## all (206)
+
+- "Circle of Comrades" Series on VHS | /Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette
+- Ack & Brunt Blueprint | /Lotus/Weapons/ClanTech/Chemical/RegorAxeShieldBlueprint
+- Acrid Blueprint | /Lotus/Weapons/ClanTech/Bio/AcidDartPistolBlueprint
+- additional appearance config slot for this item | /Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker
+- additional mod config slot for this item | /Lotus/Types/Items/MiscItems/ModSlotUnlocker
+- Amesha Blueprint | /Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingBlueprint
+- Amprex Blueprint | /Lotus/Weapons/ClanTech/Energy/ChainLightningRifleBlueprint
+- Arca Plasmor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpShotgunBlueprint
+- Arca Scisco Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpScopeGunBlueprint
+- Argonak Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnLaserAimRifleBlueprint
+- Ayatan Hemakara Sculpture | /Lotus/Types/Items/FusionTreasures/OroFusexJ
+- Bile | /Lotus/Types/Items/InfestedFoundry/HelminthBile
+- Bioplasma | /Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem
+- Biotics | /Lotus/Types/Items/InfestedFoundry/HelminthBiotics
+- Black-Banded Bolarola Tag | /Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon
+- Brakk Blueprint | /Lotus/Types/Recipes/Weapons/BrakkBlueprint
+- Bubonico Blueprint | /Lotus/Weapons/ClanTech/Bio/InfArmCannonBlueprint
+- Buzlok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnGorgSniperRifleBlueprint
+- Calx | /Lotus/Types/Items/InfestedFoundry/HelminthCalx
+- Carrier Blueprint | /Lotus/Types/Recipes/SentinelRecipes/CarrierSentinelBlueprint
+- Caustacyst Blueprint | /Lotus/Weapons/ClanTech/Bio/EmbolistScytheBlueprint
+- Cerata Blueprint | /Lotus/Weapons/ClanTech/Bio/PunctureGlaiveWeaponBlueprint
+- Cerulean Fungus Extract | /Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem
+- Chesa Kubrow (Chow Chow) | /Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit
+- Convectrix Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpSplitLaserBlueprint
+- Corrupted Heavy Gunner Specter | /Lotus/Types/Restoratives/Consumable/CorruptedHeavyGunnerBall
+- Dagath Chassis | /Lotus/Types/Recipes/WarframeRecipes/DagathChassisBlueprint
+- Dagath Neuroptics | /Lotus/Types/Recipes/WarframeRecipes/DagathHelmetBlueprint
+- Dagath Systems | /Lotus/Types/Recipes/WarframeRecipes/DagathSystemsBlueprint
+- Danger Room Tile | /Lotus/Types/Items/DangerRoom/DangerRoomTile
+- Delicate Pobber Tag | /Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon
+- Delta Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA
+- Dera Blueprint | /Lotus/Weapons/ClanTech/Energy/EnergyRifleBlueprint
+- Dethcube Blueprint | /Lotus/Types/Recipes/SentinelRecipes/DethCubeSentinelBlueprint
+- Detron Blueprint | /Lotus/Types/Recipes/Weapons/CorpusHandcannonBlueprint
+- Diriga Blueprint | /Lotus/Types/Recipes/SentinelRecipes/ArcTrapSentinelBlueprint
+- Djinn Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedSentinelWeaponBlueprint
+- DNA Stabilizers | /Lotus/Types/Game/KubrowPet/KubrowPetFood
+- Dog Tag | /Lotus/Types/Items/SyndicateDogTags/DogTag
+- Dorrclave Blueprint | /Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBlueprint
+- Dual Ichor Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedDualAxesBioWeaponBlueprint
+- Dual Toxocyst Blueprint | /Lotus/Weapons/ClanTech/Bio/InfVomitPistolBlueprint
+- Elytron Blueprint | /Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingBlueprint
+- Ember Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem
+- Embolist Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedPistolBioWeaponBlueprint
+- EMISSARY  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag
+- Emperor Condroc Tag | /Lotus/Types/Items/Eidolon/AnimalTagCondrocRare
+- ENGINE COWLING REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodFeatureItem
+- Entratifragmentbase | /Lotus/Types/Items/Deimos/EntratiFragmentBase
+- Entratilabdogtag | /Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTag
+- Falcor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpGlaiveBlueprint
+- File-a-Style Binder | /Lotus/Types/Gameplay/1999Wf/Gifts/Binder
+- File-A-Style Coffee Cups | /Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup
+- File-a-Style Deluxe Calculator | /Lotus/Types/Gameplay/1999Wf/Gifts/Calculator
+- File-a-Style Highlighters | /Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters
+- File-A-Style Insta-Print Poster | /Lotus/Types/Gameplay/1999Wf/Gifts/EntratiPoster
+- File-a-Style Mouse Pad | /Lotus/Types/Gameplay/1999Wf/Gifts/MousePad
+- File-a-Style Notepad | /Lotus/Types/Gameplay/1999Wf/Gifts/Notepad
+- File-a-Style Office Phone | /Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone
+- File-a-Style Pencils | /Lotus/Types/Gameplay/1999Wf/Gifts/Pencil
+- File-a-Style Pens | /Lotus/Types/Gameplay/1999Wf/Gifts/Pen
+- File-a-Style Sticky Notes | /Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes
+- Fire-Veined Stover Tag | /Lotus/Types/Items/Solaris/AnimalTagStoverRare
+- Flux Rifle Blueprint | /Lotus/Weapons/ClanTech/Energy/LaserRifleBlueprint
+- Frogmouthed Sawgaw Tag | /Lotus/Types/Items/Solaris/AnimalTagSawgawRare
+- Frostcap | /Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem
+- Gamma Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB
+- Garuda Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem
+- Genericdojocolorpigment | /Lotus/Types/Items/Research/DojoColors/GenericDojoColorPigment
+- Ghost Brush Extract | /Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem
+- GLASSMAKER  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag
+- Glaxion Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpFreezeRayRifleBlueprint
+- Glyph Prism | /Lotus/Types/Restoratives/Consumable/GuildGlyphConsumableNoCharges
+- Grattler Blueprint | /Lotus/Weapons/ClanTech/Chemical/ArchGrnAAGunBlueprint
+- Green Gorilla Propane Tank | /Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas
+- Grendel Chassis | /Lotus/Types/Recipes/WarframeRecipes/GrendelChassisBlueprint
+- Grendel Neuroptics | /Lotus/Types/Recipes/WarframeRecipes/GrendelHelmetBlueprint
+- Grendel Systems | /Lotus/Types/Recipes/WarframeRecipes/GrendelSystemsBlueprint
+- Grinlok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GLARifleBlueprint
+- Haalvu | /Lotus/Weapons/Sentients/SentOctaMiniGun/SentOctaMiniGun
+- Helios Blueprint | /Lotus/Weapons/ClanTech/Energy/HeliosSentinelBlueprint
+- Hema Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedBurstRifleBlueprint
+- Hexsyndicatedogtag | /Lotus/Types/Gameplay/1999Wf/Resources/HexSyndicateDogTag
+- Horrasque Stormer Tag | /Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare
+- Ignis Blueprint | /Lotus/Weapons/ClanTech/Chemical/FlameThrowerBlueprint
+- Itzal Blueprint | /Lotus/Types/Recipes/ArchwingRecipes/StealthArchwing/StealthArchwingBlueprint
+- Jahu Gargoyle | /Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem
+- Jat Kusar Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnKusarigamaWeaponBlueprint
+- Javlok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnFlameSpearBlueprint
+- K.A.H. Game Monitor | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor
+- K.A.H. Game System | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole
+- Kappa Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC
+- Kesheg Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnHalberdBlueprint
+- KineBasik Assorted Roadsigns | /Lotus/Types/Gameplay/1999Wf/Gifts/Sign
+- KineBasik Asst. Metal Keychains | /Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain
+- KineBasik Bicycle | /Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle
+- KineBasik Cardboard Box | /Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox
+- KineBasik Coffee Mug | /Lotus/Types/Gameplay/1999Wf/Gifts/Mug
+- KineBasik Fire Extinguisher | /Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher
+- KineBasik Gas Can (Large) | /Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge
+- KineBasik Gas Can (Small) | /Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall
+- KineBasik Hanging Planter | /Lotus/Types/Gameplay/1999Wf/Gifts/Planter
+- KineBasik Medical Kit | /Lotus/Types/Gameplay/1999Wf/Gifts/MedKit
+- KineBasik Metal Lunch Box | /Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox
+- KineBasik Paper Party Hats | /Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat
+- KineBasik Pillows | /Lotus/Types/Gameplay/1999Wf/Gifts/Pillow
+- KineBasik Pizza Boxes | /Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox
+- KineKitchen Coffee Machine | /Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine
+- KineKitchen Microwave | /Lotus/Types/Gameplay/1999Wf/Gifts/Microwave
+- KineKitchen Toaster | /Lotus/Types/Gameplay/1999Wf/Gifts/Toaster
+- KineKitchen Toaster Oven | /Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven
+- KineMagik! Boom Box | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox
+- KineMagik! Party Light | /Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight
+- KineMagik! Portable TV | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV
+- KineMagik! Wireless Headphones | /Lotus/Types/Gameplay/1999Wf/Gifts/Headphones
+- Kinemantik 256 GPU | /Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU
+- Kinemantik 840HD TV | /Lotus/Types/Gameplay/1999Wf/Gifts/Television
+- Kinemantik A/V Receiver | /Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver
+- Kinemantik Announce | /Lotus/Types/Gameplay/1999Wf/Gifts/Microphone
+- Kinemantik Cellphone | /Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone
+- Kinemantik Digital Phone | /Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone
+- Kinemantik Digital Video Camera | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera
+- Kinemantik Hockey Table | /Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable
+- Kinemantik Speaker | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker
+- Kinemantik Speaker System | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp
+- Knux Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnArchHandBlueprint
+- Kohmak Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnKohmPistolBlueprint
+- Krohkur Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnEgyptSwdBlueprint
+- Kubrodon Incarnadine Tag | /Lotus/Types/Items/Solaris/AnimalTagKubrodonRare
+- Lanka Blueprint | /Lotus/Weapons/ClanTech/Energy/RailgunBlueprint
+- Last Chance Offerings | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemA
+- Lenz Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpBowBlueprint
+- Library Scanner Upgrade | /Lotus/Types/Items/MiscItems/LibraryScannerUpgrade
+- Loaned Weapons | /Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem
+- Marelok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GLAPistolBlueprint
+- Mios Blueprint | /Lotus/Weapons/ClanTech/Bio/MiosBlueprint
+- Mutalist Quanta Blueprint | /Lotus/Weapons/ClanTech/Bio/InfCrpShockSwarmRifleBlueprint
+- NIGHTWAVE  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag
+- Nora Dog Tag | /Lotus/Types/Items/SyndicateDogTags/NoraDogTag
+- Nora's Choice Cred | /Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds
+- Nora's Mix: Time Tempests Cred | /Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds
+- Nukor Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnMicrowavePistolBlueprint
+- Ogris Blueprint | /Lotus/Weapons/ClanTech/Chemical/RocketLauncherBlueprint
+- Omega Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD
+- On-lyne: The Boys R Back | /Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc
+- Opticor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpBFGBlueprint
+- Orokin Monitor | /Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem
+- Owned Peely Pak | /Lotus/Types/Items/MiscItems/1999FixedStickersPack
+- Oxides | /Lotus/Types/Items/InfestedFoundry/HelminthOxides
+- Panzer Vulpaphyla (Yip) | /Lotus/Types/Friendly/Pets/CreaturePets/ArmoredInfestedCatbrowPetPowerSuit
+- Paracyst Blueprint | /Lotus/Weapons/ClanTech/Bio/InfQuantaRifleBlueprint
+- Phasic Cells | /Lotus/Types/Items/MiscItems/MechSurvivalEventCreds
+- Pheromones | /Lotus/Types/Items/InfestedFoundry/HelminthPheromones
+- Photobooth Tile | /Lotus/Types/Items/MiscItems/PhotoboothTile
+- Plantitem | /Lotus/Types/Items/Plants/MiscItems/PlantItem
+- PORT NACELLE REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleLeftFeatureItem
+- Pox Blueprint | /Lotus/Weapons/ClanTech/Bio/InfProximityStarsBlueprint
+- PROPULSION SYSTEMS REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodBraceFeatureItem
+- Protea Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem
+- Prova Blueprint | /Lotus/Weapons/ClanTech/Energy/ElectroProdBlueprint
+- Pupacyst Blueprint | /Lotus/Weapons/ClanTech/Bio/InfStaffWeaponBlueprint
+- Quanta Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpShockRifleBlueprint
+- Raksa Kubrow (Rascal) | /Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit
+- Rathuum Prisoner Coordinates | /Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag
+- Red-Crested Virmink Tag | /Lotus/Types/Items/Solaris/AnimalTagVirminkRare
+- Roathe's Oblivion Arena | /Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena
+- Scarlet Credits | /Lotus/Types/Items/Events/OperationsCredits
+- Scoliac Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedWhipWeaponBlueprint
+- SENTIENT APPETITE | /Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer
+- Serro Blueprint | /Lotus/Weapons/ClanTech/Energy/CorpusPolearmWeaponBlueprint
+- Shade Blueprint | /Lotus/Types/Recipes/SentinelRecipes/ShadeSentinelBlueprint
+- Ship Feature Item | /Lotus/Types/Items/ShipFeatureItems/ShipFeatureItem
+- Skateweed Extract | /Lotus/Types/Items/Plants/MiscItems/IresPlantItem
+- Smeeta Kavat (Mouser) | /Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit
+- Solaris Mining Tool Upgrade | /Lotus/Types/Items/MiscItems/SolarisMiningToolUpgrade
+- Spectra Blueprint | /Lotus/Weapons/ClanTech/Energy/LaserPistolBlueprint
+- Splendid Mergoo Tag | /Lotus/Types/Items/Eidolon/AnimalTagMergooRare
+- Spring Festival Interior Decorations | /Lotus/Types/Items/ShipLayerCNY
+- STARBOARD NACELLE REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleRightFeatureItem
+- Staticor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpElectroMagBlueprint
+- STOCKING | /Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem
+- Supra Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpHeavyRifleBlueprint
+- Sydon Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnTridentWeaponBlueprint
+- Synapse Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedRifleBioWeaponBlueprint
+- Synthetics | /Lotus/Types/Items/InfestedFoundry/HelminthSynthetics
+- TAIL SECTION REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackTailFeatureItem
+- Tasoma Spore | /Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed
+- Taxon Blueprint | /Lotus/Types/Recipes/SentinelRecipes/TnSentinelCrossBlueprint
+- Tertium | /Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem
+- The Citadel Simulacrum | /Lotus/Types/Items/DangerRoom/DangerRoomTileDefault
+- The Scooticle | /Lotus/Types/Gameplay/1999Wf/Gifts/Scooter
+- Thorny Bolarola Tag | /Lotus/Types/Items/Solaris/AnimalTagBolarolaRare
+- Titania Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem
+- TNW Archon Item Base | /Lotus/Types/Items/MiscItems/TNWArchonItemBase
+- Torid Blueprint | /Lotus/Weapons/ClanTech/Bio/BioWeaponBlueprint
+- Twin Krohkur Blueprint | /Lotus/Weapons/ClanTech/Chemical/DualGrnEgyptSwdBlueprint
+- Vallis Kubrodon Tag | /Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon
+- Varzia's Offerings | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemC
+- Varzia's Offerings - Part 2 | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemB
+- Vauban Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem
+- Vay Hek Nav Coordinate | /Lotus/Types/Items/MiscItems/HekNavCode
+- Venato Blueprint | /Lotus/Types/Recipes/Weapons/NewWar/SentJointedScytheBlueprint
+- Woodland Mergoo Tag | /Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon
+- Wyrm Blueprint | /Lotus/Types/Recipes/SentinelRecipes/WyrmSentinelBlueprint
+- Yuvan Peak Scene | /Lotus/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub
+- Zarimandogtag | /Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTag
+
+## consumables (6)
+
+- Corrupted Heavy Gunner Specter | /Lotus/Types/Restoratives/Consumable/CorruptedHeavyGunnerBall
+- Health Restore (Small) | /Lotus/Types/Restoratives/SelfHealSmall
+- Omni | /Lotus/Types/Restoratives/Consumable/RepairTool
+- Pistol Ammo Box | /Lotus/Types/Restoratives/SelfPistolAmmo
+- Shield Restore (Small) | /Lotus/Types/Restoratives/SelfShieldHeal
+- Sniper Ammo Box | /Lotus/Types/Restoratives/SelfSniperAmmo
+
+## parts (71)
+
+- Ack & Brunt Blueprint | /Lotus/Weapons/ClanTech/Chemical/RegorAxeShieldBlueprint
+- Acrid Blueprint | /Lotus/Weapons/ClanTech/Bio/AcidDartPistolBlueprint
+- Amesha Blueprint | /Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingBlueprint
+- Amprex Blueprint | /Lotus/Weapons/ClanTech/Energy/ChainLightningRifleBlueprint
+- Arca Plasmor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpShotgunBlueprint
+- Arca Scisco Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpScopeGunBlueprint
+- Argonak Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnLaserAimRifleBlueprint
+- Brakk Blueprint | /Lotus/Types/Recipes/Weapons/BrakkBlueprint
+- Bubonico Blueprint | /Lotus/Weapons/ClanTech/Bio/InfArmCannonBlueprint
+- Buzlok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnGorgSniperRifleBlueprint
+- Carrier Blueprint | /Lotus/Types/Recipes/SentinelRecipes/CarrierSentinelBlueprint
+- Caustacyst Blueprint | /Lotus/Weapons/ClanTech/Bio/EmbolistScytheBlueprint
+- Cerata Blueprint | /Lotus/Weapons/ClanTech/Bio/PunctureGlaiveWeaponBlueprint
+- Convectrix Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpSplitLaserBlueprint
+- Dagath Chassis | /Lotus/Types/Recipes/WarframeRecipes/DagathChassisBlueprint
+- Dagath Neuroptics | /Lotus/Types/Recipes/WarframeRecipes/DagathHelmetBlueprint
+- Dagath Systems | /Lotus/Types/Recipes/WarframeRecipes/DagathSystemsBlueprint
+- Dera Blueprint | /Lotus/Weapons/ClanTech/Energy/EnergyRifleBlueprint
+- Dethcube Blueprint | /Lotus/Types/Recipes/SentinelRecipes/DethCubeSentinelBlueprint
+- Detron Blueprint | /Lotus/Types/Recipes/Weapons/CorpusHandcannonBlueprint
+- Diriga Blueprint | /Lotus/Types/Recipes/SentinelRecipes/ArcTrapSentinelBlueprint
+- Djinn Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedSentinelWeaponBlueprint
+- Dorrclave Blueprint | /Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBlueprint
+- Dual Ichor Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedDualAxesBioWeaponBlueprint
+- Dual Toxocyst Blueprint | /Lotus/Weapons/ClanTech/Bio/InfVomitPistolBlueprint
+- Elytron Blueprint | /Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingBlueprint
+- Embolist Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedPistolBioWeaponBlueprint
+- Falcor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpGlaiveBlueprint
+- Flux Rifle Blueprint | /Lotus/Weapons/ClanTech/Energy/LaserRifleBlueprint
+- Glaxion Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpFreezeRayRifleBlueprint
+- Grattler Blueprint | /Lotus/Weapons/ClanTech/Chemical/ArchGrnAAGunBlueprint
+- Grendel Chassis | /Lotus/Types/Recipes/WarframeRecipes/GrendelChassisBlueprint
+- Grendel Neuroptics | /Lotus/Types/Recipes/WarframeRecipes/GrendelHelmetBlueprint
+- Grendel Systems | /Lotus/Types/Recipes/WarframeRecipes/GrendelSystemsBlueprint
+- Grinlok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GLARifleBlueprint
+- Helios Blueprint | /Lotus/Weapons/ClanTech/Energy/HeliosSentinelBlueprint
+- Hema Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedBurstRifleBlueprint
+- Ignis Blueprint | /Lotus/Weapons/ClanTech/Chemical/FlameThrowerBlueprint
+- Itzal Blueprint | /Lotus/Types/Recipes/ArchwingRecipes/StealthArchwing/StealthArchwingBlueprint
+- Jat Kusar Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnKusarigamaWeaponBlueprint
+- Javlok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnFlameSpearBlueprint
+- Kesheg Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnHalberdBlueprint
+- Knux Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnArchHandBlueprint
+- Kohmak Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnKohmPistolBlueprint
+- Krohkur Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnEgyptSwdBlueprint
+- Lanka Blueprint | /Lotus/Weapons/ClanTech/Energy/RailgunBlueprint
+- Lenz Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpBowBlueprint
+- Marelok Blueprint | /Lotus/Weapons/ClanTech/Chemical/GLAPistolBlueprint
+- Mios Blueprint | /Lotus/Weapons/ClanTech/Bio/MiosBlueprint
+- Mutalist Quanta Blueprint | /Lotus/Weapons/ClanTech/Bio/InfCrpShockSwarmRifleBlueprint
+- Nukor Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnMicrowavePistolBlueprint
+- Ogris Blueprint | /Lotus/Weapons/ClanTech/Chemical/RocketLauncherBlueprint
+- Opticor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpBFGBlueprint
+- Paracyst Blueprint | /Lotus/Weapons/ClanTech/Bio/InfQuantaRifleBlueprint
+- Pox Blueprint | /Lotus/Weapons/ClanTech/Bio/InfProximityStarsBlueprint
+- Prova Blueprint | /Lotus/Weapons/ClanTech/Energy/ElectroProdBlueprint
+- Pupacyst Blueprint | /Lotus/Weapons/ClanTech/Bio/InfStaffWeaponBlueprint
+- Quanta Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpShockRifleBlueprint
+- Scoliac Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedWhipWeaponBlueprint
+- Serro Blueprint | /Lotus/Weapons/ClanTech/Energy/CorpusPolearmWeaponBlueprint
+- Shade Blueprint | /Lotus/Types/Recipes/SentinelRecipes/ShadeSentinelBlueprint
+- Spectra Blueprint | /Lotus/Weapons/ClanTech/Energy/LaserPistolBlueprint
+- Staticor Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpElectroMagBlueprint
+- Supra Blueprint | /Lotus/Weapons/ClanTech/Energy/CrpHeavyRifleBlueprint
+- Sydon Blueprint | /Lotus/Weapons/ClanTech/Chemical/GrnTridentWeaponBlueprint
+- Synapse Blueprint | /Lotus/Weapons/ClanTech/Bio/InfestedRifleBioWeaponBlueprint
+- Taxon Blueprint | /Lotus/Types/Recipes/SentinelRecipes/TnSentinelCrossBlueprint
+- Torid Blueprint | /Lotus/Weapons/ClanTech/Bio/BioWeaponBlueprint
+- Twin Krohkur Blueprint | /Lotus/Weapons/ClanTech/Chemical/DualGrnEgyptSwdBlueprint
+- Venato Blueprint | /Lotus/Types/Recipes/Weapons/NewWar/SentJointedScytheBlueprint
+- Wyrm Blueprint | /Lotus/Types/Recipes/SentinelRecipes/WyrmSentinelBlueprint
+
+## peely_pix (25)
+
+- Argon Combo #2 | /Lotus/Upgrades/Stickers/DropSpecialItemChanceOnWeakpointKillSticker
+- Breathless | /Lotus/Upgrades/Stickers/ToxinGasResistanceOnHealthOrbSticker
+- Burgerfest | /Lotus/Upgrades/Stickers/DropHealingBurgerChanceSticker
+- Catscratch Fever | /Lotus/Upgrades/Stickers/StickerSporePrimer
+- Crushing Chills | /Lotus/Upgrades/Stickers/CreateShieldOnHeavySlamSticker
+- Doktor's Orders | /Lotus/Upgrades/Stickers/StickerEnemyShotgun
+- Fly, Fly! | /Lotus/Upgrades/Stickers/DropEfervonGrenadeChanceSticker
+- Going Steady | /Lotus/Upgrades/Stickers/AvatarKnockdownResistanceSticker
+- Hi-Score | /Lotus/Upgrades/Stickers/DeathPreventionOnKillsSticker
+- It Sees You | /Lotus/Upgrades/Stickers/CreateChasingAntiMatterDropSticker
+- Old Pizza | /Lotus/Upgrades/Stickers/ToxinProcOnDamageSticker
+- Only Knives | /Lotus/Upgrades/Stickers/StickerEnemyMelee
+- Optimism | /Lotus/Upgrades/Stickers/FreezePlayerOverTimeSticker
+- Panic Call | /Lotus/Upgrades/Stickers/NPCReviveSticker
+- Resolutions | /Lotus/Upgrades/Stickers/StickerEnemyRifle
+- Reverse-O | /Lotus/Upgrades/Stickers/RemoveStatusesOnHeavyAttackSticker
+- Slippery Customer | /Lotus/Upgrades/Stickers/EjectButtonSticker
+- Spinnin' Around | /Lotus/Upgrades/Stickers/NullStarOnWeakpointKillSticker
+- Super Scavenger | /Lotus/Upgrades/Stickers/ElementalAmmoChanceOnEximusKillSticker
+- Through My Heart | /Lotus/Upgrades/Stickers/StickerEnemySmg
+- Too Hot | /Lotus/Upgrades/Stickers/DecoyOnDamagedSticker
+- Vintage Tech | /Lotus/Upgrades/Stickers/AllowNecramechSummonSticker
+- Wakeup Call | /Lotus/Upgrades/Stickers/AllowThermianRpgSummonSticker
+- Walking on Air | /Lotus/Upgrades/Stickers/SuperGlideParkourSticker
+- XL Frosty | /Lotus/Upgrades/Stickers/WeaponColdDamageSticker
+
+## relics (6)
+
+- Axi B10 Relic | /Lotus/Types/Game/Projections/T4VoidProjectionSevagothHydroidVaultABronze
+- Axi N14 Relic | /Lotus/Types/Game/Projections/T4VoidProjectionSevagothHydroidVaultBBronze
+- Lith S20 Relic | /Lotus/Types/Game/Projections/T1VoidProjectionSevagothHydroidVaultABronze
+- Meso E8 Relic | /Lotus/Types/Game/Projections/T2VoidProjectionSevagothHydroidVaultABronze
+- Neo H5 Relic | /Lotus/Types/Game/Projections/T3VoidProjectionSevagothHydroidVaultBBronze
+- Neo N25 Relic | /Lotus/Types/Game/Projections/T3VoidProjectionSevagothHydroidVaultABronze
+
+## resources (128)
+
+- "Circle of Comrades" Series on VHS | /Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette
+- additional appearance config slot for this item | /Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker
+- additional mod config slot for this item | /Lotus/Types/Items/MiscItems/ModSlotUnlocker
+- Ayatan Hemakara Sculpture | /Lotus/Types/Items/FusionTreasures/OroFusexJ
+- Bile | /Lotus/Types/Items/InfestedFoundry/HelminthBile
+- Bioplasma | /Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem
+- Biotics | /Lotus/Types/Items/InfestedFoundry/HelminthBiotics
+- Black-Banded Bolarola Tag | /Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon
+- Calx | /Lotus/Types/Items/InfestedFoundry/HelminthCalx
+- Cerulean Fungus Extract | /Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem
+- Danger Room Tile | /Lotus/Types/Items/DangerRoom/DangerRoomTile
+- Delicate Pobber Tag | /Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon
+- Delta Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA
+- DNA Stabilizers | /Lotus/Types/Game/KubrowPet/KubrowPetFood
+- Dog Tag | /Lotus/Types/Items/SyndicateDogTags/DogTag
+- Ember Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem
+- EMISSARY  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag
+- Emperor Condroc Tag | /Lotus/Types/Items/Eidolon/AnimalTagCondrocRare
+- ENGINE COWLING REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodFeatureItem
+- Entratifragmentbase | /Lotus/Types/Items/Deimos/EntratiFragmentBase
+- Entratilabdogtag | /Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTag
+- File-a-Style Binder | /Lotus/Types/Gameplay/1999Wf/Gifts/Binder
+- File-A-Style Coffee Cups | /Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup
+- File-a-Style Deluxe Calculator | /Lotus/Types/Gameplay/1999Wf/Gifts/Calculator
+- File-a-Style Highlighters | /Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters
+- File-A-Style Insta-Print Poster | /Lotus/Types/Gameplay/1999Wf/Gifts/EntratiPoster
+- File-a-Style Mouse Pad | /Lotus/Types/Gameplay/1999Wf/Gifts/MousePad
+- File-a-Style Notepad | /Lotus/Types/Gameplay/1999Wf/Gifts/Notepad
+- File-a-Style Office Phone | /Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone
+- File-a-Style Pencils | /Lotus/Types/Gameplay/1999Wf/Gifts/Pencil
+- File-a-Style Pens | /Lotus/Types/Gameplay/1999Wf/Gifts/Pen
+- File-a-Style Sticky Notes | /Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes
+- Fire-Veined Stover Tag | /Lotus/Types/Items/Solaris/AnimalTagStoverRare
+- Frogmouthed Sawgaw Tag | /Lotus/Types/Items/Solaris/AnimalTagSawgawRare
+- Frostcap | /Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem
+- Gamma Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB
+- Garuda Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem
+- Genericdojocolorpigment | /Lotus/Types/Items/Research/DojoColors/GenericDojoColorPigment
+- Ghost Brush Extract | /Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem
+- GLASSMAKER  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag
+- Green Gorilla Propane Tank | /Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas
+- Hexsyndicatedogtag | /Lotus/Types/Gameplay/1999Wf/Resources/HexSyndicateDogTag
+- Horrasque Stormer Tag | /Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare
+- Jahu Gargoyle | /Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem
+- K.A.H. Game Monitor | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor
+- K.A.H. Game System | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole
+- Kappa Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC
+- KineBasik Assorted Roadsigns | /Lotus/Types/Gameplay/1999Wf/Gifts/Sign
+- KineBasik Asst. Metal Keychains | /Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain
+- KineBasik Bicycle | /Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle
+- KineBasik Cardboard Box | /Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox
+- KineBasik Coffee Mug | /Lotus/Types/Gameplay/1999Wf/Gifts/Mug
+- KineBasik Fire Extinguisher | /Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher
+- KineBasik Gas Can (Large) | /Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge
+- KineBasik Gas Can (Small) | /Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall
+- KineBasik Hanging Planter | /Lotus/Types/Gameplay/1999Wf/Gifts/Planter
+- KineBasik Medical Kit | /Lotus/Types/Gameplay/1999Wf/Gifts/MedKit
+- KineBasik Metal Lunch Box | /Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox
+- KineBasik Paper Party Hats | /Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat
+- KineBasik Pillows | /Lotus/Types/Gameplay/1999Wf/Gifts/Pillow
+- KineBasik Pizza Boxes | /Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox
+- KineKitchen Coffee Machine | /Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine
+- KineKitchen Microwave | /Lotus/Types/Gameplay/1999Wf/Gifts/Microwave
+- KineKitchen Toaster | /Lotus/Types/Gameplay/1999Wf/Gifts/Toaster
+- KineKitchen Toaster Oven | /Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven
+- KineMagik! Boom Box | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox
+- KineMagik! Party Light | /Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight
+- KineMagik! Portable TV | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV
+- KineMagik! Wireless Headphones | /Lotus/Types/Gameplay/1999Wf/Gifts/Headphones
+- Kinemantik 256 GPU | /Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU
+- Kinemantik 840HD TV | /Lotus/Types/Gameplay/1999Wf/Gifts/Television
+- Kinemantik A/V Receiver | /Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver
+- Kinemantik Announce | /Lotus/Types/Gameplay/1999Wf/Gifts/Microphone
+- Kinemantik Cellphone | /Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone
+- Kinemantik Digital Phone | /Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone
+- Kinemantik Digital Video Camera | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera
+- Kinemantik Hockey Table | /Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable
+- Kinemantik Speaker | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker
+- Kinemantik Speaker System | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp
+- Kubrodon Incarnadine Tag | /Lotus/Types/Items/Solaris/AnimalTagKubrodonRare
+- Last Chance Offerings | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemA
+- Library Scanner Upgrade | /Lotus/Types/Items/MiscItems/LibraryScannerUpgrade
+- Loaned Weapons | /Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem
+- NIGHTWAVE  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag
+- Nora Dog Tag | /Lotus/Types/Items/SyndicateDogTags/NoraDogTag
+- Nora's Choice Cred | /Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds
+- Nora's Mix: Time Tempests Cred | /Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds
+- Omega Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD
+- On-lyne: The Boys R Back | /Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc
+- Orokin Monitor | /Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem
+- Owned Peely Pak | /Lotus/Types/Items/MiscItems/1999FixedStickersPack
+- Oxides | /Lotus/Types/Items/InfestedFoundry/HelminthOxides
+- Phasic Cells | /Lotus/Types/Items/MiscItems/MechSurvivalEventCreds
+- Pheromones | /Lotus/Types/Items/InfestedFoundry/HelminthPheromones
+- Photobooth Tile | /Lotus/Types/Items/MiscItems/PhotoboothTile
+- Plantitem | /Lotus/Types/Items/Plants/MiscItems/PlantItem
+- PORT NACELLE REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleLeftFeatureItem
+- PROPULSION SYSTEMS REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodBraceFeatureItem
+- Protea Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem
+- Rathuum Prisoner Coordinates | /Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag
+- Red-Crested Virmink Tag | /Lotus/Types/Items/Solaris/AnimalTagVirminkRare
+- Roathe's Oblivion Arena | /Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena
+- Scarlet Credits | /Lotus/Types/Items/Events/OperationsCredits
+- SENTIENT APPETITE | /Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer
+- Ship Feature Item | /Lotus/Types/Items/ShipFeatureItems/ShipFeatureItem
+- Skateweed Extract | /Lotus/Types/Items/Plants/MiscItems/IresPlantItem
+- Solaris Mining Tool Upgrade | /Lotus/Types/Items/MiscItems/SolarisMiningToolUpgrade
+- Splendid Mergoo Tag | /Lotus/Types/Items/Eidolon/AnimalTagMergooRare
+- Spring Festival Interior Decorations | /Lotus/Types/Items/ShipLayerCNY
+- STARBOARD NACELLE REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleRightFeatureItem
+- STOCKING | /Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem
+- Synthetics | /Lotus/Types/Items/InfestedFoundry/HelminthSynthetics
+- TAIL SECTION REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackTailFeatureItem
+- Tasoma Spore | /Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed
+- Tertium | /Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem
+- The Citadel Simulacrum | /Lotus/Types/Items/DangerRoom/DangerRoomTileDefault
+- The Scooticle | /Lotus/Types/Gameplay/1999Wf/Gifts/Scooter
+- Thorny Bolarola Tag | /Lotus/Types/Items/Solaris/AnimalTagBolarolaRare
+- Titania Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem
+- TNW Archon Item Base | /Lotus/Types/Items/MiscItems/TNWArchonItemBase
+- Vallis Kubrodon Tag | /Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon
+- Varzia's Offerings | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemC
+- Varzia's Offerings - Part 2 | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemB
+- Vauban Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem
+- Vay Hek Nav Coordinate | /Lotus/Types/Items/MiscItems/HekNavCode
+- Woodland Mergoo Tag | /Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon
+- Yuvan Peak Scene | /Lotus/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub
+- Zarimandogtag | /Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTag
+

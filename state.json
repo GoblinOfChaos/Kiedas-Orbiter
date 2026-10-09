@@ -2,24 +2,24 @@
   "formatVersion": 1,
   "sources": {
     "de-public-export": {
-      "fingerprint": "41bdf221d314a4c4364f2fd8d62c110b868485b5ae979f818b18beaa18eb9a91",
-      "checkedAt": "2026-10-08T23:19:24.444Z",
+      "fingerprint": "53363268216971999253ad1f8f23a02c578375b8fc7a3b0da0249bdf65f6b26f",
+      "checkedAt": "2026-10-09T13:13:27.222Z",
       "consecutiveFailures": 0
     },
     "de-drop-tables": {
       "fingerprint": "Wed, 07 Oct 2026 15:18:33 GMT|",
-      "checkedAt": "2026-10-08T23:19:24.459Z",
+      "checkedAt": "2026-10-09T13:13:27.476Z",
       "consecutiveFailures": 0
     },
     "wiki-modules": {
-      "fingerprint": "7e134fd80a52816583b1095f2aa910a8aeaba7017f19ba755fe47e1287b2e389",
-      "checkedAt": "2026-10-08T23:19:32.528Z",
+      "fingerprint": "33529e69e64d133b8ca48cb6b1926f1630e2e3c3f4a62c70a8098d91a681eed5",
+      "checkedAt": "2026-10-09T13:13:34.786Z",
       "consecutiveFailures": 0
     },
     "worldstate-schema": {
       "fingerprint": "63be26452cb4cac72933426524cf50d485334c5ddb28cb8ac339907b1b7372a9",
-      "checkedAt": "2026-10-08T23:19:24.301Z",
-      "consecutiveFailures": 2
+      "checkedAt": "2026-10-09T13:13:27.009Z",
+      "consecutiveFailures": 3
     }
   }
 }

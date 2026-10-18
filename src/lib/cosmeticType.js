@@ -43,6 +43,18 @@ export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   // Clan badges / emblems (wiki Emblems; DE Skins/Clan/*Badge*).
   if (/\/upgrades\/skins\/clan\//.test(value)) return 'Emblem';
 
+  // Folder-specific kinds for items the rules above did not place. Each folder
+  // holds one kind of item (checked against item names and icon folders in
+  // ExportCustoms.json). Placed last so existing kinds, such as Catbrow armor
+  // under Armor, are never reassigned.
+  if (/\/upgrades\/skins\/effects\//.test(value)) return 'Ephemera';
+  if (/\/upgrades\/skins\/railjack\//.test(value)) return 'Railjack';
+  if (/\/upgrades\/skins\/horse\//.test(value)) return 'Kaithe';
+  if (/\/upgrades\/skins\/necramech\//.test(value)) return 'Necramech';
+  if (/\/upgrades\/skins\/(hoverboard|kdrive)\//.test(value)) return 'Vehicle';
+  if (/\/upgrades\/skins\/(kubrows|catbrows|moapet)\//.test(value)) return 'Companion';
+  if (/\/upgrades\/skins\/holstercustomizations\//.test(value)) return 'Holster';
+
   const folderMatch = /\/upgrades\/skins\/([a-z0-9]+)\//.exec(value);
   if (folderMatch) {
     const folder = folderMatch[1];

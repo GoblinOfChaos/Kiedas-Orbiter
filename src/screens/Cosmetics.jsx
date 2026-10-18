@@ -364,6 +364,13 @@ export default function Cosmetics() {
     sigil: 'cosmetics.kind_sigil',
     operator: 'cosmetics.kind_operator',
     emblem: 'cosmetics.kind_emblem',
+    ephemera: 'cosmetics.kind_ephemera',
+    railjack: 'cosmetics.kind_railjack',
+    kaithe: 'cosmetics.kind_kaithe',
+    necramech: 'cosmetics.kind_necramech',
+    vehicle: 'cosmetics.kind_vehicle',
+    companion: 'cosmetics.kind_companion',
+    holster: 'cosmetics.kind_holster',
     decoration: 'cosmetics.kind_decoration',
     emote: 'cosmetics.kind_emote',
     other: 'ui.inventory.other',
@@ -385,7 +392,7 @@ export default function Cosmetics() {
     universal: 'cosmetics.filter_universal',
   }
 
-  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'operator', 'emblem', 'decoration', 'emote', 'other']
+  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'operator', 'emblem', 'ephemera', 'railjack', 'kaithe', 'necramech', 'vehicle', 'companion', 'holster', 'decoration', 'emote', 'other']
 
   // Preview-only persistent category sidebar (wide widths), replacing the
   // kind Tabs strip as the primary selector there (it remains, wrapping

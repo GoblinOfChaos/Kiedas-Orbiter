@@ -36,13 +36,38 @@ test('legacy Warframe skin folders remap to Warframe', () => {
   )
 })
 
-test('unrelated Skins folders stay Other', () => {
+test('folder-specific kinds classify from their Skins/ folder', () => {
+  const cases = [
+    ['/Lotus/Upgrades/Skins/Effects/ArchonShardEphemera', 'Ephemera'],
+    ['/Lotus/Upgrades/Skins/RailJack/DefaultEngines', 'Railjack'],
+    ['/Lotus/Upgrades/Skins/Horse/GynfasKaithe', 'Kaithe'],
+    ['/Lotus/Upgrades/Skins/Necramech/EschatosNecramechHelmet', 'Necramech'],
+    ['/Lotus/Upgrades/Skins/Hoverboard/SomeKDriveScrawl', 'Vehicle'],
+    ['/Lotus/Upgrades/Skins/KDrive/VelocipodSkin', 'Vehicle'],
+    ['/Lotus/Upgrades/Skins/Kubrows/TaichenKubrowCollar', 'Companion'],
+    ['/Lotus/Upgrades/Skins/Catbrows/FurPattern', 'Companion'],
+    ['/Lotus/Upgrades/Skins/MoaPet/KiTeerMoaSkin', 'Companion'],
+    ['/Lotus/Upgrades/Skins/HolsterCustomizations/DaggerLowerBack', 'Holster'],
+  ]
+  for (const [uniqueName, expected] of cases) {
+    assert.equal(cosmeticType(uniqueName, '', 'Skin', families), expected, uniqueName)
+  }
+})
+
+test('Catbrow armor keeps the Armor kind, not Companion', () => {
   assert.equal(
-    cosmeticType('/Lotus/Upgrades/Skins/Effects/ArchonShardEphemera', '', 'Skin', families),
+    cosmeticType('/Lotus/Upgrades/Skins/Catbrows/Armor/CatbrowArmorA', '', 'Skin', families),
+    'Armor',
+  )
+})
+
+test('unmapped Skins folders stay Other', () => {
+  assert.equal(
+    cosmeticType('/Lotus/Upgrades/Skins/Motorcycle/DichromeLivery', '', 'Skin', families),
     'Other',
   )
   assert.equal(
-    cosmeticType('/Lotus/Upgrades/Skins/RailJack/DefaultEngines', '', 'Skin', families),
+    cosmeticType('/Lotus/Upgrades/Skins/Crowns/LianiaSigna', '', 'Skin', families),
     'Other',
   )
 })

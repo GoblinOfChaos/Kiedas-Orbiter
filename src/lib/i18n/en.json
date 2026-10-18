@@ -1660,6 +1660,13 @@
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
     "acquisition_drawer.sources_count_one": "{count} source",
     "cosmetics.kind_operator": "Operator",
-    "cosmetics.kind_emblem": "Emblem"
+    "cosmetics.kind_emblem": "Emblem",
+    "cosmetics.kind_ephemera": "Ephemera",
+    "cosmetics.kind_railjack": "Railjack",
+    "cosmetics.kind_kaithe": "Kaithe",
+    "cosmetics.kind_necramech": "Necramech",
+    "cosmetics.kind_vehicle": "Vehicle",
+    "cosmetics.kind_companion": "Companion",
+    "cosmetics.kind_holster": "Holster"
   }
 }

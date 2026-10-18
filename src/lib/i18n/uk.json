@@ -1660,7 +1660,14 @@
     "acquisition_drawer.sources_count_one": "{count} джерело",
     "ui.dashboard.circuit_title": "The Circuit",
     "cosmetics.kind_operator": "Оператор",
-    "cosmetics.kind_emblem": "Емблема"
+    "cosmetics.kind_emblem": "Емблема",
+    "cosmetics.kind_ephemera": "Ephemera",
+    "cosmetics.kind_railjack": "Railjack",
+    "cosmetics.kind_kaithe": "Kaithe",
+    "cosmetics.kind_necramech": "Necramech",
+    "cosmetics.kind_vehicle": "Vehicle",
+    "cosmetics.kind_companion": "Companion",
+    "cosmetics.kind_holster": "Holster"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

@@ -1658,7 +1658,9 @@
     "foundry.group_keys_quest": "Schlüssel",
     "foundry.group_other": "Andere",
     "foundry.blueprints_owned": "{count} BP",
-    "foundry.being_built": "Wird gebaut"
+    "foundry.being_built": "Wird gebaut",
+    "cosmetics.kind_operator": "Operator-Kosmetik",
+    "cosmetics.kind_emblem": "Abzeichen"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

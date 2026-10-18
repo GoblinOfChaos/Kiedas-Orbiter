@@ -1658,7 +1658,9 @@
     "ui.riven_prompt.configure_hotkey": "Configura una tecla para evaluar Rivens en Ajustes",
     "farming_targets.corrupt_warning": "El archivo de objetivos de farmeo está dañado y es de solo lectura. Repáralo o restablécelo antes de añadir objetivos.",
     "acquisition_drawer.sources_count_one": "{count} fuente",
-    "ui.dashboard.circuit_title": "The Circuit"
+    "ui.dashboard.circuit_title": "The Circuit",
+    "cosmetics.kind_operator": "Operador",
+    "cosmetics.kind_emblem": "Emblema"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

@@ -1658,7 +1658,9 @@
     "ui.riven_prompt.configure_hotkey": "Ustaw skrót oceny Rivenów w Ustawieniach",
     "farming_targets.corrupt_warning": "Plik celów farmienia jest uszkodzony i tylko do odczytu. Napraw go lub zresetuj przed dodaniem celów.",
     "acquisition_drawer.sources_count_one": "{count} źródło",
-    "ui.dashboard.circuit_title": "The Circuit"
+    "ui.dashboard.circuit_title": "The Circuit",
+    "cosmetics.kind_operator": "Operator (kosmetyki)",
+    "cosmetics.kind_emblem": "Emblemat"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

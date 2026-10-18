@@ -1658,7 +1658,9 @@
     "ui.riven_prompt.configure_hotkey": "Налаштуйте гарячу клавішу оцінювання Rivens у Налаштуваннях",
     "farming_targets.corrupt_warning": "Файл цілей фарму пошкоджений і доступний лише для читання. Виправте або скиньте його перед додаванням цілей.",
     "acquisition_drawer.sources_count_one": "{count} джерело",
-    "ui.dashboard.circuit_title": "The Circuit"
+    "ui.dashboard.circuit_title": "The Circuit",
+    "cosmetics.kind_operator": "Оператор",
+    "cosmetics.kind_emblem": "Емблема"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

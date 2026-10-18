@@ -1658,6 +1658,8 @@
     "ui.riven_prompt.hint": "The grading overlays will scan the current card and follow each reroll.",
     "ui.riven_prompt.configure_hotkey": "Set a Riven grading hotkey in Settings",
     "farming_targets.corrupt_warning": "Farming targets file is corrupt and read-only. Repair or reset it before adding targets.",
-    "acquisition_drawer.sources_count_one": "{count} source"
+    "acquisition_drawer.sources_count_one": "{count} source",
+    "cosmetics.kind_operator": "Operator",
+    "cosmetics.kind_emblem": "Emblem"
   }
 }

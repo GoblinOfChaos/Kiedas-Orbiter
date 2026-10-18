@@ -181,7 +181,8 @@
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
     "ui.relic_reward.bp": "code, number, or placeholder",
     "ui.riven_card.mr": "code, number, or placeholder",
-    "ui.riven_overlay.tier_meta": "same word in the target language or established game term"
+    "ui.riven_overlay.tier_meta": "same word in the target language or established game term",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "fr": {
     "about.discord": "brand or product name",
@@ -369,7 +370,8 @@
     "ui.relic_rarity.rare": "same word in the target language or established game term",
     "ui.relic_reward.bp": "code, number, or placeholder",
     "ui.riven_card.mr": "code, number, or placeholder",
-    "ui.riven_overlay.tier_niche": "same word in the target language or established game term"
+    "ui.riven_overlay.tier_niche": "same word in the target language or established game term",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "es": {
     "about.discord": "brand or product name",
@@ -521,7 +523,8 @@
     "ui.riven_card.mr": "code, number, or placeholder",
     "ui.riven_overlay.roll_mediocre": "same word in the target language or established game term",
     "ui.riven_overlay.tier_meta": "same word in the target language or established game term",
-    "ui.riven_overlay.tier_popular": "same word in the target language or established game term"
+    "ui.riven_overlay.tier_popular": "same word in the target language or established game term",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "it": {
     "about.discord": "brand or product name",
@@ -686,7 +689,8 @@
     "ui.relic_reward.bp": "code, number, or placeholder",
     "ui.riven_card.mr": "code, number, or placeholder",
     "ui.riven_overlay.roll_mediocre": "same word in the target language or established game term",
-    "ui.riven_overlay.tier_meta": "same word in the target language or established game term"
+    "ui.riven_overlay.tier_meta": "same word in the target language or established game term",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "pt": {
     "about.discord": "brand or product name",
@@ -847,7 +851,8 @@
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
     "ui.riven_card.mr": "code, number, or placeholder",
     "ui.riven_overlay.tier_meta": "same word in the target language or established game term",
-    "ui.riven_overlay.tier_popular": "same word in the target language or established game term"
+    "ui.riven_overlay.tier_popular": "same word in the target language or established game term",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "ja": {
     "about.discord": "brand or product name",
@@ -901,7 +906,8 @@
     "ui.notif_mgr.msg_bounty_mtype": "code, number, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
     "ui.relic_reward.bp": "established game term",
-    "ui.riven_card.mr": "code, number, or placeholder"
+    "ui.riven_card.mr": "code, number, or placeholder",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "ko": {
     "about.discord": "brand or product name",
@@ -974,7 +980,8 @@
     "ui.notif_mgr.msg_bounty_body": "code, number, or placeholder",
     "ui.notif_mgr.msg_bounty_mtype": "code, number, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
-    "ui.riven_card.mr": "code, number, or placeholder"
+    "ui.riven_card.mr": "code, number, or placeholder",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "zh": {
     "about.discord": "brand or product name",
@@ -1046,7 +1053,8 @@
     "ui.notif_mgr.msg_bounty_mtype": "code, number, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
     "ui.relic_reward.bp": "established game term",
-    "ui.riven_card.mr": "code, number, or placeholder"
+    "ui.riven_card.mr": "code, number, or placeholder",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "tc": {
     "about.discord": "brand or product name",
@@ -1144,7 +1152,8 @@
     "ui.notif_mgr.msg_bounty_mtype": "code, number, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
     "ui.relic_reward.bp": "established game term",
-    "ui.riven_card.mr": "code, number, or placeholder"
+    "ui.riven_card.mr": "code, number, or placeholder",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "th": {
     "about.discord": "brand or product name",
@@ -1263,7 +1272,8 @@
     "ui.notif_mgr.msg_bounty_body": "code, number, or placeholder",
     "ui.notif_mgr.msg_bounty_mtype": "code, number, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, number, or placeholder",
-    "ui.riven_card.mr": "code, number, or placeholder"
+    "ui.riven_card.mr": "code, number, or placeholder",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "pl": {
     "about.discord": "brand",
@@ -1391,7 +1401,8 @@
     "ui.notif_mgr.msg_bounty_mtype": "code, abbreviation, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, abbreviation, or placeholder",
     "ui.riven_card.mr": "code, abbreviation, or placeholder",
-    "ui.riven_overlay.tier_meta": "same word in language"
+    "ui.riven_overlay.tier_meta": "same word in language",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "tr": {
     "about.discord": "brand",
@@ -1539,7 +1550,8 @@
     "ui.notif_mgr.sp_suffix": "code, abbreviation, or placeholder",
     "ui.relic_reward.bp": "game proper noun or established category term",
     "ui.riven_card.mr": "code, abbreviation, or placeholder",
-    "ui.riven_overlay.tier_meta": "same word in language"
+    "ui.riven_overlay.tier_meta": "same word in language",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "ru": {
     "about.discord": "brand",
@@ -1590,7 +1602,8 @@
     "ui.notif_mgr.msg_bounty_body": "code, abbreviation, or placeholder",
     "ui.notif_mgr.msg_bounty_mtype": "code, abbreviation, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, abbreviation, or placeholder",
-    "ui.riven_card.mr": "code, abbreviation, or placeholder"
+    "ui.riven_card.mr": "code, abbreviation, or placeholder",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   },
   "uk": {
     "about.discord": "brand",
@@ -1643,6 +1656,7 @@
     "ui.notif_mgr.msg_bounty_body": "code, abbreviation, or placeholder",
     "ui.notif_mgr.msg_bounty_mtype": "code, abbreviation, or placeholder",
     "ui.notif_mgr.sp_suffix": "code, abbreviation, or placeholder",
-    "ui.relic_reward.bp": "game proper noun or established category term"
+    "ui.relic_reward.bp": "game proper noun or established category term",
+    "acquisition_drawer.vaulted_check_wiki": "Official English UI label retained pending localized vaulted-relic notice copy."
   }
 }

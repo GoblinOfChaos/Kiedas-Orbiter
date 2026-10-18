@@ -1658,7 +1658,9 @@
     "ui.riven_prompt.configure_hotkey": "Defina um atalho para avaliar Rivens em Configurações",
     "farming_targets.corrupt_warning": "O arquivo de alvos de farming está corrompido e é somente leitura. Repare-o ou redefina-o antes de adicionar alvos.",
     "acquisition_drawer.sources_count_one": "{count} fonte",
-    "ui.dashboard.circuit_title": "The Circuit"
+    "ui.dashboard.circuit_title": "The Circuit",
+    "cosmetics.kind_operator": "Operador",
+    "cosmetics.kind_emblem": "Emblema"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B",

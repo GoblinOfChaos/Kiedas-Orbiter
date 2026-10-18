@@ -12,6 +12,7 @@ import ItemImage from '../components/ItemImage'
 import { IS_PREVIEW } from '../lib/buildProfile'
 import PreviewCosmeticsLayout from '../components/PreviewCosmeticsLayout'
 import { compareText } from '../lib/textCompare'
+import { cosmeticType } from '../lib/cosmeticType'
 
 const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
@@ -49,48 +50,8 @@ function buildWarframeFamilies(exportData) {
   return families
 }
 
-function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
-  if (kind !== 'Skin') return kind
-  const value = `${uniqueName || ''} ${icon || ''}`.toLowerCase()
-  // The previous check here (`/upgrades/skins/weapons/(pistols|dspistols|
-  // longguns|rifle)/`) only matched a weapon skin's uniqueName, and only the
-  // narrow slice of weapon skins (58 of them) that happen to be filed under
-  // the literal /Upgrades/Skins/Weapons/ folder. The other ~450+ real weapon
-  // skins are filed under a per-weapon-family folder instead (the same
-  // convention Warframe skins use, e.g. /Upgrades/Skins/Koumei/... for a
-  // Warfan skin) and never matched, silently falling through to the
-  // Warframe-family check below and landing on "Warframe" whenever that
-  // folder name happened to also be a real Warframe's codename (confirmed
-  // live: Koumei is both a Warframe and this weapon-family folder). The
-  // reliable signal DE actually uses everywhere is the ICON path's
-  // StoreIcons/Weapons/{Primary,Secondary,Melee}Weapons/ segment - verified
-  // against the current export: 569 items carry this segment, 534
-  // unambiguously (the other 35 are Exalted/Archgun/Arrow skins that
-  // legitimately have no ground-weapon-slot kind and correctly fall through
-  // to the existing Warframe/Other logic below instead).
-  if (/storeicons\/weapons\/secondaryweapons\//.test(value)) return 'Secondary'
-  if (/storeicons\/weapons\/primaryweapons\//.test(value)) return 'Primary'
-  if (/storeicons\/weapons\/meleeweapons\//.test(value)) return 'Melee'
-  if (/\/upgrades\/skins\/weapons\/(pistols|dspistols)\//.test(value)) return 'Secondary'
-  if (/\/upgrades\/skins\/weapons\/(longguns|rifle)\//.test(value)) return 'Primary'
-  if (/\/upgrades\/skins\/weapons\//.test(value)) return 'Melee'
-  if (/archwing/.test(value)) return 'Archwing'
-  if (/sentinel/.test(value)) return 'Sentinel'
-  if (/syandana|\/upgrades\/skins\/scarves\//.test(value)) return 'Syandana'
-  if (/armor/.test(value)) return 'Armor'
-  if (/animationsets/.test(value)) return 'Animation'
-  // A Warframe skin only resolves to "Warframe" when its /Upgrades/Skins/
-  // folder matches a real Warframe family name pulled from ExportWarframes.json
-  // (see buildWarframeFamilies above). Every other folder under Skins/ -
-  // Operator/Drifter, Clan, Railjack, Hoverboard, but also companion cosmetics
-  // (Kubrows, Catbrows, MoaPet), Necramechs, Duviri Kaithe ("Horse"), Kahl,
-  // seasonal Promo badges, KDrive, and dozens more - falls through to "Other".
-  // This replaces a catch-all regex that matched ANY non-weapon folder under
-  // Skins/ and mis-bucketed all of the above as "Warframe".
-  const folderMatch = /\/upgrades\/skins\/([a-z0-9]+)\//.exec(value)
-  if (folderMatch && warframeFamilies?.has(folderMatch[1])) return 'Warframe'
-  return 'Other'
-}
+// cosmeticType lives in src/lib/cosmeticType.js (Operator, Emblem, weapon-
+// slot, Warframe-family including legacy Skins/ folder remaps).
 
 // A handful of Warframe Animation Set folders use a legacy internal codename
 // that matches neither the Warframe's current Powersuits folder nor its
@@ -401,6 +362,8 @@ export default function Cosmetics() {
     animation: 'cosmetics.kind_animation',
     glyph: 'cosmetics.kind_glyph',
     sigil: 'cosmetics.kind_sigil',
+    operator: 'cosmetics.kind_operator',
+    emblem: 'cosmetics.kind_emblem',
     decoration: 'cosmetics.kind_decoration',
     emote: 'cosmetics.kind_emote',
     other: 'ui.inventory.other',
@@ -422,7 +385,7 @@ export default function Cosmetics() {
     universal: 'cosmetics.filter_universal',
   }
 
-  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'decoration', 'emote', 'other']
+  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'operator', 'emblem', 'decoration', 'emote', 'other']
 
   // Preview-only persistent category sidebar (wide widths), replacing the
   // kind Tabs strip as the primary selector there (it remains, wrapping

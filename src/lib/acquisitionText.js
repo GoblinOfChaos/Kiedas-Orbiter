@@ -148,8 +148,19 @@ function stripWikiResidue(value) {
   return { text, changed: text !== before.trim() }
 }
 
+// Short app-voice place strings (accept-list / acquisition_overrides) name the
+// CURRENT route. Broad HISTORICAL_PATTERNS also match those shapes (Nightwave
+// Series N rank R, "Operation: …" vendor shops, "TennoCon 2025 …") and used to
+// wipe the override to empty → false "unresearched" drawers. Keep these.
+export function isCurrentAppVoiceRoute(sentence) {
+  const text = String(sentence ?? '').trim()
+  if (!text) return false
+  return /^(?:Purchase from|In-game Market|Included (?:in|with)|Nightwave Series \d+ rank \d+ reward|Not currently obtainable|No confirmed acquisition|Possible future Movember|Reward for|Twitch Drop|Discord Nitro|Saryn Nitro Bundle|Clan Dojo)\b/i.test(text)
+}
+
 export function isHistoricalClause(sentence) {
   const text = String(sentence ?? '')
+  if (isCurrentAppVoiceRoute(text)) return false
   return HISTORICAL_PATTERNS.some((pattern) => pattern.test(text))
 }
 

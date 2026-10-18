@@ -1658,7 +1658,9 @@
     "ui.riven_prompt.configure_hotkey": "Définir une touche d’évaluation des Rivens dans les Paramètres",
     "farming_targets.corrupt_warning": "Le fichier des objectifs de farming est corrompu et en lecture seule. Réparez-le ou réinitialisez-le avant d’ajouter des objectifs.",
     "acquisition_drawer.sources_count_one": "{count} source",
-    "ui.dashboard.circuit_title": "The Circuit"
+    "ui.dashboard.circuit_title": "The Circuit",
+    "cosmetics.kind_operator": "Opérateur",
+    "cosmetics.kind_emblem": "Emblème"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

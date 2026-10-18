@@ -11,8 +11,8 @@ import { IS_PREVIEW } from "../lib/buildProfile";
 import { formatNumber } from "../lib/formatNumber";
 import PreviewMarketLayout from "../components/PreviewMarketLayout";
 import { compareText } from "../lib/textCompare";
-import {
 import { awardsMastery } from '../lib/masteryState';
+import {
   TrendingUp,
   Package,
   Eye,

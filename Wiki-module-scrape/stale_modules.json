@@ -1,0 +1,3170 @@
+[
+  {
+    "page": "Module:Ability",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-19T01:35:01Z",
+    "pageid": 1264582
+  },
+  {
+    "page": "Module:Ability/Conclave/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2018-12-16T21:26:32Z",
+    "pageid": 1375793
+  },
+  {
+    "page": "Module:Ability/Conclave/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-12-20T18:20:57Z",
+    "pageid": 1574228
+  },
+  {
+    "page": "Module:Ability/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-27T06:46:17Z",
+    "pageid": 1264326
+  },
+  {
+    "page": "Module:Ability/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-23T15:35:12Z",
+    "pageid": 1554588
+  },
+  {
+    "page": "Module:Ability/data/stats",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-07-01T00:12:35Z",
+    "pageid": 1554583
+  },
+  {
+    "page": "Module:Ability/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-08T23:18:07Z",
+    "pageid": 1549792
+  },
+  {
+    "page": "Module:Ability/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-28T21:37:58Z",
+    "pageid": 1572320
+  },
+  {
+    "page": "Module:Ability/infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-12-02T03:04:35Z",
+    "pageid": 1572948
+  },
+  {
+    "page": "Module:Acquisition",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:50Z",
+    "pageid": 1513549
+  },
+  {
+    "page": "Module:Acquisition/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-12-14T15:01:31Z",
+    "pageid": 1513550
+  },
+  {
+    "page": "Module:Acquisition/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-11-19T02:03:08Z",
+    "pageid": 1554527
+  },
+  {
+    "page": "Module:Acquisition/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-06T07:31:12Z",
+    "pageid": 1545995
+  },
+  {
+    "page": "Module:Animal/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-10T07:54:39Z",
+    "pageid": 1593295
+  },
+  {
+    "page": "Module:Animal/infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-26T03:24:32Z",
+    "pageid": 1603513
+  },
+  {
+    "page": "Module:Arcane",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-06T17:28:44Z",
+    "pageid": 1244305
+  },
+  {
+    "page": "Module:Arcane/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-27T16:45:14Z",
+    "pageid": 1244302
+  },
+  {
+    "page": "Module:Arcane/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-06T17:54:19Z",
+    "pageid": 1549895
+  },
+  {
+    "page": "Module:Arcane/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-08-12T19:02:01Z",
+    "pageid": 1554625
+  },
+  {
+    "page": "Module:Arcane/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-03T22:53:56Z",
+    "pageid": 1548690
+  },
+  {
+    "page": "Module:Arcane/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:11:12Z",
+    "pageid": 1549892
+  },
+  {
+    "page": "Module:ArchModBox",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:43:56Z",
+    "pageid": 1593283
+  },
+  {
+    "page": "Module:Arguments",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:22:44Z",
+    "pageid": 1571241
+  },
+  {
+    "page": "Module:Arguments/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:21:14Z",
+    "pageid": 1571244
+  },
+  {
+    "page": "Module:Arguments/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:21:02Z",
+    "pageid": 1571242
+  },
+  {
+    "page": "Module:Arguments/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:21:03Z",
+    "pageid": 1571243
+  },
+  {
+    "page": "Module:Avionics",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T22:09:50Z",
+    "pageid": 1503266
+  },
+  {
+    "page": "Module:Avionics/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-03-24T05:28:16Z",
+    "pageid": 1503267
+  },
+  {
+    "page": "Module:Avionics/data/desc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-03-24T05:18:56Z",
+    "pageid": 1544175
+  },
+  {
+    "page": "Module:Avionics/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-04T05:00:54Z",
+    "pageid": 1557817
+  },
+  {
+    "page": "Module:Avionics/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-01-05T21:15:28Z",
+    "pageid": 1544176
+  },
+  {
+    "page": "Module:Baro",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T15:39:08Z",
+    "pageid": 1547808
+  },
+  {
+    "page": "Module:Baro/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-02T13:03:22Z",
+    "pageid": 1547805
+  },
+  {
+    "page": "Module:Baro/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-11-05T21:26:01Z",
+    "pageid": 1553629
+  },
+  {
+    "page": "Module:Baro/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-30T05:15:16Z",
+    "pageid": 1547819
+  },
+  {
+    "page": "Module:Baro/data/typeConfigs",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-03T15:56:28Z",
+    "pageid": 1636875
+  },
+  {
+    "page": "Module:Baro/data/typeConfigs/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-10T00:14:36Z",
+    "pageid": 1636877
+  },
+  {
+    "page": "Module:Baro/data/visits",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-07-03T19:12:53Z",
+    "pageid": 1553071
+  },
+  {
+    "page": "Module:Baro/data/visits/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-26T21:13:02Z",
+    "pageid": 1553073
+  },
+  {
+    "page": "Module:Baro/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-30T18:28:17Z",
+    "pageid": 1547812
+  },
+  {
+    "page": "Module:Baro/history",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-30T03:40:52Z",
+    "pageid": 1553628
+  },
+  {
+    "page": "Module:Baro/history/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-20T23:11:44Z",
+    "pageid": 1561922
+  },
+  {
+    "page": "Module:Blueprints/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-28T20:46:12Z",
+    "pageid": 1552785
+  },
+  {
+    "page": "Module:Blueprints/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-14T18:13:49Z",
+    "pageid": 1552804
+  },
+  {
+    "page": "Module:Blueprints/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-03T22:27:25Z",
+    "pageid": 1555453
+  },
+  {
+    "page": "Module:BuildRequire",
+    "reason": "new_module",
+    "wiki_timestamp": "2018-03-24T02:40:28Z",
+    "pageid": 818187
+  },
+  {
+    "page": "Module:CSV",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-03-09T22:22:19Z",
+    "pageid": 1556995
+  },
+  {
+    "page": "Module:CSV/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-12T19:21:06Z",
+    "pageid": 1556996
+  },
+  {
+    "page": "Module:ChickenArchive",
+    "reason": "new_module",
+    "wiki_timestamp": "2015-05-07T08:11:57Z",
+    "pageid": 667700
+  },
+  {
+    "page": "Module:Codec",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-08T20:12:34Z",
+    "pageid": 1557842
+  },
+  {
+    "page": "Module:Codec/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-07T22:41:49Z",
+    "pageid": 1557843
+  },
+  {
+    "page": "Module:Codex",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-03-27T14:54:45Z",
+    "pageid": 1544037
+  },
+  {
+    "page": "Module:Codex/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-05T10:03:33Z",
+    "pageid": 1544035
+  },
+  {
+    "page": "Module:Codex/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-19T16:08:43Z",
+    "pageid": 1544036
+  },
+  {
+    "page": "Module:Codex/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-03T05:50:21Z",
+    "pageid": 1544038
+  },
+  {
+    "page": "Module:Common",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:19:17Z",
+    "pageid": 1545698
+  },
+  {
+    "page": "Module:Common/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:16:56Z",
+    "pageid": 1571240
+  },
+  {
+    "page": "Module:Common/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:15:59Z",
+    "pageid": 1571238
+  },
+  {
+    "page": "Module:Common/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:15:59Z",
+    "pageid": 1571239
+  },
+  {
+    "page": "Module:Companions/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-02-15T16:16:27Z",
+    "pageid": 1549986
+  },
+  {
+    "page": "Module:Companions/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-19T03:13:59Z",
+    "pageid": 1557818
+  },
+  {
+    "page": "Module:Companions/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-12T11:50:03Z",
+    "pageid": 1581275
+  },
+  {
+    "page": "Module:Conservation",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-11-30T18:40:45Z",
+    "pageid": 1549831
+  },
+  {
+    "page": "Module:Conservation/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-09-14T20:40:20Z",
+    "pageid": 1549832
+  },
+  {
+    "page": "Module:Conservation/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-17T07:03:45Z",
+    "pageid": 1549834
+  },
+  {
+    "page": "Module:Conservation/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-17T01:18:08Z",
+    "pageid": 1549835
+  },
+  {
+    "page": "Module:Conservation/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:11:57Z",
+    "pageid": 1554761
+  },
+  {
+    "page": "Module:Conservation/infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-20T23:13:08Z",
+    "pageid": 1561925
+  },
+  {
+    "page": "Module:Cosmetics",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-13T19:18:45Z",
+    "pageid": 1604414
+  },
+  {
+    "page": "Module:Cosmetics/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-02T15:26:05Z",
+    "pageid": 1546958
+  },
+  {
+    "page": "Module:Cosmetics/data/animationset",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T14:40:16Z",
+    "pageid": 1631737
+  },
+  {
+    "page": "Module:Cosmetics/data/archwingskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T17:15:37Z",
+    "pageid": 1631762
+  },
+  {
+    "page": "Module:Cosmetics/data/armor",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-01T17:01:36Z",
+    "pageid": 1631753
+  },
+  {
+    "page": "Module:Cosmetics/data/atomicyclelivery",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-06T07:45:01Z",
+    "pageid": 1631748
+  },
+  {
+    "page": "Module:Cosmetics/data/auxiliary",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-30T21:10:59Z",
+    "pageid": 1631769
+  },
+  {
+    "page": "Module:Cosmetics/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-01T22:06:16Z",
+    "pageid": 1557808
+  },
+  {
+    "page": "Module:Cosmetics/data/emblem",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T10:49:26Z",
+    "pageid": 1631731
+  },
+  {
+    "page": "Module:Cosmetics/data/emotionmodule",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T17:06:35Z",
+    "pageid": 1631764
+  },
+  {
+    "page": "Module:Cosmetics/data/ephemera",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T10:28:05Z",
+    "pageid": 1631728
+  },
+  {
+    "page": "Module:Cosmetics/data/face",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-07T19:18:56Z",
+    "pageid": 1631733
+  },
+  {
+    "page": "Module:Cosmetics/data/facialaccessory",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-25T08:55:21Z",
+    "pageid": 1631743
+  },
+  {
+    "page": "Module:Cosmetics/data/genemaskingkit",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-30T13:44:39Z",
+    "pageid": 1631734
+  },
+  {
+    "page": "Module:Cosmetics/data/holster",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T15:58:19Z",
+    "pageid": 1631752
+  },
+  {
+    "page": "Module:Cosmetics/data/kahlarmor",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-06T07:27:23Z",
+    "pageid": 1631747
+  },
+  {
+    "page": "Module:Cosmetics/data/kaithe",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T15:53:29Z",
+    "pageid": 1631751
+  },
+  {
+    "page": "Module:Cosmetics/data/kavatarmor",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T15:41:10Z",
+    "pageid": 1631750
+  },
+  {
+    "page": "Module:Cosmetics/data/kdriveskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-06T07:57:39Z",
+    "pageid": 1631765
+  },
+  {
+    "page": "Module:Cosmetics/data/kubrowarmor",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-15T19:26:59Z",
+    "pageid": 1631749
+  },
+  {
+    "page": "Module:Cosmetics/data/kubrowcollar",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-15T19:25:12Z",
+    "pageid": 1631771
+  },
+  {
+    "page": "Module:Cosmetics/data/landingcraftlivery",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T10:17:48Z",
+    "pageid": 1631756
+  },
+  {
+    "page": "Module:Cosmetics/data/lotusskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-16T07:07:00Z",
+    "pageid": 1631763
+  },
+  {
+    "page": "Module:Cosmetics/data/moaskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T17:22:20Z",
+    "pageid": 1631766
+  },
+  {
+    "page": "Module:Cosmetics/data/necramechskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T10:55:29Z",
+    "pageid": 1631759
+  },
+  {
+    "page": "Module:Cosmetics/data/parazonskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T11:04:51Z",
+    "pageid": 1631761
+  },
+  {
+    "page": "Module:Cosmetics/data/pattern",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-30T22:45:40Z",
+    "pageid": 1631735
+  },
+  {
+    "page": "Module:Cosmetics/data/railjackskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T16:42:33Z",
+    "pageid": 1631760
+  },
+  {
+    "page": "Module:Cosmetics/data/scrawl",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-06T08:20:35Z",
+    "pageid": 1631736
+  },
+  {
+    "page": "Module:Cosmetics/data/sentinelarmor",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-24T12:26:44Z",
+    "pageid": 1631754
+  },
+  {
+    "page": "Module:Cosmetics/data/sentinelskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-30T22:51:04Z",
+    "pageid": 1631758
+  },
+  {
+    "page": "Module:Cosmetics/data/signa",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-01T20:56:45Z",
+    "pageid": 1631727
+  },
+  {
+    "page": "Module:Cosmetics/data/sugatra",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T11:01:40Z",
+    "pageid": 1631729
+  },
+  {
+    "page": "Module:Cosmetics/data/sumdali",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-29T11:34:20Z",
+    "pageid": 1631755
+  },
+  {
+    "page": "Module:Cosmetics/data/syandana",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-01T20:55:37Z",
+    "pageid": 1631723
+  },
+  {
+    "page": "Module:Cosmetics/data/texture",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T15:07:23Z",
+    "pageid": 1631744
+  },
+  {
+    "page": "Module:Cosmetics/data/transferencesuit",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-13T19:08:15Z",
+    "pageid": 1631742
+  },
+  {
+    "page": "Module:Cosmetics/data/uncategorized",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-03T17:32:36Z",
+    "pageid": 1631772
+  },
+  {
+    "page": "Module:Cosmetics/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-06T03:23:12Z",
+    "pageid": 1636186
+  },
+  {
+    "page": "Module:Cosmetics/data/visageink",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T14:23:12Z",
+    "pageid": 1631732
+  },
+  {
+    "page": "Module:Cosmetics/data/warframehelmet",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-25T09:06:38Z",
+    "pageid": 1631767
+  },
+  {
+    "page": "Module:Cosmetics/data/warframeskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-28T19:17:29Z",
+    "pageid": 1631768
+  },
+  {
+    "page": "Module:Cosmetics/data/weaponskin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-02T13:32:58Z",
+    "pageid": 1631773
+  },
+  {
+    "page": "Module:Cosmetics/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-12-08T03:46:29Z",
+    "pageid": 1604415
+  },
+  {
+    "page": "Module:Cosmetics/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-10T14:52:56Z",
+    "pageid": 1630749
+  },
+  {
+    "page": "Module:Cosmetics/userdata",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-02T13:35:54Z",
+    "pageid": 1631725
+  },
+  {
+    "page": "Module:Cosmetics/userdata/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T14:08:53Z",
+    "pageid": 1631730
+  },
+  {
+    "page": "Module:Cost",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:41Z",
+    "pageid": 1188466
+  },
+  {
+    "page": "Module:Cost/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-07-29T04:46:11Z",
+    "pageid": 1543831
+  },
+  {
+    "page": "Module:DamageTypes",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:41Z",
+    "pageid": 1300590
+  },
+  {
+    "page": "Module:DamageTypes/colorContrastAdjuster",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-18T03:25:52Z",
+    "pageid": 1593850
+  },
+  {
+    "page": "Module:DamageTypes/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-01T14:59:13Z",
+    "pageid": 1300435
+  },
+  {
+    "page": "Module:DamageTypes/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-16T22:19:29Z",
+    "pageid": 1546282
+  },
+  {
+    "page": "Module:DamageTypes/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-11-23T17:11:56Z",
+    "pageid": 1543183
+  },
+  {
+    "page": "Module:Database",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-20T20:15:16Z",
+    "pageid": 1557001
+  },
+  {
+    "page": "Module:Database/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-20T20:06:31Z",
+    "pageid": 1557002
+  },
+  {
+    "page": "Module:DatastoreManifest",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-29T18:06:23Z",
+    "pageid": 1572179
+  },
+  {
+    "page": "Module:DatastoreManifest/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-11-03T18:57:21Z",
+    "pageid": 1572180
+  },
+  {
+    "page": "Module:Date",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-11-29T18:46:20Z",
+    "pageid": 1553072
+  },
+  {
+    "page": "Module:Date/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-11-29T18:53:03Z",
+    "pageid": 1572696
+  },
+  {
+    "page": "Module:Decorations",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-04-12T20:35:53Z",
+    "pageid": 1502491
+  },
+  {
+    "page": "Module:Decorations/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-08-21T09:28:18Z",
+    "pageid": 1502490
+  },
+  {
+    "page": "Module:Decorations/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-17T02:33:26Z",
+    "pageid": 1557807
+  },
+  {
+    "page": "Module:Decorations/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-03T23:15:48Z",
+    "pageid": 1548691
+  },
+  {
+    "page": "Module:Decrees/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-05T19:54:01Z",
+    "pageid": 1577511
+  },
+  {
+    "page": "Module:Decrees/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-08T05:57:45Z",
+    "pageid": 1577512
+  },
+  {
+    "page": "Module:Delay",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:33Z",
+    "pageid": 1568214
+  },
+  {
+    "page": "Module:Delay/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-07-09T22:27:44Z",
+    "pageid": 1568215
+  },
+  {
+    "page": "Module:DependencyGraph",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-11-07T06:32:39Z",
+    "pageid": 1549778
+  },
+  {
+    "page": "Module:DependencyGraph/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-01T01:53:23Z",
+    "pageid": 1549779
+  },
+  {
+    "page": "Module:DevShortParticipantsList",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-20T14:32:33Z",
+    "pageid": 1643733
+  },
+  {
+    "page": "Module:DevStreamParticipantsList",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-21T09:10:40Z",
+    "pageid": 1643760
+  },
+  {
+    "page": "Module:DevstreamParticipantsList",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-11T02:56:00Z",
+    "pageid": 1643688
+  },
+  {
+    "page": "Module:DevstreamParticipantsList/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-12T20:56:50Z",
+    "pageid": 1644494
+  },
+  {
+    "page": "Module:Docbunto",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-16T02:48:23Z",
+    "pageid": 1545684
+  },
+  {
+    "page": "Module:Docbunto/cli",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:24:21Z",
+    "pageid": 1554556
+  },
+  {
+    "page": "Module:Docbunto/cli/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-16T02:40:37Z",
+    "pageid": 1554557
+  },
+  {
+    "page": "Module:Docbunto/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-04-07T19:02:08Z",
+    "pageid": 1545687
+  },
+  {
+    "page": "Module:Docbunto/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2024-12-28T21:12:35Z",
+    "pageid": 1571219
+  },
+  {
+    "page": "Module:Docbunto/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:24:26Z",
+    "pageid": 1571220
+  },
+  {
+    "page": "Module:Docbunto/references",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:24:21Z",
+    "pageid": 1571218
+  },
+  {
+    "page": "Module:Docbunto/references/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:28:31Z",
+    "pageid": 1571235
+  },
+  {
+    "page": "Module:DojoRoom/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-08-27T05:11:40Z",
+    "pageid": 1570173
+  },
+  {
+    "page": "Module:DropTables",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-03-08T09:20:46Z",
+    "pageid": 1174460
+  },
+  {
+    "page": "Module:DropTables/JSON",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-11-01T23:25:58Z",
+    "pageid": 1532140
+  },
+  {
+    "page": "Module:DropTables/JSON/Cetus Bounties",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-09-12T16:57:48Z",
+    "pageid": 1532748
+  },
+  {
+    "page": "Module:DropTables/JSON/Fortuna Bounties",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-09-12T16:58:51Z",
+    "pageid": 1532749
+  },
+  {
+    "page": "Module:DropTables/JSON/Missions",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-12-16T15:48:41Z",
+    "pageid": 1532759
+  },
+  {
+    "page": "Module:DropTables/JSON/Necralisk Bounties",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-09-12T17:00:00Z",
+    "pageid": 1532750
+  },
+  {
+    "page": "Module:DropTables/JSON/Relics",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-12-16T15:52:33Z",
+    "pageid": 1532316
+  },
+  {
+    "page": "Module:DropTables/JSON/Sorties",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-09-12T17:04:07Z",
+    "pageid": 1532753
+  },
+  {
+    "page": "Module:DropTables/JSON/Transient",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-09-13T00:07:49Z",
+    "pageid": 1532870
+  },
+  {
+    "page": "Module:DropTables/JSON/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-12-16T23:35:17Z",
+    "pageid": 1543101
+  },
+  {
+    "page": "Module:DropTables/JSON/slim",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-11-03T13:31:30Z",
+    "pageid": 1514803
+  },
+  {
+    "page": "Module:DropTables/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T02:07:25Z",
+    "pageid": 1173967
+  },
+  {
+    "page": "Module:DropTables/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-05-11T23:39:53Z",
+    "pageid": 1549745
+  },
+  {
+    "page": "Module:DropTables/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:13:14Z",
+    "pageid": 1543710
+  },
+  {
+    "page": "Module:DropTables/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-03-18T00:55:39Z",
+    "pageid": 1548799
+  },
+  {
+    "page": "Module:DropTables/dev/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-11-01T17:17:45Z",
+    "pageid": 1548800
+  },
+  {
+    "page": "Module:DropTables/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-03-02T20:19:19Z",
+    "pageid": 1548236
+  },
+  {
+    "page": "Module:Emptylord",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-28T10:36:48Z",
+    "pageid": 1602733
+  },
+  {
+    "page": "Module:Emptylord/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-22T18:23:22Z",
+    "pageid": 1602710
+  },
+  {
+    "page": "Module:Emptylord/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-14T00:40:45Z",
+    "pageid": 1602711
+  },
+  {
+    "page": "Module:Emptylord/getter",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-15T01:52:13Z",
+    "pageid": 1602732
+  },
+  {
+    "page": "Module:Enemies/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-09T01:56:45Z",
+    "pageid": 1549759
+  },
+  {
+    "page": "Module:Enemies/data/anarchs",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-03T20:33:54Z",
+    "pageid": 1605266
+  },
+  {
+    "page": "Module:Enemies/data/corpus",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-18T17:29:47Z",
+    "pageid": 1586549
+  },
+  {
+    "page": "Module:Enemies/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-02-06T02:55:00Z",
+    "pageid": 1555391
+  },
+  {
+    "page": "Module:Enemies/data/grineer",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-19T14:46:16Z",
+    "pageid": 1586548
+  },
+  {
+    "page": "Module:Enemies/data/infestation",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-13T04:26:29Z",
+    "pageid": 1586551
+  },
+  {
+    "page": "Module:Enemies/data/narmer",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-16T21:16:36Z",
+    "pageid": 1586555
+  },
+  {
+    "page": "Module:Enemies/data/orokin",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T01:54:49Z",
+    "pageid": 1586552
+  },
+  {
+    "page": "Module:Enemies/data/pre-U36",
+    "reason": "new_module",
+    "wiki_timestamp": "2024-06-27T05:27:23Z",
+    "pageid": 1585699
+  },
+  {
+    "page": "Module:Enemies/data/pre-U36/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2024-06-27T05:30:25Z",
+    "pageid": 1585700
+  },
+  {
+    "page": "Module:Enemies/data/scaldra",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-10T14:35:41Z",
+    "pageid": 1589433
+  },
+  {
+    "page": "Module:Enemies/data/sentient",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-16T21:24:54Z",
+    "pageid": 1586553
+  },
+  {
+    "page": "Module:Enemies/data/stalker",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-02-25T15:20:25Z",
+    "pageid": 1586554
+  },
+  {
+    "page": "Module:Enemies/data/techrot",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-24T22:19:18Z",
+    "pageid": 1589434
+  },
+  {
+    "page": "Module:Enemies/data/themurmur",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-02-24T22:10:01Z",
+    "pageid": 1586556
+  },
+  {
+    "page": "Module:Enemies/data/unaffiliated",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-19T15:02:24Z",
+    "pageid": 1586557
+  },
+  {
+    "page": "Module:Enemies/data/unaffiliated/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-11T00:43:15Z",
+    "pageid": 1594047
+  },
+  {
+    "page": "Module:Enemies/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T04:36:35Z",
+    "pageid": 1549761
+  },
+  {
+    "page": "Module:Enemies/infobox/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:13:22Z",
+    "pageid": 1607149
+  },
+  {
+    "page": "Module:Enemies/infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-16T20:33:19Z",
+    "pageid": 1602087
+  },
+  {
+    "page": "Module:Entrypoint",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-25T23:33:27Z",
+    "pageid": 1571212
+  },
+  {
+    "page": "Module:Entrypoint/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:00:18Z",
+    "pageid": 1571214
+  },
+  {
+    "page": "Module:Enum/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T22:29:49Z",
+    "pageid": 1574652
+  },
+  {
+    "page": "Module:Enum/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2024-01-12T22:41:49Z",
+    "pageid": 1574711
+  },
+  {
+    "page": "Module:FactionScript",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-06-18T23:52:33Z",
+    "pageid": 659308
+  },
+  {
+    "page": "Module:FactionScript/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-12-07T22:18:59Z",
+    "pageid": 659357
+  },
+  {
+    "page": "Module:FactionScript/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-04T04:43:08Z",
+    "pageid": 1557802
+  },
+  {
+    "page": "Module:FactionScript/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-04T03:38:12Z",
+    "pageid": 1548692
+  },
+  {
+    "page": "Module:Factions/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-18T11:15:58Z",
+    "pageid": 1571166
+  },
+  {
+    "page": "Module:Factions/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-15T19:48:58Z",
+    "pageid": 1571167
+  },
+  {
+    "page": "Module:FallbackList",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T01:27:20Z",
+    "pageid": 1571211
+  },
+  {
+    "page": "Module:FallbackList/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T01:27:20Z",
+    "pageid": 1571213
+  },
+  {
+    "page": "Module:Flaicher",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-10-31T22:23:17Z",
+    "pageid": 1427617
+  },
+  {
+    "page": "Module:Flaicher/Conv",
+    "reason": "new_module",
+    "wiki_timestamp": "2018-11-20T17:36:56Z",
+    "pageid": 1330051
+  },
+  {
+    "page": "Module:Flaicher/Conv/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2018-07-27T14:24:33Z",
+    "pageid": 1330530
+  },
+  {
+    "page": "Module:Flaicher/DropTables",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-07-22T16:34:45Z",
+    "pageid": 1514467
+  },
+  {
+    "page": "Module:Flaicher/DropTables/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-07-22T16:39:59Z",
+    "pageid": 1514471
+  },
+  {
+    "page": "Module:Flaicher/Mods",
+    "reason": "new_module",
+    "wiki_timestamp": "2019-03-27T07:17:53Z",
+    "pageid": 1384013
+  },
+  {
+    "page": "Module:Flaicher/dispoData",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-11-03T19:53:54Z",
+    "pageid": 1543187
+  },
+  {
+    "page": "Module:Focus",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-21T04:27:47Z",
+    "pageid": 1227735
+  },
+  {
+    "page": "Module:Focus/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-09T13:47:19Z",
+    "pageid": 1227724
+  },
+  {
+    "page": "Module:Focus/data/archived",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-05-07T05:31:56Z",
+    "pageid": 1553003
+  },
+  {
+    "page": "Module:Focus/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-04T04:47:25Z",
+    "pageid": 1557806
+  },
+  {
+    "page": "Module:Focus/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-20T21:05:31Z",
+    "pageid": 1553004
+  },
+  {
+    "page": "Module:Focus/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-25T17:14:27Z",
+    "pageid": 1563225
+  },
+  {
+    "page": "Module:FormatingTool",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-07T07:55:31Z",
+    "pageid": 1272263
+  },
+  {
+    "page": "Module:FormatingTool/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-09T08:42:46Z",
+    "pageid": 1272942
+  },
+  {
+    "page": "Module:FormatingTool/data2",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-07-14T18:43:30Z",
+    "pageid": 1286573
+  },
+  {
+    "page": "Module:FormatingTool/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-10-15T18:06:48Z",
+    "pageid": 1600623
+  },
+  {
+    "page": "Module:FormatingTool/missions",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-06-11T23:45:51Z",
+    "pageid": 1286600
+  },
+  {
+    "page": "Module:Gallery",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T22:30:55Z",
+    "pageid": 1546045
+  },
+  {
+    "page": "Module:Gallery/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-15T03:23:02Z",
+    "pageid": 1546046
+  },
+  {
+    "page": "Module:GuaranteedRewards/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-13T19:00:47Z",
+    "pageid": 1557674
+  },
+  {
+    "page": "Module:GuaranteedRewards/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-13T19:02:43Z",
+    "pageid": 1557675
+  },
+  {
+    "page": "Module:Honorias",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-04T11:06:33Z",
+    "pageid": 1644172
+  },
+  {
+    "page": "Module:Honorias/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-30T15:29:32Z",
+    "pageid": 1644174
+  },
+  {
+    "page": "Module:Honorias/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-06T14:19:11Z",
+    "pageid": 1644175
+  },
+  {
+    "page": "Module:Honorias/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-24T04:12:14Z",
+    "pageid": 1644176
+  },
+  {
+    "page": "Module:Honorias/data/validate/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-03T12:08:39Z",
+    "pageid": 1644177
+  },
+  {
+    "page": "Module:Honorias/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-04T10:54:46Z",
+    "pageid": 1644173
+  },
+  {
+    "page": "Module:I18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-16T18:01:15Z",
+    "pageid": 1545690
+  },
+  {
+    "page": "Module:I18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-08T05:52:50Z",
+    "pageid": 1552977
+  },
+  {
+    "page": "Module:Icon",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-05-18T02:33:14Z",
+    "pageid": 583463
+  },
+  {
+    "page": "Module:Icon/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-30T07:46:22Z",
+    "pageid": 583462
+  },
+  {
+    "page": "Module:Icon/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-07T19:42:52Z",
+    "pageid": 1543709
+  },
+  {
+    "page": "Module:Icon/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-08T03:55:58Z",
+    "pageid": 1546292
+  },
+  {
+    "page": "Module:Infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T02:59:37Z",
+    "pageid": 1545691
+  },
+  {
+    "page": "Module:Infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-17T19:39:52Z",
+    "pageid": 1546940
+  },
+  {
+    "page": "Module:Infobox/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:46:27Z",
+    "pageid": 1571246
+  },
+  {
+    "page": "Module:Infobox/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:46:27Z",
+    "pageid": 1571247
+  },
+  {
+    "page": "Module:InfoboxBuilder",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T22:50:14Z",
+    "pageid": 1554478
+  },
+  {
+    "page": "Module:InfoboxBuilder/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-11-23T21:29:48Z",
+    "pageid": 1554481
+  },
+  {
+    "page": "Module:InfoboxBuilder/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-17T04:02:43Z",
+    "pageid": 1554479
+  },
+  {
+    "page": "Module:InfoboxGallery",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:06Z",
+    "pageid": 1593284
+  },
+  {
+    "page": "Module:Inspect",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T02:03:33Z",
+    "pageid": 1571251
+  },
+  {
+    "page": "Module:Inspect/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T01:43:25Z",
+    "pageid": 1571252
+  },
+  {
+    "page": "Module:InternalNames",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-01T20:13:44Z",
+    "pageid": 1571281
+  },
+  {
+    "page": "Module:InternalNames/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-29T22:41:27Z",
+    "pageid": 1571282
+  },
+  {
+    "page": "Module:JSON",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-03-09T22:24:58Z",
+    "pageid": 1514999
+  },
+  {
+    "page": "Module:JSON/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-15T21:06:05Z",
+    "pageid": 1556989
+  },
+  {
+    "page": "Module:KeyBindings",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-02T05:01:21Z",
+    "pageid": 1545525
+  },
+  {
+    "page": "Module:KeyBindings/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-12-07T22:19:21Z",
+    "pageid": 1545526
+  },
+  {
+    "page": "Module:KeyBindings/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-04T04:43:56Z",
+    "pageid": 1557803
+  },
+  {
+    "page": "Module:Keys/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-21T23:30:15Z",
+    "pageid": 1575223
+  },
+  {
+    "page": "Module:Keys/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-03-08T19:20:57Z",
+    "pageid": 1575224
+  },
+  {
+    "page": "Module:Lang",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:07Z",
+    "pageid": 1593285
+  },
+  {
+    "page": "Module:Lang/ISO 639 synonyms",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:08Z",
+    "pageid": 1593286
+  },
+  {
+    "page": "Module:Lang/configuration",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:10Z",
+    "pageid": 1593287
+  },
+  {
+    "page": "Module:Lang/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:11Z",
+    "pageid": 1593288
+  },
+  {
+    "page": "Module:Lang/data/iana languages",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:13Z",
+    "pageid": 1593289
+  },
+  {
+    "page": "Module:Lang/data/iana regions",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:14Z",
+    "pageid": 1593290
+  },
+  {
+    "page": "Module:Lang/data/iana scripts",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:16Z",
+    "pageid": 1593291
+  },
+  {
+    "page": "Module:Lang/data/iana suppressed scripts",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:17Z",
+    "pageid": 1593292
+  },
+  {
+    "page": "Module:Lang/data/iana variants",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:19Z",
+    "pageid": 1593293
+  },
+  {
+    "page": "Module:Lang/data/is latn data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:20Z",
+    "pageid": 1593294
+  },
+  {
+    "page": "Module:LanguageList",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T01:12:24Z",
+    "pageid": 1545700
+  },
+  {
+    "page": "Module:LanguageList/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T01:12:24Z",
+    "pageid": 1571248
+  },
+  {
+    "page": "Module:Lexer",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:43:38Z",
+    "pageid": 1571223
+  },
+  {
+    "page": "Module:Lexer/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:26:45Z",
+    "pageid": 1571233
+  },
+  {
+    "page": "Module:Localization",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:57Z",
+    "pageid": 1606840
+  },
+  {
+    "page": "Module:Localization/Suits.json",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-28T03:47:42Z",
+    "pageid": 1606839
+  },
+  {
+    "page": "Module:Localization/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-19T21:13:36Z",
+    "pageid": 1606841
+  },
+  {
+    "page": "Module:Lua",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-12-06T23:39:41Z",
+    "pageid": 1502450
+  },
+  {
+    "page": "Module:Lua/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-03T19:16:41Z",
+    "pageid": 1548689
+  },
+  {
+    "page": "Module:LuaClassSystem",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-05T22:31:56Z",
+    "pageid": 1574263
+  },
+  {
+    "page": "Module:LuaClassSystem/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-05T23:03:30Z",
+    "pageid": 1574264
+  },
+  {
+    "page": "Module:LuaSerializer",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-06-17T09:25:04Z",
+    "pageid": 1549724
+  },
+  {
+    "page": "Module:LuaSerializer/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-21T21:25:47Z",
+    "pageid": 1549727
+  },
+  {
+    "page": "Module:LuaSerializer/dev/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-02-09T02:32:21Z",
+    "pageid": 1549728
+  },
+  {
+    "page": "Module:LuaSerializer/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-21T21:28:53Z",
+    "pageid": 1549725
+  },
+  {
+    "page": "Module:LuaSerializerTwo",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-06-17T09:26:59Z",
+    "pageid": 1598920
+  },
+  {
+    "page": "Module:LuaSerializerTwo/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-06-17T09:27:18Z",
+    "pageid": 1598921
+  },
+  {
+    "page": "Module:Map",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-10-20T05:22:48Z",
+    "pageid": 1577847
+  },
+  {
+    "page": "Module:Map/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-26T01:38:51Z",
+    "pageid": 1577869
+  },
+  {
+    "page": "Module:MasteryRank",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-12T05:39:38Z",
+    "pageid": 1491278
+  },
+  {
+    "page": "Module:MasteryRank/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-08T10:12:14Z",
+    "pageid": 1549688
+  },
+  {
+    "page": "Module:MasteryRank/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-17T20:06:45Z",
+    "pageid": 1546939
+  },
+  {
+    "page": "Module:Math",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-24T00:24:21Z",
+    "pageid": 1512401
+  },
+  {
+    "page": "Module:Math/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-14T23:43:13Z",
+    "pageid": 1552845
+  },
+  {
+    "page": "Module:Math/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-04-15T16:07:37Z",
+    "pageid": 1544817
+  },
+  {
+    "page": "Module:Math/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:34Z",
+    "pageid": 1552638
+  },
+  {
+    "page": "Module:Math/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-15T03:49:14Z",
+    "pageid": 1552872
+  },
+  {
+    "page": "Module:Maximization",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-04T22:18:13Z",
+    "pageid": 1531238
+  },
+  {
+    "page": "Module:Maximization/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T14:55:37Z",
+    "pageid": 1531239
+  },
+  {
+    "page": "Module:Maximization/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-03T19:33:51Z",
+    "pageid": 1557804
+  },
+  {
+    "page": "Module:Maximization/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-29T22:41:58Z",
+    "pageid": 1644147
+  },
+  {
+    "page": "Module:Mbox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T00:13:57Z",
+    "pageid": 1546290
+  },
+  {
+    "page": "Module:Mbox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-08T04:39:33Z",
+    "pageid": 1546294
+  },
+  {
+    "page": "Module:Mbox/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:24:06Z",
+    "pageid": 1546295
+  },
+  {
+    "page": "Module:Mbox/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T23:24:45Z",
+    "pageid": 1571245
+  },
+  {
+    "page": "Module:Missions",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:50:04Z",
+    "pageid": 1189925
+  },
+  {
+    "page": "Module:Missions/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T01:54:55Z",
+    "pageid": 1190413
+  },
+  {
+    "page": "Module:Missions/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-10T22:43:03Z",
+    "pageid": 1551976
+  },
+  {
+    "page": "Module:Missions/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-25T03:43:42Z",
+    "pageid": 1548791
+  },
+  {
+    "page": "Module:Missions/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-10T22:00:29Z",
+    "pageid": 1549848
+  },
+  {
+    "page": "Module:Missions/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-12T21:47:47Z",
+    "pageid": 1548238
+  },
+  {
+    "page": "Module:Missions/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:11:47Z",
+    "pageid": 1574252
+  },
+  {
+    "page": "Module:Missions/page",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:26Z",
+    "pageid": 1574255
+  },
+  {
+    "page": "Module:Mods",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-28T16:36:14Z",
+    "pageid": 1214416
+  },
+  {
+    "page": "Module:Mods/csv",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-17T18:46:40Z",
+    "pageid": 1577710
+  },
+  {
+    "page": "Module:Mods/csv2",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-18T06:57:03Z",
+    "pageid": 1577714
+  },
+  {
+    "page": "Module:Mods/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-27T09:09:04Z",
+    "pageid": 1214403
+  },
+  {
+    "page": "Module:Mods/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-08-29T07:08:28Z",
+    "pageid": 1570195
+  },
+  {
+    "page": "Module:Mods/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-21T01:21:16Z",
+    "pageid": 1543797
+  },
+  {
+    "page": "Module:Mods/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-25T18:36:25Z",
+    "pageid": 1548790
+  },
+  {
+    "page": "Module:Mods/data/validate/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-07-16T04:04:00Z",
+    "pageid": 1549557
+  },
+  {
+    "page": "Module:Mods/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-01T04:48:27Z",
+    "pageid": 1546230
+  },
+  {
+    "page": "Module:Mods/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:12:10Z",
+    "pageid": 1549735
+  },
+  {
+    "page": "Module:Mods/itemCompatibility",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-01T23:39:57Z",
+    "pageid": 1594616
+  },
+  {
+    "page": "Module:Mods/itemCompatibility/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-01T22:15:48Z",
+    "pageid": 1594615
+  },
+  {
+    "page": "Module:Mods/itemCompatibility/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-03-07T20:54:12Z",
+    "pageid": 1594676
+  },
+  {
+    "page": "Module:Modular",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-28T16:22:40Z",
+    "pageid": 1371231
+  },
+  {
+    "page": "Module:Modular/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-22T05:27:50Z",
+    "pageid": 1371233
+  },
+  {
+    "page": "Module:Modular/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-20T06:05:02Z",
+    "pageid": 1557805
+  },
+  {
+    "page": "Module:Modular/data/kitgun",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-20T07:34:51Z",
+    "pageid": 1640865
+  },
+  {
+    "page": "Module:Modular/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-21T05:17:42Z",
+    "pageid": 1549901
+  },
+  {
+    "page": "Module:Modular/generator",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-22T05:07:43Z",
+    "pageid": 1640864
+  },
+  {
+    "page": "Module:Music/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-05-16T20:16:54Z",
+    "pageid": 1566279
+  },
+  {
+    "page": "Module:Music/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-08T18:25:28Z",
+    "pageid": 1566626
+  },
+  {
+    "page": "Module:MyCodex",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-17T03:40:37Z",
+    "pageid": 1643622
+  },
+  {
+    "page": "Module:Navbox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:39Z",
+    "pageid": 1557048
+  },
+  {
+    "page": "Module:Navbox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-22T20:52:42Z",
+    "pageid": 1557052
+  },
+  {
+    "page": "Module:Navigation",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-12-12T06:19:06Z",
+    "pageid": 1548708
+  },
+  {
+    "page": "Module:Navigation/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-17T16:30:29Z",
+    "pageid": 1548706
+  },
+  {
+    "page": "Module:Navigation/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-07T19:08:44Z",
+    "pageid": 1548709
+  },
+  {
+    "page": "Module:NightwaveActs",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-14T16:34:21Z",
+    "pageid": 1478579
+  },
+  {
+    "page": "Module:NightwaveActs/acts.json",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-31T20:22:05Z",
+    "pageid": 1549953
+  },
+  {
+    "page": "Module:NightwaveActs/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-12T19:12:11Z",
+    "pageid": 1548752
+  },
+  {
+    "page": "Module:NightwaveActs/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-31T20:39:48Z",
+    "pageid": 1543467
+  },
+  {
+    "page": "Module:Placeholder",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-05-12T03:49:02Z",
+    "pageid": 1565703
+  },
+  {
+    "page": "Module:Placeholder/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-08-05T17:29:53Z",
+    "pageid": 1569050
+  },
+  {
+    "page": "Module:Polarity",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-28T03:25:08Z",
+    "pageid": 1548847
+  },
+  {
+    "page": "Module:Polarity/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-25T22:48:22Z",
+    "pageid": 1548848
+  },
+  {
+    "page": "Module:Reference",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:50:45Z",
+    "pageid": 1557529
+  },
+  {
+    "page": "Module:Reference/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-02-18T19:26:12Z",
+    "pageid": 1557530
+  },
+  {
+    "page": "Module:ReleaseStatus",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-27T01:59:51Z",
+    "pageid": 1545694
+  },
+  {
+    "page": "Module:ReleaseStatus/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-27T01:59:51Z",
+    "pageid": 1571266
+  },
+  {
+    "page": "Module:ReleaseStatus/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-27T01:59:51Z",
+    "pageid": 1571268
+  },
+  {
+    "page": "Module:ReleaseStatus/i18n",
+    "reason": "new_module",
+    "wiki_timestamp": "2024-12-29T00:53:11Z",
+    "pageid": 1571265
+  },
+  {
+    "page": "Module:ReleaseStatus/i18n/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-27T01:59:52Z",
+    "pageid": 1571267
+  },
+  {
+    "page": "Module:RemoveCategory",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-10T17:34:07Z",
+    "pageid": 1518379
+  },
+  {
+    "page": "Module:RemoveCategory/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-03-27T01:43:54Z",
+    "pageid": 1545436
+  },
+  {
+    "page": "Module:Research/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-20T01:34:37Z",
+    "pageid": 1192198
+  },
+  {
+    "page": "Module:Research/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-04T04:48:47Z",
+    "pageid": 1543820
+  },
+  {
+    "page": "Module:Resources",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-11-09T16:39:52Z",
+    "pageid": 1552062
+  },
+  {
+    "page": "Module:Resources/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-08T02:06:07Z",
+    "pageid": 1552042
+  },
+  {
+    "page": "Module:Resources/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-21T22:04:17Z",
+    "pageid": 1552190
+  },
+  {
+    "page": "Module:Resources/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-10T00:42:49Z",
+    "pageid": 1552055
+  },
+  {
+    "page": "Module:Resources/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-10-10T19:06:23Z",
+    "pageid": 1571498
+  },
+  {
+    "page": "Module:Resources/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-05T04:16:29Z",
+    "pageid": 1552063
+  },
+  {
+    "page": "Module:Resources/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:11:40Z",
+    "pageid": 1552048
+  },
+  {
+    "page": "Module:ScientiaStances",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-25T17:13:28Z",
+    "pageid": 1464655
+  },
+  {
+    "page": "Module:ScientiaStances/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2019-12-31T21:48:01Z",
+    "pageid": 1464664
+  },
+  {
+    "page": "Module:ScientiaStances/sharedCombosData",
+    "reason": "new_module",
+    "wiki_timestamp": "2019-12-19T22:48:15Z",
+    "pageid": 1469841
+  },
+  {
+    "page": "Module:Shared",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-06T16:06:41Z",
+    "pageid": 1175548
+  },
+  {
+    "page": "Module:Shared/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-04-15T18:49:41Z",
+    "pageid": 1543737
+  },
+  {
+    "page": "Module:Sigils/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-30T12:20:13Z",
+    "pageid": 1565704
+  },
+  {
+    "page": "Module:Sigils/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-18T19:32:17Z",
+    "pageid": 1568243
+  },
+  {
+    "page": "Module:SpxceVendor",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-27T04:50:49Z",
+    "pageid": 1594533
+  },
+  {
+    "page": "Module:Stances",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T03:18:43Z",
+    "pageid": 1473089
+  },
+  {
+    "page": "Module:Stances/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-02T11:57:23Z",
+    "pageid": 1473088
+  },
+  {
+    "page": "Module:Stances/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-05-14T19:14:12Z",
+    "pageid": 1551734
+  },
+  {
+    "page": "Module:Stances/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-02-22T02:09:58Z",
+    "pageid": 1543307
+  },
+  {
+    "page": "Module:Stances/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-06T19:37:12Z",
+    "pageid": 1549683
+  },
+  {
+    "page": "Module:Stances/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-05-11T01:19:57Z",
+    "pageid": 1544703
+  },
+  {
+    "page": "Module:StatObject",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:37Z",
+    "pageid": 1562523
+  },
+  {
+    "page": "Module:StatObject/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-12-05T21:45:10Z",
+    "pageid": 1562525
+  },
+  {
+    "page": "Module:Stats/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-08T20:00:01Z",
+    "pageid": 1629972
+  },
+  {
+    "page": "Module:String",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-11-13T01:46:58Z",
+    "pageid": 1546051
+  },
+  {
+    "page": "Module:String/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-17T21:11:59Z",
+    "pageid": 1546052
+  },
+  {
+    "page": "Module:Switch Infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2015-12-30T11:27:58Z",
+    "pageid": 893193
+  },
+  {
+    "page": "Module:Syndicates/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2018-04-21T20:40:45Z",
+    "pageid": 1293956
+  },
+  {
+    "page": "Module:Syndicates/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-04T04:59:38Z",
+    "pageid": 1557816
+  },
+  {
+    "page": "Module:Synthesis",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T13:38:06Z",
+    "pageid": 1645005
+  },
+  {
+    "page": "Module:Synthesis/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T18:54:33Z",
+    "pageid": 1645004
+  },
+  {
+    "page": "Module:Synthesis/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T13:44:42Z",
+    "pageid": 1645008
+  },
+  {
+    "page": "Module:Synthesis/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T13:53:23Z",
+    "pageid": 1645007
+  },
+  {
+    "page": "Module:Synthesis/data/validate/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T13:53:59Z",
+    "pageid": 1645009
+  },
+  {
+    "page": "Module:Synthesis/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T13:15:03Z",
+    "pageid": 1645006
+  },
+  {
+    "page": "Module:Table",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-16T05:20:42Z",
+    "pageid": 1546389
+  },
+  {
+    "page": "Module:Table/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-27T20:56:51Z",
+    "pageid": 1546390
+  },
+  {
+    "page": "Module:Tabs",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:35Z",
+    "pageid": 1593296
+  },
+  {
+    "page": "Module:Tabs/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:37Z",
+    "pageid": 1593297
+  },
+  {
+    "page": "Module:TennoGen",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-21T20:07:42Z",
+    "pageid": 1546387
+  },
+  {
+    "page": "Module:TennoGen/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-02T22:36:48Z",
+    "pageid": 1546385
+  },
+  {
+    "page": "Module:TennoGen/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-16T19:14:38Z",
+    "pageid": 1546386
+  },
+  {
+    "page": "Module:TennoGen/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-05-13T05:18:13Z",
+    "pageid": 1546388
+  },
+  {
+    "page": "Module:TennoScript",
+    "reason": "new_module",
+    "wiki_timestamp": "2015-11-07T08:18:52Z",
+    "pageid": 584103
+  },
+  {
+    "page": "Module:Text",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-06T06:46:24Z",
+    "pageid": 1607944
+  },
+  {
+    "page": "Module:Text/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-06T06:09:15Z",
+    "pageid": 1607945
+  },
+  {
+    "page": "Module:TextIcons",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:35Z",
+    "pageid": 1580242
+  },
+  {
+    "page": "Module:TextIcons/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-05-21T18:02:28Z",
+    "pageid": 1587809
+  },
+  {
+    "page": "Module:TextIcons/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-12-21T20:25:03Z",
+    "pageid": 1607124
+  },
+  {
+    "page": "Module:TextIcons/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-07-28T21:25:41Z",
+    "pageid": 1580243
+  },
+  {
+    "page": "Module:Tooltips",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T21:35:21Z",
+    "pageid": 1544791
+  },
+  {
+    "page": "Module:Tooltips/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-02-02T22:05:48Z",
+    "pageid": 1544790
+  },
+  {
+    "page": "Module:Tooltips/data/Ability",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:04Z",
+    "pageid": 1548242
+  },
+  {
+    "page": "Module:Tooltips/data/Arcane",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:14Z",
+    "pageid": 1548243
+  },
+  {
+    "page": "Module:Tooltips/data/DamageTypes",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:17Z",
+    "pageid": 1548244
+  },
+  {
+    "page": "Module:Tooltips/data/Mods",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:31Z",
+    "pageid": 1548248
+  },
+  {
+    "page": "Module:Tooltips/data/Void",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:23Z",
+    "pageid": 1548246
+  },
+  {
+    "page": "Module:Tooltips/data/Warframes",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:27Z",
+    "pageid": 1548247
+  },
+  {
+    "page": "Module:Tooltips/data/Weapons",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-01T16:12:20Z",
+    "pageid": 1548245
+  },
+  {
+    "page": "Module:Tooltips/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-12-16T20:11:38Z",
+    "pageid": 1546274
+  },
+  {
+    "page": "Module:Tooltips/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-15T01:48:56Z",
+    "pageid": 1544792
+  },
+  {
+    "page": "Module:Tooltips/icon",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-19T21:37:26Z",
+    "pageid": 1546973
+  },
+  {
+    "page": "Module:Tooltips/icon/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-21T22:15:11Z",
+    "pageid": 1552191
+  },
+  {
+    "page": "Module:Tooltips/icon/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-05-13T04:01:44Z",
+    "pageid": 1565709
+  },
+  {
+    "page": "Module:Tooltips/tip",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-26T05:07:41Z",
+    "pageid": 1545126
+  },
+  {
+    "page": "Module:Tooltips/tip/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-19T20:05:13Z",
+    "pageid": 1552192
+  },
+  {
+    "page": "Module:Tooltips/tip/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-01-18T21:41:31Z",
+    "pageid": 1546117
+  },
+  {
+    "page": "Module:TrajosAcquisition",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-04T18:17:02Z",
+    "pageid": 1556962
+  },
+  {
+    "page": "Module:TrajosVoid",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-19T00:00:21Z",
+    "pageid": 1557031
+  },
+  {
+    "page": "Module:TranslationExamples",
+    "reason": "new_module",
+    "wiki_timestamp": "2015-04-14T03:21:01Z",
+    "pageid": 703120
+  },
+  {
+    "page": "Module:Unicode data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T14:44:44Z",
+    "pageid": 1593298
+  },
+  {
+    "page": "Module:Unindent",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:45:50Z",
+    "pageid": 1571224
+  },
+  {
+    "page": "Module:Unindent/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:26:11Z",
+    "pageid": 1571232
+  },
+  {
+    "page": "Module:Upgrades/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-10-31T22:22:45Z",
+    "pageid": 1553549
+  },
+  {
+    "page": "Module:Upgrades/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2024-01-01T00:57:39Z",
+    "pageid": 1569052
+  },
+  {
+    "page": "Module:UserError",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:48:46Z",
+    "pageid": 1571249
+  },
+  {
+    "page": "Module:UserError/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T01:20:23Z",
+    "pageid": 1571250
+  },
+  {
+    "page": "Module:Vehicles/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-09T18:29:17Z",
+    "pageid": 1593002
+  },
+  {
+    "page": "Module:Vehicles/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T20:35:57Z",
+    "pageid": 1593003
+  },
+  {
+    "page": "Module:Vehicles/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-01-31T18:35:14Z",
+    "pageid": 1593005
+  },
+  {
+    "page": "Module:Vehicles/infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-10-31T19:35:49Z",
+    "pageid": 1601959
+  },
+  {
+    "page": "Module:Vendors",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:35Z",
+    "pageid": 1557601
+  },
+  {
+    "page": "Module:Vendors/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-04T02:51:17Z",
+    "pageid": 1554100
+  },
+  {
+    "page": "Module:Vendors/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-12-23T21:14:45Z",
+    "pageid": 1557603
+  },
+  {
+    "page": "Module:Vendors/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-03-02T20:17:38Z",
+    "pageid": 1557602
+  },
+  {
+    "page": "Module:Version",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-09-13T00:52:26Z",
+    "pageid": 1260399
+  },
+  {
+    "page": "Module:Version/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-07T18:09:19Z",
+    "pageid": 1260385
+  },
+  {
+    "page": "Module:Version/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-29T18:57:10Z",
+    "pageid": 1546028
+  },
+  {
+    "page": "Module:Version/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-02T21:49:47Z",
+    "pageid": 1544484
+  },
+  {
+    "page": "Module:VideoGallery",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:43Z",
+    "pageid": 1593299
+  },
+  {
+    "page": "Module:Void",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:38Z",
+    "pageid": 705884
+  },
+  {
+    "page": "Module:Void/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-04T12:14:51Z",
+    "pageid": 705825
+  },
+  {
+    "page": "Module:Void/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-12T00:13:23Z",
+    "pageid": 1548773
+  },
+  {
+    "page": "Module:Void/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-04-08T18:51:57Z",
+    "pageid": 1543743
+  },
+  {
+    "page": "Module:Void/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-21T04:32:57Z",
+    "pageid": 1548803
+  },
+  {
+    "page": "Module:Void/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-09-15T19:36:13Z",
+    "pageid": 1548762
+  },
+  {
+    "page": "Module:Void/dev/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-11T18:01:59Z",
+    "pageid": 1548774
+  },
+  {
+    "page": "Module:Void/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-16T02:45:58Z",
+    "pageid": 1546229
+  },
+  {
+    "page": "Module:Void/page",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-21T08:12:19Z",
+    "pageid": 1548809
+  },
+  {
+    "page": "Module:Void/page/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-10-25T18:10:46Z",
+    "pageid": 1548843
+  },
+  {
+    "page": "Module:VoidByReward",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-16T18:42:35Z",
+    "pageid": 898006
+  },
+  {
+    "page": "Module:VoidByReward/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-06-20T02:55:29Z",
+    "pageid": 1548798
+  },
+  {
+    "page": "Module:WDSButton",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T02:56:22Z",
+    "pageid": 1571253
+  },
+  {
+    "page": "Module:WDSButton/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T02:55:41Z",
+    "pageid": 1571254
+  },
+  {
+    "page": "Module:WDSButton/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-24T02:55:54Z",
+    "pageid": 1571255
+  },
+  {
+    "page": "Module:WarframeUsageData2020/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-18T22:25:27Z",
+    "pageid": 1549882
+  },
+  {
+    "page": "Module:WarframeUsageData2020/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-09-11T22:07:11Z",
+    "pageid": 1549883
+  },
+  {
+    "page": "Module:Warframes",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-19T20:35:00Z",
+    "pageid": 1204246
+  },
+  {
+    "page": "Module:Warframes/Conclave/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-30T19:27:48Z",
+    "pageid": 1281989
+  },
+  {
+    "page": "Module:Warframes/Conclave/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-01-30T19:28:41Z",
+    "pageid": 1574569
+  },
+  {
+    "page": "Module:Warframes/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-27T14:48:22Z",
+    "pageid": 1204227
+  },
+  {
+    "page": "Module:Warframes/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-25T04:23:11Z",
+    "pageid": 1543873
+  },
+  {
+    "page": "Module:Warframes/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-12-07T18:15:56Z",
+    "pageid": 1545252
+  },
+  {
+    "page": "Module:Warframes/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-25T05:24:28Z",
+    "pageid": 1548710
+  },
+  {
+    "page": "Module:Weapons",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-10T01:17:55Z",
+    "pageid": 1175574
+  },
+  {
+    "page": "Module:Weapons/Conclave/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-30T07:44:08Z",
+    "pageid": 1281923
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T21:16:53Z",
+    "pageid": 1549852
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/melee",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T21:20:27Z",
+    "pageid": 1573253
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/melee/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T20:45:07Z",
+    "pageid": 1640524
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/primary",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T20:57:13Z",
+    "pageid": 1573251
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/primary/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T20:44:41Z",
+    "pageid": 1640522
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/secondary",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T21:01:44Z",
+    "pageid": 1573252
+  },
+  {
+    "page": "Module:Weapons/Conclave/data/secondary/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T20:44:55Z",
+    "pageid": 1640523
+  },
+  {
+    "page": "Module:Weapons/characteristics",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:51Z",
+    "pageid": 1553565
+  },
+  {
+    "page": "Module:Weapons/characteristics/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-20T22:53:32Z",
+    "pageid": 1556784
+  },
+  {
+    "page": "Module:Weapons/compare",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-21T02:41:37Z",
+    "pageid": 1557030
+  },
+  {
+    "page": "Module:Weapons/compare/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-20T22:59:21Z",
+    "pageid": 1561915
+  },
+  {
+    "page": "Module:Weapons/comptable",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-10T01:26:39Z",
+    "pageid": 1549775
+  },
+  {
+    "page": "Module:Weapons/comptable/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-12-01T18:45:05Z",
+    "pageid": 1549776
+  },
+  {
+    "page": "Module:Weapons/csv",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-04T05:26:16Z",
+    "pageid": 1553646
+  },
+  {
+    "page": "Module:Weapons/csv/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2025-02-16T02:45:28Z",
+    "pageid": 1557821
+  },
+  {
+    "page": "Module:Weapons/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-30T07:43:39Z",
+    "pageid": 1175547
+  },
+  {
+    "page": "Module:Weapons/data/archwing",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-23T16:58:12Z",
+    "pageid": 1557040
+  },
+  {
+    "page": "Module:Weapons/data/archwing/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-23T17:05:45Z",
+    "pageid": 1557815
+  },
+  {
+    "page": "Module:Weapons/data/companion",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-22T02:59:59Z",
+    "pageid": 1557041
+  },
+  {
+    "page": "Module:Weapons/data/companion/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-23T17:05:56Z",
+    "pageid": 1557814
+  },
+  {
+    "page": "Module:Weapons/data/credits",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-03T06:42:21Z",
+    "pageid": 1556960
+  },
+  {
+    "page": "Module:Weapons/data/credits/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-12T00:10:11Z",
+    "pageid": 1556988
+  },
+  {
+    "page": "Module:Weapons/data/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-19T02:23:05Z",
+    "pageid": 1549443
+  },
+  {
+    "page": "Module:Weapons/data/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-06T13:55:51Z",
+    "pageid": 1543065
+  },
+  {
+    "page": "Module:Weapons/data/melee",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-26T06:53:18Z",
+    "pageid": 1557039
+  },
+  {
+    "page": "Module:Weapons/data/melee/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-23T17:04:12Z",
+    "pageid": 1557811
+  },
+  {
+    "page": "Module:Weapons/data/misc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-08-09T20:26:28Z",
+    "pageid": 1557044
+  },
+  {
+    "page": "Module:Weapons/data/misc/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-23T17:05:18Z",
+    "pageid": 1557813
+  },
+  {
+    "page": "Module:Weapons/data/modular",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-23T17:09:53Z",
+    "pageid": 1557043
+  },
+  {
+    "page": "Module:Weapons/data/modular/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2023-03-18T23:05:08Z",
+    "pageid": 1557841
+  },
+  {
+    "page": "Module:Weapons/data/primary",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-10-03T12:01:43Z",
+    "pageid": 1557037
+  },
+  {
+    "page": "Module:Weapons/data/primary/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T20:45:59Z",
+    "pageid": 1557809
+  },
+  {
+    "page": "Module:Weapons/data/railjack",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-01T09:21:33Z",
+    "pageid": 1557042
+  },
+  {
+    "page": "Module:Weapons/data/railjack/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-06-23T17:06:17Z",
+    "pageid": 1557812
+  },
+  {
+    "page": "Module:Weapons/data/secondary",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-27T16:22:43Z",
+    "pageid": 1557038
+  },
+  {
+    "page": "Module:Weapons/data/secondary/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-13T20:45:43Z",
+    "pageid": 1557810
+  },
+  {
+    "page": "Module:Weapons/data/validate",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-21T03:41:35Z",
+    "pageid": 1548754
+  },
+  {
+    "page": "Module:Weapons/data/validate/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-08-01T05:23:41Z",
+    "pageid": 1548755
+  },
+  {
+    "page": "Module:Weapons/dev",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-07-10T01:25:50Z",
+    "pageid": 1547820
+  },
+  {
+    "page": "Module:Weapons/dev/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-08T07:18:08Z",
+    "pageid": 1547821
+  },
+  {
+    "page": "Module:Weapons/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-12-05T22:11:21Z",
+    "pageid": 1543619
+  },
+  {
+    "page": "Module:Weapons/infobox",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:48Z",
+    "pageid": 1548721
+  },
+  {
+    "page": "Module:Weapons/infobox/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-20T23:10:20Z",
+    "pageid": 1561919
+  },
+  {
+    "page": "Module:Weapons/nav",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-09-10T02:49:47Z",
+    "pageid": 1548704
+  },
+  {
+    "page": "Module:Weapons/nav/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-04-20T22:59:56Z",
+    "pageid": 1561916
+  },
+  {
+    "page": "Module:Weapons/ppdata",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-21T02:45:39Z",
+    "pageid": 1548702
+  },
+  {
+    "page": "Module:Weapons/ppdata/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-21T02:43:27Z",
+    "pageid": 1549663
+  },
+  {
+    "page": "Module:Weapons/ppdata/seeder",
+    "reason": "new_module",
+    "wiki_timestamp": "2021-12-24T04:11:05Z",
+    "pageid": 1555586
+  },
+  {
+    "page": "Module:Weapons/ppdata/seeder/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-01-24T16:50:28Z",
+    "pageid": 1555587
+  },
+  {
+    "page": "Module:Weapons/preprocess",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-21T02:23:03Z",
+    "pageid": 1556987
+  },
+  {
+    "page": "Module:Weapons/preprocess/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2026-06-14T06:30:37Z",
+    "pageid": 1561921
+  },
+  {
+    "page": "Module:WorldState",
+    "reason": "new_module",
+    "wiki_timestamp": "2015-09-26T22:38:32Z",
+    "pageid": 1259744
+  },
+  {
+    "page": "Module:Worldstate/data",
+    "reason": "new_module",
+    "wiki_timestamp": "2020-10-29T12:50:29Z",
+    "pageid": 1440370
+  },
+  {
+    "page": "Module:Worldstate/data-flai",
+    "reason": "new_module",
+    "wiki_timestamp": "2019-08-05T17:32:39Z",
+    "pageid": 1440377
+  },
+  {
+    "page": "Module:Yesno",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:57:09Z",
+    "pageid": 1571225
+  },
+  {
+    "page": "Module:Yesno/doc",
+    "reason": "new_module",
+    "wiki_timestamp": "2022-09-23T22:25:42Z",
+    "pageid": 1571231
+  }
+]

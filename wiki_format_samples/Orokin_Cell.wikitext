@@ -1,0 +1,884 @@
+{{Guide|Link = [[Orokin Cell Farming Guide]]}}
+{{Navigation|Orokin Cell|Orokin Cell Farming Guide}}
+{{ResourceInfobox}}
+{{Quote|Ancient energy cell from the Orokin era.|In-Game Description}}
+An {{Resource|Orokin Cell}} is a rare [[resource]] that can be found on [[Saturn]], [[Ceres]], and [[Deimos]]. It is usually found in quantities of 1-2. 
+
+All bosses (including the [[Stalker]]) have a chance to drop an {{Resource|Orokin Cell}} after being defeated, as do Sentient enemies.
+
+==Acquisition==
+===Market===
+{{Quote|By purchasing this item you can directly exchange {{pc|10}} for 1 Orokin Cell.|In-Game Description}}
+Orokin Cells can be purchased directly from the market for {{pc|10}}, or as a reusable blueprint for {{pc|100}}.
+{{BuildRequire
+|buildcredits= 15,000
+|build1= Alloy Plate
+|build1amount=50,000
+|build2= Nano Spores
+|build2amount=50,000
+|build3= Salvage
+|build3amount=25,000
+|build4= 
+|build4amount=
+|buildtime=1
+|buildrush=2
+|blueprint=100
+|blueprintunit=Platinum
+|market=10
+}}
+
+==Item Checklist for Orokin Cell==
+{{CustomCollapsible|Item Checklist for Orokin Cell|checklist|notlist=true|align=left|width=60}}
+<tabber>
+|-|Warframes & Companions=
+{| class="listtable sortable lighttable store-table" style="width: 600px;" data-tableid="Orokin Cell Warframes & Companions Checklist"
+|-
+! Item
+! Type
+! data-sort-type="number" | Quantity
+|- data-rowid="Ash"
+|{{WF|Ash}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ash Prime"
+|{{WF|Ash Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ash Prime Systems"
+|{{WF|Ash Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Atlas"
+|{{WF|Atlas}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Atlas Prime"
+|{{WF|Atlas Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Atlas Systems"
+|{{WF|Atlas}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Banshee Prime"
+|{{WF|Banshee Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Baruuk"
+|{{WF|Baruuk}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Baruuk Prime"
+|{{WF|Baruuk Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Caliban"
+|{{WF|Caliban}} || Warframe || {{StoreTableCell|12|{{PAGENAME}}}}
+|- data-rowid="Caliban Prime"
+|{{WF|Caliban Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Carrier Prime"
+|{{Companion|Carrier Prime}} || Sentinel || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Chroma Prime"
+|{{WF|Chroma Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Citrine"
+|{{WF|Citrine}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Citrine Prime"
+|{{WF|Citrine Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Cyte-09"
+|{{WF|Cyte-09}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Cyte-09 (Helminth)"
+|{{WF|Cyte-09}} (Helminth) || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Dagath"
+|{{WF|Dagath}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Dagath (Helminth)"
+|{{WF|Dagath}} (Helminth) || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Dante"
+|{{WF|Dante}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Dante (Helminth)"
+|{{WF|Dante}} (Helminth) || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Dethcube Prime"
+|{{Companion|Dethcube Prime}} || Sentinel || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Elytron Harness"
+|{{WF|Elytron}} Harness || Component || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Ember"
+|{{WF|Ember}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ember Prime"
+|{{WF|Ember Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Equinox Day Aspect"
+|{{WF|Equinox}} Day Aspect || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Equinox Night Aspect"
+|{{WF|Equinox}} Night Aspect || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Equinox Prime"
+|{{WF|Equinox Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Excalibur"
+|{{WF|Excalibur}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Excalibur Umbra"
+|{{WF|Excalibur Umbra}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Follie"
+|{{WF|Follie}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Follie (Helminth)"
+|{{WF|Follie}} (Helminth) || Component || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Frost"
+|{{WF|Frost}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Frost Prime"
+|{{WF|Frost Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Gara"
+|{{WF|Gara}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Gara Prime"
+|{{WF|Gara Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Garuda Prime"
+|{{WF|Garuda Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Gauss"
+|{{WF|Gauss}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Gauss Prime"
+|{{WF|Gauss Prime}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Grendel"
+|{{WF|Grendel}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Grendel Prime"
+|{{WF|Grendel Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Gyre"
+|{{WF|Gyre}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Gyre Prime"
+|{{WF|Gyre Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Harrow Chassis"
+|{{WF|Harrow}} Chassis || Component || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Harrow Prime"
+|{{WF|Harrow Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Helios Prime"
+|{{Companion|Helios Prime}} || Sentinel || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Hildryn"
+|{{WF|Hildryn}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Hildryn Prime"
+|{{WF|Hildryn Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Hydroid"
+|{{WF|Hydroid}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Hydroid Systems"
+|{{WF|Hydroid}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Hydroid Prime"
+|{{WF|Hydroid Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Inaros"
+|{{WF|Inaros}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Inaros Prime"
+|{{WF|Inaros Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Ivara"
+|{{WF|Ivara}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ivara Prime"
+|{{WF|Ivara Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Khora"
+|{{WF|Khora}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Khora Prime"
+|{{WF|Khora Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Lavos"
+|{{WF|Lavos}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Lavos Prime"
+|{{WF|Lavos Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Limbo"
+|{{WF|Limbo}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Limbo Prime"
+|{{WF|Limbo Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Loki"
+|{{WF|Loki}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Loki Prime Systems"
+|{{WF|Loki Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Loki Prime"
+|{{WF|Loki Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mag"
+|{{WF|Mag}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mag Prime"
+|{{WF|Mag Prime}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Mantis"
+|[[Mantis]] || Landing Craft || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mesa"
+|{{WF|Mesa}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mesa Prime"
+|{{WF|Mesa Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Mirage Chassis"
+|{{WF|Mirage}} Chassis || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mirage Neuroptics"
+|{{WF|Mirage}} Neuroptics || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mirage Systems"
+|{{WF|Mirage}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mirage Prime"
+|{{WF|Mirage Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Nautilus Prime"
+|{{Companion|Nautilus Prime}} || Sentinel || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Nekros"
+|{{WF|Nekros}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Nekros Prime"
+|{{WF|Nekros Prime}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Nezha Prime"
+|{{WF|Nezha Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Nidus Prime"
+|{{WF|Nidus Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Nidus Systems"
+|{{WF|Nidus}} Systems || Component || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Nokko"
+|{{WF|Nokko}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Nokko (Helminth)"
+|{{WF|Nokko}} (Helminth) || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Nova"
+|{{WF|Nova}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nova Prime"
+|{{WF|Nova Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nyx"
+|{{WF|Nyx}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nyx Prime Systems"
+|{{WF|Nyx Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nyx Prime"
+|{{WF|Nyx Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Oberon"
+|{{WF|Oberon}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Oberon Systems"
+|{{WF|Oberon}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Oberon Prime"
+|{{WF|Oberon Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Octavia Systems"
+|{{WF|Octavia}} Systems || Component || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Octavia Prime"
+|{{WF|Octavia Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Odonata Prime"
+|{{WF|Odonata Prime}} || Archwing || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Oraxia"
+|{{WF|Oraxia}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Oraxia (Helminth)"
+|{{WF|Oraxia}} (Helminth) || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Protea"
+|{{WF|Protea}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Protea Prime"
+|{{WF|Protea Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Railjack Propulsion Systems"
+|[[Railjack]] Propulsion Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Revenant"
+|{{WF|Revenant}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Revenant Prime"
+|{{WF|Revenant Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Rhino Prime"
+|{{WF|Rhino Prime}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Saryn"
+|{{WF|Saryn}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Saryn Prime Systems"
+|{{WF|Saryn Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Saryn Prime"
+|{{WF|Saryn Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Scimitar"
+|[[Scimitar]] || Landing Craft || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Sevagoth"
+|{{WF|Sevagoth}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Sevagoth Prime"
+|{{WF|Sevagoth Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Shade Prime"
+|{{Companion|Shade Prime}} || Sentinel || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Sirius & Orion"
+|{{WF|Sirius}} & {{WF|Orion}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Sirius & Orion (Helminth)"
+|{{WF|Sirius}} & {{WF|Orion}} (Helminth) || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Styanax"
+|{{WF|Styanax}} || Warframe || {{StoreTableCell|12|{{PAGENAME}}}}
+|- data-rowid="Styanax Prime"
+|{{WF|Styanax Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Temple"
+|{{WF|Temple}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Temple (Helminth)"
+|{{WF|Temple}} (Helminth) || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Titania"
+|{{WF|Titania}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Titania Prime"
+|{{WF|Titania Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Trinity"
+|{{WF|Trinity}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Trinity Prime"
+|{{WF|Trinity Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Trinity Prime Systems"
+|{{WF|Trinity Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Uriel"
+|{{WF|Uriel}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Uriel (Helminth)"
+|{{WF|Uriel}} (Helminth) || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Valkyr"
+|{{WF|Valkyr}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Valkyr Prime"
+|{{WF|Valkyr Prime}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Vauban"
+|{{WF|Vauban}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Vauban Prime Systems"
+|{{WF|Vauban Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Volt"
+|{{WF|Volt}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Volt Prime"
+|{{WF|Volt Prime}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Volt Prime Systems"
+|{{WF|Volt Prime}} Systems || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Voidrig Engine"
+|{{WF|Voidrig}} Engine || Component || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Voruna Prime"
+|{{WF|Voruna Prime}} || Component || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Wisp"
+|{{WF|Wisp}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Wisp Prime"
+|{{WF|Wisp Prime}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Wukong Prime"
+|{{WF|Wukong Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Wyrm Prime"
+|{{Companion|Wyrm Prime}} || Sentinel || {{StoreTableCell|6|{{PAGENAME}}}}
+|- data-rowid="Xaku"
+|{{WF|Xaku}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Xaku Prime"
+|{{WF|Xaku Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Xiphos"
+|[[Xiphos]] || Landing Craft || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Yareli"
+|{{WF|Yareli}} || Warframe || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Yareli Prime"
+|{{WF|Yareli Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Zephyr"
+|{{WF|Zephyr}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Zephyr Prime"
+|{{WF|Zephyr Prime}} || Warframe || {{StoreTableCell|5|{{PAGENAME}}}}
+|}
+
+
+|-|Weapons=
+{| class="listtable sortable lighttable store-table" style="width: 600px;" data-tableid="Orokin Cell Weapons Checklist"
+|-
+! Item
+! Type
+! data-sort-type="number" | Quantity
+|- data-rowid="Acceltra Prime"
+|{{Weapon|Acceltra Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Afentis Prime"
+|{{Weapon|Afentis Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Afuris"
+|{{Weapon|Afuris}} || Secondary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Akbolto"
+|{{Weapon|Akbolto}} || Secondary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Akbronco"
+|{{Weapon|Akbronco}} || Secondary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Akjagara"
+|{{Weapon|Akjagara}} || Secondary || {{StoreTableCell|2|{{PAGENAME}}}}
+|- data-rowid="Akjagara Prime"
+|{{Weapon|Akjagara Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Aklex"
+|{{Weapon|Aklex}} || Secondary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Akmagnus"
+|{{Weapon|Akmagnus}} || Secondary || {{StoreTableCell|2|{{PAGENAME}}}}
+|- data-rowid="Aksomati"
+|{{Weapon|Aksomati}} || Secondary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Akvasto"
+|{{Weapon|Akvasto}} || Secondary || {{StoreTableCell|2|{{PAGENAME}}}}
+|- data-rowid="Alternox Prime"
+|{{Weapon|Alternox Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Ankyros Prime"
+|{{Weapon|Ankyros Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Astilla Prime"
+|{{Weapon|Astilla Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Athodai Prime"
+|{{Weapon|Athodai Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Baza Prime"
+|{{Weapon|Baza Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Bo"
+|{{Weapon|Bo}} || Melee || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Bo Prime"
+|{{Weapon|Bo Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Boar Prime"
+|{{Weapon|Boar Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Bolto"
+|{{Weapon|Bolto}} || Secondary || {{StoreTableCell|2|{{PAGENAME}}}}
+|- data-rowid="Boltor Prime"
+|{{Weapon|Boltor Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Brakk"
+|{{Weapon|Brakk}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Braton Prime"
+|{{Weapon|Braton Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Bronco Prime"
+|{{Weapon|Bronco Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Burston Prime"
+|{{Weapon|Burston Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Cedo Prime"
+|{{Weapon|Cedo Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Cobra & Crane Prime"
+|{{Weapon|Cobra & Crane Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Corinth Prime"
+|{{Weapon|Corinth Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Corufell Prime"
+|{{Weapon|Corufell Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Corvas Prime"
+|{{Weapon|Corvas Prime}} || Arch-Gun || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Dakra Prime"
+|{{Weapon|Dakra Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Destreza Prime"
+|{{Weapon|Destreza Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Detron"
+|{{Weapon|Detron}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Dual Kamas"
+|{{Weapon|Dual Kamas}} || Melee || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Dual Raza"
+|{{Weapon|Dual Raza}} || Melee || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Epitaph"
+|{{Weapon|Epitaph}} || Secondary || {{StoreTableCell|7|{{PAGENAME}}}}
+|- data-rowid="Epitaph Prime"
+|{{Weapon|Epitaph Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Euphona Prime"
+|{{Weapon|Euphona Prime}} || Secondary || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Fragor Prime"
+|{{Weapon|Fragor Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Fulmin Prime"
+|{{Weapon|Fulmin Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Galariak Prime"
+|{{Weapon|Galariak Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Galatine Prime"
+|{{Weapon|Galatine Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Glaive Prime"
+|{{Weapon|Glaive Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Gram Prime"
+|{{Weapon|Gram Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Guandao Prime"
+|{{Weapon|Guandao Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Hikou Prime"
+|{{Weapon|Hikou Prime}} || Secondary || {{StoreTableCell|8|{{PAGENAME}}}}
+|- data-rowid="Hystrix Prime"
+|{{Weapon|Hystrix Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Karyst Prime"
+|{{Weapon|Karyst Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Kestrel Prime"
+|{{Weapon|Kestrel Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Knell Prime"
+|{{Weapon|Knell Prime}} || Secondary || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Kogake Prime"
+|{{Weapon|Kogake Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Kompressa"
+|{{Weapon|Kompressa}} || Secondary || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Kompressa Prime"
+|{{Weapon|Kompressa Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Kronen Prime"
+|{{Weapon|Kronen Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Larkspur Prime"
+|{{Weapon|Larkspur Prime}} || Arch-Gun || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Latron Prime"
+|{{Weapon|Latron Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Lex Prime"
+|{{Weapon|Lex Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Magnus"
+|{{Weapon|Magnus}} || Secondary || {{StoreTableCell|2|{{PAGENAME}}}}
+|- data-rowid="Magnus Prime"
+|{{Weapon|Magnus Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Masseter Prime"
+|{{Weapon|Masseter Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Nagantaka Prime"
+|{{Weapon|Nagantaka Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Nami Skyla Prime"
+|{{Weapon|Nami Skyla Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Nikana Prime"
+|{{Weapon|Nikana Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Ninkondi Prime"
+|{{Weapon|Ninkondi Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Okina Prime"
+|{{Weapon|Okina Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Orthos Prime"
+|{{Weapon|Orthos Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Orvius"
+|{{Weapon|Orvius}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Pandero Prime"
+|{{Weapon|Pandero Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Pangolin Prime"
+|{{Weapon|Pangolin Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Panthera"
+|{{Weapon|Panthera}} || Primary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Panthera Prime"
+|{{Weapon|Panthera Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Paracesis"
+|{{Weapon|Paracesis}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Perigale Prime"
+|{{Weapon|Perigale Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Phantasma Prime"
+|{{Weapon|Phantasma Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Plasma Sword"
+|{{Weapon|Plasma Sword}} || Melee || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Pyrana Prime"
+|{{Weapon|Pyrana Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Reaper Prime"
+|{{Weapon|Reaper Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Redeemer Prime"
+|{{Weapon|Redeemer Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Riot-848"
+|{{Weapon|Riot-848}} || Secondary || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Rubico Prime"
+|{{Weapon|Rubico Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Sagek Prime"
+|{{Weapon|Sagek Prime}} || Secondary || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Sarofang Prime"
+|{{Weapon|Sarofang Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Scindo Prime"
+|{{Weapon|Scindo Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Scourge Prime"
+|{{Weapon|Scourge Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Seer"
+|{{Weapon|Seer}} || Secondary || {{StoreTableCell|2|{{PAGENAME}}}}
+|- data-rowid="Sicarus Prime"
+|{{Weapon|Sicarus Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Silva & Aegis Prime"
+|{{Weapon|Silva & Aegis Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Simulor"
+|{{Weapon|Simulor}} || Primary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Soma Prime"
+|{{Weapon|Soma Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Spira Prime"
+|{{Weapon|Spira Prime}} || Secondary || {{StoreTableCell|8|{{PAGENAME}}}}
+|- data-rowid="Stradavar Prime"
+|{{Weapon|Stradavar Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Steflos Prime"
+|{{Weapon|Steflos Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Strun Prime"
+|{{Weapon|Strun Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Sybaris Prime"
+|{{Weapon|Sybaris Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Tatsu Prime"
+|{{Weapon|Tatsu Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Tekko Prime"
+|{{Weapon|Tekko Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Tenora Prime"
+|{{Weapon|Tenora Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Tiberon Prime"
+|{{Weapon|Tiberon Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Tigris"
+|{{Weapon|Tigris}} || Primary || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Tigris Prime"
+|{{Weapon|Tigris Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Tipedo Prime"
+|{{Weapon|Tipedo Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Trumna Barrel"
+|{{Weapon|Trumna}} Barrel || Component || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Trumna Prime"
+|{{Weapon|Trumna Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Twin Vipers"
+|{{Weapon|Twin Vipers}} || Secondary || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Vadarya Prime"
+|{{Weapon|Vadarya Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Vasto Prime"
+|{{Weapon|Vasto Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Vectis"
+|{{Weapon|Vectis}} || Primary || {{StoreTableCell|4|{{PAGENAME}}}}
+|- data-rowid="Vectis Prime"
+|{{Weapon|Vectis Prime}} || Primary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Velox"
+|{{Weapon|Velox}} || Secondary || {{StoreTableCell|3|{{PAGENAME}}}}
+|- data-rowid="Velox Prime"
+|{{Weapon|Velox Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Venato Prime"
+|{{Weapon|Venato Prime}} || Melee || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Venka Prime"
+|{{Weapon|Venka Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Vitrica"
+|{{Weapon|Vitrica}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Volnus Prime"
+|{{Weapon|Volnus Prime}} || Melee || {{StoreTableCell|15|{{PAGENAME}}}}
+|- data-rowid="Zakti Prime"
+|{{Weapon|Zakti Prime}} || Secondary || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Zylok Prime"
+|{{Weapon|Zylok Prime}} || Secondary || {{StoreTableCell|5|{{PAGENAME}}}}
+|- data-rowid="Hunhow's Trinket"
+|[[War Prime|Hunhow's Trinket]] || Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|}
+
+|-|Consumables=
+{| class="listtable sortable lighttable store-table" style="width: 600px;" data-tableid="Orokin Cell Consumables Checklist"
+|-
+! Item
+! Type
+! data-sort-type="number" | Quantity
+|- data-rowid="Exilus Warframe Adapter"
+|{{Resource|Exilus Warframe Adapter}} || Enhancement || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Exilus Weapon Adapter"
+|{{Resource|Exilus Weapon Adapter}} || Enhancement || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Forma"
+|{{Resource|Forma}} || Enhancement || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Greater Focus Lens"
+|{{Resource|Greater Focus Lens}} || Enhancement || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Orokin Catalyst"
+|{{Resource|Orokin Catalyst}} || Enhancement || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Orokin Reactor"
+|{{Resource|Orokin Reactor}} || Enhancement || {{StoreTableCell|1|{{PAGENAME}}}}
+|-
+! colspan="10" | Research<br>{{ctier}}
+|}
+
+|-|Cosmetics=
+{| class="listtable sortable lighttable store-table" style="width: 600px;" data-tableid="Orokin Cell Cosmetics Checklist"
+|-
+! Item
+! Type
+! data-sort-type="number" | Quantity
+|- data-rowid="Ash Locust Helmet"
+|[[Ash Locust Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ash Scorpion Helmet"
+|[[Ash Scorpion Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Atlas Shikoro Helmet"
+|[[Atlas Shikoro Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Atlas Tartarus Helmet"
+|[[Atlas Tartarus Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Banshee Chorus Helmet"
+|[[Banshee Chorus Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Banshee Reverb Helmet"
+|[[Banshee Reverb Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Baruuk Meroe Helmet"
+|[[Baruuk Meroe Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Bishamo Armor Set|Bishamo Cuirass"
+|[[Bishamo Armor Set|Bishamo Cuirass]] || Cosmetic || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Bishamo Armor Set|Bishamo Greaves"
+|[[Bishamo Armor Set|Bishamo Greaves]] || Cosmetic || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Bishamo Armor Set|Bishamo Helmet"
+|[[Bishamo Armor Set|Bishamo Helmet]] || Cosmetic || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Bishamo Armor Set|Bishamo Pauldrons"
+|[[Bishamo Armor Set|Bishamo Pauldrons]] || Cosmetic || {{StoreTableCell|10|{{PAGENAME}}}}
+|- data-rowid="Cyte-09 Espricor Helmet"
+|[[Cyte-09 Espricor Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ember Backdraft Helmet"
+|[[Ember Backdraft Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Ember Phoenix Helmet"
+|[[Ember Phoenix Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Equinox Clisthert Helmet"
+|[[Equinox Clisthert Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Equinox Solstice Helmet"
+|[[Equinox Solstice Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Excalibur Avalon Helmet"
+|[[Excalibur Avalon Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Excalibur Mordred Helmet"
+|[[Excalibur Mordred Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Excalibur Pendragon Helmet"
+|[[Excalibur Pendragon Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Frost Aurora Helmet"
+|[[Frost Aurora Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Frost Squall Helmet"
+|[[Frost Squall Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Gara Virago Helmet"
+|[[Gara Virago Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Garuda Bathory Helmet"
+|[[Garuda Bathory Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Gauss Mag Helmet"
+|[[Gauss Mag Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Grendel Glutt Helmet"
+|[[Grendel Glutt Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Harrow Crucis Helmet"
+|[[Harrow Crucis Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Harrow Suffragan Helmet"
+|[[Harrow Suffragan Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Hildryn Asuron Helmet"
+|[[Hildryn Asuron Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Hydroid Triton Helmet"
+|[[Hydroid Triton Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Inaros Anubis Helmet"
+|[[Inaros Anubis Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Khora Delphi Helmet"
+|[[Khora Delphi Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Lavos Cordatus Helmet"
+|[[Lavos Cordatus Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Limbo Aristeas Helmet"
+|[[Limbo Aristeas Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Limbo Magrite Helmet"
+|[[Limbo Magrite Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Loki Essence Helmet"
+|[[Loki Essence Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Loki Swindle Helmet"
+|[[Loki Swindle Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mag Coil Helmet"
+|[[Mag Coil Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mag Gauss Helmet"
+|[[Mag Gauss Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mesa Longhorn Helmet"
+|[[Mesa Longhorn Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mesa Ovis Helmet"
+|[[Mesa Ovis Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mirage Harlequin Helmet"
+|[[Mirage Harlequin Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Mirage Trivelin Helmet"
+|[[Mirage Trivelin Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nekros Raknis Helmet"
+|[[Nekros Raknis Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nekros Shroud Helmet"
+|[[Nekros Shroud Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nezha Circa Helmet"
+|[[Nezha Circa Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nezha Jinza Helmet"
+|[[Nezha Jinza Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nidus Myxini Helmet"
+|[[Nidus Myxini Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nidus Prion Helmet"
+|[[Nidus Prion Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nova Flux Helmet"
+|[[Nova Flux Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nova Quantum Helmet"
+|[[Nova Quantum Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nyx Menticide Helmet"
+|[[Nyx Menticide Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nyx Vespa Helmet"
+|[[Nyx Vespa Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Oberon Markhor Helmet"
+|[[Oberon Markhor Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Oberon Oryx Helmet"
+|[[Oberon Oryx Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Octavia Cadenza Helmet"
+|[[Octavia Cadenza Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Protea Mavv Helmet"
+|[[Protea Mavv Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Protea Telema Helmet"
+|[[Protea Telema Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Revenant Vania Helmet"
+|[[Revenant Vania Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Rhino Thrak Helmet"
+|[[Rhino Thrak Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Rhino Vanguard Helmet"
+|[[Rhino Vanguard Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Saryn Chlora Helmet"
+|[[Saryn Chlora Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Saryn Hemlock Helmet"
+|[[Saryn Hemlock Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Smoking Body Ephemera"
+|[[Smoking Body Ephemera]] || Cosmetic || {{StoreTableCell|25|{{PAGENAME}}}}
+|- data-rowid="Titania Aurai Helmet"
+|[[Titania Aurai Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Titania Mab Helmet"
+|[[Titania Mab Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Trinity Aura Helmet"
+|[[Trinity Aura Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Trinity Meridian Helmet"
+|[[Trinity Meridian Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Valkyr Bastet Helmet"
+|[[Valkyr Bastet Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Valkyr Kara Helmet"
+|[[Valkyr Kara Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Vauban Armistice Helmet"
+|[[Vauban Armistice Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Vauban Esprit Helmet"
+|[[Vauban Esprit Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Vauban Gambit Helmet"
+|[[Vauban Gambit Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Volt Pulse Helmet"
+|[[Volt Pulse Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Volt Storm Helmet"
+|[[Volt Storm Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Wisp Gaoth Helmet"
+|[[Wisp Gaoth Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Wolf Hood"
+|[[Wolf Hood]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Wukong Dasheng Helmet"
+|[[Wukong Dasheng Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Zephyr Cierzo Helmet"
+|[[Zephyr Cierzo Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Zephyr Tengu Helmet"
+|[[Zephyr Tengu Helmet]] || Cosmetic || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Orokin Cell Executor Honoria"
+|[[Honoria#Orokin Cell Executor|"Orokin Cell Executor"]] Honoria || [[Honoria]] || {{StoreTableCell|150|{{PAGENAME}}}}
+|}
+
+
+|-|Research=
+{| class="listtable sortable lighttable store-table" style="width: 600px;" data-tableid="Orokin Cell Research Checklist"
+|-
+! Item
+! Type
+! data-sort-type="number" | Quantity
+|- data-rowid="Banshee"
+|{{WF|Banshee}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Milati"
+|[[Milati]] || Ship Ordnance || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Milati Mk I"
+|[[Milati]] Mk I || Ship Ordnance || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Milati Mk II"
+|[[Milati]] Mk II || Ship Ordnance || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Nezha"
+|{{WF|Nezha}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Sigma Engines Mk I"
+|Sigma [[Engines]] Mk I || Ship Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Sigma Engines Mk II"
+|Sigma [[Engines]] Mk II || Ship Component || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Volt"
+|{{WF|Volt}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|- data-rowid="Wukong"
+|{{WF|Wukong}} || Warframe || {{StoreTableCell|1|{{PAGENAME}}}}
+|-
+! colspan="10" | Research<br>{{ctier}}
+|}
+
+
+</tabber>
+{{CustomCollapsible/End}}
+{{ver/Lu|43.0}}
+
+==Drop Locations==
+{{DropLocations}}
+
+===Farming Locations===
+{{FarmingTips}}
+{{MissionTable|Titan|Magnacidium|Lex|Exta|Gabii|Piscinas}}
+
+<!--Archiving in favor of Orokin Cell Farming Guide
+==Gathering Tips==
+''These are based on opinions and may not be true. These should be viewed as advice unless proven undoubtedly true. Check comments for confirmation. Results may vary.''
+* [[Assassination]] and [[Invasion]] [[Mission|missions]] '''on a planet where Orokin Cells drop''' is a very quick way to get a lot of Orokin Cells. With good gear and/or good teammates, a fast moving squad can do a single run within 2 minutes.
+** [[Lephantis]] on '''Magnacidium, Deimos''' has a chance of dropping up to 4 Orokin Cells in a single run. This is because Lephantis' loot table is rolled for each of its heads when they die during the first phase of the bossfight, and once more when Lephantis is finally defeated in the second phase of the fight.
+*Making '''Helene, Saturn''' your go-to leveling spot (instead of Hydron, for instance) will passively keep your cell stock up.
+*Piscinas on Saturn, a Dark Sector survival mission, yields [[Plastids]] as well as Orokin Cell in addition to offering XP bonuses. Expect 5 - 10 per 20-25 min run. 
+**Bring a {{A|Desecrate}} {{WF|Nekros}} or {{M|Pilfering Swarm|Pilfering}} {{WF|Hydroid}} with a slash-based weapon to increase drop chance, and a {{Companion|Chesa Kubrow}} with {{M|Retrieve}} and/or {{M|Resourceful Retriever}}, if you have one, to take advantage of the double pickups and rare resource buffs.
+*'''Exta, Ceres''' also has a fairly good chance of dropping Orokin Cells since it is a combination of bosses as well being on a planet with Orokin Cells on it.
+*On '''Telesto, Saturn''', one can get Orokin Cells from Cell Arrays: There are usually one to two arrays found at this map, which can drop 1-3 Cells.
+*On '''Gabii, Ceres''', you can get 4-7 Orokin Cells from opening containers or breaking Cell Arrays.
+**Otherwise, a 10 minutes run with a {{A|Desecrate}} {{WF|Nekros}} and a slash-based melee weapon such as the {{Weapon|Atterax}}, will grant around 4-7 Orokin Cells.
+*'''Cassini, Saturn''' is one of the more popular missions to run to obtain a [[Kuva Lich]] because [[Capture]] missions tend to yield the shortest mission times on average. This means that players may encounter more Orokin Cell containers merely by grinding to obtain a Lich with a [[Kuva (Variant)|Kuva weapon]] they want.
+-->
+
+==Trivia==
+*{{Resource|Orokin Cell}} actually have the same icon as {{Resource|Orokin Catalyst|Orokin Catalysts}} and {{Resource|Orokin Reactor|Orokin Reactors}} albeit flipped, resized and recolored, but looks different as a deposit and decoration.
+*Sometimes referred to as a "Raw Potato" or "Potato Seed" by the community, referencing how Orokin Catalysts and Orokin Reactors are called 'Potatoes'.
+*Barring the {{Weapon|Twin Gremlins}}, {{Weapon|Twin Rogga}}, {{Weapon|Akzani}}, and {{Weapon|Akarius}}, Orokin Cells are required to craft ''all'' [[Dual Pistols|dual secondaries]] (either as it is or as a {{Resource|Forma}}). This does not include dual secondaries given away during events.
+*Orokin Cells are used in constructing most Warframes and [[Prime]] weapons.
+*Prior to the removal of [[Trial]]s, the reusable Orokin Cell blueprint could be acquired as a reward from [[The Law of Retribution/Nightmare|The Law of Retribution Nightmare]] Raid.
+
+==Media==
+{{VideoGallery
+|{{YouTube|YXWY6EgZWBA}}
+|{{YouTube|ZjqL9Qz6_1A}}
+|{{YouTube|sSKW5ui16QI}}
+}}
+
+== Patch Notes==
+{{Scrollbox/Article|
+{{ver|32.2.4}}
+*Fixed items such as Orokin Cells missing their light beacons.
+
+{{ver|25.8.1}}
+;Hyena Change (Razorback mission only)&#58;
+An Orokin Cell farming exploit was brought to our attention by not only players, but also our internal flagging system when such a method is tripped for misuse. In short, players were forcing the Hyena’s to spawn infinitely by entering/exiting rooms knowing that their Orokin Cell drop rate is 100%. As a result of this misuse, the Orokin Cell drop rate for the Hyena’s in the Razorback mission will diminish the more you spawn, to still allow for multiple drop attempts but without giving away the entire cake. Please note that players who are trade banned due to triggering this exploit will be manually unbanned after this Hotfix. 
+
+{{ver|23.0.5}}
+*Orokin Cells pickups will now appear in the pop-up notification similar to Argon Crystals.
+
+{{ver|22.20.7}}
+*Replaced the Orokin Cell crafting requirement for numerous Decorations to either Morphics, Neurodes, or Control Modules.
+**''The Orokin Cells will be refunded to the Clan Vault and already built Decorations that required an Orokin Cell will remain built.''
+
+{{ver|22.0.2}}
+*Replaced Gara's Blueprint requirement of Kuva with Orokin Cells.
+
+{{ver|20}}
+*Fixed untradable Blueprint resources appearing in the Trade window (Orokin Cells, etc).
+
+{{ver|19.13}}
+*Replaced Orokin Cell with Gallium, and replaced Neural Sensors with Morphics as a crafting requirement in the Rhino Blueprint.
+
+{{ver|18.5}}
+*Archwing Crafting requirements have been adjusted for players crafting the Odonata in The Archwing Quest:
+**Orokin Cell is now 3x Control Module.
+
+{{ver|17.3}}
+*Fixed Drekar Heavy Gunners dropping Orokin Cells.
+
+{{ver|16.4}}
+*The Raptor will now drop Neural Sensors instead of Orokin Cells.
+
+{{ver|15.13}}
+*Added a 3x Orokin Cells to T3 Survival Rewards.
+
+{{ver|13.8}}
+*Increased the number of Orokin Cells received as T3 Survival awards from 1 to 3 per batch.
+
+{{ver|11.3.3}}
+*Text correction for Orokin Cells.
+
+{{ver|0}}
+*Introduced with game release.
+}}
+{{ver/Lu|23.10.8}}
+{{ResourceNav}}
+[[de:Orokin-Zelle]]
+[[es:Célula orokin]]
+[[fr:Cellule Orokin]]
+[[pt:Célula Orokin]]
+[[ru:Элемент_Питания_Орокин]]
+[[uk:Елемент Живлення Орокін]]
+[[Category:Resources]]
+[[Category:Pickups]]
+[[Category:Market]]
+[[Category:Closed Beta]]
+[[Category:Orokin]]
+[[Category:Vanilla]]

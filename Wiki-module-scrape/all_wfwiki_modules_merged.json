@@ -1,0 +1,3262 @@
+[
+  {
+    "pageid": 1264582,
+    "ns": 828,
+    "title": "Module:Ability"
+  },
+  {
+    "pageid": 1375793,
+    "ns": 828,
+    "title": "Module:Ability/Conclave/data"
+  },
+  {
+    "pageid": 1574228,
+    "ns": 828,
+    "title": "Module:Ability/Conclave/data/doc"
+  },
+  {
+    "pageid": 1264326,
+    "ns": 828,
+    "title": "Module:Ability/data"
+  },
+  {
+    "pageid": 1554588,
+    "ns": 828,
+    "title": "Module:Ability/data/doc"
+  },
+  {
+    "pageid": 1554583,
+    "ns": 828,
+    "title": "Module:Ability/data/stats"
+  },
+  {
+    "pageid": 1549792,
+    "ns": 828,
+    "title": "Module:Ability/doc"
+  },
+  {
+    "pageid": 1572320,
+    "ns": 828,
+    "title": "Module:Ability/infobox"
+  },
+  {
+    "pageid": 1572948,
+    "ns": 828,
+    "title": "Module:Ability/infobox/doc"
+  },
+  {
+    "pageid": 1580266,
+    "ns": 828,
+    "title": "Module:Ability/infoboxTEST"
+  },
+  {
+    "pageid": 1513549,
+    "ns": 828,
+    "title": "Module:Acquisition"
+  },
+  {
+    "pageid": 1513550,
+    "ns": 828,
+    "title": "Module:Acquisition/data"
+  },
+  {
+    "pageid": 1554527,
+    "ns": 828,
+    "title": "Module:Acquisition/dev"
+  },
+  {
+    "pageid": 1545995,
+    "ns": 828,
+    "title": "Module:Acquisition/doc"
+  },
+  {
+    "pageid": 1545997,
+    "ns": 828,
+    "title": "Module:Acquisition/testcases"
+  },
+  {
+    "pageid": 1545996,
+    "ns": 828,
+    "title": "Module:Acquisition/testcases/doc"
+  },
+  {
+    "pageid": 1639978,
+    "ns": 828,
+    "title": "Module:AnexeraTest1"
+  },
+  {
+    "pageid": 1593295,
+    "ns": 828,
+    "title": "Module:Animal/infobox"
+  },
+  {
+    "pageid": 1603513,
+    "ns": 828,
+    "title": "Module:Animal/infobox/doc"
+  },
+  {
+    "pageid": 1244305,
+    "ns": 828,
+    "title": "Module:Arcane"
+  },
+  {
+    "pageid": 1244302,
+    "ns": 828,
+    "title": "Module:Arcane/data"
+  },
+  {
+    "pageid": 1549895,
+    "ns": 828,
+    "title": "Module:Arcane/data/doc"
+  },
+  {
+    "pageid": 1554625,
+    "ns": 828,
+    "title": "Module:Arcane/dev"
+  },
+  {
+    "pageid": 1548690,
+    "ns": 828,
+    "title": "Module:Arcane/doc"
+  },
+  {
+    "pageid": 1549892,
+    "ns": 828,
+    "title": "Module:Arcane/infobox"
+  },
+  {
+    "pageid": 1593283,
+    "ns": 828,
+    "title": "Module:ArchModBox"
+  },
+  {
+    "pageid": 1571241,
+    "ns": 828,
+    "title": "Module:Arguments"
+  },
+  {
+    "pageid": 1571244,
+    "ns": 828,
+    "title": "Module:Arguments/doc"
+  },
+  {
+    "pageid": 1571242,
+    "ns": 828,
+    "title": "Module:Arguments/i18n"
+  },
+  {
+    "pageid": 1571243,
+    "ns": 828,
+    "title": "Module:Arguments/i18n/doc"
+  },
+  {
+    "pageid": 1294020,
+    "ns": 828,
+    "title": "Module:AureusAveRewardTablesTest"
+  },
+  {
+    "pageid": 1295174,
+    "ns": 828,
+    "title": "Module:AureusAveRewardTablesTest2"
+  },
+  {
+    "pageid": 1544242,
+    "ns": 828,
+    "title": "Module:Autapomorphy DevSandbox"
+  },
+  {
+    "pageid": 1503266,
+    "ns": 828,
+    "title": "Module:Avionics"
+  },
+  {
+    "pageid": 1503267,
+    "ns": 828,
+    "title": "Module:Avionics/data"
+  },
+  {
+    "pageid": 1544175,
+    "ns": 828,
+    "title": "Module:Avionics/data/desc"
+  },
+  {
+    "pageid": 1557817,
+    "ns": 828,
+    "title": "Module:Avionics/data/doc"
+  },
+  {
+    "pageid": 1544176,
+    "ns": 828,
+    "title": "Module:Avionics/doc"
+  },
+  {
+    "pageid": 1547808,
+    "ns": 828,
+    "title": "Module:Baro"
+  },
+  {
+    "pageid": 1547805,
+    "ns": 828,
+    "title": "Module:Baro/data"
+  },
+  {
+    "pageid": 1553629,
+    "ns": 828,
+    "title": "Module:Baro/data/dev"
+  },
+  {
+    "pageid": 1547819,
+    "ns": 828,
+    "title": "Module:Baro/data/doc"
+  },
+  {
+    "pageid": 1636875,
+    "ns": 828,
+    "title": "Module:Baro/data/typeConfigs"
+  },
+  {
+    "pageid": 1636877,
+    "ns": 828,
+    "title": "Module:Baro/data/typeConfigs/doc"
+  },
+  {
+    "pageid": 1553071,
+    "ns": 828,
+    "title": "Module:Baro/data/visits"
+  },
+  {
+    "pageid": 1553073,
+    "ns": 828,
+    "title": "Module:Baro/data/visits/doc"
+  },
+  {
+    "pageid": 1547812,
+    "ns": 828,
+    "title": "Module:Baro/doc"
+  },
+  {
+    "pageid": 1553628,
+    "ns": 828,
+    "title": "Module:Baro/history"
+  },
+  {
+    "pageid": 1561922,
+    "ns": 828,
+    "title": "Module:Baro/history/doc"
+  },
+  {
+    "pageid": 1553532,
+    "ns": 828,
+    "title": "Module:Baro/testcases"
+  },
+  {
+    "pageid": 1552785,
+    "ns": 828,
+    "title": "Module:Blueprints/data"
+  },
+  {
+    "pageid": 1552804,
+    "ns": 828,
+    "title": "Module:Blueprints/data/dev"
+  },
+  {
+    "pageid": 1555453,
+    "ns": 828,
+    "title": "Module:Blueprints/data/doc"
+  },
+  {
+    "pageid": 818187,
+    "ns": 828,
+    "title": "Module:BuildRequire"
+  },
+  {
+    "pageid": 1556995,
+    "ns": 828,
+    "title": "Module:CSV"
+  },
+  {
+    "pageid": 1556996,
+    "ns": 828,
+    "title": "Module:CSV/doc"
+  },
+  {
+    "pageid": 667700,
+    "ns": 828,
+    "title": "Module:ChickenArchive"
+  },
+  {
+    "pageid": 1012314,
+    "ns": 828,
+    "title": "Module:ChickenTest"
+  },
+  {
+    "pageid": 584104,
+    "ns": 828,
+    "title": "Module:ChickenTest/data"
+  },
+  {
+    "pageid": 755505,
+    "ns": 828,
+    "title": "Module:ChickenTest2"
+  },
+  {
+    "pageid": 1557842,
+    "ns": 828,
+    "title": "Module:Codec"
+  },
+  {
+    "pageid": 1557843,
+    "ns": 828,
+    "title": "Module:Codec/doc"
+  },
+  {
+    "pageid": 1544037,
+    "ns": 828,
+    "title": "Module:Codex"
+  },
+  {
+    "pageid": 1544035,
+    "ns": 828,
+    "title": "Module:Codex/data"
+  },
+  {
+    "pageid": 1544036,
+    "ns": 828,
+    "title": "Module:Codex/data/doc"
+  },
+  {
+    "pageid": 1544038,
+    "ns": 828,
+    "title": "Module:Codex/doc"
+  },
+  {
+    "pageid": 1545698,
+    "ns": 828,
+    "title": "Module:Common"
+  },
+  {
+    "pageid": 1571240,
+    "ns": 828,
+    "title": "Module:Common/doc"
+  },
+  {
+    "pageid": 1571238,
+    "ns": 828,
+    "title": "Module:Common/i18n"
+  },
+  {
+    "pageid": 1571239,
+    "ns": 828,
+    "title": "Module:Common/i18n/doc"
+  },
+  {
+    "pageid": 1549986,
+    "ns": 828,
+    "title": "Module:Companions/data"
+  },
+  {
+    "pageid": 1557818,
+    "ns": 828,
+    "title": "Module:Companions/data/doc"
+  },
+  {
+    "pageid": 1581275,
+    "ns": 828,
+    "title": "Module:Companions/infobox"
+  },
+  {
+    "pageid": 1549831,
+    "ns": 828,
+    "title": "Module:Conservation"
+  },
+  {
+    "pageid": 1549832,
+    "ns": 828,
+    "title": "Module:Conservation/data"
+  },
+  {
+    "pageid": 1549834,
+    "ns": 828,
+    "title": "Module:Conservation/data/doc"
+  },
+  {
+    "pageid": 1549835,
+    "ns": 828,
+    "title": "Module:Conservation/doc"
+  },
+  {
+    "pageid": 1554761,
+    "ns": 828,
+    "title": "Module:Conservation/infobox"
+  },
+  {
+    "pageid": 1561925,
+    "ns": 828,
+    "title": "Module:Conservation/infobox/doc"
+  },
+  {
+    "pageid": 1549836,
+    "ns": 828,
+    "title": "Module:Conservation/testcases"
+  },
+  {
+    "pageid": 1549837,
+    "ns": 828,
+    "title": "Module:Conservation/testcases/doc"
+  },
+  {
+    "pageid": 1604414,
+    "ns": 828,
+    "title": "Module:Cosmetics"
+  },
+  {
+    "pageid": 1546958,
+    "ns": 828,
+    "title": "Module:Cosmetics/data"
+  },
+  {
+    "pageid": 1631737,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/animationset"
+  },
+  {
+    "pageid": 1631762,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/archwingskin"
+  },
+  {
+    "pageid": 1631753,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/armor"
+  },
+  {
+    "pageid": 1631748,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/atomicyclelivery"
+  },
+  {
+    "pageid": 1631769,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/auxiliary"
+  },
+  {
+    "pageid": 1557808,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/doc"
+  },
+  {
+    "pageid": 1631731,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/emblem"
+  },
+  {
+    "pageid": 1631764,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/emotionmodule"
+  },
+  {
+    "pageid": 1631728,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/ephemera"
+  },
+  {
+    "pageid": 1631733,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/face"
+  },
+  {
+    "pageid": 1631743,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/facialaccessory"
+  },
+  {
+    "pageid": 1631734,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/genemaskingkit"
+  },
+  {
+    "pageid": 1631752,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/holster"
+  },
+  {
+    "pageid": 1631747,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/kahlarmor"
+  },
+  {
+    "pageid": 1631751,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/kaithe"
+  },
+  {
+    "pageid": 1631750,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/kavatarmor"
+  },
+  {
+    "pageid": 1631765,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/kdriveskin"
+  },
+  {
+    "pageid": 1631749,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/kubrowarmor"
+  },
+  {
+    "pageid": 1631771,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/kubrowcollar"
+  },
+  {
+    "pageid": 1631756,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/landingcraftlivery"
+  },
+  {
+    "pageid": 1631763,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/lotusskin"
+  },
+  {
+    "pageid": 1631766,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/moaskin"
+  },
+  {
+    "pageid": 1631759,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/necramechskin"
+  },
+  {
+    "pageid": 1631761,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/parazonskin"
+  },
+  {
+    "pageid": 1631735,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/pattern"
+  },
+  {
+    "pageid": 1631760,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/railjackskin"
+  },
+  {
+    "pageid": 1631736,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/scrawl"
+  },
+  {
+    "pageid": 1631754,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/sentinelarmor"
+  },
+  {
+    "pageid": 1631758,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/sentinelskin"
+  },
+  {
+    "pageid": 1631727,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/signa"
+  },
+  {
+    "pageid": 1631729,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/sugatra"
+  },
+  {
+    "pageid": 1631755,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/sumdali"
+  },
+  {
+    "pageid": 1631723,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/syandana"
+  },
+  {
+    "pageid": 1631744,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/texture"
+  },
+  {
+    "pageid": 1631742,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/transferencesuit"
+  },
+  {
+    "pageid": 1631772,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/uncategorized"
+  },
+  {
+    "pageid": 1636186,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/validate"
+  },
+  {
+    "pageid": 1631732,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/visageink"
+  },
+  {
+    "pageid": 1631767,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/warframehelmet"
+  },
+  {
+    "pageid": 1631768,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/warframeskin"
+  },
+  {
+    "pageid": 1631773,
+    "ns": 828,
+    "title": "Module:Cosmetics/data/weaponskin"
+  },
+  {
+    "pageid": 1604415,
+    "ns": 828,
+    "title": "Module:Cosmetics/doc"
+  },
+  {
+    "pageid": 1630749,
+    "ns": 828,
+    "title": "Module:Cosmetics/infobox"
+  },
+  {
+    "pageid": 1631725,
+    "ns": 828,
+    "title": "Module:Cosmetics/userdata"
+  },
+  {
+    "pageid": 1631730,
+    "ns": 828,
+    "title": "Module:Cosmetics/userdata/doc"
+  },
+  {
+    "pageid": 1188466,
+    "ns": 828,
+    "title": "Module:Cost"
+  },
+  {
+    "pageid": 1543831,
+    "ns": 828,
+    "title": "Module:Cost/doc"
+  },
+  {
+    "pageid": 1265684,
+    "ns": 828,
+    "title": "Module:CroqueTest"
+  },
+  {
+    "pageid": 1418345,
+    "ns": 828,
+    "title": "Module:CroqueTest/BKT"
+  },
+  {
+    "pageid": 1272560,
+    "ns": 828,
+    "title": "Module:CroqueTest/data"
+  },
+  {
+    "pageid": 1272639,
+    "ns": 828,
+    "title": "Module:CroqueTest/data2"
+  },
+  {
+    "pageid": 1272643,
+    "ns": 828,
+    "title": "Module:CroqueTest/data3"
+  },
+  {
+    "pageid": 1272568,
+    "ns": 828,
+    "title": "Module:CroqueTest/keywords"
+  },
+  {
+    "pageid": 1269307,
+    "ns": 828,
+    "title": "Module:CroqueTest2"
+  },
+  {
+    "pageid": 1287361,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV10"
+  },
+  {
+    "pageid": 1288690,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV11"
+  },
+  {
+    "pageid": 1288693,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV12"
+  },
+  {
+    "pageid": 1288694,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV13"
+  },
+  {
+    "pageid": 1288695,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV14"
+  },
+  {
+    "pageid": 1288696,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV15"
+  },
+  {
+    "pageid": 1288697,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV16"
+  },
+  {
+    "pageid": 1288698,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV17"
+  },
+  {
+    "pageid": 1288699,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV18"
+  },
+  {
+    "pageid": 1288702,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV19"
+  },
+  {
+    "pageid": 1288704,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV20"
+  },
+  {
+    "pageid": 1288823,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV21"
+  },
+  {
+    "pageid": 1289119,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV22"
+  },
+  {
+    "pageid": 1379081,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV22-2"
+  },
+  {
+    "pageid": 1284831,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV6"
+  },
+  {
+    "pageid": 1286849,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV7"
+  },
+  {
+    "pageid": 1286890,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV8"
+  },
+  {
+    "pageid": 1287360,
+    "ns": 828,
+    "title": "Module:CroqueTest2/DV9"
+  },
+  {
+    "pageid": 1269308,
+    "ns": 828,
+    "title": "Module:CroqueTest2/data"
+  },
+  {
+    "pageid": 1372056,
+    "ns": 828,
+    "title": "Module:CroqueTestModular/modulstats"
+  },
+  {
+    "pageid": 1300590,
+    "ns": 828,
+    "title": "Module:DamageTypes"
+  },
+  {
+    "pageid": 1593850,
+    "ns": 828,
+    "title": "Module:DamageTypes/colorContrastAdjuster"
+  },
+  {
+    "pageid": 1300435,
+    "ns": 828,
+    "title": "Module:DamageTypes/data"
+  },
+  {
+    "pageid": 1546282,
+    "ns": 828,
+    "title": "Module:DamageTypes/data/doc"
+  },
+  {
+    "pageid": 1543183,
+    "ns": 828,
+    "title": "Module:DamageTypes/doc"
+  },
+  {
+    "pageid": 1546347,
+    "ns": 828,
+    "title": "Module:DamageTypes/testcases"
+  },
+  {
+    "pageid": 1546348,
+    "ns": 828,
+    "title": "Module:DamageTypes/testcases/doc"
+  },
+  {
+    "pageid": 1557001,
+    "ns": 828,
+    "title": "Module:Database"
+  },
+  {
+    "pageid": 1557002,
+    "ns": 828,
+    "title": "Module:Database/doc"
+  },
+  {
+    "pageid": 1572179,
+    "ns": 828,
+    "title": "Module:DatastoreManifest"
+  },
+  {
+    "pageid": 1572180,
+    "ns": 828,
+    "title": "Module:DatastoreManifest/doc"
+  },
+  {
+    "pageid": 1553072,
+    "ns": 828,
+    "title": "Module:Date"
+  },
+  {
+    "pageid": 1572696,
+    "ns": 828,
+    "title": "Module:Date/doc"
+  },
+  {
+    "pageid": 1502491,
+    "ns": 828,
+    "title": "Module:Decorations"
+  },
+  {
+    "pageid": 1502490,
+    "ns": 828,
+    "title": "Module:Decorations/data"
+  },
+  {
+    "pageid": 1557807,
+    "ns": 828,
+    "title": "Module:Decorations/data/doc"
+  },
+  {
+    "pageid": 1548691,
+    "ns": 828,
+    "title": "Module:Decorations/doc"
+  },
+  {
+    "pageid": 1577511,
+    "ns": 828,
+    "title": "Module:Decrees/data"
+  },
+  {
+    "pageid": 1577512,
+    "ns": 828,
+    "title": "Module:Decrees/data/doc"
+  },
+  {
+    "pageid": 1568214,
+    "ns": 828,
+    "title": "Module:Delay"
+  },
+  {
+    "pageid": 1568215,
+    "ns": 828,
+    "title": "Module:Delay/doc"
+  },
+  {
+    "pageid": 1549778,
+    "ns": 828,
+    "title": "Module:DependencyGraph"
+  },
+  {
+    "pageid": 1549779,
+    "ns": 828,
+    "title": "Module:DependencyGraph/doc"
+  },
+  {
+    "pageid": 1643733,
+    "ns": 828,
+    "title": "Module:DevShortParticipantsList"
+  },
+  {
+    "pageid": 1643760,
+    "ns": 828,
+    "title": "Module:DevStreamParticipantsList"
+  },
+  {
+    "pageid": 1643688,
+    "ns": 828,
+    "title": "Module:DevstreamParticipantsList"
+  },
+  {
+    "pageid": 1644494,
+    "ns": 828,
+    "title": "Module:DevstreamParticipantsList/doc"
+  },
+  {
+    "pageid": 1545684,
+    "ns": 828,
+    "title": "Module:Docbunto"
+  },
+  {
+    "pageid": 1554556,
+    "ns": 828,
+    "title": "Module:Docbunto/cli"
+  },
+  {
+    "pageid": 1554557,
+    "ns": 828,
+    "title": "Module:Docbunto/cli/doc"
+  },
+  {
+    "pageid": 1545687,
+    "ns": 828,
+    "title": "Module:Docbunto/doc"
+  },
+  {
+    "pageid": 1571219,
+    "ns": 828,
+    "title": "Module:Docbunto/i18n"
+  },
+  {
+    "pageid": 1571220,
+    "ns": 828,
+    "title": "Module:Docbunto/i18n/doc"
+  },
+  {
+    "pageid": 1571218,
+    "ns": 828,
+    "title": "Module:Docbunto/references"
+  },
+  {
+    "pageid": 1571235,
+    "ns": 828,
+    "title": "Module:Docbunto/references/doc"
+  },
+  {
+    "pageid": 1571221,
+    "ns": 828,
+    "title": "Module:Docbunto/testcases"
+  },
+  {
+    "pageid": 1571222,
+    "ns": 828,
+    "title": "Module:Docbunto/testcases/doc"
+  },
+  {
+    "pageid": 1570173,
+    "ns": 828,
+    "title": "Module:DojoRoom/data"
+  },
+  {
+    "pageid": 1174460,
+    "ns": 828,
+    "title": "Module:DropTables"
+  },
+  {
+    "pageid": 1532140,
+    "ns": 828,
+    "title": "Module:DropTables/JSON"
+  },
+  {
+    "pageid": 1532748,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Cetus Bounties"
+  },
+  {
+    "pageid": 1532749,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Fortuna Bounties"
+  },
+  {
+    "pageid": 1532759,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Missions"
+  },
+  {
+    "pageid": 1532750,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Necralisk Bounties"
+  },
+  {
+    "pageid": 1532316,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Relics"
+  },
+  {
+    "pageid": 1532753,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Sorties"
+  },
+  {
+    "pageid": 1532870,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/Transient"
+  },
+  {
+    "pageid": 1543101,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/doc"
+  },
+  {
+    "pageid": 1514803,
+    "ns": 828,
+    "title": "Module:DropTables/JSON/slim"
+  },
+  {
+    "pageid": 1173967,
+    "ns": 828,
+    "title": "Module:DropTables/data"
+  },
+  {
+    "pageid": 1549745,
+    "ns": 828,
+    "title": "Module:DropTables/data/dev"
+  },
+  {
+    "pageid": 1543710,
+    "ns": 828,
+    "title": "Module:DropTables/data/doc"
+  },
+  {
+    "pageid": 1548799,
+    "ns": 828,
+    "title": "Module:DropTables/dev"
+  },
+  {
+    "pageid": 1548800,
+    "ns": 828,
+    "title": "Module:DropTables/dev/doc"
+  },
+  {
+    "pageid": 1548236,
+    "ns": 828,
+    "title": "Module:DropTables/doc"
+  },
+  {
+    "pageid": 1602733,
+    "ns": 828,
+    "title": "Module:Emptylord"
+  },
+  {
+    "pageid": 1602710,
+    "ns": 828,
+    "title": "Module:Emptylord/data"
+  },
+  {
+    "pageid": 1602711,
+    "ns": 828,
+    "title": "Module:Emptylord/data/doc"
+  },
+  {
+    "pageid": 1602732,
+    "ns": 828,
+    "title": "Module:Emptylord/getter"
+  },
+  {
+    "pageid": 1549759,
+    "ns": 828,
+    "title": "Module:Enemies/data"
+  },
+  {
+    "pageid": 1605266,
+    "ns": 828,
+    "title": "Module:Enemies/data/anarchs"
+  },
+  {
+    "pageid": 1586549,
+    "ns": 828,
+    "title": "Module:Enemies/data/corpus"
+  },
+  {
+    "pageid": 1555391,
+    "ns": 828,
+    "title": "Module:Enemies/data/doc"
+  },
+  {
+    "pageid": 1586548,
+    "ns": 828,
+    "title": "Module:Enemies/data/grineer"
+  },
+  {
+    "pageid": 1586551,
+    "ns": 828,
+    "title": "Module:Enemies/data/infestation"
+  },
+  {
+    "pageid": 1586555,
+    "ns": 828,
+    "title": "Module:Enemies/data/narmer"
+  },
+  {
+    "pageid": 1586552,
+    "ns": 828,
+    "title": "Module:Enemies/data/orokin"
+  },
+  {
+    "pageid": 1585699,
+    "ns": 828,
+    "title": "Module:Enemies/data/pre-U36"
+  },
+  {
+    "pageid": 1585700,
+    "ns": 828,
+    "title": "Module:Enemies/data/pre-U36/doc"
+  },
+  {
+    "pageid": 1589433,
+    "ns": 828,
+    "title": "Module:Enemies/data/scaldra"
+  },
+  {
+    "pageid": 1586553,
+    "ns": 828,
+    "title": "Module:Enemies/data/sentient"
+  },
+  {
+    "pageid": 1586554,
+    "ns": 828,
+    "title": "Module:Enemies/data/stalker"
+  },
+  {
+    "pageid": 1589434,
+    "ns": 828,
+    "title": "Module:Enemies/data/techrot"
+  },
+  {
+    "pageid": 1586556,
+    "ns": 828,
+    "title": "Module:Enemies/data/themurmur"
+  },
+  {
+    "pageid": 1586557,
+    "ns": 828,
+    "title": "Module:Enemies/data/unaffiliated"
+  },
+  {
+    "pageid": 1594047,
+    "ns": 828,
+    "title": "Module:Enemies/data/unaffiliated/doc"
+  },
+  {
+    "pageid": 1549761,
+    "ns": 828,
+    "title": "Module:Enemies/infobox"
+  },
+  {
+    "pageid": 1607149,
+    "ns": 828,
+    "title": "Module:Enemies/infobox/dev"
+  },
+  {
+    "pageid": 1602087,
+    "ns": 828,
+    "title": "Module:Enemies/infobox/doc"
+  },
+  {
+    "pageid": 1571212,
+    "ns": 828,
+    "title": "Module:Entrypoint"
+  },
+  {
+    "pageid": 1571214,
+    "ns": 828,
+    "title": "Module:Entrypoint/doc"
+  },
+  {
+    "pageid": 1574652,
+    "ns": 828,
+    "title": "Module:Enum/data"
+  },
+  {
+    "pageid": 1574711,
+    "ns": 828,
+    "title": "Module:Enum/data/doc"
+  },
+  {
+    "pageid": 1418931,
+    "ns": 828,
+    "title": "Module:FINNER DropTables Test"
+  },
+  {
+    "pageid": 1372994,
+    "ns": 828,
+    "title": "Module:FINNER Icon Test"
+  },
+  {
+    "pageid": 1454661,
+    "ns": 828,
+    "title": "Module:FINNER Test"
+  },
+  {
+    "pageid": 1472785,
+    "ns": 828,
+    "title": "Module:FINNER Test/data"
+  },
+  {
+    "pageid": 1556970,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/1"
+  },
+  {
+    "pageid": 1556971,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/2"
+  },
+  {
+    "pageid": 1556972,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/3"
+  },
+  {
+    "pageid": 1556973,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/4"
+  },
+  {
+    "pageid": 1556974,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/5"
+  },
+  {
+    "pageid": 1556975,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/6"
+  },
+  {
+    "pageid": 1556976,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/7"
+  },
+  {
+    "pageid": 1556977,
+    "ns": 828,
+    "title": "Module:FINNER Test/data/8"
+  },
+  {
+    "pageid": 1374782,
+    "ns": 828,
+    "title": "Module:FINNER Warframe Test"
+  },
+  {
+    "pageid": 1291653,
+    "ns": 828,
+    "title": "Module:FINNER Weapon Test"
+  },
+  {
+    "pageid": 659308,
+    "ns": 828,
+    "title": "Module:FactionScript"
+  },
+  {
+    "pageid": 659357,
+    "ns": 828,
+    "title": "Module:FactionScript/data"
+  },
+  {
+    "pageid": 1557802,
+    "ns": 828,
+    "title": "Module:FactionScript/data/doc"
+  },
+  {
+    "pageid": 1548692,
+    "ns": 828,
+    "title": "Module:FactionScript/doc"
+  },
+  {
+    "pageid": 1571166,
+    "ns": 828,
+    "title": "Module:Factions/data"
+  },
+  {
+    "pageid": 1571167,
+    "ns": 828,
+    "title": "Module:Factions/data/doc"
+  },
+  {
+    "pageid": 1571211,
+    "ns": 828,
+    "title": "Module:FallbackList"
+  },
+  {
+    "pageid": 1571213,
+    "ns": 828,
+    "title": "Module:FallbackList/doc"
+  },
+  {
+    "pageid": 1165012,
+    "ns": 828,
+    "title": "Module:FalterTest"
+  },
+  {
+    "pageid": 1173782,
+    "ns": 828,
+    "title": "Module:FalterTest/data"
+  },
+  {
+    "pageid": 1427617,
+    "ns": 828,
+    "title": "Module:Flaicher"
+  },
+  {
+    "pageid": 1330051,
+    "ns": 828,
+    "title": "Module:Flaicher/Conv"
+  },
+  {
+    "pageid": 1330530,
+    "ns": 828,
+    "title": "Module:Flaicher/Conv/data"
+  },
+  {
+    "pageid": 1514467,
+    "ns": 828,
+    "title": "Module:Flaicher/DropTables"
+  },
+  {
+    "pageid": 1514471,
+    "ns": 828,
+    "title": "Module:Flaicher/DropTables/data"
+  },
+  {
+    "pageid": 1384013,
+    "ns": 828,
+    "title": "Module:Flaicher/Mods"
+  },
+  {
+    "pageid": 1543187,
+    "ns": 828,
+    "title": "Module:Flaicher/dispoData"
+  },
+  {
+    "pageid": 1308623,
+    "ns": 828,
+    "title": "Module:FlaicherTest"
+  },
+  {
+    "pageid": 1227735,
+    "ns": 828,
+    "title": "Module:Focus"
+  },
+  {
+    "pageid": 1227724,
+    "ns": 828,
+    "title": "Module:Focus/data"
+  },
+  {
+    "pageid": 1553003,
+    "ns": 828,
+    "title": "Module:Focus/data/archived"
+  },
+  {
+    "pageid": 1557806,
+    "ns": 828,
+    "title": "Module:Focus/data/doc"
+  },
+  {
+    "pageid": 1553004,
+    "ns": 828,
+    "title": "Module:Focus/doc"
+  },
+  {
+    "pageid": 1563225,
+    "ns": 828,
+    "title": "Module:Focus/infobox"
+  },
+  {
+    "pageid": 1272263,
+    "ns": 828,
+    "title": "Module:FormatingTool"
+  },
+  {
+    "pageid": 1272942,
+    "ns": 828,
+    "title": "Module:FormatingTool/data"
+  },
+  {
+    "pageid": 1286573,
+    "ns": 828,
+    "title": "Module:FormatingTool/data2"
+  },
+  {
+    "pageid": 1600623,
+    "ns": 828,
+    "title": "Module:FormatingTool/doc"
+  },
+  {
+    "pageid": 1286600,
+    "ns": 828,
+    "title": "Module:FormatingTool/missions"
+  },
+  {
+    "pageid": 1546045,
+    "ns": 828,
+    "title": "Module:Gallery"
+  },
+  {
+    "pageid": 1546046,
+    "ns": 828,
+    "title": "Module:Gallery/doc"
+  },
+  {
+    "pageid": 1546397,
+    "ns": 828,
+    "title": "Module:Gallery/testcases"
+  },
+  {
+    "pageid": 1546398,
+    "ns": 828,
+    "title": "Module:Gallery/testcases/doc"
+  },
+  {
+    "pageid": 1510833,
+    "ns": 828,
+    "title": "Module:GigaTest"
+  },
+  {
+    "pageid": 1557674,
+    "ns": 828,
+    "title": "Module:GuaranteedRewards/data"
+  },
+  {
+    "pageid": 1557675,
+    "ns": 828,
+    "title": "Module:GuaranteedRewards/data/doc"
+  },
+  {
+    "pageid": 1544029,
+    "ns": 828,
+    "title": "Module:HexTest"
+  },
+  {
+    "pageid": 1544030,
+    "ns": 828,
+    "title": "Module:HexTest/data"
+  },
+  {
+    "pageid": 1644172,
+    "ns": 828,
+    "title": "Module:Honorias"
+  },
+  {
+    "pageid": 1644174,
+    "ns": 828,
+    "title": "Module:Honorias/data"
+  },
+  {
+    "pageid": 1644175,
+    "ns": 828,
+    "title": "Module:Honorias/data/doc"
+  },
+  {
+    "pageid": 1644176,
+    "ns": 828,
+    "title": "Module:Honorias/data/validate"
+  },
+  {
+    "pageid": 1644177,
+    "ns": 828,
+    "title": "Module:Honorias/data/validate/doc"
+  },
+  {
+    "pageid": 1644173,
+    "ns": 828,
+    "title": "Module:Honorias/doc"
+  },
+  {
+    "pageid": 1545690,
+    "ns": 828,
+    "title": "Module:I18n"
+  },
+  {
+    "pageid": 1552977,
+    "ns": 828,
+    "title": "Module:I18n/doc"
+  },
+  {
+    "pageid": 1571216,
+    "ns": 828,
+    "title": "Module:I18n/testcases"
+  },
+  {
+    "pageid": 1571217,
+    "ns": 828,
+    "title": "Module:I18n/testcases/doc"
+  },
+  {
+    "pageid": 583463,
+    "ns": 828,
+    "title": "Module:Icon"
+  },
+  {
+    "pageid": 583462,
+    "ns": 828,
+    "title": "Module:Icon/data"
+  },
+  {
+    "pageid": 1543709,
+    "ns": 828,
+    "title": "Module:Icon/data/doc"
+  },
+  {
+    "pageid": 1546292,
+    "ns": 828,
+    "title": "Module:Icon/doc"
+  },
+  {
+    "pageid": 1546297,
+    "ns": 828,
+    "title": "Module:Icon/testcases"
+  },
+  {
+    "pageid": 1546296,
+    "ns": 828,
+    "title": "Module:Icon/testcases/doc"
+  },
+  {
+    "pageid": 1545691,
+    "ns": 828,
+    "title": "Module:Infobox"
+  },
+  {
+    "pageid": 1546940,
+    "ns": 828,
+    "title": "Module:Infobox/doc"
+  },
+  {
+    "pageid": 1571246,
+    "ns": 828,
+    "title": "Module:Infobox/i18n"
+  },
+  {
+    "pageid": 1571247,
+    "ns": 828,
+    "title": "Module:Infobox/i18n/doc"
+  },
+  {
+    "pageid": 1554478,
+    "ns": 828,
+    "title": "Module:InfoboxBuilder"
+  },
+  {
+    "pageid": 1554481,
+    "ns": 828,
+    "title": "Module:InfoboxBuilder/dev"
+  },
+  {
+    "pageid": 1554479,
+    "ns": 828,
+    "title": "Module:InfoboxBuilder/doc"
+  },
+  {
+    "pageid": 1593284,
+    "ns": 828,
+    "title": "Module:InfoboxGallery"
+  },
+  {
+    "pageid": 1571251,
+    "ns": 828,
+    "title": "Module:Inspect"
+  },
+  {
+    "pageid": 1571252,
+    "ns": 828,
+    "title": "Module:Inspect/doc"
+  },
+  {
+    "pageid": 1571281,
+    "ns": 828,
+    "title": "Module:InternalNames"
+  },
+  {
+    "pageid": 1571282,
+    "ns": 828,
+    "title": "Module:InternalNames/doc"
+  },
+  {
+    "pageid": 1514999,
+    "ns": 828,
+    "title": "Module:JSON"
+  },
+  {
+    "pageid": 1556989,
+    "ns": 828,
+    "title": "Module:JSON/doc"
+  },
+  {
+    "pageid": 1545525,
+    "ns": 828,
+    "title": "Module:KeyBindings"
+  },
+  {
+    "pageid": 1545526,
+    "ns": 828,
+    "title": "Module:KeyBindings/data"
+  },
+  {
+    "pageid": 1557803,
+    "ns": 828,
+    "title": "Module:KeyBindings/data/doc"
+  },
+  {
+    "pageid": 1575223,
+    "ns": 828,
+    "title": "Module:Keys/data"
+  },
+  {
+    "pageid": 1575224,
+    "ns": 828,
+    "title": "Module:Keys/data/doc"
+  },
+  {
+    "pageid": 1593285,
+    "ns": 828,
+    "title": "Module:Lang"
+  },
+  {
+    "pageid": 1593286,
+    "ns": 828,
+    "title": "Module:Lang/ISO 639 synonyms"
+  },
+  {
+    "pageid": 1593287,
+    "ns": 828,
+    "title": "Module:Lang/configuration"
+  },
+  {
+    "pageid": 1593288,
+    "ns": 828,
+    "title": "Module:Lang/data"
+  },
+  {
+    "pageid": 1593289,
+    "ns": 828,
+    "title": "Module:Lang/data/iana languages"
+  },
+  {
+    "pageid": 1593290,
+    "ns": 828,
+    "title": "Module:Lang/data/iana regions"
+  },
+  {
+    "pageid": 1593291,
+    "ns": 828,
+    "title": "Module:Lang/data/iana scripts"
+  },
+  {
+    "pageid": 1593292,
+    "ns": 828,
+    "title": "Module:Lang/data/iana suppressed scripts"
+  },
+  {
+    "pageid": 1593293,
+    "ns": 828,
+    "title": "Module:Lang/data/iana variants"
+  },
+  {
+    "pageid": 1593294,
+    "ns": 828,
+    "title": "Module:Lang/data/is latn data"
+  },
+  {
+    "pageid": 1545700,
+    "ns": 828,
+    "title": "Module:LanguageList"
+  },
+  {
+    "pageid": 1571248,
+    "ns": 828,
+    "title": "Module:LanguageList/doc"
+  },
+  {
+    "pageid": 1571223,
+    "ns": 828,
+    "title": "Module:Lexer"
+  },
+  {
+    "pageid": 1571233,
+    "ns": 828,
+    "title": "Module:Lexer/doc"
+  },
+  {
+    "pageid": 1606840,
+    "ns": 828,
+    "title": "Module:Localization"
+  },
+  {
+    "pageid": 1606839,
+    "ns": 828,
+    "title": "Module:Localization/Suits.json"
+  },
+  {
+    "pageid": 1606841,
+    "ns": 828,
+    "title": "Module:Localization/doc"
+  },
+  {
+    "pageid": 1502450,
+    "ns": 828,
+    "title": "Module:Lua"
+  },
+  {
+    "pageid": 1548689,
+    "ns": 828,
+    "title": "Module:Lua/doc"
+  },
+  {
+    "pageid": 1574263,
+    "ns": 828,
+    "title": "Module:LuaClassSystem"
+  },
+  {
+    "pageid": 1574264,
+    "ns": 828,
+    "title": "Module:LuaClassSystem/doc"
+  },
+  {
+    "pageid": 1549724,
+    "ns": 828,
+    "title": "Module:LuaSerializer"
+  },
+  {
+    "pageid": 1549727,
+    "ns": 828,
+    "title": "Module:LuaSerializer/dev"
+  },
+  {
+    "pageid": 1549728,
+    "ns": 828,
+    "title": "Module:LuaSerializer/dev/doc"
+  },
+  {
+    "pageid": 1549725,
+    "ns": 828,
+    "title": "Module:LuaSerializer/doc"
+  },
+  {
+    "pageid": 1598920,
+    "ns": 828,
+    "title": "Module:LuaSerializerTwo"
+  },
+  {
+    "pageid": 1598921,
+    "ns": 828,
+    "title": "Module:LuaSerializerTwo/doc"
+  },
+  {
+    "pageid": 1577847,
+    "ns": 828,
+    "title": "Module:Map"
+  },
+  {
+    "pageid": 1577869,
+    "ns": 828,
+    "title": "Module:Map/doc"
+  },
+  {
+    "pageid": 1577901,
+    "ns": 828,
+    "title": "Module:Map/testcases"
+  },
+  {
+    "pageid": 1577902,
+    "ns": 828,
+    "title": "Module:Map/testcases/doc"
+  },
+  {
+    "pageid": 1491278,
+    "ns": 828,
+    "title": "Module:MasteryRank"
+  },
+  {
+    "pageid": 1549688,
+    "ns": 828,
+    "title": "Module:MasteryRank/dev"
+  },
+  {
+    "pageid": 1546939,
+    "ns": 828,
+    "title": "Module:MasteryRank/doc"
+  },
+  {
+    "pageid": 1512401,
+    "ns": 828,
+    "title": "Module:Math"
+  },
+  {
+    "pageid": 1552845,
+    "ns": 828,
+    "title": "Module:Math/dev"
+  },
+  {
+    "pageid": 1544817,
+    "ns": 828,
+    "title": "Module:Math/doc"
+  },
+  {
+    "pageid": 1552638,
+    "ns": 828,
+    "title": "Module:Math/i18n"
+  },
+  {
+    "pageid": 1552872,
+    "ns": 828,
+    "title": "Module:Math/i18n/doc"
+  },
+  {
+    "pageid": 1544814,
+    "ns": 828,
+    "title": "Module:Math/testcases"
+  },
+  {
+    "pageid": 1545703,
+    "ns": 828,
+    "title": "Module:Math/testcases/doc"
+  },
+  {
+    "pageid": 1549432,
+    "ns": 828,
+    "title": "Module:Math/testcases/module"
+  },
+  {
+    "pageid": 1531238,
+    "ns": 828,
+    "title": "Module:Maximization"
+  },
+  {
+    "pageid": 1531239,
+    "ns": 828,
+    "title": "Module:Maximization/data"
+  },
+  {
+    "pageid": 1557804,
+    "ns": 828,
+    "title": "Module:Maximization/data/doc"
+  },
+  {
+    "pageid": 1644147,
+    "ns": 828,
+    "title": "Module:Maximization/doc"
+  },
+  {
+    "pageid": 1546290,
+    "ns": 828,
+    "title": "Module:Mbox"
+  },
+  {
+    "pageid": 1546294,
+    "ns": 828,
+    "title": "Module:Mbox/doc"
+  },
+  {
+    "pageid": 1546295,
+    "ns": 828,
+    "title": "Module:Mbox/i18n"
+  },
+  {
+    "pageid": 1571245,
+    "ns": 828,
+    "title": "Module:Mbox/i18n/doc"
+  },
+  {
+    "pageid": 1189925,
+    "ns": 828,
+    "title": "Module:Missions"
+  },
+  {
+    "pageid": 1190413,
+    "ns": 828,
+    "title": "Module:Missions/data"
+  },
+  {
+    "pageid": 1551976,
+    "ns": 828,
+    "title": "Module:Missions/data/dev"
+  },
+  {
+    "pageid": 1548791,
+    "ns": 828,
+    "title": "Module:Missions/data/doc"
+  },
+  {
+    "pageid": 1549848,
+    "ns": 828,
+    "title": "Module:Missions/dev"
+  },
+  {
+    "pageid": 1548238,
+    "ns": 828,
+    "title": "Module:Missions/doc"
+  },
+  {
+    "pageid": 1574252,
+    "ns": 828,
+    "title": "Module:Missions/infobox"
+  },
+  {
+    "pageid": 1574255,
+    "ns": 828,
+    "title": "Module:Missions/page"
+  },
+  {
+    "pageid": 1214416,
+    "ns": 828,
+    "title": "Module:Mods"
+  },
+  {
+    "pageid": 1577710,
+    "ns": 828,
+    "title": "Module:Mods/csv"
+  },
+  {
+    "pageid": 1577714,
+    "ns": 828,
+    "title": "Module:Mods/csv2"
+  },
+  {
+    "pageid": 1214403,
+    "ns": 828,
+    "title": "Module:Mods/data"
+  },
+  {
+    "pageid": 1570195,
+    "ns": 828,
+    "title": "Module:Mods/data/dev"
+  },
+  {
+    "pageid": 1543797,
+    "ns": 828,
+    "title": "Module:Mods/data/doc"
+  },
+  {
+    "pageid": 1548790,
+    "ns": 828,
+    "title": "Module:Mods/data/validate"
+  },
+  {
+    "pageid": 1549557,
+    "ns": 828,
+    "title": "Module:Mods/data/validate/doc"
+  },
+  {
+    "pageid": 1546230,
+    "ns": 828,
+    "title": "Module:Mods/doc"
+  },
+  {
+    "pageid": 1549735,
+    "ns": 828,
+    "title": "Module:Mods/infobox"
+  },
+  {
+    "pageid": 1594616,
+    "ns": 828,
+    "title": "Module:Mods/itemCompatibility"
+  },
+  {
+    "pageid": 1594615,
+    "ns": 828,
+    "title": "Module:Mods/itemCompatibility/data"
+  },
+  {
+    "pageid": 1594676,
+    "ns": 828,
+    "title": "Module:Mods/itemCompatibility/doc"
+  },
+  {
+    "pageid": 1546245,
+    "ns": 828,
+    "title": "Module:Mods/testcases"
+  },
+  {
+    "pageid": 1546246,
+    "ns": 828,
+    "title": "Module:Mods/testcases/doc"
+  },
+  {
+    "pageid": 1371231,
+    "ns": 828,
+    "title": "Module:Modular"
+  },
+  {
+    "pageid": 1371233,
+    "ns": 828,
+    "title": "Module:Modular/data"
+  },
+  {
+    "pageid": 1557805,
+    "ns": 828,
+    "title": "Module:Modular/data/doc"
+  },
+  {
+    "pageid": 1640865,
+    "ns": 828,
+    "title": "Module:Modular/data/kitgun"
+  },
+  {
+    "pageid": 1549901,
+    "ns": 828,
+    "title": "Module:Modular/doc"
+  },
+  {
+    "pageid": 1640864,
+    "ns": 828,
+    "title": "Module:Modular/generator"
+  },
+  {
+    "pageid": 1544813,
+    "ns": 828,
+    "title": "Module:ModuleTest"
+  },
+  {
+    "pageid": 1544821,
+    "ns": 828,
+    "title": "Module:ModuleTest/doc"
+  },
+  {
+    "pageid": 1566279,
+    "ns": 828,
+    "title": "Module:Music/data"
+  },
+  {
+    "pageid": 1566626,
+    "ns": 828,
+    "title": "Module:Music/data/doc"
+  },
+  {
+    "pageid": 1643622,
+    "ns": 828,
+    "title": "Module:MyCodex"
+  },
+  {
+    "pageid": 1557048,
+    "ns": 828,
+    "title": "Module:Navbox"
+  },
+  {
+    "pageid": 1557052,
+    "ns": 828,
+    "title": "Module:Navbox/doc"
+  },
+  {
+    "pageid": 1548708,
+    "ns": 828,
+    "title": "Module:Navigation"
+  },
+  {
+    "pageid": 1548706,
+    "ns": 828,
+    "title": "Module:Navigation/dev"
+  },
+  {
+    "pageid": 1548709,
+    "ns": 828,
+    "title": "Module:Navigation/doc"
+  },
+  {
+    "pageid": 1478579,
+    "ns": 828,
+    "title": "Module:NightwaveActs"
+  },
+  {
+    "pageid": 1549953,
+    "ns": 828,
+    "title": "Module:NightwaveActs/acts.json"
+  },
+  {
+    "pageid": 1548752,
+    "ns": 828,
+    "title": "Module:NightwaveActs/dev"
+  },
+  {
+    "pageid": 1543467,
+    "ns": 828,
+    "title": "Module:NightwaveActs/doc"
+  },
+  {
+    "pageid": 1565703,
+    "ns": 828,
+    "title": "Module:Placeholder"
+  },
+  {
+    "pageid": 1569050,
+    "ns": 828,
+    "title": "Module:Placeholder/doc"
+  },
+  {
+    "pageid": 1548847,
+    "ns": 828,
+    "title": "Module:Polarity"
+  },
+  {
+    "pageid": 1548848,
+    "ns": 828,
+    "title": "Module:Polarity/doc"
+  },
+  {
+    "pageid": 1557529,
+    "ns": 828,
+    "title": "Module:Reference"
+  },
+  {
+    "pageid": 1557530,
+    "ns": 828,
+    "title": "Module:Reference/doc"
+  },
+  {
+    "pageid": 1545694,
+    "ns": 828,
+    "title": "Module:ReleaseStatus"
+  },
+  {
+    "pageid": 1571266,
+    "ns": 828,
+    "title": "Module:ReleaseStatus/data"
+  },
+  {
+    "pageid": 1571268,
+    "ns": 828,
+    "title": "Module:ReleaseStatus/doc"
+  },
+  {
+    "pageid": 1571265,
+    "ns": 828,
+    "title": "Module:ReleaseStatus/i18n"
+  },
+  {
+    "pageid": 1571267,
+    "ns": 828,
+    "title": "Module:ReleaseStatus/i18n/doc"
+  },
+  {
+    "pageid": 1518379,
+    "ns": 828,
+    "title": "Module:RemoveCategory"
+  },
+  {
+    "pageid": 1545436,
+    "ns": 828,
+    "title": "Module:RemoveCategory/doc"
+  },
+  {
+    "pageid": 1192198,
+    "ns": 828,
+    "title": "Module:Research/data"
+  },
+  {
+    "pageid": 1543820,
+    "ns": 828,
+    "title": "Module:Research/data/doc"
+  },
+  {
+    "pageid": 1552062,
+    "ns": 828,
+    "title": "Module:Resources"
+  },
+  {
+    "pageid": 1552042,
+    "ns": 828,
+    "title": "Module:Resources/data"
+  },
+  {
+    "pageid": 1552190,
+    "ns": 828,
+    "title": "Module:Resources/data/dev"
+  },
+  {
+    "pageid": 1552055,
+    "ns": 828,
+    "title": "Module:Resources/data/doc"
+  },
+  {
+    "pageid": 1571498,
+    "ns": 828,
+    "title": "Module:Resources/data/validate"
+  },
+  {
+    "pageid": 1552063,
+    "ns": 828,
+    "title": "Module:Resources/doc"
+  },
+  {
+    "pageid": 1552048,
+    "ns": 828,
+    "title": "Module:Resources/infobox"
+  },
+  {
+    "pageid": 1214425,
+    "ns": 828,
+    "title": "Module:Sandbox"
+  },
+  {
+    "pageid": 1643679,
+    "ns": 828,
+    "title": "Module:Sandbox/ArbitraryMary/SigilGallery"
+  },
+  {
+    "pageid": 1643681,
+    "ns": 828,
+    "title": "Module:Sandbox/ArbitraryMary/Sigils/data"
+  },
+  {
+    "pageid": 1577691,
+    "ns": 828,
+    "title": "Module:Sandbox/DutyS12345"
+  },
+  {
+    "pageid": 1554586,
+    "ns": 828,
+    "title": "Module:Sandbox/Hilycker/SortTest"
+  },
+  {
+    "pageid": 1554587,
+    "ns": 828,
+    "title": "Module:Sandbox/Hilycker/SortTest/data"
+  },
+  {
+    "pageid": 1646795,
+    "ns": 828,
+    "title": "Module:Sandbox/Ivi104/Sorties"
+  },
+  {
+    "pageid": 1646792,
+    "ns": 828,
+    "title": "Module:Sandbox/Ivi104/Sorties/doc"
+  },
+  {
+    "pageid": 1644458,
+    "ns": 828,
+    "title": "Module:Sandbox/Lucco1"
+  },
+  {
+    "pageid": 1571920,
+    "ns": 828,
+    "title": "Module:Sandbox/Moxian"
+  },
+  {
+    "pageid": 1644125,
+    "ns": 828,
+    "title": "Module:Sandbox/ScribuntoDebugConsole"
+  },
+  {
+    "pageid": 1599751,
+    "ns": 828,
+    "title": "Module:Sandbox/Sean/Tooltips"
+  },
+  {
+    "pageid": 1599752,
+    "ns": 828,
+    "title": "Module:Sandbox/Sean/Tooltips/icon"
+  },
+  {
+    "pageid": 1602089,
+    "ns": 828,
+    "title": "Module:Sandbox/Sean/Warframes/data"
+  },
+  {
+    "pageid": 1599837,
+    "ns": 828,
+    "title": "Module:Sandbox/Sean/Weapons/nav"
+  },
+  {
+    "pageid": 1572203,
+    "ns": 828,
+    "title": "Module:Sandbox/SkipThisAd/DropTables"
+  },
+  {
+    "pageid": 1641831,
+    "ns": 828,
+    "title": "Module:Sandbox/Vondak/Test"
+  },
+  {
+    "pageid": 1646889,
+    "ns": 828,
+    "title": "Module:Sandbox/Yazuh/Cosmetics"
+  },
+  {
+    "pageid": 1571924,
+    "ns": 828,
+    "title": "Module:Sandbox/doc"
+  },
+  {
+    "pageid": 1572293,
+    "ns": 828,
+    "title": "Module:Sandbox/lonnstyle/Warframes/infobox"
+  },
+  {
+    "pageid": 1464655,
+    "ns": 828,
+    "title": "Module:ScientiaStances"
+  },
+  {
+    "pageid": 1464664,
+    "ns": 828,
+    "title": "Module:ScientiaStances/data"
+  },
+  {
+    "pageid": 1469841,
+    "ns": 828,
+    "title": "Module:ScientiaStances/sharedCombosData"
+  },
+  {
+    "pageid": 1394479,
+    "ns": 828,
+    "title": "Module:ScientiaTest"
+  },
+  {
+    "pageid": 1394498,
+    "ns": 828,
+    "title": "Module:ScientiaTest/data"
+  },
+  {
+    "pageid": 1548230,
+    "ns": 828,
+    "title": "Module:ScientiaTest/doc"
+  },
+  {
+    "pageid": 1549685,
+    "ns": 828,
+    "title": "Module:ScientiaTest/i18n"
+  },
+  {
+    "pageid": 1175548,
+    "ns": 828,
+    "title": "Module:Shared"
+  },
+  {
+    "pageid": 1543737,
+    "ns": 828,
+    "title": "Module:Shared/doc"
+  },
+  {
+    "pageid": 1546003,
+    "ns": 828,
+    "title": "Module:Shared/testcases"
+  },
+  {
+    "pageid": 1546002,
+    "ns": 828,
+    "title": "Module:Shared/testcases/doc"
+  },
+  {
+    "pageid": 1565704,
+    "ns": 828,
+    "title": "Module:Sigils/data"
+  },
+  {
+    "pageid": 1568243,
+    "ns": 828,
+    "title": "Module:Sigils/data/doc"
+  },
+  {
+    "pageid": 1300227,
+    "ns": 828,
+    "title": "Module:SnekwTest"
+  },
+  {
+    "pageid": 1594533,
+    "ns": 828,
+    "title": "Module:SpxceVendor"
+  },
+  {
+    "pageid": 1473089,
+    "ns": 828,
+    "title": "Module:Stances"
+  },
+  {
+    "pageid": 1473088,
+    "ns": 828,
+    "title": "Module:Stances/data"
+  },
+  {
+    "pageid": 1551734,
+    "ns": 828,
+    "title": "Module:Stances/data/dev"
+  },
+  {
+    "pageid": 1543307,
+    "ns": 828,
+    "title": "Module:Stances/data/doc"
+  },
+  {
+    "pageid": 1549683,
+    "ns": 828,
+    "title": "Module:Stances/dev"
+  },
+  {
+    "pageid": 1544703,
+    "ns": 828,
+    "title": "Module:Stances/doc"
+  },
+  {
+    "pageid": 1562523,
+    "ns": 828,
+    "title": "Module:StatObject"
+  },
+  {
+    "pageid": 1562525,
+    "ns": 828,
+    "title": "Module:StatObject/doc"
+  },
+  {
+    "pageid": 1629972,
+    "ns": 828,
+    "title": "Module:Stats/data"
+  },
+  {
+    "pageid": 1546051,
+    "ns": 828,
+    "title": "Module:String"
+  },
+  {
+    "pageid": 1546052,
+    "ns": 828,
+    "title": "Module:String/doc"
+  },
+  {
+    "pageid": 1546053,
+    "ns": 828,
+    "title": "Module:String/testcases"
+  },
+  {
+    "pageid": 1546054,
+    "ns": 828,
+    "title": "Module:String/testcases/doc"
+  },
+  {
+    "pageid": 893193,
+    "ns": 828,
+    "title": "Module:Switch Infobox"
+  },
+  {
+    "pageid": 1293956,
+    "ns": 828,
+    "title": "Module:Syndicates/data"
+  },
+  {
+    "pageid": 1557816,
+    "ns": 828,
+    "title": "Module:Syndicates/data/doc"
+  },
+  {
+    "pageid": 1370732,
+    "ns": 828,
+    "title": "Module:SynthTest"
+  },
+  {
+    "pageid": 1645005,
+    "ns": 828,
+    "title": "Module:Synthesis"
+  },
+  {
+    "pageid": 1645004,
+    "ns": 828,
+    "title": "Module:Synthesis/data"
+  },
+  {
+    "pageid": 1645008,
+    "ns": 828,
+    "title": "Module:Synthesis/data/doc"
+  },
+  {
+    "pageid": 1645007,
+    "ns": 828,
+    "title": "Module:Synthesis/data/validate"
+  },
+  {
+    "pageid": 1645009,
+    "ns": 828,
+    "title": "Module:Synthesis/data/validate/doc"
+  },
+  {
+    "pageid": 1645006,
+    "ns": 828,
+    "title": "Module:Synthesis/doc"
+  },
+  {
+    "pageid": 1546389,
+    "ns": 828,
+    "title": "Module:Table"
+  },
+  {
+    "pageid": 1546390,
+    "ns": 828,
+    "title": "Module:Table/doc"
+  },
+  {
+    "pageid": 1548696,
+    "ns": 828,
+    "title": "Module:Table/testcases"
+  },
+  {
+    "pageid": 1548695,
+    "ns": 828,
+    "title": "Module:Table/testcases/doc"
+  },
+  {
+    "pageid": 1593296,
+    "ns": 828,
+    "title": "Module:Tabs"
+  },
+  {
+    "pageid": 1593297,
+    "ns": 828,
+    "title": "Module:Tabs/doc"
+  },
+  {
+    "pageid": 1546387,
+    "ns": 828,
+    "title": "Module:TennoGen"
+  },
+  {
+    "pageid": 1546385,
+    "ns": 828,
+    "title": "Module:TennoGen/data"
+  },
+  {
+    "pageid": 1546386,
+    "ns": 828,
+    "title": "Module:TennoGen/data/doc"
+  },
+  {
+    "pageid": 1546388,
+    "ns": 828,
+    "title": "Module:TennoGen/doc"
+  },
+  {
+    "pageid": 584103,
+    "ns": 828,
+    "title": "Module:TennoScript"
+  },
+  {
+    "pageid": 1544819,
+    "ns": 828,
+    "title": "Module:TestHarness"
+  },
+  {
+    "pageid": 1546399,
+    "ns": 828,
+    "title": "Module:TestHarness/doc"
+  },
+  {
+    "pageid": 1571236,
+    "ns": 828,
+    "title": "Module:TestHarness/i18n"
+  },
+  {
+    "pageid": 1571237,
+    "ns": 828,
+    "title": "Module:TestHarness/i18n/doc"
+  },
+  {
+    "pageid": 1607944,
+    "ns": 828,
+    "title": "Module:Text"
+  },
+  {
+    "pageid": 1607945,
+    "ns": 828,
+    "title": "Module:Text/doc"
+  },
+  {
+    "pageid": 1580242,
+    "ns": 828,
+    "title": "Module:TextIcons"
+  },
+  {
+    "pageid": 1587809,
+    "ns": 828,
+    "title": "Module:TextIcons/data"
+  },
+  {
+    "pageid": 1607124,
+    "ns": 828,
+    "title": "Module:TextIcons/data/doc"
+  },
+  {
+    "pageid": 1580243,
+    "ns": 828,
+    "title": "Module:TextIcons/doc"
+  },
+  {
+    "pageid": 1544791,
+    "ns": 828,
+    "title": "Module:Tooltips"
+  },
+  {
+    "pageid": 1544790,
+    "ns": 828,
+    "title": "Module:Tooltips/data"
+  },
+  {
+    "pageid": 1548242,
+    "ns": 828,
+    "title": "Module:Tooltips/data/Ability"
+  },
+  {
+    "pageid": 1548243,
+    "ns": 828,
+    "title": "Module:Tooltips/data/Arcane"
+  },
+  {
+    "pageid": 1548244,
+    "ns": 828,
+    "title": "Module:Tooltips/data/DamageTypes"
+  },
+  {
+    "pageid": 1548248,
+    "ns": 828,
+    "title": "Module:Tooltips/data/Mods"
+  },
+  {
+    "pageid": 1548246,
+    "ns": 828,
+    "title": "Module:Tooltips/data/Void"
+  },
+  {
+    "pageid": 1548247,
+    "ns": 828,
+    "title": "Module:Tooltips/data/Warframes"
+  },
+  {
+    "pageid": 1548245,
+    "ns": 828,
+    "title": "Module:Tooltips/data/Weapons"
+  },
+  {
+    "pageid": 1546274,
+    "ns": 828,
+    "title": "Module:Tooltips/dev"
+  },
+  {
+    "pageid": 1544792,
+    "ns": 828,
+    "title": "Module:Tooltips/doc"
+  },
+  {
+    "pageid": 1546973,
+    "ns": 828,
+    "title": "Module:Tooltips/icon"
+  },
+  {
+    "pageid": 1552191,
+    "ns": 828,
+    "title": "Module:Tooltips/icon/dev"
+  },
+  {
+    "pageid": 1565709,
+    "ns": 828,
+    "title": "Module:Tooltips/icon/doc"
+  },
+  {
+    "pageid": 1546000,
+    "ns": 828,
+    "title": "Module:Tooltips/testcases"
+  },
+  {
+    "pageid": 1545998,
+    "ns": 828,
+    "title": "Module:Tooltips/testcases/doc"
+  },
+  {
+    "pageid": 1545126,
+    "ns": 828,
+    "title": "Module:Tooltips/tip"
+  },
+  {
+    "pageid": 1552192,
+    "ns": 828,
+    "title": "Module:Tooltips/tip/dev"
+  },
+  {
+    "pageid": 1546117,
+    "ns": 828,
+    "title": "Module:Tooltips/tip/doc"
+  },
+  {
+    "pageid": 1556962,
+    "ns": 828,
+    "title": "Module:TrajosAcquisition"
+  },
+  {
+    "pageid": 1557031,
+    "ns": 828,
+    "title": "Module:TrajosVoid"
+  },
+  {
+    "pageid": 703120,
+    "ns": 828,
+    "title": "Module:TranslationExamples"
+  },
+  {
+    "pageid": 1593298,
+    "ns": 828,
+    "title": "Module:Unicode data"
+  },
+  {
+    "pageid": 1571224,
+    "ns": 828,
+    "title": "Module:Unindent"
+  },
+  {
+    "pageid": 1571232,
+    "ns": 828,
+    "title": "Module:Unindent/doc"
+  },
+  {
+    "pageid": 1553549,
+    "ns": 828,
+    "title": "Module:Upgrades/data"
+  },
+  {
+    "pageid": 1569052,
+    "ns": 828,
+    "title": "Module:Upgrades/data/doc"
+  },
+  {
+    "pageid": 1597361,
+    "ns": 828,
+    "title": "Module:User:RealMajorMayo/Sandbox/WarframeInfobox"
+  },
+  {
+    "pageid": 1571249,
+    "ns": 828,
+    "title": "Module:UserError"
+  },
+  {
+    "pageid": 1571250,
+    "ns": 828,
+    "title": "Module:UserError/doc"
+  },
+  {
+    "pageid": 1593002,
+    "ns": 828,
+    "title": "Module:Vehicles/data"
+  },
+  {
+    "pageid": 1593003,
+    "ns": 828,
+    "title": "Module:Vehicles/data/doc"
+  },
+  {
+    "pageid": 1593005,
+    "ns": 828,
+    "title": "Module:Vehicles/infobox"
+  },
+  {
+    "pageid": 1601959,
+    "ns": 828,
+    "title": "Module:Vehicles/infobox/doc"
+  },
+  {
+    "pageid": 1557601,
+    "ns": 828,
+    "title": "Module:Vendors"
+  },
+  {
+    "pageid": 1554100,
+    "ns": 828,
+    "title": "Module:Vendors/data"
+  },
+  {
+    "pageid": 1557603,
+    "ns": 828,
+    "title": "Module:Vendors/data/doc"
+  },
+  {
+    "pageid": 1557602,
+    "ns": 828,
+    "title": "Module:Vendors/doc"
+  },
+  {
+    "pageid": 1260399,
+    "ns": 828,
+    "title": "Module:Version"
+  },
+  {
+    "pageid": 1260385,
+    "ns": 828,
+    "title": "Module:Version/data"
+  },
+  {
+    "pageid": 1546028,
+    "ns": 828,
+    "title": "Module:Version/data/doc"
+  },
+  {
+    "pageid": 1544484,
+    "ns": 828,
+    "title": "Module:Version/doc"
+  },
+  {
+    "pageid": 1593299,
+    "ns": 828,
+    "title": "Module:VideoGallery"
+  },
+  {
+    "pageid": 705884,
+    "ns": 828,
+    "title": "Module:Void"
+  },
+  {
+    "pageid": 705825,
+    "ns": 828,
+    "title": "Module:Void/data"
+  },
+  {
+    "pageid": 1548773,
+    "ns": 828,
+    "title": "Module:Void/data/dev"
+  },
+  {
+    "pageid": 1543743,
+    "ns": 828,
+    "title": "Module:Void/data/doc"
+  },
+  {
+    "pageid": 1548803,
+    "ns": 828,
+    "title": "Module:Void/data/validate"
+  },
+  {
+    "pageid": 1548762,
+    "ns": 828,
+    "title": "Module:Void/dev"
+  },
+  {
+    "pageid": 1548774,
+    "ns": 828,
+    "title": "Module:Void/dev/doc"
+  },
+  {
+    "pageid": 1546229,
+    "ns": 828,
+    "title": "Module:Void/doc"
+  },
+  {
+    "pageid": 1548809,
+    "ns": 828,
+    "title": "Module:Void/page"
+  },
+  {
+    "pageid": 1548843,
+    "ns": 828,
+    "title": "Module:Void/page/doc"
+  },
+  {
+    "pageid": 898006,
+    "ns": 828,
+    "title": "Module:VoidByReward"
+  },
+  {
+    "pageid": 1548798,
+    "ns": 828,
+    "title": "Module:VoidByReward/doc"
+  },
+  {
+    "pageid": 1571253,
+    "ns": 828,
+    "title": "Module:WDSButton"
+  },
+  {
+    "pageid": 1571254,
+    "ns": 828,
+    "title": "Module:WDSButton/data"
+  },
+  {
+    "pageid": 1571255,
+    "ns": 828,
+    "title": "Module:WDSButton/doc"
+  },
+  {
+    "pageid": 1549882,
+    "ns": 828,
+    "title": "Module:WarframeUsageData2020/data"
+  },
+  {
+    "pageid": 1549883,
+    "ns": 828,
+    "title": "Module:WarframeUsageData2020/data/doc"
+  },
+  {
+    "pageid": 1204246,
+    "ns": 828,
+    "title": "Module:Warframes"
+  },
+  {
+    "pageid": 1281989,
+    "ns": 828,
+    "title": "Module:Warframes/Conclave/data"
+  },
+  {
+    "pageid": 1574569,
+    "ns": 828,
+    "title": "Module:Warframes/Conclave/data/doc"
+  },
+  {
+    "pageid": 1204227,
+    "ns": 828,
+    "title": "Module:Warframes/data"
+  },
+  {
+    "pageid": 1543873,
+    "ns": 828,
+    "title": "Module:Warframes/data/doc"
+  },
+  {
+    "pageid": 1545252,
+    "ns": 828,
+    "title": "Module:Warframes/doc"
+  },
+  {
+    "pageid": 1548710,
+    "ns": 828,
+    "title": "Module:Warframes/infobox"
+  },
+  {
+    "pageid": 1545253,
+    "ns": 828,
+    "title": "Module:Warframes/testcases"
+  },
+  {
+    "pageid": 1175574,
+    "ns": 828,
+    "title": "Module:Weapons"
+  },
+  {
+    "pageid": 1281923,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data"
+  },
+  {
+    "pageid": 1549852,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/doc"
+  },
+  {
+    "pageid": 1573253,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/melee"
+  },
+  {
+    "pageid": 1640524,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/melee/doc"
+  },
+  {
+    "pageid": 1573251,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/primary"
+  },
+  {
+    "pageid": 1640522,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/primary/doc"
+  },
+  {
+    "pageid": 1573252,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/secondary"
+  },
+  {
+    "pageid": 1640523,
+    "ns": 828,
+    "title": "Module:Weapons/Conclave/data/secondary/doc"
+  },
+  {
+    "pageid": 1553565,
+    "ns": 828,
+    "title": "Module:Weapons/characteristics"
+  },
+  {
+    "pageid": 1556784,
+    "ns": 828,
+    "title": "Module:Weapons/characteristics/doc"
+  },
+  {
+    "pageid": 1557030,
+    "ns": 828,
+    "title": "Module:Weapons/compare"
+  },
+  {
+    "pageid": 1561915,
+    "ns": 828,
+    "title": "Module:Weapons/compare/doc"
+  },
+  {
+    "pageid": 1549775,
+    "ns": 828,
+    "title": "Module:Weapons/comptable"
+  },
+  {
+    "pageid": 1549776,
+    "ns": 828,
+    "title": "Module:Weapons/comptable/doc"
+  },
+  {
+    "pageid": 1553646,
+    "ns": 828,
+    "title": "Module:Weapons/csv"
+  },
+  {
+    "pageid": 1557821,
+    "ns": 828,
+    "title": "Module:Weapons/csv/doc"
+  },
+  {
+    "pageid": 1175547,
+    "ns": 828,
+    "title": "Module:Weapons/data"
+  },
+  {
+    "pageid": 1557040,
+    "ns": 828,
+    "title": "Module:Weapons/data/archwing"
+  },
+  {
+    "pageid": 1557815,
+    "ns": 828,
+    "title": "Module:Weapons/data/archwing/doc"
+  },
+  {
+    "pageid": 1557041,
+    "ns": 828,
+    "title": "Module:Weapons/data/companion"
+  },
+  {
+    "pageid": 1557814,
+    "ns": 828,
+    "title": "Module:Weapons/data/companion/doc"
+  },
+  {
+    "pageid": 1556960,
+    "ns": 828,
+    "title": "Module:Weapons/data/credits"
+  },
+  {
+    "pageid": 1556988,
+    "ns": 828,
+    "title": "Module:Weapons/data/credits/doc"
+  },
+  {
+    "pageid": 1549443,
+    "ns": 828,
+    "title": "Module:Weapons/data/dev"
+  },
+  {
+    "pageid": 1543065,
+    "ns": 828,
+    "title": "Module:Weapons/data/doc"
+  },
+  {
+    "pageid": 1557039,
+    "ns": 828,
+    "title": "Module:Weapons/data/melee"
+  },
+  {
+    "pageid": 1557811,
+    "ns": 828,
+    "title": "Module:Weapons/data/melee/doc"
+  },
+  {
+    "pageid": 1557044,
+    "ns": 828,
+    "title": "Module:Weapons/data/misc"
+  },
+  {
+    "pageid": 1557813,
+    "ns": 828,
+    "title": "Module:Weapons/data/misc/doc"
+  },
+  {
+    "pageid": 1557043,
+    "ns": 828,
+    "title": "Module:Weapons/data/modular"
+  },
+  {
+    "pageid": 1557841,
+    "ns": 828,
+    "title": "Module:Weapons/data/modular/doc"
+  },
+  {
+    "pageid": 1557037,
+    "ns": 828,
+    "title": "Module:Weapons/data/primary"
+  },
+  {
+    "pageid": 1557809,
+    "ns": 828,
+    "title": "Module:Weapons/data/primary/doc"
+  },
+  {
+    "pageid": 1557042,
+    "ns": 828,
+    "title": "Module:Weapons/data/railjack"
+  },
+  {
+    "pageid": 1557812,
+    "ns": 828,
+    "title": "Module:Weapons/data/railjack/doc"
+  },
+  {
+    "pageid": 1557038,
+    "ns": 828,
+    "title": "Module:Weapons/data/secondary"
+  },
+  {
+    "pageid": 1557810,
+    "ns": 828,
+    "title": "Module:Weapons/data/secondary/doc"
+  },
+  {
+    "pageid": 1548754,
+    "ns": 828,
+    "title": "Module:Weapons/data/validate"
+  },
+  {
+    "pageid": 1548755,
+    "ns": 828,
+    "title": "Module:Weapons/data/validate/doc"
+  },
+  {
+    "pageid": 1547820,
+    "ns": 828,
+    "title": "Module:Weapons/dev"
+  },
+  {
+    "pageid": 1547821,
+    "ns": 828,
+    "title": "Module:Weapons/dev/doc"
+  },
+  {
+    "pageid": 1543619,
+    "ns": 828,
+    "title": "Module:Weapons/doc"
+  },
+  {
+    "pageid": 1548721,
+    "ns": 828,
+    "title": "Module:Weapons/infobox"
+  },
+  {
+    "pageid": 1561919,
+    "ns": 828,
+    "title": "Module:Weapons/infobox/doc"
+  },
+  {
+    "pageid": 1548704,
+    "ns": 828,
+    "title": "Module:Weapons/nav"
+  },
+  {
+    "pageid": 1561916,
+    "ns": 828,
+    "title": "Module:Weapons/nav/doc"
+  },
+  {
+    "pageid": 1548702,
+    "ns": 828,
+    "title": "Module:Weapons/ppdata"
+  },
+  {
+    "pageid": 1549663,
+    "ns": 828,
+    "title": "Module:Weapons/ppdata/doc"
+  },
+  {
+    "pageid": 1555586,
+    "ns": 828,
+    "title": "Module:Weapons/ppdata/seeder"
+  },
+  {
+    "pageid": 1555587,
+    "ns": 828,
+    "title": "Module:Weapons/ppdata/seeder/doc"
+  },
+  {
+    "pageid": 1556987,
+    "ns": 828,
+    "title": "Module:Weapons/preprocess"
+  },
+  {
+    "pageid": 1561921,
+    "ns": 828,
+    "title": "Module:Weapons/preprocess/doc"
+  },
+  {
+    "pageid": 1640979,
+    "ns": 828,
+    "title": "Module:Weapons/sandbox"
+  },
+  {
+    "pageid": 1548231,
+    "ns": 828,
+    "title": "Module:Weapons/testcases"
+  },
+  {
+    "pageid": 1548232,
+    "ns": 828,
+    "title": "Module:Weapons/testcases/doc"
+  },
+  {
+    "pageid": 1259744,
+    "ns": 828,
+    "title": "Module:WorldState"
+  },
+  {
+    "pageid": 1440370,
+    "ns": 828,
+    "title": "Module:Worldstate/data"
+  },
+  {
+    "pageid": 1440377,
+    "ns": 828,
+    "title": "Module:Worldstate/data-flai"
+  },
+  {
+    "pageid": 1571225,
+    "ns": 828,
+    "title": "Module:Yesno"
+  },
+  {
+    "pageid": 1571231,
+    "ns": 828,
+    "title": "Module:Yesno/doc"
+  },
+  {
+    "pageid": 1571226,
+    "ns": 828,
+    "title": "Module:Yesno/testcases"
+  },
+  {
+    "pageid": 1571227,
+    "ns": 828,
+    "title": "Module:Yesno/testcases/doc"
+  }
+]

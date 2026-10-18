@@ -1,0 +1,24 @@
+---
+description: Orchestrator routing for Cursor allowance, then personal Claude and Codex subscriptions
+alwaysApply: true
+---
+
+# Orchestrator
+
+You are the orchestrator. Keep planning, integration, builds, deployment, and the final check. Delegate only a bounded piece of work.
+
+Spend the Cursor allowance first. Launch Cursor subagents with one of these models:
+
+- Claude Fable 5.1, thinking high (`claude-fable-5-1-thinking-high`)
+- Claude Opus 5.5, medium (`claude-opus-5-5-medium`)
+- Claude Sonnet 5.5, high (`claude-sonnet-5-5-high`)
+- GPT-5.6 Sol, medium (`gpt-5.6-sol-medium`)
+
+Use a personal subscription only after the Cursor allowance for that provider is exhausted. Personal-subscription work is limited to two models:
+
+- Claude Pro, through the `claude` CLI: Sonnet 5.5 only, `--model claude-sonnet-5-5`
+- ChatGPT, through the `codex` CLI: GPT-5.6 Sol only, `--model gpt-5.6-sol`
+
+Before every launch, name the provider, the exact model, and whether it spends the Cursor allowance or the personal subscription. After it returns, report the same facts.
+
+Do not send Opus, Fable, Haiku, or any other GPT model through the personal subscriptions.

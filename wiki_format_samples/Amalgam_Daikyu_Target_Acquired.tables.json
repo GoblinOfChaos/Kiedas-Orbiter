@@ -1,0 +1,621 @@
+[
+ {
+  "section": "Stats",
+  "rows": [
+   [
+    "Rank",
+    "Headshot Multiplier",
+    "Lifesteal",
+    "Arrow Recovery",
+    "Cost"
+   ],
+   [
+    "0",
+    "+12.5%",
+    "+0.5%",
+    "10%",
+    "10"
+   ],
+   [
+    "1",
+    "+25%",
+    "+1%",
+    "20%",
+    "11"
+   ],
+   [
+    "2",
+    "+37.5%",
+    "+1.5%",
+    "30%",
+    "12"
+   ],
+   [
+    "3",
+    "+50%",
+    "+2%",
+    "40%",
+    "13"
+   ],
+   [
+    "4",
+    "+62.5%",
+    "+2.5%",
+    "50%",
+    "14"
+   ],
+   [
+    "5",
+    "+75%",
+    "+3%",
+    "60%",
+    "15"
+   ]
+  ]
+ },
+ {
+  "section": "Mission Drop Tables",
+  "rows": [
+   [
+    "Mission Type",
+    "Source",
+    "Rotations; or; Drop Table",
+    "Chance",
+    "Quantity",
+    "Avg. per roll",
+    "Star Chart Nodes"
+   ],
+   [
+    "Assassinate",
+    "Ropalolyst Assassination Amalgam Mod",
+    "A",
+    "20%",
+    "1",
+    "0.2",
+    "The Ropalolyst, Jupiter"
+   ]
+  ]
+ },
+ {
+  "section": "Enemy Drop Tables",
+  "rows": [
+   [
+    "Enemy",
+    "Drop Table Chance",
+    "Item Chance",
+    "Chance",
+    "Expected Kills",
+    "Quantity",
+    "Avg. per roll attempt"
+   ],
+   [
+    "No enemy drop tables with this item",
+    "No enemy drop tables with this item",
+    "No enemy drop tables with this item",
+    "No enemy drop tables with this item",
+    "No enemy drop tables with this item",
+    "No enemy drop tables with this item",
+    "No enemy drop tables with this item"
+   ]
+  ]
+ },
+ {
+  "section": "Patch History",
+  "rows": [
+   [
+    "Syndicate Augments",
+    "Syndicate Augments",
+    "Syndicate Augments"
+   ],
+   [
+    "Red Veil",
+    "Eroding Blight • Gleaming Blight • Toxic Blight • Stockpiled Blight",
+    "Eroding Blight • Gleaming Blight • Toxic Blight • Stockpiled Blight"
+   ],
+   [
+    "Cephalon Suda",
+    "Entropy Burst • Entropy Flight • Entropy Spike • Entropy Detonation",
+    "Entropy Burst • Entropy Flight • Entropy Spike • Entropy Detonation"
+   ],
+   [
+    "Steel Meridian",
+    "Justice Blades • Scattered Justice • Shattering Justice • Neutralizing Justice",
+    "Justice Blades • Scattered Justice • Shattering Justice • Neutralizing Justice"
+   ],
+   [
+    "New Loka",
+    "Bright Purity • Lasting Purity • Winds of Purity • Disarming Purity",
+    "Bright Purity • Lasting Purity • Winds of Purity • Disarming Purity"
+   ],
+   [
+    "The Perrin Sequence",
+    "Deadly Sequence • Sequence Burn • Toxic Sequence • Voltage Sequence",
+    "Deadly Sequence • Sequence Burn • Toxic Sequence • Voltage Sequence"
+   ],
+   [
+    "Arbiters of Hexis",
+    "Blade of Truth • Gilded Truth • Stinging Truth • Avenging Truth",
+    "Blade of Truth • Gilded Truth • Stinging Truth • Avenging Truth"
+   ],
+   [
+    "Arena Augments",
+    "Arena Augments",
+    "Arena Augments"
+   ],
+   [
+    "The Index",
+    "Tether Grenades • Flux Overdrive • Thermagnetic Shells • Static Discharge • Kinetic Ricochet",
+    "Tether Grenades • Flux Overdrive • Thermagnetic Shells • Static Discharge • Kinetic Ricochet"
+   ],
+   [
+    "Kela De Thaym",
+    "Electromagnetic Shielding • Vulcan Blitz • Acid Shells • Rift Strike • Nightwatch Napalm • Fomorian Accelerant • Hunter's Bonesaw • Harkonar Scope • Medi-Ray",
+    "Electromagnetic Shielding • Vulcan Blitz • Acid Shells • Rift Strike • Nightwatch Napalm • Fomorian Accelerant • Hunter's Bonesaw • Harkonar Scope • Medi-Ray"
+   ],
+   [
+    "Nightwave Augments",
+    "Nightwave Augments",
+    "Nightwave Augments"
+   ],
+   [
+    "Series 1",
+    "Bursting Mass • Napalm Grenades • Wild Frenzy",
+    "Bursting Mass • Napalm Grenades • Wild Frenzy",
+    "Bursting Mass • Napalm Grenades • Wild Frenzy"
+   ],
+   [
+    "Series 2",
+    "Efficient Beams • Exposing Harpoon • Meticulous Aim",
+    "Efficient Beams • Exposing Harpoon • Meticulous Aim",
+    "Efficient Beams • Exposing Harpoon • Meticulous Aim"
+   ],
+   [
+    "Series 3",
+    "Deadly Maneuvers • Dizzying Rounds • Precision Strike",
+    "Deadly Maneuvers • Dizzying Rounds • Precision Strike",
+    "Deadly Maneuvers • Dizzying Rounds • Precision Strike"
+   ],
+   [
+    "Nora's Mix V.1",
+    "Combat Reload • Range Advantage",
+    "Combat Reload • Range Advantage",
+    "Combat Reload • Range Advantage"
+   ],
+   [
+    "Nora's Mix V.2",
+    "Critical Precision • Vile Discharge",
+    "Critical Precision • Vile Discharge",
+    "Critical Precision • Vile Discharge"
+   ],
+   [
+    "Nora's Mix V.3",
+    "Eximus Advantage • Metamorphic Magazine",
+    "Eximus Advantage • Metamorphic Magazine",
+    "Eximus Advantage • Metamorphic Magazine"
+   ],
+   [
+    "Nora's Mix V.4",
+    "Sentient Barrage • Sentient Surge",
+    "Sentient Barrage • Sentient Surge",
+    "Sentient Barrage • Sentient Surge"
+   ],
+   [
+    "Nora's Mix V.5",
+    "Critical Mutation • Volatile Variant",
+    "Critical Mutation • Volatile Variant",
+    "Critical Mutation • Volatile Variant"
+   ],
+   [
+    "Nora's Mix V.6",
+    "Clip Delegation • Photon Overcharge",
+    "Clip Delegation • Photon Overcharge",
+    "Clip Delegation • Photon Overcharge"
+   ],
+   [
+    "Nora's Mix V.7",
+    "Burning Hate • Unseen Dread",
+    "Burning Hate • Unseen Dread",
+    "Burning Hate • Unseen Dread"
+   ],
+   [
+    "Nora's Mix V.8",
+    "Leaded Gas • Biotic Rounds",
+    "Leaded Gas • Biotic Rounds",
+    "Leaded Gas • Biotic Rounds"
+   ],
+   [
+    "Nora's Mix V.9",
+    "Pain Points • Spontaneous Singularity",
+    "Pain Points • Spontaneous Singularity",
+    "Pain Points • Spontaneous Singularity"
+   ],
+   [
+    "Nora's Mix: Dreams of the Dead",
+    "Dreadful Killshot • Necrophagic Vigor",
+    "Dreadful Killshot • Necrophagic Vigor",
+    "Dreadful Killshot • Necrophagic Vigor"
+   ],
+   [
+    "Nora's Mix: Time Tempests",
+    "Sentient Incision • Velox Conclusion",
+    "Sentient Incision • Velox Conclusion",
+    "Sentient Incision • Velox Conclusion"
+   ],
+   [
+    "Amir's Shockwave",
+    "Overpressured Rounds • Prototype Shock Coils",
+    "Overpressured Rounds • Prototype Shock Coils",
+    "Overpressured Rounds • Prototype Shock Coils"
+   ],
+   [
+    "Nightwave Offerings and Conclave Augments",
+    "Nightwave Offerings and Conclave Augments",
+    "Nightwave Offerings and Conclave Augments"
+   ],
+   [
+    "Ambush Optics • Brain Storm • Directed Convergence • Double Tap • Focused Acceleration • Shrapnel Rounds • Skull Shots • Spring-Loaded Broadhead",
+    "Ambush Optics • Brain Storm • Directed Convergence • Double Tap • Focused Acceleration • Shrapnel Rounds • Skull Shots • Spring-Loaded Broadhead",
+    "Ambush Optics • Brain Storm • Directed Convergence • Double Tap • Focused Acceleration • Shrapnel Rounds • Skull Shots • Spring-Loaded Broadhead"
+   ],
+   [
+    "Amalgam Augments",
+    "Amalgam Augments",
+    "Amalgam Augments"
+   ],
+   [
+    "Amalgam Argonak Metal Auger • Amalgam Daikyu Target Acquired • Amalgam Furax Body Count • Amalgam Javlok Magazine Warp • Amalgam Ripkas True Steel",
+    "Amalgam Argonak Metal Auger • Amalgam Daikyu Target Acquired • Amalgam Furax Body Count • Amalgam Javlok Magazine Warp • Amalgam Ripkas True Steel",
+    "Amalgam Argonak Metal Auger • Amalgam Daikyu Target Acquired • Amalgam Furax Body Count • Amalgam Javlok Magazine Warp • Amalgam Ripkas True Steel"
+   ],
+   [
+    "Entrati Augments",
+    "Entrati Augments",
+    "Entrati Augments"
+   ],
+   [
+    "Damzav-Vati • Zazvat-Kar • Bhisaj-Bal • Hata-Satya",
+    "Damzav-Vati • Zazvat-Kar • Bhisaj-Bal • Hata-Satya",
+    "Damzav-Vati • Zazvat-Kar • Bhisaj-Bal • Hata-Satya"
+   ],
+   [
+    "Koumei's Shrine Augments",
+    "Koumei's Shrine Augments",
+    "Koumei's Shrine Augments"
+   ],
+   [
+    "Amanata Pressure • Higasa Serration",
+    "Amanata Pressure • Higasa Serration",
+    "Amanata Pressure • Higasa Serration"
+   ]
+  ]
+ },
+ {
+  "section": "Patch History",
+  "rows": [
+   [
+    "Weapon",
+    "Mods"
+   ],
+   [
+    "Primary",
+    "Primary"
+   ],
+   [
+    "Argonak",
+    "Amalgam Argonak Metal Auger"
+   ],
+   [
+    "AX-52",
+    "Biotic Rounds"
+   ],
+   [
+    "Battacor",
+    "Sentient Barrage"
+   ],
+   [
+    "Basmu",
+    "Dreadful Killshot"
+   ],
+   [
+    "Burston Prime",
+    "Gilded Truth"
+   ],
+   [
+    "Convectrix",
+    "Efficient Beams"
+   ],
+   [
+    "Daikyu ( Prime)",
+    "Amalgam Daikyu Target Acquired • Spring-Loaded Broadhead"
+   ],
+   [
+    "Drakgoon ( Kuva)",
+    "Fomorian Accelerant"
+   ],
+   [
+    "Dread",
+    "Unseen Dread"
+   ],
+   [
+    "EFV-5 Jupiter",
+    "Overpressured Rounds"
+   ],
+   [
+    "Flux Rifle ( Tenet)",
+    "Flux Overdrive"
+   ],
+   [
+    "Glaxion ( Tenet, Vandal)",
+    "Photon Overcharge"
+   ],
+   [
+    "Grakata ( Prisma)",
+    "Brain Storm • Wild Frenzy"
+   ],
+   [
+    "Gorgon ( Wraith, Prisma)",
+    "Metamorphic Magazine"
+   ],
+   [
+    "Grinlok ( Prisma)",
+    "Deadly Sequence"
+   ],
+   [
+    "Harpak",
+    "Exposing Harpoon"
+   ],
+   [
+    "Hek ( Kuva)",
+    "Scattered Justice"
+   ],
+   [
+    "Hema ( Coda)",
+    "Necrophagic Vigor"
+   ],
+   [
+    "Higasa",
+    "Higasa Serration"
+   ],
+   [
+    "Javlok",
+    "Amalgam Javlok Magazine Warp"
+   ],
+   [
+    "Lanka",
+    "Voltage Sequence"
+   ],
+   [
+    "Latron ( Prime, Wraith)",
+    "Double Tap"
+   ],
+   [
+    "Miter",
+    "Neutralizing Justice"
+   ],
+   [
+    "Mutalist Quanta",
+    "Bursting Mass"
+   ],
+   [
+    "Ogris ( Kuva)",
+    "Nightwatch Napalm"
+   ],
+   [
+    "Panthera ( Prime)",
+    "Disarming Purity"
+   ],
+   [
+    "Paris Prime",
+    "Bhisaj-Bal"
+   ],
+   [
+    "Penta ( Secura, Carmine)",
+    "Napalm Grenades • Tether Grenades"
+   ],
+   [
+    "Rubico ( Prime)",
+    "Ambush Optics"
+   ],
+   [
+    "Simulor",
+    "Spontaneous Singularity"
+   ],
+   [
+    "Sobek ( Kuva)",
+    "Acid Shells • Clip Delegation • Shattering Justice"
+   ],
+   [
+    "Soma Prime",
+    "Hata-Satya"
+   ],
+   [
+    "Sporothrix ( Coda)",
+    "Volatile Variant"
+   ],
+   [
+    "Supra ( Vandal)",
+    "Directed Convergence • Entropy Burst"
+   ],
+   [
+    "Tetra ( Prisma, Tenet)",
+    "Focused Acceleration • Kinetic Ricochet"
+   ],
+   [
+    "Tiberon ( Prime)",
+    "Critical Precision"
+   ],
+   [
+    "Tigris ( Sancti)",
+    "Combat Reload"
+   ],
+   [
+    "Tonkor ( Kuva)",
+    "Precision Strike"
+   ],
+   [
+    "Vulkar ( Wraith)",
+    "Lasting Purity • Meticulous Aim"
+   ],
+   [
+    "Secondary",
+    "Secondary"
+   ],
+   [
+    "Acrid",
+    "Toxic Sequence"
+   ],
+   [
+    "Akbronco Prime",
+    "Damzav-Vati"
+   ],
+   [
+    "Akjagara ( Prime)",
+    "Range Advantage"
+   ],
+   [
+    "Akstiletto Prime",
+    "Zazvat-Kar"
+   ],
+   [
+    "Athodai ( Prime)",
+    "Pain Points"
+   ],
+   [
+    "Bolto",
+    "Entropy Spike"
+   ],
+   [
+    "Bronco ( Prime)",
+    "Dizzying Rounds"
+   ],
+   [
+    "Catabolyst ( Coda)",
+    "Critical Mutation"
+   ],
+   [
+    "Detron ( Mara, Tenet)",
+    "Thermagnetic Shells"
+   ],
+   [
+    "EFV-8 Mars",
+    "Prototype Shock Coils"
+   ],
+   [
+    "Embolist",
+    "Eroding Blight • Vile Discharge"
+   ],
+   [
+    "Furis ( Mk1)",
+    "Winds of Purity"
+   ],
+   [
+    "Kunai ( Mk1)",
+    "Stockpiled Blight"
+   ],
+   [
+    "Magnus ( Prime)",
+    "Deadly Maneuvers"
+   ],
+   [
+    "Marelok ( Vaykor)",
+    "Shrapnel Rounds"
+   ],
+   [
+    "Ocucor",
+    "Sentient Surge"
+   ],
+   [
+    "Spectra",
+    "Sequence Burn"
+   ],
+   [
+    "Velox ( Prime)",
+    "Velox Conclusion"
+   ],
+   [
+    "Vesper 77",
+    "Leaded Gas"
+   ],
+   [
+    "Viper ( Wraith)",
+    "Skull Shots • Stinging Truth"
+   ],
+   [
+    "Zylok ( Prime)",
+    "Eximus Advantage"
+   ],
+   [
+    "Melee",
+    "Melee"
+   ],
+   [
+    "Ack & Brunt",
+    "Electromagnetic Shielding"
+   ],
+   [
+    "Amanata",
+    "Amanata Pressure"
+   ],
+   [
+    "Dark Dagger",
+    "Gleaming Blight"
+   ],
+   [
+    "Dual Cleavers",
+    "Justice Blades"
+   ],
+   [
+    "Furax ( Mk1, Wraith)",
+    "Amalgam Furax Body Count"
+   ],
+   [
+    "Hate",
+    "Burning Hate"
+   ],
+   [
+    "Jat Kittag",
+    "Vulcan Blitz"
+   ],
+   [
+    "Jaw Sword",
+    "Blade of Truth"
+   ],
+   [
+    "Kestrel ( Prime)",
+    "Entropy Flight"
+   ],
+   [
+    "Mire ( Coda)",
+    "Toxic Blight"
+   ],
+   [
+    "Obex ( Prisma)",
+    "Entropy Detonation"
+   ],
+   [
+    "Prova ( Vandal)",
+    "Static Discharge"
+   ],
+   [
+    "Ripkas",
+    "Amalgam Ripkas True Steel • Hunter's Bonesaw"
+   ],
+   [
+    "Silva & Aegis ( Prime)",
+    "Avenging Truth"
+   ],
+   [
+    "Skana ( Prime, Prisma)",
+    "Bright Purity"
+   ],
+   [
+    "Twin Basolk",
+    "Rift Strike"
+   ],
+   [
+    "Venato ( Prime)",
+    "Sentient Incision"
+   ]
+  ]
+ }
+]

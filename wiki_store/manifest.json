@@ -1,0 +1,15 @@
+{
+  "fetchedAt": "2026-10-14T18:50:40.000Z",
+  "apiBase": "https://wiki.warframe.com/api.php",
+  "counts": {
+    "pages": 10952,
+    "redirects": 26230,
+    "empty": 0,
+    "noRevision": 0,
+    "requests": 598
+  },
+  "userAgent": "kiedas-orbiter-research/0.1 (jacob.lewis.edwards@gmail.com)",
+  "version": "0.1.0",
+  "license": "CC BY-NC-SA 3.0",
+  "attribution": "Article wikitext retrieved from the official Warframe Wiki (wiki.warframe.com)."
+}

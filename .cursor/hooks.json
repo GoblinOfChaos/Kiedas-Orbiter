@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/orchestrator-context.py",
+        "timeout": 10
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": ".cursor/hooks/orchestrator-context.py",
+        "timeout": 10
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/subscription-model-gate.py",
+        "matcher": "\\b(claude|codex)\\b",
+        "timeout": 10,
+        "failClosed": true
+      }
+    ]
+  }
+}

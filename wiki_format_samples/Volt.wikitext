@@ -1,0 +1,7 @@
+{{WarframePage|uk = Вольт|ru = Вольт}}
+[[Category:Warframes]]
+[[Category:Males]]
+[[Category:Research]]
+[[Category:Closed Beta]]
+[[Category:Volt]]
+[[Category:Vanilla]]

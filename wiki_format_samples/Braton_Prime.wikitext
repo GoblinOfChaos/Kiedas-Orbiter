@@ -1,0 +1,105 @@
+{{Top|Orokin|Orokin|Orokin|Weapon|Weapons|Weapons|Prime|Prime|Prime|}}
+{{WeaponInfoboxAutomatic}}
+{{Codex|A classic Orokin weapon, Braton Prime features modified damage levels and a larger magazine over the standard model.}}
+The '''Braton Prime''' is the [[Prime]] variant of the {{Weapon|Braton}}, featuring higher damage, [[critical chance]], [[critical multiplier]], [[status chance]], [[fire rate]], magazine size, and ammo reserves, at the cost of [[reload speed]].
+
+==Characteristics==
+* This weapon deals primarily {{D|Slash}} damage.
+
+{{Advantages|*Low recoil.|name=Braton Prime}}
+
+{{Disadvantages|name=Braton Prime}}
+
+{{WeaponComparison|Mk1-Braton}}
+{{WeaponComparison|Braton|header=n}}
+{{WeaponComparison|Braton Vandal|header=n}}
+==Acquisition==
+{{PrimeTable}}
+==Crafting==
+{{BuildAutomatic|type=Weapon}}
+This weapon can be sold for {{cc|7,500}}.
+
+==Notes==
+===Incarnon Genesis===
+{{Transclude|Braton Incarnon Genesis#Acquisition}}
+
+{{Transclude|Braton Incarnon Genesis#Incarnon Genesis}}
+
+==Tips==
+*When fighting at long range, consider firing the Braton Prime in short bursts, or charge the enemy to gain ground. The ammo saved from avoiding long range fighting can compensate for damage sustained in melee/short ranged combat.
+*A higher pitch firing sound can be heard when the current magazine is nearly out of ammo.
+
+==Media==
+<gallery widths="300" position="center" spacing="small">
+Screenshot_19 .png|Braton Prime in Arsenal
+Screenshot_20 .png
+</gallery>
+
+{{VideoGallery
+|{{YouTube|wn1wlYu4yUk|size=300px}}
+|{{YouTube|G4rQWLKYIwc|size=300px}}
+}}
+
+{{SkinGallery}}
+
+==Patch History==
+{{Scrollbox/Article|
+{{ver|30.6}}
+*Fixed the Braton Prime Stock having incorrect Ducat value for its rarity. It is now 25 instead of 15.
+
+{{ver|22.12}}
+*Mastery Rank increased from 0 to 8.
+*Status chance increased from 20% to 26%.
+*Critical chance increased from 10% to 12%.
+*Ammo capacity increased to 600.
+
+{{ver|20.0.6}}
+*Made minor updates to Braton Prime's sound remaster.
+
+{{ver|Octavia's Anthem}}
+*The Braton Prime had its firing sounds remastered!
+
+{{ver|19.10.1}}
+*Fixed numerous Braton variants not having a physical magazine.
+*Fixed the Braton Prime not dropping its clip when using a skin with a clip.
+
+{{ver|19.5}}
+*'''Conclave:''' Braton Prime Magazine decreased from 75 to 35.
+
+{{ver|18.4.6}}
+*Braton Prime damage has been decreased in Conclave.
+
+{{ver|18}}
+*The Braton Prime has been given a PBR Upgrade!
+
+{{ver|15.5.7}}
+*Increased Physical Damage from 25 to 35.
+*Increased Status Chance from 10.0% to 20.0%.
+*Increased Crit Multiplier from 1.5 to 2.0.
+*Increased Fire Rate.
+*Increased Magazine Size from 50 to 75.
+*Decreased Ammo Capacity to 375.
+
+{{ver|9.0}}
+*Orokin Void Map expansion (with Mobile Defense, Defense, and Capture!) with 5 new Prime weapons to be found (Braton Prime).
+}}
+
+==See Also==
+*{{Weapon|Mk1-Braton}}, the [[Mk1|starter]] variant.
+*{{Weapon|Braton}}, the normal variant.
+*{{Weapon|Braton Vandal}}, the [[Lotus|Lotus-branded]] variant.
+*[[Prime]], the [[Orokin]] version of a Warframe or weapon.
+*[[Braton Incarnon Genesis]], the Incarnon power-up for the Braton series.
+
+{{WeaponNav}}
+[[de:Braton Prime]]
+[[es:Braton Prime]]
+[[fr:Braton Prime]]
+[[pt:Braton Prime]]
+[[Category:Update 9]]
+[[Category:Prime]]
+[[Category:Weapons]]
+[[Category:Primary Weapons]]
+[[Category:Slash Damage Weapons]]
+[[Category:Assault Rifle]]
+[[uk:Братон-прайм]]

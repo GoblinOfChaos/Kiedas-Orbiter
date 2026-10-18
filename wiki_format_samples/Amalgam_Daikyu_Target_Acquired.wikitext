@@ -1,0 +1,62 @@
+{{ModBox}}
+'''Amalgam Daikyu Target Acquired '''is an Amalgam mod exclusive to the {{Weapon|Daikyu}} and {{Weapon|Daikyu Prime}}. It provides an increased [[Enemy Body Parts|headshot]] multiplier, [[Life Steal]] when using [[Nikanas]], and a chance to gather used arrows.
+
+==Stats==
+{| class="emodtable"
+|-
+! [[Mod#Mod Rank|Rank]]
+! Headshot Multiplier
+! Lifesteal
+! Arrow Recovery
+! [[Mod#Attributes|Cost]]
+|-
+| 0 || +12.5% || +0.5% || 10% || 10
+|-
+| 1 || +25% || +1% || 20% || 11
+|-
+| 2 || +37.5% || +1.5% || 30% || 12
+|-
+| 3 || +50% || +2% || 40% || 13
+|-
+| 4 || +62.5% || +2.5% || 50% || 14
+|-
+| 5 || +75% || +3% || 60% || 15
+|}
+
+==Drop Locations==
+{{DropLocations}}
+
+==Notes==
+*With this mod equipped, arrows stuck in enemies or on surfaces can sometimes be picked up when physically touched, along with a unique sound upon pickup. Multiple arrows fired from [[multishot]] may also be picked up, occasionally refunding more ammo than what was expended.
+*Since headshots normally reward 3.0x damage, this mod will increase that to 5.25x damage. This is further increased with {{Arcane|Primary Deadhead}} for a total headshot damage multiplier of 6.15x.
+*Not [[Trading|tradeable]].
+*The life steal granted to [[Nikana (Weapon Type)|Nikanas]] applies to all of their attacks, including the projectile heavy attack of {{Weapon|Syam}}.
+**Damage ticks from status effects do not result in life steal. 
+**Lifesteal does not apply to [[Two-Handed Nikana]]s, [[Dual Nikanas]], or [[Exalted Blade]].
+**Lifesteal does not interact with {{M|Archon Intensify}}.
+
+==Tips==
+*The mod can synergize very well with {{WF|Ivara}}'s {{A|Prowl}} ability as that also has innate bonus damage to headshots, and the Daikyu is innately silent.
+
+==See also==
+*{{M|Target Acquired}}, the normal version of this mod.
+*{{M|Bhisaj-Bal}}, an augment for the {{Weapon|Paris Prime}} that can also heal its user.
+
+==Patch History==
+{{Scrollbox/Article|
+{{ver|25.2.2}}
+*Fixed Amalgam Daikyu Target Acquired not applying lifesteal to Zaw Nikanas.
+
+{{ver|25.0}}
+*Introduced.
+}}
+{{AugmentedMods}}
+[[es:Objetivo adquirido de Daikyu Amalgama]]
+[[fr:Cible Acquise Daikyu Amalgame]]
+[[ru:Цель Получена Дайкю Амальгама]]
+[[Category:Update 25]]
+[[Category:Amalgam Mods]]
+[[Category:Bow Mods]]
+[[Category:Augment Mods]]
+[[Category:Healing]]
+[[uk:Амальгамна визначена ціль для Дайк’ю]]

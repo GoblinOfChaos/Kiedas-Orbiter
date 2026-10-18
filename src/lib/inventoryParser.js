@@ -955,7 +955,9 @@ function extractModCategory(exportType, un, entry) {
 // not a family of its own - so this is tracked separately from
 // extractModCategory's result instead of overriding it. A mod like Fass
 // Canticle needs to show as both Tome AND Exilus, not one or the other.
-function isFlawedMod(entry, originalEntry) {
+const FLAWED_MOD_PATH = /^\/Lotus\/Upgrades\/Mods\/(?:[^/]+\/)*Beginner\//;
+
+function isFlawedMod(entry, originalEntry, uniqueName) {
   // DE's `isStarter` flag marks a mod as the reduced-power "Flawed" variant
   // (formerly "Damaged Mods") sold as antiques near Cressa Tal in Iron Wake.
   // Its name loctag resolves to the exact same display string as the normal
@@ -963,7 +965,10 @@ function isFlawedMod(entry, originalEntry) {
   // prefix the catalog's display-name dedup treats "Flawed Rush" as a
   // duplicate of "Rush" and silently drops one of the two real, separately
   // obtainable items.
-  return entry?.isStarter === true || originalEntry?.isStarter === true
+  // The export does not set isStarter on any of them; the Beginner folder
+  // in the path is the only marker, so check it too.
+  return entry?.isStarter === true || originalEntry?.isStarter === true ||
+    FLAWED_MOD_PATH.test(uniqueName || '')
 }
 
 function isModExilus(un, entry, originalEntry) {
@@ -2253,7 +2258,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       mod.polarity = entry?.polarity ?? null;
       mod.compatName = entry?.compatName ?? null;
       mod.modFrame = detectModFrame(un, mod.rarity, mod.name);
-      if (isFlawedMod(entry, originalUpgradesMap[un])) mod.name = `Flawed ${mod.name}`;
+      if (isFlawedMod(entry, originalUpgradesMap[un], un) && !/^Flawed /.test(mod.name)) mod.name = `Flawed ${mod.name}`;
       if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
       const descLoctag = entry?.description ?? '';
       const rawDesc = typeof descLoctag === 'string' && descLoctag
@@ -2379,7 +2384,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     mod.polarity = entry?.polarity ?? mod.polarity ?? null;
     mod.compatName = entry?.compatName ?? mod.compatName ?? null;
     mod.modFrame = mod.modFrame || detectModFrame(un, mod.rarity, name);
-    if (isFlawedMod(entry, originalUpgradesMap[un])) mod.name = `Flawed ${mod.name}`;
+    if (isFlawedMod(entry, originalUpgradesMap[un], un) && !/^Flawed /.test(mod.name)) mod.name = `Flawed ${mod.name}`;
     if (un.toLowerCase().includes('/fusers/')) mod.name = 'Legendary Fusion Core';
     const descLoctag = entry?.description ?? '';
     const rawDesc = typeof descLoctag === 'string' && descLoctag

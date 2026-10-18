@@ -51,8 +51,24 @@ const acquisitionNormalizerStats = {
   unresearchedEntries: 0,
 };
 let activeVerifiedRoutesIndex = new Map();
+// Language dict used when formatting component-parent routes. Index build may
+// have seen an empty dict (or baked a language-path parentDisplayName); resolve
+// at read time against the dict from the latest buildAllAcquisitionIndexes call.
+let activeDict = {};
 const droppedAcquisitionOpeningCounts = new Map();
 const droppedAcquisitionOpeningExamples = new Map();
+
+function resolveActiveLanguageName(value, nameKey) {
+  const dict = activeDict || {};
+  for (const key of [nameKey, value]) {
+    if (!key || typeof key !== 'string') continue;
+    const resolved = dict[key] || dict[`/${key}`] || dict[key.replace(/^\//, '')];
+    if (typeof resolved === 'string' && resolved.trim() && !/\/Lotus\/Language\//i.test(resolved)) {
+      return cleanResolvedName(resolved);
+    }
+  }
+  return cleanResolvedName(value);
+}
 
 function recordDroppedAcquisitionOpening(value) {
   const opening = String(value || '').trim().match(/^\S+(?:\s+\S+){0,3}/)?.[0];
@@ -1354,6 +1370,7 @@ export function buildExportVendorIndex(exportData) {
       const currency = display(price.ItemType) || price.ItemType;
       return `${price.ItemCount}x ${currency}`;
     });
+    if (item?.credits > 0) prices.unshift(`${Number(item.credits).toLocaleString('en-US')} Credits`);
     if (item?.focusXpCost?.cost) prices.push(`${item.focusXpCost.cost.toLocaleString()} Focus XP`);
     if (item?.numRandomItemPrices) prices.push('a vendor-selected resource cost');
     return prices.length ? ` Price listed in the export: ${prices.join(' and ')}.` : '';
@@ -1371,6 +1388,7 @@ export function buildExportVendorIndex(exportData) {
       const route = {
         text: `Listed by ${label}.${priceText(item)}`,
         source: `DE export vendor manifest ${manifestName}`,
+        ...(item?.credits > 0 && /\/IronwakeFlawedModVendorManifest$/.test(manifestName) ? { flawedCredits: Number(item.credits) } : {}),
       };
       const routes = index.get(key) || [];
       if (!routes.some((candidate) => candidate.text === route.text)) routes.push(route);
@@ -1688,6 +1706,9 @@ export function buildAllAcquisitionIndexes(exportData) {
   };
 }
 
+const FLAWED_MOD_PATH = /^\/Lotus\/Upgrades\/Mods\/(?:[^/]+\/)*Beginner\//;
+const FLAWED_AMMO_DRUM = '/Lotus/Upgrades/Mods/Rifle/Beginner/WeaponAmmoMaxModBeginner';
+
 function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesData, recipeResultIndex, marketIndex, bundleIndex, syndicateIndex, wikiSigilIndex, wikiVendorIndex, wikiTennoGenIndex, wikiBaroIndex, exportVendorIndex, alwaysAvailableIndex, glyphSupplementIndex, wikiBlueprintIndex, wikiResearchIndex, relicStateIndex, wikiResourceIndex, wikiPageAcquisitionIndex, wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex) {
   const recipe = recipeResultIndex?.get(canonicalPath(dropIndexKey)) || getItemRecipe(dropIndexKey);
   const directRelicState = relicStateIndex?.get(canonicalPath(dropIndexKey));
@@ -1703,6 +1724,34 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
         ? { url: verifiedRoutes.find((route) => route.reviewSource?.url).reviewSource.url, isDirect: true }
         : getWikiLink(dropIndexKey, displayName),
     };
+  }
+  // A Flawed mod (.../Mods/**/Beginner/...) has the same display name as the
+  // normal mod, so name-keyed overrides and drop data describe the wrong item.
+  // The Iron Wake Flawed Mod vendor manifest is the DE record of where it is
+  // sold; the one export entry outside that manifest is the April Fools
+  // reward Ammo Drum.
+  if (FLAWED_MOD_PATH.test(canonicalPath(dropIndexKey) || '')) {
+    const flawedRoutes = exportVendorIndex?.get(canonicalPath(dropIndexKey));
+    if (flawedRoutes?.length) {
+      // One plain place sentence, same shape as the other place entries.
+      const credits = flawedRoutes.find((route) => route.flawedCredits)?.flawedCredits;
+      return {
+        sources: [{
+          type: 'non-drop',
+          text: `Mod storage box near Cressa Tal, Iron Wake${credits ? `, ${credits.toLocaleString('en-US')} credits` : ''}`,
+          source: flawedRoutes[0].source,
+        }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
+    if (canonicalPath(dropIndexKey) === FLAWED_AMMO_DRUM) {
+      return {
+        sources: [{ type: 'non-drop', text: 'Reward for completing a one-hour Survival during the April Fools event.', source: 'Warframe Wiki' }],
+        recipe: recipe || null,
+        wikiLink: getWikiLink(dropIndexKey, displayName),
+      };
+    }
   }
   const resourceRoute = isResourceItem(dropIndexKey, displayName, wikiResourceIndex, exportComponentIndex);
   // The bare-displayName key is unsafe on its own: it's shared across every

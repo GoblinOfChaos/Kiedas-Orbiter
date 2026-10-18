@@ -166,7 +166,10 @@ function addNamedSource(index, nameMap, itemName, source, resultTypeToBlueprint)
   if (/^[\d,]+x?\s*(credits?|endo|affinity|focus)/i.test(lc)) return
 
   const tryName = (name) => {
-    const uniqueNames = nameMap[name]
+    // A Flawed mod (.../Mods/**/Beginner/...) shares its display name with the
+    // normal mod, but DropsAll rows name the normal mod: the Flawed variants
+    // are only sold at the Iron Wake Flawed Mod vendor and never drop.
+    const uniqueNames = nameMap[name]?.filter((un) => !/\/Upgrades\/Mods\/(?:[^/]+\/)*Beginner\//.test(un))
     if (uniqueNames && uniqueNames.length > 0) {
       for (const un of uniqueNames) {
         const component = resultTypeToBlueprint?.componentMetadata?.[un]

@@ -48,6 +48,7 @@ test('folder-specific kinds classify from their Skins/ folder', () => {
     ['/Lotus/Upgrades/Skins/Catbrows/FurPattern', 'Companion'],
     ['/Lotus/Upgrades/Skins/MoaPet/KiTeerMoaSkin', 'Companion'],
     ['/Lotus/Upgrades/Skins/HolsterCustomizations/DaggerLowerBack', 'Holster'],
+    ['/Lotus/Upgrades/Skins/MeleeDangles/AtomicycleKeychainMeleeDangle', 'Melee'],
   ]
   for (const [uniqueName, expected] of cases) {
     assert.equal(cosmeticType(uniqueName, '', 'Skin', families), expected, uniqueName)

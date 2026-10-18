@@ -54,6 +54,8 @@ export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (/\/upgrades\/skins\/(hoverboard|kdrive)\//.test(value)) return 'Vehicle';
   if (/\/upgrades\/skins\/(kubrows|catbrows|moapet)\//.test(value)) return 'Companion';
   if (/\/upgrades\/skins\/holstercustomizations\//.test(value)) return 'Holster';
+  // Sugatras: melee-weapon charms (every item's icon is under Cosmetics/Sugatras/).
+  if (/\/upgrades\/skins\/meleedangles\//.test(value)) return 'Melee';
 
   const folderMatch = /\/upgrades\/skins\/([a-z0-9]+)\//.exec(value);
   if (folderMatch) {

@@ -2925,9 +2925,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
         // PendingRecipes, but the component is not built until that job is
         // collected. Keep the blueprint quantity for the BP badge while
         // leaving the component itself unowned during the build.
-        owned: resultType !== parent.unique_name && pendingCraftedCounts.has(resultType) && craftedQuantity === 0
-          ? false
-          : blueprintQuantity > 0 || craftedQuantity > 0,
+        // The parent's own blueprint row is owned only when the blueprint is in
+        // Recipes. Modular parts (Amp prisms, Zaw parts) keep the BUILT item in
+        // MiscItems, which used to mark a blueprint the player no longer has as owned.
+        owned: resultType === parent.unique_name
+          ? blueprintQuantity > 0
+          : (pendingCraftedCounts.has(resultType) && craftedQuantity === 0
+            ? false
+            : blueprintQuantity > 0 || craftedQuantity > 0),
         description: '',
         xp: 0,
         rank: 0,

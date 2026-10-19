@@ -40,6 +40,9 @@ function listedPrefix(name) {
 export function awardsMastery(item) {
   if (!item?.name) return false
   if (NEVER.has(item.category)) return false
+  // The Drifter's copy of a Duviri melee shares the Warframe weapon's name, so
+  // the name list would match it; only the Warframe version earns mastery (#92).
+  if (item.drifter_version === true) return false
   if (listedName(item.name) || listedName(stripBlueprint(item.name))) return true
   if (item.parent_name && listedName(item.parent_name)) return true
   if (PARTS.has(item.category)) return listedPrefix(item.name)

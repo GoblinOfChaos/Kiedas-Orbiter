@@ -1812,9 +1812,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (!e) return;
     // DE lists each Duviri melee twice under the same name: the Drifter's
     // version (productCategory DrifterMelee) and the Warframe version (Melee).
-    // Mark the Drifter one so the two rows can be told apart.
-    if (e.productCategory === 'DrifterMelee' && i.name && !/\(Drifter\)$/.test(i.name)) {
-      i.name = `${i.name} (Drifter)`;
+    // Mark the Drifter one so the two rows can be told apart. The Drifter
+    // version never levels: the inventory gives it no XP and XPInfo (the
+    // game's mastery ledger) lists only the Warframe version, so it is not
+    // masterable and must not show as "unmastered" (issue #92).
+    if (e.productCategory === 'DrifterMelee') {
+      if (i.name && !/\(Drifter\)$/.test(i.name)) i.name = `${i.name} (Drifter)`;
+      i.masterable = false;
+      i.mastered = false;
+      i.max_mastery_xp = 0;
+      i.drifter_version = true;
     }
     const un = i.unique_name;
     const isKitgun = isKitgunPart(un);

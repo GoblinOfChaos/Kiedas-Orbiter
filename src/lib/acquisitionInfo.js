@@ -1283,7 +1283,8 @@ export function buildExportVendorIndex(exportData) {
       [/\/Duviri\/AcrithisEnigmaGyrumShopManifest$/, "Acrithis's Enigma shop in Duviri"],
       [/\/Duviri\/AcrithisKullervoShopManifest$/, "Acrithis's Kullervo shop in Duviri"],
       [/\/Duviri\/AcrithisVendorManifest$/, 'Acrithis in Duviri'],
-      [/\/Duviri\/DrifterWeaponsVendorManifest$/, 'Drifter Weapons vendor in Duviri'],
+      // Wiki (Sampotes etc.): "can be purchased in Teshin's Cave".
+      [/\/Duviri\/DrifterWeaponsVendorManifest$/, "Teshin's Cave in Duviri"],
       // Entrati Labs (Cavia)
       [/\/EntratiLabs\/EntratiLabsArcaneShopManifest$/, 'Cavia Arcane shop in the Entrati Labs'],
       [/\/EntratiLabs\/EntratiLabsCommisionsManifest$/, 'Cavia Commissions vendor in the Entrati Labs'],
@@ -1311,7 +1312,9 @@ export function buildExportVendorIndex(exportData) {
       [/\/FocusSchools\/VazarinVendorManifest$/, 'Vazarin Focus vendor'],
       [/\/FocusSchools\/ZenurikVendorManifest$/, 'Zenurik Focus vendor'],
       // Game modes / Hubs
-      [/\/GameModes\/AscensionVendorManifest$/, 'Conclave Ascension vendor'],
+      // Wiki (Jade): "purchased from Ordis in the Drifter's Camp ... with Vestigial Motes"
+      // (Ascension is the Jade Shadows mission, not Conclave).
+      [/\/GameModes\/AscensionVendorManifest$/, "Ordis in the Drifter's Camp"],
       [/\/Hubs\/AspirantZorbaVendorManifest$/, 'Zorba in Fortuna'],
       [/\/Hubs\/EliteAlertVendorManifest$/, 'Arbitration Honors vendor (Rude Zuud, Void Relay)'],
       [/\/Hubs\/GuildAdvertisementVendorManifest$/, 'Clan recruitment advertisement vendor'],
@@ -1351,7 +1354,8 @@ export function buildExportVendorIndex(exportData) {
       // The Hex / 1999 Höllvania
       [/\/TheHex\/HexFurnitureVendorManifest$/, "The Hex furniture vendor in Höllvania"],
       [/\/TheHex\/HexScaldranWeaponsVendorManifest$/, "The Hex Scaldra weapons vendor in Höllvania"],
-      [/\/TheHex\/InfestedLichWeaponVendorManifest$/, 'Infested Lich weapon vendor'],
+      // Wiki (Coda Sporothrix etc.): "purchased from Eleanor of The Hex in the Höllvania Central Mall".
+      [/\/TheHex\/InfestedLichWeaponVendorManifest$/, 'Eleanor (The Hex) in the Höllvania Central Mall'],
       [/\/TheHex\/Nova1999ConquestShopManifest$/, '1999 Conquest shop'],
       [/\/TheHex\/Temple1999VendorManifest$/, "Temple vendor in Höllvania"],
       // Zariman
@@ -1375,6 +1379,18 @@ export function buildExportVendorIndex(exportData) {
     if (item?.numRandomItemPrices) prices.push('a vendor-selected resource cost');
     return prices.length ? ` Price listed in the export: ${prices.join(' and ')}.` : '';
   };
+  const addVendorRoute = (key, route) => {
+    const routes = index.get(key) || [];
+    if (!routes.some((candidate) => candidate.text === route.text)) routes.push(route);
+    index.set(key, routes);
+  };
+  // A vendor offer can be a bundle (e.g. Teshin's Cave sells a Duviri weapon
+  // bundle holding the Drifter weapon and the Warframe weapon's blueprint).
+  // ExportBundles lists what each bundle contains, so each component also gets
+  // the vendor route; keyed on the bundle path alone, no item ever matched it.
+  const bundlesByPath = new Map(
+    Object.entries(exportData?.ExportBundles || {}).map(([path, bundle]) => [canonicalPath(path), bundle]),
+  );
   for (const [manifestName, vendor] of Object.entries(vendors)) {
     const label = vendorLabel(manifestName);
     // An unidentified vendor manifest is worse than no route at all: "Listed
@@ -1385,14 +1401,25 @@ export function buildExportVendorIndex(exportData) {
     for (const item of vendor?.items || []) {
       const key = canonicalPath(item?.storeItem);
       if (!key) continue;
-      const route = {
+      addVendorRoute(key, {
         text: `Listed by ${label}.${priceText(item)}`,
         source: `DE export vendor manifest ${manifestName}`,
         ...(item?.credits > 0 && /\/IronwakeFlawedModVendorManifest$/.test(manifestName) ? { flawedCredits: Number(item.credits) } : {}),
-      };
-      const routes = index.get(key) || [];
-      if (!routes.some((candidate) => candidate.text === route.text)) routes.push(route);
-      index.set(key, routes);
+      });
+      const bundle = bundlesByPath.get(key);
+      if (!bundle) continue;
+      const bundleName = display(bundle.name);
+      for (const component of bundle.components || []) {
+        const componentKey = canonicalPath(component?.typeName);
+        if (!componentKey || componentKey === key) continue;
+        addVendorRoute(componentKey, {
+          text: `Listed by ${label}${bundleName ? ` (part of the ${bundleName} bundle)` : ''}.${priceText(item)}`,
+          source: `DE export vendor manifest ${manifestName} (ExportBundles contents)`,
+          // Weaker than a direct offer: used to add to an answer, or as a
+          // last resort, never ahead of the other sources (see getAcquisitionInfoRaw).
+          viaBundle: true,
+        });
+      }
     }
   }
   return index;
@@ -1951,6 +1978,25 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
       }
     }
     if (routeSources.length > 0) {
+      // DE vendor offers for the item, its blueprint, or the result it builds
+      // (e.g. Teshin's Cave for Duviri weapons). Added only when this block is
+      // already answering, so a vendor row never cuts off the wiki sources
+      // further down for items this block would otherwise pass on.
+      for (const vendorKey of new Set([
+        canonicalPath(dropIndexKey),
+        canonicalPath(routeParentUniqueName),
+        canonicalPath(routeRecipe?.blueprintUniqueName),
+      ])) {
+        if (!vendorKey) continue;
+        for (const route of exportVendorIndex?.get(vendorKey) || []) {
+          // Nightwave Cred manifests span past seasons (one price row per old
+          // Cred currency) and event manifests may be past events; neither is
+          // added next to a permanent route here. Both still reach items with
+          // no other route through the later fallbacks.
+          if (/\/RadioLegion|\/Events\//.test(route.source || '')) continue;
+          addRoute({ type: 'non-drop', ...route });
+        }
+      }
       return { sources: routeSources, recipe: recipe || null, wikiLink: getWikiLink(dropIndexKey, displayName) };
     }
   }
@@ -2434,8 +2480,9 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
   // than the more specific resource/blueprint records above so adding the
   // vendor export cannot replace a concrete location already known for an
   // item such as Ignia or Maphica.
-  const exportVendorRoutes = exportVendorIndex?.get(canonicalPath(dropIndexKey));
-  if (exportVendorRoutes?.length) {
+  const exportVendorRoutes = (exportVendorIndex?.get(canonicalPath(dropIndexKey)) || [])
+    .filter((route) => !route.viaBundle);
+  if (exportVendorRoutes.length) {
     return {
       sources: exportVendorRoutes.map((route) => ({ type: 'non-drop', ...route })),
       recipe: recipe || null,
@@ -2521,6 +2568,18 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
         wikiLink: getWikiLink(dropIndexKey, displayName),
       };
     }
+  }
+
+  // Vendor offers reached only through a bundle's contents: used here, after
+  // every other source has had its chance (see buildExportVendorIndex).
+  const bundleVendorRoutes = (exportVendorIndex?.get(canonicalPath(dropIndexKey)) || [])
+    .filter((route) => route.viaBundle);
+  if (bundleVendorRoutes.length) {
+    return {
+      sources: bundleVendorRoutes.map((route) => ({ type: 'non-drop', ...route })),
+      recipe: recipe || null,
+      wikiLink: getWikiLink(dropIndexKey, displayName),
+    };
   }
 
   // Recipe/build details are a fallback when no concrete blueprint, vendor,

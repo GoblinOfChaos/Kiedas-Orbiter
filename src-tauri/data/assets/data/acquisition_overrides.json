@@ -11463,11 +11463,11 @@
     "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetBPowerSuit": "Not currently obtainable.",
     "/Lotus/Types/Friendly/Pets/ZanukaPets/ZanukaPetCPowerSuit": "Not currently obtainable.",
     "/Lotus/Types/Friendly/PlayerControllable/Weapons/DuviriDualSwords": "Not currently obtainable.",
-    "/Lotus/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerPlayerWeapon": "Not currently obtainable.",
-    "/Lotus/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmSpearPlayerWeapon": "Not currently obtainable.",
-    "/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaPlayerWeapon": "Not currently obtainable.",
-    "/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaPlayerWeapon": "Not currently obtainable.",
-    "/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon": "Not currently obtainable."
+    "/Lotus/Weapons/Tenno/Melee/Hammer/DaxDuviriHammer/DaxDuviriHammerPlayerWeapon": "Sold in Teshin's Cave in Duviri for 60 Pathos Clamps, together with the Warframe version's blueprint.",
+    "/Lotus/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmSpearPlayerWeapon": "Sold in Teshin's Cave in Duviri for 50 Pathos Clamps, together with the Warframe version's blueprint.",
+    "/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaPlayerWeapon": "Sold in Teshin's Cave in Duviri for 50 Pathos Clamps, together with the Warframe version's blueprint.",
+    "/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaPlayerWeapon": "Sold in Teshin's Cave in Duviri for 50 Pathos Clamps, together with the Warframe version's blueprint.",
+    "/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon": "Sold in Teshin's Cave in Duviri for 60 Pathos Clamps, together with the Warframe version's blueprint."
   },
   "mods": {
     "Acidic Spittle": "Acidic Spittle is automatically acquired upon obtaining a Vizier Predasite.",

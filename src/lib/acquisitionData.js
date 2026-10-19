@@ -414,11 +414,11 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "The Catabolyst's blueprint can be researched from the Bio Lab in the dojo."
   },
   "argo & vel": {
-    "blueprint": "Acrithis (Duviri)",
+    "blueprint": "Teshin's Cave (Duviri)",
     "general": "The Blueprint for Argo & Vel can be purchased in Teshin's Cave for 60 Pathos Clamp or . Purchasing using the former will unlock the Drifter-compatible version and the blueprint for a Warframe-compatible version; purchasing using the latter will unlock both versions. Additional copies can be purchased from Cephalon Simaris for 100,000 Standing."
   },
   "sampotes": {
-    "blueprint": "Acrithis (Duviri)",
+    "blueprint": "Teshin's Cave (Duviri)",
     "general": "The Blueprint for Sampotes can be purchased in Teshin's Cave for 60 Pathos Clamp or . Purchasing using the former will unlock the Drifter-compatible version and the blueprint for a Warframe-compatible version; purchasing using the latter will unlock both versions. Additional Warframe blueprint copies can be purchased from Cephalon Simaris for 100,000 Standing."
   },
   "sun & moon": {
@@ -426,15 +426,15 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "The blueprint is rewarded on completion of The Duviri Paradox Quest. Additional copies can be purchased from Cephalon Simaris for 100,000 Standing."
   },
   "azothane": {
-    "blueprint": "Acrithis (Duviri)",
+    "blueprint": "Teshin's Cave (Duviri)",
     "general": "The Blueprint for Azothane can be purchased in Teshin's Cave for 50 Pathos Clamp or . Purchasing using the former will unlock the Drifter-compatible version and the blueprint for a Warframe-compatible version; purchasing using the latter will unlock both versions. Additional Warframe-compatible blueprint copies can be purchased from Cephalon Simaris for 100,000 Standing."
   },
   "syam": {
-    "blueprint": "Acrithis (Duviri)",
+    "blueprint": "Teshin's Cave (Duviri)",
     "general": "The Blueprint for Syam can be purchased in Teshin's Cave for 50 Pathos Clamp or . Purchasing using the former will unlock the Drifter-compatible version and the blueprint for a Warframe-compatible version; purchasing using the latter will unlock both versions. Additional Warframe blueprint copies can be purchased from Cephalon Simaris for 100,000 Standing."
   },
   "edun": {
-    "blueprint": "Acrithis (Duviri)",
+    "blueprint": "Teshin's Cave (Duviri)",
     "general": "The Blueprint for Edun can be purchased in Teshin's Cave for 50 Pathos Clamp or . Purchasing using the former will unlock the Drifter-compatible version and the blueprint for a Warframe-compatible version; purchasing using the latter will unlock both versions. Additional Warframe blueprint copies can be purchased from Cephalon Simaris for 100,000 Standing."
   },
   "rauta": {

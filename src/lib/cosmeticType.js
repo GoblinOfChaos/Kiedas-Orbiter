@@ -34,6 +34,9 @@ export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (/archwing/.test(value)) return 'Archwing';
   if (/sentinel/.test(value)) return 'Sentinel';
   if (/syandana|\/upgrades\/skins\/scarves\//.test(value)) return 'Syandana';
+  // Kubrow, Catbrow and MoaPet items, including their armor sets, are companion
+  // cosmetics. Checked before the Armor rule so pet armor is grouped with them.
+  if (/\/upgrades\/skins\/(kubrows|catbrows|moapet)\//.test(value)) return 'Companion';
   if (/armor/.test(value)) return 'Armor';
   if (/animationsets/.test(value)) return 'Animation';
 

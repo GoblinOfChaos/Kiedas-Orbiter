@@ -55,10 +55,14 @@ test('folder-specific kinds classify from their Skins/ folder', () => {
   }
 })
 
-test('Catbrow armor keeps the Armor kind, not Companion', () => {
+test('Kubrow and Catbrow armor classify as Companion, not Armor', () => {
   assert.equal(
     cosmeticType('/Lotus/Upgrades/Skins/Catbrows/Armor/CatbrowArmorA', '', 'Skin', families),
-    'Armor',
+    'Companion',
+  )
+  assert.equal(
+    cosmeticType('/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorA', '', 'Skin', families),
+    'Companion',
   )
 })
 

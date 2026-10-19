@@ -6926,20 +6926,20 @@ export const WARFRAME_ACQUISITIONS = {
     "blueprint": "Purchased from Cephalon Simaris for 100,000 Standing. Purchased from Acrithis in Duviri for 20 Pathos Clamps."
   },
   "kitgun riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+    "blueprint": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence."
   },
   "melee riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer).",
+    "blueprint": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer)."
   },
   "oull": {
-    "general": "Defeating Kuva Liches / Sisters of Parvos (25% drop upon death) & Requiem Relics (All Tiers - Uncommon).",
-    "blueprint": "Defeating Kuva Liches / Sisters of Parvos (25% drop upon death) & Requiem Relics (All Tiers - Uncommon)."
+    "general": "Obtained with a 25% chance when your Kuva Lich flees after the correct Requiem sequence. Obtained the same way from a Sister of Parvos. Also obtained by transmuting four Requiem Mods.",
+    "blueprint": "Obtained with a 25% chance when your Kuva Lich flees after the correct Requiem sequence. Obtained the same way from a Sister of Parvos. Also obtained by transmuting four Requiem Mods."
   },
   "pistol riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer).",
+    "blueprint": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer)."
   },
   "primed bane of corpus": {
     "general": "Baro Ki'Teer (Void Trader) \u2014 Appears bi-weekly at Tenno Relays (purchased with Ducats & Credits).",
@@ -6958,16 +6958,16 @@ export const WARFRAME_ACQUISITIONS = {
     "blueprint": "Baro Ki'Teer (Void Trader) \u2014 Appears bi-weekly at Tenno Relays (purchased with Ducats & Credits)."
   },
   "rifle riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+    "blueprint": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence."
   },
   "shotgun riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+    "blueprint": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence."
   },
   "zaw riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+    "blueprint": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence."
   },
   "excalibur prime": {
     "general": "Founder's Program Exclusive (2013 Closed Founder Pack - Discontinued & Non-Tradeable).",
@@ -7720,17 +7720,17 @@ export const RESOURCE_LOCATIONS = {
   "cosmic specter": "Rescue Missions (Tier 3 nodes Lv 25+ with 3/3 achievements: Rescue Hostage + Stealth + Kill All Wardens) \u2014 Yields 1 per craft.",
   "archgun riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
   "companion weapon riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-  "kitgun riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-  "melee riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-  "oull": "Defeating Kuva Liches / Sisters of Parvos (25% drop upon death) & Requiem Relics (All Tiers - Uncommon).",
-  "pistol riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
+  "kitgun riven mod": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+  "melee riven mod": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer).",
+  "oull": "Obtained with a 25% chance when your Kuva Lich flees after the correct Requiem sequence. Obtained the same way from a Sister of Parvos. Also obtained by transmuting four Requiem Mods.",
+  "pistol riven mod": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer).",
   "primed bane of corpus": "Baro Ki'Teer (Void Trader) \u2014 Appears bi-weekly at Tenno Relays (purchased with Ducats & Credits).",
   "primed bane of grineer": "Baro Ki'Teer (Void Trader) \u2014 Appears bi-weekly at Tenno Relays (purchased with Ducats & Credits).",
   "primed bane of infested": "Baro Ki'Teer (Void Trader) \u2014 Appears bi-weekly at Tenno Relays (purchased with Ducats & Credits).",
   "primed bane of orokin": "Baro Ki'Teer (Void Trader) \u2014 Appears bi-weekly at Tenno Relays (purchased with Ducats & Credits).",
-  "rifle riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-  "shotgun riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-  "zaw riven mod": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
+  "rifle riven mod": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+  "shotgun riven mod": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
+  "zaw riven mod": "Purchased from Palladino in Iron Wake for 10 Riven Slivers (twice a week). Reward from Sorties, Archon Hunts, the Steel Path Circuit, Steel Path Descendia and The Icebind Chests. Sold by Acrithis in Duviri for 15 Pathos Clamps (weekly rotating stock, check his current offer). Sold by Teshin in the Steel Path weekly rotation for 75 Steel Essence.",
   "arquebex": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
   "artemis bow": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
   "artemis bow prime": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",

@@ -1817,11 +1817,15 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     // Include hidden weapons if they are known special variants
     const name = (e.name || "").toLowerCase();
     const isSpecial = name.includes('vandal') || name.includes('wraith') || name.includes('prisma') || name.includes('prime');
-    if (e.excludeFromCodex && !isSpecial) return false;
+    // Exalted weapons (DE productCategory SpecialItems) are hidden from the Codex
+    // but appear in the Arsenal once the ability is unlocked; list them all.
+    if (e.excludeFromCodex && !isSpecial && e.productCategory !== 'SpecialItems') return false;
     return true;
   });
 
   const primary = [], secondary = [], melee = [], kitguns = [], zaws = [];
+  // Owned exalted weapons are recorded in raw.SpecialItems, not the weapon lists.
+  const ownedSpecialItems = new Set((raw.SpecialItems ?? []).map((x) => x?.ItemType?.replace('/StoreItems/', '/')).filter(Boolean));
   weaponsRaw.forEach(i => {
     const e = EW[i.unique_name];
     if (!e) return;
@@ -1837,6 +1841,14 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       i.mastered = false;
       i.max_mastery_xp = 0;
       i.drifter_version = true;
+    }
+    // Exalted weapons come with their Warframe and never earn mastery (wiki).
+    if (e.productCategory === 'SpecialItems') {
+      i.masterable = false;
+      i.mastered = false;
+      i.max_mastery_xp = 0;
+      i.exalted_weapon = true;
+      i.owned = ownedSpecialItems.has(i.unique_name);
     }
     const un = i.unique_name;
     const isKitgun = isKitgunPart(un);

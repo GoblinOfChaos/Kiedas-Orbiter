@@ -55,6 +55,8 @@ export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (/\/upgrades\/skins\/horse\//.test(value)) return 'Kaithe';
   if (/\/upgrades\/skins\/necramech\//.test(value)) return 'Necramech';
   if (/\/upgrades\/skins\/(hoverboard|kdrive|motorcycle)\//.test(value)) return 'Vehicle';
+  // Signa (crown-style headpieces; the Crowns folder).
+  if (/\/upgrades\/skins\/crowns\//.test(value)) return 'Signa';
   // Kahl's Gang gear (Grineer-style armor pieces, helmets and masks).
   if (/\/upgrades\/skins\/kahl\//.test(value)) return 'Armor';
   if (/\/upgrades\/skins\/(kubrows|catbrows|moapet)\//.test(value)) return 'Companion';

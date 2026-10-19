@@ -1667,6 +1667,7 @@
     "cosmetics.kind_necramech": "Necramech",
     "cosmetics.kind_vehicle": "Vehicle",
     "cosmetics.kind_companion": "Companion",
-    "cosmetics.kind_holster": "Holster"
+    "cosmetics.kind_holster": "Holster",
+    "cosmetics.kind_signa": "Signa"
   }
 }

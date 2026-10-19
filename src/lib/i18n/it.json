@@ -1667,7 +1667,8 @@
     "cosmetics.kind_necramech": "Necramech",
     "cosmetics.kind_vehicle": "Vehicle",
     "cosmetics.kind_companion": "Companion",
-    "cosmetics.kind_holster": "Holster"
+    "cosmetics.kind_holster": "Holster",
+    "cosmetics.kind_signa": "Signa"
   },
   "checklist.eleanor_batch_a": "Batch A",
   "checklist.eleanor_batch_b": "Batch B"

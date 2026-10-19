@@ -2,6 +2,7 @@
   "de": {
     "functionWords": ["in", "a"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -76,6 +77,7 @@
   "es": {
     "functionWords": ["a", "in", "no", "son"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -89,6 +91,7 @@
   "fr": {
     "functionWords": ["a", "on", "son"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -102,6 +105,7 @@
   "it": {
     "functionWords": ["a", "in", "no", "all"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -115,6 +119,7 @@
   "pt": {
     "functionWords": ["a", "in", "no", "for"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -128,6 +133,7 @@
   "pl": {
     "functionWords": ["a", "in", "to"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -141,6 +147,7 @@
   "tr": {
     "functionWords": ["the", "and", "for", "you", "your", "to", "of", "in", "with", "from", "that", "this", "any", "all", "a", "on", "son", "no"],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",
@@ -153,37 +160,38 @@
   },
   "ja": {
     "functionWords": [],
-    "strings": ["REMAINING", "MOD", "upcoming", "Warframe", " - {node}", "Companion", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle"],
+    "strings": ["REMAINING", "MOD", "upcoming", "Warframe", " - {node}", "Companion", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle", "Signa"],
     "words": ["warframe", "foundry", "preview", "wiki"]
   },
   "ko": {
     "functionWords": [],
-    "strings": ["Warframe", " - {node}", "Endo", "Sentinel", "Companion", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle"],
+    "strings": ["Warframe", " - {node}", "Endo", "Sentinel", "Companion", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle", "Signa"],
     "words": ["warframe", "preview"]
   },
   "zh": {
     "functionWords": [],
-    "strings": ["remaining", "MOD", "KITGUN", "ZAW", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle"],
+    "strings": ["remaining", "MOD", "KITGUN", "ZAW", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle", "Signa"],
     "words": ["warframe", "mod", "conclave", "pvp", "helminth", "ayatan", "railjack", "incarnon", "duviri", "farm", "preview"]
   },
   "tc": {
     "functionWords": [],
-    "strings": ["remaining", "MOD", "Warframes", "Endo", "Scanning…", "Waiting for card…", "Waiting for price data…", "Ducats：", "Platinum：", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle"],
+    "strings": ["remaining", "MOD", "Warframes", "Endo", "Scanning…", "Waiting for card…", "Waiting for price data…", "Ducats：", "Platinum：", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle", "Signa"],
     "words": ["conclave", "pvp", "helminth", "ayatan", "railjack", "incarnon", "duviri", "farm", "preview"]
   },
   "th": {
     "functionWords": [],
-    "strings": ["Mod", "Endo", "Warframe", "Potencial", "Quill", "Holdfasts", "Hex", "Mastery", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle"],
+    "strings": ["Mod", "Endo", "Warframe", "Potencial", "Quill", "Holdfasts", "Hex", "Mastery", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle", "Signa"],
     "words": ["warframe", "pvp", "preview"]
   },
   "ru": {
     "functionWords": [],
-    "strings": ["Platinum:", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle"],
+    "strings": ["Platinum:", "Companion", "Ephemera", "Holster", "Kaithe", "Necramech", "Railjack", "Vehicle", "Signa"],
     "words": ["warframe", "mod", "conclave", "pvp", "riven", "rivens", "helminth", "railjack", "incarnon", "duviri", "ayatan", "focus", "overlay", "overlays", "wiki", "ee.log"]
   },
   "uk": {
     "functionWords": [],
     "strings": [
+      "Signa",
       "Companion",
       "Ephemera",
       "Holster",

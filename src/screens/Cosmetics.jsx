@@ -16,6 +16,10 @@ import { cosmeticType } from '../lib/cosmeticType'
 
 const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
+// Export name is "Alabaster Skin"; the wiki's name for this skin is the one below.
+const COSMETIC_NAME_OVERRIDES = {
+  '/Lotus/Upgrades/Skins/Excalibur/ExcaliburPrimeAlabasterSkin': 'Excalibur Alabaster Skin',
+}
 const CARD_WIDTH = 220
 const COL_GAP = 12
 const CARD_HEIGHT = 332
@@ -215,7 +219,7 @@ export default function Cosmetics() {
       // without also hiding ~1,315 legitimate real cosmetics.
       if (!isOwned && !entry?.icon && !entry?.texture) return []
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
-      const name = dict[entry?.name] || entry?.name
+      const name = COSMETIC_NAME_OVERRIDES[uniqueName] || dict[entry?.name] || entry?.name
       if (!name) return []
       return [{ uniqueName, name, kind, type, owned: isOwned, ownershipTier, icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     }) : []
@@ -371,6 +375,7 @@ export default function Cosmetics() {
     vehicle: 'cosmetics.kind_vehicle',
     companion: 'cosmetics.kind_companion',
     holster: 'cosmetics.kind_holster',
+    signa: 'cosmetics.kind_signa',
     decoration: 'cosmetics.kind_decoration',
     emote: 'cosmetics.kind_emote',
     other: 'ui.inventory.other',
@@ -392,7 +397,7 @@ export default function Cosmetics() {
     universal: 'cosmetics.filter_universal',
   }
 
-  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'operator', 'emblem', 'ephemera', 'railjack', 'kaithe', 'necramech', 'vehicle', 'companion', 'holster', 'decoration', 'emote', 'other']
+  const KIND_VALUES = ['all', 'warframe', 'primary', 'secondary', 'melee', 'archwing', 'sentinel', 'syandana', 'armor', 'animation', 'glyph', 'sigil', 'operator', 'emblem', 'ephemera', 'railjack', 'kaithe', 'necramech', 'vehicle', 'companion', 'holster', 'signa', 'decoration', 'emote', 'other']
 
   // Preview-only persistent category sidebar (wide widths), replacing the
   // kind Tabs strip as the primary selector there (it remains, wrapping

@@ -3837,7 +3837,16 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     DailyFocus: raw.DailyFocus ?? 0,
     FocusXP: raw.FocusXP ?? {},
     warframes,
-    weapons: weaponsRaw, // Compatibility
+    // Compatibility list behind the Inventory Weapons tab. DE files MOA/Hound
+    // parts, Amp parts, Archwings and K-Drive boards under weapon categories;
+    // rows already listed in their own tab are left out so they are not shown twice.
+    weapons: (() => {
+      const shownElsewhere = new Set();
+      for (const list of [companionsRaw, moaHeads, houndHeads, amps, archwings, kdrives, components, resources]) {
+        for (const item of list || []) if (item?.unique_name) shownElsewhere.add(item.unique_name);
+      }
+      return weaponsRaw.filter((item) => !shownElsewhere.has(item.unique_name));
+    })(),
     primary, secondary, melee, kitguns, zaws,
     companions: companionsRaw, // Compatibility
     sentinels, moas, hounds, beasts, robotics,

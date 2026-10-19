@@ -1810,6 +1810,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
   weaponsRaw.forEach(i => {
     const e = EW[i.unique_name];
     if (!e) return;
+    // DE lists each Duviri melee twice under the same name: the Drifter's
+    // version (productCategory DrifterMelee) and the Warframe version (Melee).
+    // Mark the Drifter one so the two rows can be told apart.
+    if (e.productCategory === 'DrifterMelee' && i.name && !/\(Drifter\)$/.test(i.name)) {
+      i.name = `${i.name} (Drifter)`;
+    }
     const un = i.unique_name;
     const isKitgun = isKitgunPart(un);
     const isZaw = un.includes('ModularMelee') && !un.includes('Vandal') && !un.includes('Wraith') && !un.includes('Prisma');

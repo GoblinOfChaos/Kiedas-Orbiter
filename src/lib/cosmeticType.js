@@ -54,7 +54,9 @@ export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (/\/upgrades\/skins\/railjack\//.test(value)) return 'Railjack';
   if (/\/upgrades\/skins\/horse\//.test(value)) return 'Kaithe';
   if (/\/upgrades\/skins\/necramech\//.test(value)) return 'Necramech';
-  if (/\/upgrades\/skins\/(hoverboard|kdrive)\//.test(value)) return 'Vehicle';
+  if (/\/upgrades\/skins\/(hoverboard|kdrive|motorcycle)\//.test(value)) return 'Vehicle';
+  // Kahl's Gang gear (Grineer-style armor pieces, helmets and masks).
+  if (/\/upgrades\/skins\/kahl\//.test(value)) return 'Armor';
   if (/\/upgrades\/skins\/(kubrows|catbrows|moapet)\//.test(value)) return 'Companion';
   if (/\/upgrades\/skins\/holstercustomizations\//.test(value)) return 'Holster';
   // Sugatras: melee-weapon charms (every item's icon is under Cosmetics/Sugatras/).

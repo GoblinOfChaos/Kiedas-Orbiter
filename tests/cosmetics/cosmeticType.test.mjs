@@ -44,6 +44,8 @@ test('folder-specific kinds classify from their Skins/ folder', () => {
     ['/Lotus/Upgrades/Skins/Necramech/EschatosNecramechHelmet', 'Necramech'],
     ['/Lotus/Upgrades/Skins/Hoverboard/SomeKDriveScrawl', 'Vehicle'],
     ['/Lotus/Upgrades/Skins/KDrive/VelocipodSkin', 'Vehicle'],
+    ['/Lotus/Upgrades/Skins/Motorcycle/DichromeLivery', 'Vehicle'],
+    ['/Lotus/Upgrades/Skins/Kahl/RhunrShoulderPlate', 'Armor'],
     ['/Lotus/Upgrades/Skins/Kubrows/TaichenKubrowCollar', 'Companion'],
     ['/Lotus/Upgrades/Skins/Catbrows/FurPattern', 'Companion'],
     ['/Lotus/Upgrades/Skins/MoaPet/KiTeerMoaSkin', 'Companion'],
@@ -68,7 +70,7 @@ test('Kubrow and Catbrow armor classify as Companion, not Armor', () => {
 
 test('unmapped Skins folders stay Other', () => {
   assert.equal(
-    cosmeticType('/Lotus/Upgrades/Skins/Motorcycle/DichromeLivery', '', 'Skin', families),
+    cosmeticType('/Lotus/Upgrades/Skins/Mustache/TheGentleman', '', 'Skin', families),
     'Other',
   )
   assert.equal(

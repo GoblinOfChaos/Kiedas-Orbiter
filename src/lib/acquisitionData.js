@@ -6918,12 +6918,12 @@ export const WARFRAME_ACQUISITIONS = {
     "blueprint": "Rescue Missions (Tier 3 nodes Lv 25+ with 3/3 achievements: Rescue Hostage + Stealth + Kill All Wardens) \u2014 Yields 1 per craft."
   },
   "archgun riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Arbitration Honors for 35 Vitus Essence.",
+    "blueprint": "Purchased from Arbitration Honors for 35 Vitus Essence."
   },
   "companion weapon riven mod": {
-    "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",
-    "blueprint": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers)."
+    "general": "Purchased from Cephalon Simaris for 100,000 Standing. Purchased from Acrithis in Duviri for 20 Pathos Clamps.",
+    "blueprint": "Purchased from Cephalon Simaris for 100,000 Standing. Purchased from Acrithis in Duviri for 20 Pathos Clamps."
   },
   "kitgun riven mod": {
     "general": "Daily Sorties / Archon Hunts / Steel Path Incursions / Iron Wake (Palladino - 10 Riven Slivers).",

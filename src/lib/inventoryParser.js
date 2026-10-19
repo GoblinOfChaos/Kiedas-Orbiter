@@ -1736,7 +1736,12 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // flag.
       masterable: (isModular && !sourceItem && xp > 0) ? true : (entry?.masterable !== false),
       subsumed: subsumedSet.has(un),
-      is_prime: entry?.variantType === 'VT_PRIME' || /Prime$/i.test(un.split('/').filter(Boolean).at(-1) ?? ''),
+      // Some Prime weapons have VT_NORMAL or no variantType and a path that does
+      // not end in "Prime": the path starts with it (PrimeCorufellScytheWeapon)
+      // or only the plain-text export name says it (Galariak Prime: GrnDrillScythe).
+      is_prime: entry?.variantType === 'VT_PRIME'
+        || /(^Prime|Prime$)/i.test(un.split('/').filter(Boolean).at(-1) ?? '')
+        || (typeof entry?.name === 'string' && !entry.name.startsWith('/Lotus/Language/') && / Prime$/.test(entry.name)),
       is_incarnon: isIncarnonWeapon({ unique_name: un }, evolutionProgress, adapterFamilies, INCARNON_FAMILY_MAP),
       incarnon_evolution_level: evolutionLevels.get(un) ?? (evolutionLevels.get(un.split('/').pop()) ?? -1),
       quantity: sourceItem?.ItemCount ?? (sourceItem ? 1 : 0),

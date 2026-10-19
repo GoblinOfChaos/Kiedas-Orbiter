@@ -11,7 +11,23 @@ const overrides = JSON.parse(fs.readFileSync(path.join(auditRoot, 'src-tauri/dat
 const haveRealData = fs.existsSync(path.join(DEFAULT_DATA_DIR, 'export'))
 const HAS_ROUTE_BASELINE = new Set(routeBaseline.uniqueNames)
 
-const ALLOWED_VIOLATIONS = new Map()
+// Reviewed current routes whose year is part of a name, not history.
+const ALLOWED_VIOLATIONS = new Map([
+  ["/Lotus/Upgrades/Skins/Volt/WF1999VoltAuxHat|Included with the Amir Gemini Skin, available for Platinum in the 1999 Gemini Pact Collection and related 1999 collections.",
+    '"1999" is the Warframe: 1999 update and collection name; the skin is sold in the Market today (wiki).'],
+  ['/Lotus/Types/Items/ShipDecos/ConqueraValkyrDisplay|Reward for reaching the $20,000 donation goal in the Conquera 2026 (Quest to Conquer Cancer) campaign.',
+    'Current-year Conquera reward; the event runs every October (wiki).'],
+  ['/Lotus/Types/Items/ShipDecos/ConqueraVorunaDisplay|Reward for reaching the $20,000 donation goal in the Conquera 2026 (Quest to Conquer Cancer) campaign.',
+    'Current-year Conquera reward; the event runs every October (wiki).'],
+  ['/Lotus/Types/Items/ShipDecos/Props/Seasonal/QTCC2026CatEarFrame|Reward for reaching the $10,000 donation goal in the Conquera 2026 (Quest to Conquer Cancer) campaign.',
+    'Current-year Conquera reward; the event runs every October (wiki).'],
+  ['/Lotus/Types/Items/ShipDecos/QTCC2in1Display|In-game Market, Community Event section, for 1 Credit from October 1 to December 31 each year (the Conquera 2025 $20,000 donation-goal reward).',
+    'Current yearly Market route for prior Conquera rewards (wiki); "2025" names the reward.'],
+])
+
+// A limited-time item keeps its dated route as long as the same row says it is
+// not obtainable now (2026-10-19 decision): "Not currently obtainable (...)".
+const isNotObtainableRow = (text) => /^Not currently obtainable\b/i.test(text)
 
 // Every entry here is a complete, reviewed route phrase whose lower-case
 // opening is part of the source wording, not a sentence fragment produced by
@@ -120,6 +136,7 @@ test('real data: every catalog acquisition source row is current and renderable'
       if (!text) continue
       const kind = violationKind(text)
       if (!kind) continue
+      if (kind === 'history' && isNotObtainableRow(text)) continue
       const allowlistKey = `${entry.uniqueName}|${text}`
       if (!ALLOWED_VIOLATIONS.has(allowlistKey)) violations.push({ kind, name: displayName, uniqueName: entry.uniqueName, text })
     }

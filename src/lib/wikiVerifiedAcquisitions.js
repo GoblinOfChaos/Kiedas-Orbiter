@@ -964,7 +964,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
     '/Lotus/Upgrades/Skins/Bard/BardTwitchSkin',
     {
-      text: 'Prime Gaming Drop 1: the Octavia Iridos Bundle, available through November 14, 2023, included Octavia Iridos Skin and the Octavia Iridos Mix Helmet.',
+      text: 'Not currently obtainable (Prime Gaming Drop 1: the Octavia Iridos Bundle, available through November 14, 2023, included Octavia Iridos Skin and the Octavia Iridos Mix Helmet).',
       url: 'https://www.warframe.com/en/news/prime-gaming-iridos-collection',
       source: 'Warframe.com Prime Gaming Iridos Collection',
     },
@@ -972,7 +972,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
   [
     '/Lotus/Upgrades/Skins/Bard/BardTwitchAltHelmet',
     {
-      text: 'Included in the Octavia Iridos Bundle from Prime Gaming, available through November 14, 2023, as the Octavia Iridos Mix Helmet.',
+      text: 'Not currently obtainable (included in the Octavia Iridos Bundle from Prime Gaming, available through November 14, 2023, as the Octavia Iridos Mix Helmet).',
       url: 'https://www.warframe.com/en/news/prime-gaming-iridos-collection',
       source: 'Warframe.com Prime Gaming Iridos Collection',
     },

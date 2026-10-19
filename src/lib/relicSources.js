@@ -304,10 +304,33 @@ export function prepareAcquisitionSources(sources = [], {
 export function buildIngredientSourceRows(ingredient, dropIndex, fallbackDrops = [], rarityIndex = null) {
   const liveDrops = getDropSourcesWithFallback(ingredient.itemType, dropIndex, ingredient.name)
   const rawDrops = liveDrops.length > 0 ? liveDrops : fallbackDrops
-  return normalizeRelicSources(sortSourcesByChanceInRotations(rawDrops || []), {
+  const normalized = normalizeRelicSources(sortSourcesByChanceInRotations(rawDrops || []), {
     rarityIndex,
     itemType: ingredient.itemType,
   })
+  // The same mission drop can arrive from two data sources (drops.wf and DE's
+  // ExportRegions) with float noise in the chance, so it was listed twice.
+  // Merge on node + rotation + chance rounded to 4 decimals.
+  const rows = []
+  const missionRows = new Map()
+  for (const source of normalized) {
+    if (source?.type !== 'mission') {
+      rows.push(source)
+      continue
+    }
+    const chance = chanceValue(source.chance)
+    const chanceKey = source.chance == null ? 'missing' : chance == null ? String(source.chance) : chance.toFixed(4)
+    const key = `${source.nodeName || source.node || ''}|${source.rotation || ''}|${chanceKey}`
+    const existingIndex = missionRows.get(key)
+    if (existingIndex == null) {
+      missionRows.set(key, rows.length)
+      rows.push(source)
+    } else if (source.region && !rows[existingIndex]?.region) {
+      // Prefer the more descriptive duplicate while preserving the first row's position.
+      rows[existingIndex] = source
+    }
+  }
+  return rows
 }
 
 export function buildBlueprintSourceRows(displayName, recipe, dropIndex, fallbackDrops = [], rarityIndex = null) {

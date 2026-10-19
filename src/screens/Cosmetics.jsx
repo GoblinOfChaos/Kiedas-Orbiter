@@ -20,6 +20,11 @@ const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName |
 const COSMETIC_NAME_OVERRIDES = {
   '/Lotus/Upgrades/Skins/Excalibur/ExcaliburPrimeAlabasterSkin': 'Excalibur Alabaster Skin',
 }
+// Items DE has removed and that cannot be obtained (wiki: released by mistake,
+// retrieved by DE in hotfix 11.0.1). Hidden from the list.
+const OMITTED_COSMETICS = new Set([
+  '/Lotus/Upgrades/Skins/Excalibur/ExcaliburPrimeAlabasterSkin',
+])
 const CARD_WIDTH = 220
 const COL_GAP = 12
 const CARD_HEIGHT = 332
@@ -218,6 +223,7 @@ export default function Cosmetics() {
       // reproduces the intended "no real artwork" filter with zero loss,
       // without also hiding ~1,315 legitimate real cosmetics.
       if (!isOwned && !entry?.icon && !entry?.texture) return []
+      if (OMITTED_COSMETICS.has(uniqueName)) return []
       const kind = isSigil(uniqueName) ? 'Sigil' : 'Skin'
       const name = COSMETIC_NAME_OVERRIDES[uniqueName] || dict[entry?.name] || entry?.name
       if (!name) return []

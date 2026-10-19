@@ -158,6 +158,9 @@ const KITGUN_GRIP_LOADER_PART_TYPES = new Set(['LWPT_GUN_CLIP', 'LWPT_GUN_PRIMAR
 // Amp scaffolds and braces (DE partType). Only the Prism (LWPT_AMP_OCULUS) earns
 // mastery (wiki), so scaffolds and braces are components like kitgun grips.
 const AMP_SCAFFOLD_BRACE_PART_TYPES = new Set(['LWPT_AMP_CORE', 'LWPT_AMP_BRACE']);
+// K-Drive reactors, noses and jets (DE partType). Only the Board (LWPT_HB_DECK,
+// listed under Vehicles) earns mastery (wiki), so these are components.
+const KDRIVE_PART_TYPES = new Set(['LWPT_HB_ENGINE', 'LWPT_HB_FRONT', 'LWPT_HB_JET']);
 const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
 
 // ExportResources contains both player-held resources and cosmetic/decoration
@@ -3131,7 +3134,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // matching the same real ownership data (and picking up their real
       // per-part image via the same ER/ERel/EW/ES lookup used for resources).
       const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
-      const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent || KITGUN_GRIP_LOADER_PART_TYPES.has(EW[un]?.partType);
+      const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent || KITGUN_GRIP_LOADER_PART_TYPES.has(EW[un]?.partType) || KDRIVE_PART_TYPES.has(EW[un]?.partType);
       // These are raw crafting components (Hound/MOA/Amp/Zaw parts, etc.) with
       // no mastery state of their own - `masterable: false` (not left
       // undefined) so they're correctly excluded from both the Mastered and
@@ -3172,7 +3175,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
   for (const [un, entry] of Object.entries(EW)) {
-    if (!(MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || KITGUN_GRIP_LOADER_PART_TYPES.has(entry?.partType) || AMP_SCAFFOLD_BRACE_PART_TYPES.has(entry?.partType)) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
+    if (!(MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || KITGUN_GRIP_LOADER_PART_TYPES.has(entry?.partType) || AMP_SCAFFOLD_BRACE_PART_TYPES.has(entry?.partType) || KDRIVE_PART_TYPES.has(entry?.partType)) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
     const name = dict[entry.name] || entry.name;
     if (!name) continue;
     components.push({
@@ -3196,7 +3199,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (PRIME_PART_PATH_RE.test(un.split('/').pop())) continue;
     if (un.includes('/WoundedInfested')) continue;
     const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
-    const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent || KITGUN_GRIP_LOADER_PART_TYPES.has(EW[un]?.partType);
+    const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent || KITGUN_GRIP_LOADER_PART_TYPES.has(EW[un]?.partType) || KDRIVE_PART_TYPES.has(EW[un]?.partType);
     if (isModularComponent) continue;
     if (ownedResourceUns.has(un)) continue;
     const name = resolveName(un, dict, locale, ER, ERel, EW, ES);

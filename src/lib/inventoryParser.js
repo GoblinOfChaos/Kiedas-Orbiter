@@ -151,6 +151,10 @@ export const RIVEN_STAT_MAP = {
 
 const WEAPON_BUCKET_BY_CATEGORY = { LongGuns: 'primary', Pistols: 'secondary', Melee: 'melee', DrifterMelee: 'melee' };
 const WEAPON_BUCKET_BY_SLOT = { 1: 'primary', 0: 'secondary', 5: 'melee' };
+// Kitgun grips and loaders (DE partType). They are crafting components with no
+// mastery of their own (wiki: only the Chamber, LWPT_GUN_BARREL, earns mastery),
+// so they belong in Components, not the Weapons tab.
+const KITGUN_GRIP_LOADER_PART_TYPES = new Set(['LWPT_GUN_CLIP', 'LWPT_GUN_PRIMARY_HANDLE', 'LWPT_GUN_SECONDARY_HANDLE']);
 const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
 
 // ExportResources contains both player-held resources and cosmetic/decoration
@@ -3124,7 +3128,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       // matching the same real ownership data (and picking up their real
       // per-part image via the same ER/ERel/EW/ES lookup used for resources).
       const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
-      const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent;
+      const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent || KITGUN_GRIP_LOADER_PART_TYPES.has(EW[un]?.partType);
       // These are raw crafting components (Hound/MOA/Amp/Zaw parts, etc.) with
       // no mastery state of their own - `masterable: false` (not left
       // undefined) so they're correctly excluded from both the Mastered and
@@ -3165,7 +3169,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
   for (const [un, entry] of Object.entries(EW)) {
-    if (!MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
+    if (!(MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || KITGUN_GRIP_LOADER_PART_TYPES.has(entry?.partType)) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
     const name = dict[entry.name] || entry.name;
     if (!name) continue;
     components.push({
@@ -3189,7 +3193,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     if (PRIME_PART_PATH_RE.test(un.split('/').pop())) continue;
     if (un.includes('/WoundedInfested')) continue;
     const isPetComponent = (un.includes('/MoaPetParts/') || un.includes('/ZanukaPetParts/')) && !un.includes('Head');
-    const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent;
+    const isModularComponent = un.includes('/OperatorAmplifiers/') || un.includes('/ModularMelee') || un.includes('ModularSecondary') || isPetComponent || KITGUN_GRIP_LOADER_PART_TYPES.has(EW[un]?.partType);
     if (isModularComponent) continue;
     if (ownedResourceUns.has(un)) continue;
     const name = resolveName(un, dict, locale, ER, ERel, EW, ES);

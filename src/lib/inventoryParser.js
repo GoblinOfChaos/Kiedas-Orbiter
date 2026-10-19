@@ -155,6 +155,9 @@ const WEAPON_BUCKET_BY_SLOT = { 1: 'primary', 0: 'secondary', 5: 'melee' };
 // mastery of their own (wiki: only the Chamber, LWPT_GUN_BARREL, earns mastery),
 // so they belong in Components, not the Weapons tab.
 const KITGUN_GRIP_LOADER_PART_TYPES = new Set(['LWPT_GUN_CLIP', 'LWPT_GUN_PRIMARY_HANDLE', 'LWPT_GUN_SECONDARY_HANDLE']);
+// Amp scaffolds and braces (DE partType). Only the Prism (LWPT_AMP_OCULUS) earns
+// mastery (wiki), so scaffolds and braces are components like kitgun grips.
+const AMP_SCAFFOLD_BRACE_PART_TYPES = new Set(['LWPT_AMP_CORE', 'LWPT_AMP_BRACE']);
 const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
 
 // ExportResources contains both player-held resources and cosmetic/decoration
@@ -3169,7 +3172,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
   for (const [un, entry] of Object.entries(EW)) {
-    if (!(MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || KITGUN_GRIP_LOADER_PART_TYPES.has(entry?.partType)) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
+    if (!(MODULAR_COMPANION_PART_TYPES.has(entry?.partType) || KITGUN_GRIP_LOADER_PART_TYPES.has(entry?.partType) || AMP_SCAFFOLD_BRACE_PART_TYPES.has(entry?.partType)) || seenComponentUniqueNames.has(un) || un.includes("/WoundedInfested")) continue;
     const name = dict[entry.name] || entry.name;
     if (!name) continue;
     components.push({

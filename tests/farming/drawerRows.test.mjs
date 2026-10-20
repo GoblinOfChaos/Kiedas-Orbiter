@@ -229,3 +229,12 @@ test('real data: dojo, Sentinel and Archwing blueprints show their own routes, n
     assert.ok(!rows.some((text) => /^(?:Sold fully built|Buy the complete|The built weapon is also sold)/.test(text)), `${name} shows the built item's price: ${JSON.stringify(rows)}`)
   }
 })
+
+test('drawer rows: the same drop from two data sources (different node id, rounded chance) is listed once', () => {
+  const rows = prepareAcquisitionSources([
+    { type: 'mission', node: 'SolNode707', nodeName: 'Hyf', rotation: 'C', chance: 0.2256 },
+    { type: 'mission', region: 'Deimos', node: 'Hyf', nodeName: 'Hyf', rotation: 'C', chance: 0.22560000000000002 },
+    { type: 'mission', node: 'Hyf', nodeName: 'Hyf', rotation: 'B', chance: 0.2256 },
+  ])
+  assert.equal(rows.filter((row) => row.nodeName === 'Hyf').length, 2, 'rotation C once, rotation B once')
+})

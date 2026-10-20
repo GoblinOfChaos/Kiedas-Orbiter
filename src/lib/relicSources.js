@@ -232,12 +232,18 @@ function sourceGroup(type, sources, extra = {}) {
 function dedupeMissionSources(sources) {
   const seen = new Set()
   return sources.filter((source) => {
-    const node = source.node || source.nodeName || source.location || ''
+    const node = source.nodeName || source.node || source.location || ''
     if (!node) return true
     const rotation = source.rotation || source.rotationOrTable || ''
-    const chance = source.chance ?? ''
+    // The same drop can arrive from two data sources with float noise in the
+    // chance, so compare it rounded to 4 decimals.
+    const numericChance = chanceValue(source.chance)
+    const chance = numericChance == null ? (source.chance ?? '') : numericChance.toFixed(4)
     const key = `${node}|${rotation}|${chance}`
-    if (seen.has(key)) return false
+    if (seen.has(key)) {
+      // Keep the more descriptive duplicate (the one that names its region).
+      return false
+    }
     seen.add(key)
     return true
   })

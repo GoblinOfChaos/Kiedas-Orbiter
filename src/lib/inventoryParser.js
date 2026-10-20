@@ -2702,9 +2702,11 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
 
   const landingCraftCatalog = [
     [['DefaultShip', 'LisetShip', 'Liset'], 'Liset', 'Liset'],
-    [['ScimitarShip', 'BlueSkyShip', 'Scimitar'], 'Scimitar', 'Scimitar'],
-    [['MantisShip', 'MantysShip', 'InsectShip', 'Mantis'], 'Mantis', 'Mantis'],
-    [['XiphosShip', 'GyroscopeShip', 'Gyroscope', 'Xiphos'], 'Xiphos', 'Xiphos'],
+    // The first alias is the unique name used for an unowned craft, so it must be
+    // DE's real ID (ExportResources: BlueSkyShip, InsectShip, GyroscopeShip).
+    [['BlueSkyShip', 'ScimitarShip', 'Scimitar'], 'Scimitar', 'Scimitar'],
+    [['InsectShip', 'MantisShip', 'MantysShip', 'Mantis'], 'Mantis', 'Mantis'],
+    [['GyroscopeShip', 'XiphosShip', 'Gyroscope', 'Xiphos'], 'Xiphos', 'Xiphos'],
     [['ZarimanShip', 'ParallaxShip', 'Parallax'], 'Parallax', 'ZarimanShip'],
     [['GrineerShip', 'SkautShip', 'Skaut'], 'Skaut', 'GrineerShip'],
     [['NoraShip', 'NightwaveShip', 'Nightwave'], 'Nightwave', 'Nightwave'],

@@ -189,3 +189,28 @@ test('real data: extractor blueprints inherit the finished-item routes', { skip:
     assert.deepEqual(blueprintRoutes, itemRoutes, blueprintName)
   }
 })
+
+test('drawer rows with a chance run from highest to lowest, whatever their row type', () => {
+  const rows = prepareAcquisitionSources([
+    { type: 'non-drop', text: 'Purchased from the Market.' },
+    { type: 'transient', location: 'Event cache', chance: 0.11 },
+    { type: 'transient', location: 'Seasonal reward', chance: 0.07 },
+    { type: 'mission', node: 'Node A', rotation: 'C', chance: 0.22 },
+    { type: 'mission', node: 'Node B', chance: 0.04 },
+  ])
+  assert.equal(rows[0].type, 'non-drop')
+  assert.deepEqual(rows.slice(1).map((row) => row.chance), [0.22, 0.11, 0.07, 0.04])
+})
+
+test('real data: the Forma Blueprint box lists drop chances from highest to lowest', { skip: !haveRealData }, async () => {
+  const { harness, dropIndex, acquisition } = await context()
+  const { buildBlueprintAcquisitionRows } = await import('../../src/lib/relicSources.js')
+  const rarityIndex = buildRelicRarityIndex(harness.exportsBundle)
+  const info = acquisition('/Lotus/Types/Items/MiscItems/Forma', 'Forma')
+  const rows = buildBlueprintAcquisitionRows('Forma', info.recipe, dropIndex, [], rarityIndex, null, info.sources)
+  const chances = rows.filter((row) => typeof row.chance === 'number').map((row) => row.chance)
+  assert.ok(chances.length >= 5, `only ${chances.length} chance rows`)
+  for (let i = 1; i < chances.length; i += 1) {
+    assert.ok(chances[i] <= chances[i - 1], `row ${i} (${chances[i]}) is below a lower-chance row (${chances[i - 1]})`)
+  }
+})

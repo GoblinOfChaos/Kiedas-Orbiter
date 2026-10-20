@@ -1,5 +1,5 @@
 import { getDropSourcesWithFallback } from './dropsParser.js'
-import { chanceValue, sortSourcesByChanceInRotations } from './chanceSort.js'
+import { chanceValue, sortByChanceDesc, sortSourcesByChanceInRotations } from './chanceSort.js'
 import { normalizeRelicEntry, relicRewardPool } from './relicEntry.js'
 import { sourceLabel } from './sourceLabel.js'
 import { compareText } from './textCompare.js'
@@ -269,14 +269,19 @@ export function prepareAcquisitionSources(sources = [], {
   const normalized = normalizeRelicSources(sources, { rarityIndex, itemType })
   const missionRows = dedupeMissionSources(normalized.filter((source) => source?.type === 'mission'))
   const nonMissionRows = normalized.filter((source) => source?.type !== 'mission')
-  const rows = [...nonMissionRows]
+  // Non-mission rows with a drop chance (event caches, enemies, bounties) are
+  // ranked together with the mission rows, so the list runs from highest to
+  // lowest chance. Rows without a chance (text routes, relics) stay first.
+  const hasRankableChance = (source) => source?.type !== 'relic' && chanceValue(source?.chance) != null
+  const rows = nonMissionRows.filter((source) => !hasRankableChance(source))
+  const otherChanceRows = nonMissionRows.filter(hasRankableChance)
 
   if (missionRows.length > maxMissionRows) {
     const ranked = [...missionRows].sort((a, b) => (chanceValue(b.chance) ?? -1) - (chanceValue(a.chance) ?? -1))
-    rows.push(...ranked.slice(0, maxMissionRows))
+    rows.push(...sortByChanceDesc([...otherChanceRows, ...ranked.slice(0, maxMissionRows)]))
     rows.push(sourceGroup('mission-group', ranked.slice(maxMissionRows), { count: ranked.length - maxMissionRows }))
   } else {
-    rows.push(...missionRows)
+    rows.push(...sortByChanceDesc([...otherChanceRows, ...missionRows]))
   }
 
   const relicRows = rows.filter((source) => source?.type === 'relic')

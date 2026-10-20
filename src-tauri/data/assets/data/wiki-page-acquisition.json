@@ -1132,5 +1132,86 @@
       { "text": "Received as a Daily Tribute.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Forma)" }
     ],
     "url": "https://wiki.warframe.com/w/Forma"
+  },
+  "Crimson Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Awarded from the weekly Archon Hunt against Archon Amar (80% normal, 20% Tauforged).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Sold by Bird 3 of Cavia (Rank 5 - Illuminate) for 30,000 Standing in the weeks the rotating shard is Crimson.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Amber Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Awarded from the weekly Archon Hunt against Archon Nira (80% normal, 20% Tauforged).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Sold by Bird 3 of Cavia (Rank 5 - Illuminate) for 30,000 Standing in the weeks the rotating shard is Amber.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Azure Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Awarded from the weekly Archon Hunt against Archon Boreal (80% normal, 20% Tauforged).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Sold by Bird 3 of Cavia (Rank 5 - Illuminate) for 30,000 Standing in the weeks the rotating shard is Azure.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Tauforged Crimson Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Awarded from the weekly Archon Hunt against Archon Amar (20% chance, rising by 20% after each normal shard).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Made at the Helminth by Ascent Fusion of three Crimson Archon Shards (100 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Tauforged Amber Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Awarded from the weekly Archon Hunt against Archon Nira (20% chance, rising by 20% after each normal shard).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Made at the Helminth by Ascent Fusion of three Amber Archon Shards (100 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Tauforged Azure Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Awarded from the weekly Archon Hunt against Archon Boreal (20% chance, rising by 20% after each normal shard).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Made at the Helminth by Ascent Fusion of three Azure Archon Shards (100 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Topaz Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Made at the Helminth by Coalescent Fusion of a Crimson and an Amber Archon Shard (50 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Violet Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Made at the Helminth by Coalescent Fusion of a Crimson and an Azure Archon Shard (50 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Emerald Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Made at the Helminth by Coalescent Fusion of an Amber and an Azure Archon Shard (50 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Tauforged Topaz Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Made at the Helminth by Coalescent Fusion of a Tauforged Crimson and a Tauforged Amber Archon Shard (50 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Made at the Helminth by Ascent Fusion of three Topaz Archon Shards (100 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Tauforged Violet Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Made at the Helminth by Coalescent Fusion of a Tauforged Crimson and a Tauforged Azure Archon Shard (50 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Made at the Helminth by Ascent Fusion of three Violet Archon Shards (100 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
+  },
+  "Tauforged Emerald Archon Shard": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Made at the Helminth by Coalescent Fusion of a Tauforged Amber and a Tauforged Azure Archon Shard (50 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" },
+      { "text": "Made at the Helminth by Ascent Fusion of three Emerald Archon Shards (100 Stela).", "source": "Warframe Wiki (https://wiki.warframe.com/w/Archon_Shard)" }    ],
+    "url": "https://wiki.warframe.com/w/Archon_Shard"
   }
   }

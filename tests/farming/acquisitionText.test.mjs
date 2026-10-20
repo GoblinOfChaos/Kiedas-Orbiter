@@ -79,3 +79,11 @@ test('all generated and handwritten acquisition text is clean', async () => {
   const violations = checked.filter(([, text]) => forbiddenAcquisitionText.test(text))
   assert.deepEqual(violations, [])
 })
+
+test('a parenthetical after a full stop is not its own acquisition sentence', async () => {
+  const { toCurrentSourceSentences } = await import('../../src/lib/acquisitionText.js')
+  const text = "Blueprint drops from certain Relics. (1x from Common and 2x from Uncommon) Purchased blueprint from Acrithis's shop for 10 Pathos Clamps."
+  const out = toCurrentSourceSentences(text)
+  assert.ok(out.some((sentence) => /certain Relics \(1x from Common and 2x from Uncommon\)/.test(sentence)), JSON.stringify(out))
+  assert.ok(!out.some((sentence) => /^\(/.test(sentence)), JSON.stringify(out))
+})

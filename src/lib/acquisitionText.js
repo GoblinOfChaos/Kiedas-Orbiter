@@ -184,6 +184,8 @@ function splitSentences(rawText) {
     .replace(/<\/li\s*>/gi, '\n')
     .replace(/<br\s*\/?\s*>/gi, '\n')
     .replace(/\n\s*[*#:]+\s*/g, '\n')
+    // A parenthetical after a full stop belongs to the sentence before it.
+    .replace(/\.[ \t]+(\([^()]*\))(?=\s|$)/g, ' $1.')
     .split(/\n+|(?<=[.!?])\s+/)
     .map((sentence) => sentence.trim())
     .filter(Boolean)

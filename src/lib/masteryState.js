@@ -45,6 +45,8 @@ export function awardsMastery(item) {
   if (item.drifter_version === true) return false
   // Exalted weapons come with their Warframe and never earn mastery (wiki).
   if (item.exalted_weapon === true) return false
+  // Story or alternate-mode records that share a masterable weapon's name.
+  if (item.no_mastery === true) return false
   if (listedName(item.name) || listedName(stripBlueprint(item.name))) return true
   if (item.parent_name && listedName(item.parent_name)) return true
   if (PARTS.has(item.category)) return listedPrefix(item.name)

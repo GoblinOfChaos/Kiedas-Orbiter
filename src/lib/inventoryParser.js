@@ -161,6 +161,10 @@ const AMP_SCAFFOLD_BRACE_PART_TYPES = new Set(['LWPT_AMP_CORE', 'LWPT_AMP_BRACE'
 // K-Drive reactors, noses and jets (DE partType). Only the Board (LWPT_HB_DECK,
 // listed under Vehicles) earns mastery (wiki), so these are components.
 const KDRIVE_PART_TYPES = new Set(['LWPT_HB_ENGINE', 'LWPT_HB_FRONT', 'LWPT_HB_JET']);
+const NO_MASTERY_WEAPON_RECORDS = new Set([
+  '/Lotus/Weapons/Tenno/Grimoire/TnDoppelgangerGrimoire',
+  '/Lotus/Weapons/Tenno/Bayonet/TnBayonetMeleeWeapon',
+]);
 const NON_PLAYER_WEAPON_PATH = /\/Friendly\/Pets\/|\/Types\/Items\/Deimos\/Wounded|\/Types\/Enemies\/|PvPVariant|\/Powersuits\/|\/Bayonet\//i;
 
 // ExportResources contains both player-held resources and cosmetic/decoration
@@ -1849,6 +1853,17 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       i.max_mastery_xp = 0;
       i.exalted_weapon = true;
       i.owned = ownedSpecialItems.has(i.unique_name);
+    }
+    // Not separate mastery items (real inventory: XPInfo lists only the other record).
+    // TnDoppelgangerGrimoire is the story copy of the Grimoire (no blueprint; only the
+    // crafted TnGrimoire earns mastery). TnBayonetMeleeWeapon is the Vinquibus rifle's
+    // bayonet mode: same XP as the rifle, so it is hidden from the Weapons tab too.
+    if (NO_MASTERY_WEAPON_RECORDS.has(i.unique_name)) {
+      i.masterable = false;
+      i.mastered = false;
+      i.max_mastery_xp = 0;
+      i.no_mastery = true;
+      if (i.unique_name === '/Lotus/Weapons/Tenno/Bayonet/TnBayonetMeleeWeapon') i.alternate_mode = true;
     }
     const un = i.unique_name;
     const isKitgun = isKitgunPart(un);
@@ -3867,7 +3882,7 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       for (const list of [companionsRaw, moaHeads, houndHeads, amps, archwings, kdrives, components, resources]) {
         for (const item of list || []) if (item?.unique_name) shownElsewhere.add(item.unique_name);
       }
-      return weaponsRaw.filter((item) => !shownElsewhere.has(item.unique_name));
+      return weaponsRaw.filter((item) => !shownElsewhere.has(item.unique_name) && !item.alternate_mode);
     })(),
     primary, secondary, melee, kitguns, zaws,
     companions: companionsRaw, // Compatibility

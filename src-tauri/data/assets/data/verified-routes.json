@@ -7236,5 +7236,1157 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExArmyManWinterTennoBaumToyDeco": {
+  "name": "Centurion Commando Toy",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (a Tennobaum 2024 reward).",
+    "place": "Tennobaum 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "CenturionCommandoToy.png|'''Centurion Commando Toy'''<br>Tennobaum 2024 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExPlushAstronautRayTennoBaumToyDeco": {
+  "name": "Astro Fella Toy",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (a Tennobaum 2024 reward).",
+    "place": "Tennobaum 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "AstroFellaToy.png|'''Astro Fella Toy'''<br>Tennobaum 2024 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Conquera2021Deco": {
+  "name": "Conquera Decoration",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (a Conquera 2021 reward).",
+    "place": "Conquera 2021",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "ConqueraDecoration.png|'''[[Conquera]] Decoration'''<br />[[Conquera|Conquera 2021 rewards]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/ExcaliburDexBobbleHead": {
+  "name": "Noggle Statue - Excalibur Dex",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Obtain it as an Anniversary reward.",
+    "place": "Anniversary",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "DExcaliburNoggle.png                |[[Excalibur Dex Skin|Excalibur Dex]] Noggle<br>''[[Anniversary]] Reward''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Gamification2019Display": {
+  "name": "Display - TennoCon 2019 Grineer Security",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (its promo code was given out at TennoCon 2019).",
+    "place": "TennoCon 2019",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Gamification2019Display.png |'''Grineer Security Display'''<br>''Promo-code given out at [[TennoCon/2019|TennoCon 2019]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneDaybreak": {
+  "name": "Domestik Daybreak Drone",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (a Dog Days 2026 reward).",
+    "place": "Dog Days 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "DomestikDaybreakDrone.png|Daybreak<br>[[Dog Days]] 2026 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/Plushy2021QTCC": {
+  "name": "Conquera Kuaka Floof",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (exclusive to Conquera 2021 Merchandise).",
+    "place": "Conquera 2021 Merchandise",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera",
+     "url": "https://wiki.warframe.com/w/Conquera",
+     "quote": "ConqueraKuaka.png      |[[Decorations/Orbiter_Decorations#Floofs|Conquera Kuaka]]<br>Exclusive to [https://digitalextremes.com/news/digital-extremes-kicks-off-quest-to-conquer-cancer Conquera 2021 Merchandise]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/Plushy2022QTCC": {
+  "name": "Conquera Sawgaw Floof",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (exclusive to Conquera 2022 Merchandise).",
+    "place": "Conquera 2022 Merchandise",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera",
+     "url": "https://wiki.warframe.com/w/Conquera",
+     "quote": "ConqueraSawgaw.png         |[[Decorations/Orbiter_Decorations#Floofs|Conquera Sawgaw]]<br>Exclusive to [https://digitalextremes.com/news/join-digital-extremes-in-the-quest-to-conquer-cancer Conquera 2022 Merchandise]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/PlushyBabyNatah": {
+  "name": "Neolyst Natah Floof",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Praghasa during Epoch Operation: Taubound for 125 Moonflesh.",
+    "place": "Praghasa",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "NeolystNatahFloof.png|Neolyst [[Natah]]<br>'''125''' {{Resource|Moonflesh}} from [[Praghasa]] during [[Epoch Operation: Taubound]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/PlushyBaroEvil": {
+  "name": "Eskhatos Ki'Teer Floof",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Eskhatos Ki'Teer for 111,111 Credits and 111 Ducats when offered.",
+    "place": "Eskhatos Ki'Teer",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "EskhatosKi'TeerFloof.png|[[Eskhatos|Eskhatos Ki'Teer]]<br>{{cc|111,111}} + {{dc|111}} ([[Baro Ki'Teer|Eskhatos Ki'Teer]] only)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/PlushyLotus": {
+  "name": "Lotus Floof",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2023 Digital Pack).",
+    "place": "TennoCon 2023 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "LotusFloof.png|[[Lotus|Lotus Floof]]<br> From the [[TennoCon/2023]] Digital Pack"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/PlushyValkyr": {
+  "name": "Valkyr Floof",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it in the Market for 35 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "ValkyrFloof.png|[[Valkyr]]<br>{{pc|35}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/PlushyVirminkQTCC": {
+  "name": "Conquera Virmink Floof",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (exclusive to the Conquera 2023 Virmink Plush).",
+    "place": "Conquera 2023 Virmink Plush",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera",
+     "url": "https://wiki.warframe.com/w/Conquera",
+     "quote": "ConqueraVirmink.png               |[[Decorations/Orbiter_Decorations#Floofs|Conquera Vermink]]<br>Exclusive to [https://store.warframe.com/collections/conquera-ii-collection/products/virmink-conquera-floof-plush Conquera 2023 Vermink Plush]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Plushies/PlushyVoruna": {
+  "name": "Voruna Floof",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it in the Market for 35 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "VorunaFloof.png|[[Voruna]]<br>{{pc|35}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentGlaive": {
+  "name": "Festive Cychel Glaive Ornament",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (a Tennobaum 2025 reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "DecoOrnamentGlaive.png|'''Festive [[Glaive|Cychel]] Ornament'''<br>Tennobaum 2025 Reward"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Props/Seasonal/StarDays2026HeartPictureFrame": {
+  "name": "Star Days Heart Frame Display",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (delivered from February 27 to March 2, 2026).",
+    "place": "Star Days 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "StarDaysHeartFrameDisplay.png|Star Days Heart Frame Display<br>''Delivered February 27 to March 2, 2026''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TarotCard2021Tennotober": {
+  "name": "Tennotober 2021 Prex",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded for participating in Tennotober 2021).",
+    "place": "Tennotober 2021",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennotober2021Prex.png|'''Tennotober 2021'''<br />Awarded for participating in [https://forums.warframe.com/topic/1282376-official-tennotober-2021-megathread/ Tennotober 2021]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TarotCard2022Tennotober": {
+  "name": "Tennotober 2022 Prex",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded for participating in Tennotober 2022).",
+    "place": "Tennotober 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennotober2022Prex.png|'''Tennotober 2022'''<br>Awarded for participating in [https://forums.warframe.com/topic/1325792-official-tennotober-2022-megathread/ Tennotober 2022]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TarotCard2023Tennotober": {
+  "name": "Tennotober 2023 Prex",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded for participating in Tennotober 2023).",
+    "place": "Tennotober 2023",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennotober2023Prex.png|'''Tennotober 2023'''<br>Awarded for participating in [https://forums.warframe.com/topic/1366392-official-tennotober-2023-megathread/ Tennotober 2023]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TarotCard2024Tennotober": {
+  "name": "Tennotober 2024 Prex",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded for participating in Tennotober 2024).",
+    "place": "Tennotober 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennotober2024Prex.png|'''Tennotober 2024'''<br>Awarded for participating in [https://forums.warframe.com/topic/1412660-official-tennotober-2024-megathread/ Tennotober 2024]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TarotCard2025Tennotober": {
+  "name": "Tennotober 2025 Prex",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded for participating in Tennotober 2025).",
+    "place": "Tennotober 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennotober2025Prex.png|'''Tennotober 2025'''<br>Awarded for participating in [https://forums.warframe.com/topic/1469030-official-tennotober-2025-megathread/ Tennotober 2025]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021BallasPortrait": {
+  "name": "Display - TennoCon 2021",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2021 Digital Pack).",
+    "place": "TennoCon 2021 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennocon2021Display.png|'''[[TennoCon/2021|TennoCon 2021]]'''<br>''Part of the TennoCon 2021 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBaseTrophy": {
+  "name": "TennoCon 2021 - Art Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a featured finalist of the TennoCon 2021 Art Show).",
+    "place": "TennoCon 2021 Art Show",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Awarded to the featured finalists of TennoCon's Art Show.''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestInShowTrophy": {
+  "name": "TennoCon 2021 - Best In Show Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2021 Cosplay Contest winner).",
+    "place": "TennoCon 2021 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestPetTrophy": {
+  "name": "TennoCon 2021 - Master Teasonai Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2021 Cosplay Contest winner).",
+    "place": "TennoCon 2021 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestWorkmanshipTrophy": {
+  "name": "TennoCon 2021 - Solaris Worksmanship Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2021 Cosplay Contest winner).",
+    "place": "TennoCon 2021 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayFunniestTrophy": {
+  "name": "TennoCon 2021 - Ordis Punny Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2021 Cosplay Contest winner).",
+    "place": "TennoCon 2021 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayTrophy": {
+  "name": "TennoCon 2021 - Clem's Choice Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2021 Cosplay Contest winner).",
+    "place": "TennoCon 2021 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2021MerchDisplay": {
+  "name": "Display - TennoCon 2021 Merch",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2021 Merch Pack).",
+    "place": "TennoCon 2021 Merch Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2021MerchDisplay.png|'''[[TennoCon/2021|Display - Tennocon 2021 Merch]]''' <br>''Part of the TennoCon 2021 Merch Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBaseTrophy": {
+  "name": "TennoCon 2022 - Art Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a featured finalist of the TennoCon 2022 Art Show).",
+    "place": "TennoCon 2022 Art Show",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Awarded to the featured finalists of TennoCon's Art Show.''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestInShowTrophy": {
+  "name": "TennoCon 2022 - Best In Show Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2022 Cosplay Contest winner).",
+    "place": "TennoCon 2022 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestPetTrophy": {
+  "name": "TennoCon 2022 - Master Teasonai Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2022 Cosplay Contest winner).",
+    "place": "TennoCon 2022 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestWorkmanshipTrophy": {
+  "name": "TennoCon 2022 - Solaris Worksmanship Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2022 Cosplay Contest winner).",
+    "place": "TennoCon 2022 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayFunniestTrophy": {
+  "name": "TennoCon 2022 - Ordis Punny Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2022 Cosplay Contest winner).",
+    "place": "TennoCon 2022 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayTrophy": {
+  "name": "TennoCon 2022 - Clem's Choice Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2022 Cosplay Contest winner).",
+    "place": "TennoCon 2022 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022MerchDisplay": {
+  "name": "Display - TennoCon 2022 Merch",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2022 Merch Pack).",
+    "place": "TennoCon 2022 Merch Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2022MerchDisplay.png|'''[[TennoCon/2022|Display - Tennocon 2022 Merch]]''' <br>''Part of the TennoCon 2022 Merch Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2022OrokinPortrait": {
+  "name": "Display - TennoCon 2022 Duviri",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2022DuviriDisplay.png|'''[[TennoCon/2022|TennoCon 2022]] Duviri'''<br>''Part of the TennoCon 2022 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestInShowTrophy": {
+  "name": "TennoCon 2024 - Orokin Gold Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2024 Cosplay Contest winner).",
+    "place": "TennoCon 2024 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestPetTrophy": {
+  "name": "TennoCon 2024 - Master Teasonai Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2024 Cosplay Contest winner).",
+    "place": "TennoCon 2024 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestWorkmanshipTrophy": {
+  "name": "TennoCon 2024 - Solaris Worksmanship Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2024 Cosplay Contest winner).",
+    "place": "TennoCon 2024 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayFunniestTrophy": {
+  "name": "TennoCon 2024 - Ordis Punny Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2024 Cosplay Contest winner).",
+    "place": "TennoCon 2024 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayTrophy": {
+  "name": "TennoCon 2024 - Floofy Cuteness Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2024 Cosplay Contest winner).",
+    "place": "TennoCon 2024 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayBestWorkmanshipTrophy": {
+  "name": "TennoCon 2025 - Solaris Worksmanship Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayBombasticTrophy": {
+  "name": "TennoCon 2025 - Bombastic Performance Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayFirstPlaceTrophy": {
+  "name": "TennoCon 2025 - 1st Place",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayLotusChoiceTrophy": {
+  "name": "TennoCon 2025 - Lotus' Choice Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayOrokinGoldTrophy": {
+  "name": "TennoCon 2025 - Orokin Gold Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayOstronIngenuityTrophy": {
+  "name": "TennoCon 2025 - Ostron Ingenuity Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplaySecondPlaceTrophy": {
+  "name": "TennoCon 2025 - 2nd Place",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayThirdPlaceTrophy": {
+  "name": "TennoCon 2025 - 3rd Place",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2025 Cosplay Contest winner).",
+    "place": "TennoCon 2025 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayBestWorkmanshipTrophy": {
+  "name": "TennoCon 2026 - Solaris Worksmanship Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayBombasticTrophy": {
+  "name": "TennoCon 2026 - Bombastic Performance Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayFirstPlaceTrophy": {
+  "name": "TennoCon 2026 - 1st Place",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayLotusChoiceTrophy": {
+  "name": "TennoCon 2026 - Lotus' Choice Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayOrokinGoldTrophy": {
+  "name": "TennoCon 2026 - Orokin Gold Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayOstronIngenuityTrophy": {
+  "name": "TennoCon 2026 - Ostron Ingenuity Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplaySecondPlaceTrophy": {
+  "name": "TennoCon 2026 - 2nd Place",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayThirdPlaceTrophy": {
+  "name": "TennoCon 2026 - 3rd Place",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to a TennoCon 2026 Cosplay Contest winner).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Since 2021, TennoCon's Cosplay Contest has awarded unique decorations to the winners of each cosplay category:''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2017Display": {
+  "name": "Display - TennoCon 2017",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2017 Digital Pack).",
+    "place": "TennoCon 2017 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennocon2017Display.png|'''[[TennoCon/2017|TennoCon 2017]] '''<br>''Part of the TennoCon 2017 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2018Display": {
+  "name": "Display - TennoCon 2018",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2018 Digital Pack).",
+    "place": "TennoCon 2018 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennocon2018Display.png|'''[[TennoCon/2018|TennoCon 2018]]'''<br>''Part of the TennoCon 2018 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2019Display": {
+  "name": "Display - TennoCon 2019",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2019 Digital Pack).",
+    "place": "TennoCon 2019 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennocon2019Display.png|'''[[TennoCon/2019|TennoCon 2019]]'''<br>''Part of the TennoCon 2019 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2019SimarisDisplay": {
+  "name": "Display - TennoCon 2019 Sanctuary Showcase",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (its promo code unlocked after teams reached 225,000 cumulative standing during Sanctuary Showcase 2019).",
+    "place": "Sanctuary Showcase 2019",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2019SanctuaryShowcaseDisplay.png|'''Sanctuary Showcase Display'''<br>''Promo-code unlocked after teams reached 225,000 cumulative standing during Sanctuary Showcase 2019"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2020Display": {
+  "name": "Display - TennoCon 2020",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2020 Digital Pack).",
+    "place": "TennoCon 2020 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Tennocon2020Deco.png|'''[[TennoCon/2020|TennoCon 2020]]'''<br>''Part of the TennoCon 2020 Digital Pack''<br />"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2020SimarisDisplay": {
+  "name": "Display - Tennotrivia 2020",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to participants of TennoTrivia 2020).",
+    "place": "TennoTrivia 2020",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoTrivia2020Display.png  |'''Tenno Trivia 2020'''<br>''Awarded to Participants of TennoTrivia 2020.''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2023Display": {
+  "name": "Display - TennoCon 2023",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2023 Digital Pack).",
+    "place": "TennoCon 2023 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2023Display.png|'''[[TennoCon/2023|Tennocon 2023]]'''<br>''Part of the TennoCon 2023 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2024Display": {
+  "name": "Display - TennoCon 2024",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2024 Digital Pack).",
+    "place": "TennoCon 2024 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2024Display.png|'''[[TennoCon/2024|Tennocon 2024]]'''<br>''Part of the TennoCon 2024 Digital Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2025DigitalItemDisplay": {
+  "name": "TennoCon 2025 Pin Display",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2025 Merch Pack).",
+    "place": "TennoCon 2025 Merch Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2025DigitalItemDisplay.png|'''[[TennoCon/2025|Display - TennoCon 2025 Merch]]'''<br>''Part of the TennoCon 2025 Merch Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2025Display": {
+  "name": "Display - TennoCon 2025",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2025 Digital Pack).",
+    "place": "TennoCon 2025 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Display-TennoCon2025.png|'''[[TennoCon/2025|TennoCon 2025]]'''<br>''Part of the TennoCon 2025 Digital Pack.''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2026DigitalItemDisplay": {
+  "name": "TennoCon 2026 Pin Display",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2026 Merch Pack).",
+    "place": "TennoCon 2026 Merch Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2026PinDisplay.png|'''[[TennoCon/2026|Display - TennoCon 2026 Merch]]'''<br>''Part of the TennoCon 2026 Merch Pack''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Tennocon2026Display": {
+  "name": "TennoCon 2026 Display",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the TennoCon 2026 Digital Pack).",
+    "place": "TennoCon 2026 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "TennoCon2026Display.png|'''[[TennoCon/2026|TennoCon 2026]]'''<br>''Part of the TennoCon 2026 Digital Pack.''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/ClemTennobaumDisplay": {
+  "name": "Dashing Through the Vallis Display",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (from the Tennobaum 2022 Gift Goal).",
+    "place": "Tennobaum 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "ClemTennobaumDisplay2022.png|'''Dashing Through the Vallis Display'''<br>''Tennobaum 2022 Gift Goal''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/PrideCommunityDisplay": {
+  "name": "Pride Display I",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market during Pride for 1 Credit.",
+    "place": "Market during Pride",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Purchasable for {{cc|1}} from the [[Market]] during [[Pride_(Event)|Pride]]."
+    }
+   }
+  ]
  }
 }

@@ -1920,10 +1920,13 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
       if (!routeSources.some((row) => routeKey(row.text) === key)) routeSources.push(source);
     };
 
+    // DE's platinumCost/creditsCost on a weapon or Warframe entry is the price
+    // of the finished item. The blueprint's own Market price is the recipe's
+    // creditsCost, handled below.
     if (marketEntry && marketAmount > 0) {
       const text = marketCurrency === 'Credits'
-        ? `Sold in the in-game Market for ${marketAmount.toLocaleString()} Credits.`
-        : `Blueprint purchasable from Market for ${marketAmount.toLocaleString()} ${marketCurrency}.`;
+        ? `Sold fully built in the in-game Market for ${marketAmount.toLocaleString()} Credits.`
+        : `Sold fully built in the in-game Market for ${marketAmount.toLocaleString()} ${marketCurrency}.`;
       addRoute({ type: 'non-drop', text, source: 'DE export Market price' });
     }
     if (routeRecipe?.blueprintMarketEligible !== false && Number(routeRecipe?.blueprintCost) > 0) {

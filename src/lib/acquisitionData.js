@@ -557,13 +557,17 @@ export const WARFRAME_ACQUISITIONS = {
     "blueprint": "Heavy Gunner Enemies (Grineer Missions - 1%)",
     "general": "Heavy Gunner Drops"
   },
+  "korumm": {
+    "blueprint": "Blueprint is a reward from Narmer Bounties after completing The New War.",
+    "general": "Blueprint is a reward from Narmer Bounties after completing The New War."
+  },
   "quartakk": {
-    "blueprint": "Ghoul Purge Bounties (Plains of Eidolon)",
-    "general": "Ghoul Purge Bounties (Plains of Eidolon)"
+    "blueprint": "Blueprint is a reward from special Ghoul Purge bounties on the Plains of Eidolon. Blueprint is also dropped by Ghoul Auger Alphas.",
+    "general": "Blueprint is a reward from special Ghoul Purge bounties on the Plains of Eidolon. Blueprint is also dropped by Ghoul Auger Alphas."
   },
   "stubba": {
-    "blueprint": "Ghoul Purge Bounties (Plains of Eidolon)",
-    "general": "Ghoul Purge Bounties (Plains of Eidolon)"
+    "blueprint": "Blueprint is a reward from special Ghoul Purge bounties on the Plains of Eidolon. Blueprint is also dropped by Ghoul Rictus Alphas.",
+    "general": "Blueprint is a reward from special Ghoul Purge bounties on the Plains of Eidolon. Blueprint is also dropped by Ghoul Rictus Alphas."
   },
   "korrudo": {
     "blueprint": "Thumper Doma (Plains of Eidolon - 5%)",
@@ -14967,7 +14971,7 @@ export function resolveBlueprintOrigin(displayName, resolvedRecipe) {
   // 2. Warframe & Weapon Master Registry (O(1) hash lookup)
   const wf = WARFRAME_ACQUISITIONS[norm];
   if (wf?.blueprint) {
-    return `Blueprint: ${wf.blueprint}`;
+    return /^Blueprint\b/i.test(wf.blueprint) ? wf.blueprint : `Blueprint: ${wf.blueprint}`;
   }
 
   // 3. Enemy / Relic Drops on Blueprint

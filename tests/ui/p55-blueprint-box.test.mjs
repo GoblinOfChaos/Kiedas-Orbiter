@@ -152,13 +152,16 @@ test('P55 Preview blueprint boxes are uniform for Prime and non-Prime items', { 
   console.log(`P55 named blueprint rows: ${Object.keys(counts).length} items; Korumm=${counts.Korumm}; Braton Prime=${counts['Braton Prime']}`)
 
   const korumm = await renderItem(context, 'Korumm')
-  assert.match(korumm.html, /Blueprint purchasable from Market for \d+ Platinum/)
+  // The Market platinum price is for the built weapon, never the blueprint.
+  assert.doesNotMatch(korumm.html, /Blueprint purchasable from Market for \d+ Platinum/)
+  assert.match(korumm.html, /Narmer Bounties/)
   assert.match(korumm.html, /Cetus|Orb Vallis/)
   assert.match(korumm.html, /7\.5%|5\.45%/)
   assert.equal((korumm.html.match(/data-blueprint-source-row="true"/g) || []).length, 5, 'Korumm must show the origin and four bounty rows')
 
   const quartakk = await renderItem(context, 'Quartakk')
-  assert.match(quartakk.html, /Blueprint purchasable from Market for \d+ Platinum/)
+  assert.doesNotMatch(quartakk.html, /Blueprint purchasable from Market for \d+ Platinum/)
+  assert.match(quartakk.html, /Ghoul Purge bounties/)
   assert.match(quartakk.html, /Ghoul Auger Alpha/)
   assert.match(quartakk.html, /Cetus|Ghoul/)
 })

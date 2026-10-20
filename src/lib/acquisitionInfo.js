@@ -239,7 +239,12 @@ export function splitAcquisitionRouteText(value) {
       const isSamePlaceDescription = isOr
         && /\b(?:rare|uncommon|common|reinforced|normal|exceptional)\s*$/i.test(beforeOr)
         && /^(?:rare|uncommon|common|reinforced|normal|exceptional)\b/i.test(afterOr);
-      if (isSamePlaceDescription) continue;
+      // The Wiki describes these as two places sharing one loot sentence;
+      // splitting at "or" leaves "Deep Archimedea, with ..." as a fragment.
+      const isArchonShardSourceList = isOr
+        && /\bfrom the Netracells$/i.test(beforeOr)
+        && /^Deep Archimedea,\s+with\b/i.test(afterOr);
+      if (isSamePlaceDescription || isArchonShardSourceList) continue;
       push(i);
       i += separator[0].length - 1;
       start = i + 1;

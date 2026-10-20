@@ -1117,5 +1117,20 @@
   "Air Martial":{"section":"Verification status","text":"The exact export object is a legacy Conclave PvP melee mod. The current Wiki Conclave Mods page does not list this legacy name individually, so its exact standing cost or current availability is unverified.","url":"https://wiki.warframe.com/w/Conclave_Mods"},
   "Harrowed Hook":{"section":"Verification status","text":"The exact export object is a legacy Conclave PvP melee mod. The current Wiki Conclave Mods page does not list this legacy name individually, so its exact standing cost or current availability is unverified.","url":"https://wiki.warframe.com/w/Conclave_Mods"},
   "Fizzbang Flourish":{"section":"Verification status","text":"The exact export object is a legacy K-Drive mod. The current Wiki K-Drive Mods page does not list this legacy name individually, so its exact standing cost or current availability is unverified.","url":"https://wiki.warframe.com/w/K-Drive_Mods"},
-  "PLAY EMBLEM":{"section":"Acquisition","text":"Acquired by participating in the closed/open alpha or beta tests for Warframe China; the Wiki lists the exact PLAY EMBLEM under that China-only group.","url":"https://wiki.warframe.com/w/Emblems"}
+  "PLAY EMBLEM":{"section":"Acquisition","text":"Acquired by participating in the closed/open alpha or beta tests for Warframe China; the Wiki lists the exact PLAY EMBLEM under that China-only group.","url":"https://wiki.warframe.com/w/Emblems"},
+  "Forma": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Purchased as a three-Forma bundle from Teshin's rotating Steel Path Honors shop for Steel Essence.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Forma)" }
+    ],
+    "url": "https://wiki.warframe.com/w/Forma"
+  },
+  "Forma Blueprint": {
+    "section": "Acquisition",
+    "sources": [
+      { "text": "Purchased from Acrithis's shop for 10 Pathos Clamps.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Forma)" },
+      { "text": "Received as a Daily Tribute.", "source": "Warframe Wiki (https://wiki.warframe.com/w/Forma)" }
+    ],
+    "url": "https://wiki.warframe.com/w/Forma"
+  }
   }

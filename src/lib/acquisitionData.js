@@ -366,8 +366,8 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Blueprints and components are a potential Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
   },
   "karak wraith": {
-    "blueprint": "Invasions",
-    "general": "Karak Wraith was introduced during the Operation: Tubemen of Regor event, where players would need to complete a minimum of four regional battles in favor of one side more than the other, and Alad V was the victor of the conflict. Alad V had won the conflict in the PC and XB1 versions of the game, but not in the PS4. The weapon was fully built and came with a free weapon slot and a pre-installed Orokin Catalyst. The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
+    "blueprint": "Obtained as blueprint and part rewards from Invasions. Requires Mastery Rank 7 to acquire the blueprint. Components can be traded.",
+    "general": "Obtained as blueprint and part rewards from Invasions. Requires Mastery Rank 7 to acquire the blueprint. Components can be traded."
   },
   "twin vipers wraith": {
     "blueprint": "Invasions",

@@ -14196,5 +14196,21 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Events/NeonPrideWings": {
+  "name": "Neon Pride Wings",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold in the in-game Market for 25,000 Credits during the Pride event, with no limit on how many can be bought.",
+    "place": "In-game Market",
+    "source": {
+     "archive": "warframe_news",
+     "page": "Pride 2024",
+     "url": "https://www.warframe.com/en/news/pride-2024",
+     "quote": "The brand new Neon Pride Wings Decoration is also available in the in-game Market for 25,000 Credits. There is no limit to how many you can purchase, so that your Orbiter, Dormizone and Dojo can all be elevated with dazzling colors."
+    }
+   }
+  ]
  }
 }

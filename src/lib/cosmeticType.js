@@ -27,8 +27,21 @@ export const SKIN_FOLDER_FAMILY_OVERRIDES = {
  * a few melee weapon skins elsewhere. Body-type and Lotus*Customization
  * records in the same table are base types, not items.
  */
+// The base skin and helmet a Warframe comes with when it is built are part of
+// the Warframe, not items a player can get, so they are not listed (owner
+// decision 2026-10-20). Named by exact ID; DE does not link these frames'
+// base appearance in its export (Gauss Prime's helmet is in its additionalItems).
+export const BASE_APPEARANCE_ITEMS = new Set([
+  '/Lotus/Upgrades/Skins/Duelist/DuelistSkin',
+  '/Lotus/Upgrades/Skins/Duelist/DuelistHelmet',
+  '/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin',
+  '/Lotus/Upgrades/Skins/Geode/CitrinePrimeHelmet',
+  '/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet',
+]);
+
 export function isCosmeticCustomsEntry(uniqueName) {
   const value = String(uniqueName || '');
+  if (BASE_APPEARANCE_ITEMS.has(value)) return false;
   return /\/Upgrades\/Skins\//i.test(value)
     || /^\/Lotus\/Types\/Game\/[A-Za-z]+Pet\/Patterns\//.test(value)
     || /^\/Lotus\/Characters\/Tenno\/Accessory\/Scarves\//.test(value)

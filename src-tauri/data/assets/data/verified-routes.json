@@ -10453,5 +10453,1910 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem": {
+  "name": "Jahu Gargoyle",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it was built in a Clan Dojo during the limited-time Operation: Gargoyle's Cry).",
+    "place": "Clan Dojo",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Gargoyle's Cry",
+     "url": "https://wiki.warframe.com/w/Operation:_Gargoyle%27s_Cry",
+     "quote": "'''Operation: Gargoyle's Cry''' was a limited-time event where [[The Murmur]] attempted to breach into the [[Origin System]] via [[Albrecht's Laboratories]]. The player was charged with building a [[Jahu Gargoyle]], planting it in their [[Clan Dojo|Dojo]], and then traveling to '''Effervo, Deimos''' to [[Assassination|assassinate]] [[The Fragmented]] boss and, optionally, a [[Void Angel]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds": {
+  "name": "Nora's Mix: Time Tempests Cred",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (its source was the Nora's Mix: Time Tempests Rank 1 reward of 150 Cred).",
+    "place": "Nora's Mix: Time Tempests",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Nora's Mix: Time Tempests",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora%27s_Mix:_Time_Tempests",
+     "quote": "*''Rank 1 - {{sc|10,000}}: Nora's Mix: Time Tempests Cred x{{Nc|150|NoraTT}}''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon": {
+  "name": "Delicate Pobber Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Delicate Pobber through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Eidolon/AnimalTagCondrocRare": {
+  "name": "Emperor Condroc Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture an Emperor Condroc through Conservation to receive its tag.",
+    "place": "Plains of Eidolon",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon": {
+  "name": "Woodland Mergoo Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Woodland Mergoo through Conservation to receive its tag.",
+    "place": "Plains of Eidolon",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/KubrowPet/KubrowPetFood": {
+  "name": "DNA Stabilizers",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (DNA Stabilizers were removed from the Market when DNA Degradation was removed from the game).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "DNA Stabilizer",
+     "url": "https://wiki.warframe.com/w/DNA_Stabilizer",
+     "quote": "The {{Resource|DNA Stabilizer}} is an item previously used to stop a cloned [[Kubrow]]'s or [[Kavat]]'s DNA from degrading, restoring 20% of a pet's genetic stability per use. As of [[Update 30#Update 30.5|Update 30.5]] this item has been removed from the [[Market]] as DNA Degradation was removed from the game. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/DangerRoom/DangerRoomTileDefault": {
+  "name": "The Citadel Simulacrum",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Acquire a Simulacrum Access Key for 50,000 Standing to gain access to the default Citadel arena.",
+    "place": "Cephalon Simaris Sanctuary",
+    "source": {
+     "archive": "wiki",
+     "page": "Simulacrum",
+     "url": "https://wiki.warframe.com/w/Simulacrum",
+     "quote": "The entrance of the Simulacrum is located on the left of the [[Sanctuary (Cephalon Simaris)|Sanctuary's]] entrance. Players must acquire a '''Simulacrum Access Key''' with {{sc|50,000}} to gain access to the arena."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Eidolon/AnimalTagMergooRare": {
+  "name": "Splendid Mergoo Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Splendid Mergoo through Conservation to receive its tag.",
+    "place": "Plains of Eidolon",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Events/OperationsCredits": {
+  "name": "Scarlet Credits",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (they were event-exclusive rewards for completing Ground Assaults or Murex Raids in Operation: Scarlet Spear).",
+    "place": "Operation: Scarlet Spear",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Scarlet Spear",
+     "url": "https://wiki.warframe.com/w/Operation:_Scarlet_Spear",
+     "quote": "Scarlet Credits are a unique event-exclusive currency that can be gained by completing Ground Assaults or Murex Raids. The score earned during Ground Assault and Murex Raid missions will determine the number of Scarlet Credits earned at the end of the mission. For every one score earned, a single Scarlet Credit is rewarded (1:1 ratio). If you joined in a mission mid-way through completion, you will only get Scarlet Credits for the time you've spent playing."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/FusionTreasures/OroFusexJ": {
+  "name": "Ayatan Hemakara Sculpture",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (its latest listed source was Rank 23 of Nora's Mix Volume 6).",
+    "place": "Nora's Mix Volume 6",
+    "source": {
+     "archive": "wiki",
+     "page": "Ayatan Treasures",
+     "url": "https://wiki.warframe.com/w/Ayatan_Treasures",
+     "quote": "**By reaching Rank 23 of [[Nightwave]] [[Nightwave/Nora's Mix Volume 6|Nora's Mix Vol.6.]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer": {
+  "name": "SENTIENT APPETITE",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Helminth Metamorphosis Rank 8 to unlock Sentient Appetite.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth",
+     "quote": "| 8 || 10125 || 49500 || '''Sentient Appetite'''<br />Feed Sentient resources to the Helminth, to increase its appetite for one resource that it no longer craved."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthBile": {
+  "name": "Bile",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "Feed resources from the Bile category to the Helminth to convert them into Bile secretions.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth#Bile",
+     "quote": "When utilizing the Helminth, it is vital for it be fed a certain number of [[resource]]s from different categories to start the process. Almost all resources in the game can be used to feed the Helminth, which are then converted into specific '''Secretions''' which are then spent for various Helminth functions. Different resources generate different types of Secretions, which are consumed when feeding Helminth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthBiotics": {
+  "name": "Biotics",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "Feed resources from the Biotics category to the Helminth to convert them into Biotics secretions.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth#Biotics",
+     "quote": "When utilizing the Helminth, it is vital for it be fed a certain number of [[resource]]s from different categories to start the process. Almost all resources in the game can be used to feed the Helminth, which are then converted into specific '''Secretions''' which are then spent for various Helminth functions. Different resources generate different types of Secretions, which are consumed when feeding Helminth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthCalx": {
+  "name": "Calx",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "Feed resources from the Calx category to the Helminth to convert them into Calx secretions.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth#Calx",
+     "quote": "When utilizing the Helminth, it is vital for it be fed a certain number of [[resource]]s from different categories to start the process. Almost all resources in the game can be used to feed the Helminth, which are then converted into specific '''Secretions''' which are then spent for various Helminth functions. Different resources generate different types of Secretions, which are consumed when feeding Helminth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthOxides": {
+  "name": "Oxides",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "Feed resources from the Oxides category to the Helminth to convert them into Oxides secretions.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth#Oxides",
+     "quote": "When utilizing the Helminth, it is vital for it be fed a certain number of [[resource]]s from different categories to start the process. Almost all resources in the game can be used to feed the Helminth, which are then converted into specific '''Secretions''' which are then spent for various Helminth functions. Different resources generate different types of Secretions, which are consumed when feeding Helminth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthPheromones": {
+  "name": "Pheromones",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "Feed resources from the Pheromones category to the Helminth to convert them into Pheromones secretions.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth#Pheromones",
+     "quote": "When utilizing the Helminth, it is vital for it be fed a certain number of [[resource]]s from different categories to start the process. Almost all resources in the game can be used to feed the Helminth, which are then converted into specific '''Secretions''' which are then spent for various Helminth functions. Different resources generate different types of Secretions, which are consumed when feeding Helminth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/InfestedFoundry/HelminthSynthetics": {
+  "name": "Synthetics",
+  "routes": [
+   {
+    "kind": "crafting",
+    "text": "Feed resources from the Synthetics category to the Helminth to convert them into Synthetics secretions.",
+    "place": "Helminth Infirmary",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth",
+     "url": "https://wiki.warframe.com/w/Helminth#Synthetics",
+     "quote": "When utilizing the Helminth, it is vital for it be fed a certain number of [[resource]]s from different categories to start the process. Almost all resources in the game can be used to feed the Helminth, which are then converted into specific '''Secretions''' which are then spent for various Helminth functions. Different resources generate different types of Secretions, which are consumed when feeding Helminth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker": {
+  "name": "additional appearance config slot for this item",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy an additional Appearance Config slot for 10 Platinum after reaching Mastery Rank 10.",
+    "place": "Arsenal",
+    "source": {
+     "archive": "wiki",
+     "page": "Arsenal",
+     "url": "https://wiki.warframe.com/w/Arsenal#Appearance",
+     "quote": "As with the Upgrade screen, Appearance settings can be saved in up to three Configs. Additional Config slots can be purchased for {{Pc|10}} by Mastery Rank 10 players, allowing up to six Configs total."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/MechSurvivalEventCreds": {
+  "name": "Phasic Cells",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (they were event-exclusive rewards for completing Operation: Orphix Venom missions at one Phasic Cell per 10 points).",
+    "place": "Operation: Orphix Venom",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Orphix Venom",
+     "url": "https://wiki.warframe.com/w/Operation:_Orphix_Venom#Phasic_Cells/Scoring",
+     "quote": "{{Icon|Item|Phasic Cells|text}} are a unique event-exclusive currency that can be gained by completing Orphix Venom missions. They are earned at the rate of 1 Phasic Cells per 10 points. For every second that there are no active Orphix on the map, players will earn '''1''' points. Additional points can be earned for each Sentient killed and a base '''100'''/'''150'''/'''200''' points are rewarded for destroying Orphix on Normal/Advanced/Endurance missions. Score gain per destroyed Orphix will scale in all difficulties based on the following formula:"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/ModSlotUnlocker": {
+  "name": "additional mod config slot for this item",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy an additional Mod Config slot for 10 Platinum after reaching Mastery Rank 10.",
+    "place": "Arsenal",
+    "source": {
+     "archive": "wiki",
+     "page": "Arsenal",
+     "url": "https://wiki.warframe.com/w/Arsenal#Upgrade",
+     "quote": "'''Configurations''' - Seen at the top-middle of the Upgrade screen are three '''Config''' tabs. These allow for saving different presets of equipped Mods for greater customization and faster swapping between builds. It’s important to note that all Configs share the same Polarities in their respective Mod Slots, which means changing one with {{Resource|Forma}} will affect that Mod Slot in all Configs. However, for Abilities added onto Warframes via the [[Helminth#Ability Replacement|Helminth system]], these can be saved to individual Configs. Tabbing between Configs with different Mods slotted in will adjust the Stats Summary to show potential value changes. More Configs can be purchased for {{Pc|10}} when the player has reached Mastery Rank 10, up to a total of six. The arrangement of Configs can be swapped around by holding {{Keybind|LMB}}and dragging it over to the other Config the player wants to swap with."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds": {
+  "name": "Nora's Choice Cred",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (its source was the Nora's Choice Rank 1 reward of 150 Cred).",
+    "place": "Nora's Choice",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Nora's Choice",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora%27s_Choice",
+     "quote": "*''Rank 1 - {{sc|10,000}}: Nora's Choice Creds {{Nc|150|NoraC}}''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub": {
+  "name": "Yuvan Peak Scene",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 500 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva",
+     "quote": "|Yuvan Peak Scene || [[Captura]] || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|500|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA": {
+  "name": "Delta Beacon",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Beacons were taken away from what the Grineer Prosecutors drop).",
+    "place": "Grineer Prosecutors",
+    "source": {
+     "archive": "wiki",
+     "page": "Beacons (Prosecutor)",
+     "url": "https://wiki.warframe.com/w/Beacons_(Prosecutor)",
+     "quote": "{{Archived|1='''[[Councilor Vay Hek]]'s node was changed to use a [[Mastery Rank]] lock in {{ver|15.13}}, and the Beacons themselves were removed from the Prosecutors' drop tables in {{ver|18.10}}.'''}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB": {
+  "name": "Gamma Beacon",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Beacons were taken away from what the Grineer Prosecutors drop).",
+    "place": "Grineer Prosecutors",
+    "source": {
+     "archive": "wiki",
+     "page": "Beacons (Prosecutor)",
+     "url": "https://wiki.warframe.com/w/Beacons_(Prosecutor)",
+     "quote": "{{Archived|1='''[[Councilor Vay Hek]]'s node was changed to use a [[Mastery Rank]] lock in {{ver|15.13}}, and the Beacons themselves were removed from the Prosecutors' drop tables in {{ver|18.10}}.'''}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC": {
+  "name": "Kappa Beacon",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Beacons were taken away from what the Grineer Prosecutors drop).",
+    "place": "Grineer Prosecutors",
+    "source": {
+     "archive": "wiki",
+     "page": "Beacons (Prosecutor)",
+     "url": "https://wiki.warframe.com/w/Beacons_(Prosecutor)",
+     "quote": "{{Archived|1='''[[Councilor Vay Hek]]'s node was changed to use a [[Mastery Rank]] lock in {{ver|15.13}}, and the Beacons themselves were removed from the Prosecutors' drop tables in {{ver|18.10}}.'''}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD": {
+  "name": "Omega Beacon",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Beacons were taken away from what the Grineer Prosecutors drop).",
+    "place": "Grineer Prosecutors",
+    "source": {
+     "archive": "wiki",
+     "page": "Beacons (Prosecutor)",
+     "url": "https://wiki.warframe.com/w/Beacons_(Prosecutor)",
+     "quote": "{{Archived|1='''[[Councilor Vay Hek]]'s node was changed to use a [[Mastery Rank]] lock in {{ver|15.13}}, and the Beacons themselves were removed from the Prosecutors' drop tables in {{ver|18.10}}.'''}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagBolarolaRare": {
+  "name": "Thorny Bolarola Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Thorny Bolarola through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon": {
+  "name": "Black-Banded Bolarola Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Black-Banded Bolarola through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare": {
+  "name": "Horrasque Stormer Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Horrasque Stormer through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagKubrodonRare": {
+  "name": "Kubrodon Incarnadine Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Kubrodon Incarnadine through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon": {
+  "name": "Vallis Kubrodon Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Vallis Kubrodon through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagSawgawRare": {
+  "name": "Frogmouthed Sawgaw Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Frogmouthed Sawgaw through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagStoverRare": {
+  "name": "Fire-Veined Stover Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Fire-Veined Stover through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Solaris/AnimalTagVirminkRare": {
+  "name": "Red-Crested Virmink Tag",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Capture a Red-Crested Virmink through Conservation to receive its tag.",
+    "place": "Orb Vallis",
+    "source": {
+     "archive": "wiki",
+     "page": "Conservation",
+     "url": "https://wiki.warframe.com/w/Conservation#Rewards",
+     "quote": "When a creature is caught, any player within [[Affinity Range]] is awarded [[Standing]] (if applicable) and species-specific tags (which can be affected by a [[Resource Booster]] and {{M|Loyal Retriever}}/{{M|Resourceful Retriever}}) in proportion to capture quality. [[Son]] also sells a selection of tags under '''Today's Special''' for {{Pc}}. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem": {
+  "name": "Ember Prex",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Pick up Ember's Prex inside Red Veil's room in Kronia Relay, above the Grineer table and behind the Red Veil flag.",
+    "place": "Kronia Relay",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations#Prex",
+     "quote": "**{{WF|Ember}}'s Prex is inside [[Red Veil]]'s room, on the archway above the Grineer table and behind the Red Veil flag."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem": {
+  "name": "Garuda Prex",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Pick up Garuda's Prex inside Teshin's room in Kronia Relay, behind the tombstone to the left of Jade's Promise.",
+    "place": "Kronia Relay",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations#Prex",
+     "quote": "**{{WF|Garuda}}'s Prex is inside [[Teshin]]'s room, on the ground behind the tombstone directly to the left of [[Jade's Promise]], located in the back of the right-side of the room."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem": {
+  "name": "Protea Prex",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Pick up Protea's Prex to the right of the rightmost Ducat station in Kronia Relay, behind the pillar.",
+    "place": "Kronia Relay",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations#Prex",
+     "quote": "**{{WF|Protea}}'s Prex is to the right of the rightmost Ducat station in the Saturn Relay, hidden behind the pillar."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem": {
+  "name": "Titania Prex",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Pick up Titania's Prex inside New Loka's room in Kronia Relay, on top of the projection of Earth.",
+    "place": "Kronia Relay",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations#Prex",
+     "quote": "**{{WF|Titania}}'s Prex is inside [[New Loka]]'s room, on top the projection of Earth."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem": {
+  "name": "Vauban Prex",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Pick up Vauban's Prex inside Steel Meridian's room in Kronia Relay, on the barrels above and left of the entrance.",
+    "place": "Kronia Relay",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations#Prex",
+     "quote": "**{{WF|Vauban}}'s Prex is inside [[Steel Meridian]]'s room, on top of barrels above and to the left of the entrance of the room."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/DropSpecialItemChanceOnWeakpointKillSticker": {
+  "name": "Argon Combo #2",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/ToxinGasResistanceOnHealthOrbSticker": {
+  "name": "Breathless",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/DropHealingBurgerChanceSticker": {
+  "name": "Burgerfest",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/StickerSporePrimer": {
+  "name": "Catscratch Fever",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/CreateShieldOnHeavySlamSticker": {
+  "name": "Crushing Chills",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/StickerEnemyShotgun": {
+  "name": "Doktor's Orders",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/DropEfervonGrenadeChanceSticker": {
+  "name": "Fly, Fly!",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/AvatarKnockdownResistanceSticker": {
+  "name": "Going Steady",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/DeathPreventionOnKillsSticker": {
+  "name": "Hi-Score",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/CreateChasingAntiMatterDropSticker": {
+  "name": "It Sees You",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/ToxinProcOnDamageSticker": {
+  "name": "Old Pizza",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/StickerEnemyMelee": {
+  "name": "Only Knives",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/FreezePlayerOverTimeSticker": {
+  "name": "Optimism",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/NPCReviveSticker": {
+  "name": "Panic Call",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/StickerEnemyRifle": {
+  "name": "Resolutions",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/RemoveStatusesOnHeavyAttackSticker": {
+  "name": "Reverse-O",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/EjectButtonSticker": {
+  "name": "Slippery Customer",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/NullStarOnWeakpointKillSticker": {
+  "name": "Spinnin' Around",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/ElementalAmmoChanceOnEximusKillSticker": {
+  "name": "Super Scavenger",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/StickerEnemySmg": {
+  "name": "Through My Heart",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/DecoyOnDamagedSticker": {
+  "name": "Too Hot",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/AllowNecramechSummonSticker": {
+  "name": "Vintage Tech",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/AllowThermianRpgSummonSticker": {
+  "name": "Wakeup Call",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/SuperGlideParkourSticker": {
+  "name": "Walking on Air",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Stickers/WeaponColdDamageSticker": {
+  "name": "XL Frosty",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Open Peely Paks from Temporal Archimedea rewards or Kaya's wares for a random chance to receive it.",
+    "place": "Temporal Archimedea",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 38",
+     "url": "https://wiki.warframe.com/w/Update_38",
+     "quote": "Peely Pix are obtained from Peely Pax, offering 5 random stickers per pack! You can obtain Peely Paks from Temporal Archimedia rewards, and from Kaya’s wares."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver": {
+  "name": "Kinemantik A/V Receiver",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik A/V Receiver from DIRECTGIFTZ for 15,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:AVReceiver.png|'''Kinemantik™ A/V Receiver'''<br/>UPGRADED with TWO Video Inputs and THREE Audio Inputs!<br>'''Stock''': 2<br/>{{Resource|Höllars|15,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable": {
+  "name": "Kinemantik Hockey Table",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Hockey Table from DIRECTGIFTZ for 85,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:AirHockey.png|'''Kinemantik™ Hockey Table'''<br/>Enjoy the very best of Air Hockey with this Kinemantik Air Hockey Table!<br>'''Stock''': 1<br/>{{Resource|Höllars|85,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle": {
+  "name": "KineBasik Bicycle",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Bicycle from DIRECTGIFTZ for 80,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Bicycle.png|'''KineBasik™ Bicycle'''<br/>For all your KineBasik™ bicycling needs!<br>'''Stock''': 1<br/>{{Resource|Höllars|80,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Binder": {
+  "name": "File-a-Style Binder",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Binder from DIRECTGIFTZ for 8,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Binder.png|'''File-a-Style™ Binder'''<br/>File-a-Style™ Binders come in a pack of FIVE for MORE value!<br>'''Stock''': 4<br/>{{Resource|Höllars|8,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Calculator": {
+  "name": "File-a-Style Deluxe Calculator",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Deluxe Calculator from DIRECTGIFTZ for 12,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Calculator.png|'''File-a-Style™ Deluxe Calculator'''<br/>File-a-Style™ Deluxe Calulator can now hold up to TWO previous functions in its memory, saving you precious time!<br>'''Stock''': 2<br/>{{Resource|Höllars|12,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox": {
+  "name": "KineBasik Cardboard Box",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Cardboard Box from DIRECTGIFTZ for 25,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:CardboardBox.png|'''KineBasik™ Cardboard Box'''<br/>For all your KineBasic™ cardboard box needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|25,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone": {
+  "name": "Kinemantik Cellphone",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Cellphone from DIRECTGIFTZ for 14,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:CellPhone.png|'''Kinemantik™ Cellphone'''<br/>Kinemantik™ Cellphones are guaranteed* to be indestructible for life!  (*By purchasing any Kinemantik product, including subscriptions to Kinemantik On Line, the purchaser waives all rights to pursue claims, legal remedies, or damages against Kinemantik, its affiliates, or successors, to the fullest extent permitted by law.)<br>'''Stock''': 4<br/>{{Resource|Höllars|14,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup": {
+  "name": "File-A-Style Coffee Cups",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-A-Style Coffee Cups from DIRECTGIFTZ for 4,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:CoffeeCup.png|'''Kinekitchen™ Coffee Cups'''<br/>With a pack of 200, your office will thank you for these biodegradable top-of-the-line, insulated paper cups!<br>'''Stock''': 4<br/>{{Resource|Höllars|4,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine": {
+  "name": "KineKitchen Coffee Machine",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineKitchen Coffee Machine from DIRECTGIFTZ for 45,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:CoffeeMachine.png|'''KineKitchen™ Coffee Machine'''<br/>The KineKitchen™ line of coffee makers has the new, patent pending \"sneak a cup\" feature that allows you to fill your cup while the machine is brewing!<br>'''Stock''': 1<br/>{{Resource|Höllars|45,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc": {
+  "name": "On-lyne: The Boys R Back",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy On-lyne: The Boys R Back from DIRECTGIFTZ for 4,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:CompactDiscC.png|'''On-lyne: The Boys R Back'''<br/>The Boys R Back compilation album features some of On-lyne's greatest hits as well as dance remixes to really get the party started!<br>'''Stock''': 1<br/>{{Resource|Höllars|4,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone": {
+  "name": "Kinemantik Digital Phone",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Digital Phone from DIRECTGIFTZ for 12,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:DigitalPhone.png|'''Kinemantik™ Digital Phone'''<br/>Kinemantik™ Digital Phones are guaranteed to have service absolutely everywhere!<br>'''Stock''': 4<br/>{{Resource|Höllars|12,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/EntratiPoster": {
+  "name": "File-A-Style Insta-Print Poster",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-A-Style Insta-Print Poster from DIRECTGIFTZ for 2,500 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:EntratiPoster.png|'''File-a-Style™ Insta-Print Poster'''<br/>File-A-Style™ can meet your printing needs, no matter the challenging demands!<br>'''Stock''': 4<br/>{{Resource|Höllars|2,500}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher": {
+  "name": "KineBasik Fire Extinguisher",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Fire Extinguisher from DIRECTGIFTZ for 15,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:FireExtinguisher.png|'''KineBasik™ Fire Extinguisher'''<br/>For all your KineBasik™ fire extinguishing needs!<br>'''Stock''': 2<br/>{{Resource|Höllars|15,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight": {
+  "name": "KineMagik! Party Light",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineMagik! Party Light from DIRECTGIFTZ for 80,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:FloodLight.png|'''KineMagik™ Party Light'''<br/>This KineMagik!™ kicking party light also doubles as a search light in instances of duress!<br>'''Stock''': 1<br/>{{Resource|Höllars|80,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU": {
+  "name": "Kinemantik 256 GPU",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik 256 GPU from DIRECTGIFTZ for 70,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:HardwareGPU.png|'''Kinemantik™ 256 GPU'''<br/>HOT NEW RELEASE!! This WORLD FIRST Graphics Processing Unit will change gaming as you know it! With an 128-bit onboard memory interface and both VHS and Composite outputs, the Kinemantik™ 256 GPU will NEVER go obsolete!<br>'''Stock''': 2<br/>{{Resource|Höllars|70,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Headphones": {
+  "name": "KineMagik! Wireless Headphones",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineMagik! Wireless Headphones from DIRECTGIFTZ for 10,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:HeadPhones.png|'''KineMagik™ Wireless Headphones'''<br/>Imagine the freedom you'll have with these KineMagik!™ Wireless Headphones! Includes a 2 channel transmitter that works up to 100m*!  (*Within direct line of sight. Batteries not included.)<br>'''Stock''': 1<br/>{{Resource|Höllars|10,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters": {
+  "name": "File-a-Style Highlighters",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Highlighters from DIRECTGIFTZ for 8,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Highlighters.png|'''File-a-Style™ Highlighters'''<br/>File-a-Style™ brand highlighters come in an assorted colors. Pack of 50.<br>'''Stock''': 4<br/>{{Resource|Höllars|8,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge": {
+  "name": "KineBasik Gas Can (Large)",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Gas Can (Large) from DIRECTGIFTZ for 5,500 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:JerryCanLarge.png|'''KineBasik™ Gas Can (Large)'''<br/>For all your KineBasik™ larger gas-carrying needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|5,500}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall": {
+  "name": "KineBasik Gas Can (Small)",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Gas Can (Small) from DIRECTGIFTZ for 2,500 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:JerryCanSmall.png|'''KineBasik™ Gas Can (Small)'''<br/>For all your KineBasik™ smaller gas-carrying needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|2,500}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain": {
+  "name": "KineBasik Asst. Metal Keychains",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Asst. Metal Keychains from DIRECTGIFTZ for 5,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:KeyChain.png|'''KineBasik™ Asst. Metal Keychains'''<br/>This assorted collection of KineBasik™ metal keychains comes in a case of 100 and is sure to meet your needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|5,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox": {
+  "name": "KineBasik Metal Lunch Box",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Metal Lunch Box from DIRECTGIFTZ for 7,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:LunchBox.png|'''KineBasik™ Metal Lunchbox'''<br/>For all your KineBasik™ lunch carrying needs!<br>'''Stock''': 2<br/>{{Resource|Höllars|7,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/MedKit": {
+  "name": "KineBasik Medical Kit",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Medical Kit from DIRECTGIFTZ for 60,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:MedKit.png|'''KineBasik™ Medical Kit'''<br/>For all your KineBasik™ emergency medical needs!<br>'''Stock''': 2<br/>{{Resource|Höllars|60,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Microphone": {
+  "name": "Kinemantik Announce",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Announce from DIRECTGIFTZ for 30,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Microphone.png|'''Kinemanik™ Announce'''<br/>The Kinemantik™ Announce is compatible with all major systems. With an adjustable in-line volume override, it is sure to muster even the most stubborn of troops.<br>'''Stock''': 1<br/>{{Resource|Höllars|30,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Microwave": {
+  "name": "KineKitchen Microwave",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineKitchen Microwave from DIRECTGIFTZ for 45,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Microwave.png|'''KineKitchen™ Microwave'''<br/>The KineKitchen™ Microwave comes with brand-new patent-pending settings like SmartDefrost and Insta-Pop! Make popcorn in ten seconds or less with no burnt kernels - guaranteed!<br>'''Stock''': 1<br/>{{Resource|Höllars|45,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/MousePad": {
+  "name": "File-a-Style Mouse Pad",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Mouse Pad from DIRECTGIFTZ for 8,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Mousepad.png|'''File-a-Style™ Mouse Pad'''<br/>With this set of 50 black mouse pads, your coworkers will thank you for not having to worry about any bright colors!<br>'''Stock''': 4<br/>{{Resource|Höllars|8,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Mug": {
+  "name": "KineBasik Coffee Mug",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Coffee Mug from DIRECTGIFTZ for 2,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Mug.png|'''KineBasik™ Coffee Mug'''<br/>For all your KineBasik™ coffee needs! Set of two.<br>'''Stock''': 4<br/>{{Resource|Höllars|2,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Notepad": {
+  "name": "File-a-Style Notepad",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Notepad from DIRECTGIFTZ for 9,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Notepad.png|'''File-a-Style™ Notepad'''<br/>File-a-Style™ notepads come in packages of 10 and are lined.<br>'''Stock''': 2<br/>{{Resource|Höllars|9,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone": {
+  "name": "File-a-Style Office Phone",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Office Phone from DIRECTGIFTZ for 12,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:OfficePhone.png|'''File-a-Style™ Office Phone'''<br/>The File-a-Style™ Office Phone comes with nine hold lines for busy days, dial-out settings, and new digital voicemail features with TWO optional voice settings!<br>'''Stock''': 1<br/>{{Resource|Höllars|12,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox": {
+  "name": "KineMagik! Boom Box",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineMagik! Boom Box from DIRECTGIFTZ for 22,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedBoomBox.png|'''KineMagik!™ Boom Box'''<br/>The KineMagik!™ Boom Box is for when you want to make sure that the entire neighborhood shares in your tunes!<br>'''Stock''': 2<br/>{{Resource|Höllars|22,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole": {
+  "name": "K.A.H. Game System",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the K.A.H. Game System from DIRECTGIFTZ for 20,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedGameConsole.png|'''K.A.H.™ Game System'''<br/>The Kinemantik At Home (K.A.H.)™ Game System is a new revolutionary way to bring the arcade to your living room!<br>'''Stock''': 2<br/>{{Resource|Höllars|20,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor": {
+  "name": "K.A.H. Game Monitor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the K.A.H. Game Monitor from DIRECTGIFTZ for 12,500 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedMonitor.png|'''K.A.H.™ Game Monitor'''<br/>The Kinemantik At Home (K.A.H.)™ Game Monitor is the best way to run your K.A.H. system at home with perfect 64-bit definition.   (Note: The K.A.H. Game System is only compatible with the K.A.H. Game Monitor and will not work with any other TV or monitor.)<br>'''Stock''': 2<br/>{{Resource|Höllars|12,500}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV": {
+  "name": "KineMagik! Portable TV",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineMagik! Portable TV from DIRECTGIFTZ for 8,500 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedPortableTV.png|'''KineMagik!™ Portable TV'''<br/>Take your shows on the road with this KineMagik!™ portable TV with included tuner! <br>'''Stock''': 2<br/>{{Resource|Höllars|8,500}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker": {
+  "name": "Kinemantik Speaker",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Speaker from DIRECTGIFTZ for 22,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedSpeaker.png|'''Kinemantik™ Speaker'''<br/>This Kinemantik™ single speaker operates at 500w! Requires a Kinemantik™ A/V Receiver or other amp to function.<br>'''Stock''': 2<br/>{{Resource|Höllars|22,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp": {
+  "name": "Kinemantik Speaker System",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Speaker System from DIRECTGIFTZ for 22,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedStereoAmp.png|'''Kinemantik™ Speaker System'''<br/>This Kinemantik™ Speaker System with Amp is the all-in-one solution for anyone who wants to listen to their favorite tunes at full volume! Compatible with all KineMagik!™ headphones.<br>'''Stock''': 1<br/>{{Resource|Höllars|22,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera": {
+  "name": "Kinemantik Digital Video Camera",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik Digital Video Camera from DIRECTGIFTZ for 35,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PackagedVideoCamera.png|'''Kinemantik™ Digital Video Camera'''<br/>Take the show on the road with this amazing Kinemantik™ DIGITAL Video Camera! Welcome to the future with the world of digital video recording! With an attached polycrystalline-silicon LCD monitor, you'll be the talk of the neighborhood!<br>'''Stock''': 1<br/>{{Resource|Höllars|35,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat": {
+  "name": "KineBasik Paper Party Hats",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Paper Party Hats from DIRECTGIFTZ for 22,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PartyHat.png|'''KineBasik™ Paper Party Hats'''<br/>For all your KineBasik™ Party needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|22,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Pen": {
+  "name": "File-a-Style Pens",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Pens from DIRECTGIFTZ for 6,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Pen.png|'''File-a-Style™ Pens'''<br/>File-a-Style™ pens come in packs of 50, in random assortments of blue and black ink. Variety is the spice of life!<br>'''Stock''': 4<br/>{{Resource|Höllars|6,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Pencil": {
+  "name": "File-a-Style Pencils",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Pencils from DIRECTGIFTZ for 5,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Pencil.png|'''File-a-Style™ Pencils'''<br/>File-a-Style™ pencils come in packs of 100. Sharpeners not included.<br>'''Stock''': 4<br/>{{Resource|Höllars|5,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Pillow": {
+  "name": "KineBasik Pillows",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Pillows from DIRECTGIFTZ for 4,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Pillow.png|'''KineBasik™ Pillows'''<br/>For all your KineBasik™ pillow needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|4,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox": {
+  "name": "KineBasik Pizza Boxes",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Pizza Boxes from DIRECTGIFTZ for 22,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PizzaBox.png|'''KineBasik™ Pizza Boxes'''<br/>For all your KineBasik™ pizza boxing needs! (Note: Pizza not included.)<br>'''Stock''': 2<br/>{{Resource|Höllars|22,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Planter": {
+  "name": "KineBasik Hanging Planter",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Hanging Planter from DIRECTGIFTZ for 10,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Planter.png|'''KineBasik™ Hanging Planter'''<br/>For all your KineBasik™ plant-hanging needs! Bring a little bit of nature inside.<br>'''Stock''': 1<br/>{{Resource|Höllars|10,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas": {
+  "name": "Green Gorilla Propane Tank",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Green Gorilla Propane Tank from DIRECTGIFTZ for 10,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:PropaneGas.png|'''Green Gorilla™ Propane Tank'''<br/>Green Gorilla™ Propane is more than just propane. It's propane in a tank. <br>'''Stock''': 2<br/>{{Resource|Höllars|10,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Scooter": {
+  "name": "The Scooticle",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy The Scooticle from DIRECTGIFTZ for 100,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Scooter.png|'''The Scooticle™'''<br/>The ZeViLa Scooticle™ might seem like it pales in comparison to its bigger sibling the Atomiccycle, but the engineers behind the powerful and popular motorcycle spared no expense when they designed its smaller, city-friendly sibling! <br>'''Stock''': 1<br/>{{Resource|Höllars|100,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Sign": {
+  "name": "KineBasik Assorted Roadsigns",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineBasik Assorted Roadsigns from DIRECTGIFTZ for 32,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Sign.png|'''KineBasik™ Assorted Roadsigns'''<br/>For all your KineBasik™ Assorted Roadsign Needs!<br>'''Stock''': 4<br/>{{Resource|Höllars|32,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes": {
+  "name": "File-a-Style Sticky Notes",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the File-a-Style Sticky Notes from DIRECTGIFTZ for 5,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:StickyNotes.png|'''File-a-Style™ Sticky Notes'''<br/>File-a-Style™ Sticky Notes come in packages of 100 in assorted colors.<br>'''Stock''': 4<br/>{{Resource|Höllars|5,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Television": {
+  "name": "Kinemantik 840HD TV",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Kinemantik 840HD TV from DIRECTGIFTZ for 8,500 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:TelevisionA.png|'''Kinemantik™ 840HD TV'''<br/>The Kinemantik™ 840 HD TV is the top-of-the-line cathode-ray tube television set, showing all your favorite programs in their beautiful 4:3 aspect ratio!<br>'''Stock''': 2<br/>{{Resource|Höllars|8,500}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/Toaster": {
+  "name": "KineKitchen Toaster",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineKitchen Toaster from DIRECTGIFTZ for 22,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:Toaster.png|'''KineKitchen™ Toaster'''<br/>The KineKitchen™ toaster comes with four sets of electrical coils and ten heat settings for that perfect crispy breakfast!<br>'''Stock''': 1<br/>{{Resource|Höllars|22,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven": {
+  "name": "KineKitchen Toaster Oven",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the KineKitchen Toaster Oven from DIRECTGIFTZ for 35,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:ToasterOven.png|'''KineKitchen™ Toaster Oven'''<br/>The KineKitchen™ Toaster Oven is perfect for those smaller kitchens or cooking on the go, where a full kitchen isn't available. It's amazing what you can make with it's broil and convection settings!<br>'''Stock''': 1<br/>{{Resource|Höllars|35,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette": {
+  "name": "\"Circle of Comrades\" Series on VHS",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the \"Circle of Comrades\" Series on VHS from DIRECTGIFTZ for 12,000 Höllars.",
+    "place": "DIRECTGIFTZ",
+    "source": {
+     "archive": "wiki",
+     "page": "Kinemantik Instant Messenger",
+     "url": "https://wiki.warframe.com/w/Kinemantik_Instant_Messenger",
+     "quote": "File:VideoCasseteA.png|'''\"Circle of Comrades\" Series on VHS'''<br/>The critically acclaimed \"Circle of Comrades\" complete series on VHS. 6-Tape Boxed Set.<br>'''Stock''': 4<br/>{{Resource|Höllars|12,000}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag": {
+  "name": "Rathuum Prisoner Coordinates",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (during the ended Operation: Rathuum event, defeating Kela for the first time awarded the coordinates).",
+    "place": "Operation: Rathuum",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Rathuum",
+     "url": "https://wiki.warframe.com/w/Operation:_Rathuum",
+     "quote": "***Defeating Kela for the first time also awards players with the coordinates of the defectors' location. Once the players are back on the landing craft, they will receive a message from [[Steel Meridian]], requesting that they turn over the coordinates to them so they can rescue the defectors."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag": {
+  "name": "GLASSMAKER  STANDING",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (during the ended Glassmaker series, each glassed enemy killed gave 30 Standing, up to 150 per appearance).",
+    "place": "Nightwave: Series 3",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Series 3",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_3",
+     "quote": "**These glassed enemies were invulnerable until the spiky crystals protruding from it were destroyed. Each glassed enemy killed gave {{sc|30}} standing and had a chance to drop 1 [[Cephalite Resonance]], up to a maximum of {{sc|150}} standing per appearance."
+    }
+   },
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (during the ended Glassmaker series, completing an Episode's Crime-simula awarded 7,000 Standing).",
+    "place": "Nightwave: Series 3",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Series 3",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_3",
+     "quote": "***After reaching the final platform, the player was rewarded with a \"conclusion\" piece of evidence and {{sc|7,000}} standing for completing the Episode's Crime-simula."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag": {
+  "name": "EMISSARY  STANDING",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (during the ended Emissary series, downing both Zealots awarded 50 Standing).",
+    "place": "Nightwave: Series 2",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Series 2",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_2",
+     "quote": "*Following Episode 3, enemy units called [[Zealot Herald]]s and [[Zealot Proselytizer]] can spawn randomly in missions or [[Landscape]]s. They appear in pairs, and can revive each other when downed. Once both zealots are downed, they disappear and award {{sc|50}} standing."
+    }
+   },
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (during the ended Emissary series, downing the Zealots with a Zealot Baptizer awarded 200 Standing).",
+    "place": "Nightwave: Series 2",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Series 2",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_2",
+     "quote": "**Following Episode 4, the Zealots are accompanied by a [[Zealot Baptizer]] and award {{sc|200}} standing."
+    }
+   },
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (during the ended Emissary series, completing an Emissary Derelict mission awarded 1,500 Standing).",
+    "place": "Nightwave: Series 2",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Series 2",
+     "url": "https://wiki.warframe.com/w/Nightwave/Series_2",
+     "quote": "*Following Episode 4, [[Invasion#Infestation Outbreaks|Infestation Outbreaks]] are accompanied by [[Orokin Derelict|Emissary Derelicts]]. Completing three outbreak missions on a planet rewards one Zealot Derelict Code, which is needed to enter the Derelict. These missions house two new Infested enemies, the [[Undying Flyer]] and [[Leaping Thrasher]], and completing the mission awards {{sc|1,500}} standing."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag": {
+  "name": "NIGHTWAVE  STANDING",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Complete Nightwave daily and weekly challenges to earn Nightwave Standing.",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave",
+     "url": "https://wiki.warframe.com/w/Nightwave",
+     "quote": "The Nightwave system consists of daily and weekly challenges that players can complete to earn Nightwave {{Sc|Standing}}, which is used to rank up through Nightwave's 30 ranks (15 during Intermission I), with each level requiring {{sc|10,000}} to level up. Every rank attained grants unique rewards, with rarer rewards being available at higher ranks, which include so-called {{Nc|Creds}} (not to be confused with {{Resource|Credits}}), a special Series-specific currency that can be spent in Nightwave's Cred Offerings. Note that any duplicate Nightwave-exclusive rewards will be converted to {{Nc|50}}. Each series introduces a different issue of {{Nc|Creds}} that can only be spent on merchandise during its own series. Note that unlike other [[Syndicate]] {{Sc|Standing}}, Nightwave Standing is only used to increase Nightwave ranking but cannot be used to buy any Syndicate-specific merchandise (which instead is done for {{Nc|Creds}}), with any leftover Standing upon ranking up carried over towards the next ranking up."
+    }
+   }
+  ]
  }
 }

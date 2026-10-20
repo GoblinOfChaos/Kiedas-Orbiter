@@ -100,3 +100,29 @@ test('all parsed craftable recipes retain matching drawer ingredients', async ()
   assert.equal(result.failed.length, 0)
   assert.ok(result.total > 0)
 })
+
+// Regression guard: the harness once injected verified-routes.json itself while the
+// real app never loaded it (a build-time `typeof import.meta.glob` check was false at
+// runtime), so every test passed while 430+ researched routes were missing in the UI.
+// Every file the harness injects must be loaded by the app through a path the
+// app really takes: a plain import in src/, or a read_file_bytes call in the providers.
+test('every data file the harness injects is really loaded by the app', async () => {
+  const fs = await import('node:fs')
+  const path = await import('node:path')
+  const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../..')
+  const sources = []
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name)
+      if (entry.isDirectory()) walk(full)
+      else if (/\.(js|jsx)$/.test(entry.name)) sources.push(fs.readFileSync(full, 'utf8'))
+    }
+  }
+  walk(path.join(root, 'src'))
+  const all = sources.join('\n')
+  for (const [file] of HARNESS_SUPPLEMENT_FILES) {
+    const viaImport = new RegExp("^import [^\\n]*from '[^']*" + file.replace(/[.*+?^$()|[\]\\]/g, '\\$&') + "'", 'm').test(all)
+    const viaRead = all.includes("relative: 'data/assets/data/" + file + "'")
+    assert.ok(viaImport || viaRead, 'the harness injects ' + file + ' but the app never loads it (no plain import, no read_file_bytes)')
+  }
+})

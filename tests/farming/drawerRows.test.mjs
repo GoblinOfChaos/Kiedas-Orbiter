@@ -238,3 +238,23 @@ test('drawer rows: the same drop from two data sources (different node id, round
   ])
   assert.equal(rows.filter((row) => row.nodeName === 'Hyf').length, 2, 'rotation C once, rotation B once')
 })
+
+test('real data: Karak Wraith parts resolve a route without harness-injected verified routes (the real-app condition)', { skip: !haveRealData }, async () => {
+  const { harness, indexes, dropIndex } = await context()
+  const { buildAllAcquisitionIndexes, getAcquisitionInfo } = await import('../../src/lib/acquisitionInfo.js')
+  const overrides = JSON.parse(fs.readFileSync(new URL('../../src-tauri/data/assets/data/acquisition_overrides.json', import.meta.url)))
+  const bare = { ...harness.exportsBundle }
+  delete bare.VerifiedRoutes
+  delete bare.verifiedRoutes
+  const idx = buildAllAcquisitionIndexes(bare)
+  try {
+    for (const name of ['Karak Wraith Receiver', 'Karak Wraith Stock', 'Latron Wraith Barrel', 'Dera Vandal Receiver']) {
+      const uniqueName = Object.entries(harness.uniqueNameToName || {}).find(([, display]) => display === name)?.[0]
+      assert.ok(uniqueName, name + ' must exist in DE data')
+      const info = getAcquisitionInfo(uniqueName, name, dropIndex, overrides, idx.recipeResultIndex, idx.marketIndex, idx.bundleIndex, idx.syndicateIndex, idx.wikiSigilIndex, idx.wikiVendorIndex, idx.wikiTennoGenIndex, idx.wikiBaroIndex, idx.exportVendorIndex, idx.alwaysAvailableIndex, idx.glyphSupplementIndex, idx.wikiBlueprintIndex, idx.wikiResearchIndex, idx.relicStateIndex, idx.wikiResourceIndex, idx.wikiPageAcquisitionIndex, idx.wikiAcquisitionStatusIndex, idx.exaltedWeaponIndex, idx.exportComponentIndex)
+      assert.ok(!info.unresearched && info.sources.some((source) => source.text), name + ' says not researched: ' + JSON.stringify(info.sources))
+    }
+  } finally {
+    buildAllAcquisitionIndexes(harness.exportsBundle)
+  }
+})

@@ -11,6 +11,11 @@ import bundledWikiPageAcquisition from '../../src-tauri/data/assets/data/wiki-pa
 import bundledWikiDescriptionAcquisition from '../../src-tauri/data/assets/data/wiki-description-acquisition.json';
 import bundledPrimeRelicDrops from '../../src-tauri/data/assets/data/wiki-prime-relic-drops.json';
 import bundledWikiExtractorAcquisition from '../../src-tauri/data/assets/data/wiki-extractor-acquisition.json';
+// Wiki-researched routes. This must be a plain import like the files above: it
+// was once loaded through `typeof import.meta.glob === 'function' ? ... : {}`,
+// and that check is false in a running app (only the call itself is rewritten
+// by the build), so none of these routes ever reached the real UI.
+import bundledVerifiedRoutes from '../../src-tauri/data/assets/data/verified-routes.json';
 import { WIKI_VERIFIED_ACQUISITIONS, WIKI_VERIFIED_DISPOSITIONS } from './wikiVerifiedAcquisitions.js';
 import { buildRelicRarityIndex, countRelicRowsWithoutDeTier, normalizeRelicSources } from './relicSources.js';
 import { normalizeRelicEntry } from './relicEntry.js';
@@ -33,13 +38,6 @@ const bundledWikiPageIndex = new Map(Object.entries(bundledWikiPageAcquisition).
 const bundledWikiExtractorIndex = new Map(Object.entries(bundledWikiExtractorAcquisition).map(([name, entry]) => [name.toLowerCase().trim(), entry]));
 const bundledWikiDescriptionIndex = new Map(Object.entries(bundledWikiDescriptionAcquisition).map(([uniqueName, text]) => [uniqueName.replaceAll('/StoreItems/', '/'), text]));
 
-// Vite turns this into an eagerly bundled optional asset when Phase 2 adds it;
-// plain Node tests see an empty object because import.meta.glob is not defined.
-// The export bundle override below keeps the same path testable without adding
-// a placeholder file to the repository today.
-const optionalVerifiedRouteModules = typeof import.meta.glob === 'function'
-  ? import.meta.glob('../../src-tauri/data/assets/data/verified-routes.json', { eager: true, import: 'default' })
-  : {};
 
 const acquisitionNormalizerStats = {
   rowsSplit: 0,
@@ -80,8 +78,7 @@ function recordDroppedAcquisitionOpening(value) {
 }
 
 function buildVerifiedRoutesIndex(exportData) {
-  const bundled = Object.values(optionalVerifiedRouteModules)[0];
-  const data = exportData?.VerifiedRoutes || exportData?.verifiedRoutes || bundled;
+  const data = exportData?.VerifiedRoutes || exportData?.verifiedRoutes || bundledVerifiedRoutes;
   const index = new Map();
   if (!data || typeof data !== 'object') return index;
   for (const [key, value] of Object.entries(data)) {

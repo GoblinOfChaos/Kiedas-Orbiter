@@ -214,3 +214,18 @@ test('real data: the Forma Blueprint box lists drop chances from highest to lowe
     assert.ok(chances[i] <= chances[i - 1], `row ${i} (${chances[i]}) is below a lower-chance row (${chances[i - 1]})`)
   }
 })
+
+test('real data: dojo, Sentinel and Archwing blueprints show their own routes, not the built item price', { skip: !haveRealData }, async () => {
+  const { acquisition } = await context()
+  const texts = (uniqueName, name) => acquisition(uniqueName, name).sources.map((source) => source.text || '')
+  for (const [uniqueName, name, expected] of [
+    ['/Lotus/Weapons/ClanTech/Energy/ChainLightningRifleBlueprint', 'Amprex Blueprint', /Energy Lab/],
+    ['/Lotus/Weapons/ClanTech/Bio/BioWeaponBlueprint', 'Torid Blueprint', /Bio Lab/],
+    ['/Lotus/Types/Recipes/SentinelRecipes/CarrierSentinelBlueprint', 'Carrier Blueprint', /Blueprint purchasable from Market for 100,000 Credits/],
+    ['/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingBlueprint', 'Elytron Blueprint', /Tenno Lab/],
+  ]) {
+    const rows = texts(uniqueName, name)
+    assert.ok(rows.some((text) => expected.test(text)), `${name}: ${JSON.stringify(rows)}`)
+    assert.ok(!rows.some((text) => /^(?:Sold fully built|Buy the complete|The built weapon is also sold)/.test(text)), `${name} shows the built item's price: ${JSON.stringify(rows)}`)
+  }
+})

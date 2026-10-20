@@ -1880,9 +1880,17 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
   // acquisition routes belong to the Warframe/weapon result that the recipe
   // builds. Reverse-link only the main blueprint paths; chassis, neuroptics,
   // systems and other component blueprints retain their existing behavior.
-  const reverseBlueprintRecipe = isMainBlueprintUniqueName(dropIndexKey)
+  // Main blueprints outside /Recipes/ (dojo-research weapons under
+  // /Weapons/ClanTech/, Sentinel and Archwing blueprints) are recognised by
+  // what their recipe builds: a weapon, Warframe/Archwing or Sentinel record.
+  // Part blueprints build a part, so they stay excluded.
+  const blueprintByResult = /Blueprint$/.test(canonicalPath(dropIndexKey) || '') && !isMainBlueprintUniqueName(dropIndexKey)
     ? findRecipeByBlueprint(recipeResultIndex, dropIndexKey)
     : null;
+  const blueprintBuildsFinishedItem = /^\/Lotus\/(?:Weapons|Powersuits|Types\/Sentinels)\//.test(blueprintByResult?.resultType || '');
+  const reverseBlueprintRecipe = isMainBlueprintUniqueName(dropIndexKey)
+    ? findRecipeByBlueprint(recipeResultIndex, dropIndexKey)
+    : (blueprintBuildsFinishedItem ? blueprintByResult : null);
   const resultRecipeCandidates = recipeResultIndex?.resultRecipes?.get(canonicalPath(dropIndexKey)) || [];
   const routeRecipe = reverseBlueprintRecipe
     || resultRecipeCandidates.find((candidate) => candidate?.blueprintMarketEligible !== false && Number(candidate?.blueprintCost) > 0)
@@ -1894,6 +1902,7 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
   const routeIsWeaponRecipe = /\/Lotus\/Types\/Recipes\/Weapons\//.test(routeRecipe?.blueprintUniqueName || dropIndexKey || '');
   const routeIsExtractorRecipe = /\/Lotus\/Types\/Recipes\/Drones\/Advanced(?:Uc)?ResourceDroneBlueprint$/.test(routeRecipe?.blueprintUniqueName || dropIndexKey || '');
   const routePathEligible = isWarframeOrWeaponUniqueName(routeParentUniqueName)
+    || (reverseBlueprintRecipe && /\/Types\/Sentinels\//.test(routeParentUniqueName))
     || routeIsWeaponRecipe
     || routeIsExtractorRecipe
     || isExtractorUniqueName(routeParentUniqueName);
@@ -1970,7 +1979,10 @@ function getAcquisitionInfoRaw(dropIndexKey, displayName, dropIndex, overridesDa
         undefined,
       );
       for (const source of parentInfo.sources || []) {
-        if (!source.part && source.type !== 'status' && source.type !== 'unresearched') addRoute(source);
+        if (source.part || source.type === 'status' || source.type === 'unresearched') continue;
+        // The built item's own Market price is not a way to get the blueprint.
+        if (/^(?:Sold fully built in the in-game Market|Buy the complete Sentinel|The built weapon is also sold)\b/.test(source.text || '')) continue;
+        addRoute(source);
       }
     } else if (typeof overrideText === 'string' && !/^UNKNOWN\b/i.test(overrideText.trim())) {
       const overrideRoutes = [overrideText];

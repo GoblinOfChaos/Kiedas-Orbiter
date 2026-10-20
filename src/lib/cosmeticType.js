@@ -21,6 +21,20 @@ export const SKIN_FOLDER_FAMILY_OVERRIDES = {
  * @param {Set<string>|undefined|null} warframeFamilies - lowercased family keys from ExportWarframes
  * @returns {string} display kind (Warframe, Operator, Emblem, Other, …)
  */
+/**
+ * ExportCustoms records that are player cosmetics. Most live under
+ * /Upgrades/Skins/; DE also files companion fur patterns, some Syandanas and
+ * a few melee weapon skins elsewhere. Body-type and Lotus*Customization
+ * records in the same table are base types, not items.
+ */
+export function isCosmeticCustomsEntry(uniqueName) {
+  const value = String(uniqueName || '');
+  return /\/Upgrades\/Skins\//i.test(value)
+    || /^\/Lotus\/Types\/Game\/[A-Za-z]+Pet\/Patterns\//.test(value)
+    || /^\/Lotus\/Characters\/Tenno\/Accessory\/Scarves\//.test(value)
+    || /^\/Lotus\/Weapons\/Tenno\/Melee\/.+Skin$/.test(value);
+}
+
 export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (kind !== 'Skin') return kind;
   const value = `${uniqueName || ''} ${icon || ''}`.toLowerCase();
@@ -28,6 +42,9 @@ export function cosmeticType(uniqueName, icon, kind, warframeFamilies) {
   if (/storeicons\/weapons\/secondaryweapons\//.test(value)) return 'Secondary';
   if (/storeicons\/weapons\/primaryweapons\//.test(value)) return 'Primary';
   if (/storeicons\/weapons\/meleeweapons\//.test(value)) return 'Melee';
+  if (/^\/lotus\/types\/game\/[a-z]+pet\/patterns\//.test(value)) return 'Companion';
+  if (/^\/lotus\/characters\/tenno\/accessory\/scarves\//.test(value)) return 'Syandana';
+  if (/^\/lotus\/weapons\/tenno\/melee\//.test(value)) return 'Melee';
   if (/\/upgrades\/skins\/weapons\/(pistols|dspistols)\//.test(value)) return 'Secondary';
   if (/\/upgrades\/skins\/weapons\/(longguns|rifle)\//.test(value)) return 'Primary';
   if (/\/upgrades\/skins\/weapons\//.test(value)) return 'Melee';

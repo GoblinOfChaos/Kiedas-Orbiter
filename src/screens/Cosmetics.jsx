@@ -12,7 +12,7 @@ import ItemImage from '../components/ItemImage'
 import { IS_PREVIEW } from '../lib/buildProfile'
 import PreviewCosmeticsLayout from '../components/PreviewCosmeticsLayout'
 import { compareText } from '../lib/textCompare'
-import { cosmeticType } from '../lib/cosmeticType'
+import { cosmeticType, isCosmeticCustomsEntry } from '../lib/cosmeticType'
 
 const normalize = (uniqueName) => typeof uniqueName === 'string' ? uniqueName.replaceAll('/StoreItems/', '/').toLowerCase() : uniqueName
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '')
@@ -188,7 +188,7 @@ export default function Cosmetics() {
     const warframeFamilies = buildWarframeFamilies(exportData)
     const ownedWarframeFamilies = buildOwnedWarframeFamilies(rawInventory, exportData)
     const skinItems = customs && typeof customs === 'object' ? Object.entries(customs).flatMap(([uniqueName, entry]) => {
-      if (!/\/Upgrades\/Skins\//i.test(uniqueName)) return []
+      if (!isCosmeticCustomsEntry(uniqueName)) return []
       const type = cosmeticType(uniqueName, entry?.icon, isSigil(uniqueName) ? 'Sigil' : 'Skin', warframeFamilies)
       // A purchased-for-every-Warframe animation license shows up in the raw
       // owned-items scan (DE files it as a normal WeaponSkins purchase); the

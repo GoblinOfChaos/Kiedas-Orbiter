@@ -86,3 +86,17 @@ test('Sigil kind passthrough', () => {
     'Sigil',
   )
 })
+
+test('ExportCustoms cosmetics outside /Upgrades/Skins/ are included and classified', async () => {
+  const { isCosmeticCustomsEntry, cosmeticType } = await import('../../src/lib/cosmeticType.js')
+  const fur = '/Lotus/Types/Game/CatbrowPet/Patterns/CatbrowPetPatternA'
+  const scarf = '/Lotus/Characters/Tenno/Accessory/Scarves/U17IntermScarf/U17IntermScarfItem'
+  const sword = '/Lotus/Weapons/Tenno/Melee/AxeML/StavikaDualSwordSkin'
+  for (const id of [fur, scarf, sword]) assert.ok(isCosmeticCustomsEntry(id), id)
+  // Body types and Lotus*Customization records are base types, not items.
+  assert.ok(!isCosmeticCustomsEntry('/Lotus/Types/Game/CatbrowPet/BodyTypes/CatbrowPetKittenBodyCustomization'))
+  assert.ok(!isCosmeticCustomsEntry('/Lotus/Types/Game/LotusWarframeCustomization'))
+  assert.equal(cosmeticType(fur, '', 'Skin', null), 'Companion')
+  assert.equal(cosmeticType(scarf, '', 'Skin', null), 'Syandana')
+  assert.equal(cosmeticType(sword, '', 'Skin', null), 'Melee')
+})

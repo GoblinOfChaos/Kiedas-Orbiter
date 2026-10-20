@@ -12,7 +12,7 @@ let lastActiveId = null;
 
 export default function Wiki() {
   const { t } = useUi()
-  const { pendingTarget, clearPendingTarget, returnScreen, goBack } = useWikiNavigation();
+  const { pendingTarget, clearPendingTarget, returnTo, goBack } = useWikiNavigation();
   const containerRef = useRef(null);
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
@@ -174,12 +174,12 @@ export default function Wiki() {
       titleKey="screen.wiki"
       extra={
       <div className="flex items-center gap-1">
-          {returnScreen &&
+          {returnTo &&
         <button
           type="button"
           onClick={goBack}
           className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors bg-white/5 text-kronos-dim hover:bg-white/10"
-          title={t('wiki.back')}>
+          title={returnTo.label ? t('wiki.back_to', { name: returnTo.label }) : t('wiki.back')}>
               <ArrowLeft size={14} />
               {t('wiki.back')}
             </button>

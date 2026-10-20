@@ -131,6 +131,15 @@ export function getSourceLabel(source, t = (k) => k, i18nData = null) {
  */
 export function useAcquisitionDrawer() {
   const [openKey, setOpenKey] = useState(null);
+  // Returning from the wiki: the screen was unmounted, so its open drawer was
+  // forgotten. Reopen the item the wiki link was opened from.
+  const { pendingRestore, consumeRestore, currentScreen } = useWikiNavigation();
+  useEffect(() => {
+    if (pendingRestore && pendingRestore.screen === currentScreen) {
+      setOpenKey(pendingRestore.itemKey);
+      consumeRestore();
+    }
+  }, [pendingRestore, currentScreen, consumeRestore]);
 
   const toggle = useCallback((key) => {
     setOpenKey((prev) => (prev === key ? null : key));
@@ -204,7 +213,7 @@ export function useAcquisitionDrawerData(item) {
   const wikiLink = info?.wikiLink;
 
   const openWikiLink = () => {
-    if (wikiLink?.url) openWiki(wikiLink.url);
+    if (wikiLink?.url) openWiki(wikiLink.url, { label: displayName, itemKey: uniqueName });
   };
 
   const recipe = info?.recipe;

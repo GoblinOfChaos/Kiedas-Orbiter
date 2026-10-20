@@ -931,6 +931,7 @@
     "ui.setup.game_assets": "Game Assets",
     "ui.setup.welcome": "Welcome to Kieda's Orbiter",
     "wiki.back": "Back",
+    "wiki.back_to": "Back to {name}",
     "wiki.refresh": "Refresh this tab",
     "nav.market": "Market",
     "settings.theme_accessibility_hint": "Includes tailored high-contrast & color vision profiles",

@@ -1,15 +1,8 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 import { invoke } from '../lib/logging/tauri';
+import { INITIAL_WIKI_NAVIGATION, isWikiUrl, wikiNavigationReducer } from '../lib/wikiNavigation';
 
-export function isWikiUrl(value) {
-  if (typeof value !== 'string' || !value.trim()) return false;
-  try {
-    const url = new URL(value);
-    return url.protocol === 'https:' && url.hostname === 'wiki.warframe.com';
-  } catch {
-    return false;
-  }
-}
+export { isWikiUrl };
 
 const WikiNavigationContext = createContext({
   openWiki: (url) => {
@@ -17,30 +10,39 @@ const WikiNavigationContext = createContext({
   },
   pendingTarget: null,
   clearPendingTarget: () => {},
-  returnScreen: null,
-  goBack: () => {}
+  returnTo: null,
+  goBack: () => {},
+  currentScreen: null,
+  pendingRestore: null,
+  consumeRestore: () => {}
 });
 
 export function WikiNavigationProvider({ onNavigate, currentScreen, children }) {
-  const [pendingTarget, setPendingTarget] = useState(null);
-  // The screen the wiki was opened from (e.g. Inventory from an item drawer),
-  // so the Wiki screen can offer a way back to it.
-  const [returnScreen, setReturnScreen] = useState(null);
-  const openWiki = useCallback((target) => {
+  const [state, dispatch] = useReducer(wikiNavigationReducer, INITIAL_WIKI_NAVIGATION);
+
+  const openWiki = useCallback((target, origin = null) => {
     if (!isWikiUrl(target)) return;
-    setPendingTarget({ url: target, sequence: Date.now() + Math.random() });
-    if (currentScreen && currentScreen !== 'wiki') setReturnScreen(currentScreen);
+    dispatch({ type: 'open', target, origin, currentScreen, sequence: Date.now() + Math.random() });
     onNavigate('wiki');
   }, [onNavigate, currentScreen]);
-  const clearPendingTarget = useCallback(() => setPendingTarget(null), []);
-  const goBack = useCallback(() => {
-    if (!returnScreen) return;
-    const screen = returnScreen;
-    setReturnScreen(null);
-    onNavigate(screen);
-  }, [onNavigate, returnScreen]);
 
-  return <WikiNavigationContext.Provider value={{ openWiki, pendingTarget, clearPendingTarget, returnScreen, goBack }}>{children}</WikiNavigationContext.Provider>;
+  const clearPendingTarget = useCallback(() => dispatch({ type: 'clearTarget' }), []);
+
+  const goBack = useCallback(() => {
+    if (!state.returnTo) return;
+    const screen = state.returnTo.screen;
+    dispatch({ type: 'back' });
+    onNavigate(screen);
+  }, [onNavigate, state.returnTo]);
+
+  const consumeRestore = useCallback(() => dispatch({ type: 'consumeRestore' }), []);
+
+  const value = useMemo(() => ({
+    openWiki, clearPendingTarget, goBack, consumeRestore, currentScreen,
+    pendingTarget: state.pendingTarget, returnTo: state.returnTo, pendingRestore: state.pendingRestore,
+  }), [openWiki, clearPendingTarget, goBack, consumeRestore, currentScreen, state]);
+
+  return <WikiNavigationContext.Provider value={value}>{children}</WikiNavigationContext.Provider>;
 }
 
 export function useWikiNavigation() {

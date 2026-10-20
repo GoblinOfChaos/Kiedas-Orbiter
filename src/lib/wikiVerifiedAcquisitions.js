@@ -8,17 +8,17 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     url: 'https://wiki.warframe.com/w/Liset',
     source: 'Warframe Wiki exact Liset acquisition section',
   }],
-  ['/Lotus/Types/Items/Ships/MantisShip', {
+  ['/Lotus/Types/Items/Ships/InsectShip', {
     text: "Purchase the blueprint from the Market for 35,000 Credits (component blueprints also drop from Storage Containers), or buy the complete Mantis from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
     url: 'https://wiki.warframe.com/w/Mantis',
     source: 'Warframe Wiki exact Mantis acquisition section',
   }],
-  ['/Lotus/Types/Items/Ships/ScimitarShip', {
+  ['/Lotus/Types/Items/Ships/BlueSkyShip', {
     text: "Purchase the blueprint from the Market for 35,000 Credits (component blueprints also drop from Zanuka Hunter, Stalker, and Vem Tabook), or buy the complete Scimitar from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
     url: 'https://wiki.warframe.com/w/Scimitar',
     source: 'Warframe Wiki exact Scimitar acquisition section',
   }],
-  ['/Lotus/Types/Items/Ships/XiphosShip', {
+  ['/Lotus/Types/Items/Ships/GyroscopeShip', {
     text: "Purchase the blueprint from the Market for 35,000 Credits (component blueprints also drop from Resource Caches in Sabotage/Exterminate missions), or buy the complete Xiphos from the Market for 150 Platinum. Building requires the Landing Craft Foundry Segment.",
     url: 'https://wiki.warframe.com/w/Xiphos',
     source: 'Warframe Wiki exact Xiphos acquisition section',
@@ -471,7 +471,7 @@ export const WIKI_VERIFIED_ACQUISITIONS = new Map([
     ['/Lotus/Weapons/Grineer/Melee/GrnKuvaLichScythe/GrnKuvaLichScytheWeapon', 'Kuva Shildeg'],
     ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Sobek/KuvaSobek', 'Kuva Sobek'],
     ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Tonkor/KuvaTonkor', 'Kuva Tonkor'],
-    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Stubba/KuvaTwinStubbas', 'Kuva Twin Stubbas'],
+    ['/Lotus/Weapons/Grineer/KuvaLich/Secondaries/Stubba/KuvaStubba', 'Kuva Twin Stubbas'],
     ['/Lotus/Weapons/Grineer/KuvaLich/LongGuns/Zarr/KuvaZarr', 'Kuva Zarr'],
   ].map(([path, name]) => [path, {
     text: `Generate a ${name} on a Kuva Lich, then vanquish that Kuva Lich; the weapon is placed in the Foundry ready to claim.`,
@@ -1773,7 +1773,7 @@ const EXACT_WIKI_ITEM_ACQUISITIONS = {
   '/Lotus/Upgrades/Skins/Axe/SolsticeScindo': 'This skin was given out during Tennobaum 2016. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
   '/Lotus/Upgrades/Skins/WinterSolstice/SolsticeTatsuSkin': 'This skin was given as a Gift from the Lotus from December 20 through December 31, 2019. Its blueprint is sometimes offered in Nightwave Cred Offerings for 35 Cred.',
   '/Lotus/Types/Restoratives/OpenArchwingSummon': 'Awarded upon completion of The Archwing quest. The current export recipe is retained as the legacy Foundry recipe.',
-  '/Lotus/Types/Restoratives/Consumable/Cipher': 'The 1x and 10x blueprints are bought from the Market Gear tab for 500 and 250,000 Credits; the reusable 100x blueprint is researched in a Dojo Tenno Lab.',
+  '/Lotus/Types/Restoratives/Cipher': 'The 1x and 10x blueprints are bought from the Market Gear tab for 500 and 250,000 Credits; the reusable 100x blueprint is researched in a Dojo Tenno Lab.',
   '/Lotus/Types/Keys/DojoKey': 'Upon starting or joining a Clan, the Clan Key blueprint is automatically added to the inventory and made available in the Foundry.',
   '/Lotus/Types/Restoratives/Consumable/FomorianNegator': 'The reusable blueprint is available in the Market under Equipment → Gear for 5,000 Credits.',
   '/Lotus/Types/Restoratives/Consumable/RazorbackCipher': 'The blueprint is sent to the player by Lotus in the event message; its Cryptographic ALU component is obtained during the Razorback event.',

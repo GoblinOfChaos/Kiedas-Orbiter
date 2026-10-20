@@ -258,3 +258,11 @@ test('real data: Karak Wraith parts resolve a route without harness-injected ver
     buildAllAcquisitionIndexes(harness.exportsBundle)
   }
 })
+
+test('real data: a retired item keeps the reason after "Not currently obtainable"', { skip: !haveRealData }, async () => {
+  const { acquisition } = await context()
+  const rows = acquisition('/Lotus/Types/Items/ShipDecos/Tennocon2024Display', 'Display - TennoCon 2024').sources.map((source) => source.text || '')
+  assert.ok(rows.some((text) => /^Not currently obtainable \(.*TennoCon 2024 Digital Pack/.test(text)), JSON.stringify(rows))
+  const scarf = acquisition('/Lotus/Upgrades/Skins/Scarves/TC2025Scarf', 'TennoCon Riftguard Syandana').sources.map((source) => source.text || '')
+  assert.ok(scarf.some((text) => /^Not currently obtainable\b.{5,}/.test(text)), JSON.stringify(scarf))
+})

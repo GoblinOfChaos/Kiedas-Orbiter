@@ -632,8 +632,8 @@ function normalizeAcquisitionRoutes(sources, { itemName = '' } = {}) {
           .replace(/^[a-z]/, (letter) => letter.toUpperCase())
           .trim();
         text = normalizeAvailabilityFact(text);
+        // The reason after "Not currently obtainable" is kept: it tells the player why.
         const verifiedNotObtainable = source.type === 'verified-route' && source.kind === 'not_obtainable';
-        if (verifiedNotObtainable) text = /^Not currently obtainable\b/i.test(text) ? 'Not currently obtainable.' : text;
         if (/\bfor\s*$/i.test(text) || /\b(?:price|costs?)\s*[.]$/i.test(text)) continue;
         if (/^\d{1,3}$/.test(text) || /^[A-Z][A-Za-z']+s?$/.test(text)) text = `${text}.`;
         if (text.length > 300) {

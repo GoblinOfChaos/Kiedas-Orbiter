@@ -1955,9 +1955,8 @@ fn get_data_root_path() -> String {
 
 // --- Mod Images Extraction ---
 //
-// Mod images are extracted from the local Warframe game cache using the
-// bundled Warframe-Exporter-CLI tool.  The user must have Warframe installed
-// with a populated cache (i.e. they've run the game at least once).
+// Mod card images come from the images bundled with the app (data/assets/
+// card-images). Extraction from the game cache is no longer done.
 
 /// Return the absolute path to the mod images directory.
 #[tauri::command]
@@ -2447,179 +2446,14 @@ fn detect_cache_inner() -> Option<String> {
     None
 }
 
-/// Extract mod images from the Warframe cache using the bundled CLI.
-/// Skips if already extracted (output dir has PNG files).
-fn extract_card_images_inner(app_handle: &tauri::AppHandle, cache_path: &str) -> Result<u32, String> {
+/// Mod card images come from the images bundled with the app. The game-cache
+/// extractor this used to run (a third-party command-line tool) is no longer
+/// shipped: it has no licence that allows redistributing it. Returns how many
+/// card images are already on disk so the rest of the pipeline continues.
+fn extract_card_images_inner(_app_handle: &tauri::AppHandle, _cache_path: &str) -> Result<u32, String> {
     let output_dir = resolve_path("data/assets/card-images");
     std::fs::create_dir_all(&output_dir).map_err(|e| e.to_string())?;
-
-    // Locate the CLI binary
-    let bin_name = format!("Warframe-Exporter-CLI{}", std::env::consts::EXE_SUFFIX);
-    let relative_bin = format!("data/bin/{}", bin_name);
-    let writable_bin = resolve_path(&relative_bin);
-    let bundled_bin = resolve_bundled_path(app_handle, &relative_bin);
-
-    let bin_path = if writable_bin.exists() {
-        writable_bin
-    } else if let Some(b) = bundled_bin.clone().filter(|p| p.exists()) {
-        // Copy out of the read-only bundle into the writable data root.
-        if let Some(parent) = writable_bin.parent() {
-            std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
-        }
-        std::fs::copy(&b, &writable_bin)
-            .map_err(|e| format!("Failed to copy bundled {:?} to {:?}: {e}", b, writable_bin))?;
-        writable_bin
-    } else {
-        return Err(format!(
-            "Warframe-Exporter-CLI not found. Writable: {:?}, Bundled: {:?}",
-            writable_bin, bundled_bin
-        ));
-    };
-
-    #[cfg(unix)]
-    {
-        use std::os::unix::fs::PermissionsExt;
-        if let Ok(meta) = std::fs::metadata(&bin_path) {
-            let mut perms = meta.permissions();
-            perms.set_mode(0o755);
-            let _ = std::fs::set_permissions(&bin_path, perms);
-        }
-    }
-
-    // Only do the main Cards/Images extraction if the output directory
-    // is empty (first run or after a clean).
-    if walk_dir_count(&output_dir) == 0 {
-        let mut cmd = std::process::Command::new(&bin_path);
-
-        #[cfg(target_os = "linux")]
-        {
-            // Our own outer AppImage's AppRun script points these at its
-            // bundled libraries before launching us. Do not let the raw
-            // exporter CLI resolve its system dependencies from that
-            // unrelated library directory.
-            cmd.env_remove("LD_LIBRARY_PATH");
-            cmd.env_remove("OWD");
-            cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");
-            cmd.env_remove("APPDIR");
-            cmd.env_remove("APPIMAGE");
-        }
-
-        cmd.arg("--cache-dir")
-           .arg(cache_path)
-           .arg("--game")
-           .arg("Warframe")
-           .arg("--extract-textures")
-           .arg("--package")
-           .arg("Texture")
-           .arg("--texture-format")
-           .arg("PNG")
-           .arg("--internal-path")
-           .arg("/Lotus/Interface/Cards/Images/")
-           .arg("--output-path")
-           .arg(&output_dir);
-
-        #[cfg(windows)]
-        {
-            use std::os::windows::process::CommandExt;
-            const CREATE_NO_WINDOW: u32 = 0x08000000;
-            cmd.creation_flags(CREATE_NO_WINDOW);
-        }
-
-        let output = cmd.output().map_err(|e| format!("Failed to launch Warframe-Exporter-CLI: {e}"))?;
-        if !output.status.success() {
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            let stdout = String::from_utf8_lossy(&output.stdout);
-            return Err(format!(
-                "Warframe-Exporter-CLI failed (exit {:?}, bin: {:?}, cache: {}): stdout=[{}] stderr=[{}]",
-                output.status.code(), bin_path, cache_path, stdout.trim(), stderr.trim()
-            ));
-        }
-    }
-
-    let mut extracted = walk_dir_count(&output_dir);
-
-    // Antivirus / Requiem / Tome cards: the game ships them as UI icons
-    // (/Lotus/Interface/Icons/...) rather than card textures, so the
-    // Card pass above produces nothing for those paths. Re-run the
-    // exporter targeting the well-known UI icon subfolders and drop the
-    // results into the same card-images tree so the frontend can find
-    // them under its expected paths.
-    //
-    // Always check each UI icon path individually - they may not have
-    // been extracted on a previous run (e.g. if the early-return guard
-    // was in place before this restructuring).
-    let ui_icon_paths = [
-        "/Lotus/Interface/Icons/Antivirus/",
-        "/Lotus/Interface/Icons/ImmortalRunes/",
-        "/Lotus/Interface/Icons/Tomes/",
-        "/Lotus/Interface/Icons/RailjackSystemMods/",
-        "/Lotus/Interface/Icons/Stickers/",
-        "/Lotus/Interface/Icons/CosmeticEnhancers/",
-    ];
-    for internal_path in ui_icon_paths.iter() {
-        let ui_dir = output_dir.join(internal_path.trim_start_matches('/'));
-        // If the directory exists but the files may have been alpha-fixed
-        // by a previous run, wipe them so the extraction puts fresh copies.
-        // We use a sentinel file (<dir>/.fresh) to know if we already did this.
-        let sentinel = ui_dir.join(".fresh");
-        if ui_dir.exists() && walk_dir_count(&ui_dir) > 0 && !sentinel.exists() {
-            let _ = std::fs::remove_dir_all(&ui_dir);
-        }
-        if ui_dir.exists() && walk_dir_count(&ui_dir) > 0 {
-            continue;
-        }
-        std::fs::create_dir_all(&ui_dir).ok();
-        let mut ui_cmd = std::process::Command::new(&bin_path);
-        #[cfg(target_os = "linux")]
-        {
-            ui_cmd.env_remove("LD_LIBRARY_PATH");
-            ui_cmd.env_remove("OWD");
-            ui_cmd.env_remove("APPIMAGE_EXTRACT_AND_RUN");
-            ui_cmd.env_remove("APPDIR");
-            ui_cmd.env_remove("APPIMAGE");
-        }
-        ui_cmd.arg("--cache-dir")
-              .arg(cache_path)
-              .arg("--game")
-              .arg("Warframe")
-              .arg("--extract-textures")
-              .arg("--package")
-              .arg("Texture")
-              .arg("--texture-format")
-              .arg("PNG")
-              .arg("--internal-path")
-              .arg(internal_path)
-              .arg("--output-path")
-              .arg(&output_dir);
-        #[cfg(windows)]
-        {
-            use std::os::windows::process::CommandExt;
-            const CREATE_NO_WINDOW: u32 = 0x08000000;
-            ui_cmd.creation_flags(CREATE_NO_WINDOW);
-        }
-        // Only mark this icon set as done if the extraction actually
-        // succeeded and produced files - otherwise a crash/segfault mid-run
-        // permanently locks in an empty/partial directory forever (the
-        // sentinel used to be written unconditionally before the command
-        // even ran).
-        match ui_cmd.output() {
-            Ok(out) if out.status.success() && walk_dir_count(&ui_dir) > 0 => {
-                let _ = std::fs::write(&sentinel, b"1");
-            }
-            Ok(out) => {
-                eprintln!(
-                    "ensure_card_images: UI icon extraction for {} produced no files (exit {:?}): {}",
-                    internal_path, out.status.code(), String::from_utf8_lossy(&out.stderr).trim()
-                );
-            }
-            Err(e) => {
-                eprintln!("ensure_card_images: failed to launch UI icon extraction for {}: {e}", internal_path);
-            }
-        }
-        extracted = walk_dir_count(&output_dir);
-    }
-
-    Ok(extracted)
+    Ok(walk_dir_count(&output_dir))
 }
 
 fn walk_dir_count(dir: &Path) -> u32 {

@@ -103,7 +103,7 @@ test('ExportCustoms cosmetics outside /Upgrades/Skins/ are included and classifi
 
 test('a Warframe\'s base skin and helmet are not listed as cosmetics', async () => {
   const { isCosmeticCustomsEntry, BASE_APPEARANCE_ITEMS } = await import('../../src/lib/cosmeticType.js')
-  assert.equal(BASE_APPEARANCE_ITEMS.size, 5)
+  assert.equal(BASE_APPEARANCE_ITEMS.size, 8)
   for (const id of BASE_APPEARANCE_ITEMS) assert.equal(isCosmeticCustomsEntry(id), false, id)
   assert.equal(isCosmeticCustomsEntry('/Lotus/Upgrades/Skins/Geode/GeodeHelmet'), true)
 })

@@ -14212,5 +14212,277 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterI": {
+  "name": "Kill It! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterJ": {
+  "name": "Get Them! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterK": {
+  "name": "Get Rekt Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterL": {
+  "name": "Destroy All! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterM": {
+  "name": "Exterminate Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterN": {
+  "name": "What The...? Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterO": {
+  "name": "Slippery Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterP": {
+  "name": "Sssick!!!! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Kubrodon Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Kubrodon Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterA": {
+  "name": "Let's Go Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterB": {
+  "name": "Zanuka?! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterC": {
+  "name": "Silence! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterD": {
+  "name": "Error! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 1 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 1)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterE": {
+  "name": "Kill Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterF": {
+  "name": "Justice Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterG": {
+  "name": "Worm! Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterH": {
+  "name": "Cicero Poster",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Sold only as part of the Pobbers Series 2 Scrawl bundle in the Market.",
+    "place": "Scrawl bundle (Pobbers Series 2)",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/CaptainEmote": {
+  "name": "Commander",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it comes only in the limited-time Empyrean Supporter Pack).",
+    "place": "Empyrean Supporter Pack",
+    "source": {
+     "archive": "warframe_news",
+     "page": "Empyrean Supporter Pack",
+     "url": "https://www.warframe.com/en/news/empyrean-supporter-pack",
+     "quote": "The Empyrean Supporter Pack features: - Itzal Armor Set - Empyrean Sigil - Commander Emote - Railjack In Action Glyph - Empyrean Poster - 570 Platinum Limited-time offer."
+    }
+   }
+  ]
  }
 }

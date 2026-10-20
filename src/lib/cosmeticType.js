@@ -37,6 +37,11 @@ export const BASE_APPEARANCE_ITEMS = new Set([
   '/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin',
   '/Lotus/Upgrades/Skins/Geode/CitrinePrimeHelmet',
   '/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet',
+  // Default companion patterns (the pattern a Predasite, Vulpaphyla or Helminth
+  // Charger comes with).
+  '/Lotus/Types/Game/InfestedKavatPet/Patterns/InfestedCritterPatternDefault',
+  '/Lotus/Types/Game/InfestedPredatorPet/Patterns/InfestedPredatorPatternDefault',
+  '/Lotus/Types/Game/KubrowPet/Patterns/KubrowPetPatternInfested',
 ]);
 
 /**

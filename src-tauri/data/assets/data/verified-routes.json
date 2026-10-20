@@ -9125,5 +9125,1333 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/LNY2026HorseGlyph": {
+  "name": "Bingwu Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it cost 1 Credit in the Market from February 11 to March 11, 2026).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Lunar_New_Year",
+     "quote": "{{GlyphBox|BingwuGlyph.png|Bingwu Glyph|{{cc|1}} from the [[Market]]<br>Feb 11th - Mar 11th, 2026 exclusive}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageSwitch2Glyph": {
+  "name": "Buddies In Gaming Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Varzia's Prime Resurgence store for 5 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Varzia_Glyphs",
+     "quote": "{{GlyphBox|BuddiesInGamingGlyph.png|Buddies In Gaming Glyph<br>5 {{Resource|Aya}}}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageBuriedDebts": {
+  "name": "Buried Debts Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the THEDEADHAVEDEBTS promo code was given out during Operation: Buried Debts).",
+    "place": "Operation: Buried Debts",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Promo_Code/Drop_Glyphs",
+     "quote": "The '''Buried Debts Glyph''' was given out with a promo-code ([https://www.warframe.com/promocode?code=THEDEADHAVEDEBTS THEDEADHAVEDEBTS]) during [[Operation: Buried Debts]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageHalloween2016B": {
+  "name": "Calavera Glyph Ii",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it individually from the Market during Halloween for 20 Platinum, or in the four-glyph Calavera Glyph Pack for 65 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Halloween",
+     "quote": "The '''Calavera Glyph Pack''' can be purchased from the [[Market]] for {{pc|65}} during Halloween since 2016. This bundle included 4 Glyphs. The Glyphs can also be purchased individually for {{pc|20}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageHalloween2016C": {
+  "name": "Calavera Glyph Iii",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it individually from the Market during Halloween for 20 Platinum, or in the four-glyph Calavera Glyph Pack for 65 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Halloween",
+     "quote": "The '''Calavera Glyph Pack''' can be purchased from the [[Market]] for {{pc|65}} during Halloween since 2016. This bundle included 4 Glyphs. The Glyphs can also be purchased individually for {{pc|20}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageHalloween2016D": {
+  "name": "Calavera Glyph Iv",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it individually from the Market during Halloween for 20 Platinum, or in the four-glyph Calavera Glyph Pack for 65 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Halloween",
+     "quote": "The '''Calavera Glyph Pack''' can be purchased from the [[Market]] for {{pc|65}} during Halloween since 2016. This bundle included 4 Glyphs. The Glyphs can also be purchased individually for {{pc|20}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageCalibanDeluxeInAction": {
+  "name": "Caliban Orfeo In Action Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Nora's Mix: Time Tempests reward).",
+    "place": "Nora's Mix: Time Tempests",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Nightwave_Glyphs",
+     "quote": "{{GlyphBox|CalibanOrfeoInActionGlyph.png|Caliban Orfeo in Action Glyph|[[Nightwave/Nora's Mix: Time Tempests|Nora's Mix: Time Tempests]]}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageCephalonCy": {
+  "name": "Cephalon Cy Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a drop for watching an official Warframe stream for 30 minutes during the launch of Update 27).",
+    "place": "Official Warframe stream",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Promo_Code/Drop_Glyphs",
+     "quote": "The '''Cephalon Cy Glyph''' was a Drop for watching official Warframe stream for 30 minutes on Twitch, Mixer or Steam during the launch of [[Update 27]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageCephalonSimaris": {
+  "name": "Cephalon Simaris Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was exclusively awarded to winners of Simaris' Sanctuary Showdown during TennoCon 2018).",
+    "place": "TennoCon 2018",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Other_Glyphs",
+     "quote": "Exclusively awarded to winners of '''Simaris' Sanctuary Showdown''' during '''Tennocon 2018''', distributed via code card after the event."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Warframes/CitrineActionGlyph": {
+  "name": "Citrine In Action Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded from a Gift of the Lotus alert on April 5, 2023).",
+    "place": "Gift of the Lotus alert",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Miscellaneous",
+     "quote": "The '''Citrine In Action Glyph''' was awarded from a [[Gift Of The Lotus]] alert on April 5th, 2023."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysErraGlyph": {
+  "name": "Community Dog Days Erra Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Nakak in Cetus during Dog Days for 30 Nakak Pearls.",
+    "place": "Nakak",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Dog_Days",
+     "quote": "These glyphs can be purchased from [[Nakak]] in [[Cetus]] during [[Dog Days]] for '''30''' {{Resource|Nakak Pearl}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysGareshGlyph": {
+  "name": "Community Dog Days Executioner Garesh Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Nakak in Cetus during Dog Days for 30 Nakak Pearls.",
+    "place": "Nakak",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Dog_Days",
+     "quote": "These glyphs can be purchased from [[Nakak]] in [[Cetus]] during [[Dog Days]] for '''30''' {{Resource|Nakak Pearl}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysKelaGlyph": {
+  "name": "Community Dog Days Kela De Thaym Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Nakak in Cetus during Dog Days for 30 Nakak Pearls.",
+    "place": "Nakak",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Dog_Days",
+     "quote": "These glyphs can be purchased from [[Nakak]] in [[Cetus]] during [[Dog Days]] for '''30''' {{Resource|Nakak Pearl}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysRusalkaGlyph": {
+  "name": "Community Dog Days Rusalka Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Nakak in Cetus during Dog Days for 30 Nakak Pearls.",
+    "place": "Nakak",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Dog_Days",
+     "quote": "These glyphs can be purchased from [[Nakak]] in [[Cetus]] during [[Dog Days]] for '''30''' {{Resource|Nakak Pearl}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumAdisGlyph": {
+  "name": "Community Tennobaum Adis On A Shelf Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2025 milestone reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2025''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumLyonGlyph": {
+  "name": "Community Tennobaum Lyon Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2025 milestone reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2025''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumManintheCookie": {
+  "name": "Community Tennobaum Man In The Cookie Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2024 milestone reward).",
+    "place": "Tennobaum 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2024''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumMarieGlyph": {
+  "name": "Community Tennobaum Marie Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2025 milestone reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2025''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumRoatheGlyph": {
+  "name": "Community Tennobaum Roathe Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2025 milestone reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2025''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumSpodlingGlyph": {
+  "name": "Community Tennobaum Sprodling Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2025 milestone reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2025''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumWorldSeederGlyph": {
+  "name": "Community Tennobaum World-Seeder Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2025 milestone reward).",
+    "place": "Tennobaum 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2025''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageConquera2021C": {
+  "name": "Conquera Glyph I",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it in the Market for 1 Credit during October through December.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Conquera",
+     "quote": "The '''Conquera Glyph''' was given out with a promo-code ([https://www.warframe.com/promocode?code=Conquer CONQUER]) on November 2nd, 2020; the Conquera Glyph I to V were unlocked in the [[wf:news/quest-to-conquer-cancer-2021-en|Quest to Conquer Cancer]] donation goals in 2021 and 2022. All previous Conquera Glyphs through IX can be purchased in the [[Market]] for {{cc|1}} during October through December."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageConquera2021D": {
+  "name": "Conquera Glyph Ii",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it in the Market for 1 Credit during October through December.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Conquera",
+     "quote": "The '''Conquera Glyph''' was given out with a promo-code ([https://www.warframe.com/promocode?code=Conquer CONQUER]) on November 2nd, 2020; the Conquera Glyph I to V were unlocked in the [[wf:news/quest-to-conquer-cancer-2021-en|Quest to Conquer Cancer]] donation goals in 2021 and 2022. All previous Conquera Glyphs through IX can be purchased in the [[Market]] for {{cc|1}} during October through December."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageConquera2021A": {
+  "name": "Conquera Glyph Iii",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it in the Market for 1 Credit during October through December.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Conquera",
+     "quote": "The '''Conquera Glyph''' was given out with a promo-code ([https://www.warframe.com/promocode?code=Conquer CONQUER]) on November 2nd, 2020; the Conquera Glyph I to V were unlocked in the [[wf:news/quest-to-conquer-cancer-2021-en|Quest to Conquer Cancer]] donation goals in 2021 and 2022. All previous Conquera Glyphs through IX can be purchased in the [[Market]] for {{cc|1}} during October through December."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/HeirloomGlyph": {
+  "name": "Deca Heirloom Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Risen Heirloom Collection will never be purchasable again).",
+    "place": "Risen Heirloom Collection",
+    "source": {
+     "archive": "wiki",
+     "page": "Risen Heirloom Collection",
+     "url": "https://wiki.warframe.com/w/Risen_Heirloom_Collection#Notes",
+     "quote": "*Much like the items in the [[Founders]] program, this collection will never be purchasable again."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightwaveDrippyGraffitiGlyph": {
+  "name": "Drippy Dog Days Glyph",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach rank 13 in Amir's Shockwave at 130,000 Standing.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave#Ranking_Rewards",
+     "quote": "*''Rank 13 - {{sc|130,000}}: [[Glyph#Nightwave Glyphs|Drippy Dog Days Glyph]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineOrion": {
+  "name": "Dueling Orion Glyph",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Visit the Jade Shadows: Constellations page, choose Orion, and scroll down through the page.",
+    "place": "Jade Shadows: Constellations",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Mainline_Update_Series_Glyphs",
+     "quote": "Both can be obtained by visiting https://www.warframe.com/en/jade-shadows-constellations, choosing Sirius or Orion, and scrolling down through the page."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineSirius": {
+  "name": "Dueling Sirius Glyph",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Visit the Jade Shadows: Constellations page, choose Sirius, and scroll down through the page.",
+    "place": "Jade Shadows: Constellations",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Mainline_Update_Series_Glyphs",
+     "quote": "Both can be obtained by visiting https://www.warframe.com/en/jade-shadows-constellations, choosing Sirius or Orion, and scrolling down through the page."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImage2025GCX": {
+  "name": "Gcx 2025 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was obtained by donating to a previous GCX Charity Marathon).",
+    "place": "GCX Charity Marathon",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Miscellaneous",
+     "quote": "The '''GCX Glyphs''' were obtained by donating to previous GCX Charity Marathons."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageGengzi": {
+  "name": "Gengzi Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it cost 1 Credit in the Market and was exclusive to January 23 through 31, 2020).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Lunar_New_Year",
+     "quote": "{{GlyphBox|GengziGlyph.png|Gengzi Glyph|{{cc|1}} from the [[Market]]<br>January 23rd - 31st, 2020 exclusive}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Xmas2021GrinoalieGlyph": {
+  "name": "Kahl-175 Tennobaum Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2022 milestone reward).",
+    "place": "Tennobaum 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2022''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageLegendaryArkonisAelir": {
+  "name": "Legendary Arkonisaelir Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it is exclusive to the player who designed it unless that player chooses to share it).",
+    "place": "TennoCon Legendary Ticket",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Legendary_Glyphs",
+     "quote": "Legendary Glyphs are custom personal Glyphs designed by players who purchase a Legendary Ticket to [[TennoCon]]. Each one is exclusive to the player who designed it, unless they choose to share it with other players."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageDramakins": {
+  "name": "Lotus Symbol Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Dramakins Creator Glyph is currently not available via promo code).",
+    "place": "Creator promo code",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Creator_Glyphs",
+     "quote": "'''The following Creator Glyphs are known but (currently) not available via Promo Code''' - due to being either replaced with an updated glyph, deactivated due to Creator inactivity, given out manually by the Content Creator to the community, or some other miscellaneous reason. Note that this list is also subject to change, and may not remain 100% accurate over time."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageLovinDaTacos": {
+  "name": "Lotus Symbol Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the LovinDaTacos Creator Glyph is currently not available via promo code).",
+    "place": "Creator promo code",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Creator_Glyphs",
+     "quote": "'''The following Creator Glyphs are known but (currently) not available via Promo Code''' - due to being either replaced with an updated glyph, deactivated due to Creator inactivity, given out manually by the Content Creator to the community, or some other miscellaneous reason. Note that this list is also subject to change, and may not remain 100% accurate over time."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightwaveMitMimicGlyph": {
+  "name": "M.I.T.Mimic Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Amir at Höllvandeim for 5,000 Standing.",
+    "place": "Höllvandeim",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Fables_&_Frontiers_Glyphs",
+     "quote": "The '''Fables & Frontiers Glyphs''' can be purchased from [[Amir]] at [[Höllvania_Central_Mall#Höllvandeim|Höllvandeim]] for {{sc|5000}} each. (This area unlocks after completion of [[The Hex (Quest)|The Hex Finale]], Rank 5 - Pizza Party with {{Faction|The Hex}}, and Chemistry Rank 5 - Close with Amir over [[KIM]].)<br>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Xmas2021MaggotGlyph": {
+  "name": "Maggot Prime Tennobaum Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2022 milestone reward).",
+    "place": "Tennobaum 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2022''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Xmas2021MoaGlyph": {
+  "name": "Moa Tennobaum Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2022 milestone reward).",
+    "place": "Tennobaum 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2022''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphStarterPackA": {
+  "name": "Nava Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was available through Warframe's Starter Pack until June 25, 2019).",
+    "place": "Warframe Starter Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Supporter_Packs",
+     "quote": "The '''Nava Glyph''' was available via WARFRAME's Starter Pack until June 25th, 2019."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Seasonal/DOTD2025NoraGlyph": {
+  "name": "Nora Night Catrina Glyph",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Nightwave Cred Offerings for 30 Nightwave Cred.",
+    "place": "Nightwave Cred Offerings",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Cred_Offerings",
+     "quote": "{{GlyphBox|NoraNightCatrinaGlyph.png|Nora Night Catrina Glyph|{{nc|30}}}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageOctaviaAction": {
+  "name": "Octavia In Action Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded from the Infested Infiltration alert from August 3 through August 10, 2022).",
+    "place": "Infested Infiltration alert",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Miscellaneous",
+     "quote": "The '''Harrow In Action Glyph''' and '''Octavia In Action Glyphs''' were awarded from a special Infested Infiltration alert, which lasted from August 3rd to August 10th, 2022."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/ImageProteaDeluxeInAction": {
+  "name": "Protea Caladrius In Action Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Nora's Mix: Time Tempests reward).",
+    "place": "Nora's Mix: Time Tempests",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Nightwave_Glyphs",
+     "quote": "{{GlyphBox|ProteaCaladriusInActionGlyph.png|Protea Caladrius in Action Glyph|[[Nightwave/Nora's Mix: Time Tempests|Nora's Mix: Time Tempests]]}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2016B": {
+  "name": "Solstice Glyph Ii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the four-glyph Solstice Glyph Pack sold from the Market for 65 Platinum during Christmas 2016).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Solstice",
+     "quote": "The '''Solstice Glyph Pack''' could have been purchased for {{pc|65}} from the [[Market]] during Christmas 2016. This bundle included 4 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2016C": {
+  "name": "Solstice Glyph Iii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the four-glyph Solstice Glyph Pack sold from the Market for 65 Platinum during Christmas 2016).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Solstice",
+     "quote": "The '''Solstice Glyph Pack''' could have been purchased for {{pc|65}} from the [[Market]] during Christmas 2016. This bundle included 4 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2016D": {
+  "name": "Solstice Glyph Iv",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the four-glyph Solstice Glyph Pack sold from the Market for 65 Platinum during Christmas 2016).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Solstice",
+     "quote": "The '''Solstice Glyph Pack''' could have been purchased for {{pc|65}} from the [[Market]] during Christmas 2016. This bundle included 4 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarDaysLyonGlyph": {
+  "name": "Star Days Lyon Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it is available from a weekend event during February).",
+    "place": "Star Days",
+    "source": {
+     "archive": "wiki",
+     "page": "Star Days",
+     "url": "https://wiki.warframe.com/w/Star_Days#Other_Offerings",
+     "quote": "Glyphs featuring the Devil's Triad (Marie, Lyon, and Roathe) as well as a heart-shaped Display are available from weekend events throughout February."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarDaysStarDaysMarieGlyph": {
+  "name": "Star Days Marie Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it is available from a weekend event during February).",
+    "place": "Star Days",
+    "source": {
+     "archive": "wiki",
+     "page": "Star Days",
+     "url": "https://wiki.warframe.com/w/Star_Days#Other_Offerings",
+     "quote": "Glyphs featuring the Devil's Triad (Marie, Lyon, and Roathe) as well as a heart-shaped Display are available from weekend events throughout February."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarDaysRoatheGlyph": {
+  "name": "Star Days Roathe Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it is available from a weekend event during February).",
+    "place": "Star Days",
+    "source": {
+     "archive": "wiki",
+     "page": "Star Days",
+     "url": "https://wiki.warframe.com/w/Star_Days#Other_Offerings",
+     "quote": "Glyphs featuring the Devil's Triad (Marie, Lyon, and Roathe) as well as a heart-shaped Display are available from weekend events throughout February."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarfinderSocietyGlyph": {
+  "name": "Starfinder Society Glyph",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase the Starfinder x Warframe Operation Orias tabletop RPG to obtain it.",
+    "place": "Operation Orias tabletop RPG",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Miscellaneous",
+     "quote": "The '''Starfinder Society Glyph''' is obtained by purchasing the [https://www.warframe.com/en/news/starfinder-x-warframe-operation-orias-now-available Starfinder X Warframe Operation Orias] Tabletop-RPG."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/OldPeaceTeaserGlyph": {
+  "name": "Tau Bloom Glyph",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Discover the truth in The Old Peace ARG to receive it through the Inbox.",
+    "place": "The Old Peace ARG",
+    "source": {
+     "archive": "wiki",
+     "page": "The Old Peace ARG",
+     "url": "https://wiki.warframe.com/w/The_Old_Peace_ARG#Progression",
+     "quote": "Discovering the truth awards the player with the \"Tau Bloom\" Glyph, delivered via inbox from an unidentified sender:"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2017Glyph": {
+  "name": "Tennocon 2017 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2017 ticket).",
+    "place": "TennoCon 2017",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2018Glyph": {
+  "name": "Tennocon 2018 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2018 ticket).",
+    "place": "TennoCon 2018",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2019Glyph": {
+  "name": "Tennocon 2019 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2019 ticket).",
+    "place": "TennoCon 2019",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2020Glyph": {
+  "name": "Tennocon 2020 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2020 ticket).",
+    "place": "TennoCon 2020",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2021Glyph": {
+  "name": "Tennocon 2021 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2021 ticket).",
+    "place": "TennoCon 2021",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2021MerchGlyph": {
+  "name": "Tennocon 2021 Merch Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was part of a purchasable TennoCon 2021 merch pack as a redeemable code).",
+    "place": "TennoCon 2021 merch pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoCon_Merch_Pack_Glyphs",
+     "quote": "These glyphs were part of purchasable merch packs in the form of redeemable codes."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2022Glyph": {
+  "name": "Tennocon 2022 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2022 ticket).",
+    "place": "TennoCon 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2023Glyph": {
+  "name": "Tennocon 2023 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2023 ticket).",
+    "place": "TennoCon 2023",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2024Glyph": {
+  "name": "Tennocon 2024 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2024 ticket).",
+    "place": "TennoCon 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2025Glyph": {
+  "name": "Tennocon 2025 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to players who purchased a physical or digital TennoCon 2025 ticket).",
+    "place": "TennoCon 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Ticket_Glyphs",
+     "quote": "These '''TennoCon''' glyphs are exclusive glyphs given to players who purchased a physical or digital ticket to the respective Warframe live conventions."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2026BombasticAwardGlyph": {
+  "name": "Tennocon 2026 - Bombastic Performance Award Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded to the winner of the respective TennoCon 2026 cosplay award).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoCon_Cosplay_Contest_Glyphs",
+     "quote": "Glyphs awarded to winners of the respective award each year."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2026LotusChoiceAwardGlyph": {
+  "name": "Tennocon 2026 - Lotus' Choice Award Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded to the winner of the respective TennoCon 2026 cosplay award).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoCon_Cosplay_Contest_Glyphs",
+     "quote": "Glyphs awarded to winners of the respective award each year."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2026OrokinGoldAwardGlyph": {
+  "name": "Tennocon 2026 - Orokin Gold Award Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded to the winner of the respective TennoCon 2026 cosplay award).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoCon_Cosplay_Contest_Glyphs",
+     "quote": "Glyphs awarded to winners of the respective award each year."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2026OstronIngenuityAwardGlyph": {
+  "name": "Tennocon 2026 - Ostron Ingenuity Award Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded to the winner of the respective TennoCon 2026 cosplay award).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoCon_Cosplay_Contest_Glyphs",
+     "quote": "Glyphs awarded to winners of the respective award each year."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2026BestWorkmanshipAwardGlyph": {
+  "name": "Tennocon 2026 - Solaris Worksmanship Award Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was awarded to the winner of the respective TennoCon 2026 cosplay award).",
+    "place": "TennoCon 2026 Cosplay Contest",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoCon_Cosplay_Contest_Glyphs",
+     "quote": "Glyphs awarded to winners of the respective award each year."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageTennoGen10Year": {
+  "name": "Tennogen Decennial Glyph",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Find it in the player's Inbox.",
+    "place": "Inbox",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Miscellaneous",
+     "quote": "The '''TennoGen Decennial Glyph''' can be located in the player's inbox as of November 10, 2025, 16:00 EST."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2020SimarisGlyph": {
+  "name": "Tennotrivia 2020 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was an exclusive reward for the top 1,000 TennoTrivia players during TennoCon 2020).",
+    "place": "TennoTrivia 2020",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Other_Glyphs",
+     "quote": "The '''TennoTrivia 2020 Glyph''' was an exclusive reward given to the top 1000 highest scoring players of the '''TennoTrivia''' quiz during '''Tennocon2020'''."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennoVIP2026Glyph": {
+  "name": "Tennovip Glyph 2026",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to in-person attendees at TennoVIP events in 2026).",
+    "place": "TennoVIP 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoVIP_Glyphs",
+     "quote": "These glyphs were given to in-person attendees at TennoVIP events. Prior to 2026, these glyphs were exclusive to TennoVIP at PAX East attendees."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennoVIPXian2026Glpyh": {
+  "name": "Tennovip Xi'An 2026 Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to in-person attendees at the Xi'An TennoVIP event in 2026).",
+    "place": "TennoVIP Xi'An 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#TennoVIP_Glyphs",
+     "quote": "These glyphs were given to in-person attendees at TennoVIP events. Prior to 2026, these glyphs were exclusive to TennoVIP at PAX East attendees."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTeshinVed": {
+  "name": "Teshin Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the WARWITHIN promo code was given out during the launch of Update 19).",
+    "place": "Update 19 launch",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Promo_Code/Drop_Glyphs",
+     "quote": "The '''Teshin Glyph''' was given out with a promo-code ([https://www.warframe.com/promocode?code=WARWITHIN WARWITHIN]) during the launch of [[Update 19]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Seasonal/Halloween2019TrickOrBalas": {
+  "name": "Trick Or Ballas Glyph",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it individually from the Market during Halloween for 20 Platinum, or in the four-glyph Monstrous Glyph Bundle for 65 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Halloween",
+     "quote": "The '''Monstrous Glyph Bundle''' can be purchased from the [[Market]] for {{pc|65}} during Halloween since 2019. This bundle included 4 Glyphs. The Glyphs can also be purchased individually for {{pc|20}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Xmas2021NutcorpusGlyph": {
+  "name": "Veso-R Tennobaum Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Tennobaum 2022 milestone reward).",
+    "place": "Tennobaum 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Tennobaum",
+     "quote": "'''Tennobaum 2022''' milestone rewards."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageMadrinas": {
+  "name": "Warframe X Madrinas Glyph",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase the Madrinas x Warframe Collector's Box to obtain it.",
+    "place": "Madrinas x Warframe Collector's Box",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Miscellaneous",
+     "quote": "The '''Madrinas x Warframe Glyph''' is obtained by purchasing the [https://www.warframe.com/en/news/warframe-x-madrinas-collectors-box Madrinas x Warframe Collector's Box]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016B": {
+  "name": "Winter Glyph Ii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the seven-glyph Winter Glyph Pack released during Christmas 2016 for 110 Platinum).",
+    "place": "Winter Glyph Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack''' was released during Christmas 2016. It costs {{pc|110}} and includes 7 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016C": {
+  "name": "Winter Glyph Iii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the seven-glyph Winter Glyph Pack released during Christmas 2016 for 110 Platinum).",
+    "place": "Winter Glyph Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack''' was released during Christmas 2016. It costs {{pc|110}} and includes 7 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016D": {
+  "name": "Winter Glyph Iv",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the seven-glyph Winter Glyph Pack released during Christmas 2016 for 110 Platinum).",
+    "place": "Winter Glyph Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack''' was released during Christmas 2016. It costs {{pc|110}} and includes 7 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017B": {
+  "name": "Winter Glyph Ix",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the six-glyph Winter Glyph Pack II released during Christmas 2017 for 100 Platinum).",
+    "place": "Winter Glyph Pack II",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack II''' was released during Christmas 2017. It costs {{pc|100}} and includes 6 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016F": {
+  "name": "Winter Glyph Vi",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the seven-glyph Winter Glyph Pack released during Christmas 2016 for 110 Platinum).",
+    "place": "Winter Glyph Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack''' was released during Christmas 2016. It costs {{pc|110}} and includes 7 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016G": {
+  "name": "Winter Glyph Vii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the seven-glyph Winter Glyph Pack released during Christmas 2016 for 110 Platinum).",
+    "place": "Winter Glyph Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack''' was released during Christmas 2016. It costs {{pc|110}} and includes 7 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017A": {
+  "name": "Winter Glyph Viii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the six-glyph Winter Glyph Pack II released during Christmas 2017 for 100 Platinum).",
+    "place": "Winter Glyph Pack II",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack II''' was released during Christmas 2017. It costs {{pc|100}} and includes 6 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017D": {
+  "name": "Winter Glyph Xi",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the six-glyph Winter Glyph Pack II released during Christmas 2017 for 100 Platinum).",
+    "place": "Winter Glyph Pack II",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack II''' was released during Christmas 2017. It costs {{pc|100}} and includes 6 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017E": {
+  "name": "Winter Glyph Xii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the six-glyph Winter Glyph Pack II released during Christmas 2017 for 100 Platinum).",
+    "place": "Winter Glyph Pack II",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack II''' was released during Christmas 2017. It costs {{pc|100}} and includes 6 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017F": {
+  "name": "Winter Glyph Xiii",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the six-glyph Winter Glyph Pack II released during Christmas 2017 for 100 Platinum).",
+    "place": "Winter Glyph Pack II",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Winter",
+     "quote": "The '''Winter Glyph Pack II''' was released during Christmas 2017. It costs {{pc|100}} and includes 6 Glyphs."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightaveCosmos": {
+  "name": "Xaku Raya Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Nora's Mix Volume 9 reward).",
+    "place": "Nora's Mix Volume 9",
+    "source": {
+     "archive": "wiki",
+     "page": "Glyph",
+     "url": "https://wiki.warframe.com/w/Glyph#Nightwave_Glyphs",
+     "quote": "{{GlyphBox|XakuRayaGlyph.png|Xaku Raya Glyph|[[Nightwave/Nora's Mix Volume 9|Nora's Mix Volume 9]]}}"
+    }
+   }
+  ]
  }
 }

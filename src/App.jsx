@@ -378,7 +378,7 @@ function AppContent() {
   }
 
   return (
-    <WikiNavigationProvider onNavigate={setActiveTab}>
+    <WikiNavigationProvider onNavigate={setActiveTab} currentScreen={activeTab}>
     <>
       {IS_PREVIEW ? (
         <PreviewAppShell

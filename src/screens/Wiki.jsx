@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { X, RefreshCw } from 'lucide-react';
+import { X, RefreshCw, ArrowLeft } from 'lucide-react';
 import { invoke } from '../lib/logging/tauri';
 import { listen } from '@tauri-apps/api/event';
 import { getCurrentWindow } from '@tauri-apps/api/window';
@@ -12,7 +12,7 @@ let lastActiveId = null;
 
 export default function Wiki() {
   const { t } = useUi()
-  const { pendingTarget, clearPendingTarget } = useWikiNavigation();
+  const { pendingTarget, clearPendingTarget, returnScreen, goBack } = useWikiNavigation();
   const containerRef = useRef(null);
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(null);
@@ -174,9 +174,21 @@ export default function Wiki() {
       titleKey="screen.wiki"
       extra={
       <div className="flex items-center gap-1">
+          {returnScreen &&
+        <button
+          type="button"
+          onClick={goBack}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors bg-white/5 text-kronos-dim hover:bg-white/10"
+          title={t('wiki.back')}>
+              <ArrowLeft size={14} />
+              {t('wiki.back')}
+            </button>
+        }
           {tabs.map((t) =>
         <div key={t.id}
-        onClick={() => showTab(t.id, t.url)}
+        // Switching tabs only shows the tab's webview. Passing its stored URL
+        // re-navigated (reloaded) the page, which could leave it blank.
+        onClick={() => { if (t.id !== activeTab) showTab(t.id); }}
         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${
         activeTab === t.id ?
         'bg-kronos-accent/20 text-kronos-accent' :

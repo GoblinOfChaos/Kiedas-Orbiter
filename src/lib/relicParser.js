@@ -219,7 +219,7 @@ export function getAllRelicRewards(exportData, locale = 'en') {
   }
 
   // Ensure Forma is always there
-  const formaUn = '/Lotus/StoreItems/Types/Items/MiscItems/FormaBlueprint';
+  const formaUn = '/Lotus/Types/Recipes/Components/FormaBlueprint';
   if (!seen.has(formaUn)) {
     allItems.push({
       uniqueName: formaUn,

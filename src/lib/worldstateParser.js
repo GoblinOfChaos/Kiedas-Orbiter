@@ -1118,7 +1118,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 2,
     name: "Drippy Floof",
-    uniqueName: "/Lotus/Types/Items/Flavour/Floofs/1999DrippyFloof",
+    uniqueName: "/Lotus/Types/Items/ShipDecos/Plushies/PlushyDrippy",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png!00_+A3isA9C2S8wtxafTZPs9w"
@@ -1126,7 +1126,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 3,
     name: "Forma Bundle",
-    uniqueName: "/Lotus/StoreItems/Types/Items/MiscItems/FormaBundle",
+    uniqueName: "/Lotus/Types/StoreItems/Packages/FormaPack",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/Episodes/Weekly/FormaWeapons.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/Episodes/Weekly/FormaWeapons.png!00_8HD-HsFu3c5IC9PoEvsoSw"
@@ -1134,7 +1134,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 4,
     name: "Techrot Armor Bundle",
-    uniqueName: "/Lotus/Upgrades/Cosmetics/Armor/TechrotArmorBundle",
+    uniqueName: "/Lotus/Types/StoreItems/Packages/Inf1999ArmorBundle",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/Player/FactionTechrot.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/FactionTechrot.png!00_v-RUlMb4gQ-k9Lyl9lnDPA"
@@ -1142,7 +1142,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 5,
     name: "Globakk Syandana",
-    uniqueName: "/Lotus/Upgrades/Skins/Scarves/GlobakkSyandana",
+    uniqueName: "/Lotus/Upgrades/Skins/Scarves/LasNightwaveCape",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Cosmetics/Armour/WarframeSpecific/RevenantMephistoSyandana.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Cosmetics/Armour/WarframeSpecific/RevenantMephistoSyandana.png!00_Rc-D2DaxNKDQjfZs7CkSSg"
@@ -1158,7 +1158,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 7,
     name: "Submeower Decoration",
-    uniqueName: "/Lotus/Types/Items/ShipDecos/SubmeowerDecoration",
+    uniqueName: "/Lotus/Types/Items/ShipDecos/Nightwave/NightwaveEntertechmentCrate",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
@@ -1182,7 +1182,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 10,
     name: "Prototype Shock Coils",
-    uniqueName: "/Lotus/Upgrades/Mods/Nightwave/PrototypeShockCoils",
+    uniqueName: "/Lotus/Upgrades/Mods/Pistol/Event/Nightwave/NightwaveLasGooPistolAugmentMod",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
@@ -1198,7 +1198,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 12,
     name: "Stance Forma",
-    uniqueName: "/Lotus/Types/Items/MiscItems/StanceForma",
+    uniqueName: "/Lotus/Types/Items/MiscItems/FormaStance",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Resources/CraftingComponents/StanceForma.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Resources/CraftingComponents/StanceForma.png!00_XsBk8CFIzUSTmLQJjTnoPQ"
@@ -1206,7 +1206,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 13,
     name: "Drippy Dog Days Glyph",
-    uniqueName: "/Lotus/Types/StoreItems/AvatarImages/DrippyGlyph",
+    uniqueName: "/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightwaveDrippyGraffitiGlyph",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/Player/DrippyGlyph.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/DrippyGlyph.png!00_ru4Qg9vHlkUcs1aViIdm1w"
@@ -1222,7 +1222,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 15,
     name: "Teisatz Oculus",
-    uniqueName: "/Lotus/Upgrades/Skins/Operator/Oculus/TeisatzOculus",
+    uniqueName: "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveScouterEyePiece",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Operator/Cosmetics/Eyepieces/SWBlazeOculusEyepiece.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Operator/Cosmetics/Eyepieces/SWBlazeOculusEyepiece.png!00_wjhm8JMLzzfi4LzCvXvtQQ"
@@ -1238,7 +1238,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 17,
     name: "Xaku Raya Skin",
-    uniqueName: "/Lotus/Upgrades/Skins/OtherWarframes/XakuRayaSkin",
+    uniqueName: "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosSkin",
     itemCount: 1,
     icon: "/Lotus/Interface/Cards/Images/AbilityAugments/XakuEmbraceAugment.jpg",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Cards/Images/AbilityAugments/XakuEmbraceAugment.jpg!00_FmYkoYnBYbnB9cWEQRtk1w"
@@ -1246,7 +1246,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 18,
     name: "Drippy Keychain Sugatra",
-    uniqueName: "/Lotus/Upgrades/Skins/WeaponAccessories/DrippySugatra",
+    uniqueName: "/Lotus/Upgrades/Skins/MeleeDangles/DrippyKeychainMeleeDangle",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Cosmetics/Sugatras/AnpuSugatra.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Cosmetics/Sugatras/AnpuSugatra.png!00_IflcW4MtsFyYq130U+qVbg"
@@ -1254,7 +1254,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 19,
     name: "Veiled Riven Cipher",
-    uniqueName: "/Lotus/Types/Items/MiscItems/VeiledRivenCipher",
+    uniqueName: "/Lotus/Types/Items/MiscItems/RivenIdentifier",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Gear/RivenCipher.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Gear/RivenCipher.png!00_EZkOI6rJOd1Xia3tcX2QlA"
@@ -1278,7 +1278,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 22,
     name: "Come Here Emote",
-    uniqueName: "/Lotus/Types/Items/Emotes/ComeHereEmote",
+    uniqueName: "/Lotus/Types/Items/Emotes/FinishLine",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/Categories/IconEmotes_256.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/Categories/IconEmotes_256.png!00_i5fSYm3w66pla3da6qIGww"
@@ -1286,7 +1286,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 23,
     name: "Wirematrix Ephemera",
-    uniqueName: "/Lotus/Upgrades/Cosmetics/Ephemera/WirematrixEphemera",
+    uniqueName: "/Lotus/Upgrades/Skins/Effects/NightwaveDigitalEphemera",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Cosmetics/Ephemera/ArchonShardEphemera.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Cosmetics/Ephemera/ArchonShardEphemera.png!00_ydWLnj5F5vNWyymwrsD1+w"
@@ -1302,7 +1302,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 25,
     name: "Overpressured Rounds",
-    uniqueName: "/Lotus/Upgrades/Mods/Nightwave/OverpressuredRounds",
+    uniqueName: "/Lotus/Upgrades/Mods/Rifle/Event/Nightwave/NightwaveLasGooAKAugmentMod",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
@@ -1310,7 +1310,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 26,
     name: "Omni Forma",
-    uniqueName: "/Lotus/Types/Items/MiscItems/OmniForma",
+    uniqueName: "/Lotus/Types/Items/MiscItems/FormaAura",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
@@ -1318,7 +1318,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 27,
     name: "Entropic Color Palette",
-    uniqueName: "/Lotus/Types/Items/Flavour/ColourPickers/EntropicPalette",
+    uniqueName: "/Lotus/Types/StoreItems/SuitCustomizations/ColourPickerNightwave1999Item",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Palettes/ColorPickerAccessibility.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Palettes/ColorPickerAccessibility.png!00_UwTs6EuKPq7n-Qzzcjk-QQ"
@@ -1326,7 +1326,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 28,
     name: "Umbra Forma",
-    uniqueName: "/Lotus/Types/Items/MiscItems/UmbraForma",
+    uniqueName: "/Lotus/Types/Items/MiscItems/FormaUmbra",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"
@@ -1334,7 +1334,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 29,
     name: "90's Kid Honoria",
-    uniqueName: "/Lotus/Types/Items/Flavour/Honoria/90sKidHonoria",
+    uniqueName: "/Lotus/Types/Items/Titles/ShockwaveTitle",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/Player/ContentCreators/FloofyDwagon.png!00_+A3isA9C2S8wtxafTZPs9w"
@@ -1342,7 +1342,7 @@ function resolveRelicEra(eraName, dict, locale = 'en') {
   {
     rank: 30,
     name: "Kaneshell Atomicycle Regalia",
-    uniqueName: "/Lotus/Upgrades/Cosmetics/Vehicles/KaneshellRegalia",
+    uniqueName: "/Lotus/Types/StoreItems/Packages/OperatorSuitNightwave1999Bundle",
     itemCount: 1,
     icon: "/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png",
     image: "asset-cache://content.warframe.com/PublicExport/Lotus/Interface/Icons/StoreIcons/Currency/GenericCreditIcon.png!00_+fae3sQWPNIsGWg9kC1hmw"

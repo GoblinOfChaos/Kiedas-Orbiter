@@ -151,7 +151,6 @@ const SET_FILE_OVERRIDES = {
   '/Lotus/Upgrades/Mods/Sets/Nira/NiraSetMod': 'NirasSet.png',
   '/Lotus/Upgrades/Mods/Sets/Boreal/BorealSetMod': 'BorealsSet.png',
   '/Lotus/Upgrades/Mods/Sets/Amar/AmarSetMod': 'AmarsSet.png',
-  '/Lotus/Upgrades/Mods/Sets/Amar/AmarsSetMod': 'AmarsSet.png',
   '/Lotus/Upgrades/Mods/Sets/Hawk/HawkSetMod': 'AeroSet.png'
 };
 

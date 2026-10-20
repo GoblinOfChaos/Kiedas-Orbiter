@@ -74,7 +74,7 @@ test('relic caches keep locale-sensitive results separate', () => {
   const englishRewards = getAllRelicRewards(exportsBundle, 'en');
   const frenchRewards = getAllRelicRewards(exportsBundle, 'fr');
   assert.notStrictEqual(englishRewards, frenchRewards);
-  const formaPath = '/Lotus/StoreItems/Types/Items/MiscItems/FormaBlueprint';
+  const formaPath = '/Lotus/Types/Recipes/Components/FormaBlueprint';
   assert.equal(englishRewards.find((item) => item.uniqueName === formaPath)?.name, 'Forma Blueprint');
   assert.equal(frenchRewards.find((item) => item.uniqueName === formaPath)?.name, 'Forma Plan');
 

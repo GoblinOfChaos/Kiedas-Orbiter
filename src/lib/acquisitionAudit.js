@@ -38,7 +38,7 @@
  */
 
 import { getAcquisitionInfo } from './acquisitionInfo.js';
-import { isCosmeticCustomsEntry } from './cosmeticType.js';
+import { baseAppearanceSet, isCosmeticCustomsEntry } from './cosmeticType.js';
 import { getRelicCatalog } from './relicParser.js';
 
 const isSigil = (uniqueName) => /\/Upgrades\/Skins\/Sigils\//i.test(uniqueName || '');
@@ -52,8 +52,9 @@ export function buildCosmeticsCatalog(exportData) {
   if (!exportData) return [];
   const dict = exportData?.dict || {};
   const customs = exportData?.ExportCustoms;
+  const baseAppearance = baseAppearanceSet(exportData);
   const skinItems = customs && typeof customs === 'object' ? Object.entries(customs).flatMap(([uniqueName, entry]) => {
-    if (!isCosmeticCustomsEntry(uniqueName)) return [];
+    if (!isCosmeticCustomsEntry(uniqueName) || baseAppearance.has(uniqueName)) return [];
     // Cosmetics.jsx also drops unowned items with no icon/texture (internal
     // debug/placeholder entries). This audit has no ownership data of its
     // own, so it mirrors that same "no real artwork" filter unconditionally

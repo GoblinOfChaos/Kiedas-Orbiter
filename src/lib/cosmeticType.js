@@ -39,6 +39,22 @@ export const BASE_APPEARANCE_ITEMS = new Set([
   '/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet',
 ]);
 
+/**
+ * Everything that comes with a Warframe, Sentinel or weapon when it is built or
+ * owned: DE lists these in the record's `additionalItems` (base helmet, included
+ * armor pieces, ...), plus BASE_APPEARANCE_ITEMS for frames DE does not link.
+ * They are not items a player can get on their own, so no screen lists them.
+ */
+export function baseAppearanceSet(exportData) {
+  const set = new Set(BASE_APPEARANCE_ITEMS);
+  for (const table of ['ExportWarframes', 'ExportSentinels', 'ExportWeapons']) {
+    for (const entry of Object.values(exportData?.[table] || {})) {
+      for (const item of entry?.additionalItems || []) set.add(String(item).replaceAll('/StoreItems/', '/'));
+    }
+  }
+  return set;
+}
+
 export function isCosmeticCustomsEntry(uniqueName) {
   const value = String(uniqueName || '');
   if (BASE_APPEARANCE_ITEMS.has(value)) return false;

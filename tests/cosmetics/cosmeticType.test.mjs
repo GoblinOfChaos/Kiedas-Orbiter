@@ -107,3 +107,13 @@ test('a Warframe\'s base skin and helmet are not listed as cosmetics', async () 
   for (const id of BASE_APPEARANCE_ITEMS) assert.equal(isCosmeticCustomsEntry(id), false, id)
   assert.equal(isCosmeticCustomsEntry('/Lotus/Upgrades/Skins/Geode/GeodeHelmet'), true)
 })
+
+test('everything DE lists as coming with a frame, Sentinel or weapon is a base item', async () => {
+  const { baseAppearanceSet } = await import('../../src/lib/cosmeticType.js')
+  const set = baseAppearanceSet({
+    ExportWarframes: { '/Lotus/Powersuits/Geode/Geode': { additionalItems: ['/Lotus/Upgrades/Skins/Geode/GeodeHelmet', '/Lotus/StoreItems/Upgrades/Skins/X/XArmor'] } },
+    ExportSentinels: { '/s': { additionalItems: ['/Lotus/Upgrades/Skins/Sentinel/SHelmet'] } },
+  })
+  for (const id of ['/Lotus/Upgrades/Skins/Geode/GeodeHelmet', '/Lotus/Upgrades/Skins/X/XArmor', '/Lotus/Upgrades/Skins/Sentinel/SHelmet', '/Lotus/Upgrades/Skins/Duelist/DuelistSkin']) assert.ok(set.has(id), id)
+  assert.ok(!set.has('/Lotus/Upgrades/Skins/Geode/GeodePrimeSkin'))
+})

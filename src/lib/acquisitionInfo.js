@@ -213,7 +213,10 @@ export function splitAcquisitionRouteText(value) {
   const text = value.trim()
     .replace(/(?<=\b(?:Platinum|Credits|Standing|Ducats|Essence|Clamps))\s+(?=[A-Z][a-z])/g, '. ')
     .replace(/\s+(?=[A-Z][A-Za-z'’ -]{2,80}\s+can\s+also\s+be\s+obtained\b)/g, '. ')
-    .replace(/,\s+(?=any\s+excess\s+copies\s+obtained\b)/i, '. ');
+    .replace(/,\s+(?=any\s+excess\s+copies\s+obtained\b)/i, '. ')
+    // A parenthetical placed after a full stop belongs to the sentence before
+    // it ("...certain Relics. (1x from Common and 2x from Uncommon) Purchased...").
+    .replace(/\.\s+(\([^()]*\))\s+(?=[A-Z])/g, ' $1. ');
   const push = (end) => {
     const route = text.slice(start, end).trim().replace(/^[,;]+|[,;]+$/g, '').trim();
     if (route) routes.push(route);

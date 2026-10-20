@@ -41,3 +41,14 @@ test('splitter removes label-only and connective fragments', async () => {
     ['as a drop from: Recall: Prime Vanguard (5.71%).'],
   )
 })
+
+test('a parenthetical after a full stop stays with the sentence before it', async () => {
+  assert.deepEqual(
+    await splitAcquisitionRouteText("Blueprint drops from certain Relics. (1x from Common and 2x from Uncommon) Purchased blueprint from Acrithis's shop for 10 Pathos Clamp. Blueprint received as a Daily Tribute."),
+    [
+      'Blueprint drops from certain Relics (1x from Common and 2x from Uncommon).',
+      "Purchased blueprint from Acrithis's shop for 10 Pathos Clamp.",
+      'Blueprint received as a Daily Tribute.',
+    ],
+  )
+})

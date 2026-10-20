@@ -12358,5 +12358,1843 @@
     }
    }
   ]
+ },
+ "/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet": {
+  "name": "Xaku Raya Helmet",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it was a Rank 30 reward from Nora's Mix Vol. 9 and later a Rank 17 reward from Amir's Shockwave).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Xaku Raya Skin",
+     "url": "https://wiki.warframe.com/w/Xaku_Raya_Skin",
+     "quote": "* Was originally acquired by achieving Rank 30 during [[Nightwave]] [[Nora's Mix Volume 9|Nora's Mix Vol. 9]], and was again made obtainable by achieving Rank 17 during [[Amir's Shockwave]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin": {
+  "name": "Argyl Kavat Fur Pattern",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy the seasonal Argyl Gene-Masking Kit for 40 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Kavat Cosmetics",
+     "url": "https://wiki.warframe.com/w/Kavat_Cosmetics",
+     "quote": "| rowspan=\"2\" |[[File:KavatColourPackXmas.png|x100px]]<br />'''Argyl'''<br>{{pc|40}} (seasonal)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Choir/SWCovenJadeSkin": {
+  "name": "Jade Coven Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "On PC, buy it through Steam using Steam Wallet credit or another Steam payment method.",
+    "place": "Steam",
+    "source": {
+     "archive": "wiki",
+     "page": "Jade Coven Skin",
+     "url": "https://wiki.warframe.com/w/Jade_Coven_Skin",
+     "quote": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "On consoles, buy it from the in-game Market for 165 Platinum. It is also in the TennoGen Iceblade Bundle 2 for 220 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Jade Coven Skin",
+     "url": "https://wiki.warframe.com/w/Jade_Coven_Skin",
+     "quote": "For Console players, this item can be purchased for {{Pc|165}} from the in-game [[Market]], or as part of the [[TennoGen Iceblade Bundle 2]] for {{Pc|220}}, which also includes the {{Cosmetic|Citrine Heliotropia Helmet}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin": {
+  "name": "Mandonel Chythedra Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 60 Platinum. It is also in the Qorvex Basilica Collection for 340 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Mandonel Chythedra Skin",
+     "url": "https://wiki.warframe.com/w/Mandonel_Chythedra_Skin",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|60}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet": {
+  "name": "Qorvex Basilica Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it with the Qorvex Basilica Skin from the Market for 165 Platinum. The skin is also in the Qorvex Basilica Collection for 340 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Qorvex Basilica Skin",
+     "url": "https://wiki.warframe.com/w/Qorvex_Basilica_Skin",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Mandonel Chythedra Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin": {
+  "name": "Qorvex Basilica Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 165 Platinum. It is also in the Qorvex Basilica Collection for 340 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Qorvex Basilica Skin",
+     "url": "https://wiki.warframe.com/w/Qorvex_Basilica_Skin",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Mandonel Chythedra Skin}}, {{Cosmetic|Garkulek Syandana}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet": {
+  "name": "Banshee Threnodia Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it with the Banshee Threnodia Skin from the Market for 165 Platinum. The skin is also in the Banshee Threnodia Collection for 245 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Banshee Threnodia Skin",
+     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin": {
+  "name": "Banshee Threnodia Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 165 Platinum. It is also in the Banshee Threnodia Collection for 245 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Banshee Threnodia Skin",
+     "url": "https://wiki.warframe.com/w/Banshee_Threnodia_Skin",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|165}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}, which also includes the {{Cosmetic|Gast Sentinel Skin}} with accessories and [[Glyph|Banshee Sonatus Glyph]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet": {
+  "name": "Narin Baridegi Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 75 Platinum. It is also in the Narin Bundle for 990 Platinum or real-world currency.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Narin Baridegi Helmet",
+     "url": "https://wiki.warframe.com/w/Narin_Baridegi_Helmet",
+     "quote": "* The '''{{PAGENAME}}''' can be purchased from the [[Market]] directly for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}} or real-world currency."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Geode/CitrinePrimeAux": {
+  "name": "Citrine Prime Adornments",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Receive them automatically with Citrine Prime.",
+    "place": "Citrine Prime",
+    "source": {
+     "archive": "wiki",
+     "page": "Armor (Cosmetic)",
+     "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+     "quote": "|{{Cosmetic|Citrine Prime Adornments}}<br /><small>''(Received automatically with {{WF|Citrine Prime}})''</small>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Geode/SWCitrineHeliotropiaHelmet": {
+  "name": "Citrine Heliotropia Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "On PC, buy it through Steam using Steam Wallet credit or another Steam payment method.",
+    "place": "Steam",
+    "source": {
+     "archive": "wiki",
+     "page": "Citrine Heliotropia Helmet",
+     "url": "https://wiki.warframe.com/w/Citrine_Heliotropia_Helmet",
+     "quote": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "On consoles, buy it from the Market for 105 Platinum. It is also in the TennoGen Iceblade Bundle 2 for 220 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Citrine Heliotropia Helmet",
+     "url": "https://wiki.warframe.com/w/Citrine_Heliotropia_Helmet",
+     "quote": "For Console players, this item can be purchased for {{pc|105}} from the [[Market]], or as part of the [[TennoGen Iceblade Bundle 2]] for {{Pc|220}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal": {
+  "name": "Lato Vandal Day of the Dead Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "During Nights of Naberus, buy the Lato Day of the Dead Skin from the in-game Market for 20 Platinum. It is also in the Day of the Dead Weapon Skin Pack for 175 Platinum.",
+    "place": "Nights of Naberus",
+    "source": {
+     "archive": "wiki",
+     "page": "Lato Day of the Dead Skin",
+     "url": "https://wiki.warframe.com/w/Lato_Day_of_the_Dead_Skin",
+     "quote": "This skin is available for purchase for limited time from in-game market during [[Nights of Naberus]] separately for {{pc|20}} or as part of [[Day of the Dead Weapon Skin Pack]] {{pc|175}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis": {
+  "name": "Silva & Aegis Day of the Dead Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "During Nights of Naberus, buy it from the in-game Market for 20 Platinum. It is also in Day of the Dead Weapon Skin Pack IV for 180 Platinum.",
+    "place": "Nights of Naberus",
+    "source": {
+     "archive": "wiki",
+     "page": "Silva & Aegis Day of the Dead Skin",
+     "url": "https://wiki.warframe.com/w/Silva_%26_Aegis_Day_of_the_Dead_Skin",
+     "quote": "This skin is available for purchase for limited time from in-game market during [[Nights of Naberus]] separately for {{pc|20}} or as part of [[Day of the Dead Weapon Skin Pack IV]] {{pc|180}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerM": {
+  "name": "EXTERMINATE",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy the Kubrodon Series 2 Scrawl Bundle from the Market.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "K-Drive",
+     "url": "https://wiki.warframe.com/w/K-Drive",
+     "quote": "Scrawl Bundles are available in the [[Market]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechSkin": {
+  "name": "Eskhatos Necramech Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Eskhatos Ki'Teer in a Relay Concourse for 448,114 Credits plus 236 Ducats when he appears near Nights of Naberus.",
+    "place": "Eskhatos Ki'Teer",
+    "source": {
+     "archive": "wiki",
+     "page": "Eskhatos Necramech Skin",
+     "url": "https://wiki.warframe.com/w/Eskhatos_Necramech_Skin",
+     "quote": "Sold by [[Baro Ki'Teer|Eskhatos Ki'Teer]] in the Concourse section of the [[Tenno]] [[Relay]] for {{cc|448,114}} + {{dc|236}}. Note that Eskhatos Ki'Teer makes his appearance near [[Nights of Naberus]], and this item may not otherwise appear in Baro Ki'Teer's normal offerings."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin": {
+  "name": "Mausolon Supulchrax Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it was bundled with Aura Forma as the 2,000-point Endurance reward in Operation: Orphix Venom).",
+    "place": "Operation: Orphix Venom",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Orphix Venom",
+     "url": "https://wiki.warframe.com/w/Operation:_Orphix_Venom",
+     "quote": "|[[Aura Forma]] + {{Weapon|Mausolon}} Supulchrax Skin"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin": {
+  "name": "Nvidia Braton",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was part of an unreleased NVIDIA GPU promotion).",
+    "place": "Unreleased NVIDIA GPU promotion",
+    "source": {
+     "archive": "wiki",
+     "page": "Weapon Cosmetics",
+     "url": "https://wiki.warframe.com/w/Weapon_Cosmetics",
+     "quote": "NvidiaBratonSkin.png             |Nvidia Braton Skin<br />Part of unreleased NVIDIA GPU promo."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEarpiece": {
+  "name": "Spinele Prime Earpiece",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it from Citrine Prime Access.",
+    "place": "Prime Access",
+    "source": {
+     "archive": "wiki",
+     "page": "Prime Access",
+     "url": "https://wiki.warframe.com/w/Prime_Access#Citrine_Prime",
+     "quote": "|a2    = [[Alumeti Prime Sugatra]]<br>[[Customization#Facial_Accessories|Spinele Prime Facial Accessory]]<br>[[Customization#Facial_Accessories|Spinele Prime Earpiece]]<br>[[Customization#Facial_Accessories|Spinele Prime Oculus]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEyepiece": {
+  "name": "Spinele Prime Oculus",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it from Citrine Prime Access.",
+    "place": "Prime Access",
+    "source": {
+     "archive": "wiki",
+     "page": "Prime Access",
+     "url": "https://wiki.warframe.com/w/Prime_Access#Citrine_Prime",
+     "quote": "|a2    = [[Alumeti Prime Sugatra]]<br>[[Customization#Facial_Accessories|Spinele Prime Facial Accessory]]<br>[[Customization#Facial_Accessories|Spinele Prime Earpiece]]<br>[[Customization#Facial_Accessories|Spinele Prime Oculus]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeMouthPiece": {
+  "name": "Spinele Prime Facial Accessory",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it from Citrine Prime Access.",
+    "place": "Prime Access",
+    "source": {
+     "archive": "wiki",
+     "page": "Prime Access",
+     "url": "https://wiki.warframe.com/w/Prime_Access#Citrine_Prime",
+     "quote": "|a2    = [[Alumeti Prime Sugatra]]<br>[[Customization#Facial_Accessories|Spinele Prime Facial Accessory]]<br>[[Customization#Facial_Accessories|Spinele Prime Earpiece]]<br>[[Customization#Facial_Accessories|Spinele Prime Oculus]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEarPieceA": {
+  "name": "Cogna Earpiece",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it was a Nightwave reward in Series 3 and Nora's Mix Volumes 2 and 9).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization",
+     "quote": "CognaEarpiece.png|Cogna Earpiece<br>([[Nightwave/Series 3|Series 3]], Nora's Mix [[Nightwave/Nora's Mix Volume 2|Volume 2]] & [[Nightwave/Nora's Mix Volume 9|Volume 9]])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEyePieceA": {
+  "name": "Cogna Oculus",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it was a Nightwave reward in Series 3 and Nora's Mix Volumes 2 and 9).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization",
+     "quote": "CognaOculus.png|Cogna Oculus<br>([[Nightwave/Series 3|Series 3]], Nora's Mix [[Nightwave/Nora's Mix Volume 2|Volume 2]] & [[Nightwave/Nora's Mix Volume 9|Volume 9]])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveMaskA": {
+  "name": "Cogna Mask",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it was a Nightwave reward in Series 3 and Nora's Mix Volumes 2 and 9).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization",
+     "quote": "CognaMask.png|Cogna Mask<br>[[Nightwave/Series 3|Series 3]], Nora's Mix [[Nightwave/Nora's Mix Volume 2|Volume 2]] & [[Nightwave/Nora's Mix Volume 9|Volume 9]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Amp/EntratiAmpSkin": {
+  "name": "Vacis Amp Skin",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "During Epoch Operation: Taubound, trade 375 Moonflesh to Praghasa for it.",
+    "place": "Praghasa",
+    "source": {
+     "archive": "wiki",
+     "page": "Epoch Operation: Taubound",
+     "url": "https://wiki.warframe.com/w/Epoch_Operation:_Taubound#Rewards",
+     "quote": "{{SynOfferBoxM|VacisAmpSkin.png|Vacis Amp Skin|Vacis Amp Skin|Moonflesh|375}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDexOutfit": {
+  "name": "Drifter Dex Suit",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultM2022TennoCon": {
+  "name": "TennoCon 2022 Suit",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Drifter/Customization",
+     "url": "https://wiki.warframe.com/w/Drifter/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitDexOutfit": {
+  "name": "Operator Dex Suit",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitInfestedA": {
+  "name": "Emissary Suit",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (the Emissary Operator Collection was a Nightwave Series 2 and Nora's Mix: Dreams of the Dead reward).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:EmissaryOperatorCollection.png|x90px]]<br>Emissary<br><small>({{Faction|Nightwave}}<br>[[Nightwave/Series 2|Series 2]] & [[Nightwave/Nora's Mix: Dreams of the Dead|Dreams of the Dead]])</small>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitM2022TennoCon": {
+  "name": "TennoCon 2022 Suit",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/DrifterNightwave1999Torso": {
+  "name": "Kaneshell Atomicycle Jacket",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/BodySuits/OperatorNightwave1999Torso": {
+  "name": "Kaneshell Atomicycle Jacket",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Heads/ExtraAdultAlbedoC": {
+  "name": "Complexion B-17 [Legacy]",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Select it from the Drifter or Operator Complexion menu.",
+    "place": "Drifter/Operator Complexion menu",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 44: Iceblade of Narin",
+     "url": "https://wiki.warframe.com/w/Update_44:_Iceblade_of_Narin",
+     "quote": "*Added the Complexion B-17 [Legacy] to the Drifter/Operation Complexion menu."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Heads/ExtraAlbedoC": {
+  "name": "Complexion B-17 [Legacy]",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Select it from the Drifter or Operator Complexion menu.",
+    "place": "Drifter/Operator Complexion menu",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 44: Iceblade of Narin",
+     "url": "https://wiki.warframe.com/w/Update_44:_Iceblade_of_Narin",
+     "quote": "*Added the Complexion B-17 [Legacy] to the Drifter/Operation Complexion menu."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/DrifterNightwave1999Helmet": {
+  "name": "Kaneshell Atomicycle Helmet",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDexOutfit": {
+  "name": "Drifter Dex Hood",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon": {
+  "name": "TennoCon 2022 Hood",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Drifter/Customization",
+     "url": "https://wiki.warframe.com/w/Drifter/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/HoodDexOutfit": {
+  "name": "Operator Dex Hood",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/HoodInfestedA": {
+  "name": "Emissary Hood",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (the Emissary Operator Collection was a Nightwave Series 2 and Nora's Mix: Dreams of the Dead reward).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:EmissaryOperatorCollection.png|x90px]]<br>Emissary<br><small>({{Faction|Nightwave}}<br>[[Nightwave/Series 2|Series 2]] & [[Nightwave/Nora's Mix: Dreams of the Dead|Dreams of the Dead]])</small>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon": {
+  "name": "TennoCon 2022 Hood",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Hoods/OperatorNightwave1999Helmet": {
+  "name": "Kaneshell Atomicycle Helmet",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/DrifterNightwave1999Leggings": {
+  "name": "Kaneshell Atomicycle Leggings",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDexOutfit": {
+  "name": "Drifter Dex Pants",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultM2022TennoCon": {
+  "name": "TennoCon 2022 Leggings",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (they came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Drifter/Customization",
+     "url": "https://wiki.warframe.com/w/Drifter/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsDexOutfit": {
+  "name": "Operator Dex Leggings",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (they return as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsInfestedA": {
+  "name": "Emissary Greaves",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (the Emissary Operator Collection was a Nightwave Series 2 and Nora's Mix: Dreams of the Dead reward).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:EmissaryOperatorCollection.png|x90px]]<br>Emissary<br><small>({{Faction|Nightwave}}<br>[[Nightwave/Series 2|Series 2]] & [[Nightwave/Nora's Mix: Dreams of the Dead|Dreams of the Dead]])</small>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsM2022TennoCon": {
+  "name": "TennoCon 2022 Leggings",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (they came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Leggings/OperatorNightwave1999Leggings": {
+  "name": "Kaneshell Atomicycle Leggings",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDexOutfit": {
+  "name": "Drifter Dex Gear",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDexOutfit": {
+  "name": "Operator Dex Apparel",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (it returns as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/DrifterNightwave1999Sleeves": {
+  "name": "Kaneshell Atomicycle Sleeves",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/OperatorNightwave1999Sleeves": {
+  "name": "Kaneshell Atomicycle Sleeves",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 30 in Amir's Shockwave to receive the Kaneshell Atomicycle Regalia.",
+    "place": "Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 30 - {{sc|300,000}}: [[Operator/Customization#In-game_Rewards|Kaneshell Atomicycle Regalia]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDexOutfit": {
+  "name": "Drifter Dex Sleeves",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (they return as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultM2022Tennocon": {
+  "name": "TennoCon 2022 Sleeves",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (they came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Drifter/Customization",
+     "url": "https://wiki.warframe.com/w/Drifter/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesDexOutfit": {
+  "name": "Operator Dex Sleeves",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (they return as a reward from limited-time Anniversary alerts, including the Year 13 Week 7 Survival mission).",
+    "place": "Anniversary alerts",
+    "source": {
+     "archive": "wiki",
+     "page": "Dex",
+     "url": "https://wiki.warframe.com/w/Dex",
+     "quote": "*In 2017, for the first time, the weapons were awarded for completing special [[Tactical Alert]]s with [[Sortie]]-like conditions<ref>[[wf:en/news/celebrate-warframe-s-4th-anniversary|4th Anniversary Post on the official website]]</ref>, called \"Gifts of the Lotus - Stolen!\", with multiple Weekly alerts (e.g. Year 13 Anniversary Week 7 alerts) per year, which give rewards from past years (like Y13W7's Survival mission giving the Operator and Drifter Dex suits.)"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesInfestedA": {
+  "name": "Emissary Sleeves",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Not currently obtainable (the Emissary Operator Collection was a Nightwave Series 2 and Nora's Mix: Dreams of the Dead reward).",
+    "place": "Nightwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:EmissaryOperatorCollection.png|x90px]]<br>Emissary<br><small>({{Faction|Nightwave}}<br>[[Nightwave/Series 2|Series 2]] & [[Nightwave/Nora's Mix: Dreams of the Dead|Dreams of the Dead]])</small>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesM2022TennoCon": {
+  "name": "TennoCon 2022 Sleeves",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (they came in the TennoCon 2022 Digital Pack).",
+    "place": "TennoCon 2022 Digital Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Operator/Customization",
+     "url": "https://wiki.warframe.com/w/Operator/Customization#Outfits",
+     "quote": "| rowspan=2 |[[File:TennoCon2022SuitBundle.png|x90px]]<br>TennoCon 2022<br>([https://www.warframe.com/zh-hant/news/tennocon-2022-digital-pack TennoCon 2022 Digital Pack])"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH": {
+  "name": "Conquera Cherry Tree Ink",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it was the $80,000 donation-goal reward during Conquera 2024).",
+    "place": "Conquera 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera",
+     "url": "https://wiki.warframe.com/w/Conquera",
+     "quote": "VisageInkConqueraCherryTree.png  |[[Drifter/Customization#Visage Ink|Conquera Cherry Tree Visage Ink]]<br> $80,000 Donation Goal"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI": {
+  "name": "Conquera Magnolia Ink",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Not currently obtainable (it was the $90,000 donation-goal reward during Conquera 2024).",
+    "place": "Conquera 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera",
+     "url": "https://wiki.warframe.com/w/Conquera",
+     "quote": "VisageInkConqueraMagnolia.png    |[[Drifter/Customization#Visage Ink|Conquera Magnolia Visage Ink]]<br> $90,000 Donation Goal"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkinHelmet": {
+  "name": "Excalibur Jade Helmet",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Excalibur Jade cosmetic was available through the Xbox store in the Excalibur Jade Bundle, Prestige Pack I, Prestige Collection I, and Prestige Collection II).",
+    "place": "Xbox Store",
+    "source": {
+     "archive": "wiki",
+     "page": "Excalibur Jade Skin",
+     "url": "https://wiki.warframe.com/w/Excalibur_Jade_Skin",
+     "quote": "The '''{{PAGENAME}}''' was available through the Xbox store via the [[Excalibur Jade Bundle]]<ref>https://warframe.com/en/news/excalibur-jade-bundle-available-now</ref>, [[Prestige Pack I]]<ref>https://warframe.com/en/news/xbox-one-prestige-pack-available-now</ref>, [[Prestige Collection I]]<ref>https://warframe.com/en/news/-303</ref>, and [[Prestige Collection II]].<ref>https://warframe.com/en/news/prestige-collection-ii-now-available</ref>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeCarrier": {
+  "name": "Carrier Jade Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in Xbox One Prestige Pack VIII, available from March 21 to July 26, 2017).",
+    "place": "Xbox One Prestige Pack VIII",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards#Prestige_Pack_VIII",
+     "quote": "JadeCarrierSkin.png|Jade [[Carrier]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDethcube": {
+  "name": "Dethcube Jade Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in Xbox One Prestige Pack VIII, available from March 21 to July 26, 2017).",
+    "place": "Xbox One Prestige Pack VIII",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards#Prestige_Pack_VIII",
+     "quote": "JadeDethcubeSkin.png|Jade [[Dethcube]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Promo/Microsoft/JadeStealthArchwingSkin": {
+  "name": "Itzal Jade Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in Xbox One Prestige Pack III, available from September 11, 2015 to January 5, 2016).",
+    "place": "Xbox One Prestige Pack III",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards#Prestige_Pack_III",
+     "quote": "JadeStealthArchwing.png|Jade [[Itzal]] Skin"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneEtherReaperSkin": {
+  "name": "Spearmint Scythe Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was sold in the Market during listed holiday periods for 1 Credit).",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Spearmint Scythe",
+     "url": "https://wiki.warframe.com/w/Spearmint_Scythe",
+     "quote": "*This weapon skin could be obtained from the market from December 19, 2013 to January 1, 2014, and from December 3, 2014 to January 8, 2015 and from December 6, 2019 to ??? for {{cc|1}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask": {
+  "name": "Gast Sentinel Mask",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it in the Gast Sentinel Skin Bundle for 100 Platinum. The bundle is also in the Banshee Threnodia Collection for 245 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin": {
+  "name": "Gast Sentinel Skin",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it in the Gast Sentinel Skin Bundle for 100 Platinum. The bundle is also in the Banshee Threnodia Collection for 245 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail": {
+  "name": "Gast Sentinel Tail",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it in the Gast Sentinel Skin Bundle for 100 Platinum. The bundle is also in the Banshee Threnodia Collection for 245 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings": {
+  "name": "Gast Sentinel Wings",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get them in the Gast Sentinel Skin Bundle for 100 Platinum. The bundle is also in the Banshee Threnodia Collection for 245 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gast Sentinel Skin Bundle",
+     "url": "https://wiki.warframe.com/w/Gast_Sentinel_Skin_Bundle",
+     "quote": "* The '''{{PAGENAME}}''' can be bought from the [[Market]] for {{pc|100}}, or as part of the [[Banshee Threnodia Collection]] for {{pc|245}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask": {
+  "name": "Coltek Obsidian Sentinel Mask",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in PS4 Renown Pack V, available from May 19 to August 25, 2015).",
+    "place": "PS4 Renown Pack V",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards#Renown_Pack_V",
+     "quote": "ColtekObsidianSentinelMask.png|[[Sentinel Cosmetics|Obsidian Coltek Mask]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin": {
+  "name": "Okina Obsidian Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in the limited-time PlayStation Plus Booster Pack VII).",
+    "place": "PlayStation Plus Booster Pack VII",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards#PlayStation_Plus_Booster_Pack_VII",
+     "quote": "OkinaObsidianSkin.png|[[Weapon Cosmetics#Obsidian Skins (PlayStation)|Okina Obsidian Skin]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin": {
+  "name": "Tiberon Obsidian Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was included in PlayStation Plus Booster Pack VI, available from July 1, 2021 to February 22, 2022).",
+    "place": "PlayStation Plus Booster Pack VI",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards#PlayStation_Plus_Booster_Pack_VI",
+     "quote": "TiberonObsidianSkin.png|[[Weapon Cosmetics#Obsidian Skins (PlayStation)|Tiberon Obsidian Skin]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin": {
+  "name": "Niveus Nepheri Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Nepheri]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Glaives/TeshinGlaiveDuelistSkin": {
+  "name": "Niveus Orvius Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Orvius]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/GreatSword/BallasSwordDuelistSkin": {
+  "name": "Niveus Paracesis Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Paracesis]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/LongGuns/CrpFreezeRayDuelistSkin": {
+  "name": "Niveus Glaxion Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Glaxion]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/LongGuns/RailjackRifleDuelistSkin": {
+  "name": "Niveus Quellor Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Quellor]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Rapier/IcebladeRapierSkin": {
+  "name": "Neote Rapier Skin",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Pull the Iceblade from Narin's Crest at Yuvan Peak to receive it.",
+    "place": "Yuvan Peak",
+    "source": {
+     "archive": "wiki",
+     "page": "Neote Rapier Skin",
+     "url": "https://wiki.warframe.com/w/Neote_Rapier_Skin",
+     "quote": "The Neote Rapier Skin can be acquired by pulling the [[Yuvan Peak#The Iceblade|Iceblade]] from Narin's Crest."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Swords/DarkDaggerDuelistSkin": {
+  "name": "Niveus Dark Dagger Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Dark Dagger]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSplitSwordDuelistSkin": {
+  "name": "Niveus Dark Split-Sword Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Dark Split-Sword]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Swords/DarkSwordDuelistSkin": {
+  "name": "Niveus Dark Sword Skin",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 150 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Entropic Kuva",
+     "url": "https://wiki.warframe.com/w/Entropic_Kuva#Item_Checklist_for_Entropic_Kuva",
+     "quote": "|Niveus [[Dark Sword]] Skin || Cosmetic || [[Cephalon Melica]], [[Yuvan Peak]] / [[Chrysalith]] || {{StoreTableCell|150|Entropic Kuva}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipLayerCNY": {
+  "name": "Spring Festival Interior Decorations",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "During Lunar New Year, buy them for 1 Credit.",
+    "place": "Lunar New Year Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations#Scenes",
+     "quote": "SpringFestivalInteriorDecorations.png|'''Spring Festival Interior Decorations'''<br />''Available during the [[Lunar New Year]]''<br />{{cc|1}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Game/KubrowPet/Patterns/HelminthPetPatternClassic": {
+  "name": "Helminth Degenerate Pattern",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy the Helminth Degenerate Pattern from the Market for 10,000 Credits.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Helminth Charger",
+     "url": "https://wiki.warframe.com/w/Helminth_Charger",
+     "quote": "HelminthChargerClassic.png|'''Degenerate''': Purchasable for {{cc|10,000}} in the Market."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircA": {
+  "name": "Porta Day of the Dead Shoulder Plate",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 50 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Armor (Cosmetic)",
+     "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+     "quote": "|[[File:PortaDayOfTheDeadShoulderPlate.png|x70px]]<br />[[Porta Day of the Dead Shoulder Plate]]<br />{{pc|50}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircC": {
+  "name": "Porta Day of the Dead Chest Plate",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 45 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Armor (Cosmetic)",
+     "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+     "quote": "|[[File:PortaDayOfTheDeadChestPlate.png|x70px]]<br />[[Porta Day of the Dead Chest Plate]]<br />{{pc|45}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircL": {
+  "name": "Porta Day of the Dead Leg Plates",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy them from the Market for 35 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Armor (Cosmetic)",
+     "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+     "quote": "|[[File:PortaDayOfTheDeadLegPlates.png|x70px]]<br />[[Porta Day of the Dead Leg Plates]]<br />{{pc|35}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA": {
+  "name": "Tidon Shoulder Medallion",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica for 80 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Cephalon Melica",
+     "url": "https://wiki.warframe.com/w/Cephalon_Melica",
+     "quote": "{{OfferingsBox|TidonShoulderMedallion.png|Armor (Cosmetic)|Tidon Shoulder Medallion|Entropic Kuva|80}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourC": {
+  "name": "Tidon Chest Medallion",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica for 80 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Cephalon Melica",
+     "url": "https://wiki.warframe.com/w/Cephalon_Melica",
+     "quote": "{{OfferingsBox|TidonChestMedallion.png|Armor (Cosmetic)|Tidon Chest Medallion|Entropic Kuva|80}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourL": {
+  "name": "Tidon Leg Medallion",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica for 80 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Cephalon Melica",
+     "url": "https://wiki.warframe.com/w/Cephalon_Melica",
+     "quote": "{{OfferingsBox|TidonLegMedallion.png|Armor (Cosmetic)|Tidon Leg Medallion|Entropic Kuva|80}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoA": {
+  "name": "Contegorus Pauldrons",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Buy them from Praghasa in an Event Relay on Eris during Epoch Operation: Taubound for 175 Moonflesh.",
+    "place": "Praghasa",
+    "source": {
+     "archive": "wiki",
+     "page": "Contegorus Armor Set",
+     "url": "https://wiki.warframe.com/w/Contegorus_Armor_Set",
+     "quote": "Requires community participation to unlock the ability to purchase the Contegorus Greaves at 30%, Contegorus Pauldrons at 60%, and Contegorus Chest Plate at 90% progress. Once unlocked, can be acquired by purchasing from [[Praghasa]] in an [[Event]] [[Relay]] on [[Eris]] during [[Epoch Operation: Taubound]] for '''175''' {{Resource|Moonflesh}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoC": {
+  "name": "Contegorus Chest Plate",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Buy it from Praghasa in an Event Relay on Eris during Epoch Operation: Taubound for 175 Moonflesh.",
+    "place": "Praghasa",
+    "source": {
+     "archive": "wiki",
+     "page": "Contegorus Armor Set",
+     "url": "https://wiki.warframe.com/w/Contegorus_Armor_Set",
+     "quote": "Requires community participation to unlock the ability to purchase the Contegorus Greaves at 30%, Contegorus Pauldrons at 60%, and Contegorus Chest Plate at 90% progress. Once unlocked, can be acquired by purchasing from [[Praghasa]] in an [[Event]] [[Relay]] on [[Eris]] during [[Epoch Operation: Taubound]] for '''175''' {{Resource|Moonflesh}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoL": {
+  "name": "Contegorus Greaves",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Buy them from Praghasa in an Event Relay on Eris during Epoch Operation: Taubound for 175 Moonflesh.",
+    "place": "Praghasa",
+    "source": {
+     "archive": "wiki",
+     "page": "Contegorus Armor Set",
+     "url": "https://wiki.warframe.com/w/Contegorus_Armor_Set",
+     "quote": "Requires community participation to unlock the ability to purchase the Contegorus Greaves at 30%, Contegorus Pauldrons at 60%, and Contegorus Chest Plate at 90% progress. Once unlocked, can be acquired by purchasing from [[Praghasa]] in an [[Event]] [[Relay]] on [[Eris]] during [[Epoch Operation: Taubound]] for '''175''' {{Resource|Moonflesh}} each."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA": {
+  "name": "Opula Shoulder Armor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Opula Armor Bundle from Varzia for 10 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki",
+     "page": "Opula Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
+     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC": {
+  "name": "Opula Chest Armor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Opula Armor Bundle from Varzia for 10 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki",
+     "page": "Opula Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
+     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL": {
+  "name": "Opula Leg Armor",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy the Opula Armor Bundle from Varzia for 10 Aya.",
+    "place": "Varzia",
+    "source": {
+     "archive": "wiki",
+     "page": "Opula Armor Bundle",
+     "url": "https://wiki.warframe.com/w/Opula_Armor_Bundle",
+     "quote": "'''{{PAGENAME}}''' is purchaseable from [[Varzia]] for 10 {{Resource|Aya}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBArmLeftArmor": {
+  "name": "Banshee Threnodia Shoulder Armor",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it as part of the Banshee Threnodia Skin for 165 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Armor (Cosmetic)",
+     "url": "https://wiki.warframe.com/w/Armor_(Cosmetic)",
+     "quote": "|{{Cosmetic|Banshee Threnodia Shoulder Armor (Left)}}<br /><small>''(Part of the [[Banshee Threnodia Skin]] for {{pc|165}})''</small>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera": {
+  "name": "Conquera III Ephemera",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Receive it once the $90,000 donation goal for the Princess Margaret Cancer Foundation is met during Conquera 2026.",
+    "place": "Conquera 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera III Ephemera",
+     "url": "https://wiki.warframe.com/w/Conquera_III_Ephemera",
+     "quote": "The '''{{PAGENAME}}''' will be rewarded to players once the $90,000 [https://www.warframe.com/en/qtcc#donation_section_title Donation] Goal for [https://thepmcf.ca/who-we-are/vision-values/ The Princess Margaret Cancer Foundation] is met during [[Conquera]] 2026."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Effects/DuelistEphemera": {
+  "name": "Gangrim Ephemera",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 75 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gangrim Ephemera",
+     "url": "https://wiki.warframe.com/w/Gangrim_Ephemera",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Durumi Syandana}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Get it as part of the Narin Bundle for 990 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gangrim Ephemera",
+     "url": "https://wiki.warframe.com/w/Gangrim_Ephemera",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|75}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Durumi Syandana}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Effects/DuelistSpiritEphemera": {
+  "name": "Seonang Ephemera",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Cephalon Melica at Yuvan Peak or the Chrysalith for 500 Entropic Kuva after completing Whispers in the Walls and Angels of the Zariman.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Seonang Ephemera",
+     "url": "https://wiki.warframe.com/w/Seonang_Ephemera",
+     "quote": "Purchased from [[Cephalon Melica]] at [[Yuvan Peak]] or the [[Chrysalith]] for 500 {{Resource|Entropic Kuva}}. Requires completion of [[Whispers in the Walls]] and [[Angels of the Zariman]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera": {
+  "name": "Belfri Ephemera",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 95 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Belfri Ephemera",
+     "url": "https://wiki.warframe.com/w/Belfri_Ephemera",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|95}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Garkulek Syandana}}."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Get it as part of the Qorvex Basilica Collection for 340 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Belfri Ephemera",
+     "url": "https://wiki.warframe.com/w/Belfri_Ephemera",
+     "quote": "The '''{{Cosmetic|{{PAGENAME}}}}''' is available in the [[Market]] for {{pc|95}}, or as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Garkulek Syandana}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBJade": {
+  "name": "Valinn Jade Kubrow Armor",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (Prestige Pack V was available from April 19, 2016 to July 7, 2016).",
+    "place": "Xbox Prestige Pack V",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "This pack was available from April 19, 2016 to July 7, 2016."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/EvilBaroSugatraMeleeDangle": {
+  "name": "Eskhatos Sugatra",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Eskhatos Ki'Teer for 209,066 Credits plus 181 Ducats during his seasonal Nights of Naberus appearance.",
+    "place": "Eskhatos Ki'Teer",
+    "source": {
+     "archive": "wiki",
+     "page": "Eskhatos Sugatra",
+     "url": "https://wiki.warframe.com/w/Eskhatos_Sugatra",
+     "quote": "Sold by [[Baro Ki'Teer|Eskhatos Ki'Teer]] in the Concourse section of the [[Tenno]] [[Relay]] for {{cc|209,066}} + {{dc|181}}. Note that Eskhatos Ki'Teer makes his appearance near [[Nights of Naberus]], and this item may not otherwise appear in Baro Ki'Teer's normal offerings."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra": {
+  "name": "Alumeti Prime Sugatra",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it by purchasing Citrine Prime Access.",
+    "place": "Citrine Prime Access",
+    "source": {
+     "archive": "wiki",
+     "page": "Alumeti Prime Sugatra",
+     "url": "https://wiki.warframe.com/w/Alumeti_Prime_Sugatra",
+     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 1 {{Resource|Regal Aya}} when it is in rotation."
+    }
+   },
+   {
+    "kind": "vendor",
+    "text": "Buy it from Prime Resurgence for 1 Regal Aya when it is in rotation.",
+    "place": "Prime Resurgence",
+    "source": {
+     "archive": "wiki",
+     "page": "Alumeti Prime Sugatra",
+     "url": "https://wiki.warframe.com/w/Alumeti_Prime_Sugatra",
+     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 1 {{Resource|Regal Aya}} when it is in rotation."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle": {
+  "name": "Jack O'Naut Keychain Sugatra",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Complete the Hallowed Nightmares mission during Nights of Naberus 2026.",
+    "place": "Hallowed Nightmares",
+    "source": {
+     "archive": "wiki",
+     "page": "Jack o'Naut Keychain Sugatra",
+     "url": "https://wiki.warframe.com/w/Jack_o%27Naut_Keychain_Sugatra",
+     "quote": "Acquired by completing the [[Hallowed Nightmares]] mission during [[Nights of Naberus]] 2026 (found in the Events tab on the [[Star Chart]], or on [[Earth]])."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/DraculaCapeSyandana": {
+  "name": "Dhampyre Syandana",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Buy it from Praghasa for 500 Moonflesh during Epoch Operation: Taubound.",
+    "place": "Praghasa",
+    "source": {
+     "archive": "wiki",
+     "page": "Dhampyre Syandana",
+     "url": "https://wiki.warframe.com/w/Dhampyre_Syandana",
+     "quote": "Can be purchased from [[Praghasa]] at the [[Praghasa (Node)|Praghasa node]] in exchange for 500 {{Resource|Moonflesh}} during [[Epoch Operation: Taubound]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/DuelistSyandana": {
+  "name": "Durumi Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 100 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Durumi Syandana",
+     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Get it as part of the Narin Bundle for 990 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Durumi Syandana",
+     "url": "https://wiki.warframe.com/w/Durumi_Syandana",
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|100}}, or acquired as part of the [[Narin Bundle]] for {{pc|990}}, which also includes {{WF|Narin}}, {{Cosmetic|Narin Baridegi Helmet}}, {{Weapon|Nunchasa}}, {{Weapon|Aksondol}}, [[Emotes|Kalsawi Emote]], {{Cosmetic|Gangrim Ephemera}}, {{Cosmetic|Isageum Signa}}, and [[Decorations/Orbiter Decorations|Icebound Neote Decoration]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana": {
+  "name": "Sphatika Prime Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it by purchasing Citrine Prime Access.",
+    "place": "Citrine Prime Access",
+    "source": {
+     "archive": "wiki",
+     "page": "Sphatika Prime Syandana",
+     "url": "https://wiki.warframe.com/w/Sphatika_Prime_Syandana",
+     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 2 {{Resource|Regal Aya}} when it is in rotation."
+    }
+   },
+   {
+    "kind": "vendor",
+    "text": "Buy it from Prime Resurgence for 2 Regal Aya when it is in rotation.",
+    "place": "Prime Resurgence",
+    "source": {
+     "archive": "wiki",
+     "page": "Sphatika Prime Syandana",
+     "url": "https://wiki.warframe.com/w/Sphatika_Prime_Syandana",
+     "quote": "Acquired by purchasing the [[Prime Access#Citrine Prime|Citrine Prime Access]], or from [[Prime Resurgence]] for 2 {{Resource|Regal Aya}} when it is in rotation."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana": {
+  "name": "Garkulek Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it from the Market for 105 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Garkulek Syandana",
+     "url": "https://wiki.warframe.com/w/Garkulek_Syandana",
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|105}}, or acquired as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Get it as part of the Qorvex Basilica Collection for 340 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Garkulek Syandana",
+     "url": "https://wiki.warframe.com/w/Garkulek_Syandana",
+     "quote": "The '''{{PAGENAME}}''' is available in the [[Market]] for {{pc|105}}, or acquired as part of the [[Qorvex Basilica Collection]] for {{pc|340}}, which also includes the {{Cosmetic|Qorvex Basilica Skin}}, {{Cosmetic|Mandonel Chythedra Skin}} and {{Cosmetic|Belfri Ephemera}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/SWReliquiaSyandana": {
+  "name": "Reliquia Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy it on PC through Steam with Steam Wallet credit or another Steam payment method.",
+    "place": "Steam",
+    "source": {
+     "archive": "wiki",
+     "page": "Reliquia Syandana",
+     "url": "https://wiki.warframe.com/w/Reliquia_Syandana",
+     "quote": "This item is only purchaseable to PC players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Buy it on console from the Market for 105 Platinum.",
+    "place": "Console Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Reliquia Syandana",
+     "url": "https://wiki.warframe.com/w/Reliquia_Syandana",
+     "quote": "For Console players, this item can be purchased for {{Pc|105}} from the [[Market]], or as part of the [[TennoGen Iceblade Bundle 1]] for {{Pc|185}}."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Get it on console as part of TennoGen Iceblade Bundle 1 for 185 Platinum.",
+    "place": "Console Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Reliquia Syandana",
+     "url": "https://wiki.warframe.com/w/Reliquia_Syandana",
+     "quote": "For Console players, this item can be purchased for {{Pc|105}} from the [[Market]], or as part of the [[TennoGen Iceblade Bundle 1]] for {{Pc|185}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TnSparrowCape": {
+  "name": "Parotia Syandana",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Origin Pack was available from June 25, 2019 to August 25, 2020).",
+    "place": "Origin Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Syandana",
+     "url": "https://wiki.warframe.com/w/Syandana",
+     "quote": "|[https://forums.warframe.com/topic/1154123-the-origin-pack/ The Origin Pack] Content<br>(June 25, 2019 - August 25, 2020)"
+    }
+   }
+  ]
  }
 }

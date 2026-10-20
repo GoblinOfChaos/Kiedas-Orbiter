@@ -29,6 +29,10 @@ const ALLOWED_VIOLATIONS = new Map([
     'Current-year Conquera reward; "2026" names the campaign (wiki Signa page).'],
   ['/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil|Purchase the 1999 Cyte-09 Straightshot Bundle from the Market for 600 Platinum.',
     '"1999" is part of the bundle name (Warframe: 1999); sold in the Market today (wiki Sigils page).'],
+  ['/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera|Receive it once the $90,000 donation goal for the Princess Margaret Cancer Foundation is met during Conquera 2026.',
+    'Current-year Conquera reward; "2026" names the campaign (wiki Ephemera page).'],
+  ["/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle|Complete the Hallowed Nightmares mission during Nights of Naberus 2026.",
+    'Current event reward; "2026" names the event run (wiki Sugatra page).'],
 ])
 
 // A limited-time item keeps its dated route as long as the same row says it is

@@ -212,6 +212,10 @@ export const PLACEHOLDER_EXCEPTION_UNIQUE_NAMES = new Set((placeholderExceptions
 
 export function isExcludedInventoryResourceEntry(entry, uniqueName = '') {
   if (PLACEHOLDER_EXCEPTION_UNIQUE_NAMES.has(uniqueName)) return true;
+  // DE gives every player-facing record a name; an empty name marks an
+  // internal base type or default. Showing it would need a name made up from
+  // the path, so it is not listed.
+  if (entry && Object.hasOwn(entry, 'name') && !String(entry.name ?? '').trim()) return true;
   const parentName = entry?.parentName ?? '';
   if (INVENTORY_RESOURCE_EXCLUDED_PARENT_NAMES.has(parentName)) return true;
   if (INVENTORY_RESOURCE_EXCLUDED_PRODUCT_CATEGORIES.has(entry?.productCategory)) return true;
@@ -3528,6 +3532,25 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
       };
     })
   ];
+
+  // DE gives every player-facing record a name. A record whose DE name is
+  // empty is an internal base type or default, and any name shown for it
+  // would be made up from its path, so it is removed from every bucket.
+  const namelessDeTables = ['ExportResources', 'ExportCustoms', 'ExportFlavour', 'ExportUpgrades', 'ExportGear', 'ExportWeapons', 'ExportWarframes', 'ExportSentinels', 'ExportKeys'];
+  const hasEmptyDeName = (uniqueName) => {
+    const key = canonicalInventoryUniqueName(uniqueName || '');
+    return namelessDeTables.some((table) => {
+      const entry = exports?.[table]?.[key] || exports?.[table]?.[uniqueName];
+      return entry && Object.hasOwn(entry, 'name') && !String(entry.name ?? '').trim();
+    });
+  };
+  for (const bucket of [warframes, primary, secondary, melee, kitguns, zaws, sentinels, moas, hounds, beasts,
+    archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens, parts, prime_parts, components, resources]) {
+    if (!Array.isArray(bucket)) continue;
+    for (let i = bucket.length - 1; i >= 0; i -= 1) {
+      if (hasEmptyDeName(bucket[i]?.unique_name)) bucket.splice(i, 1);
+    }
+  }
 
   const dedupeSummary = reconcileInventoryBuckets({
     warframes, primary, secondary, melee, kitguns, zaws, sentinels, moas, hounds, beasts,

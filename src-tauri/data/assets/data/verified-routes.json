@@ -8388,5 +8388,742 @@
     }
    }
   ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem": {
+  "name": "Drip Squad 4 Life Emblem",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Complete the 1999 ARG and enter the promo code TH3GR8D3SP41R.",
+    "place": "1999 ARG",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "Awarded for completing the [[1999 ARG]] and entering the promocode '''TH3GR8D3SP41R'''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem": {
+  "name": "Hostile Mergers Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (an Operation: Hostile Mergers event reward).",
+    "place": "Operation: Hostile Mergers",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Hostile Mergers",
+     "url": "https://wiki.warframe.com/w/Operation:_Hostile_Mergers",
+     "quote": "|Hostile Mergers [[Emblem]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem": {
+  "name": "Lunar Renewal Ox Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (a 2021 exclusive).",
+    "place": "Lunar Renewal 2021",
+    "source": {
+     "archive": "wiki",
+     "page": "Lunar Renewal",
+     "url": "https://wiki.warframe.com/w/Lunar_Renewal",
+     "quote": "LunarRenewalOxEmblem.png|Lunar Renewal Ox [[Emblems#Lunar_Renewal_Emblems|Emblem]]<br>''2021 exclusive''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/CYCCBBadgeItem": {
+  "name": "COMMEMORATIVE EMBLEM",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to participants of the Warframe Controlled Closed Beta).",
+    "place": "Warframe China Closed Beta",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "| comment   = This emblem was awarded to participants of the Warframe Controlled Closed Beta."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem": {
+  "name": "Tiberon Obsidian Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in PlayStation Plus Booster Pack VI from July 1, 2021, to February 22, 2022).",
+    "place": "PlayStation Plus Booster Pack VI",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "Acquired by purchasing the [[Third Party Deals and Rewards#PlayStation_Plus_Packs|PlayStation Plus Booster Pack VI]] from July 1, 2021, to February 22, 2022."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/EpochOperationEmblemItem": {
+  "name": "Epoch Operation Vessel Emblem",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Trade 100 Moonflesh for it during Epoch Operation: Taubound.",
+    "place": "Praghasa, Eris",
+    "source": {
+     "archive": "wiki",
+     "page": "Epoch Operation: Taubound",
+     "url": "https://wiki.warframe.com/w/Epoch_Operation:_Taubound",
+     "quote": "{{SynOfferBoxM|EpochOperationVesselEmblem(ExWhite).png|Emblems#Operation_Emblems|Epoch Operation Vessel Emblem|Moonflesh|100}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/GrnSeaLabEventBadgeItem": {
+  "name": "Tubemen Of Regor Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (rewarded for completing the Operation: Tubemen of Regor event).",
+    "place": "Operation: Tubemen of Regor",
+    "source": {
+     "archive": "wiki",
+     "page": "Tubemen Of Regor Emblem",
+     "url": "https://wiki.warframe.com/w/Tubemen_Of_Regor_Emblem",
+     "quote": "A reward obtained for completing the [[Operation: Tubemen of Regor|Tubemen of Regor]] event. Players were given the [[emblem]] regardless of which faction the player helped during the event."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem": {
+  "name": "Operation Orphix Venom Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (an Operation: Orphix Venom event reward).",
+    "place": "Operation: Orphix Venom",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Orphix Venom",
+     "url": "https://wiki.warframe.com/w/Operation:_Orphix_Venom",
+     "quote": "|Operation Orphix Venom Emblem [[Emblem]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/ProjectSinisterBadgeItem": {
+  "name": "Acolyte Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Acolyte Badge reward from Operation: Shadow Debt).",
+    "place": "Operation: Shadow Debt",
+    "source": {
+     "archive": "wiki",
+     "page": "Operation: Shadow Debt",
+     "url": "https://wiki.warframe.com/w/Operation:_Shadow_Debt",
+     "quote": "*Acolyte [[Warframe Cosmetics#Event Emblems|Badge]]"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem": {
+  "name": "Conquera Emblem",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it in the Market for 1 Credit during subsequent QTCC runs.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "Awarded for logging in between November, 1, 2024 to December, 31, 2024 for hitting the $30,000 [[Conquera#2024|QTCC]] donation Goal. Available in the [[Market]] for {{Cc|1}} during subsequent QTCC runs.<ref name=\"QTCC\">[https://www.warframe.com/news/quest-to-conquer-cancer-2024 A stunning brand-new Emblem of the Conquera United logo, sent via inbox when you log in between November 1, 2024 at 2 p.m. ET and December 31 at 11:59 p.m. ET.]</ref>"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem": {
+  "name": "Bronze Skull Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to top players in the retired Global Kill Leaderboard).",
+    "place": "Global Kill Leaderboard",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "These commemorative holographic badges were awarded to the top 1000 players in the now-retired Global Kill Leaderboard. They are <u>no longer available</u>."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem": {
+  "name": "Gold Skull Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to top players in the retired Global Kill Leaderboard).",
+    "place": "Global Kill Leaderboard",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "These commemorative holographic badges were awarded to the top 1000 players in the now-retired Global Kill Leaderboard. They are <u>no longer available</u>."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem": {
+  "name": "Silver Skull Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (awarded to top players in the retired Global Kill Leaderboard).",
+    "place": "Global Kill Leaderboard",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "These commemorative holographic badges were awarded to the top 1000 players in the now-retired Global Kill Leaderboard. They are <u>no longer available</u>."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem": {
+  "name": "TennoCon Emblem",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (bestowed on those who joined together at TennoCon 2016).",
+    "place": "TennoCon 2016",
+    "source": {
+     "archive": "wiki",
+     "page": "Emblems",
+     "url": "https://wiki.warframe.com/w/Emblems",
+     "quote": "| description = Bestowed upon those who joined together in celebration at TennoCon 2016."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Crowns/DuelistCrown": {
+  "name": "Isageum Signa",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it from the Market for 65 Platinum or as part of the Narin Bundle.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Signa",
+     "url": "https://wiki.warframe.com/w/Signa",
+     "quote": "|Purchased from the [[Market]] for {{pc|65}} or as a part of the [[Narin Bundle]]."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown": {
+  "name": "Conquera Cateura Signa",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Receive it once the $100,000 donation goal is met during Conquera 2026.",
+    "place": "Conquera 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Signa",
+     "url": "https://wiki.warframe.com/w/Signa",
+     "quote": "|Rewarded to players once the $100,000 [https://www.warframe.com/en/qtcc#donation_section_title Donation] Goal for [https://thepmcf.ca/who-we-are/vision-values/ The Princess Margaret Cancer Foundation] is met during [[Conquera]] 2026."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Crowns/SWGothicaSignaCrown": {
+  "name": "Gothica Signa",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it on PC through Steam with Steam Wallet credit or another Steam payment method.",
+    "place": "Steam",
+    "source": {
+     "archive": "wiki",
+     "page": "Gothica Signa",
+     "url": "https://wiki.warframe.com/w/Gothica_Signa",
+     "quote": "This item is only purchasable to PC players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase it on consoles from the Market for 60 Platinum or in TennoGen Iceblade Bundle 1 for 185 Platinum.",
+    "place": "Console Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Gothica Signa",
+     "url": "https://wiki.warframe.com/w/Gothica_Signa",
+     "quote": "For Console players, this item can be purchased for {{pc|60}} from the [[Market]], or as part of the [[TennoGen Iceblade Bundle 1]] for {{pc|185}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown": {
+  "name": "Vermis Signa",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it on PC through Steam with Steam Wallet credit or another Steam payment method.",
+    "place": "Steam",
+    "source": {
+     "archive": "wiki",
+     "page": "Vermis Signa",
+     "url": "https://wiki.warframe.com/w/Vermis_Signa",
+     "quote": "This item is only purchasable to PC players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam. For Console players, this item can be purchased for {{Resource|Platinum}}."
+    }
+   },
+   {
+    "kind": "market",
+    "text": "Purchase it on consoles from the Market for 60 Platinum or in TennoGen Iceblade Bundle 1 for 185 Platinum.",
+    "place": "Console Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Vermis Signa",
+     "url": "https://wiki.warframe.com/w/Vermis_Signa",
+     "quote": "*For Console players, this item can be purchased for {{pc|60}} from the [[Market]], or as part of the [[TennoGen Iceblade Bundle 1]] for {{pc|185}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil": {
+  "name": "Cyte-09 Target Sigil",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase the 1999 Cyte-09 Straightshot Bundle from the Market for 600 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "1999 Cyte-09 Straightshot Bundle",
+     "url": "https://wiki.warframe.com/w/1999_Cyte-09_Straightshot_Bundle",
+     "quote": "The '''1999 Cyte-09 Straightshot Bundle''' can be purchased from the [[Market]] for {{pc|600}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/EpochOperationSigil": {
+  "name": "Taubound Sigil",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Purchase it during Epoch Operation: Taubound for 100 Moonflesh.",
+    "place": "Praghasa, Eris",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "The '''Taubound Sigil''' was made available for purchase during [[Epoch Operation: Taubound]] for 100 {{Resource|Moonflesh}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/FrozenSigil": {
+  "name": "Glacium Sigil",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Purchase it from Cephalon Melica at Yuvan Peak or the Zariman for 250 Entropic Kuva.",
+    "place": "Cephalon Melica",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "The '''Glacium Sigil''' is available from [[Cephalon Melica]] at [[Yuvan Peak]] or the [[Crysalith|Zariman]] for '''250''' {{Resource|Entropic Kuva}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/JadeSigil": {
+  "name": "Jade Ophanim Sigil",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Get it through the Jade Chorus Pack; it is exclusive to that pack.",
+    "place": "Jade Chorus Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Update 36",
+     "url": "https://wiki.warframe.com/w/Update_36",
+     "quote": "*Fixed the Jade Chorus Pack exclusive items (Jade Ophanim Sigil and Jade In Action Glyph) being available for Platinum in the in-game Market. "
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/KahlSupporterPackSigil": {
+  "name": "Kahl's Fortitude Sigil",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Buy the Veilbreaker Warrior Pack from the Market for $29.99 USD under Premium Bundles.",
+    "place": "Premium Bundles",
+    "source": {
+     "archive": "wiki",
+     "page": "Veilbreaker Warrior Pack",
+     "url": "https://wiki.warframe.com/w/Veilbreaker_Warrior_Pack",
+     "quote": "The Veilbreaker Warrior Pack can be bought from the [[market]] for '''$29.99 USD''', under ''Premium Bundles'' tab."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil": {
+  "name": "Conquera United Sigil",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it from the Community Event section of the Market for 1 Credit from October 1 through December 31.",
+    "place": "Community Event Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Conquera",
+     "url": "https://wiki.warframe.com/w/Conquera",
+     "quote": "From October 1st through December 31st each year, prior years' rewards ([[Cosmetics]], [[Decorations/Orbiter Decorations|Decorations]], [[Glyphs]], and [[UI Theme]]) are available to purchase in the Community Event section of the [[Market]]. Each item costs {{cc|1}}, with the exception of the [[Zephyr Conquera Skin]], which is {{cc|25,000}}."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil": {
+  "name": "TennoCon 2016 Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoCon 2016).",
+    "place": "TennoCon 2016",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil": {
+  "name": "TennoCon 2017 Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoCon 2017).",
+    "place": "TennoCon 2017",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil": {
+  "name": "TennoCon 2018 Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoCon 2018).",
+    "place": "TennoCon 2018",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil": {
+  "name": "TennoCon 2019 Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoCon 2019).",
+    "place": "TennoCon 2019",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil": {
+  "name": "TennoCon 2020 Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoCon 2020).",
+    "place": "TennoCon 2020",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil": {
+  "name": "TennoCon 2026 Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoCon 2026).",
+    "place": "TennoCon 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil": {
+  "name": "Tenno Live Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to attendees of TennoLive).",
+    "place": "TennoLive",
+    "source": {
+     "archive": "wiki",
+     "page": "Sigils",
+     "url": "https://wiki.warframe.com/w/Sigils",
+     "quote": "These exclusive Sigils were given to attendees of TennoLive, TennoVIP and TennoCon."
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/YareliSigil": {
+  "name": "Yareli Aquablade Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the $39.99 USD Sisters of Parvos Riptide Pack sold from August 6, 2021 to December 10, 2021).",
+    "place": "Sisters of Parvos Riptide Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Sisters of Parvos Riptide Pack",
+     "url": "https://wiki.warframe.com/w/Sisters_of_Parvos_Riptide_Pack",
+     "quote": "*The {{PAGENAME}} was available for purchase from the [[market]] for '''$39.99 USD''' from August 6th, 2021 to December 10th, 2021."
+    }
+   },
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included in the $9.99 USD Sisters of Parvos Waverider Pack sold from August 6, 2021 to December 10, 2021).",
+    "place": "Sisters of Parvos Waverider Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Sisters of Parvos Waverider Pack",
+     "url": "https://wiki.warframe.com/w/Sisters_of_Parvos_Waverider_Pack",
+     "quote": "*The {{PAGENAME}} was available for purchase from the [[market]] for '''$9.99 USD''' from August 6th, 2021 to December 10th, 2021."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/DuelistEmote": {
+  "name": "Kalsawi Emote",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it from the Market for 25 Platinum.",
+    "place": "Market",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "KalsawiEmote.png|'''Kalsawi''' - A skillful sword dance.<br>(Related to {{WF|Narin}})<br>{{Pc|25}}"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/FinishLine": {
+  "name": "Come Here Emote",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reach Rank 22 in Nightwave: Amir's Shockwave with 220,000 Standing.",
+    "place": "Nightwave: Amir's Shockwave",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Amir's Shockwave",
+     "url": "https://wiki.warframe.com/w/Nightwave/Amir%27s_Shockwave",
+     "quote": "*''Rank 22 - {{sc|220,000}}: [[Emote|\"Come Here\" Emote]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/NightwaveDanceEmote": {
+  "name": "Rondelet Emote",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (the Rank 6 reward from Nightwave: Nora's Mix: Time Tempests, which ended August 12, 2026).",
+    "place": "Nightwave: Nora's Mix: Time Tempests",
+    "source": {
+     "archive": "wiki",
+     "page": "Nightwave/Nora's Mix: Time Tempests",
+     "url": "https://wiki.warframe.com/w/Nightwave/Nora%27s_Mix:_Time_Tempests",
+     "quote": "*''Rank 6 - {{sc|60,000}}: Rondelet [[Emote]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/PunctualityEmote": {
+  "name": "Too Late",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (was available as part of the Sanctum Supporter Pack).",
+    "place": "Sanctum Supporter Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "PunctualityEmote.png|'''Too Late Emote'''<br>''This emote was available as part of the [[Market|Sanctum Supporter Pack]]''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2019Emote": {
+  "name": "TennoCon 2019",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2019 Ticket or Digital Pack).",
+    "place": "TennoCon 2019",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2019Emote.png|'''TennoCon 2019''' - Bestowed upon those who joined together in celebration at TennoCon 2019.<br>''Available as part of a [[TennoCon#2019|TennoCon 2019]] Ticket or [[TennoCon 2019 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2020AEmote": {
+  "name": "The New War",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2020 Ticket or Digital Pack).",
+    "place": "TennoCon 2020",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2020AEmote.png|'''The New War''' - Bestowed upon those who joined together in celebration at TennoCon 2020.<br>''Available as part of a [[TennoCon#2020|TennoCon 2020]] Ticket or [[TennoCon 2020 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2020BEmote": {
+  "name": "TennoCon 2020",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2020 Ticket or Digital Pack).",
+    "place": "TennoCon 2020",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2020BEmote.png|'''TennoCon 2020''' - Bestowed upon those who joined together in celebration at TennoCon 2020.<br>''Available as part of a [[TennoCon#2020|TennoCon 2020]] Ticket or [[TennoCon 2020 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2021Emote": {
+  "name": "TennoCon 2021",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2021 Ticket or Digital Pack).",
+    "place": "TennoCon 2021",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2021Emote.png|'''TennoCon 2021''' - Bestowed upon those who joined together in celebration at TennoCon 2021.<br>''Available as part of a [[TennoCon#2021|TennoCon 2021]] Ticket or [[TennoCon 2021 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2022Emote": {
+  "name": "TennoCon 2022",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2022 Ticket or Digital Pack).",
+    "place": "TennoCon 2022",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2022Emote.png|'''TennoCon 2022''' - Bestowed upon those who joined together in celebration at TennoCon 2022.<br>''Available as part of a [[TennoCon#2022|TennoCon 2022]] Ticket or [[TennoCon 2022 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2024Emote": {
+  "name": "TennoCon 2024",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2024 Ticket or Digital Pack).",
+    "place": "TennoCon 2024",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2024Emote.png|'''TennoCon 2024''' - Bestowed upon those who joined together in celebration at TennoCon 2024.<br>''Available as part of a [[TennoCon#2024|TennoCon 2024]] Ticket or [[TennoCon 2024 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2025Emote": {
+  "name": "Tennocon Riftguard Emote",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2025 Ticket or Digital Pack).",
+    "place": "TennoCon 2025",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2025Emote.png|'''TennoCon Riftguard Emote''' - This emote swaps the TennoCon Riftguard Syandana between its intact and Void-swept forms. Created to celebrate ten years of TennoCon in 2025.<br>''Available as part of a [[TennoCon#2025|TennoCon 2025]] Ticket or [[TennoCon 2025 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Emotes/Tennocon2026Emote": {
+  "name": "TennoCon 2026",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (included with a TennoCon 2026 Ticket or Digital Pack).",
+    "place": "TennoCon 2026",
+    "source": {
+     "archive": "wiki",
+     "page": "Emotes",
+     "url": "https://wiki.warframe.com/w/Emotes",
+     "quote": "TennoCon2026Emote.png|'''TennoCon 2026''' - A dramatic ascent evoking the Hunhullus' entry into battle.<br>''Available as part of a [[TennoCon#2026|TennoCon 2026]] Ticket or [[TennoCon 2026 Digital Pack|Digital Pack]].''"
+    }
+   }
+  ]
  }
 }

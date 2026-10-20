@@ -23,6 +23,12 @@ const ALLOWED_VIOLATIONS = new Map([
     'Current-year Conquera reward; the event runs every October (wiki).'],
   ['/Lotus/Types/Items/ShipDecos/QTCC2in1Display|In-game Market, Community Event section, for 1 Credit from October 1 to December 31 each year (the Conquera 2025 $20,000 donation-goal reward).',
     'Current yearly Market route for prior Conquera rewards (wiki); "2025" names the reward.'],
+  ['/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem|Complete the 1999 ARG and enter the promo code TH3GR8D3SP41R.',
+    '"1999 ARG" is the name of the Warframe: 1999 alternate reality game; the promo code route is on the wiki Emblems page.'],
+  ['/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown|Receive it once the $100,000 donation goal is met during Conquera 2026.',
+    'Current-year Conquera reward; "2026" names the campaign (wiki Signa page).'],
+  ['/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil|Purchase the 1999 Cyte-09 Straightshot Bundle from the Market for 600 Platinum.',
+    '"1999" is part of the bundle name (Warframe: 1999); sold in the Market today (wiki Sigils page).'],
 ])
 
 // A limited-time item keeps its dated route as long as the same row says it is

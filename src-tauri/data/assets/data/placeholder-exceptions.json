@@ -84,6 +84,134 @@
       "reason": "Not a real item: the matching decoration is Ghost Bush (Sickly), sold by Nightcap for 10 Fergolyte (user decision).",
       "decidedBy": "user",
       "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Operator/Accessories/OperatorNefAnyoMask",
+      "name": "Vox Solaris Mask",
+      "reason": "Scrapped mask, remnent left in game. Do not include in app",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropSUPosters",
+      "name": "Solaris Industrial Strip",
+      "reason": "Could not find in-game or online — omit from the program for now unless a solid source turns up. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/ZarimanApartment/ZARxPrpFurnitureGroundLockerShortA",
+      "name": "Zariman Locker (Low, Short)",
+      "reason": "Could not find this item in-game or on wiki catalogs — omit from the program for now unless a solid source turns up. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/MiscItems/UmbraEchoes",
+      "name": "Echoes Of Umbra",
+      "reason": "Omit from the app. Planned Operator gear that would let you fight alongside your Warframe on certain mission types — feature was scrapped and never shipped as obtainable content. (Jacob; related Somatic Fibers / Prime Time era notes on cancelled autonomous-Warframe plans.)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem",
+      "name": "Frostcap",
+      "reason": "Omit from the app. Scrapped or future item — not currently obtainable. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropGrineerCrewship",
+      "name": "Grineer Crewship Decoration",
+      "reason": "Omit from the app. Scrapped or future item — not currently obtainable. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/Props/LisetPropDUVxKitchenBowlA",
+      "name": "Kitchen Bowl",
+      "reason": "Omit from the app. Scrapped item. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/1999OnlyneWallPoster",
+      "name": "On-lyne Poster Collage",
+      "reason": "Omit from the app. No linked item found; possible past/future bundle only. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/LisetPropGlassTreasureBox",
+      "name": "Onkko's Coffer",
+      "reason": "Omit from the app. Quest story prop (Saya/Onkko), not a player-collectible Orbiter decoration. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem",
+      "name": "Orokin Monitor",
+      "reason": "Omit from the app. Listed historically (e.g. Overframe) but not available in-game now — planned or scrapped. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExRocketShipTennoBaumToyDeco",
+      "name": "Rocketship Lua Toy",
+      "reason": "Omit from the app. Not a Tennobaum 2024 milestone toy; not currently in-game (planned or scrapped). (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/Vignettes/Enemies/RopalolystAFItem",
+      "name": "Ropalolyst Articula",
+      "reason": "Omit from the app. Not currently in-game (scrapped or planned). (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem",
+      "name": "STOCKING",
+      "reason": "Omit from the app. Possible planned holiday fishing-boot skin; not currently in-game. (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/Venus/SUFoodSet",
+      "name": "Solaris Canteen Tray Decoration",
+      "reason": "Omit from the app for now. Not in Market or in-game stores (placeholder/scrapped). (Jacob)",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed",
+      "name": "Tasoma Spore",
+      "reason": "Omit from the app. Not findable in-game (Jacob). Export DuviriMushroomSeed is Market/Codex-hidden — not the same as Tasoma Extract.",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/ShipDecos/GrineerMarineArcticBobbleHead",
+      "name": "Noggle Statue - Arid Lancer",
+      "reason": "Omit from the app. Not findable in-game (Jacob). GrineerMarineArcticBobbleHead is Market-hidden; wiki Market 35p is Elite Arid Lancer (different asset).",
+      "decidedBy": "user",
+      "date": "2026-10-18",
+      "source": "acquisition-without-source.xlsx, column \"Your answer\""
     }
   ]
 }

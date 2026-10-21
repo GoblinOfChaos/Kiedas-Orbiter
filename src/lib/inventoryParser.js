@@ -3547,7 +3547,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     });
   };
   for (const bucket of [warframes, primary, secondary, melee, kitguns, zaws, sentinels, moas, hounds, beasts,
-    archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens, parts, prime_parts, components, resources]) {
+    archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens, parts, prime_parts, components, resources,
+    mods_catalog, arcanes_catalog, consumables_catalog, appearance_catalog, landing_craft_catalog]) {
     if (!Array.isArray(bucket)) continue;
     for (let i = bucket.length - 1; i >= 0; i -= 1) {
       const un = bucket[i]?.unique_name;

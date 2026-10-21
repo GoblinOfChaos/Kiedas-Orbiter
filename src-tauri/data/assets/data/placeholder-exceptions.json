@@ -77,6 +77,13 @@
       "reason": "A Tennobaum 2025 reward at 100k that the community did not reach (60k), so it was never given out and does not exist in game (user decision).",
       "decidedBy": "user",
       "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem",
+      "name": "Ghost Brush Extract",
+      "reason": "Not a real item: the matching decoration is Ghost Bush (Sickly), sold by Nightcap for 10 Fergolyte (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
     }
   ]
 }

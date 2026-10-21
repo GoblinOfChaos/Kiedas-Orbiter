@@ -14597,22 +14597,6 @@
    }
   ]
  },
- "/Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem": {
-  "name": "Ghost Brush Extract",
-  "routes": [
-   {
-    "kind": "vendor",
-    "text": "Buy it from Nightcap in Fortuna with Fergolyte.",
-    "place": "Nightcap, Fortuna",
-    "source": {
-     "archive": "wiki",
-     "page": "Fergolyte",
-     "url": "https://wiki.warframe.com/w/Fergolyte",
-     "quote": "These are used to purchase Nokko, Arbucep, Archgun Arcane Adapter, and Deepmines-themed floral Decorations and Captura from Nightcap."
-    }
-   }
-  ]
- },
  "/Lotus/Types/StoreItems/AvatarImages/AvatarImageBlinkGlyph": {
   "name": "Blink Glyph",
   "routes": [

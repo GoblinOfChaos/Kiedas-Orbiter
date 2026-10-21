@@ -14612,5 +14612,21 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/Items/ShipDecos/Conquera2025Display": {
+  "name": "Conquera 2025 Community Display",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Included as a code with the Conquera 1000 Piece Puzzle from the official Warframe Store.",
+    "place": "Warframe Store",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Quest to Conquer Cancer Conquera V Collection",
+     "url": "https://www.warframe.com/en/news/quest-to-cancer-conquera-v-collection",
+     "quote": "The puzzle also includes a Conquera 2025 Community Display featuring the art by Community member"
+    }
+   }
+  ]
  }
 }

@@ -97,7 +97,7 @@ export function buildCosmeticsCatalog(exportData) {
     return [{ uniqueName, displayName: name }];
   });
 
-  return [...skinItems, ...glyphItems, ...decorationItems, ...emoteItems];
+  return [...skinItems, ...glyphItems, ...decorationItems, ...emoteItems].filter((item) => !baseAppearance.has(item.uniqueName));
 }
 
 /**

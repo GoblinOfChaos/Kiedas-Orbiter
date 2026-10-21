@@ -274,7 +274,7 @@ export default function Cosmetics() {
       if (!name) return []
       return [{ uniqueName, name, kind: 'Emote', type: 'Emote', owned: isOwned, ownershipTier: isOwned ? 'universal' : 'unowned', icon: cosmeticImage(entry, uniqueName, exportData, EI, nameToImage) }]
     })
-    return [...skinItems, ...glyphItems, ...decorationItems, ...emoteItems]
+    return [...skinItems, ...glyphItems, ...decorationItems, ...emoteItems].filter((item) => !baseAppearance.has(item.uniqueName))
   }, [exportData, owned, EI, nameToImage, rawInventory])
 
   const handleSortChange = (id) => {

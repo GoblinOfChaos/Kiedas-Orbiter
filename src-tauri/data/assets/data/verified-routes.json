@@ -14500,5 +14500,133 @@
     }
    }
   ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeChestArmor": {
+  "name": "Jade Daedalus Chest Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it came in the Xbox-exclusive Prestige Pack VII, which retired on January 24, 2017).",
+    "place": "Prestige Pack VII",
+    "source": {
+     "archive": "warframe_news",
+     "page": "Prestige Pack VII is retiring soon!",
+     "url": "https://www.warframe.com/en/news/prestige-pack-vii-is-retiring-soon",
+     "quote": "This Xbox-exclusive pack includes: · Jade Daedalus Chest Plate · Jade Daedalus Shoulder Plates · Jade Daedalus Knee Plates · 170 Platinum"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeArmArmor": {
+  "name": "Jade Daedalus Shoulder Plates",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it came in the Xbox-exclusive Prestige Pack VII, which retired on January 24, 2017).",
+    "place": "Prestige Pack VII",
+    "source": {
+     "archive": "warframe_news",
+     "page": "Prestige Pack VII is retiring soon!",
+     "url": "https://www.warframe.com/en/news/prestige-pack-vii-is-retiring-soon",
+     "quote": "This Xbox-exclusive pack includes: · Jade Daedalus Chest Plate · Jade Daedalus Shoulder Plates · Jade Daedalus Knee Plates · 170 Platinum"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeLegArmor": {
+  "name": "Jade Daedalus Knee Plates",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it came in the Xbox-exclusive Prestige Pack VII, which retired on January 24, 2017).",
+    "place": "Prestige Pack VII",
+    "source": {
+     "archive": "warframe_news",
+     "page": "Prestige Pack VII is retiring soon!",
+     "url": "https://www.warframe.com/en/news/prestige-pack-vii-is-retiring-soon",
+     "quote": "This Xbox-exclusive pack includes: · Jade Daedalus Chest Plate · Jade Daedalus Shoulder Plates · Jade Daedalus Knee Plates · 170 Platinum"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox": {
+  "name": "Jade Broca Syandana",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it is an Xbox anniversary reward, given as a login gift in the Xbox One fifth anniversary event).",
+    "place": "Xbox anniversary",
+    "source": {
+     "archive": "warframe_news",
+     "page": "Warframe’s Fifth Anniversary on Xbox One",
+     "url": "https://www.warframe.com/en/news/warframe-s-fifth-anniversary-on-xbox-one",
+     "quote": "To celebrate your unexpected survival, log in and check your Inbox to get these free items: Jade Brocca Syandana Jade Dex Dakra Skin Forma"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Choir/SWCovenJadeHelmet": {
+  "name": "Jade Coven Helmet",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Comes with the Jade Coven Skin set. On PC, buy it through Steam using Steam Wallet credit or another Steam payment method.",
+    "place": "Steam",
+    "source": {
+     "archive": "wiki",
+     "page": "Jade Coven Skin",
+     "url": "https://wiki.warframe.com/w/Jade_Coven_Skin",
+     "quote": "For PC players, this item is available only to players whose Warframe accounts are linked with Steam, and will need to be purchased with Steam Wallet credit, or other methods available via Steam."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/1999FixedStickersPack": {
+  "name": "Owned Peely Pak",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy a Peely Pak from Kaya in the Höllvania Central Mall for 10 Pix Chips.",
+    "place": "Kaya, Höllvania Central Mall",
+    "source": {
+     "archive": "wiki",
+     "page": "Pix Chip",
+     "url": "https://wiki.warframe.com/w/Pix_Chip",
+     "quote": "Kaya Velasco in the Höllvania Mall accepts these Pix Chips in exchange for Peely Paks."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem": {
+  "name": "Ghost Brush Extract",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Nightcap in Fortuna with Fergolyte.",
+    "place": "Nightcap, Fortuna",
+    "source": {
+     "archive": "wiki",
+     "page": "Fergolyte",
+     "url": "https://wiki.warframe.com/w/Fergolyte",
+     "quote": "These are used to purchase Nokko, Arbucep, Archgun Arcane Adapter, and Deepmines-themed floral Decorations and Captura from Nightcap."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageBlinkGlyph": {
+  "name": "Blink Glyph",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Redeem the promo code Blink.",
+    "place": "Promo code",
+    "source": {
+     "archive": "owner",
+     "page": "Owner-supplied",
+     "url": "https://www.warframe.com/promocode",
+     "quote": "Owner-supplied: redeem with the promo code Blink."
+    }
+   }
+  ]
  }
 }

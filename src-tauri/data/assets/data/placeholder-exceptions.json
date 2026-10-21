@@ -49,6 +49,34 @@
       "reason": "Appears in the worldstate only as a FeaturedItem label in Varzia's rotation schedule, not as an item (user decision).",
       "decidedBy": "user",
       "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem",
+      "name": "Bioplasma",
+      "reason": "A Jade Shadows quest item, not obtainable by normal means (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem",
+      "name": "Cerulean Fungus Extract",
+      "reason": "Not a real item in the game as of yet (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem",
+      "name": "Tertium",
+      "reason": "Not a real item (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumTeshinGlyph",
+      "name": "Community Tennobaum Teshin Glyph",
+      "reason": "A Tennobaum 2025 reward at 100k that the community did not reach (60k), so it was never given out and does not exist in game (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
     }
   ]
 }

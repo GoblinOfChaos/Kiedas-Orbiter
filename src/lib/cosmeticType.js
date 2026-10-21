@@ -2,6 +2,7 @@
  * Cosmetics kind classification for ExportCustoms skins.
  * Kept separate from the screen so unit tests can cover folder → kind mapping.
  */
+import placeholderExceptions from '../../src-tauri/data/assets/data/placeholder-exceptions.json' with { type: 'json' };
 
 // Legacy Skins/ folders that do not match ExportWarframes Powersuits codenames
 // (same class as ANIMATION_FOLDER_FAMILY_OVERRIDES in Cosmetics.jsx).
@@ -52,6 +53,10 @@ export const BASE_APPEARANCE_ITEMS = new Set([
  */
 export function baseAppearanceSet(exportData) {
   const set = new Set(BASE_APPEARANCE_ITEMS);
+  // Items the owner decided are not real or not attainable (placeholder-exceptions.json)
+  // are not listed on any screen either.
+  for (const item of placeholderExceptions.items ?? []) set.add(String(item.uniqueName).replaceAll('/StoreItems/', '/'));
+  for (const item of placeholderExceptions.items ?? []) set.add(String(item.uniqueName));
   for (const table of ['ExportWarframes', 'ExportSentinels', 'ExportWeapons']) {
     for (const entry of Object.values(exportData?.[table] || {})) {
       for (const item of entry?.additionalItems || []) set.add(String(item).replaceAll('/StoreItems/', '/'));

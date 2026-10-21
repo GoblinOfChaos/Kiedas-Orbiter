@@ -14628,5 +14628,85 @@
     }
    }
   ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil": {
+  "name": "Seal Of Honoring II",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a second-anniversary gift for Xbox One players).",
+    "place": "Xbox One anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Thanks for two great years, Tenno!",
+     "url": "https://www.warframe.com/en/news/gracias-por-estos-dos-increibles-anos-tenno",
+     "quote": "the Lotus is awarding all Xbox One Tenno the following items: - Excalibur Jade Noggle - Second Year Anniversary Sigil - Xbox One Color Picker"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil": {
+  "name": "Seal Of Honoring IV",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a fourth-anniversary gift for Xbox One players).",
+    "place": "Xbox One anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Warframe's Fourth Anniversary on Xbox One",
+     "url": "https://www.warframe.com/en/news/warframe-s-fourth-anniversary-on-xbox-one",
+     "quote": "log in and check your Inbox to get these free items: Jade Rhino Noggle Jade Dex Furis Skin Seal of Honoring IV Sigil"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/Rapier/TnLotusRapierSkin": {
+  "name": "Nefertym Rapier Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it came only with the TennoCon 2023 Digital Pack).",
+    "place": "TennoCon 2023 Digital Pack",
+    "source": {
+     "archive": "warframe.com",
+     "page": "TennoCon 2023 Digital Pack",
+     "url": "https://www.warframe.com/en/news/tennocon-2023-digital-pack",
+     "quote": "TennoCon 2023 Glyph - TennoCon 2023 Sigil - Lotus Floof - Nefertym Rapier Skin - Destreza"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena": {
+  "name": "Roathe's Oblivion Arena",
+  "routes": [
+   {
+    "kind": "vendor",
+    "text": "Buy it from Roathe in the Descendia for 150 Maphica.",
+    "place": "Roathe",
+    "source": {
+     "archive": "wiki",
+     "page": "Roathe",
+     "url": "https://wiki.warframe.com/w/Roathe",
+     "quote": "150 Roathe's Oblivion Arena"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/HeartOroRainbowDeco": {
+  "name": "Pride Oro Decoration",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Purchase it for 25,000 Credits in the Market's Community Event tab during the Pride event in June.",
+    "place": "Community Event Market",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Pride 2025",
+     "url": "https://www.warframe.com/en/news/pride-2025",
+     "quote": "the Pride Oro Decoration for 25,000 Credits"
+    }
+   }
+  ]
  }
 }

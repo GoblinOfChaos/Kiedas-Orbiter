@@ -3550,7 +3550,10 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     archwings, kdrives, archweapons, necramechs, amps, arcanes, consumables, rivens, parts, prime_parts, components, resources]) {
     if (!Array.isArray(bucket)) continue;
     for (let i = bucket.length - 1; i >= 0; i -= 1) {
-      if (hasEmptyDeName(bucket[i]?.unique_name)) bucket.splice(i, 1);
+      const un = bucket[i]?.unique_name;
+      // Also the documented list of items the user decided are not items
+      // (placeholder-exceptions.json), whichever category they were filed in.
+      if (hasEmptyDeName(un) || PLACEHOLDER_EXCEPTION_UNIQUE_NAMES.has(canonicalInventoryUniqueName(un || ''))) bucket.splice(i, 1);
     }
   }
 

@@ -14484,5 +14484,21 @@
     }
    }
   ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TennoCon2026CommunityArtShowcaseTrophy": {
+  "name": "TennoCon 2026 Community Art Showcase Award",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (given to the winners of the TennoCon 2026 community art showcase).",
+    "place": "TennoCon 2026 Art Show",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "''Awarded to the featured finalists of TennoCon's Art Show.''"
+    }
+   }
+  ]
  }
 }

@@ -7,6 +7,48 @@
       "reason": "Mission placeholder: an animal capture that is shared with the whole squad. Not player-obtainable; no wiki page.",
       "decidedBy": "user",
       "date": "2026-10-06"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Items/Plants/MiscItems/IresPlantItem",
+      "name": "Skateweed Extract",
+      "reason": "The item does not exist in the game; omitted (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Recipes/Weapons/BratonBlueprint",
+      "name": "Braton Blueprint",
+      "reason": "The blueprint itself does not exist as an item; only the finished Braton can be purchased (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Restoratives/Consumable/GuildGlyphConsumableNoCharges",
+      "name": "Glyph Prism",
+      "reason": "Given at the start of the game; lets a glyph be displayed in missions. Not an attainable item (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemA",
+      "name": "Last Chance Offerings",
+      "reason": "Appears in the worldstate only as a FeaturedItem label in Varzia's rotation schedule, not as an item (user decision: exclude if the worldstate does not identify an item).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemB",
+      "name": "Varzia's Offerings - Part 2",
+      "reason": "Appears in the worldstate only as a FeaturedItem label in Varzia's rotation schedule, not as an item (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
+    },
+    {
+      "uniqueName": "/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemC",
+      "name": "Varzia's Offerings",
+      "reason": "Appears in the worldstate only as a FeaturedItem label in Varzia's rotation schedule, not as an item (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-21"
     }
   ]
 }

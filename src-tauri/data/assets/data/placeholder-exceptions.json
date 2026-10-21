@@ -212,6 +212,14 @@
       "decidedBy": "user",
       "date": "2026-10-18",
       "source": "acquisition-without-source.xlsx, column \"Your answer\""
+    },
+    {
+      "uniqueName": "/Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem",
+      "name": "Loaned Weapons",
+      "reason": "Hide from the app. It is a loaner given during The Hex quest, not an item the player keeps.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
     }
   ]
 }

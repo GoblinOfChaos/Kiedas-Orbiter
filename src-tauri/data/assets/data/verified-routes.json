@@ -14708,5 +14708,181 @@
     }
    }
   ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil": {
+  "name": "Cycle Two Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a second-anniversary gift for PlayStation 4 players).",
+    "place": "PlayStation 4 anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Warframe celebrates two years on PlayStation 4",
+     "url": "https://www.warframe.com/en/news/warframe-celebrates-two-years-playstation-4",
+     "quote": "you'll receive a PSIV Color Picker, Cycle Two Sigil and the Obsidian Excalibur Noggle decoration"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil": {
+  "name": "Cycle Four Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a fourth-anniversary gift for PlayStation 4 players).",
+    "place": "PlayStation 4 anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Warframe on PlayStation turns 4",
+     "url": "https://www.warframe.com/news/warframe-on-playstation-turns-4",
+     "quote": "Unwrap the first gift in your Inbox to receive: -Renown Excalibur Glyph -Cycle Four Sigil -Forma"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil": {
+  "name": "Cycle Five Sigil",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a fifth-anniversary gift for PlayStation 4 players).",
+    "place": "PlayStation 4 anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "5 Year Anniversary",
+     "url": "https://www.warframe.com/news/5-year-anniversary",
+     "quote": "The message will also come with an Obsidian Ivara Noggle, Cycle Five Sigil and the Obsidian Dex Furis Skin"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword": {
+  "name": "Paracesis Jade Skin",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a sixth-anniversary gift for Xbox One players).",
+    "place": "Xbox One anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "6th Anniversary on Xbox",
+     "url": "https://www.warframe.com/en/news/6th-anniversary-on-xbox",
+     "quote": "log in on Xbox One and receive a Paracesis Jade Skin, Jade Follox Sugatra and 3 Day Resource Booster"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Sigils/DanteSigil": {
+  "name": "Dante's Noctua Sigil",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Included in the Dante Chronicles Pack from the Warframe Store.",
+    "place": "Warframe Store",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Dante Chronicles Pack",
+     "url": "https://www.warframe.com/en/news/dante-chronicles-pack",
+     "quote": "Dante’s Delight Glyph - Dante’s Noctua Sigil - Observant Vitreum Decoration - 125 Platinum"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf": {
+  "name": "Obsidian Kyroptera Syandana",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a sixth-anniversary gift for PlayStation 4 players).",
+    "place": "PlayStation 4 anniversary gift",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Six Year Anniversary",
+     "url": "https://www.warframe.com/news/six-year-anniversary",
+     "quote": "Log in to find the following items waiting in your Inbox: Obsidian Kyroptera Syandana, Obsidian Dex Dakra Skin and a Forma"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf": {
+  "name": "Obsidian Azura Syandana",
+  "routes": [
+   {
+    "kind": "market",
+    "text": "Included in the PlayStation-exclusive Obsidian Azura Collection.",
+    "place": "Obsidian Azura Collection",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Exclusive Obsidian Azura Collection",
+     "url": "https://www.warframe.com/news/playstation-8",
+     "quote": "the exclusive Obsidian Azura Collection: Obsidian Azura Syandana Galatine and Galatine Obsidian Skin Excalibur Obsidian Azura Skin"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphLaborAward": {
+  "name": "Labor Of Love Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a promo-code reward from the Steam Awards; the code is listed as inactive).",
+    "place": "Promo code (inactive)",
+    "source": {
+     "archive": "wiki",
+     "page": "Promo Codes",
+     "url": "https://wiki.warframe.com/w/Promo_Codes",
+     "quote": "LaborOfLove Glyph Steam Awards"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC": {
+  "name": "Obsidian Deko Chest Plate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it came only in the limited-time Divergence Pack).",
+    "place": "Divergence Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "It may only be purchased once per account and is available for a limited time. Pack includes: 125 Platinum Platinum Obsidian Deko Chest Plate Obsidian Deko Knee Plates Obsidian Deko Shoulder Plates"
+    }
+   }
+  ]
+ },
+ "/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL": {
+  "name": "Obsidian Deko Knee Plates",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it came only in the limited-time Divergence Pack).",
+    "place": "Divergence Pack",
+    "source": {
+     "archive": "wiki",
+     "page": "Third Party Deals and Rewards",
+     "url": "https://wiki.warframe.com/w/Third_Party_Deals_and_Rewards",
+     "quote": "It may only be purchased once per account and is available for a limited time. Pack includes: 125 Platinum Platinum Obsidian Deko Chest Plate Obsidian Deko Knee Plates Obsidian Deko Shoulder Plates"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem": {
+  "name": "Loaned Weapons",
+  "routes": [
+   {
+    "kind": "quest",
+    "text": "Loaned to you by Quincy during The Hex quest.",
+    "place": "The Hex",
+    "source": {
+     "archive": "wiki",
+     "page": "The Hex (Quest)",
+     "url": "https://wiki.warframe.com/w/The_Hex_(Quest)",
+     "quote": "After receiving a loaner Excalibur Warframe, AX-52 , Vesper 77 , and Skana weapons from Quincy"
+    }
+   }
+  ]
  }
 }

@@ -14890,13 +14890,13 @@
   "routes": [
    {
     "kind": "not_obtainable",
-    "text": "Not currently obtainable (it was a promo-code reward and is no longer available).",
+    "text": "Not currently obtainable (it was a promo-code reward that could be redeemed only until August 31).",
     "place": "Promo code",
     "source": {
-     "archive": "owner research",
-     "page": "research-required-2026-10-21-review.xlsx",
-     "url": "https://forums.warframe.com/topic/992008-free-promocodes-and-content-creator-glyphs/",
-     "quote": "now unavilable"
+     "archive": "Hench & Scrap official post (text supplied by the owner; page not readable by script)",
+     "page": "Hench & Scrap Facebook video: full size Krubie puppet reveal",
+     "url": "https://www.facebook.com/watch/?v=1256866786080631",
+     "quote": "we have an in-game Glyph (!) which can be redeemed with code HENCHANDSCRAP until August 31st"
     }
    }
   ]

@@ -220,6 +220,70 @@
       "decidedBy": "user",
       "date": "2026-10-21",
       "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Armor/EvilBaroArmour/EvilBaroArmourA",
+      "name": "Eskhatos Pauldrons",
+      "reason": "Hide from the app. Separate DE asset from the Eskhatos items Baro sold; not in any Baro or Nights of Naberus offering.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Clan/EvilBaroHaloBadgeItem",
+      "name": "Eskhatos Sekhara",
+      "reason": "Hide from the app. Separate DE asset from the Eskhatos items Baro sold; not in any Baro or Nights of Naberus offering.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Effects/BaroEvilEphemeraB",
+      "name": "Eskhatos Infinitas Ephemera",
+      "reason": "Hide from the app. Separate DE asset from the Eskhatos items Baro sold; not in any Baro or Nights of Naberus offering.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechHelmet",
+      "name": "Eschatos Necramech Helmet",
+      "reason": "Hide from the app. Separate DE asset from the Eskhatos items Baro sold; not in any Baro or Nights of Naberus offering.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Necramech/MechWeapon/EvilBaroMausolonSkin",
+      "name": "Eskhatos Mausolon Skin",
+      "reason": "Hide from the app. Separate DE asset from the Eskhatos items Baro sold; not in any Baro or Nights of Naberus offering.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Upgrades/Skins/Parazon/EvilBaroParazonSkin",
+      "name": "Eskhatos Parazon Skin",
+      "reason": "Hide from the app. Separate DE asset from the Eskhatos items Baro sold; not in any Baro or Nights of Naberus offering.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "direct instruction in session"
+    },
+    {
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineRyoku",
+      "name": "Dueling Ryoku Glyph",
+      "reason": "Omit for now. No evidence the item exists in the game.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "research-required-2026-10-21-review.xlsx, notes column"
+    },
+    {
+      "uniqueName": "/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineVena",
+      "name": "Dueling Vena Glyph",
+      "reason": "Omit for now. No evidence the item exists in the game.",
+      "decidedBy": "user",
+      "date": "2026-10-21",
+      "source": "research-required-2026-10-21-review.xlsx, notes column"
     }
   ]
 }

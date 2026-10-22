@@ -14868,5 +14868,37 @@
     }
    }
   ]
+ },
+ "/Lotus/Upgrades/Skins/Scarves/TnLefaucheuxSyandana": {
+  "name": "Palla Syandana",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it comes only from the Deimos Swarm Supporter Pack).",
+    "place": "Deimos Swarm Supporter Pack",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Heart of Deimos: Hotfix 29.0.7",
+     "url": "https://www.warframe.com/en/patch-notes/pc/29-0-7",
+     "quote": "An additional Syandana, called Palla Syandana, has been added to the Deimos Swarm Supporter Pack!"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageHenchAndScrapGlyph": {
+  "name": "Hench & Scrap Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a promo-code reward and is no longer available).",
+    "place": "Promo code",
+    "source": {
+     "archive": "owner research",
+     "page": "research-required-2026-10-21-review.xlsx",
+     "url": "https://forums.warframe.com/topic/992008-free-promocodes-and-content-creator-glyphs/",
+     "quote": "now unavilable"
+    }
+   }
+  ]
  }
 }

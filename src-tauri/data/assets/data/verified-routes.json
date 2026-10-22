@@ -14890,13 +14890,125 @@
   "routes": [
    {
     "kind": "not_obtainable",
-    "text": "Not currently obtainable (it was a promo-code reward that could be redeemed only until August 31).",
+    "text": "Not currently obtainable (it was a promo-code reward that could be redeemed only until August 31, 2025).",
     "place": "Promo code",
     "source": {
      "archive": "Hench & Scrap official post (text supplied by the owner; page not readable by script)",
-     "page": "Hench & Scrap Facebook video: full size Krubie puppet reveal",
+     "page": "Hench & Scrap Facebook video, June 2025: full size Krubie puppet reveal",
      "url": "https://www.facebook.com/watch/?v=1256866786080631",
      "quote": "we have an in-game Glyph (!) which can be redeemed with code HENCHANDSCRAP until August 31st"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/MiscItems/HekNavCode": {
+  "name": "Vay Hek Nav Coordinate",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was access material for the old Vay Hek key, which no longer exists).",
+    "place": "Retired Vay Hek key",
+    "source": {
+     "archive": "wiki",
+     "page": "Vay Hek Frequency Triangulator",
+     "url": "https://wiki.warframe.com/w/Vay_Hek_Frequency_Triangulator",
+     "quote": "one-time use Key item which, prior to Update 15.13 (2015-02-05), unlocked the Assassination node for Councilor Vay Hek on Earth"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/Xmas2023ThraxGlyph": {
+  "name": "Thrax Tennobaum Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a Snowday Showdown reward during Tennobaum 2023).",
+    "place": "Tennobaum 2023 Snowday Showdown",
+    "source": {
+     "archive": "Sportskeeda (text supplied by the owner; page not readable by script)",
+     "page": "Warframe Tennobaum 2023 rewards, Snowday Showdown event details",
+     "url": "https://www.sportskeeda.com/mmo/warframe-tennobaum-2023-rewards-snowday-showdown-event-details",
+     "quote": "Thrax Tennobaum Glyph"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageKacchi": {
+  "name": "Lotus Symbol Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a content-creator glyph that Kacchi gave to PlayStation 4 players while streaming on YouTube).",
+    "place": "Content-creator giveaway",
+    "source": {
+     "archive": "DE forums (text supplied by the owner; page not readable by script)",
+     "page": "Partner Glyphs - Wave 11.5 Guiderino",
+     "url": "https://forums.warframe.com/topic/837125-partner-glyphs-wave-115-guiderino/",
+     "quote": "Kacchi"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageSenastra": {
+  "name": "Lotus Symbol Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a content-creator glyph that Senastra gave away in random giveaways, to Twitch subscribers, and to viewers with at least 75 hours in her stream).",
+    "place": "Content-creator giveaway",
+    "source": {
+     "archive": "DE forums (text supplied by the owner; page not readable by script)",
+     "page": "Partner Glyphs - Wave 11.5 Guiderino",
+     "url": "https://forums.warframe.com/topic/837125-partner-glyphs-wave-115-guiderino/",
+     "quote": "Senastra23"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2019SimarisGlyph": {
+  "name": "Tennocon 2019 Sanctuary Showcase Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was a promo-code reward unlocked after teams reached 225,000 cumulative standing during Sanctuary Showcase).",
+    "place": "TennoCon 2019 Sanctuary Showcase",
+    "source": {
+     "archive": "wiki",
+     "page": "Decorations/Orbiter Decorations",
+     "url": "https://wiki.warframe.com/w/Decorations/Orbiter_Decorations",
+     "quote": "Promo-code unlocked after teams reached 225,000 cumulative standing during Sanctuary Showcase 2019"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/StoreItems/AvatarImages/TennoCon2026CommunityArtShowcaseGlyph": {
+  "name": "Tennocon 2026 Community Art Showcase Glyph",
+  "routes": [
+   {
+    "kind": "not_obtainable",
+    "text": "Not currently obtainable (it was given to the top 60 submissions in the TennoCon 2026 Community Art Showcase).",
+    "place": "TennoCon 2026 Community Art Showcase",
+    "source": {
+     "archive": "DE forums (text supplied by the owner; page not readable by script)",
+     "page": "TENNOCON 2026 - Community Art Showcase [WINNERS ANNOUNCED]",
+     "url": "https://forums.warframe.com/topic/1493326-tennocon-2026-community-art-showcase-winners-announced",
+     "quote": "top 60 submissions"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Items/ShipDecos/TarotCard2026Tennotober": {
+  "name": "Tennotober 2026 Prex",
+  "routes": [
+   {
+    "kind": "event",
+    "text": "Possible reward for taking part in this year's Tennotober; the reward has not been named yet.",
+    "place": "Tennotober 2026",
+    "source": {
+     "archive": "warframe.com",
+     "page": "Tennotober 2026",
+     "url": "https://www.warframe.com/en/news/tennotober-2026",
+     "quote": "Tenno who participate this year will be eligible to receive a Tennotober treat in their in-game Inbox later in 2026"
     }
    }
   ]

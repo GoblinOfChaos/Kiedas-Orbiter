@@ -205,9 +205,17 @@ function recipeList(inventoryData, exportData, imageMaps) {
   return [...byItemType.values()].filter((recipe) => !(resources[recipe.itemType] && !/Component$/.test(recipe.itemType)));
 }
 
+// DE's resource/sigil/additional-item "by avatar" tables are per-source drop tables: most rows are
+// enemies (Amalgam Moa, Alad V) but some are loot containers, which are not enemies.
+const CONTAINER_SOURCE = /\b(?:storage (?:container|crate)|carrypod|cache)\b/i;
+function isContainerAvatar(source) {
+  return source?.type === 'avatar' && CONTAINER_SOURCE.test(String(source.sourceName ?? ''));
+}
+
 export function sourceType(source) {
   if (source?.type === 'relic') return 'relic';
   if (source?.type === 'enemy') return 'enemy';
+  if (source?.type === 'avatar' && !isContainerAvatar(source)) return 'enemy';
   if (source?.type === 'bounty') return 'bounty';
   if (source?.type === 'syndicate') return 'vendor';
   if (source?.type === 'vendor') return 'vendor';
@@ -272,8 +280,7 @@ function sourceKind(source, type, name, isNode) {
   if (type === 'enemy') return 'enemy';
   if (type === 'relic') return 'relic';
   if (type === 'vendor') return 'vendor';
-  if (/cache/i.test(`${name} ${source?.missionType ?? ''}`)) return 'cache';
-  if (source?.type === 'avatar') return 'boss';
+  if (/cache/i.test(`${name} ${source?.missionType ?? ''}`) || isContainerAvatar(source)) return 'cache';
   if (type === 'mission') return 'event';
   return 'source-only';
 }

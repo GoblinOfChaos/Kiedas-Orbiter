@@ -80,6 +80,7 @@ test('takes a node planet from ExportRegions.systemName and labels non-node sour
         { type: 'mission', node: 'SolNodeTest', nodeName: 'Test Node', chance: 0.5 },
         { type: 'mission', sourceName: 'Hallowed Flame Mission Caches', chance: 0.4 },
         { type: 'avatar', sourceName: 'Alad V', chance: 0.3 },
+        { type: 'avatar', sourceName: 'Rare Orokin Storage Container', chance: 0.25 },
         { type: 'enemy', enemyName: 'Corrupted Vor', chance: 0.2 },
       ],
     },
@@ -88,7 +89,12 @@ test('takes a node planet from ExportRegions.systemName and labels non-node sour
   assert.equal(node.level, 'node');
   assert.equal(node.planet, 'Ceres');
   assert.equal(model.ranked.find((row) => row.place.name === 'Hallowed Flame Mission Caches').place.level, 'cache');
-  assert.equal(model.ranked.find((row) => row.place.name === 'Alad V').place.level, 'boss');
+  const alad = model.ranked.find((row) => row.place.name === 'Alad V').place;
+  assert.equal(alad.type, 'enemy');
+  assert.equal(alad.level, 'enemy');
+  const container = model.ranked.find((row) => row.place.name === 'Rare Orokin Storage Container').place;
+  assert.notEqual(container.type, 'enemy');
+  assert.equal(container.level, 'cache');
   assert.equal(model.ranked.find((row) => row.place.name === 'Corrupted Vor').place.level, 'enemy');
 });
 

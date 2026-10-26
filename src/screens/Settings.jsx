@@ -975,6 +975,42 @@ export default function SettingsScreen() {
                 </div>
               </div>
             </div>
+            <div className="mt-3 p-3 bg-kronos-panel/20 rounded-lg border border-white/5" data-preview-settings-row={IS_PREVIEW ? 'ee-log-path' : undefined}>
+            <div>
+              <label className="text-xs font-bold text-white mb-1 block">{t('settings.custom_ee_log_path')}</label>
+              <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
+                {t('settings.ee_log_path_hint')}
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  className="flex-1 h-10 bg-black/40 border border-white/10 rounded-lg px-3 text-sm font-mono text-kronos-dim focus:outline-none focus:border-kronos-accent/50 transition-colors"
+                  placeholder="e.g. /home/user/.steam/steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log"
+                  value={eeLogPath}
+                  onChange={(e) => handleEeLogPathChange(e.target.value)}
+                />
+                <Button variant="secondary" onClick={handleBrowseEeLog} className="px-3">
+                  <FolderOpen size={16} className="mr-2" />{t('ui.setup.browse')}
+                </Button>
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <Button variant="secondary" onClick={handleDetectEeLogs} className="px-3">
+                  <FileSearch size={16} className="mr-2" />{t('settings.ee_log_auto_detect')}
+                </Button>
+                <EeLogStatusLine path={eeLogPath} />
+              </div>
+              {eeLogCandidates.length > 0 && (
+                <div className="mt-2 space-y-1">
+                  <p className="text-[10px] text-kronos-dim uppercase font-bold">{t('settings.ee_log_candidates')}</p>
+                  {eeLogCandidates.map((candidate) => (
+                    <button key={candidate} type="button" onClick={() => handleEeLogPathChange(candidate)} className="block w-full text-left text-[10px] font-mono text-kronos-accent hover:text-white truncate">
+                      {candidate}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            </div>
           </div>
 
           {/* UI Scale & Notification Monitor */}
@@ -1304,42 +1340,6 @@ export default function SettingsScreen() {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div>
-              <label className="text-xs font-bold text-white mb-1 block">{t('settings.custom_ee_log_path')}</label>
-              <p className="text-[10px] text-kronos-dim leading-relaxed mb-3">
-                {t('settings.ee_log_path_hint')}
-              </p>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  className="flex-1 h-10 bg-black/40 border border-white/10 rounded-lg px-3 text-sm font-mono text-kronos-dim focus:outline-none focus:border-kronos-accent/50 transition-colors"
-                  placeholder="e.g. /home/user/.steam/steam/steamapps/compatdata/230410/pfx/drive_c/users/steamuser/AppData/Local/Warframe/EE.log"
-                  value={eeLogPath}
-                  onChange={(e) => handleEeLogPathChange(e.target.value)}
-                />
-                <Button variant="secondary" onClick={handleBrowseEeLog} className="px-3">
-                  <FolderOpen size={16} className="mr-2" />{t('ui.setup.browse')}
-                </Button>
-              </div>
-              <div className="flex items-center gap-2 mt-2">
-                <Button variant="secondary" onClick={handleDetectEeLogs} className="px-3">
-                  <FileSearch size={16} className="mr-2" />{t('settings.ee_log_auto_detect')}
-                </Button>
-                <EeLogStatusLine path={eeLogPath} />
-              </div>
-              {eeLogCandidates.length > 0 && (
-                <div className="mt-2 space-y-1">
-                  <p className="text-[10px] text-kronos-dim uppercase font-bold">{t('settings.ee_log_candidates')}</p>
-                  {eeLogCandidates.map((candidate) => (
-                    <button key={candidate} type="button" onClick={() => handleEeLogPathChange(candidate)} className="block w-full text-left text-[10px] font-mono text-kronos-accent hover:text-white truncate">
-                      {candidate}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
         </Card>
 
         {/* Warframe Market Integration */}

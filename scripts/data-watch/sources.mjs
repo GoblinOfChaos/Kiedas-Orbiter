@@ -171,6 +171,10 @@ async function probeWikiModules(ctx) {
 async function probeWorldstate(ctx) {
   return safeProbe(async () => {
     const response = await fetchSource(ctx, WORLDSTATE_URL, requestOptions())
+    // DE's firewall answers 403 to datacenter addresses, which includes GitHub's runners (every run
+    // but one from 2026-09-26 to 2026-10-26 got it, while the same request from a home connection
+    // returned 200). That says nothing about the WorldState, so it is skipped, not counted as a failure.
+    if (response.status === 403) return { ok: false, skipped: true, error: 'HTTP 403 for WorldState (DE blocks GitHub-hosted runners; not checked)' }
     if (!response.ok) throw new Error(`HTTP ${response.status} for WorldState`)
     const value = await response.json()
     if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('WorldState response was not an object')

@@ -22,3 +22,13 @@ test('probe failures increment without replacing the last good fingerprint', asy
   assert.equal(result.results[0].consecutiveFailures, 3)
   assert.equal(result.nextState.sources.error.fingerprint, 'old')
 })
+
+test('a skipped probe keeps the last good fingerprint and counts no failure', async () => {
+  const skippedSource = { id: 'blocked', host: 'blocked.example', probe: async () => ({ ok: false, skipped: true, error: 'HTTP 403 (not checked)' }) }
+  const state = { formatVersion: 1, sources: { blocked: { fingerprint: 'good', consecutiveFailures: 37 } } }
+  const result = await runProbes({ sources: [skippedSource], state, now })
+  assert.equal(result.results[0].status, 'skipped')
+  assert.equal(result.results[0].consecutiveFailures, 0)
+  assert.equal(result.nextState.sources.blocked.fingerprint, 'good')
+  assert.equal(result.nextState.sources.blocked.consecutiveFailures, 0)
+})

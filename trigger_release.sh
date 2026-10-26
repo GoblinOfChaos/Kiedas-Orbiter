@@ -76,9 +76,9 @@ fi
 if [ "$FORCE" = true ]; then
   # Wipe remote tag, then push branch + new tag
   git push origin ":refs/tags/$TAG" 2>/dev/null || true
-  git push origin master --follow-tags --force
+  git push origin main --follow-tags --force
 else
-  git push origin master --follow-tags
+  git push origin main --follow-tags
 fi
 
 echo ""

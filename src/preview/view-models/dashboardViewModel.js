@@ -6,7 +6,7 @@ export const DASHBOARD_SECTIONS = [
   { id: 'news', titleKey: 'preview.dashboard.section_news', cardIds: ['baro', 'event', 'deal', 'sales', 'news'] },
 ];
 
-export function createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount = 0 }) {
+export function createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount = 0, farmingDueCount = 0 }) {
   const inventoryKnown = inventoryData !== undefined && inventoryData !== null;
   // "Ready to claim" (already queued in the Foundry, build timer finished)
   // is a different thing from "ready to craft" (ingredients on hand, never
@@ -21,6 +21,7 @@ export function createDashboardViewModel({ inventoryData, notificationHistory, l
   return {
     targets: {
       count: farmingTargetCount,
+      dueCount: farmingDueCount,
       available: true,
     },
     foundry: {

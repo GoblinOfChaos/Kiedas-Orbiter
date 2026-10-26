@@ -74,6 +74,7 @@ export default function PreviewDashboardView({
                   <Target aria-hidden="true" />
                   <strong>{model.targets.count ? t('preview.dashboard.targets_active', { count: model.targets.count }) : t('preview.dashboard.no_targets')}</strong>
                   <p>{model.targets.count ? t('preview.dashboard.targets_active_detail') : t('preview.dashboard.no_targets_detail')}</p>
+                  {model.targets.dueCount > 0 && <p data-farming-due-reminder><strong>{t('preview.dashboard.targets_due', { count: model.targets.dueCount })}</strong></p>}
                   <PreviewButton variant="primary" onClick={onAddFarmingTarget}>{model.targets.count ? t('preview.dashboard.view_targets') : t('preview.dashboard.add_target')}</PreviewButton>
                 </div>
               </PreviewPanel>

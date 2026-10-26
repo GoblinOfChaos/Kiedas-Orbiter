@@ -2,7 +2,7 @@ import { IS_PREVIEW } from '../lib/buildProfile';
 import PreviewDashboardView from '../preview/dashboard/PreviewDashboardView';
 import { createDashboardViewModel } from '../preview/view-models/dashboardViewModel';
 import { loadFarmingTargets } from '../lib/farmingTargets/store';
-import { activeTargets } from '../lib/farmingTargets/state';
+import { activeTargets, dueState } from '../lib/farmingTargets/state';
 import { isWikiUrl, useWikiNavigation } from '../contexts/WikiNavigationContext';
 /**
  * Dashboard.jsx
@@ -198,6 +198,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
   const [showWishlistModal, setShowWishlistModal] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [farmingTargetCount, setFarmingTargetCount] = useState(0);
+  const [farmingDueCount, setFarmingDueCount] = useState(0);
   const [iconsPath, setIconsPath] = useState('');
   const [framesPath, setFramesPath] = useState('');
   const [calendarDate, setCalendarDate] = useState(new Date(1999, 11, 1)); // Default to Dec 1999
@@ -237,7 +238,10 @@ export default function Dashboard({ onNavigate = () => {} }) {
   useEffect(() => {
     let cancelled = false;
     loadFarmingTargets().then((store) => {
-      if (!cancelled) setFarmingTargetCount(activeTargets(store.targets).length);
+      if (cancelled) return;
+      const active = activeTargets(store.targets);
+      setFarmingTargetCount(active.length);
+      setFarmingDueCount(active.filter((target) => dueState(target) === 'due').length);
     });
     return () => { cancelled = true; };
   }, []);
@@ -1616,7 +1620,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
   if (loading && !worldstate) {
     if (IS_PREVIEW) {
       return <PreviewDashboardView
-        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount })}
+        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount, farmingDueCount })}
         loading
         onRefresh={handleRefresh}
         onNavigate={onNavigate}
@@ -2133,7 +2137,7 @@ export default function Dashboard({ onNavigate = () => {} }) {
   if (IS_PREVIEW) {
     return <>
       <PreviewDashboardView
-        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount })}
+        model={createDashboardViewModel({ inventoryData, notificationHistory, lastUpdate, t, farmingTargetCount, farmingDueCount })}
         cards={cards}
         actions={dashboardActions}
         onAddFarmingTarget={() => onNavigate('farming-targets')}

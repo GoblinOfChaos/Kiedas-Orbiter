@@ -50,3 +50,28 @@ test('real data: rewards without a part list get no Blueprint circle', { skip: !
   const context = await contextFor('Forma Blueprint');
   assert.deepEqual(context.subcomponents, []);
 });
+
+// 2026-10-23: a card for a plain part showed the part's own count in the BP chip
+// (Lex Prime Receiver read "BP: 2" with 2 receivers owned and 4 Lex Prime
+// Blueprints). The BP chip must be the parent Blueprint's inventory count.
+test('real data: the BP chip of a part card is the parent Blueprint count, not the part count', { skip: !haveRealData }, async () => {
+  const raw = JSON.parse(fs.readFileSync(inventoryPath, 'utf8'));
+  const owned = (path) => Object.values(raw).flat().reduce((sum, entry) => (
+    entry && typeof entry === 'object' && entry.ItemType === path ? sum + (entry.ItemCount ?? 1) : sum), 0);
+
+  for (const name of ['Lex Prime Receiver', 'Paris Prime Upper Limb']) {
+    const context = await contextFor(name);
+    const blueprint = context.subcomponents.find((part) => part.isMainBlueprint);
+    assert.ok(blueprint, name + ' has a main Blueprint circle');
+    assert.equal(context.blueprintCount, owned(blueprint.uniqueName.replace('/StoreItems/', '/')), name + ': BP chip');
+  }
+});
+
+test('real data: the BP chip of a Blueprint card is that Blueprint count', { skip: !haveRealData }, async () => {
+  const raw = JSON.parse(fs.readFileSync(inventoryPath, 'utf8'));
+  const owned = (path) => Object.values(raw).flat().reduce((sum, entry) => (
+    entry && typeof entry === 'object' && entry.ItemType === path ? sum + (entry.ItemCount ?? 1) : sum), 0);
+  const context = await contextFor('Steflos Prime Blueprint');
+  const blueprint = context.subcomponents.find((part) => part.isMainBlueprint);
+  assert.equal(context.blueprintCount, owned(blueprint.uniqueName.replace('/StoreItems/', '/')));
+});

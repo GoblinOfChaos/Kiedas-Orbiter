@@ -523,7 +523,12 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
 
   return {
     stock,
-    blueprintCount: parentRecipe ? stock : parentBpCount,
+    // A reward with its own recipe (a Blueprint) counts its own stock. A plain
+    // part (Barrel, Receiver, Stock...) has no recipe, so its stock is the part
+    // count, which the card's Owned chip already shows: the BP chip must show
+    // the parent's Blueprint count instead (Lex Prime Receiver read "BP: 2"
+    // with 2 receivers owned and 4 Lex Prime Blueprints).
+    blueprintCount: recipe ? stock : parentBpCount,
     craftedCount: parentRecipe ? craftedCount : parentCraftedCount,
     isRecipeComponent: !!parentRecipe,
     need: neededQuantity,

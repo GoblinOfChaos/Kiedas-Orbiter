@@ -2331,14 +2331,25 @@
   "name": "Dera Vandal Barrel",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Corpus (rotation B).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Dera Vandal",
      "url": "https://wiki.warframe.com/w/Dera_Vandal",
-     "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2347,14 +2358,25 @@
   "name": "Dera Vandal Receiver",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Corpus (rotation B).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Dera Vandal",
      "url": "https://wiki.warframe.com/w/Dera_Vandal",
-     "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2363,14 +2385,25 @@
   "name": "Dera Vandal Stock",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Corpus (rotation B).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Dera Vandal",
      "url": "https://wiki.warframe.com/w/Dera_Vandal",
-     "quote": "40x)) Acquisition [edit | edit source] Blueprints and components are a potential Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2498,14 +2531,25 @@
   "name": "Karak Wraith Receiver",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Karak Wraith",
      "url": "https://wiki.warframe.com/w/Karak_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2514,14 +2558,25 @@
   "name": "Karak Wraith Stock",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Karak Wraith",
      "url": "https://wiki.warframe.com/w/Karak_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the First and Third Seasons of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2530,14 +2585,25 @@
   "name": "Latron Wraith Barrel",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Latron Wraith",
      "url": "https://wiki.warframe.com/w/Latron_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2546,14 +2612,25 @@
   "name": "Latron Wraith Receiver",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Latron Wraith",
      "url": "https://wiki.warframe.com/w/Latron_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2562,14 +2639,25 @@
   "name": "Latron Wraith Stock",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Latron Wraith",
      "url": "https://wiki.warframe.com/w/Latron_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2594,14 +2682,25 @@
   "name": "Snipetron Vandal Barrel",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Corpus (rotation B).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Snipetron Vandal",
      "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
-     "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 5 to acquire the blueprint."
     }
    }
   ]
@@ -2610,14 +2709,25 @@
   "name": "Snipetron Vandal Receiver",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Corpus (rotation B).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Snipetron Vandal",
      "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
-     "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 5 to acquire the blueprint."
     }
    }
   ]
@@ -2626,14 +2736,25 @@
   "name": "Snipetron Vandal Stock",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Corpus (rotation B).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Snipetron Vandal",
      "url": "https://wiki.warframe.com/w/Snipetron_Vandal",
-     "quote": "30x)) Acquisition [edit | edit source] This weapon's blueprint and parts can currently be found as Invasion rewards."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 5 to acquire the blueprint."
     }
    }
   ]
@@ -2642,14 +2763,25 @@
   "name": "Strun Wraith Barrel",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Strun Wraith",
      "url": "https://wiki.warframe.com/w/Strun_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Fourth Season of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 10 to acquire the blueprint."
     }
    }
   ]
@@ -2658,14 +2790,25 @@
   "name": "Strun Wraith Receiver",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
     "source": {
      "archive": "wiki_pdf_archive",
-     "page": "Twin Vipers Wraith",
-     "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Strun Wraith",
+     "url": "https://wiki.warframe.com/w/Strun_Wraith",
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 10 to acquire the blueprint."
     }
    }
   ]
@@ -2725,14 +2868,25 @@
   "name": "Twin Vipers Wraith Barrels",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Twin Vipers Wraith",
      "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -2741,14 +2895,25 @@
   "name": "Twin Vipers Wraith Receivers",
   "routes": [
    {
-    "kind": "drop",
-    "text": "Earn from Invasion rewards.",
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
     "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
     "source": {
      "archive": "wiki_pdf_archive",
      "page": "Twin Vipers Wraith",
      "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
-     "quote": "The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward."
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
     }
    }
   ]
@@ -15009,6 +15174,168 @@
      "page": "Tennotober 2026",
      "url": "https://www.warframe.com/en/news/tennotober-2026",
      "quote": "Tenno who participate this year will be eligible to receive a Tennotober treat in their in-game Inbox later in 2026"
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/KarakWraithBarrel": {
+  "name": "Karak Wraith Barrel",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Karak Wraith",
+     "url": "https://wiki.warframe.com/w/Karak_Wraith",
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/StrunWraithStock": {
+  "name": "Strun Wraith Stock",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Strun Wraith",
+     "url": "https://wiki.warframe.com/w/Strun_Wraith",
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 10 to acquire the blueprint."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/TwinVipersWraithLink": {
+  "name": "Twin Vipers Wraith Link",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Twin Vipers Wraith",
+     "url": "https://wiki.warframe.com/w/Twin_Vipers_Wraith",
+     "quote": "All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeBlade": {
+  "name": "Sheev Blade",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sheev",
+     "url": "https://wiki.warframe.com/w/Sheev",
+     "quote": "All components are tradeable."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeHeatsink": {
+  "name": "Sheev Heatsink",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sheev",
+     "url": "https://wiki.warframe.com/w/Sheev",
+     "quote": "All components are tradeable."
+    }
+   }
+  ]
+ },
+ "/Lotus/Types/Recipes/Weapons/WeaponParts/GrineerCombatKnifeHilt": {
+  "name": "Sheev Hilt",
+  "routes": [
+   {
+    "kind": "reward",
+    "text": "Reward from Invasions for siding with the Grineer (rotation A).",
+    "place": "Invasions",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Invasion",
+     "url": "https://wiki.warframe.com/w/Invasion",
+     "quote": "Rotation A corresponds to rewards from siding with the Grineer, rotation B is for siding with the Corpus, and rotation C is for completing any Infestation Outbreaks."
+    }
+   },
+   {
+    "kind": "reward",
+    "text": "All components can be traded.",
+    "place": "Trading",
+    "source": {
+     "archive": "wiki_pdf_archive",
+     "page": "Sheev",
+     "url": "https://wiki.warframe.com/w/Sheev",
+     "quote": "All components are tradeable."
     }
    }
   ]

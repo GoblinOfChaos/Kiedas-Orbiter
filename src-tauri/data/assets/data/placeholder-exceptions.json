@@ -284,6 +284,13 @@
       "decidedBy": "user",
       "date": "2026-10-21",
       "source": "research-required-2026-10-21-review.xlsx, notes column"
+    },
+    {
+      "uniqueName": "/Lotus/Types/Recipes/Weapons/GrineerCombatKnifeBlueprint",
+      "name": "Sheev (raw-materials Blueprint)",
+      "reason": "Second Sheev Blueprint record in DE data, built from raw resources. Appears in no Invasion reward table and no vendor manifest, and the wiki does not describe it. The Invasion and Nights of Naberus Blueprint is GrineerCombatKnifeSortieBlueprint. Hidden (user decision).",
+      "decidedBy": "user",
+      "date": "2026-10-22"
     }
   ]
 }

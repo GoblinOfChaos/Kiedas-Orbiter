@@ -298,11 +298,11 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Loid / Necraloid (Necralisk, Deimos - Standing)"
   },
   "cortege": {
-    "blueprint": "Loid / Necraloid (Necralisk)",
+    "blueprint": "The Cortege main blueprint can be acquired by reaching Rank 3 - Clearance: Odima with the Necraloid. The main blueprint is offered as a rank up reward, but Necraloid sells additional main blueprints for 8,000 Standing. Components are crafted from blueprints that can be acquired for 4,000 Standing each after reaching Rank 2 - Clearance: Modus with the syndicate.",
     "general": "The Cortege main blueprint can be acquired by reaching '''Rank 3 - Clearance: Odima''' with the Necraloid. The main blueprint is offered as a rank up reward, but Necraloid sells additional main blueprints for 8,000 Standing. Components are crafted from blueprints that can be acquired for 4,000 Standing each after reaching '''Rank 2 - Clearance: Modus''' with the syndicate. Once crafted, it comes with a pre-installed Gravimag. Additionally requires '''Rank 2 - Visitor''' with Ostron in order to acquire Fersteel Alloy required in its construction. The Damaged Necramech Weapon parts are acquired from Normal and Arcana Isolation Vault Bounty rewards. The Damaged Necramech Weapon parts and fully built Cortege components can be traded between players. Trading for fully built components will bypass the need for Ostron's Fersteel Alloy."
   },
   "morgha": {
-    "blueprint": "Loid / Necraloid (Necralisk)",
+    "blueprint": "The Morgha main blueprint can be acquired by reaching Rank 3 - Clearance: Odima with the Necraloid. The main blueprint is offered as a rank up reward, but Loid sells additional main blueprints for 8,000 Standing. Components are crafted from blueprints that can be acquired for 4,000 Standing each after reaching Rank 2 - Clearance: Modus with the syndicate.",
     "general": "The Morgha main blueprint can be acquired by reaching '''Rank 3 - Clearance: Odima''' with the Necraloid. The main blueprint is offered as a rank up reward, but Loid sells additional main blueprints for 8,000 Standing. Components are crafted from blueprints that can be acquired for 4,000 Standing each after reaching '''Rank 2 - Clearance: Modus''' with the syndicate. Once crafted, it comes with a pre-installed Gravimag. Additionally requires '''Rank 2 - Visitor''' with Ostron in order to acquire Fersteel Alloy required in its construction. The Damaged Necramech Weapon parts are acquired from Normal and Arcana Isolation Vault Bounty rewards. The Damaged Necramech Weapon parts and fully built Morgha components can be traded between players. Trading for fully built components will bypass the need for Ostron's Fersteel Alloy."
   },
   "carrier": {
@@ -354,7 +354,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "The Fluctus's blueprint can be researched from the Tenno Lab in the dojo. Its parts can be purchased from various Syndicates. All parts, except for the blueprint, are tradeable. {| class=\"wikitable\" style=\"text-align:center;\" |- ! Item !! Location |- | Blueprint || Tenno Lab |- | 40px Barrel || Cephalon Suda Offering3 - '''Intelligent''' 20,000 Standing |- | 40px Stock || Steel Meridian Offering3 - '''Defender''' 20,000 Standing |- | 40px Limbs || Red Veil Offering3 - '''Esteemed''' 20,000 Standing |}"
   },
   "sheev": {
-    "blueprint": "Invasions",
+    "blueprint": "Reward from Invasions for siding with the Grineer (rotation A).",
     "general": "The blueprint and parts were formerly a reward from the Fifth Season of Sorties; they can now be found as an Invasion reward. All components are tradeable."
   },
   "cinta": {
@@ -362,23 +362,23 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Duviri Enigma Puzzles / Acrithis (Duviri)"
   },
   "dera vandal": {
-    "blueprint": "Invasions",
+    "blueprint": "Reward from Invasions for siding with the Corpus (rotation B).",
     "general": "Blueprints and components are a potential Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
   },
   "karak wraith": {
-    "blueprint": "Obtained as blueprint and part rewards from Invasions. Requires Mastery Rank 7 to acquire the blueprint. Components can be traded.",
+    "blueprint": "Reward from Invasions for siding with the Grineer (rotation A).",
     "general": "Obtained as blueprint and part rewards from Invasions. Requires Mastery Rank 7 to acquire the blueprint. Components can be traded."
   },
   "twin vipers wraith": {
-    "blueprint": "Invasions",
+    "blueprint": "Reward from Invasions for siding with the Grineer (rotation A).",
     "general": "This weapon was first obtainable by scoring at least 100 points in The Cicero Crisis event, complete with a free weapon slot and pre-installed Orokin Catalyst. The Twin Vipers Wraith was awarded again from an alert in The Proxy Rebellion Bonus Weekend. The blueprint and parts were formerly a reward from the Ninth Season of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint."
   },
   "snipetron vandal": {
-    "blueprint": "Invasions",
+    "blueprint": "Reward from Invasions for siding with the Corpus (rotation B).",
     "general": "This weapon's blueprint and parts can currently be found as Invasion rewards. Previously, this weapon was awarded as a special-edition reward for killing 20 Informers in the Informant Event, complete with a free weapon slot and a pre-installed Orokin Catalyst. The blueprint and parts were also formerly a reward from the Sixth Season of Sorties. All components can be traded, although players must have a Mastery Rank of at least 5 to acquire the blueprint."
   },
   "strun wraith": {
-    "blueprint": "Invasions",
+    "blueprint": "Reward from Invasions for siding with the Grineer (rotation A).",
     "general": "This weapon was first introduced from the Survival Weekend Event, awarded for completing the event's Survival for 20 minutes, complete with a free weapon slot and a pre-installed Orokin Catalyst. The Strun Wraith was awarded again from acquiring 100 points in the Den of Kubrow Tactical Alert, also complete with a free weapon slot and a pre-installed Orokin Catalyst. The blueprint and parts were formerly a reward from the Fourth Season of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 10 to acquire the blueprint."
   },
   "gorgon wraith": {
@@ -386,7 +386,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Invasion Battle Pay Rewards"
   },
   "latron wraith": {
-    "blueprint": "Invasions",
+    "blueprint": "Reward from Invasions for siding with the Grineer (rotation A).",
     "general": "This weapon was awarded during the Operation: Cryotic Front event to players who extracted 3000 Cryotic in a single mission, complete with a free weapon slot and a pre-installed Orokin Catalyst. The blueprint and parts were formerly a reward from the Eighth Season of Sorties; they can now be found as an Invasion reward. All components can be traded, although players must have a Mastery Rank of at least 7 to acquire the blueprint. This weapon can be sold for ."
   },
   "vulkar wraith": {
@@ -402,7 +402,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Dual Viciss's blueprints can be purchased from Minerva of The Hex for Standing Standing; 2 copies of the component blueprints for 5,000 Standing each and the main blueprint for 15,000 Standing to a total of 35,000 Standing, all requiring '''Rank 5 - Pizza Party'''. This weapon is also part of the Scaldra Dominance Pack for ."
   },
   "keratinos": {
-    "blueprint": "Father (Necralisk)",
+    "blueprint": "Keratinos are acquired by reaching Rank 0 - Neutral with the Entrati. Father sells the main blueprint for 1,000 Standing and component blueprints for 500 Standing; a total of 3,000 Standing is needed for all parts.",
     "general": "Keratinos are acquired by reaching '''Rank 0 - Neutral''' with the Entrati. Father sells the main blueprint for 1,000 Standing and component blueprints for 500 Standing; a total of 3,000 Standing is needed for all parts. ;Keratinos Blades {{BuildRequire |buildcredits = 20000 |build1 = Adramal Alloy |build1amount = 40 |build2 = Pustulite |build2amount = 24 |build3 = Purged Dagonic |build3amount = 6 |build4 = Gallium |build4amount = 4 |buildtime = 12 |buildtimeunit = hrs |buildrush = 25 |blueprint = 500 |blueprintunit = Standing |market = }} ;Keratinos Gauntlet {{BuildRequire |buildcredits = 20000 |build1 = Ferment Bladder |build1amount = 20 |build2 = Ganglion |build2amount = 16 |build3 = Waxen Sebum Deposit |build3amount = 6 |build4 = Neurodes |build4amount = 4 |buildtime = 12 |buildtimeunit = hrs |buildrush = 25 |blueprint = 500 |blueprintunit = Standing |market = }}"
   },
   "sporothrix": {
@@ -618,7 +618,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "The Vitrica's blueprint was obtained after defeating Nihil in Nightwave: Series 3, Episode 5. Following the end of Nightwave Series 3, Nihil's fight now requires an Enter Nihil's Oubliette Key and a Nihil's Oubliette decoration to access, both of which can be purchased from Nightwave Offerings for each, and the former can be traded between players. Once the Oubliette decoration is installed in the player's own Orbiter or Clan Dojo, interacting with the Key in the player's inventory while solo will trigger the boss fight with Nihil. Additional blueprints can be bought from Cephalon Simaris for 100,000 Standing."
   },
   "xoris": {
-    "blueprint": "Quest: The Deadlock Protocol",
+    "blueprint": "The blueprint, core, handle, and blade are all obtained during The Deadlock Protocol. Additional blueprints can be bought from Cephalon Simaris for 100,000 Standing. Additional parts can be bought from Cephalon Simaris for 15,000 Standing.",
     "general": "The blueprint, core, handle, and blade are all obtained during The Deadlock Protocol. Additional blueprints and parts can be bought from Cephalon Simaris for 100,000 Standing and 15,000 Standing respectively. It can be sold for ."
   },
   "paracesis": {
@@ -7057,15 +7057,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "artemis bow": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "artemis bow prime": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "balefire charger": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
@@ -7073,15 +7065,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "desert wind": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "desert wind prime": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "dex pixia": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
@@ -7089,35 +7073,11 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "diwata": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "diwata prime": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "exalted blade": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "exalted prime blade": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "exalted umbra blade": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "garuda talons": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "glory": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "iron staff": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
@@ -7129,23 +7089,7 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "landslide fists": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "landslide fists prime": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "neutralizer": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "noctua": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "regulators": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
@@ -7153,23 +7097,11 @@ export const WARFRAME_ACQUISITIONS = {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "shadow claws": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "shadow claws prime": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
-  "shadow clones": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
   "shadow clones prime": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "shattered lash": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },
@@ -7178,14 +7110,6 @@ export const WARFRAME_ACQUISITIONS = {
     "blueprint": "Inherent Exalted Weapon"
   },
   "valkyr prime talons": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "valkyr talons": {
-    "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
-    "blueprint": "Inherent Exalted Weapon"
-  },
-  "whipclaw": {
     "general": "Inherent Exalted Weapon \u2014 Automatically unlocked with the respective Warframe / Necramech; modded in Arsenal.",
     "blueprint": "Inherent Exalted Weapon"
   },

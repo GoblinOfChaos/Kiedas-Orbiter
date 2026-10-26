@@ -31,7 +31,7 @@ jobs:
                 url: $url,
                 description: ($desc | .[0:2000]),
                 color: 5814783,
-                footer: { text: "Cephalon Kronos Update" }
+                footer: { text: "Kiedas Orbiter Update" }
               }]
             }')
 

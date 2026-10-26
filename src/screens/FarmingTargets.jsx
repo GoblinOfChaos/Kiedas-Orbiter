@@ -32,6 +32,8 @@ import { activeTargets, dueState, targetReservationQuantity } from '../lib/farmi
 import { buildFarmingDrawerLookup } from '../lib/farmingTargets/drawerLookup.js';
 import { groupRankedByPlanet } from '../lib/farmingTargets/groupRankedByPlanet.js';
 import { runFarmingSpan } from '../lib/farmingTargets/logging.js';
+import { buildEnemyAreaIndex, loadEnemyModules } from '../lib/farmingTargets/enemyAreas.js';
+import { createWikiStore } from '../lib/wikiStore.js';
 
 function validLocalDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -114,6 +116,7 @@ const RankedPlaceRow = memo(function RankedPlaceRow({ row, t, total }) {
   return <div data-farming-place-row className="p-4 space-y-2">
     <div className="flex flex-wrap items-center gap-2"><ChevronRight size={14} className="text-kronos-accent" /><strong className="text-sm">{row.place.planet ? `${row.place.planet} — ${row.place.name}` : row.place.name}</strong><HonestyBadge place={row.place} t={t} />{row.place.pvp && <span className="rounded-full bg-fuchsia-400/15 px-2 py-0.5 text-[9px] text-fuchsia-300">{t('farming_targets.pvp')}</span>}<span className="ml-auto text-xs font-bold text-kronos-accent">{t('farming_targets.covers', { count: row.coverage, total })}</span></div>
     {row.reason && <p className="text-[10px] text-fuchsia-300">{row.reason}</p>}
+    {row.place.area && (row.place.area.planets.length > 0 || row.place.area.nodes.length > 0) && <p data-farming-enemy-area className="text-[10px] text-kronos-dim">{t('farming_targets.enemy_area', { areas: [...row.place.area.planets, ...row.place.area.nodes].join(', ') })}</p>}
     <CoveredItems items={row.coveredItems} />
   </div>;
 });
@@ -208,6 +211,19 @@ export default function FarmingTargets() {
     wikiAcquisitionStatusIndex, exaltedWeaponIndex, exportComponentIndex,
   } = useMonitoring();
 
+  const [enemyModules, setEnemyModules] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    loadEnemyModules(createWikiStore({ invoke }))
+      .then((modules) => { if (!cancelled) setEnemyModules(modules); })
+      .catch(() => { if (!cancelled) setEnemyModules([]); });
+    return () => { cancelled = true; };
+  }, []);
+  const enemyAreas = useMemo(
+    () => (enemyModules ? buildEnemyAreaIndex(enemyModules, exportData?.ExportRegions, exportData?.dict ?? {}) : null),
+    [enemyModules, exportData],
+  );
+
   const [acquisitionOverrides, setAcquisitionOverrides] = useState(null);
   useEffect(() => {
     invoke('read_file_bytes', { relative: 'data/assets/data/acquisition_overrides.json' })
@@ -268,11 +284,11 @@ export default function FarmingTargets() {
   }, [catalog, search, targets]);
 
   const view = useMemo(() => computeFarmingTargetsView(targets, inventoryData), [targets, inventoryData]);
-  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.place_index.build', () => buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions }), {
+  const previewPlaceIndex = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.place_index.build', () => buildPreviewPlaceIndex({ dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict: exportData?.dict ?? {}, regions: exportData?.ExportRegions, enemyAreas }), {
     startSpanFn: startSpan,
     payload: { source_items: Object.keys(dropIndex ?? {}).length },
     size: (index) => ({ places: index.places.size, sources: [...index.byItem.values()].reduce((count, rows) => count + rows.length, 0), ...index.stats }),
-  }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData]);
+  }) : null, [dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, enemyAreas]);
   const screenModel = useMemo(() => IS_PREVIEW ? runFarmingSpan('farming.model.build', () => buildFarmingTargetsScreenModel({
       targets, reservations: store?.reservations, inventoryData, exportData, dropIndex, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, imageMaps: { EI, nameToImage, uniqueNameToName },
       placeIndex: previewPlaceIndex,

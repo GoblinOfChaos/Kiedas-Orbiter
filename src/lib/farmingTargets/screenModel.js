@@ -278,7 +278,7 @@ function sourceKind(source, type, name, isNode) {
   return 'source-only';
 }
 
-export function sourcePlace(source, itemName, { dict = {}, regions = {}, normalizer } = {}) {
+export function sourcePlace(source, itemName, { dict = {}, regions = {}, normalizer, enemyAreas } = {}) {
   const name = sourceName(source, normalizer);
   if (!name) return null;
   const type = sourceType(source);
@@ -296,22 +296,26 @@ export function sourcePlace(source, itemName, { dict = {}, regions = {}, normali
   const planet = isNode
     ? resolvedNodeLiteral(source.region ?? source.planet ?? region?.systemName, dict, regions)
     : null;
+  // Enemy sources carry no location in the drop tables; the wiki area is attached only when the
+  // enemy's name matches exactly and at least one of its planets or nodes is a DE region.
+  const enemyArea = type === 'enemy' && enemyAreas instanceof Map ? enemyAreas.get(lower(name, normalizer)) : null;
   return {
     id: `${type}:${type === 'vendor' ? vendorKey(name, normalizer) : lower(name, normalizer)}`,
     name,
     type: pvp ? 'conclave' : type,
     pvp,
-    level: isNode ? 'node' : isPlanet ? 'planet' : kind,
+    level: isNode ? 'node' : isPlanet ? 'planet' : enemyArea ? 'wiki-area' : kind,
     kind,
-    badge: isNode ? 'exact node' : isPlanet ? 'planet-wide resource' : kind,
+    badge: isNode ? 'exact node' : isPlanet ? 'planet-wide resource' : enemyArea ? 'wiki-listed area' : kind,
     missionType: missionType || null,
     ...(faction ? { faction } : {}),
+    ...(enemyArea ? { area: { faction: enemyArea.faction, planets: enemyArea.planets, nodes: enemyArea.nodes } } : {}),
     planet,
     itemName,
   };
 }
 
-export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict = {}, regions } = {}) {
+export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wikiVendorIndex, exportVendorIndex, marketIndex, acquisitionOverrides, exportData, dict = {}, regions, enemyAreas } = {}) {
   const byItem = new Map();
   const places = new Map();
   const normalizer = createNormalizer();
@@ -353,7 +357,7 @@ export function buildPreviewPlaceIndex({ dropIndex = {}, wikiResourceIndex, wiki
     if (!item || !source) return;
     const normalizedSource = normalizeVendorSource(source);
     const canonicalItem = itemNameForKey(item) || item;
-    const place = sourcePlace(normalizedSource, canonicalItem, { dict, regions, normalizer });
+    const place = sourcePlace(normalizedSource, canonicalItem, { dict, regions, normalizer, enemyAreas });
     if (!place) return;
     if (!places.has(place.id)) places.set(place.id, place);
     const key = lower(canonicalItem, normalizer);

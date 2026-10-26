@@ -22,3 +22,8 @@ test('upstream-format is reserved but supported by report bodies', () => {
   const body = buildIssueBody([{ id: 'x', status: 'error', error: 'invalid shape' }], { title: 'Format problem' })
   assert.match(body, /invalid shape/)
 })
+
+test('a skipped source raises no issue, even after a long run of earlier failures', () => {
+  const skipped = { id: 'source', status: 'skipped', consecutiveFailures: 0, previousConsecutiveFailures: 37, fingerprint: 'good', previous: 'good', detail: null, error: 'HTTP 403 (not checked)' }
+  assert.deepEqual(classify([skipped], { source: 'Source' }), [])
+})

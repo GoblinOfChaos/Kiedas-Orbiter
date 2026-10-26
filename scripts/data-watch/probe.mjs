@@ -16,7 +16,10 @@ async function runHostGroup(group, options) {
       ...(options.context || {}),
     })
     const checkedAt = nowIso(options.now)
-    if (!result.ok) {
+    if (result.skipped) {
+      // The source cannot be checked from here. Keep the last good fingerprint, count no failure, raise no alert.
+      results.push({ id: source.id, status: 'skipped', fingerprint: previous?.fingerprint || null, previous: previous?.fingerprint || null, detail: null, error: result.error, consecutiveFailures: 0, previousConsecutiveFailures: previous?.consecutiveFailures || 0, checkedAt })
+    } else if (!result.ok) {
       const consecutiveFailures = (previous?.consecutiveFailures || 0) + 1
       results.push({ id: source.id, status: 'error', fingerprint: null, previous: previous?.fingerprint || null, detail: null, error: result.error, consecutiveFailures, previousConsecutiveFailures: previous?.consecutiveFailures || 0, checkedAt })
     } else {
@@ -40,7 +43,7 @@ export async function runProbes({ sources = defaultSources, state = { formatVers
   for (const result of results) {
     const prior = nextState.sources[result.id] || {}
     nextState.sources[result.id] = {
-      fingerprint: result.status === 'error' ? prior.fingerprint : result.fingerprint,
+      fingerprint: result.status === 'error' || result.status === 'skipped' ? prior.fingerprint : result.fingerprint,
       checkedAt: result.checkedAt,
       consecutiveFailures: result.consecutiveFailures,
     }

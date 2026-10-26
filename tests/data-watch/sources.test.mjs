@@ -102,3 +102,13 @@ test('fetch body timeout is enforced through the fetch signal', async () => {
   assert.equal(result.ok, false)
   assert.match(result.error, /timed out/)
 })
+
+test('WorldState probe skips a 403 from DE instead of reporting an outage', async () => {
+  const result = await probeWorldstate({ fetchImpl: async () => response('forbidden', { status: 403 }) })
+  assert.equal(result.ok, false)
+  assert.equal(result.skipped, true)
+  assert.match(result.error, /403/)
+  const outage = await probeWorldstate({ fetchImpl: async () => response('down', { status: 503 }) })
+  assert.equal(outage.skipped, undefined)
+  assert.match(outage.error, /503/)
+})

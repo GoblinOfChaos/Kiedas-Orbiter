@@ -25,6 +25,7 @@ function sourceSummary(result) {
 export function classify(results, sourceTitles = {}) {
   return results.flatMap((result) => {
     const title = sourceTitles[result.id] || result.id
+    if (result.status === 'skipped') return []
     if (result.status === 'changed') return [{ kind: 'data-update', sourceId: result.id, title: ISSUE_TITLES['data-update'](title), body: buildIssueBody([result], { title }) }]
     if (result.status !== 'error' && result.previousConsecutiveFailures >= 3) return [{ kind: 'resolved', sourceId: result.id, title, body: 'Source recovered' }]
     if (result.status === 'error' && result.consecutiveFailures >= 3) return [{ kind: 'source-unreachable', sourceId: result.id, title: ISSUE_TITLES['source-unreachable'](title), body: buildIssueBody([result], { title, failure: true }) }]

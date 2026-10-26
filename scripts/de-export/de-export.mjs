@@ -7,6 +7,8 @@ import { promisify } from 'node:util'
 import { homedir } from 'node:os'
 import { join, resolve } from 'node:path'
 
+import { isCollapsed } from './collapse-guard.mjs'
+
 const execFileAsync = promisify(execFile)
 const INDEX_URL = 'https://origin.warframe.com/PublicExport/index_en.txt.lzma'
 const CONTENT_BASE = 'https://content.warframe.com/PublicExport/Manifest'
@@ -113,7 +115,7 @@ async function fetchLocaleExports(locale, previous) {
     const value = JSON.parse(bytes)
     const count = countRecords(value, category)
     const previousCount = previous?.locales?.[locale]?.[category]?.count
-    if (previousCount && count < previousCount * 0.8) throw new Error(`${locale}/${category}: count collapsed`)
+    if (isCollapsed({ previousCount, previousSha256: previous?.locales?.[locale]?.[category]?.sha256, count, sha256: sha256(bytes), ratio: 0.8 })) throw new Error(`${locale}/${category}: count collapsed`)
     categories[category] = { suffix: entry.suffix, count, sha256: sha256(bytes), bytes: bytes.length }
   }
   return categories
@@ -150,7 +152,7 @@ async function fetchExports() {
     if (!hasExpectedShape(value, category)) throw new Error(`${category}: unexpected top-level JSON shape`)
     const count = countRecords(value, category)
     const previousCount = previous?.categories?.[category]?.count
-    if (previousCount && count < previousCount * 0.5) {
+    if (isCollapsed({ previousCount, previousSha256: previous?.categories?.[category]?.sha256, count, sha256: sha256(bytes), ratio: 0.5 })) {
       throw new Error(`${category}: count collapsed from ${previousCount} to ${count}`)
     }
     categories[category] = {

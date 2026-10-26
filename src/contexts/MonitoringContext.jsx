@@ -7,7 +7,7 @@ import { loadAcquisitionData } from '../lib/acquisitionData'
 import { loadAcquisitionTemplates } from '../lib/acquisitionTemplates'
 import { buildAllAcquisitionIndexes } from '../lib/acquisitionInfo'
 import { parseWorldstate, buildArchimedeaMap } from '../lib/worldstateParser'
-import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, getRelicEV } from '../lib/relicParser'
+import { getRelicRewards, getAllRelicRewards, getRewardInventoryContext, getPartObtainedStatus, parseRelicName, fuzzyMatchReward, matchRewardText, getRelicEV } from '../lib/relicParser'
 import { listen } from '@tauri-apps/api/event'
 import { getPrice, getPricesBatch } from '../lib/marketEngine'
 import { resolveNode, resolveMissionType, resolveChallenge } from '../lib/warframeUtils'
@@ -1159,7 +1159,11 @@ const hasCachedData = useCallback(async () => {
           const modName = res.text.replace('Requiem ', '');
           bestMatch = { uniqueName: modName, name: modName, ducats: 0, isRequiem: true };
         } else {
-          bestMatch = fuzzyMatchReward(res.text, candidates, 0.65);
+          // A name read exactly as printed wins over any near-miss: check the
+          // squad pool, then the full catalog, before fuzzy matching. The
+          // squad pool can lack the real item, and the fuzzy match would then
+          // return the closest wrong part of the same weapon.
+          bestMatch = matchRewardText(res.text, candidates, globalRewardPool || [], 0.65);
           // The squad-scoped candidate pool is built from each relic's own
           // resolved reward list, which can be incomplete (an unresolved
           // relic, a stale/incorrect reward manifest, etc.) even though the

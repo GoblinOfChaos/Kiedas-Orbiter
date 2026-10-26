@@ -553,14 +553,15 @@ function PriceBadge({ label, value, color, iconSrc }) {
 }
 
 function ComponentBadge({ comp }) {
-  const { have = 0, need = 1, isDroppedReward, name, image } = comp;
+  const { have = 0, need = 1, isDroppedReward, isBlueprintReward, name, image } = comp;
   const satisfied = have >= need;
-  const ringClass = isDroppedReward
+  const highlighted = isDroppedReward || isBlueprintReward;
+  const ringClass = highlighted
     ? 'border-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.5)]'
     : satisfied
     ? 'border-emerald-400'
     : 'border-white/15 bg-black/15';
-  const countClass = isDroppedReward
+  const countClass = highlighted
     ? 'bg-amber-400 text-black'
     : satisfied
     ? 'bg-emerald-400 text-black'

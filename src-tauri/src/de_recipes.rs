@@ -144,6 +144,18 @@ fn merge_resources(
             .cloned()
             .or_else(|| de.get(&key).cloned())
             .unwrap_or_default();
+        // DE is the primary source for what a Prime part sells for in ducats.
+        // The mirror's record is otherwise kept as is, which left the Bronco
+        // Prime Barrel at 45 ducats when DE's own export says 25 (checked
+        // 2026-10-23: the only difference among 431 priced resources).
+        if mirror.contains_key(&key) {
+            if let Some(price) = de
+                .get(&key)
+                .and_then(|record| record.get("primeSellingPrice"))
+            {
+                record.insert("primeSellingPrice".into(), price.clone());
+            }
+        }
         if !mirror.contains_key(&key) {
             summary.resources_added += 1;
             if let Some(texture) = images.get(&key) {
@@ -306,4 +318,49 @@ pub async fn refresh_de_recipes(
     crate::write_export_json_atomic(&export_dir.join("de/ExportResources_en.json"), &de_resources)?;
     crate::write_export_json_atomic(&export_dir.join("de/ExportManifest.json"), &de_manifest)?;
     Ok(summary)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{merge_resources, MergeSummary};
+    use serde_json::json;
+
+    #[test]
+    fn de_prime_selling_price_replaces_the_mirror_value() {
+        let mirror = json!({"ExportResources": [
+            {"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/BroncoPrimeBarrel",
+             "name": "mirror name", "primeSellingPrice": 45},
+            {"uniqueName": "/Lotus/Types/Items/MiscItems/Salvage", "name": "Salvage"}
+        ]});
+        let de = json!({"ExportResources": [
+            {"uniqueName": "/Lotus/Types/Recipes/Weapons/WeaponParts/BroncoPrimeBarrel",
+             "name": "Bronco Prime Barrel", "primeSellingPrice": 25},
+            {"uniqueName": "/Lotus/Types/Items/MiscItems/Salvage", "name": "Salvage", "primeSellingPrice": 7}
+        ]});
+        let manifest = json!({"Manifest": []});
+        let mut summary = MergeSummary::default();
+
+        let merged = merge_resources(&mirror, &de, &manifest, &mut summary);
+
+        let barrel = &merged["/Lotus/Types/Recipes/Weapons/WeaponParts/BroncoPrimeBarrel"];
+        assert_eq!(barrel["primeSellingPrice"], 25);
+        // Every other mirror field is kept.
+        assert_eq!(barrel["name"], "mirror name");
+    }
+
+    #[test]
+    fn a_mirror_price_is_kept_when_de_has_none() {
+        let mirror = json!({"ExportResources": [
+            {"uniqueName": "/x/Item", "primeSellingPrice": 15}
+        ]});
+        let de = json!({"ExportResources": [
+            {"uniqueName": "/x/Item", "name": "Item"}
+        ]});
+        let manifest = json!({"Manifest": []});
+        let mut summary = MergeSummary::default();
+
+        let merged = merge_resources(&mirror, &de, &manifest, &mut summary);
+
+        assert_eq!(merged["/x/Item"]["primeSellingPrice"], 15);
+    }
 }

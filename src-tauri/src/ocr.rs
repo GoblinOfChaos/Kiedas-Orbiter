@@ -1302,7 +1302,14 @@ fn clean_ocr_output(raw: &str) -> String {
         // the middle of an item name (for example, "prime").
         let mut result = String::new();
         for token in tokens[i..].iter() {
-            let cleaned = strip_prefix_junk(token);
+            // A trailing apostrophe or quote the OCR reads off the glyph edge
+            // (the apostrophe in "Systems'") must not make the whole word look
+            // non-alphabetic and drop it: dropping "Systems" turned "Styanax
+            // Prime Systems Blueprint" into "Styanax Prime Blueprint". Only
+            // apostrophes and quotes are trimmed; other trailing marks keep
+            // their existing behavior (a trailing hyphen is left as read).
+            let cleaned = strip_prefix_junk(token)
+                .trim_end_matches(|c: char| matches!(c, '\'' | '\u{2019}' | '\u{2018}' | '`' | '"'));
             if cleaned.len() < 2
                 || cleaned.chars().any(|c| c.is_ascii_digit())
                 || !cleaned.chars().all(|c| c.is_alphabetic())
@@ -1321,6 +1328,23 @@ fn clean_ocr_output(raw: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::clean_ocr_output;
+
+    #[test]
+    fn keeps_a_word_with_a_trailing_apostrophe() {
+        // Real OCR output from the 2026-10-23 sessions, unchanged.
+        assert_eq!(
+            clean_ocr_output("Styanax Prime Systems' Blueprint"),
+            "Styanax Prime Systems Blueprint"
+        );
+        assert_eq!(
+            clean_ocr_output("Styanax Prime Systems' lueint"),
+            "Styanax Prime Systems lueint"
+        );
+        assert_eq!(
+            clean_ocr_output("Styanax Prime Systems' [lent"),
+            "Styanax Prime Systems lent"
+        );
+    }
 
     #[test]
     fn keeps_lowercase_words_inside_reward_names() {

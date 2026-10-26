@@ -101,6 +101,10 @@ pub struct LogScanner {
     squad_size: usize,
     is_fissure: bool,
     in_mission: bool,
+    /// True from the game's end-of-match marker until the next mission starts
+    /// (or its reward screen opens). Used only by the relic picker, to ignore a
+    /// stale `in_mission` flag. It does not depend on which hub the player is in.
+    mission_ended: bool,
     relic_picker_open: bool,
     relic_picker_opened_at: f64,
     void_tier: Option<String>,
@@ -228,9 +232,40 @@ fn is_stale_riven_close(open_ts: Option<f64>, close_ts: Option<f64>) -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        is_stale_riven_close, looks_like_log_line, should_accept_riven_event, SeenLines,
-        RivenEventKind, RivenTimestampGuard, SEEN_LINES_CAPACITY,
+        is_end_of_match_line, is_stale_riven_close, looks_like_log_line, picker_opened_in_mission,
+        should_accept_riven_event, RivenEventKind, RivenTimestampGuard, SeenLines,
+        SEEN_LINES_CAPACITY,
     };
+
+    #[test]
+    fn end_of_match_is_recognised_from_real_log_lines() {
+        // Verbatim from the EE.log of 2026-10-23 (the end of the Neo mission).
+        assert!(is_end_of_match_line("888.301 Script [Info]: EndOfMatch.lua: Initialize"));
+        assert!(!is_end_of_match_line("888.302 Script [Info]: EndOfMatch.lua: Mission Succeeded"));
+        assert!(!is_end_of_match_line(
+            "888.287 Script [Info]: ProjectionRewardChoice.lua: Relic reward screen shut down"
+        ));
+        assert!(!is_end_of_match_line("905.895 Sys [Info]: ExitState: Connected"));
+        assert!(!is_end_of_match_line(""));
+    }
+
+    #[test]
+    fn stale_in_mission_flag_after_the_match_ended_is_ignored() {
+        // in_mission is still true (no Disconnected was written) but the
+        // end-of-match marker was seen: the picker is not in a mission.
+        assert!(!picker_opened_in_mission(true, true));
+    }
+
+    #[test]
+    fn picker_inside_a_mission_keeps_the_era() {
+        assert!(picker_opened_in_mission(true, false));
+    }
+
+    #[test]
+    fn picker_is_pre_mission_whenever_no_mission_is_active() {
+        assert!(!picker_opened_in_mission(false, false));
+        assert!(!picker_opened_in_mission(false, true));
+    }
 
     #[test]
     fn stale_riven_close_requires_two_parseable_timestamps() {
@@ -336,6 +371,7 @@ impl LogScanner {
             squad_size: 1,
             is_fissure: false,
             in_mission: false,
+            mission_ended: false,
             relic_picker_open: false,
             relic_picker_opened_at: 0.0,
             void_tier: None,
@@ -362,10 +398,18 @@ squad_channels: HashSet::new(),
             return;
         }
 
+        // The game writes this once, when the end-of-match screen appears
+        // (checked 2026-10-23: once per mission, and not between the rounds
+        // of a survival run). Only the relic picker reads it.
+        if is_end_of_match_line(s) {
+            self.mission_ended = true;
+        }
+
         // === 1. Mission Start ===
         if s.contains("_ActiveMission\"} with MissionInfo") {
             self.is_fissure = true;
             self.in_mission = true;
+            self.mission_ended = false;
             self.squad_size = 1;
             self.squad_relics.clear();
             self.void_tier = parse_mission_void_tier(s);
@@ -463,6 +507,16 @@ squad_channels: HashSet::new(),
                 self.is_fissure = true;
                 self.in_mission = true;
             }
+            self.mission_ended = false;
+            // The next-round relic picker is always followed by the reward
+            // screen (every picker opening on 2026-10-23 was). If the earlier
+            // reward screen's close line was missed (18:09 that day), nothing
+            // else hides the picker during the mission, so close it here.
+            if self.relic_picker_open {
+                self.relic_picker_open = false;
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER CLOSED (reward screen opened) (LogTS: {}s)", ts));
+                app.emit("relic-picker-closed", ()).unwrap_or_default();
+            }
             set_poll_interval(150);
             if crate::ocr::ICON_SCAN_ACTIVE.load(Ordering::SeqCst) {
                 return;
@@ -499,16 +553,16 @@ squad_channels: HashSet::new(),
                     self.void_tier = Some(omnia);
                 }
             }
-            if !self.in_mission {
+            if !picker_opened_in_mission(self.in_mission, self.mission_ended) {
                 self.relic_picker_open = true;
                 self.relic_picker_opened_at = ts;
-                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
+                crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (pre-mission) void_tier={:?} in_mission={} mission_ended={} (LogTS: {}s)", self.void_tier, self.in_mission, self.mission_ended, ts));
                 app.emit("relic-picker-opened", serde_json::json!({ "void_tier": None::<String>, "in_mission": false })).unwrap_or_default();
                 return;
             }
             self.relic_picker_open = true;
             self.relic_picker_opened_at = ts;
-            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) void_tier={:?} (LogTS: {}s)", self.void_tier, ts));
+            crate::logger::log_to_disk(app, &format!("[LOG SCANNER] RELIC PICKER OPENED (endless) void_tier={:?} in_mission={} mission_ended={} (LogTS: {}s)", self.void_tier, self.in_mission, self.mission_ended, ts));
             app.emit("relic-picker-opened", serde_json::json!({ "void_tier": self.void_tier, "in_mission": true })).unwrap_or_default();
             return;
         }
@@ -805,6 +859,20 @@ fn detect_void_tier(path: &str) -> String {
     else if path.contains("T4") { "Axi".to_string() }
     else if path.contains("T5") { "Requiem".to_string() }
     else { "Unknown".to_string() }
+}
+
+/// True for the line the game writes once when the end-of-match screen
+/// appears. Unlike `ExitState: Disconnected`, it was written after every
+/// mission in the 2026-10-23 logs, including the Neo mission that left the
+/// scanner believing a mission was still running.
+fn is_end_of_match_line(line: &str) -> bool {
+    line.contains("EndOfMatch.lua: Initialize")
+}
+
+/// The relic picker carries an era only when it opens inside a mission. A
+/// stale `in_mission` flag must not do that once the match has ended.
+fn picker_opened_in_mission(in_mission: bool, mission_ended: bool) -> bool {
+    in_mission && !mission_ended
 }
 
 /// Parse `voidTier` from the Host loading JSON on the mission start line.

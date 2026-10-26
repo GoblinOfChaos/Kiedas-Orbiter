@@ -463,7 +463,7 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
     }
   }
 
-  const subcomponents = (parentRecipe?.ingredients || ownRecipeForSubcomponents?.ingredients || []).map(ing => {
+  const partSubcomponents = (parentRecipe?.ingredients || ownRecipeForSubcomponents?.ingredients || []).map(ing => {
     const ingName = resolveDisplayName(ing.ItemType, exportData, locale);
     const ingBpUniqueName = bpLookup[ing.ItemType]
       || bpLookup[clean(ing.ItemType)];
@@ -498,6 +498,28 @@ export function getRewardInventoryContext(rewardUniqueName, inventoryData, expor
       isDroppedReward: isMatch(ing.ItemType)
     };
   }).filter(c => c.need > 0);
+
+  // DE's recipe never lists the Blueprint itself as an ingredient, so the part
+  // circles had no way to show whether the Blueprint is owned (GitHub #115 is
+  // the same gap in the acquisition drawer). Add it as the first circle. A
+  // Blueprint that was already crafted into the weapon is consumed, so an
+  // owned or mastered item counts as "have it".
+  const blueprintUniqueName = parentRecipe ? parentRecipeUniqueName : (ownRecipeForSubcomponents ? rewardUniqueName : null);
+  const subcomponents = blueprintUniqueName && partSubcomponents.length > 0
+    ? [{
+        name: parentName + bpSuffix,
+        uniqueName: blueprintUniqueName,
+        have: parentBpCount > 0 ? parentBpCount : ((parentCraftedCount > 0 || parentIsMastered) ? 1 : 0),
+        need: 1,
+        bpCount: 0,
+        hasBlueprint: false,
+        isResource: false,
+        isMainBlueprint: true,
+        // Not isDroppedReward: the overlay's parent-name highlight relies on
+        // that flag meaning "a part was the reward".
+        isBlueprintReward: !parentRecipe,
+      }, ...partSubcomponents]
+    : partSubcomponents;
 
   return {
     stock,
@@ -750,6 +772,43 @@ export function levenshteinDistance(a, b) {
     }
   }
   return tmp[a.length][b.length];
+}
+
+/**
+ * Returns the candidate whose name is exactly the OCR text (ignoring case,
+ * punctuation and spacing), or null. Used before any fuzzy match so that a
+ * correctly read name is never replaced by a similar name from a smaller
+ * candidate list (a squad pool missing the real item turned "Braton Prime
+ * Stock" into "Braton Prime Barrel").
+ */
+export function exactMatchReward(ocrText, candidates) {
+  if (!ocrText || !candidates || candidates.length === 0) return null;
+
+  const clean = (s) => s.toUpperCase().replace(/[^A-Z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+  const compact = (s) => s.replace(/\s+/g, '');
+  const ocrVariants = [...new Set([clean(splitPascal(ocrText)), clean(ocrText)])]
+    .filter((variant) => variant.length >= 3);
+
+  for (const item of candidates) {
+    if (!item || !item.name) continue;
+    const itemClean = clean(item.name);
+    if (!itemClean) continue;
+    for (const variant of ocrVariants) {
+      if (variant === itemClean || compact(variant) === compact(itemClean)) return item;
+    }
+  }
+  return null;
+}
+
+/**
+ * Order used by the reward overlay: a name read exactly as printed wins over
+ * any near-miss. Squad pool first, then the full catalog, and only then a
+ * fuzzy match against the squad pool.
+ */
+export function matchRewardText(ocrText, squadCandidates, globalPool, threshold = 0.65) {
+  return exactMatchReward(ocrText, squadCandidates)
+    || exactMatchReward(ocrText, globalPool)
+    || fuzzyMatchReward(ocrText, squadCandidates, threshold);
 }
 
 /**

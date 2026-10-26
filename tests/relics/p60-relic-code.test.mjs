@@ -106,13 +106,17 @@ test('P60 real inventory: Protea-Ivara vault relics retain their DE names in rec
   const { exportsBundle, dict } = await realHarness
   const { parser } = await modules()
   const raw = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'))
-  // The current real inventory owns Neo P11 but no longer owns Lith B12. Keep
-  // the user data as the basis of the test and add only that missing target so
-  // both DE entries exercise the identical inventory-parser path.
+  // Which of these relics the real inventory holds changes as the player uses
+  // them (Neo P11 was last held on 2026-10-17, Lith B12 returned on
+  // 2026-10-23). Keep the user data as the basis of the test and add whichever
+  // targets are missing so both DE entries exercise the identical
+  // inventory-parser path whatever the live inventory holds.
   const inventoryForTargets = structuredClone(raw)
   inventoryForTargets.MiscItems = [...(inventoryForTargets.MiscItems || [])]
-  if (!inventoryForTargets.MiscItems.some((item) => item?.ItemType === vaultRelics[0][0])) {
-    inventoryForTargets.MiscItems.push({ ItemType: vaultRelics[0][0], ItemCount: 1 })
+  for (const [targetUniqueName] of vaultRelics) {
+    if (!inventoryForTargets.MiscItems.some((item) => item?.ItemType === targetUniqueName)) {
+      inventoryForTargets.MiscItems.push({ ItemType: targetUniqueName, ItemCount: 1 })
+    }
   }
   const parsed = parser.parseInventory(inventoryForTargets, exportsBundle, dict, 'en', null)
   const rawVaultItems = Object.values(raw).flatMap((value) => Array.isArray(value) ? value : [])

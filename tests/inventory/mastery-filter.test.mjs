@@ -46,7 +46,7 @@ test('every mastered / unmastered filter uses the shared awardsMastery rule', ()
   for (const file of ['src/screens/Inventory.jsx', 'src/screens/Foundry.jsx', 'src/screens/Market.jsx']) {
     const src = fs.readFileSync(path.join(root, file), 'utf8')
     assert.match(src, /awardsMastery\(/, `${file} calls awardsMastery`)
-    assert.match(src, /import \{ awardsMastery \} from '\.\.\/lib\/masteryState'/, `${file} imports the rule`)
+    assert.match(src, /import \{[^}]*\bawardsMastery\b[^}]*\} from '\.\.\/lib\/masteryState'/, `${file} imports the rule`)
   }
   const market = fs.readFileSync(path.join(root, 'src/screens/Market.jsx'), 'utf8')
   assert.doesNotMatch(market, /stockFilter === "mastered" && \(item\.isRiven \|\| !item\.isMastered\)/, 'Market no longer uses the old mastered check')

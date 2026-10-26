@@ -3754,9 +3754,22 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     }
   }
 
+  // List behind the Inventory Weapons tab. DE files MOA/Hound parts, Amp parts,
+  // Archwings and K-Drive boards under weapon categories; rows already listed in
+  // their own tab are left out so they are not shown twice. Computed before
+  // `all` because the Exalted weapons and the Grimoire exist only here (they have
+  // no primary/secondary/melee slot), and All must list them too.
+  const weaponsTab = (() => {
+    const shownElsewhere = new Set();
+    for (const list of [companionsRaw, moaHeads, houndHeads, amps, archwings, kdrives, components, resources]) {
+      for (const item of list || []) if (item?.unique_name) shownElsewhere.add(item.unique_name);
+    }
+    return weaponsRaw.filter((item) => !shownElsewhere.has(item.unique_name) && !item.alternate_mode);
+  })();
+
   const all = [];
   const allSeen = new Set();
-  for (const item of [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts]) {
+  for (const item of [...warframes, ...primary, ...secondary, ...melee, ...kitguns, ...zaws, ...sentinels, ...moas, ...hounds, ...beasts, ...archwings, ...kdrives, ...archweapons, ...necramechs, ...amps, ...arcanes, ...consumables, ...resources, ...components, ...rivens, ...prime_parts, ...parts, ...weaponsTab]) {
     const key = canonicalInventoryUniqueName(item.unique_name || '');
     if (!key || allSeen.has(key)) continue;
     allSeen.add(key);
@@ -3903,16 +3916,8 @@ export function parseInventory(raw, exports, dict, locale = 'en', i18nData = nul
     DailyFocus: raw.DailyFocus ?? 0,
     FocusXP: raw.FocusXP ?? {},
     warframes,
-    // Compatibility list behind the Inventory Weapons tab. DE files MOA/Hound
-    // parts, Amp parts, Archwings and K-Drive boards under weapon categories;
-    // rows already listed in their own tab are left out so they are not shown twice.
-    weapons: (() => {
-      const shownElsewhere = new Set();
-      for (const list of [companionsRaw, moaHeads, houndHeads, amps, archwings, kdrives, components, resources]) {
-        for (const item of list || []) if (item?.unique_name) shownElsewhere.add(item.unique_name);
-      }
-      return weaponsRaw.filter((item) => !shownElsewhere.has(item.unique_name) && !item.alternate_mode);
-    })(),
+    // Compatibility list behind the Inventory Weapons tab (see `weaponsTab`).
+    weapons: weaponsTab,
     primary, secondary, melee, kitguns, zaws,
     companions: companionsRaw, // Compatibility
     sentinels, moas, hounds, beasts, robotics,

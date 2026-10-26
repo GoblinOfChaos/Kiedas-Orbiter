@@ -7,7 +7,7 @@
  */
 import { useState, useCallback, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { awardsMastery } from '../lib/masteryState'
+import { awardsMastery, neverAwardsMastery } from '../lib/masteryState'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
@@ -1527,7 +1527,7 @@ export default function Inventory() {
                     {!isUnowned && item.rank !== undefined && item.max_rank !== undefined && item.max_rank > 0 &&
                       <span className={`text-[10px] font-black uppercase ${item.rank === item.max_rank ? 'text-blue-400' : 'text-kronos-dim'}`}>R{item.rank}/{item.max_rank}</span>
                     }
-                    {!isModOrResource && (
+                    {!isModOrResource && !(neverAwardsMastery(item) && item.owned) && (
                       item.mastered ?
                       <span className="text-[10px] font-black uppercase text-blue-400 flex items-center gap-1"><Gem size={10} />{t('ui.comp.mastered')}</span> :
                       <span className={`text-[10px] font-black uppercase flex items-center gap-1 ${isUnowned ? 'text-kronos-dim/30' : 'text-kronos-dim'}`}><Gem size={10} />{item.owned ? 'Unmastered' : 'Unowned'}</span>
@@ -1642,8 +1642,9 @@ export default function Inventory() {
                           </span>
                     }
 
-                        {/* Mastery (equipment) */}
-                        {!isModOrResource && (
+                        {/* Mastery (equipment). Items that can never earn mastery show no
+                            mastery wording when owned; an unowned one still says "Unowned". */}
+                        {!isModOrResource && !(neverAwardsMastery(item) && item.owned) && (
                     item.mastered ?
                     <span className="text-[10px] font-black uppercase text-blue-400 flex items-center gap-1 min-w-0 max-w-full"><Gem size={10} className="fill-current/20 flex-shrink-0" /><span className="truncate min-w-0 flex-1">{t('ui.comp.mastered')}</span></span> :
                     <span className={`text-[10px] font-black uppercase flex items-center gap-1 min-w-0 max-w-full ${isUnowned ? 'text-kronos-dim/30' : 'text-kronos-dim'}`}><Gem size={10} className="flex-shrink-0" /><span className="truncate min-w-0 flex-1">{item.owned ? 'Unmastered' : 'Unowned'}</span></span>)

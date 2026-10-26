@@ -37,6 +37,14 @@ function listedPrefix(name) {
   return false
 }
 
+// Items the game never lets earn mastery. Their card must not say "Unmastered":
+// that wording promises mastery that cannot be earned. Exalted weapons come
+// with their Warframe, and the Drifter copy and story/alternate-mode records
+// share a masterable weapon's name (#92).
+export function neverAwardsMastery(item) {
+  return item?.exalted_weapon === true || item?.drifter_version === true || item?.no_mastery === true
+}
+
 export function awardsMastery(item) {
   if (!item?.name) return false
   if (NEVER.has(item.category)) return false

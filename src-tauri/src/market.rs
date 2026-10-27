@@ -2,6 +2,28 @@ use reqwest::Client;
 use serde_json::json;
 use std::time::Duration;
 
+/// Message for a failed Warframe.Market request. reqwest's own text ("error sending request for url")
+/// hides whether the request timed out, could not connect or failed in DNS/TLS, so name the kind and
+/// append the underlying cause chain.
+fn network_error(e: &reqwest::Error) -> String {
+    let kind = if e.is_timeout() {
+        "timed out"
+    } else if e.is_connect() {
+        "could not connect"
+    } else if e.is_request() {
+        "request failed"
+    } else {
+        "network failure"
+    };
+    let mut message = format!("Network error connecting to Warframe.Market ({kind}): {e}");
+    let mut source = std::error::Error::source(e);
+    while let Some(cause) = source {
+        message.push_str(&format!(" <- {cause}"));
+        source = cause.source();
+    }
+    message
+}
+
 fn clean_token(token: &str) -> String {
     let t = token
         .trim()
@@ -65,7 +87,7 @@ pub async fn post_market_order(
         .json(&payload)
         .send()
         .await
-        .map_err(|e| format!("Network error connecting to Warframe.Market: {}", e))?;
+        .map_err(|e| network_error(&e))?;
 
     let status = res.status();
     if status.is_success() {
@@ -96,7 +118,7 @@ pub async fn get_my_market_orders(token: String) -> Result<String, String> {
         .header("User-Agent", "KiedasOrbiter/1.3.3")
         .send()
         .await
-        .map_err(|e| format!("Network error connecting to Warframe.Market: {}", e))?;
+        .map_err(|e| network_error(&e))?;
 
     let status = res.status();
     let text = res.text().await.unwrap_or_else(|_| "Unknown error body".to_string());
@@ -127,7 +149,7 @@ pub async fn delete_market_order(token: String, order_id: String) -> Result<(), 
         .header("User-Agent", "KiedasOrbiter/1.3.3")
         .send()
         .await
-        .map_err(|e| format!("Network error connecting to Warframe.Market: {}", e))?;
+        .map_err(|e| network_error(&e))?;
 
     let status = res.status();
     if status.is_success() {
@@ -176,7 +198,7 @@ pub async fn update_market_order(
         .json(&payload)
         .send()
         .await
-        .map_err(|e| format!("Network error connecting to Warframe.Market: {}", e))?;
+        .map_err(|e| network_error(&e))?;
 
     let status = res.status();
     if status.is_success() {
@@ -212,7 +234,7 @@ pub async fn close_market_order(token: String, order_id: String, quantity: i32) 
         .json(&payload)
         .send()
         .await
-        .map_err(|e| format!("Network error connecting to Warframe.Market: {}", e))?;
+        .map_err(|e| network_error(&e))?;
 
     let status = res.status();
     if status.is_success() {

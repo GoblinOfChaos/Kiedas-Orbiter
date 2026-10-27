@@ -64,3 +64,11 @@ export function awardsMastery(item) {
   }
   return false
 }
+
+// The Helminth can only subsume a built non-Prime, non-Umbra Warframe (Warframe wiki, "Helminth").
+// Prime frames and Excalibur Umbra therefore never count for the Subsumed / Not subsumed filters.
+export function canBeSubsumed(item) {
+  if (item?.is_prime === true) return false
+  const name = String(item?.name ?? '')
+  return !(/\bPrime$/.test(name) || /\bUmbra$/.test(name))
+}

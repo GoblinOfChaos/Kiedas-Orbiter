@@ -7,7 +7,7 @@
  */
 import { useState, useCallback, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useUi } from '../contexts/UiContext'
-import { awardsMastery, neverAwardsMastery } from '../lib/masteryState'
+import { awardsMastery, neverAwardsMastery, canBeSubsumed } from '../lib/masteryState'
 import { Search, Filter, ArrowUpDown, Check, Box, Zap, Gem, X, Layers, LayoutGrid, List } from 'lucide-react';
 import { PageLayout, Card, Input, Button, Tabs, MonitorState, Tooltip } from '../components/UI';
 import { useMonitoring } from '../contexts/MonitoringContext';
@@ -661,6 +661,7 @@ export default function Inventory() {
           const state = currentFilters[f];
           if (state === undefined) continue;
           if (f === 'mastered' && !awardsMastery(item)) return false;
+          if (f === 'subsumed' && !canBeSubsumed(item)) return false;
           if (state === 'yes') {
             if (f === 'owned' && !item.owned) return false;
             if (f === 'mastered' && !item.mastered) return false;
@@ -1117,9 +1118,11 @@ export default function Inventory() {
         <div className={IS_PREVIEW ? 'flex items-center gap-3 flex-wrap' : 'contents'}>
         {/* Filter Tags In-line */}
         {(FILTER_CONFIG[activeTab] ?? []).length > 0 &&
-      <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2">
-            <Filter size={14} className="text-kronos-dim mx-1" />
-            <div className="flex gap-1">
+      <div className={`flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 px-2 ${IS_PREVIEW ? 'min-h-[42px] min-w-0 max-w-full' : 'h-[42px]'}`} data-preview-inventory-filters={IS_PREVIEW ? '' : undefined}>
+            <Filter size={14} className={`text-kronos-dim mx-1 ${IS_PREVIEW ? 'shrink-0' : ''}`} />
+            {/* Preview: the filter groups wrap onto further lines instead of being clipped
+                when the window is narrow (same approach as the Rivens filters, #41). */}
+            <div className={`flex gap-1 ${IS_PREVIEW ? 'flex-wrap min-w-0' : ''}`}>
               {(() => {
             const keys = FILTER_CONFIG[activeTab] ?? [];
             const renderedGroups = new Set();

@@ -60,6 +60,12 @@ if (typeof window !== 'undefined') {
       forwardLog('UNCAUGHT', event.message, `at ${event.filename}:${event.lineno}:${event.colno}`, event.error);
     });
 
+    // The Content-Security-Policy allowlist (src-tauri/tauri.conf.json) blocks anything not listed;
+    // write each blocked load to the app log so a missing host is visible instead of a silent gap.
+    window.addEventListener('securitypolicyviolation', (event) => {
+      forwardLog('WARN', `[CSP] blocked ${event.effectiveDirective} ${event.blockedURI} on ${event.documentURI}`);
+    });
+
   // Always on, all builds: PerformanceObserver('longtask') reports real
   // main-thread blocking (>50ms) directly - no devtools Performance tab
   // needed to see what's actually causing visible stutter/jank.

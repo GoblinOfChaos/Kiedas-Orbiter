@@ -265,9 +265,9 @@ export default function Mods() {
         </div>
 
         {/* Sort Controls */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-mods-sort={IS_PREVIEW ? '' : undefined}>
-          <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
-          <div className="flex gap-1">
+        <div className={`flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 px-2 ${IS_PREVIEW ? 'min-h-[42px] min-w-0 max-w-full' : 'h-[42px]'}`} data-preview-mods-sort={IS_PREVIEW ? '' : undefined}>
+          <ArrowUpDown size={12} className={`text-kronos-accent mx-1 ${IS_PREVIEW ? 'shrink-0' : ''}`} />
+          <div className={`flex gap-1 ${IS_PREVIEW ? 'flex-wrap min-w-0' : ''}`}>
             {SORT_OPTIONS.map((c) => {
             const isActive = sortCriteria === c.id;
             return (
@@ -285,9 +285,9 @@ export default function Mods() {
         </div>
 
         {/* Filters (Max Rank + Hide Conclave) */}
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-[42px] px-2" data-preview-mods-filters={IS_PREVIEW ? '' : undefined}>
-          <Filter size={14} className="text-kronos-dim mx-1" />
-          <div className="flex gap-1">
+        <div className={`flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 px-2 ${IS_PREVIEW ? 'min-h-[42px] min-w-0 max-w-full' : 'h-[42px]'}`} data-preview-mods-filters={IS_PREVIEW ? '' : undefined}>
+          <Filter size={14} className={`text-kronos-dim mx-1 ${IS_PREVIEW ? 'shrink-0' : ''}`} />
+          <div className={`flex gap-1 ${IS_PREVIEW ? 'flex-wrap min-w-0' : ''}`}>
             {[
               { id: 'all', label: t('ui.inventory.tab_all') },
               { id: 'owned', label: t('ui.inventory.filter_owned') },

@@ -441,9 +441,9 @@ export default function Cosmetics() {
     <div className="flex flex-col gap-3" data-preview-cosmetics-controls={IS_PREVIEW ? '' : undefined}>
       <div className="flex items-center gap-3 flex-wrap" data-preview-cosmetics-toolbar={IS_PREVIEW ? '' : undefined}>
         <div className="relative max-w-sm flex-1 min-w-[200px]" data-preview-cosmetics-search={IS_PREVIEW ? '' : undefined}><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-kronos-dim" size={14} /><Input placeholder={t('cosmetics.search_placeholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="h-9 pl-9 text-xs" /></div>
-        <div className="flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 h-9 px-2" data-preview-cosmetics-sort={IS_PREVIEW ? '' : undefined}>
-          <ArrowUpDown size={12} className="text-kronos-accent mx-1" />
-          <div className="flex gap-1">
+        <div className={`flex items-center gap-1.5 p-1 bg-black/20 rounded-xl border border-white/5 px-2 ${IS_PREVIEW ? 'min-h-9 min-w-0 max-w-full' : 'h-9'}`} data-preview-cosmetics-sort={IS_PREVIEW ? '' : undefined}>
+          <ArrowUpDown size={12} className={`text-kronos-accent mx-1 ${IS_PREVIEW ? 'shrink-0' : ''}`} />
+          <div className={`flex gap-1 ${IS_PREVIEW ? 'flex-wrap min-w-0' : ''}`}>
             {SORT_OPTIONS.map((c) => {
               const isActive = sortCriteria === c.id
               return (

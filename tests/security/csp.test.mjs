@@ -66,3 +66,9 @@ test('the frontend makes no direct fetch, iframe, worker or remote stylesheet re
     assert.doesNotMatch(source, /<iframe|new Worker\(|@import\s+url\(\s*['"]?https?:/, file + ' uses a frame, worker or remote stylesheet')
   }
 })
+
+test('inline style elements stay allowed through style-src-elem (Tauri adds a nonce to style-src, which disables unsafe-inline there)', () => {
+  assert.ok(directive('style-src-elem').includes("'unsafe-inline'"))
+  assert.ok(directive('style-src-elem').includes("'self'"))
+  assert.ok(!directive('style-src-elem').includes('http:') && !directive('style-src-elem').includes('https:'))
+})

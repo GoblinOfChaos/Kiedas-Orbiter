@@ -236,6 +236,14 @@
       "msi",
       "nsis",
       "dmg"
-    ]
+    ],
+    "linux": {
+      "appimage": {
+        "files": {
+          "usr/share/metainfo/com.jacob.kiedasorbiter.preview.metainfo.xml": "linux/com.jacob.kiedasorbiter.preview.metainfo.xml",
+          "usr/share/metainfo/com.jacob.kiedasorbiter.metainfo.xml": null
+        }
+      }
+    }
   }
 }

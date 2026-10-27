@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.jacob.kiedasorbiter</id>
+  <name>Kieda's Orbiter</name>
+  <summary>A cross-platform desktop companion for Warframe</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <description>
+    <p>A cross-platform desktop companion for Warframe, forked from Cephalon Kronos.</p>
+  </description>
+  <launchable type="desktop-id">Kieda&apos;s Orbiter.desktop</launchable>
+  <url type="homepage">https://github.com/GoblinOfChaos/Kiedas-Orbiter</url>
+  <url type="bugtracker">https://github.com/GoblinOfChaos/Kiedas-Orbiter/issues</url>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <provides>
+    <binary>kiedas-orbiter</binary>
+  </provides>
+  <content_rating type="oars-1.1"/>
+</component>

@@ -21,6 +21,11 @@
       "data/assets/wiki-store/**/*"
     ],
     "linux": {
+      "appimage": {
+        "files": {
+          "usr/share/metainfo/com.jacob.kiedasorbiter.metainfo.xml": "linux/com.jacob.kiedasorbiter.metainfo.xml"
+        }
+      },
       "deb": {
         "depends": [
           "libwebkit2gtk-4.1-0",

@@ -33,7 +33,7 @@ test('the inline script in index.html is allowed by its hash and is the only one
 
 test('remote images are limited to the hosts the bundled data uses, and local asset schemes stay allowed', () => {
   const img = directive('img-src')
-  for (const token of ['asset:', 'asset-cache:', 'http://asset-cache.localhost', 'data:', 'blob:', 'https://wiki.warframe.com', 'https://cdn.warframestat.us']) {
+  for (const token of ['asset:', 'asset-cache:', 'http://asset-cache.localhost', 'data:', 'blob:', 'https://wiki.warframe.com', 'https://cdn.warframestat.us', 'https://browse.wf', 'https://content.warframe.com']) {
     assert.ok(img.includes(token), 'img-src is missing ' + token)
   }
   const data = read('src-tauri/data/assets/data/cosmetic-catalog-additions.json')

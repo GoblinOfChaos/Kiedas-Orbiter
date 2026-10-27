@@ -223,9 +223,15 @@ export default function FarmingTargets() {
   const [enemyModules, setEnemyModules] = useState(null);
   useEffect(() => {
     let cancelled = false;
-    loadEnemyModules(createWikiStore({ invoke }))
+    let reported = false;
+    const report = (title, error) => {
+      if (reported) return;
+      reported = true;
+      event('farming.enemy_areas.load_failed', { module: title, error: String(error?.message ?? error) });
+    };
+    loadEnemyModules(createWikiStore({ invoke }), undefined, report)
       .then((modules) => { if (!cancelled) setEnemyModules(modules); })
-      .catch(() => { if (!cancelled) setEnemyModules([]); });
+      .catch((error) => { report('all', error); if (!cancelled) setEnemyModules([]); });
     return () => { cancelled = true; };
   }, []);
   const enemyAreas = useMemo(

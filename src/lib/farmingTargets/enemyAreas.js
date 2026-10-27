@@ -64,8 +64,14 @@ export function buildEnemyAreaIndex(enemyModules = [], regions = [], dict = {}) 
   return index;
 }
 
-/** Loads the wiki enemy modules through a wiki store client; modules missing from the store are skipped. */
-export async function loadEnemyModules(wikiStore, titles = ENEMY_DATA_MODULES) {
-  const loaded = await Promise.all(titles.map((title) => wikiStore.getModule(title).then((module) => module.data, () => null)));
+/**
+ * Loads the wiki enemy modules through a wiki store client. A module that cannot be loaded is
+ * skipped and reported through onError, so a missing or broken store shows up in the app log.
+ */
+export async function loadEnemyModules(wikiStore, titles = ENEMY_DATA_MODULES, onError = () => {}) {
+  const loaded = await Promise.all(titles.map((title) => wikiStore.getModule(title).then((module) => module.data, (error) => {
+    onError(title, error);
+    return null;
+  })));
   return loaded.filter((data) => data && typeof data === 'object');
 }

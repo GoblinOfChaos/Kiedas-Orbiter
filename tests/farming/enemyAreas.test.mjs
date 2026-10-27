@@ -104,3 +104,18 @@ test('the Enemies tab ranking carries the area through to the screen row', () =>
   assert.equal(model.ranked[0].place.name, 'Grineer Lancer');
   assert.deepEqual(model.ranked[0].place.area.planets, ['Mercury', 'Ceres']);
 });
+
+test('a module that fails to load is reported once per failure and skipped', async () => {
+  const errors = [];
+  const store = { getModule: async () => { throw new Error('bundled wiki store is unavailable'); } };
+  const modules = await loadEnemyModules(store, ['Module:A', 'Module:B'], (title, error) => errors.push([title, error.message]));
+  assert.deepEqual(modules, []);
+  assert.deepEqual(errors, [['Module:A', 'bundled wiki store is unavailable'], ['Module:B', 'bundled wiki store is unavailable']]);
+});
+
+test('the wiki store folder is listed in the bundle resources of every platform config', () => {
+  for (const file of ['tauri.linux.conf.json', 'tauri.darwin.conf.json', 'tauri.windows.conf.json']) {
+    const config = JSON.parse(fs.readFileSync(path.resolve('src-tauri', file), 'utf8'));
+    assert.ok(config.bundle.resources.includes('data/assets/wiki-store/**/*'), file);
+  }
+});

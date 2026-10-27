@@ -1238,6 +1238,11 @@ export default function Market({ onNavigate }) {
                           <span className="text-xs text-kronos-accent font-bold">p</span>
                         </div>
 
+                        {item.isRiven ? (
+                          // Rivens cannot be listed from here (no verified auction API), so this is a plain note, not a
+                          // disabled green button whose grey text was unreadable.
+                          <span data-market-riven-listing-note className="max-w-[12rem] text-right text-[11px] leading-tight text-kronos-text/80">{t("market.riven_listing_unavailable")}</span>
+                        ) : (
                         <button
                           onClick={() => handleSellStockItem(item)}
                           disabled={isListing || isListed || !canSell}
@@ -1250,9 +1255,7 @@ export default function Market({ onNavigate }) {
                               : "bg-kronos-accent text-black hover:bg-[#0284c7] text-black"
                           } disabled:opacity-50`}
                         >
-                          {item.isRiven ? (
-                            <span className="text-[10px] text-kronos-dim text-right">{t("market.riven_listing_unavailable")}</span>
-                          ) : isListing ? (
+                          {isListing ? (
                             <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                           ) : isListed ? (
                             <>
@@ -1262,6 +1265,7 @@ export default function Market({ onNavigate }) {
                             t("market.sell_on_wfm")
                           )}
                         </button>
+                        )}
                       </div>
                     </div>
                   );

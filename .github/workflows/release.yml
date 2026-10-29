@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-24.04, windows-latest]
+        platform: [macos-latest, ubuntu-22.04, windows-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -56,7 +56,7 @@ jobs:
           toolchain: stable
 
       - name: Install dependencies (Ubuntu)
-        if: matrix.platform == 'ubuntu-24.04'
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update || sudo apt-get update
           sudo apt-get install -y --fix-missing \
@@ -85,34 +85,6 @@ jobs:
         shell: bash
         run: mkdir -p src-tauri/data/bin
   
-      - name: Download Warframe-Exporter-CLI (Windows)
-        if: matrix.platform == 'windows-latest'
-        shell: bash
-        run: |
-          curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Windows.exe" \
-            -o src-tauri/data/bin/Warframe-Exporter-CLI.exe
-
-      - name: Download Warframe-Exporter-CLI (Linux)
-        if: matrix.platform == 'ubuntu-24.04'
-        shell: bash
-        run: |
-          curl -L "https://github.com/Puxtril/Warframe-Exporter/releases/download/v2.14/Warframe-Exporter-CLI_Linux.AppImage" \
-            -o /tmp/Warframe-Exporter-CLI.AppImage
-          chmod +x /tmp/Warframe-Exporter-CLI.AppImage
-          # Extract the AppImage so we bundle a plain ELF (avoid nested AppImage issues)
-          /tmp/Warframe-Exporter-CLI.AppImage --appimage-extract > /dev/null 2>&1
-          # Find the actual binary inside the extracted squashfs
-          BIN=$(find squashfs-root -type f -executable 2>/dev/null | head -1)
-          if [ -n "$BIN" ]; then
-            cp "$BIN" src-tauri/data/bin/Warframe-Exporter-CLI
-            chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
-          else
-            # Fallback: if extraction didn't work, use the AppImage as-is
-            cp /tmp/Warframe-Exporter-CLI.AppImage src-tauri/data/bin/Warframe-Exporter-CLI
-            chmod +x src-tauri/data/bin/Warframe-Exporter-CLI
-          fi
-          rm -rf squashfs-root /tmp/Warframe-Exporter-CLI.AppImage
-
       - name: Install frontend dependencies
         run: pnpm install
 
@@ -159,7 +131,7 @@ jobs:
       # a Tauri AppImage EGL_BAD_PARAMETER bug on rolling-release distros.
       # See https://github.com/tauri-apps/tauri/pull/12491 for upstream fix.
       - name: Patch AppImage - work around EGL_BAD_PARAMETER via LD_PRELOAD
-        if: matrix.platform == 'ubuntu-24.04'
+        if: matrix.platform == 'ubuntu-22.04'
         shell: bash
         env:
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
@@ -193,7 +165,9 @@ jobs:
           # scripts/rebuild-appimage.sh already works around this for local
           # builds by writing resources straight to the right path; do the
           # equivalent here by renaming the directory before repacking.
-          WRONG_RESOURCE_DIR=$(find squashfs-root/usr/lib -maxdepth 1 -mindepth 1 -type d ! -name kiedas-orbiter | head -1)
+          # Pick only a directory that actually holds the app resources (data/assets): `find | head -1` alone picks
+          # whichever directory the file system lists first, which can be a system library directory.
+          WRONG_RESOURCE_DIR=$(find squashfs-root/usr/lib -maxdepth 1 -mindepth 1 -type d ! -name kiedas-orbiter -exec test -d '{}/data/assets' \; -print | head -1)
           if [ -n "$WRONG_RESOURCE_DIR" ] && [ ! -d squashfs-root/usr/lib/kiedas-orbiter ]; then
             echo "Relocating resources: $WRONG_RESOURCE_DIR -> squashfs-root/usr/lib/kiedas-orbiter"
             mv "$WRONG_RESOURCE_DIR" squashfs-root/usr/lib/kiedas-orbiter

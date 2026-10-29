@@ -193,7 +193,9 @@ jobs:
           # scripts/rebuild-appimage.sh already works around this for local
           # builds by writing resources straight to the right path; do the
           # equivalent here by renaming the directory before repacking.
-          WRONG_RESOURCE_DIR=$(find squashfs-root/usr/lib -maxdepth 1 -mindepth 1 -type d ! -name kiedas-orbiter | head -1)
+          # Pick only a directory that actually holds the app resources (data/assets): `find | head -1` alone picks
+          # whichever directory the file system lists first, which can be a system library directory.
+          WRONG_RESOURCE_DIR=$(find squashfs-root/usr/lib -maxdepth 1 -mindepth 1 -type d ! -name kiedas-orbiter -exec test -d '{}/data/assets' \; -print | head -1)
           if [ -n "$WRONG_RESOURCE_DIR" ] && [ ! -d squashfs-root/usr/lib/kiedas-orbiter ]; then
             echo "Relocating resources: $WRONG_RESOURCE_DIR -> squashfs-root/usr/lib/kiedas-orbiter"
             mv "$WRONG_RESOURCE_DIR" squashfs-root/usr/lib/kiedas-orbiter

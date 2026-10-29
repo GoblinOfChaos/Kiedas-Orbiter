@@ -1,14 +1,16 @@
-Paste this as the first message of the new chat:
+Paste this as the first message of a new session or as the orchestrator's project brief:
 
 ---
 
-Continue work on Kieda's Orbiter Preview (the app is the separate git repo at /home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center, branch preview/stage4; run every git command inside it).
+You are taking over work on Kieda's Orbiter Preview, a Warframe companion app (Tauri 2 + React). The app lives in a nested git repo: `/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center` (branch `preview/stage4`). Run every git command and every test inside it.
 
-Start by reading, in this order:
-1. docs/agent-context/SESSION_HANDOFF_2026-10-03.md (state, rules, tools, open items, lessons)
-2. docs/APP_CHECKLIST.md and docs/RECURRING_ERRORS_REPORT.md (status table at the top, BUILD STATUS, R1-R7)
-3. /home/jedwards/kiedas-orbiter/AGENTS.md and your memory index (auto-loaded)
+Read in this order before doing anything:
+1. `docs/agent-context/HANDOFF.md` (state, repos, rules, commands, work queue, traps)
+2. `/var/home/jedwards/kiedas-orbiter/AGENTS.md` and `/var/home/jedwards/kiedas-orbiter/.claude/BUILD_AND_DEPLOY_CHECKLIST.md`
+3. `docs/agent-context/ops/job-rules.md` and `docs/agent-context/ops/public-text-rule.md`
 
-Current state: the 20:40 build on 2026-10-03 is deployed (commit 4b64f92d, rollback copies .bak-2040 / .bak-1801 / .bak-1657 in ~/AppImages). All fixes are merged, JS suite 252 pass, native tests 48 pass. I have not checked this build yet; I will go through the checklist and report problems with screenshots.
+State on 2026-10-28: the deployed build is Preview HEAD `9da4658d` (2026-10-27 15:05). Everything is committed locally; nothing from the last two weeks is pushed, and the local branch has diverged from `github/preview/stage4`, so do not push. Two pull requests (#140, #137) wait for the maintainer to merge.
 
-First task: give me a three-line status and wait for my checklist results.
+Rules that matter most: plan and get explicit confirmation before code changes, builds, deploys, pushes, merges or public GitHub posts; never guess game data (primary sources only); never kill the running app; translations are last; read the app log after every build.
+
+First task: reply with a three-line status (what is deployed, what is waiting on the maintainer, what you propose to work on first) and wait for the go-ahead.

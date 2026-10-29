@@ -1,0 +1,109 @@
+additional appearance config slot for this item | /Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker
+additional mod config slot for this item | /Lotus/Types/Items/MiscItems/ModSlotUnlocker
+Ayatan Hemakara Sculpture | /Lotus/Types/Items/FusionTreasures/OroFusexJ
+Bile | /Lotus/Types/Items/InfestedFoundry/HelminthBile
+Bioplasma | /Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem
+Biotics | /Lotus/Types/Items/InfestedFoundry/HelminthBiotics
+Black-Banded Bolarola Tag | /Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon
+Calx | /Lotus/Types/Items/InfestedFoundry/HelminthCalx
+Cerulean Fungus Extract | /Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem
+Chesa Kubrow (Chow Chow) | /Lotus/Types/Game/KubrowPet/RetrieverKubrowPetPowerSuit
+Corrupted Heavy Gunner Specter | /Lotus/Types/Restoratives/Consumable/CorruptedHeavyGunnerBall
+Danger Room Tile | /Lotus/Types/Items/DangerRoom/DangerRoomTile
+Delicate Pobber Tag | /Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon
+Delta Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA
+DNA Stabilizers | /Lotus/Types/Game/KubrowPet/KubrowPetFood
+Ember Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem
+Emperor Condroc Tag | /Lotus/Types/Items/Eidolon/AnimalTagCondrocRare
+ENGINE COWLING REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodFeatureItem
+Fire-Veined Stover Tag | /Lotus/Types/Items/Solaris/AnimalTagStoverRare
+Frogmouthed Sawgaw Tag | /Lotus/Types/Items/Solaris/AnimalTagSawgawRare
+Frostcap | /Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem
+Gamma Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB
+Garuda Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem
+Genericdojocolorpigment | /Lotus/Types/Items/Research/DojoColors/GenericDojoColorPigment
+Ghost Brush Extract | /Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem
+Glyph Prism | /Lotus/Types/Restoratives/Consumable/GuildGlyphConsumableNoCharges
+Haalvu | /Lotus/Weapons/Sentients/SentOctaMiniGun/SentOctaMiniGun
+Horrasque Stormer Tag | /Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare
+Kappa Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC
+Kubrodon Incarnadine Tag | /Lotus/Types/Items/Solaris/AnimalTagKubrodonRare
+Last Chance Offerings | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemA
+Library Scanner Upgrade | /Lotus/Types/Items/MiscItems/LibraryScannerUpgrade
+Omega Beacon | /Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD
+Orokin Monitor | /Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem
+Owned Peely Pak | /Lotus/Types/Items/MiscItems/1999FixedStickersPack
+Oxides | /Lotus/Types/Items/InfestedFoundry/HelminthOxides
+Panzer Vulpaphyla (Yip) | /Lotus/Types/Friendly/Pets/CreaturePets/ArmoredInfestedCatbrowPetPowerSuit
+Phasic Cells | /Lotus/Types/Items/MiscItems/MechSurvivalEventCreds
+Pheromones | /Lotus/Types/Items/InfestedFoundry/HelminthPheromones
+Photobooth Tile | /Lotus/Types/Items/MiscItems/PhotoboothTile
+Plantitem | /Lotus/Types/Items/Plants/MiscItems/PlantItem
+PORT NACELLE REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleLeftFeatureItem
+PROPULSION SYSTEMS REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackHoodBraceFeatureItem
+Protea Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem
+Raksa Kubrow (Rascal) | /Lotus/Types/Game/KubrowPet/GuardKubrowPetPowerSuit
+Red-Crested Virmink Tag | /Lotus/Types/Items/Solaris/AnimalTagVirminkRare
+Roathe's Oblivion Arena | /Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena
+Scarlet Credits | /Lotus/Types/Items/Events/OperationsCredits
+SENTIENT APPETITE | /Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer
+Ship Feature Item | /Lotus/Types/Items/ShipFeatureItems/ShipFeatureItem
+Skateweed Extract | /Lotus/Types/Items/Plants/MiscItems/IresPlantItem
+Smeeta Kavat (Mouser) | /Lotus/Types/Game/CatbrowPet/CheshireCatbrowPetPowerSuit
+Solaris Mining Tool Upgrade | /Lotus/Types/Items/MiscItems/SolarisMiningToolUpgrade
+Splendid Mergoo Tag | /Lotus/Types/Items/Eidolon/AnimalTagMergooRare
+Spring Festival Interior Decorations | /Lotus/Types/Items/ShipLayerCNY
+STARBOARD NACELLE REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackNacelleRightFeatureItem
+STOCKING | /Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem
+Synthetics | /Lotus/Types/Items/InfestedFoundry/HelminthSynthetics
+TAIL SECTION REPAIRS | /Lotus/Types/Items/ShipFeatureItems/Railjack/DamagedRailjackTailFeatureItem
+Tasoma Spore | /Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed
+Tertium | /Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem
+The Citadel Simulacrum | /Lotus/Types/Items/DangerRoom/DangerRoomTileDefault
+Thorny Bolarola Tag | /Lotus/Types/Items/Solaris/AnimalTagBolarolaRare
+Titania Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem
+TNW Archon Item Base | /Lotus/Types/Items/MiscItems/TNWArchonItemBase
+Vallis Kubrodon Tag | /Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon
+Varzia's Offerings | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemC
+Varzia's Offerings - Part 2 | /Lotus/Types/Packages/MegaPrimeVault/LastChanceItemB
+Vauban Prex | /Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem
+Vay Hek Nav Coordinate | /Lotus/Types/Items/MiscItems/HekNavCode
+Woodland Mergoo Tag | /Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon
+Yuvan Peak Scene | /Lotus/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub
+Zarimandogtag | /Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTag
+Health Restore (Small) | /Lotus/Types/Restoratives/SelfHealSmall
+Omni | /Lotus/Types/Restoratives/Consumable/RepairTool
+Pistol Ammo Box | /Lotus/Types/Restoratives/SelfPistolAmmo
+Shield Restore (Small) | /Lotus/Types/Restoratives/SelfShieldHeal
+Sniper Ammo Box | /Lotus/Types/Restoratives/SelfSniperAmmo
+Argon Combo #2 | /Lotus/Upgrades/Stickers/DropSpecialItemChanceOnWeakpointKillSticker
+Breathless | /Lotus/Upgrades/Stickers/ToxinGasResistanceOnHealthOrbSticker
+Burgerfest | /Lotus/Upgrades/Stickers/DropHealingBurgerChanceSticker
+Catscratch Fever | /Lotus/Upgrades/Stickers/StickerSporePrimer
+Crushing Chills | /Lotus/Upgrades/Stickers/CreateShieldOnHeavySlamSticker
+Doktor's Orders | /Lotus/Upgrades/Stickers/StickerEnemyShotgun
+Fly, Fly! | /Lotus/Upgrades/Stickers/DropEfervonGrenadeChanceSticker
+Going Steady | /Lotus/Upgrades/Stickers/AvatarKnockdownResistanceSticker
+Hi-Score | /Lotus/Upgrades/Stickers/DeathPreventionOnKillsSticker
+It Sees You | /Lotus/Upgrades/Stickers/CreateChasingAntiMatterDropSticker
+Old Pizza | /Lotus/Upgrades/Stickers/ToxinProcOnDamageSticker
+Only Knives | /Lotus/Upgrades/Stickers/StickerEnemyMelee
+Optimism | /Lotus/Upgrades/Stickers/FreezePlayerOverTimeSticker
+Panic Call | /Lotus/Upgrades/Stickers/NPCReviveSticker
+Resolutions | /Lotus/Upgrades/Stickers/StickerEnemyRifle
+Reverse-O | /Lotus/Upgrades/Stickers/RemoveStatusesOnHeavyAttackSticker
+Slippery Customer | /Lotus/Upgrades/Stickers/EjectButtonSticker
+Spinnin' Around | /Lotus/Upgrades/Stickers/NullStarOnWeakpointKillSticker
+Super Scavenger | /Lotus/Upgrades/Stickers/ElementalAmmoChanceOnEximusKillSticker
+Through My Heart | /Lotus/Upgrades/Stickers/StickerEnemySmg
+Too Hot | /Lotus/Upgrades/Stickers/DecoyOnDamagedSticker
+Vintage Tech | /Lotus/Upgrades/Stickers/AllowNecramechSummonSticker
+Wakeup Call | /Lotus/Upgrades/Stickers/AllowThermianRpgSummonSticker
+Walking on Air | /Lotus/Upgrades/Stickers/SuperGlideParkourSticker
+XL Frosty | /Lotus/Upgrades/Stickers/WeaponColdDamageSticker
+Axi B10 Relic | /Lotus/Types/Game/Projections/T4VoidProjectionSevagothHydroidVaultABronze
+Axi N14 Relic | /Lotus/Types/Game/Projections/T4VoidProjectionSevagothHydroidVaultBBronze
+Lith S20 Relic | /Lotus/Types/Game/Projections/T1VoidProjectionSevagothHydroidVaultABronze
+Meso E8 Relic | /Lotus/Types/Game/Projections/T2VoidProjectionSevagothHydroidVaultABronze
+Neo H5 Relic | /Lotus/Types/Game/Projections/T3VoidProjectionSevagothHydroidVaultBBronze
+Neo N25 Relic | /Lotus/Types/Game/Projections/T3VoidProjectionSevagothHydroidVaultABronze

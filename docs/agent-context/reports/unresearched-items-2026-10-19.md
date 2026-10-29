@@ -1,0 +1,599 @@
+# Items whose drawer says "How to get this item has not been researched yet"
+
+Scan of every item the app lists (13,873 items across Inventory, Mods, Cosmetics and Relics), 2026-10-19, using the same steps as the acquisition drawer. Total: 579.
+
+Not on this list even though it was seen on screen: Karak Wraith Receiver (screen still to be identified).
+
+## Cosmetics (368)
+
+- Acolyte Emblem — `/Lotus/Upgrades/Skins/Clan/ProjectSinisterBadgeItem`
+- Alumeti Prime Sugatra — `/Lotus/Upgrades/Skins/MeleeDangles/PrimeCitrineSugatra`
+- Argyl Kavat Fur Pattern — `/Lotus/Upgrades/Skins/Catbrows/XmasCatbrowSkin`
+- Astro Fella Toy — `/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExPlushAstronautRayTennoBaumToyDeco`
+- Banshee Threnodia Helmet — `/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBHelmet`
+- Banshee Threnodia Shoulder Armor — `/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBArmLeftArmor`
+- Banshee Threnodia Skin — `/Lotus/Upgrades/Skins/Decree/BansheeDeluxeBSkin`
+- Belfri Ephemera — `/Lotus/Upgrades/Skins/Effects/QorvexDeluxeEphemera`
+- Bingwu Glyph — `/Lotus/Types/StoreItems/AvatarImages/LNY2026HorseGlyph`
+- Blink Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageBlinkGlyph`
+- Bronze Skull Emblem — `/Lotus/Upgrades/Skins/Clan/SkullBadgeBronzeItem`
+- Buddies In Gaming Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageSwitch2Glyph`
+- Buried Debts Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageBuriedDebts`
+- COMMEMORATIVE EMBLEM — `/Lotus/Upgrades/Skins/Clan/CYCCBBadgeItem`
+- Calavera Glyph Ii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageHalloween2016B`
+- Calavera Glyph Iii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageHalloween2016C`
+- Calavera Glyph Iv — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageHalloween2016D`
+- Caliban Orfeo In Action Glyph — `/Lotus/Types/StoreItems/AvatarImages/ImageCalibanDeluxeInAction`
+- Carrier Jade Skin — `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeCarrier`
+- Centurion Commando Toy — `/Lotus/Types/Items/ShipDecos/AmazingEternals/TAExArmyManWinterTennoBaumToyDeco`
+- Cephalon Cy Glyph — `/Lotus/Types/StoreItems/AvatarImages/ImageCephalonCy`
+- Cephalon Simaris Glyph — `/Lotus/Types/StoreItems/AvatarImages/ImageCephalonSimaris`
+- Cicero Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterH`
+- Citrine Heliotropia Helmet — `/Lotus/Upgrades/Skins/Geode/SWCitrineHeliotropiaHelmet`
+- Citrine In Action Glyph — `/Lotus/Types/StoreItems/AvatarImages/Warframes/CitrineActionGlyph`
+- Citrine Prime Adornments — `/Lotus/Upgrades/Skins/Geode/CitrinePrimeAux`
+- Citrine Prime Helmet — `/Lotus/Upgrades/Skins/Geode/CitrinePrimeHelmet`
+- Citrine Prime Skin — `/Lotus/Upgrades/Skins/Geode/CitrinePrimeSkin`
+- Cogna Earpiece — `/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEarPieceA`
+- Cogna Mask — `/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveMaskA`
+- Cogna Oculus — `/Lotus/Upgrades/Skins/Operator/Accessories/NightWaveEyePieceA`
+- Coltek Obsidian Sentinel Mask — `/Lotus/Upgrades/Skins/Sony/ObsidianColtekMask`
+- Come Here Emote — `/Lotus/Types/Items/Emotes/FinishLine`
+- Commander — `/Lotus/Types/Items/Emotes/CaptainEmote`
+- Community Dog Days Erra Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysErraGlyph`
+- Community Dog Days Executioner Garesh Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysGareshGlyph`
+- Community Dog Days Kela De Thaym Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysKelaGlyph`
+- Community Dog Days Rusalka Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageDogDaysRusalkaGlyph`
+- Community Tennobaum Adis On A Shelf Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumAdisGlyph`
+- Community Tennobaum Lyon Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumLyonGlyph`
+- Community Tennobaum Man In The Cookie Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumManintheCookie`
+- Community Tennobaum Marie Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumMarieGlyph`
+- Community Tennobaum Roathe Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumRoatheGlyph`
+- Community Tennobaum Sprodling Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumSpodlingGlyph`
+- Community Tennobaum Teshin Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumTeshinGlyph`
+- Community Tennobaum World-Seeder Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennobaumWorldSeederGlyph`
+- Complexion B-17 [Legacy] — `/Lotus/Upgrades/Skins/Operator/Heads/ExtraAdultAlbedoC`
+- Complexion B-17 [Legacy] — `/Lotus/Upgrades/Skins/Operator/Heads/ExtraAlbedoC`
+- Conquera 2025 Community Display — `/Lotus/Types/Items/ShipDecos/Conquera2025Display`
+- Conquera Cateura Signa — `/Lotus/Upgrades/Skins/Crowns/QTCCCatSignaCrown`
+- Conquera Cherry Tree Ink — `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoH`
+- Conquera Decoration — `/Lotus/Types/Items/ShipDecos/Conquera2021Deco`
+- Conquera Emblem — `/Lotus/Upgrades/Skins/Clan/QTCC2024EmblemItem`
+- Conquera Glyph I — `/Lotus/Types/StoreItems/AvatarImages/ImageConquera2021C`
+- Conquera Glyph Ii — `/Lotus/Types/StoreItems/AvatarImages/ImageConquera2021D`
+- Conquera Glyph Iii — `/Lotus/Types/StoreItems/AvatarImages/ImageConquera2021A`
+- Conquera III Ephemera — `/Lotus/Upgrades/Skins/Effects/Conquera2026Ephemera`
+- Conquera Kuaka Floof — `/Lotus/Types/Items/ShipDecos/Plushies/Plushy2021QTCC`
+- Conquera Magnolia Ink — `/Lotus/Upgrades/Skins/Operator/Tattoos/TattooTennoI`
+- Conquera Sawgaw Floof — `/Lotus/Types/Items/ShipDecos/Plushies/Plushy2022QTCC`
+- Conquera United Sigil — `/Lotus/Upgrades/Skins/Sigils/QTCC2023ConqueraSigil`
+- Conquera Virmink Floof — `/Lotus/Types/Items/ShipDecos/Plushies/PlushyVirminkQTCC`
+- Contegorus Chest Plate — `/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoC`
+- Contegorus Greaves — `/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoL`
+- Contegorus Pauldrons — `/Lotus/Upgrades/Skins/Armor/EntNecraArmorTwo/EntNecraArmorTwoA`
+- Cycle Five Sigil — `/Lotus/Upgrades/Skins/Sigils/PS4FiveYearSigil`
+- Cycle Four Sigil — `/Lotus/Upgrades/Skins/Sigils/PS4FourYearSigil`
+- Cycle Two Sigil — `/Lotus/Upgrades/Skins/Sigils/PS4TwoYearSigil`
+- Cyte-09 Target Sigil — `/Lotus/Upgrades/Skins/Sigils/Cyte09Sigil`
+- Dante's Noctua Sigil — `/Lotus/Upgrades/Skins/Sigils/DanteSigil`
+- Dashing Through the Vallis Display — `/Lotus/Types/Items/ShipDecos/Venus/ClemTennobaumDisplay`
+- Deca Heirloom Glyph — `/Lotus/Types/StoreItems/AvatarImages/HeirloomGlyph`
+- Destroy All! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterL`
+- Dethcube Jade Skin — `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeDethcube`
+- Dhampyre Syandana — `/Lotus/Upgrades/Skins/Scarves/DraculaCapeSyandana`
+- Display - TennoCon 2017 — `/Lotus/Types/Items/ShipDecos/Tennocon2017Display`
+- Display - TennoCon 2018 — `/Lotus/Types/Items/ShipDecos/Tennocon2018Display`
+- Display - TennoCon 2019 — `/Lotus/Types/Items/ShipDecos/Tennocon2019Display`
+- Display - TennoCon 2019 Grineer Security — `/Lotus/Types/Items/ShipDecos/Gamification2019Display`
+- Display - TennoCon 2019 Sanctuary Showcase — `/Lotus/Types/Items/ShipDecos/Tennocon2019SimarisDisplay`
+- Display - TennoCon 2020 — `/Lotus/Types/Items/ShipDecos/Tennocon2020Display`
+- Display - TennoCon 2021 — `/Lotus/Types/Items/ShipDecos/TennoCon2021BallasPortrait`
+- Display - TennoCon 2021 Merch — `/Lotus/Types/Items/ShipDecos/TennoCon2021MerchDisplay`
+- Display - TennoCon 2022 Duviri — `/Lotus/Types/Items/ShipDecos/TennoCon2022OrokinPortrait`
+- Display - TennoCon 2022 Merch — `/Lotus/Types/Items/ShipDecos/TennoCon2022MerchDisplay`
+- Display - TennoCon 2023 — `/Lotus/Types/Items/ShipDecos/Tennocon2023Display`
+- Display - TennoCon 2024 — `/Lotus/Types/Items/ShipDecos/Tennocon2024Display`
+- Display - TennoCon 2025 — `/Lotus/Types/Items/ShipDecos/Tennocon2025Display`
+- Display - Tennotrivia 2020 — `/Lotus/Types/Items/ShipDecos/Tennocon2020SimarisDisplay`
+- Domestik Daybreak Drone — `/Lotus/Types/Items/ShipDecos/LisetPropCleaningDroneDaybreak`
+- Drifter Dex Gear — `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtAdultDexOutfit`
+- Drifter Dex Hood — `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultDexOutfit`
+- Drifter Dex Pants — `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultDexOutfit`
+- Drifter Dex Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultDexOutfit`
+- Drifter Dex Suit — `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultDexOutfit`
+- Drip Squad 4 Life Emblem — `/Lotus/Upgrades/Skins/Clan/1999CommunityARGBadgeItem`
+- Drippy Dog Days Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightwaveDrippyGraffitiGlyph`
+- Dueling Orion Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineOrion`
+- Dueling Ryoku Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineRyoku`
+- Dueling Sirius Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineSirius`
+- Dueling Vena Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageLineVena`
+- Durumi Syandana — `/Lotus/Upgrades/Skins/Scarves/DuelistSyandana`
+- EXTERMINATE — `/Lotus/Upgrades/Skins/Hoverboard/HoverboardStickerM`
+- Emissary Greaves — `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsInfestedA`
+- Emissary Hood — `/Lotus/Upgrades/Skins/Operator/Hoods/HoodInfestedA`
+- Emissary Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesInfestedA`
+- Emissary Suit — `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitInfestedA`
+- Epoch Operation Vessel Emblem — `/Lotus/Upgrades/Skins/Clan/EpochOperationEmblemItem`
+- Error! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterD`
+- Eschatos Necramech Helmet — `/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechHelmet`
+- Eskhatos Infinitas Ephemera — `/Lotus/Upgrades/Skins/Effects/BaroEvilEphemeraB`
+- Eskhatos Ki'Teer Floof — `/Lotus/Types/Items/ShipDecos/Plushies/PlushyBaroEvil`
+- Eskhatos Mausolon Skin — `/Lotus/Upgrades/Skins/Necramech/MechWeapon/EvilBaroMausolonSkin`
+- Eskhatos Necramech Skin — `/Lotus/Upgrades/Skins/Necramech/EvilBaroNecramechSkin`
+- Eskhatos Parazon Skin — `/Lotus/Upgrades/Skins/Parazon/EvilBaroParazonSkin`
+- Eskhatos Pauldrons — `/Lotus/Upgrades/Skins/Armor/EvilBaroArmour/EvilBaroArmourA`
+- Eskhatos Sekhara — `/Lotus/Upgrades/Skins/Clan/EvilBaroHaloBadgeItem`
+- Eskhatos Sugatra — `/Lotus/Upgrades/Skins/MeleeDangles/EvilBaroSugatraMeleeDangle`
+- Excalibur Jade Helmet — `/Lotus/Upgrades/Skins/Promo/Microsoft/ExcaliburXBoneSkinHelmet`
+- Exterminate Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterM`
+- Festive Cychel Glaive Ornament — `/Lotus/Types/Items/ShipDecos/Props/Seasonal/OrnamentGlaive`
+- Gangrim Ephemera — `/Lotus/Upgrades/Skins/Effects/DuelistEphemera`
+- Garkulek Syandana — `/Lotus/Upgrades/Skins/Scarves/QorvexDeluxeSyandana`
+- Gast Sentinel Mask — `/Lotus/Upgrades/Skins/Sentinels/Masks/BansheeDlxSentMask`
+- Gast Sentinel Skin — `/Lotus/Upgrades/Skins/Sentinels/Skins/BansheeDlxSentSkin`
+- Gast Sentinel Tail — `/Lotus/Upgrades/Skins/Sentinels/Tails/BansheeDlxSentTail`
+- Gast Sentinel Wings — `/Lotus/Upgrades/Skins/Sentinels/Wings/BansheeDlxSentWings`
+- Gauss Prime Helmet — `/Lotus/Upgrades/Skins/Runner/GaussPrimeHelmet`
+- Gcx 2025 Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImage2025GCX`
+- Gengzi Glyph — `/Lotus/Types/StoreItems/AvatarImages/ImageGengzi`
+- Get Rekt Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterK`
+- Get Them! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterJ`
+- Glacium Sigil — `/Lotus/Upgrades/Skins/Sigils/FrozenSigil`
+- Gold Skull Emblem — `/Lotus/Upgrades/Skins/Clan/SkullBadgeGoldItem`
+- Gothica Signa — `/Lotus/Upgrades/Skins/Crowns/SWGothicaSignaCrown`
+- Hench & Scrap Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageHenchAndScrapGlyph`
+- Hostile Mergers Emblem — `/Lotus/Upgrades/Skins/Clan/AmalgamEventBadgeItem`
+- Isageum Signa — `/Lotus/Upgrades/Skins/Crowns/DuelistCrown`
+- Itzal Jade Skin — `/Lotus/Upgrades/Skins/Promo/Microsoft/JadeStealthArchwingSkin`
+- Jack O'Naut Keychain Sugatra — `/Lotus/Upgrades/Skins/MeleeDangles/PumpkinMeleeDangle`
+- Jade Broca Syandana — `/Lotus/Upgrades/Skins/Scarves/TnLargeCapeXbox`
+- Jade Coven Helmet — `/Lotus/Upgrades/Skins/Choir/SWCovenJadeHelmet`
+- Jade Coven Skin — `/Lotus/Upgrades/Skins/Choir/SWCovenJadeSkin`
+- Jade Daedalus Chest Plate — `/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeChestArmor`
+- Jade Daedalus Knee Plates — `/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeLegArmor`
+- Jade Daedalus Shoulder Plates — `/Lotus/Upgrades/Skins/Armor/SetThreeWinged/JadeSetThreeArmArmor`
+- Jade Ophanim Sigil — `/Lotus/Upgrades/Skins/Sigils/JadeSigil`
+- Justice Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterF`
+- Kahl's Fortitude Sigil — `/Lotus/Upgrades/Skins/Sigils/KahlSupporterPackSigil`
+- Kahl-175 Tennobaum Glyph — `/Lotus/Types/StoreItems/AvatarImages/Xmas2021GrinoalieGlyph`
+- Kalsawi Emote — `/Lotus/Types/Items/Emotes/DuelistEmote`
+- Kaneshell Atomicycle Helmet — `/Lotus/Upgrades/Skins/Operator/Hoods/DrifterNightwave1999Helmet`
+- Kaneshell Atomicycle Helmet — `/Lotus/Upgrades/Skins/Operator/Hoods/OperatorNightwave1999Helmet`
+- Kaneshell Atomicycle Jacket — `/Lotus/Upgrades/Skins/Operator/BodySuits/DrifterNightwave1999Torso`
+- Kaneshell Atomicycle Jacket — `/Lotus/Upgrades/Skins/Operator/BodySuits/OperatorNightwave1999Torso`
+- Kaneshell Atomicycle Leggings — `/Lotus/Upgrades/Skins/Operator/Leggings/DrifterNightwave1999Leggings`
+- Kaneshell Atomicycle Leggings — `/Lotus/Upgrades/Skins/Operator/Leggings/OperatorNightwave1999Leggings`
+- Kaneshell Atomicycle Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/DrifterNightwave1999Sleeves`
+- Kaneshell Atomicycle Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/OperatorNightwave1999Sleeves`
+- Kill It! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterI`
+- Kill Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterE`
+- Labor Of Love Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphLaborAward`
+- Lato Vandal Day of the Dead Skin — `/Lotus/Upgrades/Skins/Halloween/HalloweenLatoVandal`
+- Legendary Arkonisaelir Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageLegendaryArkonisAelir`
+- Let's Go Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterA`
+- Lotus Floof — `/Lotus/Types/Items/ShipDecos/Plushies/PlushyLotus`
+- Lotus Symbol Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageDramakins`
+- Lotus Symbol Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageKacchi`
+- Lotus Symbol Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageLovinDaTacos`
+- Lotus Symbol Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageSenastra`
+- Lunar Renewal Ox Emblem — `/Lotus/Upgrades/Skins/Clan/CNY2021EmblemItem`
+- M.I.T.Mimic Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightwaveMitMimicGlyph`
+- Maggot Prime Tennobaum Glyph — `/Lotus/Types/StoreItems/AvatarImages/Xmas2021MaggotGlyph`
+- Mandonel Chythedra Skin — `/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeArchGunSkin`
+- Mausolon Supulchrax Skin — `/Lotus/Upgrades/Skins/Necramech/MechWeapon/MechEventMausolonSkin`
+- Moa Tennobaum Glyph — `/Lotus/Types/StoreItems/AvatarImages/Xmas2021MoaGlyph`
+- Narin Baridegi Helmet — `/Lotus/Upgrades/Skins/Duelist/DuelistAltHelmet`
+- Narin Helmet — `/Lotus/Upgrades/Skins/Duelist/DuelistHelmet`
+- Narin Skin — `/Lotus/Upgrades/Skins/Duelist/DuelistSkin`
+- Nava Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageGlyphStarterPackA`
+- Nefertym Rapier Skin — `/Lotus/Upgrades/Skins/Weapons/Rapier/TnLotusRapierSkin`
+- Neolyst Natah Floof — `/Lotus/Types/Items/ShipDecos/Plushies/PlushyBabyNatah`
+- Neon Pride Wings — `/Lotus/Types/Items/ShipDecos/Events/NeonPrideWings`
+- Neote Rapier Skin — `/Lotus/Upgrades/Skins/Weapons/Rapier/IcebladeRapierSkin`
+- Niveus Dark Dagger Skin — `/Lotus/Upgrades/Skins/Weapons/Swords/DarkDaggerDuelistSkin`
+- Niveus Dark Split-Sword Skin — `/Lotus/Upgrades/Skins/Weapons/Swords/DarkSplitSwordDuelistSkin`
+- Niveus Dark Sword Skin — `/Lotus/Upgrades/Skins/Weapons/Swords/DarkSwordDuelistSkin`
+- Niveus Glaxion Skin — `/Lotus/Upgrades/Skins/Weapons/LongGuns/CrpFreezeRayDuelistSkin`
+- Niveus Nepheri Skin — `/Lotus/Upgrades/Skins/Weapons/Daggers/ArchonDaggerDuelistSkin`
+- Niveus Orvius Skin — `/Lotus/Upgrades/Skins/Weapons/Glaives/TeshinGlaiveDuelistSkin`
+- Niveus Paracesis Skin — `/Lotus/Upgrades/Skins/Weapons/GreatSword/BallasSwordDuelistSkin`
+- Niveus Quellor Skin — `/Lotus/Upgrades/Skins/Weapons/LongGuns/RailjackRifleDuelistSkin`
+- Noggle Statue - Excalibur Dex — `/Lotus/Types/Items/ShipDecos/ExcaliburDexBobbleHead`
+- Nora Night Catrina Glyph — `/Lotus/Types/StoreItems/AvatarImages/Seasonal/DOTD2025NoraGlyph`
+- Nvidia Braton — `/Lotus/Upgrades/Skins/Nvidia/NvidiaBratonSkin`
+- Obsidian Azura Syandana — `/Lotus/Upgrades/Skins/Scarves/ObsidianAzureScarf`
+- Obsidian Deko Chest Plate — `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorC`
+- Obsidian Deko Knee Plates — `/Lotus/Upgrades/Skins/Armor/PS5Armor/PS5ArmorL`
+- Obsidian Kyroptera Syandana — `/Lotus/Upgrades/Skins/Scarves/ObsidianKyropteraScarf`
+- Octavia In Action Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageOctaviaAction`
+- Okina Obsidian Skin — `/Lotus/Upgrades/Skins/Sony/PS5OkinaSkin`
+- Operation Orphix Venom Emblem — `/Lotus/Upgrades/Skins/Clan/MechEventEmblemItem`
+- Operator Dex Apparel — `/Lotus/Upgrades/Skins/Operator/Skirts/SkirtDexOutfit`
+- Operator Dex Hood — `/Lotus/Upgrades/Skins/Operator/Hoods/HoodDexOutfit`
+- Operator Dex Leggings — `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsDexOutfit`
+- Operator Dex Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesDexOutfit`
+- Operator Dex Suit — `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitDexOutfit`
+- Opula Chest Armor — `/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorC`
+- Opula Leg Armor — `/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorL`
+- Opula Shoulder Armor — `/Lotus/Upgrades/Skins/Armor/Opula/OpulaArmorA`
+- Palla Syandana — `/Lotus/Upgrades/Skins/Scarves/TnLefaucheuxSyandana`
+- Paracesis Jade Skin — `/Lotus/Upgrades/Skins/Weapons/GreatSword/XB1BallasSword`
+- Parotia Syandana — `/Lotus/Upgrades/Skins/Scarves/TnSparrowCape`
+- Porta Day of the Dead Chest Plate — `/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircC`
+- Porta Day of the Dead Leg Plates — `/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircL`
+- Porta Day of the Dead Shoulder Plate — `/Lotus/Upgrades/Skins/Armor/CrpCircleArmour/HalloweenCrpCircA`
+- Pride Display I — `/Lotus/Types/Items/ShipDecos/Venus/PrideCommunityDisplay`
+- Pride Oro Decoration — `/Lotus/Types/Items/ShipDecos/HeartOroRainbowDeco`
+- Protea Caladrius In Action Glyph — `/Lotus/Types/StoreItems/AvatarImages/ImageProteaDeluxeInAction`
+- Qorvex Basilica Helmet — `/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeHelmet`
+- Qorvex Basilica Skin — `/Lotus/Upgrades/Skins/ConcreteFrame/QorvexDeluxeSkin`
+- Reliquia Syandana — `/Lotus/Upgrades/Skins/Scarves/SWReliquiaSyandana`
+- Rondelet Emote — `/Lotus/Types/Items/Emotes/NightwaveDanceEmote`
+- Seal Of Honoring II — `/Lotus/Upgrades/Skins/Sigils/XBoneTwoYearSigil`
+- Seal Of Honoring IV — `/Lotus/Upgrades/Skins/Sigils/XBoneFourYearSigil`
+- Seonang Ephemera — `/Lotus/Upgrades/Skins/Effects/DuelistSpiritEphemera`
+- Silence! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterC`
+- Silva & Aegis Day of the Dead Skin — `/Lotus/Upgrades/Skins/Halloween/HalloweenSilvaAndAegis`
+- Silver Skull Emblem — `/Lotus/Upgrades/Skins/Clan/SkullBadgeSilverItem`
+- Slippery Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterO`
+- Solstice Glyph Ii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2016B`
+- Solstice Glyph Iii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2016C`
+- Solstice Glyph Iv — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2016D`
+- Spearmint Scythe Skin — `/Lotus/Upgrades/Skins/Promo/Seasonal/CandyCaneEtherReaperSkin`
+- Sphatika Prime Syandana — `/Lotus/Upgrades/Skins/Scarves/PrimeCitrineSyandana`
+- Spinele Prime Earpiece — `/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEarpiece`
+- Spinele Prime Facial Accessory — `/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeMouthPiece`
+- Spinele Prime Oculus — `/Lotus/Upgrades/Skins/Operator/Accessories/CitrinePrimeEyepiece`
+- Spring Festival Interior Decorations — `/Lotus/Types/Items/ShipLayerCNY`
+- Sssick!!!! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterP`
+- Star Days Heart Frame Display — `/Lotus/Types/Items/ShipDecos/Props/Seasonal/StarDays2026HeartPictureFrame`
+- Star Days Lyon Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarDaysLyonGlyph`
+- Star Days Marie Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarDaysStarDaysMarieGlyph`
+- Star Days Roathe Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarDaysRoatheGlyph`
+- Starfinder Society Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageStarfinderSocietyGlyph`
+- Tau Bloom Glyph — `/Lotus/Types/StoreItems/AvatarImages/OldPeaceTeaserGlyph`
+- Taubound Sigil — `/Lotus/Upgrades/Skins/Sigils/EpochOperationSigil`
+- Tenno Live Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoLive2015Sigil`
+- TennoCon 2016 Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoCon2016Sigil`
+- TennoCon 2017 Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoCon2017Sigil`
+- TennoCon 2018 Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoCon2018Sigil`
+- TennoCon 2019 — `/Lotus/Types/Items/Emotes/Tennocon2019Emote`
+- TennoCon 2019 Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoCon2019Sigil`
+- TennoCon 2020 — `/Lotus/Types/Items/Emotes/Tennocon2020BEmote`
+- TennoCon 2020 Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoCon2020Sigil`
+- TennoCon 2021 — `/Lotus/Types/Items/Emotes/Tennocon2021Emote`
+- TennoCon 2021 - Art Award — `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBaseTrophy`
+- TennoCon 2021 - Best In Show Award — `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestInShowTrophy`
+- TennoCon 2021 - Clem's Choice Award — `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayTrophy`
+- TennoCon 2021 - Master Teasonai Award — `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestPetTrophy`
+- TennoCon 2021 - Ordis Punny Award — `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayFunniestTrophy`
+- TennoCon 2021 - Solaris Worksmanship Award — `/Lotus/Types/Items/ShipDecos/TennoCon2021CosplayBestWorkmanshipTrophy`
+- TennoCon 2022 — `/Lotus/Types/Items/Emotes/Tennocon2022Emote`
+- TennoCon 2022 - Art Award — `/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBaseTrophy`
+- TennoCon 2022 - Best In Show Award — `/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestInShowTrophy`
+- TennoCon 2022 - Clem's Choice Award — `/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayTrophy`
+- TennoCon 2022 - Master Teasonai Award — `/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestPetTrophy`
+- TennoCon 2022 - Ordis Punny Award — `/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayFunniestTrophy`
+- TennoCon 2022 - Solaris Worksmanship Award — `/Lotus/Types/Items/ShipDecos/TennoCon2022CosplayBestWorkmanshipTrophy`
+- TennoCon 2022 Hood — `/Lotus/Upgrades/Skins/Operator/Hoods/HoodAdultM2022TennoCon`
+- TennoCon 2022 Hood — `/Lotus/Upgrades/Skins/Operator/Hoods/HoodM2022TennoCon`
+- TennoCon 2022 Leggings — `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsAdultM2022TennoCon`
+- TennoCon 2022 Leggings — `/Lotus/Upgrades/Skins/Operator/Leggings/LeggingsM2022TennoCon`
+- TennoCon 2022 Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesAdultM2022Tennocon`
+- TennoCon 2022 Sleeves — `/Lotus/Upgrades/Skins/Operator/Sleeves/SleevesM2022TennoCon`
+- TennoCon 2022 Suit — `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitAdultM2022TennoCon`
+- TennoCon 2022 Suit — `/Lotus/Upgrades/Skins/Operator/BodySuits/BodySuitM2022TennoCon`
+- TennoCon 2024 — `/Lotus/Types/Items/Emotes/Tennocon2024Emote`
+- TennoCon 2024 - Floofy Cuteness Award — `/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayTrophy`
+- TennoCon 2024 - Master Teasonai Award — `/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestPetTrophy`
+- TennoCon 2024 - Ordis Punny Award — `/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayFunniestTrophy`
+- TennoCon 2024 - Orokin Gold Award — `/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestInShowTrophy`
+- TennoCon 2024 - Solaris Worksmanship Award — `/Lotus/Types/Items/ShipDecos/TennoCon2024CosplayBestWorkmanshipTrophy`
+- TennoCon 2025 - 1st Place — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayFirstPlaceTrophy`
+- TennoCon 2025 - 2nd Place — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplaySecondPlaceTrophy`
+- TennoCon 2025 - 3rd Place — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayThirdPlaceTrophy`
+- TennoCon 2025 - Bombastic Performance Award — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayBombasticTrophy`
+- TennoCon 2025 - Lotus' Choice Award — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayLotusChoiceTrophy`
+- TennoCon 2025 - Orokin Gold Award — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayOrokinGoldTrophy`
+- TennoCon 2025 - Ostron Ingenuity Award — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayOstronIngenuityTrophy`
+- TennoCon 2025 - Solaris Worksmanship Award — `/Lotus/Types/Items/ShipDecos/TennoCon2025CosplayBestWorkmanshipTrophy`
+- TennoCon 2025 Pin Display — `/Lotus/Types/Items/ShipDecos/Tennocon2025DigitalItemDisplay`
+- TennoCon 2026 — `/Lotus/Types/Items/Emotes/Tennocon2026Emote`
+- TennoCon 2026 - 1st Place — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayFirstPlaceTrophy`
+- TennoCon 2026 - 2nd Place — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplaySecondPlaceTrophy`
+- TennoCon 2026 - 3rd Place — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayThirdPlaceTrophy`
+- TennoCon 2026 - Bombastic Performance Award — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayBombasticTrophy`
+- TennoCon 2026 - Lotus' Choice Award — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayLotusChoiceTrophy`
+- TennoCon 2026 - Orokin Gold Award — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayOrokinGoldTrophy`
+- TennoCon 2026 - Ostron Ingenuity Award — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayOstronIngenuityTrophy`
+- TennoCon 2026 - Solaris Worksmanship Award — `/Lotus/Types/Items/ShipDecos/TennoCon2026CosplayBestWorkmanshipTrophy`
+- TennoCon 2026 Community Art Showcase Award — `/Lotus/Types/Items/ShipDecos/TennoCon2026CommunityArtShowcaseTrophy`
+- TennoCon 2026 Display — `/Lotus/Types/Items/ShipDecos/Tennocon2026Display`
+- TennoCon 2026 Pin Display — `/Lotus/Types/Items/ShipDecos/Tennocon2026DigitalItemDisplay`
+- TennoCon 2026 Sigil — `/Lotus/Upgrades/Skins/Sigils/TennoCon2026Sigil`
+- TennoCon Emblem — `/Lotus/Upgrades/Skins/Clan/TennoCon2016BadgeItem`
+- Tennocon 2017 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2017Glyph`
+- Tennocon 2018 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2018Glyph`
+- Tennocon 2019 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2019Glyph`
+- Tennocon 2019 Sanctuary Showcase Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2019SimarisGlyph`
+- Tennocon 2020 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2020Glyph`
+- Tennocon 2021 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2021Glyph`
+- Tennocon 2021 Merch Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2021MerchGlyph`
+- Tennocon 2022 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2022Glyph`
+- Tennocon 2023 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2023Glyph`
+- Tennocon 2024 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2024Glyph`
+- Tennocon 2025 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2025Glyph`
+- Tennocon 2026 - Bombastic Performance Award Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2026BombasticAwardGlyph`
+- Tennocon 2026 - Lotus' Choice Award Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2026LotusChoiceAwardGlyph`
+- Tennocon 2026 - Orokin Gold Award Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2026OrokinGoldAwardGlyph`
+- Tennocon 2026 - Ostron Ingenuity Award Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2026OstronIngenuityAwardGlyph`
+- Tennocon 2026 - Solaris Worksmanship Award Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2026BestWorkmanshipAwardGlyph`
+- Tennocon 2026 Community Art Showcase Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2026CommunityArtShowcaseGlyph`
+- Tennocon Riftguard Emote — `/Lotus/Types/Items/Emotes/Tennocon2025Emote`
+- Tennogen Decennial Glyph — `/Lotus/Types/StoreItems/AvatarImages/FanChannel/AvatarImageTennoGen10Year`
+- Tennotober 2021 Prex — `/Lotus/Types/Items/ShipDecos/TarotCard2021Tennotober`
+- Tennotober 2022 Prex — `/Lotus/Types/Items/ShipDecos/TarotCard2022Tennotober`
+- Tennotober 2023 Prex — `/Lotus/Types/Items/ShipDecos/TarotCard2023Tennotober`
+- Tennotober 2024 Prex — `/Lotus/Types/Items/ShipDecos/TarotCard2024Tennotober`
+- Tennotober 2025 Prex — `/Lotus/Types/Items/ShipDecos/TarotCard2025Tennotober`
+- Tennotober 2026 Prex — `/Lotus/Types/Items/ShipDecos/TarotCard2026Tennotober`
+- Tennotrivia 2020 Glyph — `/Lotus/Types/StoreItems/AvatarImages/TennoCon2020SimarisGlyph`
+- Tennovip Glyph 2026 — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennoVIP2026Glyph`
+- Tennovip Xi'An 2026 Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTennoVIPXian2026Glpyh`
+- Teshin Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageTeshinVed`
+- The New War — `/Lotus/Types/Items/Emotes/Tennocon2020AEmote`
+- Thrax Tennobaum Glyph — `/Lotus/Types/StoreItems/AvatarImages/Xmas2023ThraxGlyph`
+- Tiberon Obsidian Emblem — `/Lotus/Upgrades/Skins/Clan/DrakeRifleBadgeItem`
+- Tiberon Obsidian Skin — `/Lotus/Upgrades/Skins/Sony/PS5TiberonSkin`
+- Tidon Chest Medallion — `/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourC`
+- Tidon Leg Medallion — `/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourL`
+- Tidon Shoulder Medallion — `/Lotus/Upgrades/Skins/Armor/DuelistArmour/DuelistArmourA`
+- Too Late — `/Lotus/Types/Items/Emotes/PunctualityEmote`
+- Trick Or Ballas Glyph — `/Lotus/Types/StoreItems/AvatarImages/Seasonal/Halloween2019TrickOrBalas`
+- Tubemen Of Regor Emblem — `/Lotus/Upgrades/Skins/Clan/GrnSeaLabEventBadgeItem`
+- Vacis Amp Skin — `/Lotus/Upgrades/Skins/Operator/Amp/EntratiAmpSkin`
+- Valinn Jade Kubrow Armor — `/Lotus/Upgrades/Skins/Kubrows/Armor/KubrowArmorBJade`
+- Valkyr Floof — `/Lotus/Types/Items/ShipDecos/Plushies/PlushyValkyr`
+- Vermis Signa — `/Lotus/Upgrades/Skins/Crowns/SWVermisSignaCrown`
+- Veso-R Tennobaum Glyph — `/Lotus/Types/StoreItems/AvatarImages/Xmas2021NutcorpusGlyph`
+- Voruna Floof — `/Lotus/Types/Items/ShipDecos/Plushies/PlushyVoruna`
+- Warframe X Madrinas Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageMadrinas`
+- What The...? Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterN`
+- Winter Glyph Ii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016B`
+- Winter Glyph Iii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016C`
+- Winter Glyph Iv — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016D`
+- Winter Glyph Ix — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017B`
+- Winter Glyph Vi — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016F`
+- Winter Glyph Vii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinterB2016G`
+- Winter Glyph Viii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017A`
+- Winter Glyph Xi — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017D`
+- Winter Glyph Xii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017E`
+- Winter Glyph Xiii — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageWinter2017F`
+- Worm! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterG`
+- Xaku Raya Glyph — `/Lotus/Types/StoreItems/AvatarImages/AvatarImageNightaveCosmos`
+- Xaku Raya Helmet — `/Lotus/Upgrades/Skins/BrokenFrame/XakuCosmosHelmet`
+- Yareli Aquablade Sigil — `/Lotus/Upgrades/Skins/Sigils/YareliSigil`
+- Zanuka?! Poster — `/Lotus/Types/Items/ShipDecos/Venus/VentKidPosterB`
+
+## Resources and items (113)
+
+- "Circle of Comrades" Series on VHS — `/Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette`
+- Ayatan Hemakara Sculpture — `/Lotus/Types/Items/FusionTreasures/OroFusexJ`
+- Bile — `/Lotus/Types/Items/InfestedFoundry/HelminthBile`
+- Bioplasma — `/Lotus/Types/Gameplay/JadeShadows/Resources/BioplasmaItem`
+- Biotics — `/Lotus/Types/Items/InfestedFoundry/HelminthBiotics`
+- Black-Banded Bolarola Tag — `/Lotus/Types/Items/Solaris/AnimalTagBolarolaUncommon`
+- Calx — `/Lotus/Types/Items/InfestedFoundry/HelminthCalx`
+- Cerulean Fungus Extract — `/Lotus/Types/Items/Plants/MiscItems/OroFungusAPlantItem`
+- Danger Room Tile — `/Lotus/Types/Items/DangerRoom/DangerRoomTile`
+- Delicate Pobber Tag — `/Lotus/Types/Items/Solaris/AnimalTagPobbersUncommon`
+- Delta Beacon — `/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentA`
+- Dog Tag — `/Lotus/Types/Items/SyndicateDogTags/DogTag`
+- EMISSARY  STANDING — `/Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag`
+- Emperor Condroc Tag — `/Lotus/Types/Items/Eidolon/AnimalTagCondrocRare`
+- Entratifragmentbase — `/Lotus/Types/Items/Deimos/EntratiFragmentBase`
+- Entratilabdogtag — `/Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTag`
+- File-A-Style Coffee Cups — `/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup`
+- File-A-Style Insta-Print Poster — `/Lotus/Types/Gameplay/1999Wf/Gifts/EntratiPoster`
+- File-a-Style Binder — `/Lotus/Types/Gameplay/1999Wf/Gifts/Binder`
+- File-a-Style Deluxe Calculator — `/Lotus/Types/Gameplay/1999Wf/Gifts/Calculator`
+- File-a-Style Highlighters — `/Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters`
+- File-a-Style Mouse Pad — `/Lotus/Types/Gameplay/1999Wf/Gifts/MousePad`
+- File-a-Style Notepad — `/Lotus/Types/Gameplay/1999Wf/Gifts/Notepad`
+- File-a-Style Office Phone — `/Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone`
+- File-a-Style Pencils — `/Lotus/Types/Gameplay/1999Wf/Gifts/Pencil`
+- File-a-Style Pens — `/Lotus/Types/Gameplay/1999Wf/Gifts/Pen`
+- File-a-Style Sticky Notes — `/Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes`
+- Fire-Veined Stover Tag — `/Lotus/Types/Items/Solaris/AnimalTagStoverRare`
+- Frogmouthed Sawgaw Tag — `/Lotus/Types/Items/Solaris/AnimalTagSawgawRare`
+- Frostcap — `/Lotus/Types/Gameplay/Venus/Resources/VenusMushroomItem`
+- GLASSMAKER  STANDING — `/Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag`
+- Gamma Beacon — `/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentB`
+- Genericdojocolorpigment — `/Lotus/Types/Items/Research/DojoColors/GenericDojoColorPigment`
+- Ghost Brush Extract — `/Lotus/Types/Items/Plants/MiscItems/OroPorcelainBushAPlantItem`
+- Green Gorilla Propane Tank — `/Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas`
+- Hexsyndicatedogtag — `/Lotus/Types/Gameplay/1999Wf/Resources/HexSyndicateDogTag`
+- Horrasque Stormer Tag — `/Lotus/Types/Items/Solaris/AnimalTagHorrasqueRare`
+- Jahu Gargoyle — `/Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem`
+- K.A.H. Game Monitor — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor`
+- K.A.H. Game System — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole`
+- Kappa Beacon — `/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentC`
+- KineBasik Assorted Roadsigns — `/Lotus/Types/Gameplay/1999Wf/Gifts/Sign`
+- KineBasik Asst. Metal Keychains — `/Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain`
+- KineBasik Bicycle — `/Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle`
+- KineBasik Cardboard Box — `/Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox`
+- KineBasik Coffee Mug — `/Lotus/Types/Gameplay/1999Wf/Gifts/Mug`
+- KineBasik Fire Extinguisher — `/Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher`
+- KineBasik Gas Can (Large) — `/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge`
+- KineBasik Gas Can (Small) — `/Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall`
+- KineBasik Hanging Planter — `/Lotus/Types/Gameplay/1999Wf/Gifts/Planter`
+- KineBasik Medical Kit — `/Lotus/Types/Gameplay/1999Wf/Gifts/MedKit`
+- KineBasik Metal Lunch Box — `/Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox`
+- KineBasik Paper Party Hats — `/Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat`
+- KineBasik Pillows — `/Lotus/Types/Gameplay/1999Wf/Gifts/Pillow`
+- KineBasik Pizza Boxes — `/Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox`
+- KineKitchen Coffee Machine — `/Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine`
+- KineKitchen Microwave — `/Lotus/Types/Gameplay/1999Wf/Gifts/Microwave`
+- KineKitchen Toaster — `/Lotus/Types/Gameplay/1999Wf/Gifts/Toaster`
+- KineKitchen Toaster Oven — `/Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven`
+- KineMagik! Boom Box — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox`
+- KineMagik! Party Light — `/Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight`
+- KineMagik! Portable TV — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV`
+- KineMagik! Wireless Headphones — `/Lotus/Types/Gameplay/1999Wf/Gifts/Headphones`
+- Kinemantik 256 GPU — `/Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU`
+- Kinemantik 840HD TV — `/Lotus/Types/Gameplay/1999Wf/Gifts/Television`
+- Kinemantik A/V Receiver — `/Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver`
+- Kinemantik Announce — `/Lotus/Types/Gameplay/1999Wf/Gifts/Microphone`
+- Kinemantik Cellphone — `/Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone`
+- Kinemantik Digital Phone — `/Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone`
+- Kinemantik Digital Video Camera — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera`
+- Kinemantik Hockey Table — `/Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable`
+- Kinemantik Speaker — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker`
+- Kinemantik Speaker System — `/Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp`
+- Kubrodon Incarnadine Tag — `/Lotus/Types/Items/Solaris/AnimalTagKubrodonRare`
+- Library Scanner Upgrade — `/Lotus/Types/Items/MiscItems/LibraryScannerUpgrade`
+- Loaned Weapons — `/Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem`
+- NIGHTWAVE  STANDING — `/Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag`
+- Nora Dog Tag — `/Lotus/Types/Items/SyndicateDogTags/NoraDogTag`
+- Nora's Choice Cred — `/Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds`
+- Nora's Mix: Time Tempests Cred — `/Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds`
+- Omega Beacon — `/Lotus/Types/Items/MiscItems/VayHekCoordinateFragmentD`
+- On-lyne: The Boys R Back — `/Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc`
+- Orokin Monitor — `/Lotus/Types/Gameplay/Venus/Resources/OrokinSensorItem`
+- Owned Peely Pak — `/Lotus/Types/Items/MiscItems/1999FixedStickersPack`
+- Oxides — `/Lotus/Types/Items/InfestedFoundry/HelminthOxides`
+- Phasic Cells — `/Lotus/Types/Items/MiscItems/MechSurvivalEventCreds`
+- Pheromones — `/Lotus/Types/Items/InfestedFoundry/HelminthPheromones`
+- Photobooth Tile — `/Lotus/Types/Items/MiscItems/PhotoboothTile`
+- Plantitem — `/Lotus/Types/Items/Plants/MiscItems/PlantItem`
+- Rathuum Prisoner Coordinates — `/Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag`
+- Red-Crested Virmink Tag — `/Lotus/Types/Items/Solaris/AnimalTagVirminkRare`
+- Roathe's Oblivion Arena — `/Lotus/Types/Items/DangerRoom/DangerRoomTileDevilTowerUrielArena`
+- SENTIENT APPETITE — `/Lotus/Types/Items/InfestedFoundry/HelminthAppetiteCooldownReducer`
+- STOCKING — `/Lotus/Types/Items/Fish/Eidolon/HolidayGrineerBootItem`
+- Scarlet Credits — `/Lotus/Types/Items/Events/OperationsCredits`
+- Ship Feature Item — `/Lotus/Types/Items/ShipFeatureItems/ShipFeatureItem`
+- Skateweed Extract — `/Lotus/Types/Items/Plants/MiscItems/IresPlantItem`
+- Solaris Mining Tool Upgrade — `/Lotus/Types/Items/MiscItems/SolarisMiningToolUpgrade`
+- Splendid Mergoo Tag — `/Lotus/Types/Items/Eidolon/AnimalTagMergooRare`
+- Synthetics — `/Lotus/Types/Items/InfestedFoundry/HelminthSynthetics`
+- TNW Archon Item Base — `/Lotus/Types/Items/MiscItems/TNWArchonItemBase`
+- Tasoma Spore — `/Lotus/Types/Gameplay/Duviri/Resource/DuviriMushroomSeed`
+- Tertium — `/Lotus/Types/Gameplay/Duviri/Resource/DuviriEndlessItem`
+- The Citadel Simulacrum — `/Lotus/Types/Items/DangerRoom/DangerRoomTileDefault`
+- The Scooticle — `/Lotus/Types/Gameplay/1999Wf/Gifts/Scooter`
+- Thorny Bolarola Tag — `/Lotus/Types/Items/Solaris/AnimalTagBolarolaRare`
+- Vallis Kubrodon Tag — `/Lotus/Types/Items/Solaris/AnimalTagKubrodonUncommon`
+- Vay Hek Nav Coordinate — `/Lotus/Types/Items/MiscItems/HekNavCode`
+- Woodland Mergoo Tag — `/Lotus/Types/Items/Eidolon/AnimalTagMergooUncommon`
+- Yuvan Peak Scene — `/Lotus/Types/Items/MiscItems/PhotoboothTileTWWMountainPeakHub`
+- Zarimandogtag — `/Lotus/Types/Gameplay/Zariman/Resources/ZarimanDogTag`
+- additional appearance config slot for this item — `/Lotus/Types/Items/MiscItems/CustomizationSlotUnlocker`
+- additional mod config slot for this item — `/Lotus/Types/Items/MiscItems/ModSlotUnlocker`
+
+## Other inventory items (62)
+
+- Ack & Brunt Blueprint — `/Lotus/Weapons/ClanTech/Chemical/RegorAxeShieldBlueprint`
+- Acrid Blueprint — `/Lotus/Weapons/ClanTech/Bio/AcidDartPistolBlueprint`
+- Amprex Blueprint — `/Lotus/Weapons/ClanTech/Energy/ChainLightningRifleBlueprint`
+- Arca Plasmor Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpShotgunBlueprint`
+- Arca Scisco Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpScopeGunBlueprint`
+- Argonak Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnLaserAimRifleBlueprint`
+- Bubonico Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfArmCannonBlueprint`
+- Buzlok Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnGorgSniperRifleBlueprint`
+- Caustacyst Blueprint — `/Lotus/Weapons/ClanTech/Bio/EmbolistScytheBlueprint`
+- Cerata Blueprint — `/Lotus/Weapons/ClanTech/Bio/PunctureGlaiveWeaponBlueprint`
+- Convectrix Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpSplitLaserBlueprint`
+- DNA Stabilizers — `/Lotus/Types/Game/KubrowPet/KubrowPetFood`
+- Dera Blueprint — `/Lotus/Weapons/ClanTech/Energy/EnergyRifleBlueprint`
+- Djinn Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfestedSentinelWeaponBlueprint`
+- Dual Ichor Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfestedDualAxesBioWeaponBlueprint`
+- Dual Toxocyst Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfVomitPistolBlueprint`
+- Ember Prex — `/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardEmberItem`
+- Embolist Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfestedPistolBioWeaponBlueprint`
+- Falcor Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpGlaiveBlueprint`
+- Flux Rifle Blueprint — `/Lotus/Weapons/ClanTech/Energy/LaserRifleBlueprint`
+- Garuda Prex — `/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardGarudaItem`
+- Glaxion Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpFreezeRayRifleBlueprint`
+- Glyph Prism — `/Lotus/Types/Restoratives/Consumable/GuildGlyphConsumableNoCharges`
+- Grattler Blueprint — `/Lotus/Weapons/ClanTech/Chemical/ArchGrnAAGunBlueprint`
+- Grinlok Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GLARifleBlueprint`
+- Helios Blueprint — `/Lotus/Weapons/ClanTech/Energy/HeliosSentinelBlueprint`
+- Hema Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfestedBurstRifleBlueprint`
+- Ignis Blueprint — `/Lotus/Weapons/ClanTech/Chemical/FlameThrowerBlueprint`
+- Jat Kusar Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnKusarigamaWeaponBlueprint`
+- Javlok Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnFlameSpearBlueprint`
+- Kesheg Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnHalberdBlueprint`
+- Knux Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnArchHandBlueprint`
+- Kohmak Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnKohmPistolBlueprint`
+- Krohkur Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnEgyptSwdBlueprint`
+- Lanka Blueprint — `/Lotus/Weapons/ClanTech/Energy/RailgunBlueprint`
+- Last Chance Offerings — `/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemA`
+- Lenz Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpBowBlueprint`
+- Marelok Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GLAPistolBlueprint`
+- Mios Blueprint — `/Lotus/Weapons/ClanTech/Bio/MiosBlueprint`
+- Mutalist Quanta Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfCrpShockSwarmRifleBlueprint`
+- Nukor Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnMicrowavePistolBlueprint`
+- Ogris Blueprint — `/Lotus/Weapons/ClanTech/Chemical/RocketLauncherBlueprint`
+- Opticor Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpBFGBlueprint`
+- Paracyst Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfQuantaRifleBlueprint`
+- Pox Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfProximityStarsBlueprint`
+- Protea Prex — `/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardProteaItem`
+- Prova Blueprint — `/Lotus/Weapons/ClanTech/Energy/ElectroProdBlueprint`
+- Pupacyst Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfStaffWeaponBlueprint`
+- Quanta Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpShockRifleBlueprint`
+- Scoliac Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfestedWhipWeaponBlueprint`
+- Serro Blueprint — `/Lotus/Weapons/ClanTech/Energy/CorpusPolearmWeaponBlueprint`
+- Spectra Blueprint — `/Lotus/Weapons/ClanTech/Energy/LaserPistolBlueprint`
+- Staticor Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpElectroMagBlueprint`
+- Supra Blueprint — `/Lotus/Weapons/ClanTech/Energy/CrpHeavyRifleBlueprint`
+- Sydon Blueprint — `/Lotus/Weapons/ClanTech/Chemical/GrnTridentWeaponBlueprint`
+- Synapse Blueprint — `/Lotus/Weapons/ClanTech/Bio/InfestedRifleBioWeaponBlueprint`
+- Titania Prex — `/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardTitaniaItem`
+- Torid Blueprint — `/Lotus/Weapons/ClanTech/Bio/BioWeaponBlueprint`
+- Twin Krohkur Blueprint — `/Lotus/Weapons/ClanTech/Chemical/DualGrnEgyptSwdBlueprint`
+- Varzia's Offerings — `/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemC`
+- Varzia's Offerings - Part 2 — `/Lotus/Types/StoreItems/Packages/MegaPrimeVault/LastChanceItemB`
+- Vauban Prex — `/Lotus/Types/PickUps/LoreCards/LoreCardItem/LoreCardVaubanItem`
+
+## Upgrades (arcanes etc.) (25)
+
+- Argon Combo #2 — `/Lotus/Upgrades/Stickers/DropSpecialItemChanceOnWeakpointKillSticker`
+- Breathless — `/Lotus/Upgrades/Stickers/ToxinGasResistanceOnHealthOrbSticker`
+- Burgerfest — `/Lotus/Upgrades/Stickers/DropHealingBurgerChanceSticker`
+- Catscratch Fever — `/Lotus/Upgrades/Stickers/StickerSporePrimer`
+- Crushing Chills — `/Lotus/Upgrades/Stickers/CreateShieldOnHeavySlamSticker`
+- Doktor's Orders — `/Lotus/Upgrades/Stickers/StickerEnemyShotgun`
+- Fly, Fly! — `/Lotus/Upgrades/Stickers/DropEfervonGrenadeChanceSticker`
+- Going Steady — `/Lotus/Upgrades/Stickers/AvatarKnockdownResistanceSticker`
+- Hi-Score — `/Lotus/Upgrades/Stickers/DeathPreventionOnKillsSticker`
+- It Sees You — `/Lotus/Upgrades/Stickers/CreateChasingAntiMatterDropSticker`
+- Old Pizza — `/Lotus/Upgrades/Stickers/ToxinProcOnDamageSticker`
+- Only Knives — `/Lotus/Upgrades/Stickers/StickerEnemyMelee`
+- Optimism — `/Lotus/Upgrades/Stickers/FreezePlayerOverTimeSticker`
+- Panic Call — `/Lotus/Upgrades/Stickers/NPCReviveSticker`
+- Resolutions — `/Lotus/Upgrades/Stickers/StickerEnemyRifle`
+- Reverse-O — `/Lotus/Upgrades/Stickers/RemoveStatusesOnHeavyAttackSticker`
+- Slippery Customer — `/Lotus/Upgrades/Stickers/EjectButtonSticker`
+- Spinnin' Around — `/Lotus/Upgrades/Stickers/NullStarOnWeakpointKillSticker`
+- Super Scavenger — `/Lotus/Upgrades/Stickers/ElementalAmmoChanceOnEximusKillSticker`
+- Through My Heart — `/Lotus/Upgrades/Stickers/StickerEnemySmg`
+- Too Hot — `/Lotus/Upgrades/Stickers/DecoyOnDamagedSticker`
+- Vintage Tech — `/Lotus/Upgrades/Stickers/AllowNecramechSummonSticker`
+- Wakeup Call — `/Lotus/Upgrades/Stickers/AllowThermianRpgSummonSticker`
+- Walking on Air — `/Lotus/Upgrades/Stickers/SuperGlideParkourSticker`
+- XL Frosty — `/Lotus/Upgrades/Stickers/WeaponColdDamageSticker`
+
+## Blueprints and components (11)
+
+- Amesha Blueprint — `/Lotus/Types/Recipes/ArchwingRecipes/SupportArchwing/SupportArchwingBlueprint`
+- Carrier Blueprint — `/Lotus/Types/Recipes/SentinelRecipes/CarrierSentinelBlueprint`
+- Dethcube Blueprint — `/Lotus/Types/Recipes/SentinelRecipes/DethCubeSentinelBlueprint`
+- Diriga Blueprint — `/Lotus/Types/Recipes/SentinelRecipes/ArcTrapSentinelBlueprint`
+- Dorrclave Blueprint — `/Lotus/Types/Recipes/Weapons/WeaponParts/TnDagathBladeWhipBlueprint`
+- Elytron Blueprint — `/Lotus/Types/Recipes/ArchwingRecipes/DemolitionArchwing/DemolitionArchwingBlueprint`
+- Itzal Blueprint — `/Lotus/Types/Recipes/ArchwingRecipes/StealthArchwing/StealthArchwingBlueprint`
+- Shade Blueprint — `/Lotus/Types/Recipes/SentinelRecipes/ShadeSentinelBlueprint`
+- Taxon Blueprint — `/Lotus/Types/Recipes/SentinelRecipes/TnSentinelCrossBlueprint`
+- Venato Blueprint — `/Lotus/Types/Recipes/Weapons/NewWar/SentJointedScytheBlueprint`
+- Wyrm Blueprint — `/Lotus/Types/Recipes/SentinelRecipes/WyrmSentinelBlueprint`

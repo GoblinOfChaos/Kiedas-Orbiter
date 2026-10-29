@@ -1,0 +1,62 @@
+"Circle of Comrades" Series on VHS | /Lotus/Types/Gameplay/1999Wf/Gifts/VideoCassette
+Dog Tag | /Lotus/Types/Items/SyndicateDogTags/DogTag
+EMISSARY  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraInfestedDogTag
+Entratifragmentbase | /Lotus/Types/Items/Deimos/EntratiFragmentBase
+Entratilabdogtag | /Lotus/Types/Gameplay/EntratiLab/Resources/EntratiLabDogTag
+File-a-Style Binder | /Lotus/Types/Gameplay/1999Wf/Gifts/Binder
+File-A-Style Coffee Cups | /Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeCup
+File-a-Style Deluxe Calculator | /Lotus/Types/Gameplay/1999Wf/Gifts/Calculator
+File-a-Style Highlighters | /Lotus/Types/Gameplay/1999Wf/Gifts/Highlighters
+File-A-Style Insta-Print Poster | /Lotus/Types/Gameplay/1999Wf/Gifts/EntratiPoster
+File-a-Style Mouse Pad | /Lotus/Types/Gameplay/1999Wf/Gifts/MousePad
+File-a-Style Notepad | /Lotus/Types/Gameplay/1999Wf/Gifts/Notepad
+File-a-Style Office Phone | /Lotus/Types/Gameplay/1999Wf/Gifts/OfficePhone
+File-a-Style Pencils | /Lotus/Types/Gameplay/1999Wf/Gifts/Pencil
+File-a-Style Pens | /Lotus/Types/Gameplay/1999Wf/Gifts/Pen
+File-a-Style Sticky Notes | /Lotus/Types/Gameplay/1999Wf/Gifts/StickyNotes
+GLASSMAKER  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraGlassmakerDogTag
+Green Gorilla Propane Tank | /Lotus/Types/Gameplay/1999Wf/Gifts/PropaneGas
+Hexsyndicatedogtag | /Lotus/Types/Gameplay/1999Wf/Resources/HexSyndicateDogTag
+Jahu Gargoyle | /Lotus/Types/Gameplay/EntratiLab/Quest/GargoyleMiscItem
+K.A.H. Game Monitor | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedMonitor
+K.A.H. Game System | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedGameConsole
+KineBasik Assorted Roadsigns | /Lotus/Types/Gameplay/1999Wf/Gifts/Sign
+KineBasik Asst. Metal Keychains | /Lotus/Types/Gameplay/1999Wf/Gifts/KeyChain
+KineBasik Bicycle | /Lotus/Types/Gameplay/1999Wf/Gifts/Bicycle
+KineBasik Cardboard Box | /Lotus/Types/Gameplay/1999Wf/Gifts/CardboardBox
+KineBasik Coffee Mug | /Lotus/Types/Gameplay/1999Wf/Gifts/Mug
+KineBasik Fire Extinguisher | /Lotus/Types/Gameplay/1999Wf/Gifts/FireExtinguisher
+KineBasik Gas Can (Large) | /Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanLarge
+KineBasik Gas Can (Small) | /Lotus/Types/Gameplay/1999Wf/Gifts/JerryCanSmall
+KineBasik Hanging Planter | /Lotus/Types/Gameplay/1999Wf/Gifts/Planter
+KineBasik Medical Kit | /Lotus/Types/Gameplay/1999Wf/Gifts/MedKit
+KineBasik Metal Lunch Box | /Lotus/Types/Gameplay/1999Wf/Gifts/LunchBox
+KineBasik Paper Party Hats | /Lotus/Types/Gameplay/1999Wf/Gifts/PartyHat
+KineBasik Pillows | /Lotus/Types/Gameplay/1999Wf/Gifts/Pillow
+KineBasik Pizza Boxes | /Lotus/Types/Gameplay/1999Wf/Gifts/PizzaBox
+KineKitchen Coffee Machine | /Lotus/Types/Gameplay/1999Wf/Gifts/CoffeeMachine
+KineKitchen Microwave | /Lotus/Types/Gameplay/1999Wf/Gifts/Microwave
+KineKitchen Toaster | /Lotus/Types/Gameplay/1999Wf/Gifts/Toaster
+KineKitchen Toaster Oven | /Lotus/Types/Gameplay/1999Wf/Gifts/ToasterOven
+KineMagik! Boom Box | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedBoomBox
+KineMagik! Party Light | /Lotus/Types/Gameplay/1999Wf/Gifts/FloodLight
+KineMagik! Portable TV | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedPortableTV
+KineMagik! Wireless Headphones | /Lotus/Types/Gameplay/1999Wf/Gifts/Headphones
+Kinemantik 256 GPU | /Lotus/Types/Gameplay/1999Wf/Gifts/HardwareGPU
+Kinemantik 840HD TV | /Lotus/Types/Gameplay/1999Wf/Gifts/Television
+Kinemantik A/V Receiver | /Lotus/Types/Gameplay/1999Wf/Gifts/AVReceiver
+Kinemantik Announce | /Lotus/Types/Gameplay/1999Wf/Gifts/Microphone
+Kinemantik Cellphone | /Lotus/Types/Gameplay/1999Wf/Gifts/CellPhone
+Kinemantik Digital Phone | /Lotus/Types/Gameplay/1999Wf/Gifts/DigitalPhone
+Kinemantik Digital Video Camera | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedVideoCamera
+Kinemantik Hockey Table | /Lotus/Types/Gameplay/1999Wf/Gifts/AirHockeyTable
+Kinemantik Speaker | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedSpeaker
+Kinemantik Speaker System | /Lotus/Types/Gameplay/1999Wf/Gifts/PackagedStereoAmp
+Loaned Weapons | /Lotus/Types/Gameplay/1999Wf/Quest/LoanerWeaponsItem
+NIGHTWAVE  STANDING | /Lotus/Types/Items/SyndicateDogTags/NoraWolfDogTag
+Nora Dog Tag | /Lotus/Types/Items/SyndicateDogTags/NoraDogTag
+Nora's Choice Cred | /Lotus/Types/Items/MiscItems/NoraIntermissionFourCreds
+Nora's Mix: Time Tempests Cred | /Lotus/Types/Items/MiscItems/NoraIntermissionFifteenCreds
+On-lyne: The Boys R Back | /Lotus/Types/Gameplay/1999Wf/Gifts/CompactDisc
+Rathuum Prisoner Coordinates | /Lotus/Types/Items/SyndicateDogTags/KelaEventDogTag
+The Scooticle | /Lotus/Types/Gameplay/1999Wf/Gifts/Scooter

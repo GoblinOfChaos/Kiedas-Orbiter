@@ -21,7 +21,7 @@ Previous handoffs (stale, kept for history): `SESSION_HANDOFF_2026-10-03.md`, th
 | App log | `~/.local/share/kiedas-orbiter-preview/data/user/logs/app-YYYY-MM-DD.log` | Read it after EVERY build (section 8, rule 1). Blocked content-security-policy loads appear as `[CSP] blocked ...`. |
 | Deployed app | `~/AppImages/kiedas_orbiter_preview.appimage` (+ three rotating `.bak-HHMM` backups) | |
 | DE export dev cache | `~/.cache/kiedas-de-export` (`provenance.json`) | Refresh with `node scripts/de-export/de-export.mjs fetch`. |
-| Ubuntu 22.04 build container | distrobox `build-u2204` (see the checklist) | For release-compatible Linux builds; not used for normal Preview builds. |
+| App build container | distrobox `kiedas-orbiter` (`ubuntu:22.04`, glibc 2.35; see the checklist) | **Only** place to build/deploy Preview AppImages. Not `dev-fedora`. Caps: 10 GB RAM, 4 CPU quota (`podman update … --cpus 4`). |
 
 **Push status (decision needed):** `preview/stage4` is 434 commits ahead of `github/preview/stage4` and 21 behind it (the 21 are the old root-repo line). A plain push is rejected and a force push would destroy those 21. Do NOT push until the maintainer chooses: merge the old line, rename the old branch, or push under a new branch name.
 
@@ -54,13 +54,13 @@ GitHub branches other than `main`: `data-updates` holds Data Watch state (do not
 |---|---|
 | One test file | `timeout 180 nice -n 19 node --test --test-concurrency=2 tests/farming/enemyAreas.test.mjs < /dev/null` |
 | Parse-check JSX files | `node scripts/check-jsx-parse.cjs src/screens/Market.jsx src/screens/Mods.jsx` (a JSX syntax slip breaks the whole app; run it before every build) |
-| Build + deploy | `flatpak-spawn --host distrobox enter dev-fedora -- bash -lc "cd ~/kiedas-orbiter/.preview-work/stage4-command-center && CARGO_BUILD_JOBS=4 pnpm_config_verify_deps_before_run=false nice -n 19 pnpm run preview:build" < /dev/null > $LOG 2>&1` (about 3 minutes incremental; deploys, backs up the old AppImage as `.bak-HHMM`, keeps three) |
+| Build + deploy | `flatpak-spawn --host distrobox enter kiedas-orbiter -- bash -lc "cd ~/kiedas-orbiter/.preview-work/stage4-command-center && nice -n 19 pnpm run preview:build" < /dev/null > $LOG 2>&1` (about 3 minutes incremental; deploys, backs up the old AppImage as `.bak-HHMM`, keeps three) |
 | Is the app running | `flatpak-spawn --host ps aux \| grep -i kiedas` |
 | Completeness matrix | `pnpm run check:completeness` (real functions, real data; 0 FAIL, 89 CANNOT as of 2026-10-26) |
 | Drop chance order check | `nice -n 19 node scripts/check-chance-order.mjs` |
 | DE vs mirror drop parity | `node scripts/de-drop-tables/parity.mjs <old DropsAll.json> <de/DropTables.json>` |
 
-Dropping `pnpm_config_verify_deps_before_run=false` makes pnpm try to delete and reinstall `node_modules` and abort on the missing terminal. Reuse the build command exactly.
+`pnpm-workspace.yaml` sets `verifyDepsBeforeRun: false` and `confirmModulesPurge: false` so no-TTY builds do not abort (pnpm 11 ignores those keys in `.npmrc`). Reuse the build command above; do not build in `dev-fedora`.
 The harness `loadRealHarness({ locale: 'en' })` is not identical to the packaged app: it reads source files, so it cannot see assets that are missing from the bundle (section 8, rule 5).
 
 Known test state: `tests/i18n/localeCoverage.test.mjs` fails (German and others miss keys such as `wiki.back`; this is the translation backlog). `job-rules.md` also lists a missing wiki fixture in `acquisitionText`; `vendorPlaces` passed 4/4 on 2026-10-27. All farming, security, ui and inventory test files touched this fortnight pass.

@@ -4,7 +4,7 @@
 # completeness.mjs, scripts/supplement-freshness.mjs, and the real-data
 # tests that otherwise ENOENT against a hardcoded local path.
 #
-# Run this on your own machine (dev-fedora or wherever the app actually
+# Run this on your own machine (kiedas-orbiter distrobox or wherever the app actually
 # runs), then upload the resulting .zip to the agent session.
 #
 #   bash scripts/collect-agent-bootstrap-data.sh

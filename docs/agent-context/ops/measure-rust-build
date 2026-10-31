@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
 # Builds Kieda's Orbiter Preview WITHOUT deploying (the ~/AppImages shortcut and its backups are NOT touched)
-# inside the memory-limited dev-fedora container, and prints the build's peak memory.
-# Run it yourself in a terminal (the guard hook stops Claude from running builds):
-#   ~/kiedas-orbiter/.claude/bin/measure-rust-build
-# Output: written next to this script as measure-rust-build.log; last lines show BUILD_EXIT and PEAK_GB.
-# Limits: container capped at 10 GB (podman update), CARGO_BUILD_JOBS=4, nice -n 19, ionice idle.
+# inside the memory/CPU-limited kiedas-orbiter container, and prints the build's peak memory.
+# Canonical copy also lives at ~/kiedas-orbiter/.claude/bin/measure-rust-build
+# Limits: container 10 GB RAM, 4 CPUs (0-3), CARGO_BUILD_JOBS=4, nice -n 19, ionice idle.
 set -uo pipefail
 log="$(dirname "$(readlink -f "$0")")/measure-rust-build.log"
 echo "Building (no deploy). Log: $log"
-distrobox enter dev-fedora -- bash -lc '
+distrobox enter kiedas-orbiter -- bash -lc '
   cd ~/kiedas-orbiter/.preview-work/stage4-command-center || exit 1
   echo 0 > /sys/fs/cgroup/memory.peak 2>/dev/null; echo "PEAK_RESET_EXIT=$?"
   start=$(date +%s)
-  CARGO_BUILD_JOBS=4 pnpm_config_verify_deps_before_run=false nice -n 19 ionice -c3 \
+  nice -n 19 ionice -c3 \
     pnpm exec tauri build --features preview --config src-tauri/tauri.preview.conf.json 2>&1 | tail -25
   code=${PIPESTATUS[0]}
   echo "BUILD_EXIT=$code after $(( ($(date +%s) - start) / 60 )) min"
   peak=$(cat /sys/fs/cgroup/memory.peak 2>/dev/null || echo 0)
-  echo "PEAK_GB=$(python3 -c "print(round($peak/1073741824,2))")  (container limit 10 GB)"
+  echo "PEAK_GB=$(python3 -c "print(round($peak/1073741824,2))")  (container limit 10 GB / 4 CPUs)"
   echo "MEMORY_EVENTS: $(cat /sys/fs/cgroup/memory.events | tr "\n" " ")"
 ' < /dev/null 2>&1 | tee "$log"

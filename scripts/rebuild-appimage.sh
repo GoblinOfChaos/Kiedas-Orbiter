@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # Full AppImage rebuild sequence for the PREVIEW build.
-# Run this FROM INSIDE the dev-fedora distrobox:
+# Prefer the normal path inside the kiedas-orbiter distrobox:
+#   distrobox enter kiedas-orbiter
+#   cd ~/kiedas-orbiter/.preview-work/stage4-command-center && pnpm run preview:build
+# Use this script only if that bundler's linuxdeploy step fails and you need
+# a manual finish. Run it FROM INSIDE kiedas-orbiter:
 #
-#   distrobox enter dev-fedora
+#   distrobox enter kiedas-orbiter
 #   bash /var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center/scripts/rebuild-appimage.sh
 #
-# pnpm tauri build's own internal linuxdeploy call reliably fails at the
-# very end (a known upstream Tauri/linuxdeploy bug) - this script picks up
-# where it leaves off and finishes packaging manually.
+# pnpm tauri build's own internal linuxdeploy call can fail at the very end
+# (a known upstream Tauri/linuxdeploy quirk) - this script picks up where it
+# leaves off and finishes packaging manually.
 set -euo pipefail
 
 REPO="/var/home/jedwards/kiedas-orbiter/.preview-work/stage4-command-center"

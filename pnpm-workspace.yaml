@@ -1,5 +1,9 @@
 packages:
   - '.'
+# pnpm 11+ reads these from this file (not .npmrc). Keeps no-TTY
+# `pnpm run preview:build` from working without per-command env hacks.
+verifyDepsBeforeRun: false
+confirmModulesPurge: false
 allowBuilds:
   es5-ext: true
   esbuild: true

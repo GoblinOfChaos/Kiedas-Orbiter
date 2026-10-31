@@ -11,6 +11,6 @@ Read in this order before doing anything:
 
 State on 2026-10-28: the deployed build is Preview HEAD `9da4658d` (2026-10-27 15:05). Everything is committed locally; nothing from the last two weeks is pushed, and the local branch has diverged from `github/preview/stage4`, so do not push. Two pull requests (#140, #137) wait for the maintainer to merge.
 
-Rules that matter most: plan and get explicit confirmation before code changes, builds, deploys, pushes, merges or public GitHub posts; never guess game data (primary sources only); never kill the running app; translations are last; read the app log after every build.
+Rules that matter most: plan and get explicit confirmation before code changes, builds, deploys, pushes, merges or public GitHub posts; never guess game data (primary sources only); never kill the running app; translations are last; read the app log after every build. Build/deploy only inside distrobox `kiedas-orbiter` (`pnpm run preview:build`) — not `dev-fedora`.
 
 First task: reply with a three-line status (what is deployed, what is waiting on the maintainer, what you propose to work on first) and wait for the go-ahead.

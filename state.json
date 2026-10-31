@@ -3,22 +3,22 @@
   "sources": {
     "de-public-export": {
       "fingerprint": "9a9e945f8fb24cd5a4ad135a486d17b5fd556436d0541714c3d220482a26ecd5",
-      "checkedAt": "2026-10-30T22:16:14.868Z",
+      "checkedAt": "2026-10-31T12:22:31.909Z",
       "consecutiveFailures": 0
     },
     "de-drop-tables": {
       "fingerprint": "Thu, 22 Oct 2026 19:04:13 GMT|",
-      "checkedAt": "2026-10-30T22:16:14.953Z",
+      "checkedAt": "2026-10-31T12:22:32.013Z",
       "consecutiveFailures": 0
     },
     "wiki-modules": {
-      "fingerprint": "d83a2192d9c5ad1caaef3bcb887af407e26ddf95678c8355a2522f619ee085f6",
-      "checkedAt": "2026-10-30T22:16:22.237Z",
+      "fingerprint": "86c0c5f6444ad7240ceb5063be5a12e4a12785b4f8095a6d15ea368f6c77b2c7",
+      "checkedAt": "2026-10-31T12:22:39.306Z",
       "consecutiveFailures": 0
     },
     "worldstate-schema": {
       "fingerprint": "63be26452cb4cac72933426524cf50d485334c5ddb28cb8ac339907b1b7372a9",
-      "checkedAt": "2026-10-30T22:16:14.746Z",
+      "checkedAt": "2026-10-31T12:22:31.810Z",
       "consecutiveFailures": 0
     }
   }

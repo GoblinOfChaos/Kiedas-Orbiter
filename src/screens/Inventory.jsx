@@ -520,9 +520,10 @@ export default function Inventory() {
         const parent = nameToEquipment.get(set.name) ?? nameToEquipment.get(set.name + ' Prime') ?? {};
         const _value = primePrices?.[set.setPath] ?? (set.parts ?? []).reduce((s, p) => s + (primePrices?.[p.unique_name] ?? 0) * (p.need ?? 1), 0);
         const vaulted = getPrimeSetVaultedStatus(set, dropIndex, relicStateIndex);
-        // Part quantities remain available for the completion ring and
-        // part-level indicators; they do not make the finished set owned.
-        const ownedSet = isPrimeSetOwned(parent, set);
+        // Finished item OR any held part counts as owned for the set row.
+        // Part quantities also drive the completion ring / part indicators.
+        const ownedSet = isPrimeSetOwned(parent, set)
+          || (set.parts ?? []).some((p) => (p.quantity ?? 0) > 0);
         return {
           ...set,
           unique_name: set.unique_name || set.setPath,

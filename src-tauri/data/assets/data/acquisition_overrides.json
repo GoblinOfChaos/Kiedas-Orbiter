@@ -11461,7 +11461,9 @@
     "/Lotus/Weapons/Tenno/Melee/Polearms/DaxDuviriPolearm/DaxDuviriPolearmSpearPlayerWeapon": "Sold in Teshin's Cave in Duviri for 50 Pathos Clamps, together with the Warframe version's blueprint.",
     "/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriKatana/DaxDuviriKatanaPlayerWeapon": "Sold in Teshin's Cave in Duviri for 50 Pathos Clamps, together with the Warframe version's blueprint.",
     "/Lotus/Weapons/Tenno/Melee/Swords/DaxDuviriTwoHandedKatana/DaxDuviriTwoHandedKatanaPlayerWeapon": "Sold in Teshin's Cave in Duviri for 50 Pathos Clamps, together with the Warframe version's blueprint.",
-    "/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon": "Sold in Teshin's Cave in Duviri for 60 Pathos Clamps, together with the Warframe version's blueprint."
+    "/Lotus/Weapons/Tenno/Melee/SwordsAndBoards/DaxDuviriMaceShieldPlayerWeapon": "Sold in Teshin's Cave in Duviri for 60 Pathos Clamps, together with the Warframe version's blueprint.",
+"/Lotus/Weapons/Tenno/Bows/DuelistBow/DuelistBow": "Blueprints are purchased from Cephalon Melica on Yuvan Peak (Earth) or in the Chrysalith (Zariman Ten Zero) for Entropic Kuva: 200 for the Nunchasa blueprint and 50 each for the Upper Limb, Lower Limb, Grip and String blueprints (400 total). Entropic Kuva drops from Entropic Eximus enemies in the Zariman. Added in Update 44.0.",
+    "Nunchasa|Blueprint": "Blueprints are purchased from Cephalon Melica on Yuvan Peak (Earth) or in the Chrysalith (Zariman Ten Zero) for Entropic Kuva: 200 for the Nunchasa blueprint and 50 each for the Upper Limb, Lower Limb, Grip and String blueprints (400 total). Entropic Kuva drops from Entropic Eximus enemies in the Zariman. Added in Update 44.0."
   },
   "mods": {
     "Acidic Spittle": "Acidic Spittle is automatically acquired upon obtaining a Vizier Predasite.",

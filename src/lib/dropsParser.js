@@ -642,6 +642,10 @@ export function buildDropIndex(exportData) {
               rotation: tierIdx > 0 ? rotation : null,
               chance: entry.probability ?? null,
               itemCount: entry.itemCount ?? 1,
+              // Unlike the DropsAll.wf-derived mission sources above, which
+              // always set source: provenance, this DE ExportRegions/
+              // ExportRewards-derived path never attributed its data at all.
+              source: 'DE export (ExportRegions/ExportRewards)',
             })
           }
         }
@@ -668,6 +672,9 @@ export function buildDropIndex(exportData) {
           relicName: relicCat ? `${relicEra} ${relicCat}` : null,
           rarity: entry.rarity || 'COMMON',
           relicManifest: relic.rewardManifest ?? null,
+          // Same gap as the ExportRegions/ExportRewards mission builder above:
+          // this DE-native path never attributed its data either.
+          source: 'DE export (ExportRelics/ExportRewards)',
         })
       }
     }

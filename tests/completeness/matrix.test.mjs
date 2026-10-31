@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { buildImageMaps, buildRuntimeExportBundle } from '../../src/lib/exportBundle.js'
-import { HARNESS_SUPPLEMENT_FILES } from '../../scripts/lib/real-data-harness.mjs'
+import { HARNESS_SUPPLEMENT_FILES, makeHarness } from '../../scripts/lib/real-data-harness.mjs'
 import { checkCraftableRecipes, checkMatrixItem, primePartsVisible } from '../../scripts/item-completeness.mjs'
 import { goldenHarness, frame } from './fixtures.mjs'
 
@@ -28,6 +28,7 @@ test('the headless harness loads every acquisition supplement key the runtime pr
   ]) {
     assert.ok(loadedKeys.has(key), `harness must load a supplement file into exportData.${key}`);
   }
+  assert.ok(loadedKeys.has('AcquisitionOverrides'), 'harness must load acquisition overrides for drawer parity');
 })
 
 // P4-style self-test: prove buildAllAcquisitionIndexes actually reflects
@@ -93,6 +94,26 @@ test('a synthetic item with drops and a recipe keeps drawer crafting requirement
   )
   assert.deepEqual(result.recipe.ingredients.map(({ itemType, count }) => [itemType, count]), [[frame.replace('Powersuits/TestFrame/TestFrame', 'Types/Recipes/WarframeRecipes/TestFrameChassisComponent'), 1]])
   assert.equal(result.sources[0].location, 'Test mission')
+})
+
+test('an override-only item resolves through the matrix acquisition path', async () => {
+  const uniqueName = '/Lotus/Weapons/Tenno/Bows/DuelistBow/DuelistBow'
+  const harness = buildRuntimeExportBundle({
+    exports: {
+      dict: {},
+      ExportImages: { '/Lotus/Art/Nunchasa.png': { contentHash: 'nunchasa' } },
+      ExportWeapons: { [uniqueName]: { name: 'Nunchasa', icon: '/Lotus/Art/Nunchasa.png' } },
+      ExportRecipes: {},
+      AcquisitionOverrides: { components: { [uniqueName]: 'Purchased from Cephalon Melica.' } },
+      AcquisitionItems: [],
+    },
+  })
+  const result = await checkMatrixItem({
+    harness: makeHarness(harness),
+    subject: { uniqueName, name: 'Nunchasa', category: 'weapons' },
+  })
+  assert.equal(result.acquisition.result.sources[0].type, 'override')
+  assert.equal(result.acquisition.honestEmpty, false)
 })
 
 test('all parsed craftable recipes retain matching drawer ingredients', async () => {

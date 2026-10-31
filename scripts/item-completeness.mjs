@@ -3,7 +3,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { loadRealHarness, canonicalPath } from './lib/real-data-harness.mjs'
 const { parseInventory, isExcludedInventoryResourceEntry, resourceFamilyForParent, PRIME_PART_PATH_RE } = await import('../src/lib/inventoryParser.js')
-const { getRelicCatalog } = await import('../src/lib/relicParser.js')
+const { getRelicCatalog, parseRelicName } = await import('../src/lib/relicParser.js')
 const { resolveAnyImage, resolveNode } = await import('../src/lib/warframeUtils.js')
 const { buildDropIndex } = await import('../src/lib/dropsParser.js')
 
@@ -210,6 +210,19 @@ async function acquisitionIndexesFor(harness) {
   return harness.__acquisitionIndexes
 }
 
+// MonitoringContext builds this index from the complete exportData bundle in
+// a worker before acquisition drawers open. The headless bundle contains the
+// same inputs, so build it once here instead of passing null for every item.
+const dropIndexCache = new WeakMap()
+function dropIndexFor(harness) {
+  let index = dropIndexCache.get(harness)
+  if (!index) {
+    index = buildDropIndex(harness.exportsBundle)
+    dropIndexCache.set(harness, index)
+  }
+  return index
+}
+
 async function buildAcquisition(harness, item, name, recipeResultIndex = null, dropIndex = null) {
   try {
     const { getAcquisitionInfo } = await import('../src/lib/acquisitionInfo.js')
@@ -219,14 +232,29 @@ async function buildAcquisition(harness, item, name, recipeResultIndex = null, d
     }
     const indexes = await acquisitionIndexesFor(harness)
     const result = getAcquisitionInfo(
-      item?.unique_name || item?.uniqueName, name, dropIndex, harness.exportsBundle.AcquisitionItems || {}, recipeResultIndex,
+      item?.unique_name || item?.uniqueName, name, dropIndex || dropIndexFor(harness), harness.exportsBundle.AcquisitionOverrides || {}, recipeResultIndex,
       indexes.marketIndex, indexes.bundleIndex, indexes.syndicateIndex, indexes.wikiSigilIndex, indexes.wikiVendorIndex,
       indexes.wikiTennoGenIndex, indexes.wikiBaroIndex, indexes.exportVendorIndex, indexes.alwaysAvailableIndex, indexes.glyphSupplementIndex,
       indexes.wikiBlueprintIndex, indexes.wikiResearchIndex, indexes.relicStateIndex, indexes.wikiResourceIndex, indexes.wikiPageAcquisitionIndex,
       indexes.wikiAcquisitionStatusIndex, indexes.exaltedWeaponIndex, indexes.exportComponentIndex,
     )
     const sources = result?.sources || []
-    const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && ['text', 'location', 'relicName', 'rewardName'].some((key) => typeof source[key] === 'string' && source[key].trim()))
+    // AcquisitionDrawer.jsx's getSourceLabel() switches on source.type and
+    // reads a different field per case (syndicate -> place/syndicateName,
+    // mission -> nodeName/node/missionType, enemy -> enemyName/enemy, bounty
+    // -> bountyLevel, transient -> objectiveName, key -> keyName, avatar ->
+    // sourceName, relic -> relicName/relicManifest, blueprint -> location/
+    // blueprintName, drop -> location, and its own default branch falls back
+    // through name/sourceName/objectiveName/syndicateName/enemyName/text and
+    // finally source.type itself). The audit's original short field list only
+    // covered the generic text-ish cases, so it flagged every syndicate-,
+    // mission-, enemy-, bounty-, key-, and avatar-sourced item as
+    // "unlabelled" even though the real drawer always renders real text for
+    // them. This list is every field getSourceLabel actually reads.
+    const LABEL_FIELDS = ['text', 'location', 'blueprintName', 'dropType', 'relicName', 'relicManifest',
+      'nodeName', 'node', 'missionType', 'region', 'enemyName', 'enemy', 'bountyLevel', 'objectiveName',
+      'keyName', 'place', 'syndicateName', 'sourceName', 'name', 'type']
+    const labelled = sources.every((source) => source && typeof source.source === 'string' && source.source.trim() && LABEL_FIELDS.some((key) => typeof source[key] === 'string' && source[key].trim()))
     const chances = sources.map((source) => Number(source.chance)).filter(Number.isFinite)
     const sorted = chances.every((chance, index) => index === 0 || chances[index - 1] >= chance)
     const valid = labelled && sorted
@@ -240,6 +268,14 @@ export function discoverSubjects(harness, previousIndex = []) {
   const subjects = new Map(canaries.map((entry) => [entry.uniqueName, entry]))
   for (const [category, rule] of Object.entries(CATEGORY_RULES)) {
     for (const [uniqueName, entry] of tableEntries(harness, rule.tables)) {
+      // ExportResources genuinely contains VoidProjection (relic) records -
+      // the real app's own resource catalog (isExcludedInventoryResourceEntry,
+      // inventoryParser.js) deliberately excludes them, since relics already
+      // have their own dedicated category/screen. Without this, every relic
+      // also became a 'resources' subject, resolving its name from a shared,
+      // unsubstituted "|ERA| |CATEGORY| Relic" template loctag - real data,
+      // wrong category, and never findable in the real resources catalog.
+      if (category === 'resources' && isExcludedInventoryResourceEntry(entry, uniqueName)) continue
       subjects.set(uniqueName, { uniqueName, name: itemName(harness, uniqueName, entry), category })
     }
   }
@@ -333,8 +369,17 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   }
   const catalogItem = category === 'relics'
     ? (() => {
+      // ExportRelics entries carry no `.name` field (confirmed against real
+      // data: always undefined) - only era/category, plus a fallback via
+      // parseRelicName(uniqueName) for entries missing even those. Match
+      // getRelicCatalog()'s own key derivation exactly (`${era} ${category}`)
+      // instead of deriving a key from a field that's never populated, which
+      // silently failed to match any catalog entry for every relic.
       const relicEntry = tableEntryMap(harness, ['ExportRelics']).get(canonicalPath(subject.uniqueName))
-      const key = relicEntry?.name?.replace(/ Relic$/, '')
+      const parsed = parseRelicName(subject.uniqueName)
+      const era = relicEntry?.era || parsed.era
+      const relicCategory = relicEntry?.category || parsed.name
+      const key = era && relicCategory ? `${era} ${relicCategory}` : null
       return getRelicCatalog(harness.exportsBundle).find((item) => item.key === key)
     })()
     : findCatalogItem(inventory, subject.uniqueName)
@@ -343,14 +388,24 @@ export async function checkMatrixItem({ harness, subject, parsed = null, synthet
   const image = !!(catalogItem?.image || resolveAnyImage({ ...entry, unique_name: subject.uniqueName }, harness.EI, harness.nameToImage, harness.uniqueNameToName))
   const recipe = recipeByResultType(harness).get(canonicalPath(subject.uniqueName))
   const components = recipe?.ingredients || []
-  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness))
+  const acquisition = await buildAcquisition(harness, catalogItem || { unique_name: subject.uniqueName }, name, buildRecipeIndex(harness), dropIndexFor(harness))
   const checks = {
     U1_catalog: !!catalogItem || category === 'recipes' || (category === 'cosmetics' && !!entry && !!(entry.name || entry.displayName) && !!(entry.icon || entry.texture)),
     U2_name: !!name && !name.startsWith('/') && !/^MT_/i.test(name),
     U3_image: image,
     U4_uniqueName: !!subject.uniqueName,
     U5_acquisition: acquisition.pass,
-    U6_description: !!(catalogItem?.description || entry?.description || category === 'recipes'),
+    // Mods and Arcanes legitimately ship no `description` in DE's export -
+    // both render through ModCard.jsx, which falls back to levelStats (the
+    // +X% rank text) instead, by design - real UI behavior, not a gap. Pass
+    // them on that fallback instead of demanding a prose field DE never
+    // provides for these two categories.
+    // Cosmetics.jsx never reads item.description anywhere (confirmed: zero
+    // references in that file) - its cards show name/image/acquisition only,
+    // so a missing description is never a real rendering gap for this
+    // category either.
+    U6_description: !!(catalogItem?.description || entry?.description || category === 'recipes' || category === 'cosmetics' ||
+      (['mods', 'arcanes'].includes(category) && Array.isArray(catalogItem?.levelStats ?? entry?.levelStats) && (catalogItem?.levelStats ?? entry?.levelStats).length > 0)),
     recipe: !recipe || (components.length > 0 && components.every((component) => !!component.ItemType)),
   }
   const cannot = [
@@ -546,12 +601,12 @@ async function loadDeRecipes(cacheDir) {
   return Array.isArray(raw) ? raw : raw.ExportRecipes || raw
 }
 
-export async function run({ dataDir, repo = REPO, harness, previousIndex = [], includeDiscovered = true, deCacheDir = null, deDiscovery = null } = {}) {
+export async function run({ dataDir, repo = REPO, harness, previousIndex = [], includeDiscovered = true, deCacheDir = null, deDiscovery = null, syntheticOwned = true } = {}) {
   const loaded = harness || await loadRealHarness({ dataDir, repo })
   const discovered = deDiscovery || (includeDiscovered && deCacheDir ? discoverNewDeSubjects({ dataDir, cacheDir: deCacheDir }) : [])
   const subjects = includeDiscovered ? [...canaries, ...discovered] : canaries
   const parsed = parseInventory({}, loaded.exportsBundle, loaded.dict, 'en', null)
-  const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed })))
+  const results = await Promise.all(subjects.map((subject) => checkMatrixItem({ harness: loaded, subject, parsed, syntheticOwned })))
   results.recipeCompleteness = await checkCraftableRecipes({ harness: loaded, parsed })
   results.partsCompleteness = await checkPartsCompleteness({ harness: loaded, parsed })
   results.inventoryCatalog = checkInventoryCatalog({ harness: loaded, parsed })

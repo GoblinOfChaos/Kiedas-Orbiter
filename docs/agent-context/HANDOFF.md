@@ -23,7 +23,7 @@ Previous handoffs (stale, kept for history): `SESSION_HANDOFF_2026-10-03.md`, th
 | DE export dev cache | `~/.cache/kiedas-de-export` (`provenance.json`) | Refresh with `node scripts/de-export/de-export.mjs fetch`. |
 | App build container | distrobox `kiedas-orbiter` (`ubuntu:22.04`, glibc 2.35; see the checklist) | **Only** place to build/deploy Preview AppImages. Not `dev-fedora`. Caps: 10 GB RAM, 4 CPU quota (`podman update … --cpus 4`). |
 
-**Push status (decision needed):** `preview/stage4` is 434 commits ahead of `github/preview/stage4` and 21 behind it (the 21 are the old root-repo line). A plain push is rejected and a force push would destroy those 21. Do NOT push until the maintainer chooses: merge the old line, rename the old branch, or push under a new branch name.
+**Push status (RESOLVED 2026-10-31):** `preview/stage4` is fully in sync with `github/preview/stage4` — local and remote both point at `805afbe5`, zero unpushed commits. The earlier 434-ahead/21-behind divergence was resolved before this date. Pushing is allowed; no force-push or branch-parking is needed. (The root repo's own `preview/stage4` branch remains a separate old line — do not merge it into the Preview repo blindly.)
 
 GitHub branches other than `main`: `data-updates` holds Data Watch state (do not delete); `ci/linux-release-ubuntu-22-04` and `housekeeping/release-script-branch-and-footer` back open PRs; `agent/*`, `archive/*`, `codex/*`, `cursor/*`, `master`, `fix/data-watch-worldstate-403` are old and can be tidied with the maintainer's approval.
 

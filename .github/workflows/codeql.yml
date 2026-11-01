@@ -1,0 +1,33 @@
+name: codeql
+
+on:
+  push:
+    branches: [preview/stage4]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1" # weekly Monday 06:00 UTC
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-22.04
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # CodeQL Rust support is still maturing and the custom pack in
+        # codeql-custom-queries-rust/ is a stub (example.ql selects all
+        # functions). Analyze the languages CodeQL handles well here; revisit
+        # Rust once the custom pack has real queries.
+        language: [javascript, python]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3

@@ -105,7 +105,8 @@ const STANDARD_GLOBALS = new Set([
   "FormData", "Headers", "Request", "Response", "AbortController", "AbortSignal",
   "IntersectionObserver", "ResizeObserver", "MutationObserver", "HTMLElement", "Element",
   "Node", "NodeList", "DOMParser", "XMLSerializer", "WebSocket", "Worker", "history",
-  "screen", "createImageBitmap", "getComputedStyle", "process"
+  "screen", "createImageBitmap", "getComputedStyle", "process",
+  "__KIEDA_BUILD_ID__", "DecompressionStream", "PerformanceObserver"
 ]);
 
 for (const f of jsFiles) {
